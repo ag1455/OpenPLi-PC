@@ -1,0 +1,93 @@
+# IrScrutinizer scrutinized signal
+#
+# Creating tool: IrScrutinizer version 1.4.1
+# Creating user: root
+# Creating date: Sat May 19 13:30:33 MSK 2018
+# Encoding: WINDOWS-1252
+#
+# Manufacturer:
+# Model:
+# Displayname:
+# Remotename:
+#
+
+begin remote
+
+  name MyRemote
+  bits 32
+  flags SPACE_ENC|CONST_LENGTH
+  eps 30
+  aeps 250
+
+  header 9108 4530
+  one 587 1675
+  zero 587 539
+  ptrail 588
+  gap 108477
+  repeat 9108 2265
+  frequency     38400
+#  min_repeat    2
+#  suppress_repeat 2 # {for delay if you want}
+# toggle_bit    0
+# toggle_bit_mask 0x0
+
+
+      begin codes
+          KEY_POWER                0x0000000008F750AF
+          KEY_MUTE                 0x0000000008F722DD
+          KEY_OPEN                 0x0000000008F752AD # was KEY_VFORMAT
+          KEY_SLEEP                0x0000000008F724DB
+          KEY_RADIO                0x0000000008F77887 # was KEY_TVRADIO
+          KEY_SUBTITLE             0x0000000008F77A85
+          KEY_RED                  0x0000000008F7B24D
+          KEY_GREEN                0x0000000008F7B04F
+          KEY_YELLOW               0x0000000008F7708F
+          KEY_BLUE                 0x0000000008F7F00F
+          KEY_1                    0x0000000008F78877
+          KEY_2                    0x0000000008F748B7
+          KEY_3                    0x0000000008F7C837
+          KEY_4                    0x0000000008F728D7
+          KEY_5                    0x0000000008F7A857
+          KEY_6                    0x0000000008F76897
+          KEY_7                    0x0000000008F7E817
+          KEY_8                    0x0000000008F718E7
+          KEY_9                    0x0000000008F79867
+          KEY_TEXT                 0x0000000008F7C23D
+          KEY_0                    0x0000000008F708F7
+          KEY_BACK                 0x0000000008F7B847 # was KEY_PREVOUS
+          KEY_MENU                 0x0000000008F758A7
+          KEY_ESC                  0x0000000008F7906F # was KEY_EXIT
+          KEY_UP                   0x0000000008F700FF
+          KEY_LEFT                 0x0000000008F7C03F
+          KEY_OK                   0x0000000008F7F807
+          KEY_RIGHT                0x0000000008F740BF
+          KEY_DOWN                 0x0000000008F7807F
+          KEY_PAGEDOWN             0x0000000008F7E01F
+          KEY_PAGEUP               0x0000000008F7A05F
+          KEY_VOLUMEUP             0x0000000008F7A45B
+          KEY_CHANNELUP            0x0000000008F7847B
+          KEY_INFO                 0x0000000008F720DF
+          KEY_VOLUMEDOWN           0x0000000008F7E41B
+          KEY_CHANNELDOWN          0x0000000008F744BB
+          KEY_FAVORITES            0x0000000008F7629D
+          KEY_EPG                  0x0000000008F730CF # was KEY_GUIDE
+          KEY_ZOOM                 0x0000000008F7D22D
+          KEY_PROGRAM              0x0000000008F738C7 # was KEY_CHECKOK
+          KEY_VIDEO                0x0000000008F702FD # was KEY_PLAY
+          KEY_STOP                 0x0000000008F7827D
+          KEY_PAUSE                0x0000000008F742BD
+          KEY_RECORD               0x0000000008F712ED
+          KEY_TITLE                0x0000000008F7A25D # was KEY_VIDEOSUBTITLES
+          KEY_PLAYPAUSE            0x0000000008F7649B
+          KEY_PREVIOUSSONG         0x0000000008F7C43B # was KEY_REWIND
+          KEY_NEXTSONG             0x0000000008F714EB # was KEY_FORWARD
+          KEY_TV                   0x0000000008F7609F # was KEY_SAT
+          KEY_STOPCD               0x0000000008F7946B # was KEY_CENTER
+          KEY_PREVIOUS             0x0000000008F70CF3 # was KEY_TOBEGIN
+          KEY_NEXT                 0x0000000008F704FB # was KEY_TOEND
+          KEY_PC                   0x0000000008F754AB # was KEY_SREENSHOT
+          KEY_AUDIO                0x0000000008F78C73 # was KEY_OPENEDBOOK
+          KEY_HELP                 0x0000000008F7E21D # was KEY_OPENINGBOOK
+      end codes
+
+end remote

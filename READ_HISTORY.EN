@@ -1,0 +1,15 @@
+  In 2010 I found on the German forum the algorithm for compile enigma2 on a PC. Then I compiled it and posted a video file on site linuxdvb.org.ru (forum.free-x.de),
+which showed that everything works except video and sound, because the hardware decoder was used.  Was needed a very experienced c++ and python programmer who could
+make this for working with a software decoder on a PC. One person was interested in the video. He is a programmer from Turkey cougar_enigma.
+(now his messages are still on https://www.vdr-portal.de/forum/index.php?thread/106188-enigma2pc-project-enigma2-for-pc and some Turkish forums). He did 90% of the work.
+The open source by 'dream multimedia' was used. However, there was too much work for one person. Soon, he stopped supporting this project. Another reason is cougar_enigma
+wrote about the principle of connect with xine via the FIFO buffer, as rather imperfect and which is almost impossible to improve. The participants of that forum, as they could,
+tried not to let die the idea. I also sent patches.
+  Then Raider05 from Russia first laid out the experience on ftp, and then organized his git repository on the basis of OpenPLi.
+In parallel, after a while, nobody9 created its own repository, and then the baton was picked up by the milaebrothers store.
+  There are also parallel forks. For example, from crazycat69 and pingflood. All of them stopped updating in 2015. I'm sorry if I forgot to mention someone. So long ago it was...
+I abandoned this idea for a long time, but then I realized that no one will do this and enigma2pc need a new push. So I had to raise e2pc to the current state, as I could.
+After that, a few more people made their own improvements in this project:
+Shadowman94 - VAAPI patch for Intel GPI, skystar2hd_frontend.patch and changes for build libxine on new kernels.
+arsi - changes dvbsoftwareca on new kernels and participate in the development of a new libxine patch.
+  So, the current state of affairs is a collective work.

@@ -1,0 +1,135 @@
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_convert=parseText('%s','.*/(\w+)')
+#item_info_convert=startLivestreamerProxy
+item_info_build=%s
+
+item_info_name=p0
+item_info_from=@PARAM1@
+item_info_convert=getInfo('%s','.*src="(http://www.sawlive.tv/embe\w+/\w+)"></script>','@REFERER@')
+item_info_build=%s
+
+item_info_name=rm
+item_info_from=p0 || @PARAM1@
+item_info_convert=getInfo('%s','.*src="(http://sawlive.tv/embedm/[^"]+)"','@REFERER@')
+item_info_convert=debug
+item_info_build=%s
+
+item_info_name=ref
+item_info_from=rm
+item_info_convert=quote(%s)
+item_info_build=%s
+
+item_info_name=ls_file
+item_info_from=rm
+item_info_convert=getInfo('%s','.*(http[^"']+\.m3u8[^"']*).*','@REFERER@')
+item_info_convert=ifEmpty('%s','','hls://%s|Referer=___&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36')
+item_info_convert=replace('%s','___','@ref@')
+item_info_convert=encodeBase64
+item_info_convert=ifEmpty('%s','','http://127.1.2.3:45678/livestreamer/%s')
+#item_info_convert=ifEmpty('%s','','http://127.0.0.1:19000/livestreamer/%s')
+item_info_build=%s
+
+item_info_name=p0
+item_info_from=@PARAM1@
+item_info_convert=getInfo('%s','.*src="(http://www.sawlive.tv/embedch/\w+)"></script>','@REFERER@')
+item_info_build=%s
+
+item_info_name=p1
+item_info_from=p0 || @PARAM1@
+item_info_convert=getInfo('%s','.*\W(\w{30,38})\W','@REFERER@')
+item_info_build=%s
+
+item_info_name=p2
+item_info_from=p0 || @PARAM1@
+item_info_convert=getInfo('%s','.*?\W\w{66}\W*.*?\W\w{66}\W*.*?\W\w{66}\W*.*?\W(\w{66})\W','@REFERER@')
+item_info_build=%s
+
+item_info_name=p2
+item_info_from=p0 || @PARAM1@
+item_info_convert=getInfo('%s','.*\W(\w{66})\W','@REFERER@')
+item_info_build=%s
+
+item_info_name=p1
+item_info_from=p0 || @PARAM1@
+item_info_convert=getInfo('%s','.*\w+\=\["(.*?)"\]','@REFERER@')
+item_info_convert=quote(%s)
+item_info_convert=replace('%s','%22%2C%22','')
+item_info_convert=unquote(%s)
+item_info_build=%s
+
+item_info_name=www
+item_info_from=p0 || @PARAM1@
+item_info_convert=getInfo('%s','.*?\W(www\d*)\W','@REFERER@')
+item_info_convert=ifEmpty('%s','','%s.')
+item_info_build=%s
+
+item_info_name=tmpUrl
+item_info_from=http://'+www+'sawlive.tv/embed/watch/'+p1+'/'+p2+'
+item_info_build=%s
+
+item_info_name=tmp
+item_info_from=tmpUrl
+item_info_convert=getInfo('%s','.*?SWFObject\('([^']+)'.*?["'=]([12]\d{4}).*?(MT[^'"&]+)','@REFERER@','swf|file1|t')
+item_info_build=%s
+
+item_info_name=rtmp1
+item_info_from=tmpUrl
+item_info_convert=getInfo('%s','.*?["'/](\d{1,3}\.\d{1,3}\.\d{1,3}\.[^"'/]+)["'/]','@REFERER@')
+item_info_build=%s
+
+item_info_name=sp2
+item_info_from=tmpUrl
+item_info_convert=getInfo('%s','.*\s*=\s*["'](%[^"']+)["']','@REFERER@')
+item_info_build=%s
+
+item_info_name=file1_
+item_info_from=f1
+item_info_convert=ifEmpty('%s','','%s?')
+item_info_build=%s
+
+item_info_name=file1
+item_info_from=file1_+t+sp2
+item_info_build=%s
+
+item_info_name=tmp2
+item_info_from=tmpUrl
+item_info_convert=getInfo('%s','.*?id="jwplayer.*?object.*?"(http.*swf)".*?file=([^&]+)&streamer=([^&]+)','@REFERER@','swf2|file2|rtmp2')
+item_info_build=%s
+
+item_info_name=tmp3
+item_info_from=tmpUrl
+item_info_convert=getInfo('%s','.*?SWFObject\('([^']+)'.*?script.*?src="(.*?js[^"]+)','@REFERER@','swf3|jsUrl')
+item_info_build=%s
+
+item_info_name=file3
+item_info_from=jsUrl
+item_info_convert=parseText('%s','.*\?\w=([^&]+)&')
+item_info_convert=debug
+item_info_build=%s
+
+item_info_name=rtmp3
+item_info_from=jsUrl
+item_info_convert=parseText('%s','.*rtmp:\/\/([\d\.:]+)')
+item_info_convert=debug
+item_info_build=%s
+
+item_info_name=file
+item_info_from=file3 || file2 || file1
+item_info_build=%s
+
+item_info_name=swf
+item_info_from=swf3 || swf2 || swf1
+item_info_build=%s
+
+item_info_name=rtmp
+item_info_from=rtmp3 || rtmp2 || rtmp1
+item_info_build=%s
+
+item_info_name=rtmp_url
+item_info_from=rtmp://'+ rtmp +'/flash playpath=' + file3 + ' swfVfy=1 flashver=WIN\2024,0,0,221 timeout=25 swfUrl=' + swf + ' live=true pageUrl='+tmpUrl
+item_info_build=%s
+
+item_info_name=url
+item_info_from=ls_file || rtmp_url
+item_info_build=%s

@@ -1,0 +1,27 @@
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_build=byetv
+
+item_info_name=pageUrl
+item_info_from=@PARAM1@
+item_info_build=%s
+
+item_info_name=tmp
+item_info_from=pageUrl
+item_info_convert=getInfo('%s','.*?name['"\s]*[:,=]\s*['"]([^'"]+)['"].*edgeserverip['"\s]*[:,=]\s*['"]([^'"]+)['"].*appName['"\s]*[:,=]\s*['"]([^'"]+)['"]','@REFERER@','file|ip|path')
+item_info_build=%s
+
+item_info_name=auth
+item_info_from=pageUrl
+item_info_convert=getInfo('%s','.*?token=([^"']+)','@REFERER@')
+item_info_build=%s
+
+item_info_name=ref
+item_info_from=pageUrl
+item_info_convert=quote(%s)
+item_info_convert=quote(%s)
+item_info_build=%s
+
+item_info_name=url
+item_info_from=http://'+ip+'/'+path+'/'+file+'.m3u8?token='+auth+'|Referer='+ref+'&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36&X-Requested-With=ShockwaveFlash/24.0.0.221
+item_info_build=%s

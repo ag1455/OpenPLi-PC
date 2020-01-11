@@ -1,0 +1,2 @@
+# Мне нужно, чтобы имя /dev/* было постоянным, т. к. lirc0 lirc1 постоянно меняются местами.
+KERNEL=="lirc[0-4]", SUBSYSTEM=="lirc", ATTRS{driver_override}=="(null)", SYMLINK+="lirc_serial"

@@ -1,0 +1,16 @@
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_convert=parseText('%s','.*id=(\d+))
+item_info_build=BCast - %s
+
+item_info_name=cUrl
+item_info_from=@PARAM1@
+item_info_convert=getInfo('http://%s','.*curl\s*=\s*"([^"]+)".*','@REFERER@')
+#item_info_convert=debug
+item_info_build=%s
+
+item_info_name=url
+item_info_from=cUrl
+item_info_convert=decodeBCast
+#item_info_convert=debug
+item_info_build=%s

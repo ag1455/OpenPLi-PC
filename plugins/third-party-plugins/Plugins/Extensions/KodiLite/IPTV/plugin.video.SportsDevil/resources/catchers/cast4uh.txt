@@ -1,0 +1,25 @@
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_build=Cast4U - %s
+
+item_info_name=pageUrl
+item_info_from=@PARAM1@
+item_info_build=http://www.cast4u.tv/hembedplayer/%s/1/620/490
+
+item_info_name=tmp
+item_info_from=pageUrl
+item_info_convert=getInfo('%s','.*player.*source:\s*'http:\/\/.*?(:[^']+).*ajax\({url:\s*"([^"]+)"\s*\+\s*(\w+)','@REFERER@','u1|u2|id')
+item_info_build=%s
+
+item_info_name=balance
+item_info_from=u2 + id +'
+item_info_build=%s
+
+item_info_name=host
+item_info_from=balance
+item_info_convert=getInfo('%s','.*redirect=([\.\d]+).*','@pageUrl@')
+item_info_build=http://%s
+
+item_info_name=url
+item_info_from=host+u1
+item_info_build=%s

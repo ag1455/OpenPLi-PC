@@ -1,0 +1,47 @@
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_build=ss365 - %s
+
+item_info_name=game
+item_info_from=@PARAM1@
+#item_info_convert=debug
+item_info_build=%s
+
+item_info_name=tkurl
+item_info_from=http://sportstream-365.com/LiveFeed/GetGame?id='+game+'&lng=en&partner=24'
+item_info_build=%s
+
+item_info_name=purl
+item_info_from=http://sportstream-365.com/viewer?game='+game
+item_info_build=%s
+
+item_info_name=rtmp
+#item_info_from=rtmpe://93.189.57.254/xlive'+
+item_info_from=rtmpe://xlive.sportstream365.com/xlive'+
+item_info_convert=resolve
+#item_info_convert=debug
+item_info_build=%s
+
+item_info_name=file
+item_info_from=tkurl
+item_info_convert=getXML('%s','.*?VI['"]*[:,]\s*['"]([^'"]+)['"].*','@purl@')
+item_info_build=%s
+
+item_info_name=hlshost
+item_info_from=http://sportstream365.com/cinema'+'|User-Agent=Apple-iPhone/701.341'
+item_info_convert=getInfo('%s','.*?(\d+\.\d+\.\d+\.\d+)','@REFERER@')
+item_info_build=%s
+
+item_info_name=hlsurl
+item_info_from=http://'+hlshost+'/hls-live/xmlive/_definst_/'+file+'/'+file+'.m3u8'
+item_info_convert=ifEmpty('@hlshost@','','%s')
+item_info_build=%s
+
+item_info_name=rtmpurl
+item_info_from=rtmp+'?vi=' + file + '& playpath=raw:' + file + ' flashVer=WIN\27,0,0,180 conn=S:client conn=S:3.1.3.31 conn=S:en conn=O:1 conn=NB:disAllowScriptAccess:0 conn=O:0 swfhash=a94f08c0d38900be600939b97f82ce7eda17707d967bccf676f543c06501445f swfsize=517503 live=true pageUrl=' + purl
+#item_info_from=rtmp+' app=xlive flashVer=WIN\23,0,0,166 conn=S:client conn=S:3.1.3.8 conn=S:en swfhash=d42335ee990a4841d741c40525fd316e9ff96188fa062f68403104463405b4f3 swfsize=517503 live=true playpath=raw:'+file+'
+item_info_build=%s
+
+item_info_name=url
+item_info_from=rtmpurl||hlsurl
+item_info_build=%s

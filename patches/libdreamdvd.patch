@@ -1,0 +1,32 @@
+diff -ruN b/main.c a/main.c
+--- b/main.c	2019-05-02 20:20:30.378929483 +0300
++++ a/main.c	2019-05-02 21:18:33.431794177 +0300
+@@ -569,7 +569,7 @@
+ {
+ 	int val = -1;
+ 	char tmp[64];
+-	sprintf(tmp, "/proc/stb/vmpeg/%d/%s", decoder, str);
++	sprintf(tmp, "/usr/local/e2/etc/stb/vmpeg/%d/%s", decoder, str);
+ 	FILE *f = fopen(tmp, "r");
+ 	if (f) {
+ 		fscanf(f, "%x", &val);
+@@ -3093,15 +3093,15 @@
+ // set decoder buffer offsets to a minimum
+ static void ddvd_set_pcr_offset(void)
+ {
+-	write_string("/proc/stb/pcr/pcr_stc_offset", "200");
+-	write_string("/proc/stb/vmpeg/0/sync_offset", "200");
++	write_string("/usr/local/e2/etc/stb/pcr/pcr_stc_offset", "200");
++	write_string("/usr/local/e2/etc/stb/vmpeg/0/sync_offset", "200");
+ }
+ 
+ // reset decoder buffer offsets
+ static void ddvd_unset_pcr_offset(void)
+ {
+-	write_string("/proc/stb/pcr/pcr_stc_offset", "2710");
+-	write_string("/proc/stb/vmpeg/0/sync_offset", "2710");
++	write_string("/usr/local/e2/etc/stb/pcr/pcr_stc_offset", "2710");
++	write_string("/usr/local/e2/etc/stb/vmpeg/0/sync_offset", "2710");
+ }
+ 
+ #endif

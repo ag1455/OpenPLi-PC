@@ -1,0 +1,39 @@
+#!/bin/sh
+
+DAEMON=/usr/local/bin/oscam
+CONFIGDIR=/etc/vdr/oscam
+PIDFILE=/tmp/.oscam/oscam.pid
+#DAEMON_OPTS="-p 4096 -r 2 -a -u -c ${CONFIGDIR} -B ${PIDFILE} -d 65535" # full log
+DAEMON_OPTS="-p 1024 -r 2 -a -u -c ${CONFIGDIR} -B ${PIDFILE}"
+
+test -x ${DAEMON} || exit 0
+
+. /lib/lsb/init-functions
+
+case "$1" in
+    start)
+   log_daemon_msg "Starting OScam..."
+   /sbin/start-stop-daemon --start --quiet --background  --exec ${DAEMON} -- ${DAEMON_OPTS}
+   log_end_msg $?
+    ;;
+  stop)
+   log_daemon_msg "Stopping OScam..."
+   /sbin/start-stop-daemon --stop --exec ${DAEMON}
+   log_end_msg $?
+sleep 1
+    ;;
+  restart)
+   $0 stop
+   $0 start
+    ;;
+  force-reload)
+   $0 stop
+   /bin/kill -9 `pidof oscam`
+   /usr/bin/killall -9 oscam
+   $0 start
+    ;;
+  *)
+    echo "Usage: softcam {start|stop|restart|force-reload}"
+    exit 1
+    ;;
+esac

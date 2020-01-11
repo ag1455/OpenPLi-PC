@@ -1,0 +1,33 @@
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_convert=parseText('%s','.*?id=(.*)')
+item_info_convert=debug
+item_info_build=%s
+
+item_info_name=pageUrl
+item_info_from=@PARAM1@
+item_info_build=http://ustreamyx.com
+
+item_info_name=sUrl
+item_info_from=@PARAM1@
+item_info_convert=getInfo('%s','.*src="(.*?stats\.php.*?)"','@pageUrl@')
+item_info_convert=debug
+item_info_build=http:%s
+
+item_info_name=pars
+item_info_from=sUrl
+item_info_convert=getInfo('%s','.*var\s+file_name="([^"]+).*?var\sjdtk="([^"]+).+var\s+host_tmg="([^"]+)";','@REFERER@','file|token|hostid')
+#item_info_convert=debug
+item_info_build=%s
+
+item_info_name=url_
+item_info_from='hls://http://' + hostid + '/' + file + '?token=' + token
+item_info_convert=debug
+item_info_convert=encodeBase64
+item_info_build=%s
+
+item_info_name=url
+item_info_from= 'http://' + hostid + '/' + file + '?token=' + token + '|Referer='+pageUrl+'&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+#item_info_from=http://127.1.2.3:45678/streamlink/?url='+url_
+#item_info_convert=debug
+item_info_build=%s

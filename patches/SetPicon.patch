@@ -1,0 +1,255 @@
+diff -ruN b/plugin/locale/ru/LC_MESSAGES/SetPicon.po a/plugin/locale/ru/LC_MESSAGES/SetPicon.po
+--- b/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2019-01-24 13:36:49.672402712 +0300
++++ a/plugin/locale/ru/LC_MESSAGES/SetPicon.po	2019-01-24 13:37:39.646301539 +0300
+@@ -1,17 +1,22 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
+ msgid ""
+ msgstr ""
+-"Project-Id-Version: Dima 73\n"
++"Project-Id-Version: \n"
+ "Report-Msgid-Bugs-To: \n"
+ "POT-Creation-Date: 2009-02-16 23:05+0100\n"
+-"PO-Revision-Date: 2012-04-19 20:59+0100\n"
+-"Last-Translator:  Dima73\n"
+-"Language-Team: Dima73\n"
++"PO-Revision-Date: 2018-01-03 22:42+0300\n"
++"Last-Translator: Александр Кольцов <a.g.prosat@gmail.com>\n"
++"Language-Team: http://www.forum.free-x.de\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=utf-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+-"X-Poedit-Language: Russian\n"
+-"X-Poedit-Country: RUSSIAN FEDERATION\n"
++"Language: ru\n"
++"X-Generator: Poedit 2.0.1\n"
+ 
+ msgid "Are You sure delete all picons in %s ?"
+ msgstr "Вы уверены, что хотите удалить все пиконы из %s ?"
+@@ -20,16 +25,16 @@
+ msgstr "Каталог бекапа"
+ 
+ msgid "Backup directory cannot be same as Input or Output directories !"
+-msgstr "Бекап каталога не состоится, оба каталога одинаковы!"
++msgstr "Бекап каталога не состоится. Это один и тот же каталог!"
+ 
+ msgid "Backup directory for Picons"
+-msgstr "Резервное копирование каталога пиконов"
++msgstr "Резервное копирование папки пиконов"
+ 
+ msgid "Cable"
+-msgstr "Кабельное тв"
++msgstr "Кабельное"
+ 
+ msgid "Cancel"
+-msgstr "Отменить"
++msgstr "Отмена"
+ 
+ msgid "Copy all picons from %s to %s"
+ msgstr "Копир. все пиконы из %s в %s"
+@@ -38,7 +43,7 @@
+ msgstr "Удалить все пиконы из %s"
+ 
+ msgid "Delete picons in backup directory %s"
+-msgstr "Удаление пиконов в каталоге бекапа %s"
++msgstr "Удаление пиконов в папке бекапа %s"
+ 
+ msgid "Display picon's name"
+ msgstr "Показать имена пиконов"
+@@ -51,19 +56,19 @@
+ " %s"
+ 
+ msgid "In menu change input directory or save picons from bouquet."
+-msgstr "В меню измените входной каталог или сохр. пиконы букета"
++msgstr "В меню измените входную папку или сохр. пиконы букета."
+ 
+ msgid "Input directory"
+-msgstr "Входной каталог"
++msgstr "Входная папка"
+ 
+ msgid "Input directory and output directory are same!"
+ msgstr "Входной и выходной каталог одинаковы!"
+ 
+ msgid "Input directory of Picons"
+-msgstr "Входной каталог для пиконов"
++msgstr "Входная папка для пиконов"
+ 
+ msgid "No picons found!"
+-msgstr "Нет найденных пиконов!"
++msgstr "Пиконы не найдены!"
+ 
+ msgid "Not found"
+ msgstr "Не найдено"
+@@ -72,10 +77,10 @@
+ msgstr "Операции с пиконами"
+ 
+ msgid "Options"
+-msgstr "Настройки"
++msgstr "Опции"
+ 
+ msgid "Output directory"
+-msgstr "Выходной каталог"
++msgstr "Выходная папка"
+ 
+ msgid "Output directory for created Picons"
+ msgstr "Выходной каталог для пиконов"
+@@ -93,25 +98,25 @@
+ msgstr "сортировать в обратном порядке"
+ 
+ msgid "Accept picons"
+-msgstr "Принять пиконы"
++msgstr "Закрепить пиконы"
+ 
+ msgid "all"
+ msgstr "все"
+ 
+ msgid "as service reference only"
+-msgstr "только как референс сервиса"
++msgstr "только, как референс сервиса"
+ 
+ msgid "as names only"
+-msgstr "только как имена"
++msgstr "только, как имена"
+ 
+ msgid "Please wait to finishing picon's list..."
+-msgstr "Подождите полного списка пиконов..."
++msgstr "Подождите окончания поиска пиконов."
+ 
+ msgid "Reading picons..."
+-msgstr "Чтение пиконов..."
++msgstr "Чтение пиконов."
+ 
+ msgid "Same Dirs"
+-msgstr "Одинаковые каталоги"
++msgstr "Та же папка"
+ 
+ msgid "Save"
+ msgstr "Сохранить"
+@@ -123,13 +128,13 @@
+ msgstr "Сохр. пиконы пакета %s только в каталог бекапа"
+ 
+ msgid "Save current"
+-msgstr "Сохр. текущий"
++msgstr "Сохранить"
+ 
+ msgid "Save name with orbital position"
+ msgstr "Сохранить имя с орбитальной позицией"
+ 
+ msgid "Save picon as"
+-msgstr "Сохранить пикон как"
++msgstr "Сохранить пикон, как"
+ 
+ msgid "Saving current picons from"
+ msgstr "Сохранение текущего пикона в"
+@@ -144,34 +149,34 @@
+ msgstr "Поиск: пиконы"
+ 
+ msgid "Search: service"
+-msgstr "Поиск: сервисы"
++msgstr "Поик: сервисы"
+ 
+ msgid "Select picon and press OK to assign to current service:"
+-msgstr "Выберите пикон. ОК для установки к текущему сервису:"
++msgstr "Выберите пикон. \"ОК\" для установки к текущему сервису:"
+ 
+ msgid "Select picon and save it with OK to output directory:"
+-msgstr "Выберите пикон и нажмите ОК для сохр. в выходной каталог:"
++msgstr "Выберите пикон и нажмите ОК для сохр. в выходную папку:"
+ 
+ msgid "Service not found"
+ msgstr "Сервис не найден"
+ 
+ msgid "SetPicon Setup"
+-msgstr "Установщик пиконов - настройки"
++msgstr "Настройки SetPicon"
+ 
+ msgid "SetPicon"
+ msgstr "Установщик пиконов"
+ 
+ msgid "SetPicon in E-menu"
+-msgstr "Установщик пиконов в меню дополнений"
++msgstr "Установщик пиконов в E-menu"
+ 
+ msgid "SetPicon in Channel's menu"
+ msgstr "Установщик пиконов в меню каналов"
+ 
+ msgid "Sorting picons in backup directory"
+-msgstr "Сортировка пиконов в каталоге бекупа"
++msgstr "Сортировка пиконов в папке бекапа"
+ 
+ msgid "Swap Dirs"
+-msgstr "Обмен каталогов"
++msgstr "Обмен папок"
+ 
+ msgid "Terrestrial"
+ msgstr "Наземный"
+@@ -180,7 +185,7 @@
+ msgstr "Переключить при смене сервиса"
+ 
+ msgid "all picon's directories"
+-msgstr "в оба каталога пиконов"
++msgstr "в обе папки пиконов"
+ 
+ msgid "by orbital position"
+ msgstr "по орбитальной позиции"
+@@ -201,28 +206,28 @@
+ msgstr "закрыть плагин"
+ 
+ msgid "filename"
+-msgstr "название файла"
++msgstr "имя файла"
+ 
+ msgid "full path"
+ msgstr "полный путь"
+ 
+ msgid "go to +100 picons"
+-msgstr "вперед на 100 пиконов"
++msgstr "100 пиконов вперёд"
+ 
+ msgid "go to +1000 picons"
+-msgstr "вперед на 1000 пиконов"
++msgstr "1000 пиконов вперёд"
+ 
+ msgid "go to +5 picons"
+-msgstr "вперед на 5 пиконов"
++msgstr "5 пиконов вперёд"
+ 
+ msgid "go to -100 picons"
+-msgstr "назад на 100 пиконов"
++msgstr "100 пиконов назад"
+ 
+ msgid "go to -1000 picons"
+-msgstr "назад на 1000 пиконов"
++msgstr "1000 пиконов назад"
+ 
+ msgid "go to -5 picons"
+-msgstr "назад на 5 пиконов"
++msgstr "5 пиконов назад"
+ 
+ msgid "go to first picon"
+ msgstr "перейти к первому пикону"
+@@ -285,7 +290,7 @@
+ msgstr "переключить на поиск сервисов"
+ 
+ msgid "Fully fill rectangles with picons"
+-msgstr "Полностью заполнять прямоугольники с пиконами"
++msgstr "Полное заполнение прямоугольников с пиконами"
+ 
+ msgid "Are You sure delete picon?\n%s"
+ msgstr "Вы уверены, что хотите удалить пикон?\n%s"
+diff -ruN b/plugin/ui.py a/plugin/ui.py
+--- b/plugin/ui.py	2019-01-24 13:36:49.672402712 +0300
++++ a/plugin/ui.py	2019-01-24 13:37:39.647301558 +0300
+@@ -982,7 +982,7 @@
+ 			"blue": self.bothAsInputDir
+ 		}, -2)
+ 
+-		self.inhibitDirs = ["/autofs", "/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/tmp", "/usr"]
++		self.inhibitDirs = ["/autofs", "/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys"]
+ 
+ 		self.onChangedEntry = []
+ 		self.refreshMenu()

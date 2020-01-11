@@ -1,0 +1,47 @@
+item_info_name=pageUrl
+item_info_from=@PARAM1@
+item_info_convert=getInfo('%s','.*?src='([^"']+).*','@REFERER@')
+item_info_build=%s
+
+item_info_name=title
+item_info_from=pageUrl
+item_info_convert=parseText('%s','.*id=([^&"'; ]+))
+item_info_build=iptvhq - %s
+
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_build=iptvhq - %s
+
+item_info_name=rtmp_
+item_info_from=pageUrl
+item_info_convert=getInfo('%s','.*(?:trap|url)\s*=\s*["']([^"']+).*','@REFERER@')
+#item_info_convert=debug
+item_info_convert=decodeBase64
+item_info_build=%s
+
+item_info_name=rtmp
+item_info_from=rtmp_
+item_info_convert=ifEmpty('%s','','%s swfUrl=http://p.jwpcdn.com/6/12/jwplayer.flash.swf live=1 pageUrl=___')
+item_info_convert=replace('%s','___','@pageUrl@')
+#item_info_convert=debug
+item_info_build=%s
+
+#item_info_name=mp4
+#item_info_from=pageUrl
+#item_info_convert=getInfo('%s','.*jwplayer.*?file\s*:\s*'([^']+)','@REFERER@')
+#item_info_build=%s
+
+item_info_name=file.tmp
+item_info_from=pageUrl
+item_info_convert=getInfo('%s','.*file:\s*(\w+).*?\1.*?return\(\[([^\]]+)','@REFERER@','junk|file')
+item_info_build=%s
+
+item_info_name=mp4
+item_info_from=file
+item_info_convert=replaceRegex('%s','[",\\]','')
+item_info_convert=debug
+item_info_build=%s
+
+item_info_name=url
+item_info_from=mp4 || rtmp
+item_info_build=%s

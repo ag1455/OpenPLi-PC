@@ -1,0 +1,176 @@
+diff -ruN o/libtuxtxt/acinclude.m4 pc/libtuxtxt/acinclude.m4
+--- o/libtuxtxt/acinclude.m4	2019-12-18 19:49:22.000000000 +0300
++++ pc/libtuxtxt/acinclude.m4	2019-12-18 22:00:21.047300243 +0300
+@@ -189,7 +189,7 @@
+ #include <linux/dvb/version.h>
+ version DVB_API_VERSION
+ 	]])])
+-	DVB_API_VERSION=`(eval "$ac_cpp conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | $EGREP "^version" | sed "s,version\ ,,"`
++	DVB_API_VERSION=`(eval "$ac_cpp -traditional-cpp conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | $EGREP "^version" | sed "s,version\ ,,"`
+ 	rm -f conftest*
+ 
+ 	AC_MSG_NOTICE([found dvb version $DVB_API_VERSION])
+diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
+--- o/libtuxtxt/tuxtxt_common.h	2019-12-18 19:49:22.000000000 +0300
++++ pc/libtuxtxt/tuxtxt_common.h	2019-12-18 22:03:46.883376285 +0300
+@@ -4059,14 +4059,6 @@
+ *************************************************************************/
+ 
+ /* devices */
+-#define AVS "/dev/dbox/avs0"
+-#define SAA "/dev/dbox/saa0"
+-#if HAVE_DVB_API_VERSION < 3
+-#define PIG "/dev/dbox/pig0"
+-#else
+-#define PIG "/dev/v4l/video0"
+-#endif
+-
+ #define TOPMENUSTARTX TV43STARTX+2
+ #define TOPMENUENDX TVENDX
+ #define TOPMENUSTARTY renderinfo->StartY
+@@ -4573,7 +4565,7 @@
+ 		{
+ 			char *targets[]={"left", "top", "width", "height", "apply"};
+ 			char filename[128];
+-			snprintf(filename, 128, "/proc/stb/vmpeg/%d/dst_%s", 0, targets[i]);
++			snprintf(filename, 128, "/usr/local/e2/etc/stb/vmpeg/%d/dst_%s", 0, targets[i]);
+ 			FILE *f = fopen(filename, "w");
+ 			if (!f)
+ 				break;
+@@ -4590,8 +4582,8 @@
+ 			fclose(f);
+ 		}
+ 
+-		writeproc("/proc/stb/avs/0/sb", fncmodes[renderinfo->screen_mode2]);
+-		writeproc("/proc/stb/denc/0/wss", saamodes[renderinfo->screen_mode2]);
++		writeproc("/usr/local/e2/etc/stb/avs/0/sb", fncmodes[renderinfo->screen_mode2]);
++		writeproc("/usr/local/e2/etc/stb/denc/0/wss", saamodes[renderinfo->screen_mode2]);
+ 	}
+ 	else /* not split */
+ 	{
+@@ -4601,7 +4593,7 @@
+ 		{
+ 			char *targets[]={"left", "top", "width", "height", "apply"};
+ 			char filename[128];
+-			snprintf(filename, 128, "/proc/stb/vmpeg/%d/dst_%s", 0, targets[i]);
++			snprintf(filename, 128, "/usr/local/e2/etc/stb/vmpeg/%d/dst_%s", 0, targets[i]);
+ 			FILE *f = fopen(filename, "w");
+ 			if (!f)
+ 				break;
+@@ -4612,8 +4604,8 @@
+ 		tuxtxt_setfontwidth(renderinfo,renderinfo->fontwidth_normal);
+ 		renderinfo->displaywidth= (renderinfo->ex-renderinfo->sx);
+ 		renderinfo->StartX = renderinfo->sx; //+ (ex-sx - 40*fontwidth) / 2; /* center screen */
+-		writeproc("/proc/stb/avs/0/sb", fncmodes[renderinfo->screen_mode1]);
+-		writeproc("/proc/stb/denc/0/wss", saamodes[renderinfo->screen_mode1]);
++		writeproc("/usr/local/e2/etc/stb/avs/0/sb", fncmodes[renderinfo->screen_mode1]);
++		writeproc("/usr/local/e2/etc/stb/denc/0/wss", saamodes[renderinfo->screen_mode1]);
+ 	}
+ }
+ 
+diff -ruN o/tuxtxt/acinclude.m4 pc/tuxtxt/acinclude.m4
+--- o/tuxtxt/acinclude.m4	2019-12-18 19:49:22.000000000 +0300
++++ pc/tuxtxt/acinclude.m4	2019-12-18 22:00:21.050300304 +0300
+@@ -189,7 +189,7 @@
+ #include <linux/dvb/version.h>
+ version DVB_API_VERSION
+ 	]])])
+-	DVB_API_VERSION=`(eval "$ac_cpp conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | $EGREP "^version" | sed "s,version\ ,,"`
++	DVB_API_VERSION=`(eval "$ac_cpp -traditional-cpp conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | $EGREP "^version" | sed "s,version\ ,,"`
+ 	rm -f conftest*
+ 
+ 	AC_MSG_NOTICE([found dvb version $DVB_API_VERSION])
+diff -ruN o/tuxtxt/data/Makefile.am pc/tuxtxt/data/Makefile.am
+--- o/tuxtxt/data/Makefile.am	2019-12-18 19:49:22.000000000 +0300
++++ pc/tuxtxt/data/Makefile.am	2019-12-18 22:00:21.051300324 +0300
+@@ -1,4 +1,4 @@
+-installdir = $(sysconfdir)/tuxtxt/
++installdir = /usr/local/e2/tuxtxt/
+ 
+ install_DATA = \
+ 	tuxtxt2.conf
+diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
+--- o/tuxtxt/tuxtxt.c	2019-12-18 19:49:22.000000000 +0300
++++ pc/tuxtxt/tuxtxt.c	2019-12-18 22:04:00.288639160 +0300
+@@ -594,11 +594,11 @@
+ #endif
+ 
+ 
+-	readproc("/proc/stb/denc/0/wss", saved_wss);
+-	writeproc("/proc/stb/denc/0/wss", saamodes[renderinfo.screen_mode1]);
++	readproc("/usr/local/e2/etc/stb/denc/0/wss", saved_wss);
++	writeproc("/usr/local/e2/etc/stb/denc/0/wss", saamodes[renderinfo.screen_mode1]);
+ 
+-	readproc("/proc/stb/avs/0/sb", saved_pin8);
+-	writeproc("/proc/stb/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
++	readproc("/usr/local/e2/etc/stb/avs/0/sb", saved_pin8);
++	writeproc("/usr/local/e2/etc/stb/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
+ 
+ 	gethotlist();
+ 	tuxtxt_SwitchScreenMode(&renderinfo,renderinfo.screenmode);
+@@ -708,8 +708,8 @@
+ 	/* close framebuffer */
+ 	close(renderinfo.fb);
+ 
+-	writeproc("/proc/stb/avs/0/sb", saved_pin8);
+-	writeproc("/proc/stb/denc/0/wss", saved_wss);
++	writeproc("/usr/local/e2/etc/stb/avs/0/sb", saved_pin8);
++	writeproc("/usr/local/e2/etc/stb/denc/0/wss", saved_wss);
+ }
+ /******************************************************************************
+  * GetTeletextPIDs                                                           *
+@@ -1825,8 +1825,8 @@
+ 
+ 					memcpy(&menu[Menu_Width*MenuLine[M_SC1] + Menu_Width - 5], &configonoff[menulanguage][renderinfo.screen_mode1  ? 3 : 0], 3);
+ 					Menu_HighlightLine(menu, MenuLine[menuitem], 1);
+-					writeproc("/proc/stb/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
+-					writeproc("/proc/stb/denc/0/wss", saamodes[renderinfo.screen_mode1]);
++					writeproc("/usr/local/e2/etc/stb/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
++					writeproc("/usr/local/e2/etc/stb/denc/0/wss", saamodes[renderinfo.screen_mode1]);
+ 					break;
+ 
+ 				case M_SC2:
+@@ -2412,16 +2412,16 @@
+ 	else if (renderinfo.transpmode == 1) /* semi-transparent BG with FG text */
+ 	{
+ 		/* restore videoformat */
+-		writeproc("/proc/stb/avs/0/sb", saved_pin8);
+-		writeproc("/proc/stb/denc/0/wss", saved_wss);
++		writeproc("/usr/local/e2/etc/stb/avs/0/sb", saved_pin8);
++		writeproc("/usr/local/e2/etc/stb/denc/0/wss", saved_wss);
+ 		tuxtxt_ClearBB(&renderinfo,tuxtxt_color_transp);
+ 		tuxtxt_cache.pageupdate = 1;
+ 	}
+ 	else /* TV mode */
+ 	{
+ 		/* restore videoformat */
+-		writeproc("/proc/stb/avs/0/sb", saved_pin8);
+-		writeproc("/proc/stb/denc/0/wss", saved_wss);
++		writeproc("/usr/local/e2/etc/stb/avs/0/sb", saved_pin8);
++		writeproc("/usr/local/e2/etc/stb/denc/0/wss", saved_wss);
+ 		tuxtxt_ClearFB(&renderinfo,tuxtxt_color_transp);
+ 		renderinfo.clearbbcolor = tuxtxt_cache.FullScrColor;
+ 	}
+diff -ruN o/tuxtxt/tuxtxt.h pc/tuxtxt/tuxtxt.h
+--- o/tuxtxt/tuxtxt.h	2019-12-18 19:49:22.000000000 +0300
++++ pc/tuxtxt/tuxtxt.h	2019-12-18 22:00:21.051300324 +0300
+@@ -93,17 +93,13 @@
+ #endif
+ 
+ #ifndef FB_DEV
+-# define FB_DEV "/dev/fb/0"
++# define FB_DEV "/dev/fb0"
+ #endif
+ 
+-#define TUXTXTCONF CONFIGDIR "/tuxtxt/tuxtxt2.conf"
+-
++#define TUXTXTCONF CONFIGDIR "/usr/local/e2/tuxtxt/tuxtxt2.conf"
+ 
+ #define fontwidth_small_lcd 8
+ 
+-
+-
+-
+ /* rc codes */
+ #if HAVE_DVB_API_VERSION < 3
+ #define KEY_0       0x5C00

@@ -1,0 +1,25 @@
+item_info_name=pid
+item_info_from=@PARAM1@
+item_info_convert=parseText('%s','channelid\s*=\s*"(\d+)"')
+item_info_build=%s
+
+item_info_name=title
+item_info_from=pid
+item_info_build=02stream - %s
+
+item_info_name=curl
+item_info_from=@PARAM1@
+item_info_convert=parseText('%s','curl\s*=\s*"([^"]+)"')
+item_info_convert=decodeBase64
+#item_info_convert=debug
+item_info_build=%s
+
+item_info_name=token
+item_info_from='http://www.02stream.pro/getToken.php?id='+pid
+item_info_convert=getInfo('%s','.*token":"([^"]+)','@REFERER@')
+#item_info_convert=debug
+item_info_build=%s
+
+item_info_name=url
+item_info_from=curl+token
+item_info_build=%s

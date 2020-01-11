@@ -1,0 +1,122 @@
+NEWS
+====
+- enigma2-42fd2b44.
+
+- (2019.12.30) New lirc 0.10.1-6-e2pc.
+
+- (2019.12.29) 'BootLogEnigma2' is always written to /tmp. Automatically disable screensaver by build script.
+
+- (2019.12.27) A stuped bunch of startup scripts now combined into 'autostart.sh'. Add 'sleep 2' to enigma2.sh for case if you want to autostart from boot.
+
+- (2019.12.25) xine-lib-1.2.9-hg-14450. Always unblock xine_play when demux finishes. Cover version xineLib.cpp: fixed breake xine when closing enigma2.
+  New correct stream closing mechanism.
+
+- (2019.12.11) xineLib.cpp: fixed my mistake in determining the type of video streams. Now there are the following types of metronome prebuffer: HEVC, AVC, MPEG2.
+  They work independently of each other according to the m_streamtype. Settings are saved in 'settings' file if they differ from the default.
+  To determine the type of HD / SD by 'm_width' hasn't yet succeeded.
+
+- (2019.12.6) Senseless messages in the log were removed and useful ones were added. For ease of reading, added new strings to the log.
+
+- Replacing to the current version of rcinput.cpp.
+
+- All 'DvrId' values completely restored, the inactive 'bypass' values and the messages "failed: ..." that confuse inexperienced users are excluded.
+
+- Fixed previous mistake of slow encrypted channels switching (you need to switch your encrypted channels once and at the next start everything all will be OK).
+
+- Other changes that are as close as possible to the original OpenPLi source code.
+
+- Updated "classplus_hd" skin for PLi => 7.0 (add StaticText, show / hide buttons).
+
+- Fixed viewing of commits from the info menu.
+
+- Timeshift is moved to /media/hdd because ENIGMA_FIFO is written to /tmp.
+
+- All plugins are translated separately.
+
+- Previously unable to add ECM info and init patches. Other fixes.
+
+- Add 'freezeframe' picons (45.0W-90.0E) by 'chocholousek' to piconload plugin.
+
+- Ubuntu 19.04 support.
+
+- The value /dev/dvb/card0/video0 and audio0 are excluded.
+
+- Fix OpenWebif: channel names in utf-8 encoding were not displayed in the channel list. "... 'ascii' codec can't decode byte 0xd0 in position 0: ordinal not in range(128)"
+
+- Working plugin YouTube (fix servicemp3.cpp).
+
+- Support kernel >= 4.18 (dvbsoftwareca start by /etc/modules).
+
+- Automatic creation nim_sockes.
+
+- Fix crash on exit.
+
+- Fix switching audio tracks when playing video files.
+
+- Servicemp3 moved to plugins: /usr/local/e2/lib/enigma2/python/Plugins/SystemPlugins/ServiceMP3.
+
+- Add AAC for "Xtra TV".
+
+- Patched lirc-0.10.1 version "0.10.1-0+e2pc0~18.04.0" (irw can get repeats again).
+
+- Support for kernel 4.14, 4.15 (simply changed ca.h).
+
+- Gstreamer1.0 on Ubuntu 16.04.
+
+Supported software
+==================
+Ubuntu LTS (32/64-bit) 14.04 (32/64-bit), 16.04 (32/64-bit), 18.04 (64-bit) and temporarily 19.04 (64-bit).
+E2PC works well with NVIDIA video cards using the "vdpau" video driver.
+Please don't use ppa repositories containing system packages!
+
+Installation
+============
+If necessary run scripts 1 ... 5 step by step. Either run 0_INSTALL_ALL.sh.
+All necessary libraries will be installed automaticly.
+To build on older versions of Ubuntu you need manually install some packages, since they are not described in 2_build_libs.sh.
+
+The working folder for the entry now is /media/hdd because often the sda3 drive is mounted in /home. This folder creates a link /media/hdd.
+In this folder: /media/hdd, /media/hdd/movies, /media/hdd/icons, etc.
+The downloaded keys are located in the /var/keys folder.
+
+Current issues
+==============
+1. When using multi standart dvb cards, for example HVR-4000, calling SatFinder or PoitionerSetup calls frontend1, rather than frontend0, as intended.
+In SatFinder, you can switch the dvb card with the right-to-the-left arrows and then the signal appears, but it calling PoisonerSetup crash.
+Most likely, the reason is that the enigma2 receivers using single tuners in different slots.
+If you don't need a second tuner in multi standart dvb card, copy the file scripts/enigma2_pre_start-2.sh to /usr/local/e2/bin and rename it to enigma2_pre_start.sh.
+On next boot you will not see the second card in /dev/dvb/adapter0. Additionally, you can remove the second card from nim_sockets, but this will not affect the first card.
+
+2. Teletext doesn't work through the framebuffer.
+
+3. Timeshift doesn't work as we would like.
+
+4. If you have Intel or AMD integrated GPU, use "opengl" video driver in the xine.conf.
+
+5. E2pc will not work well with "noveau" NVIDIA driver.
+
+6. If there is no signal on a previously tuned channels, then e2pc will endlessly try to lock such channels.
+
+Compilation tips
+================
+Keep in mind that you can run scripts if you associate yourself with an experienced user.
+Note that no script can take into account all the features of your system. Therefore, you need patience, because there are possible unpredictable failures in the work of scripts.
+If, for example, the log says that there is no such directory or file, then create it, and don't expect that I will correct it in the scripts. There is practically nothing to correct,
+they work. Remember that any errors can be even in the original from git OpenPLi.
+If you are building e2pc on legacy distributive, keep in mind that since the release date there have been many updates that could lead to crashes in the scripts.
+If you have updated the libc-dev package, then need to restart the script 4. Otherwise, the next attempt the plugins will not compiled.
+Since changes in enigma2 and plugins occur synchronously, need run the build scripts enigma2 and plugins every time after upgrade.
+If you recompiled enigma2, be sure to recompile the plugins.
+When you restarting to another version of Ubuntu, turn off the power, since firmware versions they are different, but remain in the memory of the dvb card.
+If you want enigma2 to load immediately after the start, then put the autostart.sh script in the 'automatically starting applications' with the command: sudo /usr/local/e2/bin/autostart.sh.
+If necessary, change the delay in the enigma2.sh script.
+Please don't write to me that my hands are growing out of ass, and send me please real corrections. :)
+
+Features
+========
+In order not to restart e2pc during crash and not to clutter up /home/hdd with logs, the following mechanism is used:
+When you run the program, all crash logs are moved to /tmp. Then, the startup script runs in an infinite loop, and the check for the presence of a crash log file is added.
+To restart, not one but two conditions are required: the appearance of the crash log file and the subsequent disappearance of the enigma2 process.
+So, if enigma2 run in a circle, press F11 or PrtScr and then in the menu (install cairo-dock / classic menu) the icon "Kill Enigma2pc" and look at the crash log in /tmp.
+Most often, this is an error during installation. For example, the absence of the desired folder or file as a result of an abnormal termination of the assembly script.
+Also there is control a oscam crash.

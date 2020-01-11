@@ -1,0 +1,49 @@
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_convert=parseText('%s','.*(?:id|u)=(\w+))
+item_info_build=HDcast - %s
+
+item_info_name=pUrl
+item_info_from=@PARAM1@
+item_info_build=%s
+
+item_info_name=pageUrl_
+item_info_from=pUrl
+item_info_convert=getInfo('%s','.*src=(http:\/\/[^\/]+)(\/(?!ads)[^\s]+)','@REFERER@','host|path')
+item_info_build=%s
+
+item_info_name=phpUrl_
+item_info_from=host+path+'
+item_info_convert=ifEmpty('@host@','','%s')
+item_info_convert=getInfo('%s','.*iframe.*src=(.*?)&amp;','@pUrl@')
+item_info_build=%s
+
+item_info_name=phpUrl
+item_info_from=host+'/'+phpUrl_+'&width=680&height=490
+item_info_convert=ifEmpty('@host@','','%s')
+item_info_build=%s
+
+item_info_name=file
+item_info_from=phpUrl || pUrl
+item_info_convert=getInfo('%s','.*(http[^"']+\.m3u8[^"']*).*','@pUrl@')
+item_info_build=%s
+
+item_info_name=rtmp_url
+item_info_from=phpUrl || pUrl
+item_info_convert=getInfo('%s','.*["'](rtmpe*://[^"']+).*','@pUrl@')
+item_info_convert=ifEmpty('%s','','%s swfUrl=http://player.hdcast.org/jwplayer.flash.swf flashver=WIN\2024,0,0,221 token=SECURET0KEN#yw%.?()@W! timeout=15 live=true swfVfy=1 pageUrl=http://www.hdcast.org/embedlive.php')
+item_info_build=%s
+
+item_info_name=ref
+item_info_from=phpUrl || pUrl
+item_info_convert=quote(%s)
+item_info_convert=quote(%s)
+item_info_build=%s
+
+item_info_name=m3u8_url
+item_info_from=file+'|Referer='+ref+'&User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36&X-Requested-With=ShockwaveFlash/24.0.0.221
+item_info_build=%s
+
+item_info_name=url
+item_info_from=rtmp_url || m3u8_url
+item_info_build=%s

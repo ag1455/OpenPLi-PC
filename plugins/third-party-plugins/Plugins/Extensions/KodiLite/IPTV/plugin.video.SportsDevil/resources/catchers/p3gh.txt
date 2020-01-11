@@ -1,0 +1,25 @@
+item_info_name=title
+item_info_from=@PARAM1@
+item_info_build=P3G - %s
+
+item_info_name=pageUrl
+item_info_from=@PARAM1@
+item_info_build=http://www.p3g.tv/hembedplayer/%s/1/620/490
+
+item_info_name=tmp
+item_info_from=pageUrl
+item_info_convert=getInfo('%s','.*var\shlsUrl.+?"(:[^?]+)\?id=([\d]+).+?\("([^"]+).*','@REFERER@','channel|id|pk')
+item_info_build=%s
+
+item_info_name=balance
+item_info_from='http://www.p3gpublish.com:1935/loadbalancer?' + id
+item_info_build=%s
+
+item_info_name=rtmp
+item_info_from=balance
+item_info_convert=getInfo('%s','.*redirect=([\.\d]+).*','@pageUrl@')
+item_info_build=http://%s
+
+item_info_name=url
+item_info_from=rtmp + channel + '?id=' + id + '&pk=' + pk
+item_info_build=%s

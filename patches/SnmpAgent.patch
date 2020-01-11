@@ -1,0 +1,130 @@
+diff -ruN b/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po a/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po
+--- b/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po	1970-01-01 03:00:00.000000000 +0300
++++ a/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po	2018-08-19 15:52:50.294372554 +0300
+@@ -0,0 +1,114 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: \n"
++"Report-Msgid-Bugs-To: \n"
++"POT-Creation-Date: 2012-09-02 10:15+0200\n"
++"PO-Revision-Date: 2017-12-14 15:04+0300\n"
++"Last-Translator: Alexandr Koltsov\n"
++"Language: ru\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=utf-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Language-Team: http://forum.free-x.de\n"
++"X-Generator: Poedit 2.0.1\n"
++
++#: plugin.py:99
++msgid "Startup type"
++msgstr "Тип запуска"
++
++#: plugin.py:99
++msgid "Should the SnmpAgent start automatically on startup?"
++msgstr "Должен ли SnmpAgent запускаться автоматически при запуске?"
++
++#: plugin.py:100
++msgid "Manager IP"
++msgstr "Менеджер IP-адреса"
++
++#: plugin.py:100
++msgid "Which IP Address is used for the manager?"
++msgstr "Какой IP-адрес используется для менеджера?"
++
++#: plugin.py:101
++msgid "System Name"
++msgstr "Системное имя"
++
++#: plugin.py:101
++msgid "Which name should be used to identify the device?"
++msgstr "Какое имя следует использовать для идентификации устройства?"
++
++#: plugin.py:102
++msgid "System Description"
++msgstr "Описание системы"
++
++#: plugin.py:102
++msgid "Description for the device"
++msgstr "Описание устройства"
++
++#: plugin.py:103
++msgid "Support Address"
++msgstr "Адрес поддержки"
++
++#: plugin.py:103
++msgid "Support Email Address"
++msgstr "Адрес электронной почты поддержки"
++
++#: plugin.py:104
++msgid "Location"
++msgstr "Место нахождения"
++
++#: plugin.py:104
++msgid "Description of Location where the device resides"
++msgstr "Описание местоположения устройства"
++
++#: plugin.py:105
++msgid "Measure Bitrate"
++msgstr "Измерение битрейта"
++
++#: plugin.py:105
++msgid "Do bitrates have to be Monitored?"
++msgstr "Нужно ли отслеживать битрейты?"
++
++#: plugin.py:106
++msgid "Measure EMM"
++msgstr "Измерение EMM"
++
++#: plugin.py:106
++msgid "Do EMMs have to be Monitored?"
++msgstr "Следует ли отслеживать EMM?"
++
++#: plugin.py:116
++msgid "Cancel"
++msgstr "Отмена"
++
++#: plugin.py:117
++msgid "Save"
++msgstr "Сохранить"
++
++#: plugin.py:118
++msgid "Start Service"
++msgstr "Запустить"
++
++#: plugin.py:119
++msgid "Stop Service"
++msgstr "Остановить"
++
++#: plugin.py:141
++msgid "Service successfully started"
++msgstr "Служба успешно запущена"
++
++#: plugin.py:146
++msgid "Service successfully stoped"
++msgstr "Служба успешно остановлена"
++
++#: plugin.py:167
++msgid "Settings for SnmpAgent V{0}"
++msgstr "Настройки для SnmpAgent V{0}"
++
++#: plugin.py:1030
++msgid "SNMP Agent for Enigma2"
++msgstr "Агент SNMP для Enigma2"
+diff -ruN b/plugin/plugin.py a/plugin/plugin.py
+--- b/plugin/plugin.py	2018-08-19 15:52:03.195369375 +0300
++++ a/plugin/plugin.py	2018-08-19 15:53:11.385373978 +0300
+@@ -355,7 +355,7 @@
+ 	def timerPoll(self):
+ 		data = ''
+ 		try:
+-			file = open('/proc/stb/vmpeg/0/stat_picture_displayed', 'r')
++			file = open('/usr/local/e2/etc/stb/vmpeg/0/stat_picture_displayed', 'r')
+ 			data = file.readline()
+ 			file.close()
+ 		except:

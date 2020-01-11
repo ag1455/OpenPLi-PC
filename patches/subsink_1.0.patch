@@ -1,0 +1,44 @@
+diff -ruN a/configure.ac b/configure.ac
+--- a/configure.ac	2017-08-25 14:21:40.308994452 +0300
++++ b/configure.ac	2017-08-25 14:23:03.882290847 +0300
+@@ -1,12 +1,12 @@
+-AC_INIT([gst-plugin-subsink],[0.10])
++AC_INIT([gst-plugin-subsink],[1.0])
+ 
+ dnl versions of gstreamer and plugins-base
+ AC_ARG_WITH(gstversion,
+ 	AS_HELP_STRING([--with-gstversion],[use gstreamer version (major.minor)]),
+-	[GST_MAJORMINOR=$withval],[GST_MAJORMINOR=0.10])
++	[GST_MAJORMINOR=$withval],[GST_MAJORMINOR=1.0])
+ 
+-GST_REQUIRED=0.10.0
+-GSTPB_REQUIRED=0.10.0
++GST_REQUIRED=1.0
++GSTPB_REQUIRED=1.0
+ 
+ dnl fill in your package name and version here
+ dnl the fourth (nano) number should be 0 for a release, 1 for CVS,
+diff -ruN a/gst-plugin-subsink.bb b/gst-plugin-subsink.bb
+--- a/gst-plugin-subsink.bb	2017-08-25 14:21:40.308994452 +0300
++++ b/gst-plugin-subsink.bb	2017-08-25 14:47:37.694078899 +0300
+@@ -5,15 +5,15 @@
+ 
+ inherit srctree
+ 
+-PV = "0.10.0"
++PV = "1.0"
+ PR = "r0"
+ 
+ inherit autotools pkgconfig
+ 
+-FILES_${PN} = "${libdir}/gstreamer-0.10/*.so*"
+-FILES_${PN}-dev += "${libdir}/gstreamer-0.10/*.la \
+-	${libdir}/gstreamer-0.10/*.a"
+-FILES_${PN}-dbg += "${libdir}/gstreamer-0.10/.debug"
++FILES_${PN} = "${libdir}/gstreamer-1.0/*.so*"
++FILES_${PN}-dev += "${libdir}/gstreamer-1.0/*.la \
++	${libdir}/gstreamer-1.0/*.a"
++FILES_${PN}-dbg += "${libdir}/gstreamer-1.0/.debug"
+ 
+ PACKAGE_ARCH = "${MACHINE_ARCH}"
+ 

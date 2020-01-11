@@ -1,0 +1,14 @@
+<settings>
+    <category label="30004">
+        <setting id="playerType" type="enum" values="Auto|MPlayer|DVDPlayer|AMLPlayer" label="30003" default="0"/> 
+        <setting id="autoplay" type="bool" label="30270" default="true"/>
+        <setting type="sep" />
+        <setting id="download_path" type="folder" source="video" label="30008" option="writeable" default=""/>
+    </category>
+    <category label="External Addons">
+        <setting type="lsep" label="Install external addons. If an addon is disabled, it's already installed."/>
+        <setting id="veetle" type="action" action="RunPlugin(plugin://plugin.video.SportsDevil/?mode=12&url=veetle)" enable="!System.HasAddon(plugin.video.veetle)" label="Veetle"/>        
+        <setting id="jtv" type="action" action="RunPlugin(plugin://plugin.video.SportsDevil/?mode=12&url=jtv)" enable="!System.HasAddon(plugin.video.jtv.archives)" label="JustinTV"/> 
+        <setting id="youtube" type="action" action="RunPlugin(plugin://plugin.video.SportsDevil/?mode=12&url=youtube)" enable="!System.HasAddon(plugin.video.youtube)" label="YouTube"/> 
+    </category>
+</settings>                                                                                     
