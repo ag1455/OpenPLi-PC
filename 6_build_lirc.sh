@@ -19,6 +19,8 @@
 # systemctl mask lircd-uinput.service
 # and then reboot the system.
 
+PKG="lirc-0.10.1"
+DIR="lirc_build"
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
 if [[ "$release" = "14.04" ]]; then
@@ -27,10 +29,26 @@ else
 	dpkg -r liblirc-dev liblirc0 liblircclient-dev lirc lirc-doc lirc-x
 	apt install -y dh-exec dh-systemd doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial
 
-	cd lirc_build
-	tar -xvf lirc_0.10.1-6.orig.tar.gz
-
-	cd lirc-0.10.1
+	mkdir $DIR
+	cd $DIR
+	if [ -d $PKG ]; then
+		rm -fr $PKG
+	fi
+	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/lirc/0.10.1-6/lirc_0.10.1.orig.tar.gz
+	tar -xvf lirc_0.10.1.orig.tar.gz
+	rm -vf lirc_0.10.1.orig.tar.gz
+	cd ..
+	cp -v patches/lirc_0.10.1-6.patch $DIR/$PKG
+	cd $DIR/$PKG
+	patch -p1 < lirc_0.10.1-6.patch
+	rm -f lirc_0.10.1-6.patch
+	chmod 755 debian/install
+	chmod 755 debian/pbuilder-test
+	chmod 755 lirc-old2new
+	chmod 755 postrm
+	cd ..
+	tar -cvzf lirc_0.10.1-6.orig.tar.gz $PKG
+	cd $PKG
 	dpkg-buildpackage -uc -us
 	cd ..
 

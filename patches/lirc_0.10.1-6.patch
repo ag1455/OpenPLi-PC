@@ -1,0 +1,3631 @@
+diff -ruN o/debian/changelog n/debian/changelog
+--- o/debian/changelog	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/changelog	2019-12-29 12:40:08.000000000 +0300
+@@ -0,0 +1,1719 @@
++lirc (0.10.1-6-e2pc) unstable; urgency=medium
++
++  * Patch for e2pc by '1455'
++
++ -- Gianfranco Costamagna <locutusofborg@debian.org>  Sat, 28 Dec 2019 13:26:09 +0300
++
++lirc (0.10.1-6) unstable; urgency=medium
++
++  * Team upload
++  * debian/patches/lirc-gpio-ir-0.10.patch:
++    - fix for kernel 4.19 (Closes: #931078, 930485).
++
++ -- Gianfranco Costamagna <locutusofborg@debian.org>  Thu, 04 Jul 2019 16:43:06 +0200
++
++lirc (0.10.1-5.2) unstable; urgency=medium
++
++  * Non-maintainer upload.
++  * Revert removal of liblircclient{0,-dev} (Closes: #925477)
++  * Revert "Do not install conffiles in a dummy location" (Closes: #925066)
++
++ -- Tobias Frost <tobi@debian.org>  Sat, 06 Apr 2019 15:12:52 +0200
++
++lirc (0.10.1-5.1) unstable; urgency=medium
++
++  * Non-maintainer upload
++
++  * debian/rules
++    + Remove rdfind-based dedup (Closes: #919843)
++      Using dh_installdocs --link-docs was investigated, and rejected due to
++      - limited benefits;
++      - interactions between lirc-docs shipping files under /usr/share/doc/lirc,
++        but liblirc0 being the obvious candidate due to dependencies.
++
++    + Do not install conffiles in a dummy location
++      dpkg will, by default, not overwrite users' conffiles,
++      so shipping them in a different location is superfluous.
++
++  * Removed liblircclient{0,-dev}
++    They were obsolete transitional packages that predated the stretch release.
++
++  * Rename debian/post{inst,rm} to lirc.post{inst,rm}
++  * debian/lirc.{postinst,prerm}: Recompile and remove Python bytecode as needed
++    Closes: #924158
++
++  * debian/control: Fix relationships on liblirc{,client}-dev.
++    This should be Breaks+Replaces, not Conflict+Replaces.
++    Using the former should ensure that upgrading from stretch works smoothly.
++
++  * debian/changelog: Fix spelling in v0.10.1-4
++
++ -- Nicolas Braud-Santoni <nicoo@debian.org>  Tue, 12 Mar 2019 01:33:40 +0100
++
++lirc (0.10.1-5) unstable; urgency=medium
++
++  * Fix upstream #343, --connect parsing error.
++  * Add systemd-notify call -> lircd won't start with invalid config files.
++  * Move VCS repository (now separate from upstream).
++  * Fix lintian command-with-path-in-maintainer-script warning.
++  * Fix lintian warning for duplicate files; new rdfind(1) build dep.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Tue, 01 Jan 2019 09:19:01 -0500
++
++lirc (0.10.1-4) unstable; urgency=medium
++
++  [ Alec Leamas ]
++  * Don't use broken LOG_CONS syslog flag, closes: #872749.
++
++  [ Pino Toscano ]
++  * Fix build on !linux OS, restrict systemd only to linux OS. closes: #912400
++
++  [ Gianfranco Costamagna ]
++  * Team upload
++  * Restrict postinst systemd calls only if systemd is installed
++
++  [ Helmut Grohne ]
++  * Remove multiarch-annotation fom liblirc-dev (Closes: #874246)
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Fri, 23 Nov 2018 23:41:01 -0500
++
++lirc (0.10.1-3) unstable; urgency=medium
++
++  * Remove links created in postinst, closes: #911548.
++  * Add missing Recommends: systemd.
++  * Fix insecure URIs in d/control vcs-git: and d/copyright Format:.
++  * Add rudimentary upstream/metadata.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Thu, 25 Oct 2018 13:05:49 -0400
++
++lirc (0.10.1-2) unstable; urgency=medium
++
++  * Team upload.
++  * Update maintainer email address (Closes: #899981)
++
++ -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 15 Oct 2018 18:01:50 +0200
++
++lirc (0.10.1-1) unstable; urgency=medium
++
++  * New minor upstream release.
++  * Add fix for lirc-setup(1) crash on startup.
++  * Services besides lircd.socket disabled after install.
++  * Bump standards-version to 4.2.1 without changes.
++  * Drop 0001-build... patch now upstreamed.
++  * Obsolete priority: extra => optional.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Fri, 12 Oct 2018 16:51:50 -0400
++
++lirc (0.10.0-2) unstable; urgency=medium
++
++  * Fixed missing media/lirc.h, closes: #872074
++  * Fixed VCS browser path
++  * Fixed upstream bug #294 (VPATH build issues, in -1).
++  * Fixed upstream bug #295  - lircmd non-existing socket writes, in -1.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Sun, 13 Aug 2017 09:45:34 +0200
++
++lirc (0.10.0-1) unstable; urgency=medium
++
++  * New upstream release
++  * Upload to unstable
++  * Bump std-version to 4.0.1
++  * Drop dh-autoreconf, useless with compat level 10
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Sat, 12 Aug 2017 06:34:57 +0200
++
++lirc (0.10.0~rc3-1) experimental; urgency=medium
++
++  * New upstream release.
++  * kfreebsd build fixes.
++  * Remove lingering /etc/init.d/lirc, closes: #865376.
++  * Fix absolute path config files, closes: #860065 (rc1).
++  * Suggest stopping lircd in devinput "No device available" message,
++    closes: #860551 (rc1).
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Thu, 22 Jun 2017 12:22:52 +0200
++
++lirc (0.10.0~rc2-3) experimental; urgency=medium
++
++  * Fix broken dh_python3 invocation.
++  * Don't build plugins with runtime linkage errors on kfreebsd.
++  * Disable failing python unit tests on kfreebsd and hurd.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Wed, 14 Jun 2017 16:35:02 +0200
++
++lirc (0.10.0~rc2-2) experimental; urgency=medium
++
++  * Don't hardcode paths to socat and expect (test tools).
++  * Don't require socat for hurd builds.
++  * Don't run tests if socat is missing (e. g., hurd).
++  * Limit plugin load tests to look for errors.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Tue, 13 Jun 2017 23:24:50 +0200
++
++lirc (0.10.0~rc2-1) experimental; urgency=medium
++
++  * New upstream release
++  * Fixes upstream #290, lirc-setup does not start.
++  * Copyright changes reflecting excluded files in attic/
++  * Minimal testsuite.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Tue, 13 Jun 2017 11:51:06 +0200
++
++lirc (0.10.0~rc1-1) experimental; urgency=medium
++
++  * New upstream release.
++  * Most 0.9.4 patches upstreamed
++  * debian/rules update and debian/copyright
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Fri, 19 May 2017 16:57:42 +0200
++
++lirc (0.9.4c-9) unstable; urgency=medium
++
++  * Fix missing systemd socket activation (Closes: #859491).
++  * Fix package purge (Closes: #852118).
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Thu, 06 Apr 2017 05:23:20 +0200
++
++lirc (0.9.4c-8) unstable; urgency=medium
++
++  * Fix missinng deps for lirc-setup (Closes: #858144).
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Tue, 21 Mar 2017 17:50:54 +0100
++
++lirc (0.9.4c-7) unstable; urgency=medium
++
++  * Fix lirc_options.conf upgrade regression in 0.9.4c-6
++  * Actually add the hurd build patch missing in 0.9.4c-6
++  * Fix segfault on SET_INPUTLOG socket command (upstream #252).
++  * Fix bad handling of ircat --config options (upstream #251).
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Thu, 05 Jan 2017 00:05:35 +0100
++
++lirc (0.9.4c-6) unstable; urgency=medium
++
++  * Fix unsecure permissions for /run/lirc. Closes: #848135
++  * Fix missing config.h header (Upstream #250).
++  * Fix HURD build (Closes: #845499)
++    - Fix from Samuel Thibault
++  * Add missing Suggests: for lirc-compat-remotes.
++  * Fix --listen option parsing bug (upstream #249).
++  * Fix bad update handling of lirc_options.conf (see: #849266).
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Tue, 20 Dec 2016 12:36:19 +0100
++
++lirc (0.9.4c-5) unstable; urgency=medium
++
++  * Team upload.
++  * Updated README.debian, new package lirc-compat-remotes info.
++  * Added patch for missing lircd-setup.service file.
++  * Removed work-around for nowadays fixed  #801719.
++  * Added fix for remove --purge not purging all files.
++  * lirc-old2new fixes for default device.
++  * Fixed to build on freebsd platforms.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Wed, 02 Nov 2016 19:36:19 +0100
++
++lirc (0.9.4c-4) unstable; urgency=low
++
++  * Team upload.
++  * Upload to unstable.
++  * Resolves (new bugs) LP: #1636355, LP: #1636353
++  * Resolves (old bugs) LP: #1497266, LP: #1565070, LP: #1395570,
++    LP: #1393056, LP: #1310508, LP: #1203483, LP: #1438381,
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Fri, 28 Oct 2016 15:46:34 +0200
++
++lirc (0.9.4c-3) experimental; urgency=medium
++
++  * debian/control: Fix bad upgrade paths.
++  * Fix bad library specification in lirc.pc (#236)
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Tue, 25 Oct 2016 21:46:06 +0200
++
++lirc (0.9.4c-2) experimental; urgency=medium
++
++  * Fix unconfigured clients build errors.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Tue, 25 Oct 2016 10:32:39 +0200
++
++lirc (0.9.4c-1) experimental; urgency=medium
++
++  * New upstream release.
++  * New tool irtext2udp.
++  * Resolves build errors on kernels > 4.8.0A.
++  * Most of patches upstreamed.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Sat, 22 Oct 2016 14:52:05 +0200
++
++lirc (0.9.4b-0.3) experimental; urgency=medium
++
++  * Non-maintainer upload.
++
++  [ Gianfranco Costamagna ]
++  * fix arch:all build.
++
++  [ Alec Leamas ]
++  * Fix build errors on non-linux kernels.
++    (conditionalize udev dependency)
++
++ -- Gianfranco Costamagna <locutusofborg@debian.org>  Wed, 05 Oct 2016 19:30:47 +0200
++
++lirc (0.9.4b-0.2) experimental; urgency=medium
++
++  * Non-maintainer upload.
++  * Fix build errors on non-linux kernels.
++  * Declare liblirc0 as multi-arch; Closes: #812947.
++
++ -- Alec Leamas <leamas.alec@gmail.com>  Wed, 05 Oct 2016 06:07:40 +0200
++
++lirc (0.9.4b-0.1) experimental; urgency=medium
++
++  * Non-maintainer upload.
++  * First shot on major upstream updates.
++    - Re-packaged from scratch based on new dh primitives.
++    - Thanks for help on debian-mentors!
++  * New upstream release 0.9.4
++    - Release 0.9.1 .. 0.9.3 was never packaged.
++    - Old 'lirc' service split into separate systemd services:
++      lircd.service, lircmd.service and irexec.service.
++    - Remote definitions moved out of lirc to new project
++      lirc-remotes; affects large number of LP issues.
++    - Builds also on FreeBSD 10.3.
++    - Fixes "Not updated to last version" (Closes: #777199),
++      LP: #1443590.
++    - Fixes "Default device for mode2 is /dev/lirc" (Closes: #702140).
++    - Fixes "/var/run/lirc contents disappear..." (Closes: #676343).
++    - Fixes "lircrcd segfaults" (Closes: #780062).
++    - Fixes "'/etc/init.d/lirc restart' is broken" (Closes: #782091).
++    - Fixes "Prompting due to modified conffiles..." (Closes: #655969).
++    - Fixes "LIRC installs bad udev rule" (Closes: #804397),
++      users depending on this rule will need to explicitly start lircd.
++    - Fixes "lirc init script can create circular symlinks", LP: #698007.
++    - Fixes "Update Uploaders List (Closes: #762554).
++    - Fixes "Please switch to libftdi1" (Closes:  #810370).
++    - Fixes LP: #153457 "iguanaIR support not functional".
++    - Fixes LP: #460027 "using lirc init script restart function fails
++      sometimes".
++    - Fixes LP: #499588 "lirc udev rule causes unreliable startup".
++    - Fixes LP: #567519 "lircd(8) mentions non-existent
++      /dev/input/uinput".
++    - Fixes LP: #1029604 "mce remote doesn't work due to out of date
++      lircd.conf.devinput".
++    - Fixes LP: #1312287 "lircd start problem".
++  * The built-in irman support is moved to the lirc-drv-irman package.
++  * Revised package structure: keep old liblircclient0 (renamed to
++    liblirc-client0). Adding new packages liblirc0, liblirc-dev and
++    lirc-doc. Former liblircclient-dev merged into new liblirc-dev.
++  * Don't overwrite existing lircd.conf file.
++  * Ship sysV scripts from the svn tree [Stefan Lippers-Hollmann]
++  * Add handling of obsolete 0.9.0 udev rule restarting lircd
++  * Old lircd output socket link /dev/lirc dropped. Use
++    /var/run/lirc/lircd.
++  * Updated copyright
++  * Update compiler flags: -Wl,as-needed + hardening
++    [Stefan Lippers-Hollmann]
++  * Avoid negative architecture deps like [!hurd] (Closes: #634807)
++    [Stefan Lippers-Hollmann]
++  * Add patch 0007-tools-remove-configs-symlink.patch + explicit link
++    to walk around #801719 (dh_python3 shortcomings).
++  * Last parts of libirman dependencies removed.
++  * Changing Vcs-* headers to point to upstream packaging branch.
++  * Fixes existing large number of upgrade bugs.
++  * Enhance hardening flags.
++  * Add a lintian pbuilder test, this requires --hookdir and B92-test-pkg
++    therein.
++  * Tested (build-wise) on stretch and sid.
++
++ -- Alec Leamas  <leamas.alec@gmail.com>  Thu, 26 May 2016 11:14:25 +0100
++
++lirc (0.9.0~pre1-1.2) unstable; urgency=medium
++
++  * Non-maintainer upload.
++  * Fix "unhandled symlink to directory conversion: /usr/share/doc/PACKAGE":
++    - add "Pre-Depends: ${misc:Pre-Depends}" to lirc-x stanza in
++      debian/control
++    - add debian/lirc-x.maintscript with symlink_to_dir instruction
++    (Closes: #774867)
++
++ -- gregor herrmann <gregoa@debian.org>  Sat, 17 Jan 2015 19:51:55 +0100
++
++lirc (0.9.0~pre1-1.1) unstable; urgency=low
++
++  * Non-maintainer upload with maintainers permission.
++  * Add dh-autoreconf to fix FTBFS on ppc64el. Closes: #746505
++
++ -- Andreas Barth <aba@ayous.org>  Thu, 11 Sep 2014 09:18:17 +0000
++
++lirc (0.9.0~pre1-1) unstable; urgency=low
++
++  [ Sven Mueller ]
++  * remove myself from uploaders
++
++  [ Stefan Lippers-Hollmann ]
++  * new upstream version 0.9.0~pre1:
++    - rediff patches against 0.8.6:
++      + drop 20_kcompat-2.6.26.patch, applied upstream.
++      + drop 21_silence-LIRC_MODE_LIRCCODE-logmessage.patch, it's no longer
++        necessary due to udev & hal acting upon hotplug events.
++      + drop 22_kcompat-2.6.27.patch, applied upstream.
++      + drop 23_man_pages_style_fixes.patch, mostly applied upstream.
++      + drop 24_kcompat-2.6.29.patch, applied upstream.
++      + drop 25_kcompat-2.6.31.patch, applied upstream.
++    - fixed by the new upstream version:
++      + lirc: Please update to version 0.8.4a (Closes: #517507).
++      + lirc: The version upstream is now at 0.8.6. Please upgrade this
++        package as it's a show stopper for me (Closes: #548826).
++      + lirc-modules-source: lirc_imon doesnt find hardware (Closes: #500714).
++      + lirc: Please add support for blaster of Hauppauge PVR150
++        (Closes: 505049).
++    - rediff patches against 0.8.7:
++      + drop 23_kcompat-2.6.32.patch, merged upstream
++      + drop kcompat-2.6.33.patch, merged upstream
++      + drop kcompat-2.6.35.patch, merged upstream
++      + add fix-kfreebsd-ftbs.patch
++    - fixes FTBS on Debian/ kFreeBSD, introduced in 0.8.6
++    - rediff patches against 0.9.0~pre1:
++      + import upstream changes (lirc-0.8.7-63-g77c9429):
++        ~ Remove-a-few-more-CVS-relics
++        ~ add-release-process-notes-for-my-own-sanity
++        ~ add-lirc-encoder-decoder-regression-test
++        ~ make-all-remote-names-unique
++        ~ updated-firefly-remote-definition-from-Bastien-Nocer
++        ~ try-to-standardize-remote-key-names-a-fair-bit
++        ~ lirc_serial-fill-in-dev-pointer
++        ~ Attempt-to-make-lirc_sir-behave-a-bit-better
++        ~ lirc_serial-resync-with-in-kernel-bits
++        ~ commandir-send_status-vs.-packetCounter-bug-fix
++        ~ lirc_serial-fix-tx-support-and-a-memory-leak
++      + drop 99_linux-input-layer_config, it should be obsolete now.
++      + drop lirc-in-kernel-ioctls, merged upstream.
++      + drop 18_pinsys-keycodes.
++      + update fix-kfreebsd-ftbs.patch to fix newly introduced __u32/ __u64
++        breakage on kFreeBSD; extend this change to all non-linux
++        architectures, given that it fails on hurd as well. Use stdint.h and
++        ISO C99 uint32_t/ uint64_t.
++      + drop 11_cheklib_fix.patch; while it is technically correct, it doesn't
++        actually have a real effect and is not upstreamable.
++      + drop 90_make-module-defines-unique.patch and warning-cleanup.patch,
++        lirc-modules-source doesn't get built anymore.
++      + avoid patching generated Makefiles by ensuring identical dates to avoid
++        autofoo/ libtool; this allows dropping 02_Makefiles.patch.
++      + drop 12_enodev_on_read.patch, it doesn't appear to be required anymore.
++  * suggest setserial (Closes: #546247).
++  * drop the udevadm settle call from the init script, it can lead to a
++    deadlock in combination with hotpluggable/ udev aware devices.
++  * fix conditional branches for 22_kcompat-2.6.27.patch (Closes: #547359).
++  * switch to Debian source format 3.0 (quilt).
++  * adapt watch file for bzip2 tarballs.
++  * drop debian/TODO, most entries are obsolete.
++  * create /var/run/lirc/ as needed.
++  * use --oknodo for start-stop-daemon.
++  * lirc 0.8.6 moves the lircd socket from /dev/ to /var/run/lirc/, create a
++    symlink to retain compatibility with old clients.
++  * partial sync with Ubuntu's lirc 0.8.6-0ubuntu2:
++    [ Mario Limonciello ]
++    - debian/control: add build-depends on libftdi-dev to prevent FTBFS.
++    - [PATCH 8/8] Add udev support to lirc and init script
++    - remove build time debug messages for kernel drivers
++  * add compatibility for kernel 2.6.32 (Closes: #562512, #588027).
++  * add compatibility for kernel 2.6.33/ 2.6.34.
++  * add maintainerclean target to debian/rules, to ease dealing with the
++    current way of maintaining the lirc package with svn-buildpackage's
++    mergeWithUpstream mode.
++  * document the kernel/ userspace ABI breakage between lirc 0.8.6 and earlier
++    versions in NEWS.
++  * debian/rules: fix stanza dependencies for parallel building (FTBS on
++    buildds with activated build concurrency).
++  * fix lintian complaint about "lirc: conflicts-with-version makedev
++    (<< 2.3.1-88)", a recent enough makedev (or none at all, if using udev) is
++    only required by postinst, not at unpack time.
++  * debian/NEWS: fix cosmetic formatting issues as pointed out by lintian:
++    - lirc: debian-news-entry-uses-asterisk
++    - lirc: debian-news-entry-without-blank-line line 13
++  * add compatibility for kernel 2.6.35.
++  * bump compat level to 8, supported by debhelper >=7.9.3 in squeeze.
++    - replace dh_clean -k by dh_prep.
++  * drop silent clobbering of the lirc configuration with misplaced files.
++  * make syntax check for hardware.conf more robust.
++  * drop obsolete lirc-svga package, its functionality is also provided by
++    lirc-x and has only been built for x86.
++  * drop and conflict with (using breaks) lirc-modules-source, starting with
++    kernel 2.6.36 lirc has been merged mainline and this package targets
++    post-squeeze anyways - this indirectly fixes:
++    - Failed to attach i2c client PV951 IR at 0x4b (-17) (Closes: #500429)
++    - lirc 0.8.3-5 breaks mceusb2 remote (Closes: #551706), replaced by new
++      in-kernel RC_CORE module "mceusb".
++    - lirc_sir: device fails to resume after suspend (Closes: #414014)
++    - sysfs: duplicate filename '0-0018' can not be created (Closes: #496681)
++  * rename patches for upstream submission:
++    - 04_man_pages_syntax_fixes.patch --> man-pages_syntax-fixes.patch
++    - 05_non_linux.patch --> lirc_fix-build-on-non-Linux-architectures.patch
++    - 22_fix-spelling-errors.patch --> lirc_fix-spelling-errors.patch
++    - 13_hurd_define_iotbase_u32.patch --> hurd_define-iotbase_u32.patch
++  * external ABI between kernel modules broke between 0.8.3 --> 0.8.4 and
++    0.8.7 --> 0.9.0, break lirc-modules-source (<<0.9.0~).
++  * drop obsolete debconf configuration:
++    - lirc should use debconf more fully (Closes: #162933)
++    - [INTL:nl] Updated Dutch po-debconf translation (Closes: #605610).
++    - [INTL:da] Danish translation of the debconf templates (Closes: #607575)
++  * drop pre-woody compatibility.
++  * don't try to install the upstream "ChangeLog", it's empty since upstream
++    moved to git.
++  * don't symlink /usr/share/doc/<package>/ anymore.
++  * declare a build-conflicts with libsvga1-dev.
++  * suggest "ir-keytable", it is required to configure scancodes for in-kernel
++    modules using the new RC_CORE subsystem.
++  * bump standards version to 3.9.1, now that the major roadblocks are finally
++    fixed.
++  * document that lirc uses syslog for all logging functionality since 0.6.5-1,
++    (Closes: #580666).
++  * use current maintainer script syntax.
++  * drop pre-squeeze versioned depends.
++
++ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 20 Feb 2011 22:32:56 +0100
++
++lirc (0.8.3-5) unstable; urgency=low
++
++  * fix override disparity by moving lirc-modules-source to section kernel.
++  * update 05_non_linux.patch to fix an FTBS on kFreeBSD, thanks to Petr
++    Salinger <Petr.Salinger@seznam.cz> and Aurelien Jarno
++    <aurelien@aurel32.net> (Closes: #540742). This allows dropping
++    06_libtool_kfreebsd, thanks to Aurelien Jarno.
++  * use *.patch suffix consistently for all patches, no patch changes.
++  * clarify patch names for manpages.
++  * refresh patch series.
++
++ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 10 Aug 2009 16:00:21 +0200
++
++lirc (0.8.3-4) unstable; urgency=medium
++
++  [ Stefan Lippers-Hollmann ]
++  * add kernel 2.6.27 compatibility (Closes: #506693).
++  * update italian debconf translation, thanks to Vincenzo Campanella
++    <vinz65@gmail.com> (Closes: #502602).
++  * add kernel 2.6.29 compatibility (Closes: #537197).
++  * s/(C)/©/ in copyright information.
++  * add kernel 2.6.31 compatibility.
++  * updating Basque debconf translation update, thanks to Piarres Beobide
++    <pi+debian@beobide.net> (Closes: #513433).
++  * sync with Ubuntu, where possible - thanks to Mario Limonciello
++    <superm1@ubuntu.com> (Closes: #500384):
++    - [PATCH 2/8] Cleanup whitespace in lirc.postinst
++    - [PATCH 7/8] Source lsb init functions in init script
++      - apply this patch first, we can't use any LSB function without
++        sourcing it first.
++      - depend on lsb-base.
++    - [PATCH 3/8] Update load_modules to use LSB functions
++      - keep the udevadm settle call, we need it for now.
++      - local var=foo is neither allowed by SUSv3, nor by Debian's special
++        excemptions; fix this bashism/ dashism.
++      - continue to use tab to indent.
++    - [PATCH 4/8] Update build_args to only check a single device
++      - local var=foo is neither allowed by SUSv3, nor by Debian's special
++        excemptions; fix this bashism/ dashism.
++      - continue to use tab to indent.
++    - [PATCH 5/8] Use LSB functions to show errors when conf files are missing
++      - continue to use tab to indent.
++      - remove commented out tests.
++    - [PATCH 6/8] Cleanup case statement to use LSB functions and whitespace
++      cleanup
++      - continue to use tab to indent.
++      - fix newly introduced syntax errors.
++  * employ standard line wrapping in debian/control stanzas.
++  * refer to GPL-2 explicitly in debian/copyright.
++  * make lintian happy and don't call ucf with its full path (policy 6.1).
++  * install upstream changelog also into arch-indep packages.
++  * severity medium, as this fixes lirc-modules-source FTBS against
++    kernel >= 2.6.27.
++
++  [ Matthew Johnson ]
++  * update some manpage patches (04_man_pages/22_man_pages2). Patches thanks
++    to Philipp Matthias Hahn <pmhahn@debian.org>. (Closes: #513675)
++
++ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 07 Aug 2009 00:38:08 +0200
++
++lirc (0.8.3-3) unstable; urgency=low
++
++  * update swedish translation, thanks to Martin Bagge <brother@bsnet.se>
++    (Closes: #491772).
++  * add italian debconf translation, thanks to Vincenzo Campanella
++    <vinz65@gmail.com>.
++  * silence LIRC_MODE_LIRCCODE log message, as it is not rate limited and
++    tends to overflow syslog in case IR receivers get removed without
++    stopping lirc or removing the configuration; this is a temporary
++    band-aid for lenny and no long term solution (Closes: #500421).
++
++ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 30 Sep 2008 01:28:27 +0200
++
++lirc (0.8.3-2) unstable; urgency=medium
++
++  * remove dead code (modutils has only been used for kernel 2.4 and the
++    affected code blocks weren't reachable since 0.8.3-1 anyways, as the
++    conffile wasn't shipped in the first place).
++  * conflict with makedev << 2.3.1-88, lirc either needs a fixed version or
++    none at all (Closes: #477063).
++  * 0.8.3-1 hasn't transitioned to testing yet, so keep the urgency at medium
++    as it fixes several serious bugs (oops in lirc_i2c on kernel 2.6.25, FTBS
++    against 2.6.26, missing module versions rejected by kernel >= 2.6.26,
++    custom mknod replaced by proper makedev calls, if installed).
++
++ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 16 Jul 2008 13:35:32 +0200
++
++lirc (0.8.3-1) unstable; urgency=medium
++
++  [ Stefan Lippers-Hollmann ]
++  * new upstream release 0.8.3 (Closes: #481649).
++  * rediff patches:
++    - 02_Makefile.in
++    - 04_man_pages
++    - 05_non_linux
++    - 06_libtool_kfreebsd
++  * drop patches merged upstream:
++    - 16_kcompat-2.6.23
++    - 17_kcompat-2.6.24
++    - 20_kcompat-2.6.25
++    - 19_enable-macmini-as-userspace-driver
++  * remove local scope definition for variables in lirc.init.d following
++    SUSv3, its current use for MODULES_MISSING and ARGS doesn't justify
++    making use of the exceptions specified in Debian policy 10.4
++    (Closes: #471422).
++  * fix copy and paste error in lirc-modules-source.README.Debian.
++  * lirc_i2c: fix kernel oops on 2.6.25, patch taken from upstream CVS.
++  * change debconf defaults for lirc-modules-source:
++    - drop lirc_gpio, it is affected by API changes in bttv and FTBS since
++      2.6.23.
++    - enable atiusb.
++    - enable bt829.
++    - enable cmdir.
++    - enable igorplugusb.
++    - enable imon.
++    - enable it87.
++    - enable mceusb/ mceusb2.
++    - keep lirc_parallel disabled, it is not SMP safe.
++    - enable sasem.
++    - enable streamzap.
++    - enable sir, keep the defaults at generic sir controller (other) port
++      0x2f8 and irq 3, which seems to be supported by a short poll among
++      notebook owners.
++    - enable serial, keep defaulting to generic (home-brewed) IR receivers,
++      change to ttyS0 (port 0x3f8, irq 4) as most concurrently sold systems
++      only ship one serial port.
++  * replace custom mknod usage by using makdev's newly added lirc support and
++    add a versioned dependency on a fixed makedev version instead. This
++    dependency can be relaxed to udev | makedev, once makedev (>= 2.3.1-88)
++    has been shipped in a stable release. Given that Breaks support isn't
++    usable until lenny+1, this conservative approach is the safer variant for
++    etch --> lenny upgrades (Closes: #393575, #477063).
++  * drop debian/lirc.config.in, which was added as a bandaid for #329897
++    alltogether, neither it nor setup-driver.sh are used anywhere on the end
++    user's system; this allows dropping the pre-dependency on dialog and
++    lirc.config.md5sum as well.
++  * add a sanity check to debian/rules' clean target to ensure that
++    liblirclient0's pkg-config file is up to date.
++  * add compatibility code for udev >= 0.117, avoid flag day changes or a hard
++    dependency on udev; inspired by Scott James Remnant <scott@ubuntu.com>
++    (Closes: #456325).
++  * restructure lirc-modules-source package to dump all module sources
++    directly into the toplevel directory (omit upstream's Makefiles from
++    module subdirectories) and replace custom toplevel Makefile with a simple
++    in-kernel style buildsystem. This fixes symbol versioning for the kernel
++    modules and, as a side effect, the clean target of the top-level Makefile
++    and doesn't allow empty port/ IRQ settings.
++    (Closes: #450521, #483089, #369076)
++  * add compatibility patch for kernels >= 2.6.26, based on upstream CVS.
++  * drop debian/lirc.modules, modutils is obsolete (kernel 2.4).
++  * make lirc-modules-source compatible with linux-modules-extra-2.6:
++    - use bzip2 to compress the source tarball.
++    - change path names to correspond with the package name.
++  * fix LIRC_IRQ redefinition.
++
++  [ Matthew Johnson ]
++  * Add pkg-config file (Closes: #421881)
++
++  [ Sven Mueller ]
++  * Add swedish translation (Closes: #483766)
++
++  [ Matthew Johnson ]
++  * Raise priority to medium since it fixes kernel-related bugs
++
++ -- Matthew Johnson <mjj29@debian.org>  Tue, 15 Jul 2008 18:56:26 +0100
++
++lirc (0.8.2-2) unstable; urgency=low
++
++  [ Sven Mueller ]
++  * Add some additional checks to the init script (Closes: #394663)
++  * Update lirc-modules-source README.Debian to refer to module-assistant
++    (Closes: #429249)
++  * New upstream closes: #409394,#432801,434569,#350318,#399135,#400494,#368075
++  * dpkg-reconfigure lirc-modules-source will now make
++    /etc/lirc/lirc-modules-source.conf world-readable. This should not be a
++    security risk, but allows building modules as a user via fakeroot. This
++    closes: #445324
++
++  [ Matthew Johnson ]
++  * New translations (Closes: #443470)
++    - cs (Closes: #451793)
++    - fr (Closes: #445587)
++    - fi (Closes: #445650)
++    - pt_BR (Closes: #445736)
++    - es (Closes: #459267,#463737)
++    - nb (Closes: #443470,#470104)
++    - ru (Closes: #445426)
++    - de (Closes: #445556,#446378)
++    - pt (Closes: #445653)
++    - cs (Closes: #451793)
++  * Add slh to uploaders, remove old developers.
++  * Refactor patches to use quilt and update dependencies
++  * Add Linux Input Layer remote config (Closes: #297290)
++
++  [ Stefan Lippers-Hollmann ]
++  * remove devfs support, it got removed in mainline linux for 2.6.18 so
++    neither etch nor lenny are affected.
++  * add LSB header to lirc initscript as suggested by Petter Reinholdtsen
++    <pere@hungry.com> (Closes: #460212).
++  * add LSB Description and Short-Description to initscript LSB stanza,
++    borrowed from Ubuntu's lirc packages by Mario Limonciello
++    <superm1@ubuntu.com>.
++  * apply patch from Václav Ovsík <vaclav.ovsik@i.cz> to fix Makefile
++    mangling for lirc-source, evaluating utsrelease.h instead of the no longer
++    existing version.h and recommend linux-image-$KVERS instead of the
++    obsolete kernel-image-$KVERS (Closes: #447172).
++  * drop no longer existing dpatch suffix from patch series and refresh
++    existing patches.
++  * add compatibility patch for kernels >= 2.6.24, based on upstream CVS
++    (Closes: #399135, #434569, #457858, #463388, #464777).
++  * fix lirc.conf template for pinsys remotes, shortly before lirc 0.8.2 the
++    keymapping got broken.
++  * remove versioned download location from debian/copyright, it's always
++    outdated and the base path will point to the download location just as
++    well.
++  * apply useful indention from Ubuntu to debian/rules.
++  * Recommend module-assistant | kernel-package for lirc-modules-source.
++  * add watch file pointing to lirc.org, not sourceforge.
++  * restore author information and short descriptions for debian/patches/*.
++  * add Basque translation "eu", thanks to Christian Perrier
++    <bubulle@debian.org> and Piarres Beobide <pi@beobide.net>
++    (Closes: #470363).
++  * fix debian/copyright to refer to "GPL v2 or later", not a single source
++    file seems to be licensed under the GPL v1.
++  * rewrite debian/modules-source/debian/rules from scratch and rely on common
++    kernel module handling based in module-assistant, this allows bumping the
++    standards version to 3.7.3 (Closes: #372815, #440514).
++  * add Homepage, Vcs-Svn and Vcs-Browser tags.
++  * modules-source/README.make is obsolete, as it only talks about kernel 2.2
++    and 2.4 specifics, while kernel 2.6 is covered by the other READMEs.
++  * drop bogus Recommends from lirc-modules-source, build-essentials are an
++    implicit requirement by definition.
++  * drop no longer valid statements from the module READMEs.
++  * no longer try to install etc/modutils/*, lenny will not support kernel
++    2.4.
++  * bump compat level to 5, which is supported by etch (backports), but lets
++    dh_install error out if wildcards expand to nothing.
++  * drop 03_extra_files, shipping private copies of bttv headers for random
++    kernels doesn't work.
++  * run debconf-updatepo, confirm that no strings get lost.
++  * remove informal_module_building(), while it may look convenient to the
++    user, the results were unpackaged modules of questionable quality that
++    cannot be removed on purge. module-assistant or make-kpkg are the
++    preferred way of module building (Closes: #404505).
++  * Update and partly rewrite the module source documentation to the new
++    packaging and explicitly mention the full source requirement for gio
++    (Closes: #429249).
++  * add patch based on upstream CVS to include the macmini driver in the
++    hw_list used for calculating the userspace daemon config options
++    (Closes: #448637).
++  * set doc-base section to "Help", which seems to be suited best for a
++    collection of pointers about how to work with the LIRC package.
++  * fix broken whatis headers in shipped manpages.
++
++ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 15 Mar 2008 02:18:01 +0100
++
++lirc (0.8.2-1) experimental; urgency=low
++
++  * Initial release of new upstream
++
++ -- Sven Mueller <sven@debian.org>  Tue, 16 Oct 2007 18:28:57 +0200
++
++lirc (0.8.0-14) unstable; urgency=low
++
++  [ Christian Perrier ]
++  * Debconf templates and debian/control reviewed by the debian-l10n-
++    english team as part of the Smith review project. Closes: #443270, #443470
++    (the latter bug is about outdated translations)
++
++  [Debconf translation updates]
++
++  * Japanese. Closes: #444091
++  * Vietnamese. Closes: #444436
++  * Galician. Closes: #444752
++  * Russian. Closes: #445426
++  * German. Closes: #445556, #446378
++  * French. Closes: #445587
++  * Finnish. Closes: #445650
++  * Portuguese. Closes: #445653
++  * Brazilian Portuguese. Closes: #445736
++  * Czech. Closes: #445655
++
++  [ Sven Mueller ]
++  * Add compatibility patch for kernels >= 2.6.23 (closes: #446650)
++
++ -- Sven Mueller <sven@debian.org>  Tue, 16 Oct 2007 17:02:54 +0200
++
++lirc (0.8.0-13) unstable; urgency=low
++
++  [ Loic Minier ]
++  * Update 14_no_linux_config_h patch to also drop <linux/config.h> include
++    from lirc_atiusb/lirc_atiusb.c, lirc_bt829/lirc_bt829.c,
++    lirc_cmdir/lirc_cmdir.c, lirc_igorplugusb/lirc_igorplugusb.c,
++    lirc_imon/lirc_imon.c, lirc_it87/lirc_it87.c, lirc_mceusb/lirc_mceusb.c,
++    lirc_mceusb2/lirc_mceusb2.c, lirc_parallel/lirc_parallel.c,
++    lirc_sasem/lirc_sasem.c, lirc_serial/lirc_serial.c, lirc_sir/lirc_sir.c,
++    lirc_streamzap/lirc_streamzap.c; thanks Florent Rougon; see #400494 and
++    #436166.
++
++  [ Sven Mueller ]
++  * add patch to replace SLAB_ATOMIC usage with the more current equivalent
++    GFP_ATOMIC.
++  * incorporate update to debconf templates, thanks to Christian Perrier and
++    the english l10n team. (Closes: #443270)
++  * Update german translation
++  * Add option to start irexec in daemon mode from /etc/init.d/lirc (Closes:
++    #184245)
++  * Add myself to the Uploaders field
++  * Update galician (Closes: #444752), vietnamese (Closes: #444436) and
++    japanese (Closes: #444091) debconf translations.
++
++ -- Sven Mueller <sven@debian.org>  Wed,  3 Oct 2007 15:04:58 +0200
++
++lirc (0.8.0-12) unstable; urgency=medium
++
++  * Fix bashism in rules; thanks Martin F Krafft; closes: #437530.
++
++ -- Loic Minier <lool@dooz.org>  Mon, 13 Aug 2007 09:55:28 +0200
++
++lirc (0.8.0-11) unstable; urgency=low
++
++  * Update config.guess and .sub with autotools-dev's versions before running
++    configure.
++
++ -- Loic Minier <lool@dooz.org>  Sun, 12 Aug 2007 11:04:48 +0200
++
++lirc (0.8.0-10) unstable; urgency=low
++
++  * Add myself to uploaders for some QA work.
++  * Cleanup changelog.
++  * Wrap build-deps, deps, and uploaders.
++  * Use ${binary:Version} instead of ${Source-Version}.
++  * Cleanup rules.
++  * Merge diff from 0.8.0-9.3 NMU; thanks Steffen Joeris.
++  * Merge diff from 0.8.0-9.2 (and 0.8.0-9.1?!) NMUs; thanks
++    Christian Perrier.
++  * Merge 0.8.0-9.1 changelog entry into 0.8.0-9.2 as it seems there never was
++    a 0.8.0-9.1 upload.
++  * Update Vietnamese Debconf translation; thanks Clytie Siddall;
++    closes: #427007.
++  * Drop funny "set -e" from rules.
++  * Only pass --host to configure if DEB_HOST_GNU_TYPE and DEB_BUILD_GNU_TYPE
++    differ.
++  * Honor make clean errors.
++  * Add Russian Debconf translation; thanks Yuri Kozlov; closes: #432743.
++  * Check whether $START_LIRCMD and $START_LIRCD equals true instead of
++    checking whether it's non-empty as the init script sets these to "false"
++    in some cases; thanks Achim Lobbert; closes: #424912.
++  * New dpatch, 12_enodev_on_read, close device if read() returns ENODEV;
++    fixes infinite loop; thanks Alexander V. Inyukhin; closes: #430898.
++  * Drop -k flag to modprobe in init scripts; is undocumented and seems to be
++    a noop.
++  * New dpatch, 13_hurd_define_iotbase_u32, define _IOT__IOTBASE___u32 if
++    missing; fixes build failure on hurd; thanks Samuel Thibault;
++    closes: #436570.
++  * Do not build-dep on libusb-dev on hurd-i386; thanks Samuel Thibault;
++    closes: #436570.
++  * New dpatch, 14_no_linux_config_h, drops linux/config.h include which isn't
++    available anymore, but doesn't seem necessary either; parly fixes #436166,
++    it seems to also require bttv.h which went missing from linux-headers-*.
++
++ -- Loic Minier <lool@dooz.org>  Fri, 10 Aug 2007 15:11:20 +0200
++
++lirc (0.8.0-9.3) unstable; urgency=high
++
++  * Non-maintainer upload during BSP
++  * Fix unconditional use of debconf in postrm (Closes: #416930)
++
++ -- Steffen Joeris <white@debian.org>  Sat, 19 May 2007 22:24:22 +1000
++
++lirc (0.8.0-9.2) unstable; urgency=low
++
++  * Non-maintainer upload to fix pending l10n issues.
++  * Debconf translations:
++    - German. Closes: #399304
++    - Galician. Closes: #407277
++    - Swedish. Closes: #408289
++    - Spanish. Closes: #393864
++
++ -- Christian Perrier <bubulle@debian.org>  Sat, 17 Feb 2007 18:05:06 +0100
++
++lirc (0.8.0-9) unstable; urgency=low
++
++  * Rebuilding to fix and erroneous depend. (Closes: #393316, #393297, #393351)
++
++ -- Hector Garcia <hector@debian.org>  Mon, 16 Oct 2006 11:18:21 +0200
++
++lirc (0.8.0-8) unstable; urgency=low
++
++  [ Hector Garcia ]
++  * Added 09_lirc_drivers_2.6.18_compatibility patch by Thomas Creutz
++    (Closes: #387715)
++  * Fixed 03_extra_files to support 2.6.17 and 2.6.18. By Thomas Creutz
++    (Closes: #387715, #378395)
++  * Updated cs.po by Miroslav Jezbera. (Closes: #389248)
++  * Added patch to lirc_i2c from upstream CVS. By Jim Heck
++  * Added patch 11_cheklib_fix to remove extra depends.
++  * Updated po/es.po
++
++  [ Amaya Rodrigo Sastre ]
++  * Use debian/compat instead of DH_COMPAT=4 in debian/rules. Thanks Guillem
++    Jover for pointing this out.
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Tue, 10 Oct 2006 10:31:48 +0200
++
++lirc (0.8.0-7) unstable; urgency=low
++
++  * Update french debconf template (Closes: #384619)
++  * Update logcheck file (Closes: #385025)
++
++ -- Julien Danjou <acid@debian.org>  Mon, 18 Sep 2006 14:00:57 +0200
++
++lirc (0.8.0-6) unstable; urgency=low
++
++  [ Amaya Rodrigo Sastre ]
++  * Added debconf templates translation update:
++    - French (Closes: #370479).
++    - Portuguese (Closes: #373129).
++    - Dutch (Closes: #373828).
++    - Japanese (Closes: #379937).
++  * Use DH_COMPAT=4 in debian/rules. Got rid of debian/compat.
++  * Added debconf-updatepo to de debian/rules clean target (Closes: 372911).
++
++  [ Hector Garcia ]
++  * Updated debian/patches/04_man_pages.dpatch
++
++ -- Hector Garcia <hector@debian.org>  Fri, 18 Aug 2006 22:23:46 +0200
++
++lirc (0.8.0-5) unstable; urgency=low
++
++  [ Aurelien Jarno ]
++  * debian/modules-source/debian/rules: simplify the call to
++    dpkg-architecture.
++  * debian/modules-source/debian/rules: take account of old dpkg-architecture
++    output.  (Closes: #371050).
++  * debian/control: Recommends dpkg-dev (>= 1.13). Drop the recommends on
++    dpkg (>= 1.13).
++
++  [ Julien Danjou ]
++  * Don't create udev queue in init script (Closes: #370745)
++
++ -- Julien Danjou <acid@debian.org>  Sun, 11 Jun 2006 14:18:07 +0200
++
++lirc (0.8.0-4) unstable; urgency=low
++
++  * Wait for devices to be up using udevsettle (Closes: #362217)
++  * Updated dutch po-debconf translation (Closes: #370218)
++  * Fix lintian warning about lirc and lirc-modules-source templates
++
++ -- Julien Danjou <acid@debian.org>  Sun,  4 Jun 2006 16:44:13 +0200
++
++lirc (0.8.0-3) unstable; urgency=low
++
++  [ Cyril Lacoux ]
++  * Added 08_min_code_repeat.dpatch, to allow proper interpretation of repeat
++    signals for Creative RM-900 (Closes: #367521).
++
++  [ Aurelien Jarno ]
++  * Updated German debconf templates translation. Thanks to Franz Pletz
++   (Closes: #367874).
++
++ -- Julien Danjou <acid@debian.org>  Tue, 23 May 2006 11:01:08 +0200
++
++lirc (0.8.0-2) unstable; urgency=low
++
++  [ Julien Danjou ]
++  * Include etc/lirc in lirc-modules-source.dirs (Closes: #342568)
++  * Fix compilation for non-root users (Closes: #297170)
++
++  [ Aurelien Jarno ]
++  * Updated German debconf templates translation. Thanks to Franz Pletz
++    (Closes: #367274).
++  * Fixed typos in debconf templates (Closes: #312498).
++
++ -- Julien Danjou <acid@debian.org>  Tue, 16 May 2006 12:45:59 +0200
++
++lirc (0.8.0-1) experimental; urgency=low
++
++  [ Hector Garcia ]
++  * New upstream release. (Closes: #349641, #352573)
++    - Added support up to for 2.6.15 kernels.
++    - dvico driver is enabled by default (Closes: #348753)
++  * Removed 02_aclocal.dpatch, not needed anymore.
++  * Ported 04_man_pages to this release.
++  * Ported 01_irxevent.dpatch to this release.
++  * Changed with-drivers to userspace to build only the userspace drivers
++    and keep only the kernel-space on the modules package.
++  * Added 02_Makefile.in.dpatch, to prevent autotools from getting run on
++    every build.
++  * Recompile with driver=userspace (Closes: #352767, #351723, #348390)
++
++  [ Julien Danjou ]
++  * Add lirc_dev dependency to it87
++  * Fix build-depends on libsvga1-dev rather than svgalibg1-dev
++    (Closes: #350791)
++  * Add lircrcd
++  * Add a patch to allow some drivers to compile with linux 2.6.16
++  * Add patches from Cyril Lacoux <clacoux@easter-eggs.com>
++    - Compile all modules
++    - Support 2 flavors for it87 (standard/digimatrix)
++    - Improve debconf template
++    - module-assistant works fine
++    - Add missing files for gpio
++
++  [ Aurelien Jarno ]
++  * Added Swedish debconf templates translation. Thanks to Daniel Nylander
++    (Closes: #339544)
++  * Added Dutch debconf templates translation. Thanks to Kurt De Bree
++    (Closes: #364033)
++  * Enable lirc-svga on amd64.
++  * Added support for non-Linux architectures:
++    - Don't build-depends on libasound2-dev on hurd-i386, kfreebsd-i386 and
++      kfreebsd-amd64.
++    - Added 05_non_linux.dpatch, to make lirc buildable on non-Linux
++      architectures.
++    - Added 06_libtool_kfreebsd.dpatch, to update libtool for GNU/kFreeBSD.
++  * Changed lirc-modules-source from Arch: any to Arch: all.
++
++ -- Julien Danjou <acid@debian.org>  Wed, 10 May 2006 13:40:57 +0200
++
++lirc (0.7.2-2) unstable; urgency=low
++
++  * Ready for unstable.
++
++ -- Hector Garcia <hector@debian.org>  Sun, 15 Jan 2006 03:58:59 +0100
++
++lirc (0.7.2-1) experimental; urgency=low
++
++  * New upstream release. (Closes: #310133)
++    - support for KeySym and KeyCode in key definition
++    - updated udev support for 2.6.13 kernels
++    - added support for new version of Windows Media Center Remotes
++    - Use all 8 bytes of IR code
++    - Rewritten Sasem driver
++    - added support for Asus Digimatrix
++    - added support for Remotec Multimedia PC Remote BW6130
++    - Added support for iMON-PAD and iMON-RSC
++    - Man page for lircd doesn't talk about the wrond -D flag
++      (Closes: #301688)
++  * Change build-depend to kernel-source.
++  * Change configure option --with-drivers to none on debian/rules.
++  * Separated build and configure stages.
++  * Deleted useless patch 01_configure-duplicates.dpatch
++  * Deleted obsolete patch 02_forgotten-files.dpatch
++  * Rewrite of 03_irxevent.dpatch to new version and renamed to 01_...
++  * Rename 04_aclocal.dpatch to 02_aclocal.dpatch
++  * Changed mv to cp on modules-source/Makefile
++  * Updated po/es.po
++  * Runned debconf-updatepo. (Closes: #329200)
++  * Updated cs.po, da.po, es.po, de.po (not all, only fuzzy), fr.po, ja.po and
++    vi.po
++  * Created 03_extra_files.dpatch so module compilation only depends on
++    kernel-headers. (Only 2.6.12 currently since is the only one for 2.6.x in
++    debian that is supported upstream. Custom kernels should still use
++    kernel-source).
++  * Deleted build-depend on kernel-source.
++  * Added depend on ucf.
++  * Added myself to uploaders and cleaned control file a bit.
++  * Make dpkg-reconfigure work even when no /etc/lirc/lirc-modules.conf found
++    (Closes: #342027)
++  * Added support for udev. Applied patch from dann frazier. (Closes: #303494)
++  * Added patch 04_man_pages.dpatch to fix hyphen-used-as-minus-sign problem.
++    I should send this upstream soon.
++  * Cleaned a few lintian warnings on maintainer scripts.
++
++ -- Hector Garcia <hector@debian.org>  Thu,  5 Jan 2006 11:13:54 +0100
++
++lirc (0.7.1pre2-11) unstable; urgency=low
++
++  * This upload sponsored by The Spanish Public Administration Department.
++  * Debian Policy 10.7.3. ("[Conffiles] must not be modified by the maintainer
++    scripts during installation (or at any other time). Apply wonderful patch
++    from Nicolas Boullis . (Closes #334170).
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Mon, 17 Oct 2005 16:30:37 +0200
++
++lirc (0.7.1pre2-10) unstable; urgency=low
++
++  * The "Follow the white rabbit" Release.
++  * Temporarily include upstream's complete setup-driver.sh into
++    debian/lirc.config.in so as to temporarily fix this issue. Another
++    temporary workaround is to install lirc-modules-source. See #329897.
++    I suck.
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Mon, 10 Oct 2005 17:39:02 +0200
++
++lirc (0.7.1pre2-9) unstable; urgency=low
++
++  * Changed priority from optional to extra, learn to read, now change
++  liblircclient's priority to optional. Hopefully end this absurd loop.
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Mon, 19 Sep 2005 18:19:06 +0200
++
++lirc (0.7.1pre2-8) unstable; urgency=low
++
++  * Changed priority from extra to optional, to get rid of override
++    disparities.
++  * Apply patch from zapdvb to irxevent, that also contains patch from
++    #326703, making lirc more stable when used with cpu intensive applications
++    like mplayer (Closes: #328697).
++  * Apply japanese debconf translation (Closes: #302487).
++  * Fixed fuzzy string in debconf .po files (Closes: #302430). Also updated
++    es.po.
++  * Corrected lirc-modules-source.conf so that it documents the right way to
++    separate the list of drivers (should be space separated, not comma
++    separated). (Closes: #312102).
++  * libusb-dev is already listed in Build-Depends, so this bug should have
++    been already fixed (Closes: #317158).
++  * Find the kernel source by testing for $KSRC/include/linux/version.h.
++    (Closes: #301590).
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sun, 18 Sep 2005 11:55:30 +0200
++
++lirc (0.7.1pre2-7) unstable; urgency=low
++
++  * The "Kicked out from the MIA Team, by Debconf5 and RL meetings" Release.
++  * Acknowledge bugs closed by previous NMU. Thanks Blars!
++    (Closes: #315579, #318268, #312497, #301639, #302141).
++  * Applied patch from Agustin Martin <agustin.martin@hispalinux.es>, fixing:
++    - Get rid of unknown symbols when inserting lirc_sir.ko
++    - Build when two drivers requiring lirc_dev are selected
++    - Build the atiusb driver properly
++    (Closes: #303663, #304609, #300989).
++  * Apply patch supplied by Juergen Pfennig, making irxevent send keys to the
++    right application. (Closes: #326703).
++  * Apply patch from Robert Bihlmeyer <robbe@orcus.priv.at> to partially take
++    care of #303078, while a more elegant solution is found.
++  * Apply patch from Alban <browaeys.alban@wanadoo.fr> to correct spurious
++    warning with aclocal >= 1.8.  (Closes: #305291).
++  * And last, but not least, make litian happy:
++    - Get rid of some bashisms with help from Guillem Jover
++    - Avoid deprecated use of chown (ie. s/root.root/root:root/).
++  * Special thanks to J. Carlos Garcia Sogo for the quick tutorial on dpatch.
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sat, 17 Sep 2005 20:47:15 +0200
++
++lirc (0.7.1pre2-6.1) unstable; urgency=low
++
++  * 0 day NMU for RC bug durring bug squishing party
++  * remove unportable -v option from md5sum command in debian/rules
++    (only one of the two md5sum programs in debian has it)
++    (closes: #315579)
++  * standards version 3.6.2 (no changes)
++  * fix lirc-modules-source for dpkg 1.13, add versioned dpkg dependancy
++    (closes: #318268)
++  * Vietnamese debconf translation (closes: #312497)
++  * add build-dependency on libxt-dev (closes: #301639, #302141)
++
++ -- Blars Blarson <blarson@blars.org>  Sat,  3 Sep 2005 00:12:27 +0000
++
++lirc (0.7.1pre2-6) unstable; urgency=low
++
++  * back to priority optional. I am really confused now :)
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Mon, 28 Mar 2005 23:10:45 +0200
++
++lirc (0.7.1pre2-5) unstable; urgency=low
++
++  * Now really close (Closes: #301570), instead of closing 301589 twice, now
++    instead of looking for Rules.make or Makefile, we test for
++    $KSRC/include/linux/version.h. Also (Closes: #199869).
++  * Leave debian/liblircclient-dev.install alone (Closes: #301723).
++  * Add french debconf template (Closes: #301825).
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sun, 27 Mar 2005 23:12:16 +0200
++
++lirc (0.7.1pre2-4) unstable; urgency=low
++
++  * Remove liblirc_client.so.0.0.0 from debian/liblircclient-dev.install
++    (Closes: #301589).
++  * Do not look for Rules.make while building lirc-modules, as it is no longer
++    shipped with kernels above 2.6.1x (Closes: #301589).
++  * Changed priority optional from extra.
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sun, 27 Mar 2005 01:45:14 +0100
++
++lirc (0.7.1pre2-3) unstable; urgency=low
++
++  * The "I love to do some lirc housekeeping now that we're really going to
++    release Sarge" Release.
++  * Make /etc/init.d/lirc point to more useful doc regarding howto configure
++    lircd (Closes: #239196).
++  * Fix makefile for lirc-modules-source so that ati_usb is properly built.
++    Thanks to James Stark for the patch (Closes: #300989).
++  * lirc 0.7.1 is now in testing and does build with 2.6 (Closes: #300587).
++  * Fixed installatation tutorial typo mistake (Closes: #299647).
++  * Lirc has been logging to syslog properly identifying itself probably for
++    some time now (Closes: #164536).
++  * Build depend on libusb-dev so that the userspace driver for ATI USB
++    remotes (amongst others) is supported (Closes: #294248).
++  * If DEVICE is set to /dev/lirc and devfs is in use /dev/lirc/0 will be
++    automatically used instead (Closes: #197306).
++  * s/auido/audio/g in debian/lirc.config, ChangeLog, setup.data and setup.sh.
++  * Maybe (Closes: #290903) in debian/lirc.config.
++  * Fixed manpage-section-mismatch in doc/man/lircd.8 and doc/man/lircmd.8.
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Fri, 25 Mar 2005 23:48:33 +0100
++
++lirc (0.7.1pre2-2) unstable; urgency=low
++
++  * Applied patch from Thomas Schmidt, thanks!. (Closes: #294720).
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sat, 12 Mar 2005 00:01:46 +0100
++
++lirc (0.7.1pre2-1) unstable; urgency=low
++
++  * New upstream release (Closes: #294174).
++  * s/serial_CFLAGS/SERIAL_CFLAGS/a in Makefile (Closes: #294689).
++  * Added support for ati_usb modules (Closes: #297243).
++  * GNU config automated update: config.sub (20020307 to 20041130),
++    config.guess (20020320 to 20041112)
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Thu, 10 Mar 2005 00:27:20 +0100
++
++lirc (0.7.1pre1-2) unstable; urgency=low
++
++  * The "And when it rains, it poures" Release.
++  * Fixed the nasty "setup-driver.sh not found" bug, again. This fix also
++    should fix the debconf freeze (Closes: #269833, #292637, #293091)
++    Thanks to Chris Boyle <cmb@debian.org> for spotting the fix.
++  * Included patch from "Eloy A. Paris" <peloy@debian.org> (Closes: #292043)
++    so that lirc_dev gets shipped.
++  * Partially included  patch for Makefile from Yann Rouillard
++    <yann@pleiades.fr.eu.org> (Closes: #246112, #287328, ) so that correct
++    modules and symbols get installed for 2.6.x kernels.
++  * Improved paths in README.Debian (Closes: #218888).
++  * Suggest just kernel-source and not headers (Closes: #250570).
++  * It now builds with 2.6 kernels (Closes: #221023). I'm terrible with lirc
++    bugs housekeeping :)
++  * Newewst upstream versions fix i2c build problems (Closes: #256986). More
++    housekeeping here.
++  * GNU config automated update: config.sub (20020307 to 20041130),
++    config.guess (20020320 to 20041112)
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Tue, 25 Jan 2005 22:29:15 +0100
++
++lirc (0.7.1pre1-1) unstable; urgency=low
++
++  * New upstream release.
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sun, 23 Jan 2005 02:51:59 +0100
++
++lirc (0.7.0.1-2) unstable; urgency=low
++
++  * The "I can't believe nobody reported a RC bug yet!" release.
++  * Changed section from optional to extra to make installer@ftp-master happy.
++  * Change short decriptions in order to comply with new lintian check.
++  * GNU config automated update: config.sub (20020307 to 20041130),
++    config.guess (20020320 to 20041112)
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sun, 23 Jan 2005 02:51:48 +0100
++
++lirc (0.7.0.1-1) unstable; urgency=low
++
++  * The "let's try to fix the versioning mistake" release. I mistakenly took
++    0.7.0pre8 as later than 0.7.0, so this is actually upstream latest
++    tarball, 0.7.0, with a made up version number.
++  * Not try to build /dev/lirc during build (Closes: #287559). Thanks to Lars
++    Wirzenius <liw@iki.fi>.
++  * Include setup-driver.sh (Closes: #287370). Thanks to Lars Wirzenius
++    <liw@iki.fi>.
++  * This upstream version really closes (Closes: #236573, #255383, #280548).
++  * The Danish debconf po is included! (Closes: #276699).
++  * GNU config automated update: config.sub (20020307 to 20041130),
++    config.guess (20020320 to 20041112)
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sat, 15 Jan 2005 14:41:42 +0100
++
++lirc (0.7.0pre8-1) unstable; urgency=low
++
++  * New upstream release.
++  * GNU config automated update: config.sub (20020307 to 20041130),
++    config.guess (20020320 to 20041112)
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sun, 26 Dec 2004 07:48:16 +0100
++
++lirc (0.7.0-1) unstable; urgency=low
++
++  * New upstream release (Closes: #236573, #280548, #236573).
++  * Now builds with 2.6.x (Closes: #255383, #221023).
++  * GNU config automated update: config.sub (20020307 to 20040624),
++    config.guess (20020320 to 20040813)
++  * Added Danish po-debconf translation for lirc (Closes: #276699).
++  * Removed Ian Murdock from Uploaders.
++  * GNU config automated update: config.sub (20040624 to 20041130),
++    config.guess (20040813 to 20041112)
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Tue, 28 Dec 2004 04:44:30 +0100
++
++lirc (0.6.6-13) unstable; urgency=low
++
++  * The "Happy birthday Ranty" release (Sept 24th).
++  * The "Happy birthday Amaya" release (Sept 25th).
++  * The "Pierre, we are so glad you are back home and feeling better" release.
++  * Fixed path in README.Debian (Closes: #218888)
++  * Fix debconf prompt freeze (Closes: #269833)
++  * debian/modules-source/README: s/WARMING/WARNING/
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Sat, 25 Sep 2004 19:57:49 +0200
++
++lirc (0.6.6-12) unstable; urgency=low
++
++  * The "Ranty is missed everyday" release.
++    Happy hacking in Heaven, our friend+brother (Closes: #252156).
++  * 4 new maintainers (Closes: #248767).
++  * Added Pierre Machard, Riku Voipio and Ian Murdock to the Uploaders field.
++  * GNU config automated update: config.sub (20040312 to 20040624),
++    config.guess (20040312 to 20040813)
++  * Get rid of config.log and config.status in the clean target.
++  * Included French Debconf Translation (Closes: #262379).
++  * Included Czech Debconf Translation (Closes: #261285).
++  * Added support for CFLAGS in the build target.
++
++ -- Amaya Rodrigo Sastre <amaya@debian.org>  Fri, 27 Aug 2004 20:21:00 +0200
++
++lirc (0.6.6-11) unstable; urgency=low
++
++  * Apply patch from : Goswin von Brederlow (closes: #259978)
++    - lirc-svga is only build for i386
++
++ -- Pierre Machard <pmachard@debian.org>  Sun, 18 Jul 2004 01:06:08 +0200
++
++lirc (0.6.6-10) unstable; urgency=low
++
++  * Add a test to know if smode2 is available for the target arch
++    (thanks to mrvn)
++  * Change priority to optional (closes: #236481)
++  * Swith to po-debconf format (closes: #232283)
++
++ -- Pierre Machard <pmachard@debian.org>  Sat, 17 Jul 2004 19:10:45 +0200
++
++lirc (0.6.6-9) unstable; urgency=low
++
++  * QA Upload
++  * Add depends on svgalib only for i386 to fix building on arch !i386
++
++ -- Pierre Machard <pmachard@debian.org>  Sat, 17 Jul 2004 16:53:55 +0200
++
++lirc (0.6.6-8) unstable; urgency=low
++
++  * QA Upload
++  * Set Maintainer to packages@qa.debian.org
++  * Fix svgalib Build-Deps. (Closes: #243195)
++  * GNU config automated update: config.sub (20031007 to 20040312),
++    config.guess (20031007 to 20040312)
++
++ -- Pierre Machard <pmachard@debian.org>  Sat, 17 Jul 2004 14:52:28 +0200
++
++lirc (0.6.6-7) unstable; urgency=low
++
++  * Set Architecture: properly for lirc-modules-KVERS packages. (Closes:#218881)
++    courtesy of Helge Kreutzmann <kreutzm@itp.uni-hannover.de>
++  * GNU config automated update: config.sub (20030717 to 20031007),
++    config.guess (20030702 to 20031007)
++  * Build-Depend on debhelper >= 4.0.18 for dh_install's --list-missing.
++    (Closes:#187712)
++  * Fix "quick walkthrough" instructions it is "debian/rules" not "make".
++    (Closes:#202622)
++  * Recommend xfonts-75dpi and copy from the gimp's package description the
++    explanation on why it is only recommended. (Closes:#215168)
++  * Use ACTISYS_ACT200L instead of ACTISYS_200L to match driver sources.
++    (Closes:#204724)
++  * Remove "Depends: ${shlibs:Depends}, ${misc:Depends}" from binary module
++    packages as it may cause an empty Depends: line which then confuses apt.
++    (Closes:#210477)
++  * Fix spelling in hardware.conf. (Closes:#218887)
++  * Add a comment about /dev/lirc/0 to hardware.conf. (Improves:#197306)
++  * Make sure this changelog is UTF-8.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Sat, 22 Nov 2003 22:07:51 +0100
++
++lirc (0.6.6-6) unstable; urgency=low
++
++  * Changed liblircclient-dev section to libdevel.
++  * Added "Source: lirc" to modules-source's debian/control. (Closes: #213819)
++  * GNU config automated update: config.sub (20030103 to 20030717),
++    config.guess (20030110 to 20030702)
++
++ -- Manuel Estrada <root@ranty.pantax.net>  Thu,  2 Oct 2003 23:45:36 +0200
++
++lirc (0.6.6-5) unstable; urgency=low
++
++  * Use dpatch.
++  * Use ACTISYS_200L instead of ACT200L to properly configure SIR kernel
++    module. (closes: Bug#182647)
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Sat,  8 Mar 2003 20:15:56 +0100
++
++lirc (0.6.6-4) unstable; urgency=low
++
++  * Add kdist_configure target to lirc-modules-source. (closes: Bug#169364)
++  * GNU config automated update: config.sub (20020905 to 20021130),
++    config.guess (20020903 to 20021130)
++  * use DH_COMPAT 4
++  * GNU config automated update: config.sub (20021130 to 20030103),
++    config.guess (20021130 to 20030110)
++  * Load kernel modules modules with autoclean (closes: Bug#176421)
++  * Move configuration files for the different remotes from share/doc/lirc/ to
++    share/lirc/.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Wed, 22 Jan 2003 21:20:32 +0100
++
++lirc (0.6.6-3) unstable; urgency=low
++
++  * Include logcheck support as suggested by Blars Blarson <blarson@blars.org>
++    (closes: Bug#164510)
++  * GNU config automated update: config.sub (20020703 to 20020905),
++    config.guess (20020709 to 20020903)
++  * 'sed' was segfaulting on 'configure', use 'sort -u' instead
++    (closes: Bug#166264).
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Fri, 25 Oct 2002 21:44:45 +0200
++
++lirc (0.6.6-2) unstable; urgency=low
++
++  * Fixed modutils file setup on postinst (closes: Bug#164200).
++    Thanks to "Aaron M. Ucko" <ucko@debian.org> for diagnostic and fix.
++  * Temporarly renamed 'rc' into 'irsend' to prevent name clash with 'rc'
++    package, if upstream uses something different, I'll follow.
++    (closes: Bug#164196).
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Fri, 11 Oct 2002 11:16:50 +0200
++
++lirc (0.6.6-1) unstable; urgency=low
++
++  * New upstream release.
++    * added rc tool for sending IR commands (previously included in xrc package)
++    * bugfix for Winfast TV2000 card
++    * added SIR support for Actisys Act200L dongle (Karl Bongers)
++    * added UDP network driver for use with the IPC@Chip (Jim Paris)
++    * added support for hardware connected to soundcard input (Pavel Machek)
++    * added support for Tekram M230 Mach64 (Froenchenko Leonid)
++  * add debhelper dependency to lirc-modules-source (closes: Bug#163974).
++  * GNU config automated update: config.sub (20020621 to 20020703),
++    config.guess (20020529 to 20020709)
++  * Improved sanity checking when building kernel modules (closes: Bug#153491).
++  * Fixed a typo that prevented "automatic" configuration of lirc_parallel
++    driver.
++  * Use /etc/modutils/lirc to set kernel module parameters (closes: Bug#154476).
++  * Add a note about the need of 'setserial /dev/ttySX uart none' when using
++    lirc_serial or lirc_sir to README.Debian.
++  * lirc.config is now "POSIX Shell" compatible, use /bin/sh instead of
++    /bin/bash.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Thu, 10 Oct 2002 18:53:57 +0200
++
++lirc (0.6.5-6) unstable; urgency=low
++
++  * Took the upstream fix for the compilation problem with 2.4.19-rc1 kernels.
++    (closes: Bug#152982)
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Thu,  8 Aug 2002 13:58:48 +0200
++
++lirc (0.6.5-5) unstable; urgency=low
++
++  * Patch by Andy Mortimer <andy.mortimer@zetnet.co.uk> to include network
++    only support. (closes: Bug#151414)
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Tue,  9 Jul 2002 17:03:47 +0200
++
++lirc (0.6.5-4) unstable; urgency=low
++
++  * Applied a patch from CVS to remove the restricted licence on files
++    generated with irrecord. (closes: Bug#152074)
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Sun,  7 Jul 2002 02:12:57 +0200
++
++lirc (0.6.5-3) unstable; urgency=low
++
++  * Hacked around a problem with kernel 2.4.19-rc1.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Thu,  4 Jul 2002 23:36:10 +0200
++
++lirc (0.6.5-2) unstable; urgency=low
++
++  * Fixed a typo in README.Debian
++  * Tell how to get a list of supported drivers in /etc/lirc/hardware.conf
++    (closes: Bug#141318).
++  * Changed section to "utils". (closes: Bug#145100)
++  * GNU config automated update: config.sub (20020102 to 20020307),
++    config.guess (20020102 to 20020320)
++  * GNU config automated update: config.sub (20020307 to 20020621),
++    config.guess (20020320 to 20020529)
++
++ -- Manuel Estrada <root@ranty.ddts.net>  Thu,  4 Jul 2002 21:50:25 +0200
++
++lirc (0.6.5-1) unstable; urgency=low
++
++  * New upstream release.
++  * Updated debian/rules based on /usr/share/doc/autotools-dev/README.Debian.gz
++        + Use DEB_HOST_GNU_TYPE and DEB_BUILD_GNU_TYPE
++        + Update config.{sub,guess} automatically
++        + touch every single file in 'clean' to prevent timestamp skews
++  * GNU config automated update: config.sub (20011130 to 20020102),
++    config.guess (20011126 to 20020102)
++  * Use syslog and offer to remove /var/log/lircd (closes: Bug#131774)
++  * Integrate it87 kernel driver with the packing.
++        + updated debian/modules-source/{Makefile,README.make},
++          lirc-modules-source.templates and lirc-modules-source.config
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Fri,  1 Feb 2002 21:04:49 +0100
++
++lirc (0.6.4-10) unstable; urgency=high
++
++  * The urgency is because:
++        + 0.6.4-9: may be uninstalable.
++        + reduces user frustration on module building by giving a verbose
++          error message.
++        + Complies with policy by not restoring deleted conffiles on the users
++          back.
++        + Secures device permisions.
++        + There is no new feature.
++  * /etc/lirc/lircmd.conf may not be there (closes: Bug#126279).
++  * Don't create /etc/lirc/* files unless they are there, they should be moved
++    from /etc/ or the user chooses to reconfigure the package.
++  * Add MODULE_LICENSE to kernel modules, patch by Ingo Saitz <ingo@debian.org>
++    This was already fixed upstream, but oh well, lets not wait to the next
++    release. (closes: Bug#128074)
++  * Cry out if IRQ, PORT or TIMER are not set when compiling kernel modules.
++    (closes: Bug#108131)
++  * Tell devfsd to create /dev/lirc/0 unconditionaly. (works around: #128072)
++    The proper fix should come soon from upstream.
++  * Changed permisions of kernel devices from "root.video 660" to
++    "root.root 660" since only lircd should use them and it runs as root.
++        By writting to this devices you may confuse kernel code and that kind
++        of thing should be reserved to root. If someone feels that read-only
++        access should be allowed to to other users or groups go ahead and file
++        a bug.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Sun, 13 Jan 2002 20:27:00 +0100
++
++lirc (0.6.4-9) unstable; urgency=low
++
++  * Added IntelliMouse support to lircmd. (closes: Bug#122300)
++  * Fixed html comments on the documentation which prevented some text from
++    showing up in a browser, so if you were looking for something and it
++    wasn't there go back and make sure it is still not there.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Sat, 15 Dec 2001 20:04:48 +0100
++
++lirc (0.6.4-8) unstable; urgency=low
++
++  * Took X dependent parts and svgalib parts to their own packages, and have
++    lirc Suggest them. (closes: Bug#121543)
++  * ispelled README.Debian.
++  * Applied patch to handle epochs properly on lirc-modules-source by
++    Dwayne C. Litzenberger" <dlitz@dlitz.net> (closes: Bug#123019).
++  * Enabled Irman support (closes: Bug#103951).
++        I don't have an Irman and don't realy know how the hell it works, so
++        if there is any problem please report and I will try to fix it.
++  * Updated config.sub and config.guess from ftp://ftp.gnu.org/pub/gnu/config/
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Mon, 10 Dec 2001 23:46:29 +0100
++
++lirc (0.6.4-7) unstable; urgency=low
++
++  * I forgot to protect a couple of db_input's with "|| true".
++    (closes: Bug#121006)
++  * Make sure lirc-modules-source/kernel-source-not-found gets shown when
++    needed.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Sun, 25 Nov 2001 03:32:58 +0100
++
++lirc (0.6.4-6) unstable; urgency=low
++
++  * Build-dep on svgalib-dummyg1[!i386] and svgalibg1-dev [i386] so it can
++    build on architectures where svgalib is not available.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Wed, 21 Nov 2001 13:17:22 +0100
++
++lirc (0.6.4-5) unstable; urgency=low
++
++  * call db_stop in lirc.postrm.
++  * modified lirc-modules-source.postinst a bit hopefully to make it
++    more portable, infact it now works with zsh.
++  * Updated README.Debian on regards to irman2lirc.
++  * Updated manpages and added manpages for all binaries (closes: Bug#85217).
++  * Build smode2 which makes lirc depend on svgalibg1. Please file a wishlist
++    bug suggesting an alternative if that is inconvenient.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Sun,  4 Nov 2001 20:39:50 +0100
++
++lirc (0.6.4-4) unstable; urgency=low
++
++  * lirc was not building on powerpc because of the time difference with
++    voltaire.debian.org. I was 'touch'ing configure.in to prevent rebuilding
++    too much stuff and the time difference broke that. Now I am a bit more
++    aggressive with the time change.
++  * Use forkpty from libc, so I don't have to worry about devfs or devpts.
++    closes: #115870 or at least makes it a libc problem :)
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Mon, 29 Oct 2001 15:40:23 +0100
++
++lirc (0.6.4-3) unstable; urgency=low
++
++  * Updated config.sub and config.guess from ftp://ftp.gnu.org/pub/gnu/config/
++    so lirc may build on more architectures (closes: #115964).
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Wed, 17 Oct 2001 16:19:56 +0200
++
++lirc (0.6.4-2) unstable; urgency=low
++
++  * Fixed problem with not existing configure.in.stamp (closes: #114494)
++  * Put lirc-modules-source debs in $(KSRC)/.. as suggested by
++    Christian Ohm <chr.ohm@gmx.net>
++  * Depend on debconf (>= 0.5.00) to use seen flag.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Mon, 15 Oct 2001 19:29:53 +0200
++
++lirc (0.6.4-1) unstable; urgency=low
++
++  * Sorry for those 2 months of inactivity, I just came back from Colombia
++    where I didn't have a SID system to work on.
++  * New upstream release (closes: #112549)
++  * Call update-devfsd on postrm when purging. (closes: #104446)
++  * Change daemons/Makefile.in insted of daemons/Makefile.am to prevent
++    creating of devices nodes. This way we don't have to run automake and we
++    don't need to Build-depend on automake and libtool.
++  * Properly use MOD_DIR on lirc-modules-source (closes: #105784).
++  * Check for devfs device nodes after loading modules to make sure that they
++    are there (closes: #114284)
++  * Updated lirc-modules-source/do-build description, it should be more
++    readable now (closes: #107765)
++  * Added kdist_clean target to lirc-modules-source debian/rules.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Thu,  4 Oct 2001 14:35:33 +0200
++
++lirc (0.6.3-3) unstable; urgency=low
++
++  * include doc/irxevent.keys as it is referenced from within the
++    documentation.
++  * Mising variables will be restored in /etc/lirc/hardware.conf.
++  * Installation won't fail if a conffile is missing (closes: #103326)
++  * Maintainer script cleanups, removed bashisms but some shell script
++    extracted from upstream needs bash :(
++  * Don't manually call ldconfig on liblircclient0 postinst, debhelper does it
++    already.
++  * Make sure that debian/rules is executable on lirc-modules-source package.
++    (closes: #103607)
++  * Build lirc-modules-x.x.x.deb in MODDIR as set by make-kpkg and by default
++    on ".." (closes: #103797)
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Wed,  4 Jul 2001 13:10:14 +0200
++
++lirc (0.6.3-2) unstable; urgency=low
++
++  * Kernel module building cleanups: it now works for 2.2 kernels, but
++    keep in mind that not all modules support all kernels.
++  * Debconf German translation thanks to Sebastian Feltel <sebastian@feltel.de>
++    (closes: #101171)
++  * Parallel port kernel module now compiles on 2.4 kernels thanks to
++    Santiago Garcia Mantinan <manty@debian.org>
++  * Don't unpack the source into /usr/src/modules directly; instead,
++    build a tarball in /usr/src/lirc-modules.tar.gz
++  * lirc-modules-source is now a kernel-package compliant modules package.
++  * Kernel modules configuration is automated with debconf.
++  * lirc-modules-source:Recommends: make, dpkg-dev, c-compiler, kernel-package
++  * lirc-modules-source:Suggests: kernel-source | kernel-headers
++  * Extracted upstream configuration scripts and integrated them with debconf.
++  * If there is not a valid configuration try to get it from the previous
++    location or from upstream sample files. (closes: #102258)
++  * Added support for devfsd.
++  * Debconf Spanish translation thanks to
++    Carlos Valdivia Yagüe <valyag@teleline.es> (closes: #102158)
++  * init.d script tries to load appropriate kernel modules.
++  * lirc-modules-source: Added descriptions of ANIMAX, IRDEO and TEKRAM.
++  * Loading kernel modules from init.d script is now optional
++       (See /etc/lirc/hardware.conf )
++  * init.d script cryes out loud and refuses to launch daemons if it tries to
++    load kernel modules and they are not there.
++  * Resurrected automatic informal module building.
++  * Register html documentation with doc-base.
++  * Updated README.Debian, lirc-modules-source.README.Debian
++    modules-source/README and modules-source/README.make to reflect latest
++    changes.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Wed, 27 Jun 2001 05:43:29 +0200
++
++lirc (0.6.3-1) unstable; urgency=low
++
++  * New Maintainer.
++  * New upstream release. (closes: #71643, #90129, #90130, #99405, #94686,
++    #97373, #73023, #85214, #90258)
++  * /etc/rc?.d/S??lirc priority is now 19 so it starts before gpm
++    and creates /dev/lircm for devfs users. (closes: #76958)
++  * Pass the kernel version correctly to configure. (closes: #85215)
++  * Moved kernel modules source to it's own package.
++  * lirc: Suggests lirc-modules-source
++  * Adjusted de descriptions for the package.
++  * moved irman2lirc to /usr/bin
++  * Moved config files to /etc/lirc/ and added hardware.conf so editing
++    /etc/init.d/lirc is not needed
++  * Explained a bit more how to make all this work in README.Debian
++  * Added some manpages.
++
++ -- Manuel Estrada Sainz <ranty@debian.org>  Thu,  7 Jun 2001 00:45:11 +0200
++
++lirc (0.6.1-1.2) unstable; urgency=low
++
++  * Added libtool build-dependency. Should fix 90258
++  * Non-maintainer upload
++
++ -- Gopal Narayanan <gopal@debian.org>  Fri, 13 Apr 2001 17:09:21 +0000
++
++lirc (0.6.1-1.1) unstable; urgency=low
++
++  * Non-maintainer Upload
++  * Took out the install-exec-local target from daemons/Makefile.am and
++    added automake before configure in rules
++  * mknod stuff commented out in init.d
++  * Moved mknod to postinst
++  * above fixes are for bug 85214
++
++ -- Gopal Narayanan <gopal@debian.org>  Fri, 16 Mar 2001 23:02:39 -0500
++
++lirc (0.6.1-1) unstable; urgency=low
++
++  * New upstream version.
++  * New makefile system for the kernel modules (Closes: #69028).
++
++ -- Tom Lees <tom@debian.org>  Sun, 27 Aug 2000 12:30:57 +0100
++
++lirc (0.6.0.final-2) unstable; urgency=low
++
++  * Build the Makefile for /usr/src/lirc/lirc_aver.
++  * Remove the /usr/src/lirc/Makefile* files, they're useless.
++  * Add a README to /usr/src/lirc about building the drivers.
++
++ -- Tom Lees <tom@debian.org>  Tue,  2 May 2000 09:33:14 +0100
++
++lirc (0.6.0.final-1) unstable; urgency=low
++
++  * New upstream release.
++  * Fix a small bug which caused lircd to crash.
++  * Make the drivers buildable.
++  * Add AverMedia driver, thanks to Santiago Garcia Mantinan <manty@i.am>.
++  * Remove the device nodes on purge.
++
++ -- Tom Lees <tom@debian.org>  Thu, 20 Apr 2000 00:18:24 +0100
++
++lirc (0.6.0pre6-1) unstable; urgency=low
++
++  * Initial Release.
++
++ -- Tom Lees <tom@debian.org>  Thu, 30 Mar 2000 19:30:57 +0100
+diff -ruN o/debian/compat n/debian/compat
+--- o/debian/compat	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/compat	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1 @@
++10
+diff -ruN o/debian/control n/debian/control
+--- o/debian/control	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/control	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,179 @@
++Source: lirc
++Section: utils
++Priority: extra
++Homepage: http://sf.net/p/lirc
++Standards-Version: 4.0.1
++Maintainer: lirc Maintainer Team <pkg-lirc-maint@lists.alioth.debian.org>
++Uploaders:
++  Stefan Lippers-Hollmann <s.l-h@gmx.de>,
++  Alec Leamas <leamas.alec@gmail.com>
++Vcs-Git: git://git.code.sf.net/p/lirc/git -b debian-0.10
++Vcs-Browser: https://sourceforge.net/p/lirc/git/ci/debian-0.10/tree/
++Build-Depends:
++ debhelper (>= 10),
++ dh-exec,
++ dh-systemd,
++ dh-python,
++ doxygen,
++ expect [!hurd-any],
++ kmod [linux-any],
++ libasound2-dev [linux-any kfreebsd-any],
++ libftdi1-dev,
++ libsystemd-dev [linux-any],
++ libudev-dev [linux-any],
++ libusb-1.0-0-dev [!kfreebsd-any],
++ libusb-dev[!kfreebsd-any],
++ libx11-dev,
++ man2html-base,
++ pkg-config,
++ portaudio19-dev,
++ python3-dev (>= 3.5),
++ python3-setuptools,
++ python3-yaml,
++ socat [!hurd-any],
++ systemd [linux-any],
++ xsltproc
++# libjs-jquery
++
++Package: lirc
++Architecture: any
++Depends:
++ liblirc0 (= ${binary:Version}),
++ lsb-base (>= 3.0-6),
++ python3,
++ ${misc:Depends},
++ ${python3:Depends},
++ ${shlibs:Depends}
++Recommends:
++ python3-yaml,
++ python3-gi,
++ gir1.2-vte
++Suggests:
++ lirc-compat-remotes,
++ lirc-drv-irman,
++ lirc-doc,
++ lirc-x,
++ setserial,
++ ir-keytable
++Breaks:
++ lirc-modules-source (<<0.9~),
++ lirc-svga (<<0.9~),
++ inputlirc (<<19)
++Description: Infra-red remote control support - daemons and utils
++ LIRC stands for 'Linux Infra-red Remote Control'.
++ .
++ This package provides the daemons and some utilities to support infra-red
++ remote controls under Linux.
++
++
++Package: lirc-doc
++Architecture: all
++Section: doc
++Depends:
++ ${misc:Depends},
++ lsb-base
++# libjs-jquery
++Replaces:
++ lirc (<< 0.9.1)
++Breaks:
++ lirc (<< 0.9.1)
++Description: Infra-red remote control support - website and manual docs
++ LIRC stands for 'Linux Infra-red Remote Control'.
++ .
++ This package provides the documentation including manual, manpages and
++ the public website.
++
++
++Package: liblirc0
++Architecture: any
++Multi-Arch: same
++Section: libs
++Replaces:
++ lirc (<< 0.9.1)
++Depends:
++ ${misc:Depends},
++ ${shlibs:Depends},
++ lsb-base
++Breaks:
++ lirc (<< 0.9.1)
++Description: Infra-red remote control support - Run-time libraries
++ LIRC stands for 'Linux Infra-red Remote Control'.
++ .
++ Package contains internal LIRC runtime libs used by external applications
++ (liblirc_client.so*), drivers (liblirc_driver.so*) and also internal
++ LIRC applications (lirc_private.so*)
++
++
++Package: liblircclient0
++Architecture: any
++Section: libs
++Depends: liblirc-client0, ${misc:Depends}
++Description: Transitional placeholder for obsoleted liblircclient0
++ Virtual, empty package used in the process of renaming liblircclient0
++ to liblirc-client0.
++
++
++Package: liblircclient-dev
++Architecture: any
++Section: libdevel
++Depends: liblirc-dev, ${misc:Depends}
++Description: Transitional placeholder for obsoleted liblircclient-dev
++ Virtual, empty package used in the process of incorporating
++ liblircclient-dev in new package liblirc-dev.
++
++
++Package: liblirc-dev
++Architecture: any
++Multi-Arch: same
++Section: libdevel
++Provides: liblircclient-dev
++Conflicts: liblircclient-dev (<< 0.9.1)
++Replaces: liblircclient-dev (<< 0.9.1)
++Depends:
++ liblirc0 (= ${binary:Version}),
++ liblirc-client0 (= ${binary:Version}),
++ ${misc:Depends},
++ lsb-base
++Description: Infra-red remote control support - development files
++ LIRC stands for 'Linux Infra-red Remote Control'.
++ .
++ Package contains headers and other support used when developing external
++ applications, drivers (liblirc_driver.so) and also internal LIRC
++ software. See the User Space Driver API and  Lirc Client API sections
++ in the lirc manual available in lirc-doc.
++
++
++Package: liblirc-client0
++Architecture: any
++Multi-Arch: same
++Section: libs
++Depends: ${shlibs:Depends}, ${misc:Depends}
++Suggests: lirc
++Pre-Depends: ${misc:Pre-Depends}
++Breaks:
++ inputlirc (<< 19),
++ kradio (<< 4),
++ liblircclient0 (<=0.9.4~pre1)
++Replaces: liblircclient0 (<=0.9.4~pre1)
++Description: infra-red remote control support - client library
++ LIRC stands for 'Linux Infra-red Remote Control'.
++ .
++ This package provides a library with functions to support remote
++ controls via LIRC in programs such as xawtv.
++
++
++Package: lirc-x
++Architecture: any
++Depends:
++ liblirc0 (= ${binary:Version}),
++ lirc (= ${binary:Version}),
++ ${shlibs:Depends},
++ ${misc:Depends}
++Recommends: xfonts-75dpi
++Description: infra-red remote control support - X utilities
++ LIRC stands for 'Linux Infra-red Remote Control'.
++ .
++ This package provides X utilities for LIRC:
++  - irxevent: Allows controlling X applications with a remote control.
++  - xmode2:   Shows the IR waveform of the remote controller without an
++              oscilloscope. Unneeded for TV cards or the Irman.
+diff -ruN o/debian/copyright n/debian/copyright
+--- o/debian/copyright	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/copyright	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,283 @@
++Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
++Upstream-Name: lirc
++Upstream-Contact: Alec Leamas <leamas.alec@gmail.com>
++Source: http://lirc.org/
++
++Files: *
++Copyright: 1996-1997, Ralph Metzler <rjkm@thp.uni-koeln.de>
++           1998-2010, Christoph Bartelmus <lirc@bartelmus.de>
++           2010-2011, Jarod Wilson <jarod@redhat.com>
++           2013-2014, Alec Leamas <leamas.alec@gmail.com>
++License: GPL-2.0+
++
++
++Files: lib/ciniparser.*
++       lib/dictionary.*
++Copyright: 2000-2007, Nicolas Devillard
++           2009, Tim Post <tinkertim@gmail.com>
++License: MIT
++
++Files: lib/config_file.*
++       lib/dump_config.*
++Copyright: 1998, Pablo d'Angelo <pablo@ag-trek.allgaeu.org>
++License: GPL-2.0+
++
++Files: lib/curl_poll.*
++Copyright: Copyright (C) 1998 - 2012, Daniel Stenberg, <daniel@haxx.se>, et al
++License: MIT
++
++Files: plugins/accent.*
++Copyright: 2007, Christoph Bartelmus <lirc@bartelmus.de>
++           2007, Bart Alewijnse <scarfboy@yahoo.com>
++           2007, Leandro Dardini <ldardini@tiscali.it>
++           2007, Niccolo Rigacci <niccolo@rigacci.org>
++License: GPL-2.0+
++
++Files: plugins/alsa_usb.c
++Copyright: 2005, Clemens Ladisch <clemens@ladisch.de>
++License: GPL-2.0+
++
++Files: plugins/atilibusb.c
++Copyright: 2004, Michael Gold <mgold@scs.carleton.ca>
++License: GPL-2.0+
++
++Files: plugins/atwf83.c
++Copyright: 2010, Romain Henriet <romain-devel@laposte.net>
++License: GPL-2.0+
++
++Files: plugins/audio.c
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           2001-2002, Pavel Machek <pavel@ucw.cz>
++           2002, Matthias Ringwald <ringwald@inf.ethz.ch>
++License: GPL-2.0+
++
++Files: plugins/audio_alsa.c
++Copyright: 2003, Andrew Zabolotny <andyz@users.sourceforge.net>
++License: GPL-2.0+
++
++Files: plugins/awlibusb.c
++Copyright: 2008, Arif <azeemarif@gmail.com>
++           2008, Awox Pte Ltd <marif@awox.com>
++License: GPL-2.0+
++
++Files: plugins/bte.*
++Copyright: 2003-2005, Vadim Shliakhov <svadim@nm.ru>
++License: GPL-2.0+
++
++Files: plugins/commandir.*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           2008-2010, Matthew Bodkin
++License: GPL-2.0+
++
++Files: plugins/creative.*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           2003, Isaac Lauer <inl101@alumni.psu.edu>
++License: GPL-2.0+
++
++Files: plugins/creative_infracd.*
++Copyright: 2003, Leonid Froenchenko <lfroen@il.marvell.com>
++License: GPL-2.0+
++
++Files: plugins/devinput.*
++Copyright: 2002, Oliver Endriss <o.endriss@gmx.de>
++License: GPL-2.0+
++
++Files: plugins/dfclibusb.c
++Copyright: 2010, Davio Franke <davio@daviofranke.com>
++License: GPL-2.0+
++
++Files: plugins/dsp.c
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           2001-2002, Pavel Machek <pavel@ucw.cz>
++License: GPL-2.0+
++
++Files: plugins/ea65.*
++Copyright: 2004, Max Krasnyansky <maxk@qualcomm.com>
++License: GPL-2.0+
++
++Files: plugins/ftdi.c
++Copyright: 2002, Jim Paris <jim@jtan.com>
++           2008, Albert Huitsing <albert@huitsing.nl>
++           2008, Adam Sampson <ats@offog.org>
++License: GPL-2.0+
++
++Files: plugins/girs.c
++Copyright: 2015, 2016, Bengt Martensson
++License: GPL-2.0+
++
++Files: plugins/hiddev.c
++Copyright: 2002, Oliver Endriss <o.endriss@gmx.de>
++           2004, Chris Pascoe <c.pascoe@itee.uq.edu.au>
++           2005, William Uther <william.uther@nicta.com.au>
++           2007, Brice DUBOST <ml@braice.net>
++           2007, Benjamin Drung <benjamin.drung@gmail.com>
++           2007, Stephen Williams <stephen.gw@gmail.com>
++License: GPL-2.0+
++
++Files: plugins/i2cuser.c
++Copyright: 2000, Gerd Knorr <kraxel@goldbach.in-berlin.de>
++           2003, Leonid Froenchenko <lfroen@il.marvell.com>
++           2004, Michael Gold <mgold@scs.carleton.ca>
++           2006-2007, Adam Sampson <ats@offog.org>
++License: GPL-2.0+
++
++Files: plugins/irtoy.c
++Copyright:  2011, Peter Kooiman <pkooiman@gmail.com>
++License: GPL-2.0+
++
++Files: plugins/irlink.*
++Copyright: 2007, Maxim Muratov <mumg@mail.ru>
++License: GPL-2.0+
++
++Files: plugins/livedrive_*
++Copyright: 2003, Stephen Beahm <stephenbeahm@adelphia.net>
++License: GPL-2.0+
++
++Files: plugins/logitech.*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           1999, Isaac Lauer <inl101@alumni.psu.edu>
++License: GPL-2.0+
++
++Files: plugins/mouseremote.*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           1999, Isaac Lauer <inl101@alumni.psu.edu>
++           2005, Shawn Nycz <dscordia@eden.rutgers.edu>
++           2005, Brian Craft <bcboy@thecraftstudio.com>
++           2005, Geoffrey Hausheer <zcke0au02@sneakemail.com>
++License: GPL-2.0+
++
++Files: plugins/mp3anywhere.*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           1999, Isaac Lauer <inl101@alumni.psu.edu>
++           2003, Shawn Nycz <dscordia@eden.rutgers.edu>
++License: GPL-2.0+
++
++Files: plugins/mplay.*
++Copyright: 2007, Benoit Laurent <ben905@free.fr>
++License: GPL-2.0+
++
++Files: plugins/osx_usbraw.*
++Copyright: 2014, Eric Anderson
++License: GPL-2.0+
++
++Files: plugins/pcmak.*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           2004, Pawel Nowak <pablozrudnika@wp.pl>
++           1999, Isaac Lauer <inl101@alumni.psu.edu>
++License: GPL-2.0+
++
++Files: plugins/pinsys.*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           2000, Bart Alewijnse <scarfboy@yahoo.com>
++License: GPL-2.0+
++
++Files: plugins/silitek.*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           1999, Isaac Lauer <inl101@alumni.psu.edu>
++           2001, Krister Wicksell <krister.wicksell@spray.se>
++License: GPL-2.0+
++
++Files: plugins/srm7500libusb.*
++Copyright: 2002, Oliver Endriss <o.endriss@gmx.de>
++           2004, Michael Gold <mgold@scs.carleton.ca>
++           2009, Henning Glawe <glaweh@debian.org>
++License: GPL-2.0+
++
++Files: plugins/tira.*
++Copyright: 2003, Gregory McLean <gregm@gxsnmp.org>
++           2003, Arnold Pakolitz <spud28@gmail.com>
++License: GPL-2.0+
++
++Files: plugins/udp.c
++Copyright: 2002, Jim Paris <jim@jtan.com>
++License: GPL-2.0+
++
++Files: plugins/uirt2*
++Copyright: 1999, Christoph Bartelmus <lirc@bartelmus.de>
++           1999, Isaac Lauer <inl101@alumni.psu.edu>
++           2003, Mikael Magnusson <mikma@users.sourceforge.net>
++License: GPL-2.0+
++
++Files: plugins/usbx.*
++Copyright: 2007, Jelle Foks <jelle@foks.8m.com>
++License: GPL-2.0+
++
++Files: daemons/lircmd.cpp
++Copyright: 1998, Ryan Gammon <rggammon@engmail.uwaterloo.ca>
++           1998, Christoph Bartelmus <lirc@bartelmus.de>
++License: GPL-2.0+
++
++Files: tools/irexec.cpp
++       tools/irw.cpp
++       tools/irxevent.cpp
++       tools/mode2.cpp
++Copyright: 1998, Trent Piepho <xyzzy@u.washington.edu>
++           1998, Christoph Bartelmus <lirc@bartelmus.de>
++License: GPL-2.0+
++
++Files: lib/lirc_client.*
++Copyright: 1998, Trent Piepho <xyzzy@u.washington.edu>
++           1998, Christoph Bartelmus <lirc@bartelmus.de>
++           2009, Michal Svec <rebel@atrey.karlin.mff.cuni.cz>
++License: GPL-2.0+
++
++Files: tools/pronto2lirc
++Copyright: 2008, Olavi Akerman <olavi.akerman@gmail.com>
++License: GPL-2.0+
++
++Files: tools/xmode2.cpp
++Copyright: 1999, Heinrich Langos <heinrich@mad.scientist.com>
++License: GPL-2.0+
++
++Files: debian/*
++Copyright: 2000, Tom Lees <tom@debian.org>
++           2001, Gopal Narayanan <gopal@debian.org>
++           2001-2003, Manuel Estrada Sainz <ranty@debian.org>
++           2004, Pierre Machard <pmachard@debian.org>
++           2004-2006, Amaya Rodrigo Sastre <amaya@debian.org>
++           2005, Blars Blarson <blarson@blars.org>
++           2006, Hector Garcia <hector@debian.org>
++           2006, Julien Danjou <acid@debian.org>
++           2006, Aurelien Jarno <aurel32@debian.org>
++           2006, Cyril Lacoux <clacoux@easter-eggs.com>
++           2007, Loic Minier <lool@dooz.org>
++           2007-2008, Sven Mueller <sven@debian.org>
++           2008-2011, Matthew Johnson <mjj29@debian.org>
++           2008-2014, Stefan Lippers-Hollmann <s.l-h@gmx.de>
++License:GPL-2.0+
++
++License: GPL-2.0+
++ This package is free software; you can redistribute it and/or modify
++ it under the terms of the GNU General Public License as published by
++ the Free Software Foundation; either version 2 of the License, or
++ (at your option) any later version.
++ .
++ This package is distributed in the hope that it will be useful,
++ but WITHOUT ANY WARRANTY; without even the implied warranty of
++ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ GNU General Public License for more details.
++ .
++ You should have received a copy of the GNU General Public License
++ along with this program. If not, see <http://www.gnu.org/licenses/>
++ .
++ On Debian systems, the complete text of the GNU General
++ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
++
++License: MIT
++ Permission is hereby granted, free of charge, to any person obtaining a
++ copy of this software and associated documentation files (the "Software"),
++ to deal in the Software without restriction, including without limitation
++ the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ and/or sell copies of the Software, and to permit persons to whom the
++ Software is furnished to do so, subject to the following conditions:
++ .
++ The above copyright notice and this permission notice shall be included
++ in all copies or substantial portions of the Software.
++ .
++ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
++ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
++ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
++ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
++ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+diff -ruN o/debian/docs n/debian/docs
+--- o/debian/docs	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/docs	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,3 @@
++NEWS
++README
++README.conf.d
+diff -ruN o/debian/install n/debian/install
+--- o/debian/install	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/install	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,60 @@
++#! /usr/bin/dh-exec
++
++etc/lirc
++[linux-any] lib/systemd/*
++[linux-any] usr/lib/tmpfiles.d/*
++[linux-any] usr/bin/lirc-make-devinput
++[linux-any] usr/bin/irpipe
++usr/lib/*/python3*/*
++usr/lib/*/lirc
++usr/sbin/lircmd
++usr/sbin/lircd-setup
++[linux-any] usr/sbin/lircd-uinput
++usr/sbin/lirc-lsplugins
++usr/sbin/lircd
++usr/share/lirc
++usr/bin/irtestcase
++usr/bin/irpty
++usr/bin/irdb-get
++usr/bin/lircrcd
++usr/bin/lirc-config-tool
++usr/bin/lirc-init-db
++usr/bin/lirc-lsremotes
++usr/bin/lirc-setup
++usr/bin/mode2
++usr/bin/irw
++usr/bin/irsend
++usr/bin/irsimsend
++usr/bin/irtext2udp
++usr/bin/irexec
++usr/bin/ircat
++usr/bin/pronto2lirc
++usr/bin/irrecord
++usr/bin/irsimreceive
++usr/share/man/man8/lircd.8*
++[linux-any] usr/share/man/man8/lircd-uinput.8*
++usr/share/man/man8/lircmd.8*
++usr/share/man/man8/lircd-setup.8*
++usr/share/man/man8/lircrcd.8*
++usr/share/man/man5/lircrc.5*
++usr/share/man/man5/lircd.conf.5*
++usr/share/man/man1/irsend.1*
++usr/share/man/man1/irrecord.1*
++usr/share/man/man1/pronto2lirc.1*
++usr/share/man/man1/irsimreceive.1*
++usr/share/man/man1/lirc-setup.1*
++usr/share/man/man1/lirc-lsremotes.1*
++[linux-any] usr/share/man/man1/lirc-make-devinput.1*
++usr/share/man/man1/mode2.1*
++usr/share/man/man1/irtestcase.1*
++usr/share/man/man1/lirc-lsplugins.1*
++usr/share/man/man1/irsimsend.1*
++usr/share/man/man1/irtext2udp.1*
++usr/share/man/man1/lirc-config-tool.1*
++usr/share/man/man1/irdb-get.1*
++usr/share/man/man1/ircat.1*
++usr/share/man/man1/irexec.1*
++usr/share/man/man1/irpty.1*
++usr/share/man/man1/irw.1*
++[linux-any] usr/share/man/man1/irpipe.1*
++var/lib/lirc
+diff -ruN o/debian/liblirc0.install n/debian/liblirc0.install
+--- o/debian/liblirc0.install	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/liblirc0.install	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,3 @@
++usr/lib/*/libirrecord.so.*
++usr/lib/*/liblirc_driver.so.*
++usr/lib/*/liblirc.so.*
+diff -ruN o/debian/liblirc-client0.install n/debian/liblirc-client0.install
+--- o/debian/liblirc-client0.install	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/liblirc-client0.install	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1 @@
++debian/tmp/usr/lib/*/liblirc_client.so.*
+diff -ruN o/debian/liblirc-dev.install n/debian/liblirc-dev.install
+--- o/debian/liblirc-dev.install	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/liblirc-dev.install	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,3 @@
++usr/lib/*/lib*.so
++usr/lib/*/pkgconfig
++usr/include
+diff -ruN o/debian/lirc-doc.doc-base n/debian/lirc-doc.doc-base
+--- o/debian/lirc-doc.doc-base	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/lirc-doc.doc-base	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,9 @@
++Document: lirc
++Title: LIRC (Linux Infrared Remote Control)
++Author: Christoph Bartelmus <lirc@bartelmus.de>, Karsten Scheibler <karsten.scheibler@bigfoot.de>
++Abstract:
++Section: Help
++
++Format: HTML
++Index: /usr/share/doc/lirc/lirc.org/html/index.html
++Files: /usr/share/doc/lirc/lirc.org/html/*.html /usr/share/doc/lirc/lirc.org/api-docs/html/*
+diff -ruN o/debian/lirc-doc.install n/debian/lirc-doc.install
+--- o/debian/lirc-doc.install	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/lirc-doc.install	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1 @@
++usr/share/doc
+diff -ruN o/debian/lirc.docs n/debian/lirc.docs
+--- o/debian/lirc.docs	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/lirc.docs	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,2 @@
++NEWS
++README
+diff -ruN o/debian/lirc.irexec.init n/debian/lirc.irexec.init
+--- o/debian/lirc.irexec.init	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/lirc.irexec.init	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,69 @@
++#!/bin/sh
++### BEGIN INIT INFO
++# Provides:          irexec
++# Required-Start:    $local_fs $remote_fs $syslog lircd
++# Required-Stop:     $local_fs $remote_fs $syslog lircd
++# Should-Start:      lircmd
++# Should-Stop:       lircmd
++# Default-Start:     2 3 4 5
++# Default-Stop:      0 1 6
++# Short-Description: Starts LIRC IREXEC daemon.
++# Description:       IREXEC runs programs with one button press.
++### END INIT INFO
++
++# source generic LSB initscript helpers
++. /lib/lsb/init-functions
++
++# check if the lirc package is still installed and this not a stale conffile
++test -x /usr/bin/irexec  || exit 0
++
++# sanity checks for starting irexec
++if [ ! -f /etc/lirc/lircrc ] || \
++   [ "$(grep -v -e ^[\ \t]*\# -e ^$ /etc/lirc/lircrc | wc -l)" -eq 0 ]; then
++	ENABLE_IREXEC="no"
++fi
++
++
++case "$1" in
++	start)
++		# start irexec
++		if [ "$ENABLE_IREXEC" = "yes" ]; then
++			log_daemon_msg "Starting irexec daemon" "irexec"
++			start-stop-daemon --start --quiet --oknodo \
++				--exec /usr/bin/irexec -- \
++				-d /etc/lirc/lircrc < /dev/null
++			log_end_msg $?
++		fi
++		;;
++	stop)
++		if [ "$ENABLE_IREXEC" = "yes" ]; then
++			log_daemon_msg "Stopping irexec daemon" "irexec"
++			start-stop-daemon --stop --quiet \
++				--exec /usr/bin/irexec
++			log_end_msg $?
++		fi
++		;;
++	reload|force-reload)
++		if [ "$ENABLE_IREXEC" = "yes" ]; then
++			log_daemon_msg "Reload configuration for irexec daemon" "IREXEC"
++			start-stop-daemon --stop --quiet --signal 1 \
++				--exec /usr/bin/irexec
++			log_end_msg $?
++		fi
++		;;
++	restart)
++		$0 stop
++		$0 start
++		;;
++	status)
++		if [ "$ENABLE_IREXEC" = "yes" ]; then
++			status_of_proc /usr/bin/irexec irexec  || exit $?
++		fi
++		;;
++	*)
++		echo "Usage: /etc/init.d/irexec {start|stop|reload|restart|force-reload|status}"
++		exit 1
++		;;
++esac
++
++exit 0
+diff -ruN o/debian/lirc.lircd.init n/debian/lirc.lircd.init
+--- o/debian/lirc.lircd.init	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/lirc.lircd.init	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,64 @@
++#!/bin/sh
++### BEGIN INIT INFO
++# Provides:          lircd
++# Required-Start:    $local_fs $remote_fs $syslog
++# Required-Stop:     $local_fs $remote_fs $syslog
++# Default-Start:     2 3 4 5
++# Default-Stop:      0 1 6
++# Short-Description: Starts the LIRCD daemon.
++# Description:       LIRC is used to control different
++#                    infrared receivers and transceivers.
++### END INIT INFO
++
++# source generic LSB initscript helpers
++. /lib/lsb/init-functions
++
++# check if the lirc package is still installed and this not a stale conffile
++test -x /usr/sbin/lircd  || exit 0
++
++# sanity checks for starting lircd
++if [ ! -f /etc/lirc/lircd.conf ] || \
++   [ "$(grep -v -e ^[\ \t]*\# -e ^$ /etc/lirc/lircd.conf | wc -l)" -eq 0 ]; then
++	exit 0
++fi
++
++
++case "$1" in
++	start)
++		# start lircd
++		[ -d "/run/lirc" ] || mkdir -p "/run/lirc"
++
++		log_daemon_msg "Starting remote control daemon" "LIRCD"
++		start-stop-daemon --start --quiet --oknodo \
++			--exec /usr/sbin/lircd -- < /dev/null
++		log_end_msg $?
++
++		# retain compatibility with old clients
++		ln -fs /run/lirc/lircd /dev/lircd
++		;;
++	stop)
++		log_daemon_msg "Stopping remote control daemon" "LIRCD"
++		start-stop-daemon --stop --quiet \
++			--exec /usr/sbin/lircd
++		log_end_msg $?
++		;;
++	reload|force-reload)
++		log_daemon_msg "Reload configuration for remote control daemon" "LIRCD"
++		start-stop-daemon --stop --quiet --signal 1 \
++			--exec /usr/sbin/lircd
++		log_end_msg $?
++		;;
++	restart)
++		$0 stop
++		$0 start
++		;;
++	status)
++		status_of_proc /usr/sbin/lircd lircd   || exit $?
++		;;
++	*)
++		echo "Usage: /etc/init.d/lircd {start|stop|reload|restart|force-reload|status}"
++		exit 1
++		;;
++esac
++
++exit 0
+diff -ruN o/debian/lirc.lircmd.init n/debian/lirc.lircmd.init
+--- o/debian/lirc.lircmd.init	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/lirc.lircmd.init	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,59 @@
++#!/bin/sh
++### BEGIN INIT INFO
++# Provides:          lircmd
++# Required-Start:    $local_fs $remote_fs $syslog lircd
++# Required-Stop:     $local_fs $remote_fs $syslog lircd
++# Default-Start:     2 3 4 5
++# Default-Stop:      0 1 6
++# Short-Description: Starts the LIRCMD mouse daemon.
++# Description:       LIRC mouse daemon translates infrared signals into mouse
++#                    events.
++### END INIT INFO
++
++# source generic LSB initscript helpers
++. /lib/lsb/init-functions
++
++# check if the lirc package is still installed and this not a stale conffile
++test -x /usr/sbin/lircmd || exit 0
++
++# sanity checks for starting lircmd
++if [ ! -f /etc/lirc/lircmd.conf ] || \
++   [ "$(grep -v -e ^[\ \t]*\# -e ^$ /etc/lirc/lircmd.conf | wc -l)" -eq 0 ]; then
++	exit 0
++fi
++
++
++case "$1" in
++	start)
++		# start lircmd
++		log_daemon_msg "Starting remote control mouse daemon" "LIRCMD"
++		start-stop-daemon --start --quiet --oknodo \
++			--exec /usr/sbin/lircmd < /dev/null
++		log_end_msg $?
++		;;
++	stop)
++		log_daemon_msg "Stopping remote control mouse daemon" "LIRCMD"
++		start-stop-daemon --stop --quiet \
++			--exec /usr/sbin/lircmd
++		log_end_msg $?
++		;;
++	reload|force-reload)
++		log_daemon_msg "Reload configuration for remote control mouse daemon" "LIRCMD"
++		start-stop-daemon --stop --quiet --signal 1 \
++			--exec /usr/sbin/lircmd
++		log_end_msg $?
++		;;
++	restart)
++		$0 stop
++		$0 start
++		;;
++	status)
++		status_of_proc /usr/sbin/lircmd lircmd || exit $?
++		;;
++	*)
++		echo "Usage: /etc/init.d/lircmd {start|stop|reload|restart|force-reload|status}"
++		exit 1
++		;;
++esac
++
++exit 0
+diff -ruN o/debian/lirc-old2new n/debian/lirc-old2new
+--- o/debian/lirc-old2new	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/lirc-old2new	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,250 @@
++#!/usr/bin/env python3
++
++'''
++Convert lirc 0.9.0 debian setup to 0.9.4.
++
++Usage: lirc-old2new  [etcdir]
++
++Script creates etcdir/lirc_options.conf using data in etcdir/hardware.conf
++end etcdir/lirc_options.conf. [etcdir] defaults to '/etc/lirc'. Without
++options it requires root permissions.
++
++Scripts also tries to enable the three different systemd units lircd.socket,
++lircmd.service and irexec.service depending on hardware.conf contents and
++available configuration files.
++
++If the LIRC_DRYRUN environment variable is set, the systemctl enable
++commands are just echoed instead of executed.
++
++'''
++# pylint: disable=invalid-name
++
++import argparse
++import configparser
++import os.path
++import re
++import shutil
++import subprocess
++import sys
++
++_LIRCD_CONF = '''
++# Populated config files can be found at http://sf.net/p/lirc-remotes. The
++# irdb-get(1) and lirc-setup(1) tools can be used to search and download
++# config files.
++#
++# From 0.9.2 config files could just be dropped as-is in the lircd.conf.d
++# directory and be included by this file.
++
++include "lircd.conf.d/*.conf"
++'''
++
++
++
++def _warn(s):
++    ''' Print a warning to stderr. '''
++    print("WARNING: " + s, file=sys.stderr)
++
++
++def _enable_start(unit):
++    ''' Run systemctl enable and systemctl start on given unit. '''
++    cmd = ['systemctl', 'start', unit]
++    if 'LIRC_DRYRUN' in os.environ:
++        cmd.insert(0, 'echo')
++    try:
++        subprocess.check_call(cmd)
++    except subprocess.CalledProcessError:
++        _warn("Cannot start " + unit)
++    cmd = ['systemctl', 'enable', unit]
++    if 'LIRC_DRYRUN' in os.environ:
++        cmd.insert(0, 'echo')
++    try:
++        subprocess.check_call(cmd)
++    except subprocess.CalledProcessError:
++        _warn("Cannot enable " + unit)
++
++
++def _grep(what, path):
++    ''' test if file 'path' contains 'what'. '''
++    if not os.path.exists(path):
++        return path
++    with open(path) as f:
++        s = '\n'.join(f.readlines())
++    return what in s
++
++
++def parse_args(line):
++    ''' Parse lircd command line and return as a dict. '''
++
++    parser = argparse.ArgumentParser(description="Parses LIRCD_ARGS options")
++    parser.add_argument('-d', '--device')
++    parser.add_argument('-H', '--driver')
++    parser.add_argument('-a', '--allow-simulate', action='store_true')
++    parser.add_argument('-c', '--connect', action='store_true')
++    parser.add_argument('-e', '--effective-user')
++    parser.add_argument('-A', '--driver-options')
++    parser.add_argument('-Y', '--dynamic_codes', action='store_true')
++    parser.add_argument('-l', '--listen')
++    parser.add_argument('-L', '--logfile')
++    parser.add_argument('-D', '--loglevel')
++    parser.add_argument('-O', '--options-file')
++    parser.add_argument('-p', '--permissiom')
++    parser.add_argument('-P', '--pidfile')
++    parser.add_argument('-U', '--plugindir')
++    parser.add_argument('-r', '--release', default=None, nargs='?')
++    parser.add_argument('-R', '--repeat-max')
++    parser.add_argument('-u', '--uinput', action='store_true')
++    try:
++        args = parser.parse_args(line.split())
++    except ValueError:
++        _warn("Illegal LIRCD_ARGS line:" + line)
++        return {}
++    else:
++        return {key: value for key, value in vars(args).items() if value}
++
++
++def get_lircd_options(hardware_cf, etcdir):
++    ''' Get a ConfigParser from path updated with hardware_cf values. '''
++    options_path = os.path.join(etcdir, 'lirc_options.conf')
++    args = {}
++    if  'lircd_args' in hardware_cf and hardware_cf['lircd_args']:
++        args = parse_args(hardware_cf['lircd_args'])
++    if 'device' in hardware_cf and hardware_cf['device'] \
++    and 'UNCONFIGURED' not in hardware_cf['device']:
++        if 'device' in args:
++            _warn("--device in LIRC_ARGS obsoleted by DEVICE.")
++        args['device'] = hardware_cf['device']
++    if 'driver' in hardware_cf and hardware_cf['driver'] \
++    and 'UNCONFIGURED' not in hardware_cf['driver']:
++        if 'driver' in args:
++            _warn("--driver in LIRC_ARGS obsoleted by DRIVER.")
++        args['driver'] = hardware_cf['driver']
++
++    if not 'driver' in args:
++        args['driver'] = 'default';
++
++    parser = configparser.RawConfigParser()
++    if os.path.exists(options_path):
++        parser.read(options_path)
++    for key, value in args.items():
++        if not parser.has_section('lircd'):
++            parser.add_section('lircd')
++        if value:
++            parser.set('lircd', key, value)
++    if 'load_modules' in hardware_cf and hardware_cf['load_modules'] \
++    and hardware_cf['modules']:
++        if not parser.has_section('modinit'):
++            parser.add_section('modinit')
++        modprobes = ['modprobe ' + m for m in hardware_cf['modules'].split()]
++        parser.set('modinit', 'code', '; '.join(modprobes))
++    return parser
++
++
++def setup_lircmd(lircmd_opt, etcdir):
++    ''' Possibly start and enable the lircmd service. '''
++    lircmd_path = os.path.join(etcdir, 'lircmd.conf')
++    start_lircmd = True
++    if lircmd_opt and lircmd_opt.lower() == 'false':
++        start_lircmd = False
++    elif not os.path.exists(lircmd_path):
++        start_lircmd = False
++    elif _grep('UNCONFIGURED', lircmd_path):
++        print(lircmd_path + " is unconfigured (skip lircmd)")
++        start_lircmd = False
++    if start_lircmd:
++        _enable_start('lircmd.service')
++
++
++def setup_lircd(etcdir):
++    ''' Possibly start and enable the lircd service. '''
++    lircd_path = os.path.join(etcdir, 'lircd.conf')
++    lircd_new_path = os.path.join(etcdir, 'lircd.conf.d', 'lirc-old.conf')
++    use_old = True
++    if not os.path.exists(lircd_path):
++        _warn("Cannot find " + lircd_path)
++        _warn("lircd.socket is not enabled, LIRC is disabled")
++        use_old = False
++    if _grep('UNCONFIGURED', lircd_path):
++        _warn("lircd.conf is unconfigured, LIRC is disabled")
++        use_old = False
++    if use_old:
++        print("Using existing lircd configuration and enabling lircd.socket")
++        shutil.copyfile(lircd_path, lircd_new_path)
++        with open(lircd_path, 'w') as f:
++            f.write(_LIRCD_CONF)
++        _enable_start('lircd.socket')
++    else:
++        print("Using default devinput lircd configuration, not enabled.")
++        with open(lircd_path, 'w') as f:
++            f.write(_LIRCD_CONF)
++    return use_old
++
++
++def setup_irexec(irexec_opt, etcdir):
++    ''' Possibly start and enable the irexec service. '''
++    lircrc_path = os.path.join(etcdir, 'lircrc')
++    irexec_path = os.path.join(etcdir, 'irexec.lircrc')
++    start_irexec = True
++    if irexec_opt and irexec_opt.lower() == 'false':
++        start_irexec = False
++    elif not os.path.exists(lircrc_path):
++        start_irexec = False
++    elif _grep('UNCONFIGURED', lircrc_path):
++        print(lircrc_path + " is unconfigured (skip irexec)")
++        start_irexec = False
++    else:
++        shutil.copyfile(lircrc_path, irexec_path)
++    if start_irexec:
++        _enable_start('irexec.service')
++
++
++def decode_hw(path):
++    ''' Return dict of all items in hardware.conf. '''
++    hw = {}
++    try:
++        with open(path) as f:
++            contents = f.readlines()
++    except FileNotFoundError:
++        _warn("Cannot locate hardware.conf(!)")
++        return {}
++    contents.insert(0, '[main]\n')
++    s = ''.join(contents)
++    parser = configparser.RawConfigParser()
++    parser.read_string(s, path)
++    hw = {key: value for key, value in parser.items('main')}
++    for key, value in hw.items():
++        m = re.match(r'^"(.*)"$', value)
++        if m:
++            hw[key] = m.group(1)
++    return hw
++
++
++def main():
++    ''' Indeed: main program. '''
++
++    if len(sys.argv) not in [1, 2]:
++        print("Usage: lirc-old2new [etcdir]")
++        sys.exit(1)
++    if len(sys.argv) == 2:
++        etcdir = sys.argv[1]
++    else:
++        etcdir = '/etc/lirc'
++
++    options_path = os.path.join(etcdir, 'lirc_options.conf')
++    hardware_conf = decode_hw(os.path.join(etcdir, 'hardware.conf'))
++    options_conf = get_lircd_options(hardware_conf, etcdir)
++    with open(options_path, 'w') as f:
++        options_conf.write(f)
++    if setup_lircd(etcdir):
++        setup_lircmd(hardware_conf['start_lircmd']
++                     if 'start_lircmd' in hardware_conf else None,
++                     etcdir)
++        setup_irexec(hardware_conf['start_irexec']
++                     if 'start_irexec' in hardware_conf else None,
++                     etcdir)
++
++
++if __name__ == '__main__':
++    main()
++
++
++# vim: set expandtab ts=4 sw=4:
+diff -ruN o/debian/lirc-x.install n/debian/lirc-x.install
+--- o/debian/lirc-x.install	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/lirc-x.install	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,4 @@
++usr/bin/xmode2
++usr/bin/irxevent
++usr/share/man/man1/xmode2.1*
++usr/share/man/man1/irxevent.1*
+diff -ruN o/debian/NEWS n/debian/NEWS
+--- o/debian/NEWS	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/NEWS	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,23 @@
++lirc (0.9.4c-5) unstable; urgency=medium
++
++   The 0.9.4 configuration needs to be manually updated when updating
++   from 0.9.0.
++
++   lirc 0.9.0 had a generic service called 'lirc'. The 0.9.4 package has
++   three separate services lircd.service, irexec.service and lircmd.service.
++   These must be manually configured after installation. A script
++   /usr/share/lirc/lirc-old2new is available. Instructions are available
++   at /usr/share/doc/lirc/README.debian
++
++   Users are strongly advised to check the /etc/lirc/lirc_options.conf
++   and also systemd status after upgrade using:
++     - cat /etc/lirc/lirc_options.conf
++     - systemctl status lircd.service
++     - systemctl status lircmd.service
++     - systemctl status irexec.service
++
++   0.9.4 ships updated sysV scripts which has the same basic structure
++   with three independent services. They can manage the services, but
++   documentation and support tools presumes the preferred systemd setup.
++
++ -- Alec Leamas  <leamas.alec@gmail.com>  Mon, 5 Oct 2015 11:14:25 +0100
+diff -ruN o/debian/patches/e2pc.patch n/debian/patches/e2pc.patch
+--- o/debian/patches/e2pc.patch	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/patches/e2pc.patch	2020-01-12 12:07:57.136148260 +0300
+@@ -0,0 +1,39 @@
++diff -ruN n/lib/lirc/receive.h o/lib/lirc/receive.h
++--- n/lib/lirc/receive.h	2017-09-10 11:52:58.000000000 +0300
+++++ o/lib/lirc/receive.h	2018-05-21 15:27:10.000000000 +0300
++@@ -32,8 +32,7 @@
++ 
++ 
++ /** Min value returned by receive_timeout. */
++-#define MIN_RECEIVE_TIMEOUT 100000
++-
+++#define MIN_RECEIVE_TIMEOUT 125000
++ /**
++  * Set update mode, where recorded pre_data is verified to match
++  * the template pre_data. By defaulöt false.
++diff -ruN n/lib/receive.c o/lib/receive.c
++--- n/lib/receive.c	2017-09-10 11:52:19.000000000 +0300
+++++ o/lib/receive.c	2018-05-21 20:21:07.000000000 +0300
++@@ -364,7 +364,8 @@
++ 	if (!sync_pending_space(remote))
++ 		return 0;
++ 
++-	deltap = get_next_pulse(rec_buffer.pendingp + exdelta);
+++	deltap = get_next_pulse(remote->gap > rec_buffer.pendingp + exdelta ?
+++                          remote->gap : rec_buffer.pendingp + exdelta);
++ 	if (deltap == 0)
++ 		return 0;
++ 	if (rec_buffer.pendingp > 0) {
++diff -ruN n/lib/receive.h o/lib/receive.h
++--- n/lib/receive.h	2017-09-10 11:52:19.000000000 +0300
+++++ o/lib/receive.h	2018-05-21 15:27:10.000000000 +0300
++@@ -32,8 +32,7 @@
++ 
++ 
++ /** Min value returned by receive_timeout. */
++-#define MIN_RECEIVE_TIMEOUT 100000
++-
+++#define MIN_RECEIVE_TIMEOUT 125000
++ /**
++  * Set update mode, where recorded pre_data is verified to match
++  * the template pre_data. By defaulöt false.
+diff -ruN o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch n/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch
+--- o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	2019-12-29 12:32:22.000000000 +0300
+@@ -0,0 +1,22 @@
++From: Alec Leamas <leamas.alec@gmail.com>
++Date: Sun, 30 Dec 2018 21:26:15 +0100
++Subject: [PATCH] lircd: Fix --connect option parsing error (#343).
++
++Bug: https://sourceforge.net/p/lirc/tickets/343/
++---
++ daemons/lircd.cpp | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/daemons/lircd.cpp b/daemons/lircd.cpp
++index d5be708..ad8dde9 100644
++--- a/daemons/lircd.cpp
+++++ b/daemons/lircd.cpp
++@@ -790,7 +790,7 @@ int add_peer_connection(const char* server_arg)
++ 	struct servent* service;
++ 	char server[strlen(server_arg) + 1];
++ 
++-	strncpy(server, server_arg, sizeof(server) - 1);
+++	strncpy(server, server_arg, sizeof(server));
++ 
++ 	if (peern < MAX_PEERS) {
++ 		peers[peern] = (struct peer_connection*) malloc(sizeof(
+diff -ruN o/debian/patches/lirc-gpio-ir-0.10.patch n/debian/patches/lirc-gpio-ir-0.10.patch
+--- o/debian/patches/lirc-gpio-ir-0.10.patch	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/patches/lirc-gpio-ir-0.10.patch	2019-12-29 12:32:52.000000000 +0300
+@@ -0,0 +1,178 @@
++Origin: https://github.com/neuralassembly/raspi/blob/master/lirc-gpio-ir-0.10.patch
++Bug-Debian: bugs.debian.org/931078
++
++diff -ruN lirc-0.10.1.orig/lib/config_file.c lirc-0.10.1/lib/config_file.c
++--- lirc-0.10.1.orig/lib/config_file.c	2017-09-10 17:52:19.000000000 +0900
+++++ lirc-0.10.1/lib/config_file.c	2019-06-26 00:39:45.734320696 +0900
++@@ -71,7 +71,7 @@
++ typedef void* (*array_guest_func)(void* item, void* arg);
++ 
++ 
++-#define LINE_LEN 1024
+++#define LINE_LEN 4096
++ #define MAX_INCLUDES 10
++ 
++ const char* whitespace = " \t";
++diff -ruN lirc-0.10.1.orig/lib/ir_remote.h lirc-0.10.1/lib/ir_remote.h
++--- lirc-0.10.1.orig/lib/ir_remote.h	2017-09-10 17:52:19.000000000 +0900
+++++ lirc-0.10.1/lib/ir_remote.h	2019-06-26 00:39:45.714321224 +0900
++@@ -110,12 +110,17 @@
++ 
++ static inline int is_pulse(lirc_t data)
++ {
++-	return data & PULSE_BIT ? 1 : 0;
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_PULSE) ? 1 : 0;
++ }
++ 
++ static inline int is_space(lirc_t data)
++ {
++-	return !is_pulse(data);
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_SPACE) ? 1 : 0;
+++}
+++
+++static inline int is_timeout(lirc_t data)
+++{
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_TIMEOUT) ? 1 : 0;
++ }
++ 
++ static inline int has_repeat(const struct ir_remote* remote)
++diff -ruN lirc-0.10.1.orig/lib/irrecord.c lirc-0.10.1/lib/irrecord.c
++--- lirc-0.10.1.orig/lib/irrecord.c	2017-09-10 17:52:19.000000000 +0900
+++++ lirc-0.10.1/lib/irrecord.c	2019-06-26 00:39:45.724320960 +0900
++@@ -1398,9 +1398,16 @@
++ 		state->retval = 0;
++ 		return STS_LEN_TIMEOUT;
++ 	}
+++	if (is_timeout(state->data)) {
+++		return STS_LEN_AGAIN;
+++	}
++ 	state->count++;
++ 	if (state->mode == MODE_GET_GAP) {
++-		state->sum += state->data & PULSE_MASK;
+++		if (state->sum != 0 || is_pulse(state->data)) {
+++			state->sum += state->data & PULSE_MASK;
+++		}else{
+++			return STS_LEN_AGAIN;
+++		}
++ 		if (state->average == 0 && is_space(state->data)) {
++ 			if (state->data > 100000) {
++ 				state->sum = 0;
++@@ -1472,6 +1479,10 @@
++ 		state->keypresses = lastmaxcount;
++ 		return STS_LEN_AGAIN;
++ 	} else if (state->mode == MODE_HAVE_GAP) {
+++		if (state->count==1 && is_space(state->data))  {
+++			state->count = 0;
+++			return STS_LEN_AGAIN;
+++		}
++ 		if (state->count <= MAX_SIGNALS) {
++ 			signals[state->count - 1] = state->data & PULSE_MASK;
++ 		} else {
++@@ -1510,7 +1521,7 @@
++ 			/* such long pulses may appear with
++ 			 * crappy hardware (receiver? / remote?)
++ 			 */
++-			else {
+++			else if(is_pulse(state->data)) {
++ 				remote->gap = 0;
++ 				return STS_LEN_NO_GAP_FOUND;
++ 			}
++@@ -1811,22 +1822,24 @@
++ 
++ static int raw_data_ok(struct button_state* btn_state)
++ {
++-	int r;
+++	int r = 0;
++ 	int ref;
++ 
++-	if (!is_space(btn_state->data)) {
+++	if (is_pulse(btn_state->data)) {
++ 		r = 0;
++-	} else if (is_const(&remote)) {
++-		if (remote.gap > btn_state->sum) {
++-			ref = (remote.gap - btn_state->sum);
++-			ref *= (100 - remote.eps);
++-			ref /= 100;
+++	} else if (is_space(btn_state->data)) {
+++		if (is_const(&remote)) {
+++			if (remote.gap > btn_state->sum) {
+++				ref = (remote.gap - btn_state->sum);
+++				ref *= (100 - remote.eps);
+++				ref /= 100;
+++			} else {
+++				ref = 0;
+++			}
+++			r = btn_state->data > ref;
++ 		} else {
++-			ref = 0;
+++			r = btn_state->data > (remote.gap * (100 - remote.eps)) / 100;
++ 		}
++-		r = btn_state->data > ref;
++-	} else {
++-		r = btn_state->data > (remote.gap * (100 - remote.eps)) / 100;
++ 	}
++ 	return r;
++ }
++@@ -1970,7 +1983,7 @@
++ 				btn_state->data = remote.gap;
++ 			}
++ 			if (btn_state->count == 0) {
++-				if (!is_space(btn_state->data)
+++				if (is_pulse(btn_state->data)
++ 				    || btn_state->data <
++ 				    remote.gap - remote.gap * remote.eps /
++ 				    100) {
++diff -ruN lirc-0.10.1.orig/lib/lirc/ir_remote.h lirc-0.10.1/lib/lirc/ir_remote.h
++--- lirc-0.10.1.orig/lib/lirc/ir_remote.h	2017-09-10 17:52:58.000000000 +0900
+++++ lirc-0.10.1/lib/lirc/ir_remote.h	2019-06-26 00:39:45.724320960 +0900
++@@ -110,12 +110,17 @@
++ 
++ static inline int is_pulse(lirc_t data)
++ {
++-	return data & PULSE_BIT ? 1 : 0;
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_PULSE) ? 1 : 0;
++ }
++ 
++ static inline int is_space(lirc_t data)
++ {
++-	return !is_pulse(data);
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_SPACE) ? 1 : 0;
+++}
+++
+++static inline int is_timeout(lirc_t data)
+++{
+++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_TIMEOUT) ? 1 : 0;
++ }
++ 
++ static inline int has_repeat(const struct ir_remote* remote)
++diff -ruN lirc-0.10.1.orig/tools/mode2.cpp lirc-0.10.1/tools/mode2.cpp
++--- lirc-0.10.1.orig/tools/mode2.cpp	2017-09-10 17:52:19.000000000 +0900
+++++ lirc-0.10.1/tools/mode2.cpp	2019-06-26 00:45:38.840404976 +0900
++@@ -326,12 +326,24 @@
++ void print_mode2_data(unsigned int data)
++ {
++ 	static int bitno = 1;
+++	static bool leading_space = true;
+++	unsigned int msg = data & LIRC_MODE2_MASK;
++ 
++ 	switch (opt_dmode) {
++ 	case 0:
++-		printf("%s %u\n", (
++-			       data & PULSE_BIT) ? "pulse" : "space",
++-		       (uint32_t)(data & PULSE_MASK));
+++		if (leading_space && msg == LIRC_MODE2_SPACE ) {
+++			break;
+++		} else {
+++			leading_space = false;
+++		}
+++		if (msg == LIRC_MODE2_PULSE) {
+++			printf("pulse %u\n", (__u32)(data & PULSE_MASK));
+++		} else if (msg == LIRC_MODE2_SPACE) {
+++			printf("space %u\n", (__u32)(data & PULSE_MASK));
+++		} else if (msg == LIRC_MODE2_TIMEOUT) {
+++			printf("timeout %u\n", (__u32)(data & PULSE_MASK));
+++			leading_space = true;
+++		}
++ 		break;
++ 	case 1: {
++ 		/* print output like irrecord raw config file data */
+diff -ruN o/debian/patches/lirc.org-Remove-non-free-advertising.patch n/debian/patches/lirc.org-Remove-non-free-advertising.patch
+--- o/debian/patches/lirc.org-Remove-non-free-advertising.patch	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/patches/lirc.org-Remove-non-free-advertising.patch	2019-12-29 12:31:40.000000000 +0300
+@@ -0,0 +1,111 @@
++From: Alec Leamas <leamas@nowhere.net>
++Date: Tue, 6 Oct 2015 01:56:21 +0200
++Subject: lirc.org: Remove non-free advertising.
++
++---
++ doc/lirc.org/index.html        | 14 --------------
++ doc/lirc.org/parallel.html     | 14 --------------
++ doc/lirc.org/receivers.html    | 14 --------------
++ doc/lirc.org/transmitters.html | 14 --------------
++ 4 files changed, 56 deletions(-)
++
++diff --git a/doc/lirc.org/index.html b/doc/lirc.org/index.html
++index caa8ae9..0dd9619 100644
++--- a/doc/lirc.org/index.html
+++++ b/doc/lirc.org/index.html
++@@ -435,20 +435,6 @@
++               the complete list in the left pane.
++             </p>
++             <HR WIDTH="50%"><BR>
++-            <!-- AD --><BR>
++-            <script type="text/javascript"><!--
++-              google_ad_client = "pub-3628312733106047";
++-              google_ad_width = 468;
++-              google_ad_height = 60;
++-              google_ad_format = "468x60_as";
++-              google_color_bg = "ffffff";
++-              google_color_url = "666666";
++-              google_color_border = "6060c0";
++-              google_color_text = "333333";
++-              google_color_link = "7070e0";
++-              //--></script>
++-            <!-- AD --><center><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script></center>
++-            <!-- AD --><BR>
++             <BR>
++             <!-- News -->
++             <HR WIDTH="70%">
++diff --git a/doc/lirc.org/parallel.html b/doc/lirc.org/parallel.html
++index f4695f8..27a75fb 100644
++--- a/doc/lirc.org/parallel.html
+++++ b/doc/lirc.org/parallel.html
++@@ -32,20 +32,6 @@
++             <TR>
++               <TD WIDTH="15%" VALIGN="top">
++                 &#160;
++-                <script type="text/javascript"><!--
++-                 google_ad_client = "pub-3628312733106047";
++-                 google_ad_width = 120;
++-                 google_ad_height = 240;
++-                 google_ad_format = "120x240_as";
++-                 google_ad_type = "text";
++-                 google_ad_channel ="";
++-                 google_color_border = "6060C0";
++-                 google_color_bg = "FFFFFF";
++-                 google_color_link = "7070E0";
++-                 google_color_url = "666666";
++-                 google_color_text = "333333";
++-                 //--></script>
++-                <!-- AD --><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
++               </TD>
++               <TD WIDTH="70%">
++                 <P>
++diff --git a/doc/lirc.org/receivers.html b/doc/lirc.org/receivers.html
++index 9dced54..c3a4134 100644
++--- a/doc/lirc.org/receivers.html
+++++ b/doc/lirc.org/receivers.html
++@@ -34,20 +34,6 @@
++                 <TR>
++                   <TD WIDTH="15%" VALIGN="top">
++                     &#160;
++-                    <script type="text/javascript"><!--
++-                      google_ad_client = "pub-3628312733106047";
++-                      google_ad_width = 120;
++-                      google_ad_height = 240;
++-                      google_ad_format = "120x240_as";
++-                      google_ad_type = "text";
++-                      google_ad_channel ="";
++-                      google_color_border = "6060C0";
++-                      google_color_bg = "FFFFFF";
++-                      google_color_link = "7070E0";
++-                      google_color_url = "666666";
++-                      google_color_text = "333333";
++-                      //--></script>
++-                    <!-- AD --><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
++                   </TD>
++                   <TD WIDTH="70%">
++                     <P>
++diff --git a/doc/lirc.org/transmitters.html b/doc/lirc.org/transmitters.html
++index 4810f2c..60e886e 100644
++--- a/doc/lirc.org/transmitters.html
+++++ b/doc/lirc.org/transmitters.html
++@@ -31,20 +31,6 @@
++             <TR>
++               <TD WIDTH="15%" VALIGN="top">
++                 &#160;
++-                <script type="text/javascript"><!--
++-                 google_ad_client = "pub-3628312733106047";
++-                 google_ad_width = 120;
++-                 google_ad_height = 240;
++-                 google_ad_format = "120x240_as";
++-                 google_ad_type = "text";
++-                 google_ad_channel ="";
++-                 google_color_border = "6060C0";
++-                 google_color_bg = "FFFFFF";
++-                 google_color_link = "7070E0";
++-                 google_color_url = "666666";
++-                 google_color_text = "333333";
++-                 //--></script>
++-                <!-- AD --><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
++               </TD>
++               <TD WIDTH="70%">
++                 <P>
+diff -ruN o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch n/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
+--- o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	2019-12-29 12:31:53.000000000 +0300
+@@ -0,0 +1,20 @@
++From: Alec Leamas <leamas.alec@gmail.com>
++Date: Fri, 12 Oct 2018 20:49:58 +0200
++Subject: [PATCH] lirc-setup: Fix crash on start on missing lirc.config.
++
++---
++ Makefile.am | 1 +
++ 1 file changed, 1 insertion(+)
++
++diff --git a/Makefile.am b/Makefile.am
++index 9f3dd14..7eeb1cf 100644
++--- a/Makefile.am
+++++ b/Makefile.am
++@@ -80,6 +80,7 @@ py_PYTHON               = python-pkg/lirc/__init__.py \
++                           python-pkg/lirc/database.py \
++                           python-pkg/lirc/paths.py
++ 
+++nodist_py_PYTHON        = python-pkg/lirc/config.py
++ nodist_py_pkg_PYTHON    = python-pkg/lirc/config.py
++ 
++ if HAVE_PYTHON35
+diff -ruN o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch n/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
+--- o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	2019-12-29 12:32:08.000000000 +0300
+@@ -0,0 +1,24 @@
++From: Alec Leamas <leamas.alec@gmail.com>
++Date: Fri, 23 Nov 2018 23:04:35 -0500
++Subject: [PATCH] logging: Don't use broken LOG_CONS syslog flag.
++
++---
++ lib/lirc_log.c | 4 ++--
++ 1 file changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/lib/lirc_log.c b/lib/lirc_log.c
++index bea357b..900beb3 100644
++--- a/lib/lirc_log.c
+++++ b/lib/lirc_log.c
++@@ -102,9 +102,9 @@ int lirc_log_open(const char* _progname, int _nodaemon, loglevel_t level)
++ 
++ 	if (use_syslog) {
++ 		if (nodaemon)
++-			openlog(syslogident, LOG_CONS | LOG_PID | LOG_PERROR, LOG_LOCAL0);
+++			openlog(syslogident, LOG_PID | LOG_PERROR, LOG_LOCAL0);
++ 		else
++-			openlog(syslogident, LOG_CONS | LOG_PID, LOG_LOCAL0);
+++			openlog(syslogident, LOG_PID, LOG_LOCAL0);
++ 	} else {
++ 		lf = fopen(logfile, "a");
++ 		if (lf == NULL) {
+diff -ruN o/debian/patches/series n/debian/patches/series
+--- o/debian/patches/series	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/patches/series	2020-01-12 12:08:48.655212780 +0300
+@@ -0,0 +1,7 @@
++lirc.org-Remove-non-free-advertising.patch
++lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
++logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
++lircd-Fix-connect-option-parsing-error-343.patch
++systemd-support-Notify-systemd-on-successful-startup.patch
++lirc-gpio-ir-0.10.patch
++e2pc.patch
+diff -ruN o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch n/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch
+--- o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	2019-12-29 12:32:35.000000000 +0300
+@@ -0,0 +1,43 @@
++From: William Manley <will@williammanley.net>
++Date: Thu, 9 Aug 2018 18:26:44 +0100
++Subject: [PATCH] systemd support: Notify systemd on successful startup
++
++This allows systemd to detect the case where we've failed to startup
++due to a failure to parse our config files.
++
++Origin: upstream, https://sourceforge.net/p/lirc/git/ci/b78df9b2950cf4
++Applied-Upstream: 0.11.0
++---
++ daemons/lircd.cpp     | 5 +++++
++ systemd/lircd.service | 2 +-
++ 2 files changed, 6 insertions(+), 1 deletion(-)
++
++diff --git a/daemons/lircd.cpp b/daemons/lircd.cpp
++index ad8dde9..f559b62 100644
++--- a/daemons/lircd.cpp
+++++ b/daemons/lircd.cpp
++@@ -2469,6 +2469,11 @@ int main(int argc, char** argv)
++ 	if (!nodaemon)
++ 		daemonize();
++ 
+++#ifdef HAVE_SYSTEMD
+++	/* Tell systemd that we started up correctly */
+++	sd_notify(0, "READY=1");
+++#endif
+++
++ 	loop();
++ 
++ 	/* never reached */
++diff --git a/systemd/lircd.service b/systemd/lircd.service
++index 7f75805..6af049b 100644
++--- a/systemd/lircd.service
+++++ b/systemd/lircd.service
++@@ -6,7 +6,7 @@ Wants=lircd-setup.service
++ After=network.target lircd-setup.service
++ 
++ [Service]
++-Type=simple
+++Type=notify
++ ExecStart=/usr/sbin/lircd --nodaemon
++ ; User=lirc
++ ; Group=lirc
+diff -ruN o/debian/pbuilder-test/007-lintian n/debian/pbuilder-test/007-lintian
+--- o/debian/pbuilder-test/007-lintian	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/pbuilder-test/007-lintian	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,11 @@
++#!/bin/sh
++
++set -e
++
++
++echo "+++ lintian output +++"
++
++su -c "lintian -I --show-overrides --no-tag-display-limit \
++    /tmp/buildd/*.changes; :" - pbuilder
++
++echo "+++ end of lintian output +++"
+diff -ruN o/debian/postinst n/debian/postinst
+--- o/debian/postinst	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/postinst	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,14 @@
++#!/bin/sh
++
++set -e
++
++rm -f /etc/init.d/lirc
++
++systemd-tmpfiles --create /usr/lib/tmpfiles.d/lirc.conf || :
++
++for f in lircd.conf lircmd.conf irexec.lircrc lirc_options.conf; do
++    test -e /etc/lirc/$f || cp /etc/lirc/${f}.dist /etc/lirc/$f || :
++done
++
++
++#DEBHELPER#
+diff -ruN o/debian/postrm n/debian/postrm
+--- o/debian/postrm	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/postrm	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,14 @@
++#!/bin/sh
++
++set -e
++
++if test "$1" = 'purge'; then
++    for f in lircd.conf lircmd.conf irexec.lircrc lirc_options.conf; do
++	rm -f /etc/lirc/$f;
++    done || :
++    find /etc/lirc -type d -empty -delete || :
++fi
++
++
++#DEBHELPER#
++
+diff -ruN o/debian/prerm n/debian/prerm
+--- o/debian/prerm	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/prerm	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,12 @@
++#!/bin/sh
++
++set -e
++
++rm -f /etc/logcheck/ignore.d.*/lirc
++rm -f /etc/init.d/lirc
++rm -f /etc/*/?0?lircmd
++rm -f /etc/*/?0?lircd
++rm -rf /usr/lib/*/python3/dist-packages/lirc/__pycache__
++
++
++#DEBHELPER#
+diff -ruN o/debian/README n/debian/README
+--- o/debian/README	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/README	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,2 @@
++The debian packaging files has been moved to the separate branch
++'debian' according to established debian workflows.
+diff -ruN o/debian/README.Debian n/debian/README.Debian
+--- o/debian/README.Debian	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/README.Debian	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,171 @@
++## 0.9.4 disruptive update
++
++The configuration is so much changed that updating  from 0.9.0 requires
++manual intervention. This could be done using the update scripts or as
++a completely manual process. Many users will always need some manual steps.
++
++The outcome of the process is up to four different services by
++default controlled by systemd.
++
++
++### The changes
++
++  - The hardware.conf file is not supported, obsoleted by a new
++    lirc_options.conf file and systemd unit definitions.
++
++  - The former single lirc service is replaced with the three systemd
++    services lircd.service, lircmd.service and irexec.service. There is
++    no counterpart to the 0.9.0 'lirc' service which covered all of these.
++    Using a separate transmitter device requires yet another service.
++
++  - 0.9.4 defaults to using systemd for controlling the services. This
++    is not just start/stop functionality, systemd is used to implement
++    new features and to address shortcomings in 0.9.0. However, traditional
++    systemV scripts are also installed and could be used although this
++    is less tested and not really documented.
++
++  - Up to 0.9.0 lirc had a small set of often used remote definitions files
++    as part of the package at /usr/share/lirc/remotes. These are dropped
++    from 0.9.4, see "The lircd.conf file"  below.
++
++  - Previous lirc package installed a udev rule which autostarted lircd
++    when a new /dev/lirc* device was created, typically when connecting
++    some kind of USB device. This rule is no longer present, users
++    depending on lircd needs to start this service explicitly.
++
++
++### Using the update script
++
++A new update scripts can create the lirc_options.conf file using values
++in the existing hardware.conf. If you want to make a non-destructive test
++to inspect the results use:
++
++    $ cp -ar /etc/lirc .
++    $ LIRC_DRYRUN=1 /usr/share/lirc/lirc-old2new ./lirc
++
++This will update the files in ./lirc and also just echo the systemctl
++commands instead of executing them. To perform the update use:
++
++    $ sudo /usr/share/lirc/lirc-old2new
++
++This will use the files in /etc/lirc, updating lirc_options.conf using data
++in hardware conf. It will also start and enable lircd.service, lircmd.service
++and irexec.service if the corresponding services was enabled in 0.9.0.
++
++After running script check results using
++
++    $ cat /etc/lirc/lirc_options.conf
++    $ systemctl status lircd.socket
++    $ systemctl status lircmd.service
++    $ systemctl status irexec.service
++
++Note that configurations using a separate transmitter device needs to be
++handled manually, see below.
++
++You also might need to review your /etc/lirc/lircd.conf file, also below.
++
++
++### Manual updating
++
++The manual process is not that hard. The first step is to update
++lirc_options.conf using the values in hardware.conf. Usually, this is just
++'device' and 'driver' but you might have a different setup. Note that the
++default driver is 'default' in 0.9.0 whereas it's 'devinput' in 0.9.4.
++
++The [modinit] section contains a single value 'code = '. This is code which
++is run by lircd-setup as root before lircd is started. Typical use is
++e. g., modprobe(1) and setserial(1) invocations. If in doubts, leave this
++as-is.
++
++When the lirc_options is in shape, enable the different services. Note
++that most users only run one or two of these.
++
++*lircd* requires /etc/lirc/lircd.conf. In an upgrade scenario, this is
++already in place and you could enable, start and check lircd using:
++
++    $ sudo systemctl enable lircd.socket
++    $ sudo systemctl start lircd.socket
++    $ systemctl status lircd.socket
++
++*irexec* requires /etc/lirc/irexec.lircrc. In an upgrade scenario you should
++have the old configuration file lircrc available if irexec is used. Do:
++
++    $ sudo cp /etc/lirc/lircrc /etc/lirc/irexec.lircrc
++    $ sudo systemctl enable irexec.service
++    $ sudo systemctl start irexec.service
++    $ systemctl status irexec.service
++
++*lircmd* requires lircmd.conf. In an upgrade scenario this should already
++be in place if this service is used. Enable, start and check using
++
++    $ sudo systemctl enable lircmd.service
++    $ sudo systemctl start lircmd.service
++    $ systemctl status lircmd.service
++
++
++### The /etc/lirc/lircd.conf file and /usr/share/lirc/remotes
++
++If you just have copied a remote file and used it as is or with modifications
++the file needs no changes.
++
++However, if you have included files from /usr/share/lirc/remotes these are
++not available after update. If you need these files for this or other
++reasons, they can be restored by installing the lirc-compat-remotes package.
++
++The default configuration file is available as /etc/lirc/lircd.conf.dist.
++This file just includes all files in the /etc/lirc/lircd.conf.d. If you
++include files from e. g., /usr/share/lirc/remotes the easiest path is
++to copy the files to /etc/lircd.conf.d and use the default lircd.conf.
++
++Note that from 0.9.4 all lircd.conf files are supposed to have names like
++mceusb.lircd.conf, with a '.lircd.conf' suffix.
++
++
++### Using a separate transmitter
++
++Using a separate transmitter requires setting up yet another service (i. e.,
++a separate lircd instance). This is done by creating a new file like
++/etc/systemd/system/lircd-tx.service. An example:
++
++    [Unit]
++    Description=LIRC Infrared Signal Decoder (transmitting)
++    After=network.target
++
++    [Service]
++    Type=simple
++    ExecStart=/usr/sbin/lircd --driver=iguanaIR \
++                              --device=/var/run/iguanaIR/0 \
++                              --output=/var/run/lirc/lircd-tx \
++                              --pidfile=/run/lirc/dont-use-lircd-tx.pid \
++                              --nodaemon \
++                              --allow-simulate
++
++    [Install]
++    WantedBy=multi-user.target
++
++The service will use the defaults from the lirc_options.conf file. The
++--device, --output and --pidfile must be unique and thus cannot use these
++defaults. A configuration file might or might not be needed; the example
++uses the default /etc/lirc/lircd.conf.
++
++Once in place this service can be controlled like other services:
++
++    $ sudo systemctl enable lircd-tx.service
++    $ sudo systemctl start lircd-tx.service
++    $ systemctl status lircd-tx.service
++
++
++### Re-enabling the udev autostart rule.
++
++The udev rule which autostarts lirc is still available in
++/usr/share/lirc/contrib/85-lirc.rules. This can be copied to
++/etc/udev/rules.d to re-enable the hotplugging lirc restart. However,
++here are dragons:
++
++    - The rule is not compatible with the systemd configuration, the
++      sysV scripts must be used to control lirc.
++    - The rule is known to cause subtle bugs such as lp: #499588.
++    - The rule has never worked for other devices then /dev/lirc* ones.
++    - The rule has never worked with multiple /dev/lirc* devices.
++
++-- Alec Leamas <al@jessie.nowhere.net>  Wed, 2 Nov 2016 19:02:10 +0100
+diff -ruN o/debian/rules n/debian/rules
+--- o/debian/rules	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/rules	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,87 @@
++#!/usr/bin/make -f
++
++include /usr/share/dpkg/architecture.mk
++
++export DEB_BUILD_MAINT_OPTIONS      = hardening=+all
++export DEB_LDFLAGS_MAINT_APPEND     = -Wl,--as-needed
++
++%:
++	dh $@ --with python3,systemd 
++
++override_dh_clean:
++	dh_clean
++	touch python-pkg/lirc/config.py
++
++override_dh_autoreconf:
++	dh_autoreconf $(CURDIR)/autogen.sh
++
++override_dh_auto_configure:
++ifeq ($(DEB_BUILD_ARCH_OS), linux)
++	dh_auto_configure -- \
++	    --enable-uinput --enable-devinput \
++	    --enable-silent-rules
++else
++	dh_auto_configure -- \
++	    --disable-uinput --disable-devinput \
++	    --enable-silent-rules
++endif
++
++
++override_dh_shlibdeps:
++	dh_shlibdeps -l $(CURDIR)/debian/tmp/usr/lib/*/lirc/plugins
++
++override_dh_auto_install:
++	$(MAKE) V=0 DESTDIR=$(CURDIR)/debian/tmp \
++            pythondir='$$(libdir)/python3/dist-packages' \
++	    install
++	py3clean debian/tmp
++	find debian/tmp -name *.la -delete
++	rm -f debian/tmp/usr/share/doc/lirc/lirc.org/api-docs/api-docs
++	chmod 755 debian/tmp/usr/share/lirc/python-pkg/lirc/lirctool
++ifeq ($(DEB_BUILD_ARCH_OS), linux)
++	mkdir -p debian/tmp/usr/lib/tmpfiles.d
++	echo "d /var/run/lirc  0755  root  root  10d" \
++	    > debian/tmp/usr/lib/tmpfiles.d/lirc.conf
++endif
++	# Temporary postinstall 0.9.4 script.
++	cp debian/lirc-old2new debian/tmp/usr/share/lirc
++	# Don't overwrite existing config files.
++	for f in lircd.conf lircmd.conf irexec.lircrc lirc_options.conf; do \
++	    mv debian/tmp/etc/lirc/$$f debian/tmp/etc/lirc/$$f.dist; \
++	done
++
++override_dh_auto_test:
++ifneq "nocheck"  "$(findstring nocheck,$(DEB_BUILD_OPTIONS))"
++	tools/lirc-lsplugins -U plugins/.libs -s | tee summary
++	grep -q "Errors: 0" summary && rm summary
++	case $$(dpkg-architecture -qDEB_HOST_GNU_SYSTEM) in \
++	    kfreebsd* | gnu) \
++	        :  ;; \
++	    *)  \
++	        cd python-pkg/tests; \
++	        python3 -m unittest discover && rm backend.log \
++		;; \
++	esac
++endif
++
++
++override_dh_systemd_enable:
++	dh_systemd_enable --name=lircd
++
++override_dh_install:
++	dh_install --fail-missing
++
++override_dh_installinit:
++	dh_installinit --package=lirc --name=lircd
++	dh_installinit --package=lirc --name=lircmd
++	dh_installinit
++
++override_dh_python3:
++	dh_python3
++	dh_python3 debian/tmp/usr/lib/*/python*/site-packages/lirc
++	dh_python3 debian/tmp/usr/lib/*/python*/site-packages/lirc-setup
++	dh_python3 debian/tmp/usr/share/lirc/python-pkg
++
++override_dh_fixperms-arch:
++	dh_fixperms
++	chmod 755 debian/lirc/usr/share/lirc/contrib/irman2lirc
+diff -ruN o/debian/source/format n/debian/source/format
+--- o/debian/source/format	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/source/format	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1 @@
++3.0 (quilt)
+diff -ruN o/debian/watch n/debian/watch
+--- o/debian/watch	1970-01-01 03:00:00.000000000 +0300
++++ n/debian/watch	2019-12-29 11:24:48.000000000 +0300
+@@ -0,0 +1,2 @@
++version=3
++opts="uversionmangle=s/rc/~rc/" http://sf.net/lirc/lirc-([0-9].+)\.tar\.gz

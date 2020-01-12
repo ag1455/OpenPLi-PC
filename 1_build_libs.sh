@@ -28,15 +28,15 @@ if [[ "$release" = "14.04" ]]; then
 	diffstat dropbear dvdbackup ethtool flex fakeroot gawk gettext gcc-6 g++-6 git git-core gstreamer0.10-plugins-base help2man linux-headers-`uname -r` \
 	libdvdnav-dev libfreetype6-dev libfribidi-dev libpcsclite-dev libjpeg8-dev libgif-dev libjpeg-turbo8-dev libpng12-dev libgiftiio0 libaio-dev libxinerama-dev \
 	libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev libgtk2.0-dev libsdl1.2-dev libtool libxml2-dev libxslt1-dev libssl-dev libssl1.0.0 libvdpau-dev \
-	libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libgstreamer0.10-dev \
-	libgstreamer-plugins-base0.10-dev libbluray-dev libmpcdec-dev libvpx-dev libxml2-utils libsigc++-1.2-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev \
-	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libesd0-dev libgnomevfs2-dev libdirectfb-dev \
-	libmagickwand-dev libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libva-dev libtheora-dev libsmbclient-dev libupnp6-dev liblircclient-dev mjpegtools \
-	net-tools python-dev python-setuptools python-twisted-web python-ipaddr openssh-sftp-server python-ipaddress python-pysqlite2 python-cryptography-vectors python-daap \
-	python-flickrapi python-ipaddress python-lzma python-mechanize python-mutagen python-netifaces python-ntplib python-pyasn1-modules python-pycryptopp python-sendfile \
-	python-simplejson python-transmissionrpc python-yenc python-imaging python-pycurl python-bzrlib python-compressor python-twisted-mail python-gdata \
-	python-software-properties mawk mercurial mingetty patch pkg-config rpl sdparm smartmontools streamripper swig2.0 subversion texi2html texinfo unclutter \
-	unzip w3m vsftpd xmlto xterm libmng2 libx11-6 libxext6 libglib2.0-dev libelf-dev libmysqlclient-dev libsigc++-1.2-dev cmake setserial \
+	libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev \
+	libbluray-dev libmpcdec-dev libvpx-dev libxml2-utils libsigc++-1.2-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev libflac-dev libogg-dev libdts-dev libxcb-xv0-dev \
+	libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libesd0-dev libgnomevfs2-dev libdirectfb-dev libmagickwand-dev libwavpack-dev libspeex-dev libmng-dev \
+	libmad0-dev librsvg2-bin libva-dev libtheora-dev libsmbclient-dev libupnp6-dev liblircclient-dev mjpegtools net-tools python-dev python-setuptools python-twisted-web \
+	python-twisted-mail python-ipaddr openssh-sftp-server python-ipaddress python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi python-ipaddress python-lzma \
+	python-mechanize python-mutagen python-netifaces python-ntplib python-pyasn1-modules python-pycryptopp python-sendfile python-simplejson python-transmissionrpc python-yenc \
+	python-imaging python-pycurl python-bzrlib python-compressor python-gdata python-software-properties mawk mercurial mingetty patch pkg-config rpl sdparm smartmontools \
+	streamripper swig2.0 subversion texi2html texinfo unclutter unzip w3m vsftpd xmlto xterm libmng2 libx11-6 libxext6 libglib2.0-dev libelf-dev libmysqlclient-dev \
+	libsigc++-1.2-dev cmake setserial \
 	"
 #	python-service-identity python-subprocess32
 #	"
@@ -55,15 +55,15 @@ elif [[ "$release" = "16.04" ]]; then
 	libjpeg-turbo8-dev libpng12-dev libxcb-shape0-dev libxinerama-dev libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev libgtk2.0-dev libsdl1.2-dev \
 	libtool libtool-bin libxml2-dev libxslt1-dev flex libdvdnav-dev libfreetype6-dev libfribidi-dev libpcsclite-dev libjpeg8-dev libgif-dev libssl-dev libssl1.0.0 \
 	libvdpau-dev libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libqt5gstreamer-dev libavformat-dev \
-	libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libxml2-utils libnl-genl-3-dev libavahi-client3 libavahi-client-dev \
-	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libesd0-dev libgnomevfs2-dev libdirectfb-dev \
+	libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libxml2-utils libnl-genl-3-dev libavahi-client3 libavahi-client-dev libflac-dev \
+	libogg-dev libdts-dev libxcb-xv0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libesd0-dev libgnomevfs2-dev libdirectfb-dev \
 	libmagickwand-dev libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libva-dev libtheora-dev libsmbclient-dev libupnp6-dev liblircclient-dev mawk \
-	mercurial mingetty mjpegtools net-tools openssh-sftp-server patch pkg-config python-pysqlite2 python-gdata python-twisted-web python-dev python-setuptools python-daap\
-	python-flickrapi python-ipaddr python-ipaddress python-lzma python-mechanize python-mutagen python-netifaces python-ntplib python-pyasn1-modules python-pickleshare \
-	python-pycryptopp python-sendfile python-service-identity python-simplejson python-transmissionrpc python-yenc python-subprocess32 python-imaging python-pycurl \
-	python-bzrlib python-compressor python-twisted-mail python-software-properties python-cryptography-vectors rpl sdparm smartmontools streamripper subversion \
-	swig2.0 texi2html texinfo unclutter unzip vsftpd youtube-dl w3m xmlto xterm libmng2 libx11-6 libxext6 libglib2.0-dev libelf-dev libmysqlclient-dev \
-	libsigc++-1.2-dev cmake \
+	mercurial mingetty mjpegtools net-tools openssh-sftp-server patch pkg-config python-pysqlite2 python-gdata python-twisted-web python-twisted-mail python-dev \
+	python-setuptools python-daap python-flickrapi python-ipaddr python-ipaddress python-lzma python-mechanize python-mutagen python-netifaces python-ntplib \
+	python-pyasn1-modules python-pickleshare python-pycryptopp python-sendfile python-service-identity python-simplejson python-transmissionrpc python-yenc \
+	python-subprocess32 python-imaging python-pycurl python-bzrlib python-compressor python-software-properties python-cryptography-vectors rpl sdparm smartmontools \
+	streamripper subversion swig2.0 texi2html texinfo unclutter unzip vsftpd youtube-dl w3m xmlto xterm libmng2 libx11-6 libxext6 libglib2.0-dev libelf-dev \
+	libmysqlclient-dev libsigc++-1.2-dev cmake \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -76,14 +76,14 @@ elif [[ "$release" = "18.04" ]]; then
 	libdts-dev libfreetype6-dev libfribidi-dev libpcsclite-dev libgiftiio0 libaio-dev libgiftiio-dev libjpeg-turbo8-dev libxcb-shape0-dev libxinerama-dev \
 	libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev libgtk2.0-dev libsdl1.2-dev libsigc++-2.0-dev libtool-bin libxml2-dev libxslt1-dev flex \
 	libvdpau-dev libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libavformat-dev libavutil-dev libpostproc-dev libnl-3-dev libmpcdec-dev \
-	libvpx-dev libnl-genl-3-dev libavahi-client-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev  libgif-dev libjpeg8-dev libflac-dev \
-	libxcb-xv0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libmagickwand-dev libgnomevfs2-dev libdirectfb-dev libwavpack-dev \
-	libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev libupnp6-dev liblircclient-dev mercurial mjpegtools mingetty net-tools \
-	openssh-sftp-server python-dev python-setuptools python-twisted-web python-gdata python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi \
+	libvpx-dev libnl-genl-3-dev libavahi-client-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev  libgif-dev libjpeg8-dev libflac-dev libxcb-xv0-dev \
+	libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libmagickwand-dev libgnomevfs2-dev libdirectfb-dev libwavpack-dev libspeex-dev libmng-dev \
+	libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev libupnp6-dev liblircclient-dev mercurial mjpegtools mingetty net-tools openssh-sftp-server python-dev \
+	python-setuptools python-twisted-web python-twisted-mail python-gdata python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi \
 	python-lzma python-mechanize python-mutagen python-netifaces python-ntplib python-pycryptopp python-sendfile python-simplejson python-transmissionrpc \
-	python-yenc python-subprocess32 python-pil python-pycurl python-bzrlib python-twisted-mail software-properties-common python-ipaddr python-langdetect \
-	python-pickleshare rpl sdparm smartmontools streamripper subversion swig texi2html texinfo w3m unclutter vsftpd youtube-dl xmlto xterm libmng2 \
-	libx11-6 cmake libxext6 libglib2.0-dev libelf-dev libmysqlclient-dev libssl-dev libcrypto++-dev \
+	python-yenc python-subprocess32 python-pil python-pycurl python-bzrlib software-properties-common python-ipaddr python-langdetect python-pickleshare rpl \
+	sdparm smartmontools streamripper subversion swig texi2html texinfo w3m unclutter vsftpd youtube-dl xmlto xterm libmng2 libx11-6 cmake libxext6 libglib2.0-dev \
+	libelf-dev libmysqlclient-dev libssl-dev libcrypto++-dev \
 	"
 elif [[ "$release" = "19.04" ]]; then
 	echo ""
@@ -96,14 +96,14 @@ elif [[ "$release" = "19.04" ]]; then
 	libfreetype6-dev libfribidi-dev libpcsclite-dev libgiftiio0 libaio-dev libgiftiio-dev libjpeg-turbo8-dev libxcb-shape0-dev libxinerama-dev libxt-dev \
 	libasound2-dev libcaca-dev libpulse-dev libvorbis-dev libgtk2.0-dev libsdl2-dev libsigc++-2.0-dev libtool-bin libxml2-dev libxslt1-dev flex libssl-dev \
 	libssl1.1 libvdpau-dev libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libavformat-dev libavutil-dev libpostproc-dev libnl-3-dev libmpcdec-dev \
-	libvpx-dev libnl-genl-3-dev libavahi-client-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev  libgif-dev libjpeg8-dev libflac-dev \
-	libxcb-xv0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libmagickwand-dev libgnomevfs2-dev libdirectfb-dev libwavpack-dev \
-	libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev libupnp-dev liblircclient-dev mercurial mjpegtools mingetty net-tools \
-	openssh-sftp-server python-dev python-setuptools python-twisted-web python-gdata python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi \
-	python-lzma python-mechanize python-mutagen python-netifaces python-ntplib python-pycryptopp python-sendfile python-simplejson python-transmissionrpc \
-	python-yenc python-subprocess32 python-pil python-pycurl python-bzrlib python-twisted-mail software-properties-common python-ipaddr python-langdetect \
-	python-pickleshare rpl sdparm smartmontools streamripper subversion swig swig3.0 texi2html texinfo w3m unclutter vsftpd youtube-dl xmlto xterm \
-	libmng2 libx11-6 cmake libxext6 libglib2.0-dev libelf-dev libudf-dev libmysqlclient-dev libcrypto++-dev \
+	libvpx-dev libnl-genl-3-dev libavahi-client-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev  libgif-dev libjpeg8-dev libflac-dev libxcb-xv0-dev \
+	libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libmagickwand-dev libgnomevfs2-dev libdirectfb-dev libwavpack-dev libspeex-dev libmng-dev \
+	libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev libupnp-dev liblircclient-dev mercurial mjpegtools mingetty net-tools openssh-sftp-server python-dev \
+	python-setuptools python-twisted-web python-twisted-mail python-gdata python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi python-lzma \
+	python-mechanize python-mutagen python-netifaces python-ntplib python-pycryptopp python-sendfile python-simplejson python-transmissionrpc python-yenc \
+	python-subprocess32 python-pil python-pycurl python-bzrlib software-properties-common python-ipaddr python-langdetect python-pickleshare rpl sdparm \
+	smartmontools streamripper subversion swig swig3.0 texi2html texinfo w3m unclutter vsftpd youtube-dl xmlto xterm libmng2 libx11-6 cmake libxext6 libglib2.0-dev \
+	libelf-dev libudf-dev libmysqlclient-dev libcrypto++-dev \
 	"
 fi
 
