@@ -6,7 +6,7 @@ echo "-----------------------------------------"
 echo "*** INSTALL REQUIRED PACKAGES ***"
 echo "-----------------------------------------"
 REQPKG="python-certifi python-urllib3 python-openssl python-cheetah python-twisted-web ntpdate dvb-apps rtmpdump librtmp1 uchardet \
-	python-pycryptodome pylint flake8 pmccabe pycodestyle pyflakes httpretty mock sphinx-common sphinx-rtd-theme-common \
+	python-pycryptodome pylint flake8 pmccabe pycodestyle pyflakes python-httpretty mock sphinx-common sphinx-rtd-theme-common \
 	python-blessings python-demjson yamllint python-restructuredtext-lint python-cheetah python-openssl python-twisted \
 	"
 
