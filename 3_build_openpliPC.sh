@@ -389,6 +389,7 @@ cd ..
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
 cp -fv /etc/network/interfaces /etc/network/interfaces~
+ln -sv /etc/modules /etc/modules-load.d/modules.conf
 
 # Create symlink for tuxtxt font
 if [ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.otb ]; then
