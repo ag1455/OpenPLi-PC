@@ -418,6 +418,12 @@ echo "lock-enabled:"
 gsettings get org.gnome.desktop.screensaver lock-enabled
 echo "idle-activation-enabled:"
 gsettings get org.gnome.desktop.screensaver idle-activation-enabled
+echo ""
+echo "********************************************************"
+echo "If you want to return screensaver back, then you must"
+echo "do the opposite as user, but not as root."
+echo "********************************************************"
+echo ""
 
 echo ""
 echo "********************************************************"
