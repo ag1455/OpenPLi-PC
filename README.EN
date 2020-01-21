@@ -1,5 +1,9 @@
 NEWS
 ====
+- (2020.01.21) Built-in headers ca.h, video.h, audio.h.
+  Correct reaction to the kernel version in the complilation script.
+  Some minor fixes.
+
 - (2020.01.12) Own lirc-0.10.1-6-e2pc archive replaced by the original lirc-0.10.1-6 patch.
 
 - (2020.01.11) enigma2-42fd2b44.
@@ -76,7 +80,6 @@ Installation
 If necessary run scripts 1 ... 5 step by step. Either run 0_INSTALL_ALL.sh.
 All necessary libraries will be installed automaticly.
 To build on older versions of Ubuntu you need manually install some packages, since they are not described in 2_build_libs.sh.
-FIRST INSTALLATION REBOOT REQUIRED!
 
 The working folder for the entry now is /media/hdd because often the sda3 drive is mounted in /home. This folder creates a link /media/hdd.
 In this folder: /media/hdd, /media/hdd/movies, /media/hdd/icons, etc.

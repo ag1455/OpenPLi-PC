@@ -2,29 +2,9 @@
 
 # Build and install plugins for enigma2pc
 
-echo "-----------------------------------------"
-echo "*** INSTALL REQUIRED PACKAGES ***"
-echo "-----------------------------------------"
-REQPKG="python-certifi python-urllib3 python-openssl python-cheetah python-twisted-web ntpdate dvb-apps rtmpdump librtmp1 uchardet \
-	python-pycryptodome pylint flake8 pmccabe pycodestyle pyflakes python-httpretty mock sphinx-common sphinx-rtd-theme-common \
-	python-blessings python-demjson yamllint python-restructuredtext-lint python-cheetah python-openssl python-twisted \
-	"
-
-MAKE_J="9"
-
-for p in $REQPKG; do
-	echo -n ">>> Checking \"$p\" : "
-	dpkg -s $p >/dev/null
-	if [ "$?" -eq "0" ]; then
-		echo "package is installed, skip it"
-	else
-		echo "package NOT present, installing it"
-		apt-get -y --force-yes install $p
-	fi
-done
-
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 INSTALL_E2DIR="/usr/local/e2"
+MAKE_J="9"
 
 ### This is the lock from the unpredictable script actions in the root directory in the absence of the plugins folder.
 if [ -d plugins ]; then
@@ -83,7 +63,7 @@ if [ -d plugins ]; then
 		echo "-----------------------------------------"
 		export CXX=/usr/bin/g++-6
 		echo ""
-		echo "                  *** used g++-6 ***                    "
+		echo "                  *** used g++-6 ***"
 		echo ""
 		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
@@ -97,7 +77,7 @@ if [ -d plugins ]; then
 		echo "-----------------------------------------"
 		echo ""
 		export CXX=/usr/bin/g++-7
-		echo "                  *** used g++-7 ***                    "
+		echo "                  *** used g++-7 ***"
 		echo ""
 		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
@@ -109,7 +89,7 @@ if [ -d plugins ]; then
 		echo "-----------------------------------------"
 		echo ""
 		export CXX=/usr/bin/g++-7
-		echo "                  *** used g++-7 ***                    "
+		echo "                  *** used g++-7 ***"
 		echo ""
 		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
@@ -121,13 +101,16 @@ if [ -d plugins ]; then
 		echo "-----------------------------------------"
 		echo ""
 		export CXX=/usr/bin/g++-8
-		echo "                  *** used g++-8 ***                    "
+		echo "                  *** used g++-8 ***"
 		echo ""
 		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach c7750c5a
 		patch -p1 < servicemp3.patch
 	fi
+
+	ln -s ../../../../enigma2/lib/dvb/video.h servicemp3
+	ln -s ../../../../enigma2/lib/dvb/ca.h servicemp3
 
 	cd ..
 

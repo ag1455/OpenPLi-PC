@@ -10,6 +10,7 @@ DO_PARALLEL=9
 DO_MAKEINSTALL=1
 
 INSTALL_E2DIR="/usr/local/e2"
+PKG="enigma2"
 
 e2_backup() {
 echo ""
@@ -33,11 +34,13 @@ if [ -d $INSTALL_E2DIR ]; then
 	echo "********************************************************"
 	echo "           BACKUP COMPLITE. BUILDIND $PKG."
 	echo "********************************************************"
+	echo ""
 else
 	echo ""
 	echo "********************************************************"
 	echo "   NOTHING BACKUP. YOU FIRST INSTALL. BUILDIND $PKG."
 	echo "********************************************************"
+	echo ""
 fi
 }
 
@@ -108,8 +111,6 @@ if [ "$DO_BACKUP" -eq "1" ]; then
 	e2_backup
 fi
 
-PKG="enigma2"
-
 if [ -d $PKG ]; then
 	cd $PKG
 	make uninstall
@@ -131,7 +132,7 @@ cp -fv $PKG/data/skin_display_default.xml $PKG/data/skin_display.xml
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-if [[ "$release" = "14.04" ]]; then
+if [ "$release" = "14.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 14.04 ***"
@@ -145,7 +146,7 @@ if [[ "$release" = "14.04" ]]; then
 	cd $PKG
 	patch -p1 < patch-42fd2b44-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
-elif [[ "$release" = "16.04" ]]; then
+elif [ "$release" = "16.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 16.04 ***"
@@ -154,10 +155,9 @@ elif [[ "$release" = "16.04" ]]; then
 	echo ""
 	export CXX=/usr/bin/g++-7
 	cp patches/patch-42fd2b44-to-PC.patch $PKG
-	cp patches/4_1X_kernel.patch $PKG
 	cd $PKG
 	patch -p1 < patch-42fd2b44-to-PC.patch
-elif [[ "$release" = "18.04" ]]; then
+elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 18.04 ***"
@@ -165,10 +165,9 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-7
 	cp patches/patch-42fd2b44-to-PC-sigc2.patch $PKG
-	cp patches/4_1X_kernel.patch $PKG
 	cd $PKG
 	patch -p1 < patch-42fd2b44-to-PC-sigc2.patch
-elif [[ "$release" = "19.04" ]]; then
+elif [ "$release" = "19.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 19.04 ***"
@@ -177,46 +176,38 @@ elif [[ "$release" = "19.04" ]]; then
 	echo ""
 	export CXX=/usr/bin/g++-8
 	cp patches/patch-42fd2b44-to-PC-sigc2.patch $PKG
-	cp patches/4_1X_kernel.patch $PKG
-	# This is just a hack. The configurator does't work in ubuntu-19.04 !
-	cp -rfv  pre/.deps $PKG/lib
-	# end hack
 	cd $PKG
 	patch -p1 < patch-42fd2b44-to-PC-sigc2.patch
 fi
 
-KERNEL=`uname -r | mawk -F. '{ printf("%d.%d\n",$1,$2); }'`
+# Check kernel version.
+A=`uname -r | mawk -F. '{ printf("%d\n",$1); }'`
+B=`uname -r | mawk -F. '{ printf("%d\n",$2); }'`
 
-if [[ $KERNEL > "4.10" ]]; then
-	echo ""
-	echo "********************************************************"
-	echo "                Your kernel is $KERNEL."
-	echo "Since yor kernel > 4.1 X, 'dvbsoftwareca' patch must be"
-	echo "applied."
-	echo "Also necessary to replace the linux-headers video.h,"
-	echo "audio.h and ca.h with the headers from this archive."
-	echo "********************************************************"
-	echo ""
-	patch -p1 < 4_1X_kernel.patch
-	cd ..
-	cp -fv pre/dvb/* /usr/include/linux/dvb
-	cp -fv pre/dvb/* /usr/src/linux-headers-$KERNEL*/include/uapi/linux/dvb
-	echo ""
-	cd $PKG
+if (( "$A" <= "4" )); then
+	if (( "$B" < "9" )); then
+		echo ""
+		echo "********************************************************"
+		echo "      Your kernel is $A.$B. Since yor kernel < 4.9,"
+		echo "         'dvbsoftwareca' patch must be applied."
+		cd ..
+		cp patches/kernel_less_4_9.patch $PKG
+		cd $PKG
+		patch -p1 < kernel_less_4_9.patch
+	else
+		echo ""
+		echo "********************************************************"
+		echo "                 Your kernel is $A.$B"
+	fi
 else
 	echo ""
 	echo "********************************************************"
-	echo "                 Your kernel is $KERNEL."
-	echo "            No additional patches required."
-	echo "********************************************************"
-	echo ""
+	echo "                 Your kernel is $A.$B"
 fi
 
 if [ "$DO_CONFIGURE" -eq "1" ]; then
-	echo "********************************************************"
-	echo " Configuring OpenPliPC $PKG with native lirc support."
-	echo "   Please edit $INSTALL_E2DIR/etc/enigma2/remote.conf."
-	echo "       Build OpenPliPC $PKG, please wait..."
+	echo "     Configuring $PKG with native lirc support."
+	echo "             Build $PKG, please wait..."
 	echo "********************************************************"
 	echo ""
 	# Create symlinks in /usr diectory before compile enigma2
@@ -236,20 +227,20 @@ if [ "$DO_MAKEINSTALL" -eq "0" ]; then
 	make -j"$DO_PARALLEL" CXXFLAGS=-std=c++11
 	if [ ! $? -eq 0 ]; then
 		echo ""
-	echo "*********************************************************"
-	echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION MAKE!"
-	echo "*********************************************************"
+		echo "*********************************************************"
+		echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION MAKE!"
+		echo "*********************************************************"
 		echo ""
 		exit
 	fi
 	else
-	echo ""
-	echo "********************************************************"
-	echo "          INSTALLING $PKG IN $INSTALL_E2DIR."
-	echo "********************************************************"
-	echo ""
-	make uninstall
-	make -j"$DO_PARALLEL" install
+		echo ""
+		echo "********************************************************"
+		echo "          INSTALLING $PKG IN $INSTALL_E2DIR."
+		echo "********************************************************"
+		echo ""
+		make uninstall
+		make -j"$DO_PARALLEL" install
 	if [ ! $? -eq 0 ]; then
 		echo ""
 		echo "*****************************************************************"
@@ -266,6 +257,7 @@ rm /dev/dvb/adapter0/dvr1
 rm /dev/dvb/adapter0/demux1
 
 # Make dvbsoftwareca
+ln -s ../lib/dvb/ca.h dvbsoftwareca
 cd dvbsoftwareca
 make -j"$DO_PARALLEL"
 if [ ! $? -eq 0 ]; then
@@ -281,7 +273,7 @@ depmod -a
 
 # Insert module dvbsoftwareca and create symlink
 if [ $(lsmod | grep -c dvbsoftwareca) -eq 0 ]; then
-	modprobe dvbsoftwareca
+	modprobe -v dvbsoftwareca
 	ln -s /dev/dvb/adapter0/dvr0 /dev/dvb/adapter0/dvr1
 	ln -s /dev/dvb/adapter0/demux0 /dev/dvb/adapter0/demux1
 fi

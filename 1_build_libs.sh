@@ -8,7 +8,32 @@ echo "*** INSTALL REQUIRED PACKAGES ***"
 echo "-----------------------------------------"
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
-KERNEL=`uname -r | mawk -F. '{ printf("%d.%d\n",$1,$2); }'`
+
+REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-essential checkinstall chrpath cmake coreutils cvs debhelper desktop-file-utils docbook-utils \
+	diffstat dropbear dvb-apps dvdbackup ethtool fakeroot flex ffmpeg gawk gettext git help2man linux-headers-`uname -r` libdvdnav-dev libfreetype6-dev libfribidi-dev \
+	libpcsclite-dev libjpeg8-dev libgif-dev libjpeg-turbo8-dev libgiftiio0 libaio-dev libxinerama-dev libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev \
+	libgtk2.0-dev libtool libxml2-dev libxml2-utils libxslt1-dev libssl-dev libvdpau-dev libcdio-dev libcrypto++-dev libudf-dev libvcdinfo-dev libusb-1.0-0-dev \
+	libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev \
+	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libgnomevfs2-dev libdirectfb-dev \
+	libmagickwand-dev libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 \
+	libglib2.0-dev libelf-dev libmysqlclient-dev libupnp-dev libgiftiio-dev mawk mercurial mingetty mock mjpegtools net-tools ntpdate openssh-sftp-server pmccabe python-dev \
+	python-setuptools python-twisted python-twisted-web python-twisted-mail python-ipaddr python-ipaddress python-pysqlite2 python-cryptography-vectors python-daap \
+	python-flickrapi python-lzma python-mechanize python-mutagen python-netifaces python-ntplib python-pyasn1-modules python-pycryptopp python-sendfile python-simplejson \
+	python-transmissionrpc python-yenc python-pycurl python-pil python-bzrlib python-gdata python-urllib3 python-openssl python-cheetah python-demjson python-blessings \
+	python-httpretty patch pyflakes pkg-config rpl rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper subversion texi2html \
+	texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm \
+	"
+
+for p in $REQPKG_ALL; do
+	echo -n ">>> Checking \"$p\" : "
+	dpkg -s $p >/dev/null
+	if [[ "$?" -eq "0" ]]; then
+		echo "package is installed, skip it"
+	else
+		echo "package NOT present, installing it"
+		apt-get -y install $p
+	fi
+done
 
 if [[ "$release" = "14.04" ]]; then
 	echo ""
@@ -24,22 +49,9 @@ if [[ "$release" = "14.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="ant aptitude autoconf automake autopoint avahi-daemon build-essential checkinstall chrpath coreutils cvs debhelper desktop-file-utils docbook-utils \
-	diffstat dropbear dvdbackup ethtool flex fakeroot gawk gettext gcc-6 g++-6 git git-core gstreamer0.10-plugins-base help2man linux-headers-`uname -r` \
-	libdvdnav-dev libfreetype6-dev libfribidi-dev libpcsclite-dev libjpeg8-dev libgif-dev libjpeg-turbo8-dev libpng12-dev libgiftiio0 libaio-dev libxinerama-dev \
-	libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev libgtk2.0-dev libsdl1.2-dev libtool libxml2-dev libxslt1-dev libssl-dev libssl1.0.0 libvdpau-dev \
-	libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev \
-	libbluray-dev libmpcdec-dev libvpx-dev libxml2-utils libsigc++-1.2-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev libflac-dev libogg-dev libdts-dev libxcb-xv0-dev \
-	libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libesd0-dev libgnomevfs2-dev libdirectfb-dev libmagickwand-dev libwavpack-dev libspeex-dev libmng-dev \
-	libmad0-dev librsvg2-bin libva-dev libtheora-dev libsmbclient-dev libupnp6-dev liblircclient-dev mjpegtools net-tools python-dev python-setuptools python-twisted-web \
-	python-twisted-mail python-ipaddr openssh-sftp-server python-ipaddress python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi python-ipaddress python-lzma \
-	python-mechanize python-mutagen python-netifaces python-ntplib python-pyasn1-modules python-pycryptopp python-sendfile python-simplejson python-transmissionrpc python-yenc \
-	python-imaging python-pycurl python-bzrlib python-compressor python-gdata python-software-properties mawk mercurial mingetty patch pkg-config rpl sdparm smartmontools \
-	streamripper swig2.0 subversion texi2html texinfo unclutter unzip w3m vsftpd xmlto xterm libmng2 libx11-6 libxext6 libglib2.0-dev libelf-dev libmysqlclient-dev \
-	libsigc++-1.2-dev cmake setserial \
+	REQPKG="flake gcc-6 g++-6 libssl1.0.0 libsdl1.2-dev gstreamer0.10-plugins-base libgstreamer-plugins-base0.10-dev libgstreamer0.10-dev libpng12-dev libsigc++-1.2-dev libesd0-dev \
+	libva-dev libqtgstreamer-dev libupnp6-dev swig2.0 \
 	"
-#	python-service-identity python-subprocess32
-#	"
 elif [[ "$release" = "16.04" ]]; then
 	echo ""
 	echo "********************************************************"
@@ -50,20 +62,9 @@ elif [[ "$release" = "16.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="ant aptitude autoconf automake autopoint build-essential checkinstall chrpath coreutils cvs debhelper desktop-file-utils docbook-utils diffstat \
-	dropbear dvdbackup ethtool flex fakeroot ffmpeg gawk gettext gcc-7 g++-7 git git-core help2man linux-headers-`uname -r` libgiftiio0 libaio-dev libgiftiio-dev \
-	libjpeg-turbo8-dev libpng12-dev libxcb-shape0-dev libxinerama-dev libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev libgtk2.0-dev libsdl1.2-dev \
-	libtool libtool-bin libxml2-dev libxslt1-dev flex libdvdnav-dev libfreetype6-dev libfribidi-dev libpcsclite-dev libjpeg8-dev libgif-dev libssl-dev libssl1.0.0 \
-	libvdpau-dev libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libqt5gstreamer-dev libavformat-dev \
-	libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libxml2-utils libnl-genl-3-dev libavahi-client3 libavahi-client-dev libflac-dev \
-	libogg-dev libdts-dev libxcb-xv0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libesd0-dev libgnomevfs2-dev libdirectfb-dev \
-	libmagickwand-dev libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libva-dev libtheora-dev libsmbclient-dev libupnp6-dev liblircclient-dev mawk \
-	mercurial mingetty mjpegtools net-tools openssh-sftp-server patch pkg-config python-pysqlite2 python-gdata python-twisted-web python-twisted-mail python-dev \
-	python-setuptools python-daap python-flickrapi python-ipaddr python-ipaddress python-lzma python-mechanize python-mutagen python-netifaces python-ntplib \
-	python-pyasn1-modules python-pickleshare python-pycryptopp python-sendfile python-service-identity python-simplejson python-transmissionrpc python-yenc \
-	python-subprocess32 python-imaging python-pycurl python-bzrlib python-compressor python-software-properties python-cryptography-vectors rpl sdparm smartmontools \
-	streamripper subversion swig2.0 texi2html texinfo unclutter unzip vsftpd youtube-dl w3m xmlto xterm libmng2 libx11-6 libxext6 libglib2.0-dev libelf-dev \
-	libmysqlclient-dev libsigc++-1.2-dev cmake \
+	REQPKG="flake8 gcc-7 g++-7 libssl1.0.0 libsdl1.2-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libesd0-dev libpng12-dev libsigc++-1.2-dev python-subprocess32 \
+	libva-dev libqt5gstreamer-dev python-cryptodome python-pickleshare python-service-identity python-certifi python-restructuredtext-lint pylint sphinx-rtd-theme-common libupnp6-dev \
+	swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -71,19 +72,9 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "                 *** release 18.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="ant aptitude autoconf automake autopoint avahi-daemon build-essential checkinstall chrpath coreutils cvs debhelper desktop-file-utils docbook-utils \
-	diffstat dropbear dvdbackup ethtool flex fakeroot ffmpeg gawk gettext git gcc-7 g++-7 help2man linux-headers-`uname -r` libbluray-dev libdvdnav-dev \
-	libdts-dev libfreetype6-dev libfribidi-dev libpcsclite-dev libgiftiio0 libaio-dev libgiftiio-dev libjpeg-turbo8-dev libxcb-shape0-dev libxinerama-dev \
-	libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev libgtk2.0-dev libsdl1.2-dev libsigc++-2.0-dev libtool-bin libxml2-dev libxslt1-dev flex \
-	libvdpau-dev libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libavformat-dev libavutil-dev libpostproc-dev libnl-3-dev libmpcdec-dev \
-	libvpx-dev libnl-genl-3-dev libavahi-client-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev  libgif-dev libjpeg8-dev libflac-dev libxcb-xv0-dev \
-	libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libmagickwand-dev libgnomevfs2-dev libdirectfb-dev libwavpack-dev libspeex-dev libmng-dev \
-	libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev libupnp6-dev liblircclient-dev mercurial mjpegtools mingetty net-tools openssh-sftp-server python-dev \
-	python-setuptools python-twisted-web python-twisted-mail python-gdata python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi \
-	python-lzma python-mechanize python-mutagen python-netifaces python-ntplib python-pycryptopp python-sendfile python-simplejson python-transmissionrpc \
-	python-yenc python-subprocess32 python-pil python-pycurl python-bzrlib software-properties-common python-ipaddr python-langdetect python-pickleshare rpl \
-	sdparm smartmontools streamripper subversion swig texi2html texinfo w3m unclutter vsftpd youtube-dl xmlto xterm libmng2 libx11-6 cmake libxext6 libglib2.0-dev \
-	libelf-dev libmysqlclient-dev libssl-dev libcrypto++-dev \
+	REQPKG="flake8 gcc-7 g++-7 libssl1.1 libsdl2-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 \
+	python-langdetect python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint pylint sphinx-rtd-theme-common libupnp6-dev \
+	swig yamllint \
 	"
 elif [[ "$release" = "19.04" ]]; then
 	echo ""
@@ -91,19 +82,9 @@ elif [[ "$release" = "19.04" ]]; then
 	echo "                 *** release 19.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="ant aptitude autoconf automake autopoint avahi-daemon build-essential checkinstall chrpath coreutils cvs debhelper desktop-file-utils docbook-utils \
-	diffstat dropbear dvdbackup ethtool flex fakeroot ffmpeg gawk gcc-8 g++-8 git help2man linux-headers-`uname -r` libbluray-dev libdvdnav-dev libdts-dev \
-	libfreetype6-dev libfribidi-dev libpcsclite-dev libgiftiio0 libaio-dev libgiftiio-dev libjpeg-turbo8-dev libxcb-shape0-dev libxinerama-dev libxt-dev \
-	libasound2-dev libcaca-dev libpulse-dev libvorbis-dev libgtk2.0-dev libsdl2-dev libsigc++-2.0-dev libtool-bin libxml2-dev libxslt1-dev flex libssl-dev \
-	libssl1.1 libvdpau-dev libcdio-dev libvcdinfo-dev libusb-1.0-0-dev libavcodec-dev libavformat-dev libavutil-dev libpostproc-dev libnl-3-dev libmpcdec-dev \
-	libvpx-dev libnl-genl-3-dev libavahi-client-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev  libgif-dev libjpeg8-dev libflac-dev libxcb-xv0-dev \
-	libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libmagickwand-dev libgnomevfs2-dev libdirectfb-dev libwavpack-dev libspeex-dev libmng-dev \
-	libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev libupnp-dev liblircclient-dev mercurial mjpegtools mingetty net-tools openssh-sftp-server python-dev \
-	python-setuptools python-twisted-web python-twisted-mail python-gdata python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi python-lzma \
-	python-mechanize python-mutagen python-netifaces python-ntplib python-pycryptopp python-sendfile python-simplejson python-transmissionrpc python-yenc \
-	python-subprocess32 python-pil python-pycurl python-bzrlib software-properties-common python-ipaddr python-langdetect python-pickleshare rpl sdparm \
-	smartmontools streamripper subversion swig swig3.0 texi2html texinfo w3m unclutter vsftpd youtube-dl xmlto xterm libmng2 libx11-6 cmake libxext6 libglib2.0-dev \
-	libelf-dev libudf-dev libmysqlclient-dev libcrypto++-dev \
+	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 \
+	python-langdetect python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint pylint sphinx-rtd-theme-common libupnp-dev \
+	swig swig3.0 yamllint \
 	"
 fi
 
@@ -114,7 +95,7 @@ for p in $REQPKG; do
 		echo "package is installed, skip it"
 	else
 		echo "package NOT present, installing it"
-		 apt-get -y install $p
+		apt-get -y install $p
 	fi
 done
 
