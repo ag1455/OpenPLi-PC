@@ -69,8 +69,6 @@ if [ -d plugins ]; then
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach c7750c5a
 		patch -p1 < servicemp3-0.patch
-		rpl "gstreamer-1.0 gstreamer-pbutils-1.0" "gstreamer-0.10 gstreamer-pbutils-0.10" configure.ac
-		rpl "[GST_MAJORMINOR=1.0]" "[GST_MAJORMINOR=0.10]" configure.ac
 	elif [[ "$release" = "16.04" ]]; then
 		echo "-----------------------------------------"
 		echo "         *** release 16.04 ***           "
