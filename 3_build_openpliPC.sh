@@ -184,22 +184,27 @@ fi
 A=`uname -r | mawk -F. '{ printf("%d\n",$1); }'`
 B=`uname -r | mawk -F. '{ printf("%d\n",$2); }'`
 
-if (( "$A" <= "4" )); then
+if (( "$A" < "4" )); then
+	echo ""
+	echo "********************************************************"
+	echo "      Your kernel is $A.$B. Since yor kernel < 4.9,"
+	echo "         'dvbsoftwareca' patch must be applied."
+fi
+
+if (( "$A" == "4" )); then
 	if (( "$B" < "9" )); then
 		echo ""
 		echo "********************************************************"
 		echo "      Your kernel is $A.$B. Since yor kernel < 4.9,"
 		echo "         'dvbsoftwareca' patch must be applied."
-		cd ..
-		cp patches/kernel_less_4_9.patch $PKG
-		cd $PKG
-		patch -p1 < kernel_less_4_9.patch
 	else
 		echo ""
 		echo "********************************************************"
 		echo "                 Your kernel is $A.$B"
 	fi
-else
+fi
+
+if (( "$A" > "4" )); then
 	echo ""
 	echo "********************************************************"
 	echo "                 Your kernel is $A.$B"
