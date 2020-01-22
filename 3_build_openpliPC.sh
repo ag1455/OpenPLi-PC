@@ -197,10 +197,10 @@ if (( "$A" == "4" )); then
 		echo "********************************************************"
 		echo "      Your kernel is $A.$B. Since yor kernel < 4.9,"
 		echo "         'dvbsoftwareca' patch must be applied."
-	cd ..
-	cp patches/kernel_less_4_9.patch $PKG
-	cd $PKG
-	patch -p1 < kernel_less_4_9.patch
+		cd ..
+		cp patches/kernel_less_4_9.patch $PKG
+		cd $PKG
+		patch -p1 < kernel_less_4_9.patch
 	else
 		echo ""
 		echo "********************************************************"
