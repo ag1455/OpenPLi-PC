@@ -180,45 +180,9 @@ elif [ "$release" = "19.04" ]; then
 	patch -p1 < patch-42fd2b44-to-PC-sigc2.patch
 fi
 
-# Check kernel version.
-A=`uname -r | mawk -F. '{ printf("%d\n",$1); }'`
-B=`uname -r | mawk -F. '{ printf("%d\n",$2); }'`
-
-if (( "$A" < "4" )); then
-	echo ""
-	echo "********************************************************"
-	echo "      Your kernel is $A.$B. Since yor kernel < 4.9,"
-	echo "         'dvbsoftwareca' patch must be applied."
-	cd ..
-	cp patches/kernel_less_4_9.patch $PKG
-	cd $PKG
-	patch -p1 < kernel_less_4_9.patch
-fi
-
-if (( "$A" == "4" )); then
-	if (( "$B" < "9" )); then
-		echo ""
-		echo "********************************************************"
-		echo "      Your kernel is $A.$B. Since yor kernel < 4.9,"
-		echo "         'dvbsoftwareca' patch must be applied."
-		cd ..
-		cp patches/kernel_less_4_9.patch $PKG
-		cd $PKG
-		patch -p1 < kernel_less_4_9.patch
-	else
-		echo ""
-		echo "********************************************************"
-		echo "                 Your kernel is $A.$B"
-	fi
-fi
-
-if (( "$A" > "4" )); then
-	echo ""
-	echo "********************************************************"
-	echo "                 Your kernel is $A.$B"
-fi
-
 if [ "$DO_CONFIGURE" -eq "1" ]; then
+	echo ""
+	echo "********************************************************"
 	echo "     Configuring $PKG with native lirc support."
 	echo "             Build $PKG, please wait..."
 	echo "********************************************************"

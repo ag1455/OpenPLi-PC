@@ -1,6 +1,6 @@
 diff -ruN o/debian/changelog pc/debian/changelog
 --- o/debian/changelog	2019-12-22 16:01:49.000000000 +0300
-+++ pc/debian/changelog	2019-12-22 18:12:58.000000000 +0300
++++ pc/debian/changelog	2019-12-25 00:51:10.000000000 +0300
 @@ -1,3 +1,9 @@
 +xine-lib-1.2 (1.2.9+hg-b6cc71673eb9-14450-e2pc) experimental; urgency=low
 +
@@ -13,7 +13,7 @@ diff -ruN o/debian/changelog pc/debian/changelog
    * Hg snapshot.
 diff -ruN o/debian/rules pc/debian/rules
 --- o/debian/rules	2019-12-22 16:01:49.000000000 +0300
-+++ pc/debian/rules	2019-12-22 18:12:58.000000000 +0300
++++ pc/debian/rules	2019-12-25 00:51:10.000000000 +0300
 @@ -71,6 +71,9 @@
  	--with-wavpack \
  	--enable-ipv6 \
@@ -26,7 +26,7 @@ diff -ruN o/debian/rules pc/debian/rules
  configure: configure-stamp
 diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
 --- o/include/xine/osd.h	2019-12-22 16:01:49.000000000 +0300
-+++ pc/include/xine/osd.h	2019-12-22 18:12:58.000000000 +0300
++++ pc/include/xine/osd.h	2019-12-25 00:51:10.000000000 +0300
 @@ -216,6 +216,7 @@
     * overlay is blended at output (screen) resolution.
     */
@@ -37,7 +37,7 @@ diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
     * see xine.h for defined XINE_OSD_CAP_ values.
 diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
 --- o/include/xine/video_out.h	2019-12-22 16:01:49.000000000 +0300
-+++ pc/include/xine/video_out.h	2019-12-22 18:12:58.000000000 +0300
++++ pc/include/xine/video_out.h	2019-12-25 00:51:10.000000000 +0300
 @@ -272,7 +272,10 @@
  #define VO_PROP_BUFS_FREE             27 /* read-only */
  #define VO_PROP_MAX_VIDEO_WIDTH       28 /* read-only */
@@ -52,7 +52,7 @@ diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
     at most, because some alphablend functions use an 8-bit index into
 diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
 --- o/include/xine/xineintl.h	2019-12-22 16:01:49.000000000 +0300
-+++ pc/include/xine/xineintl.h	2019-12-22 18:12:58.000000000 +0300
++++ pc/include/xine/xineintl.h	2019-12-25 00:51:10.000000000 +0300
 @@ -27,6 +27,9 @@
  
  #include <locale.h>
@@ -65,7 +65,7 @@ diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
  #    define _(String) dgettext (XINE_TEXTDOMAIN, String)
 diff -ruN o/include/xine.h pc/include/xine.h
 --- o/include/xine.h	2019-12-22 16:01:49.000000000 +0300
-+++ pc/include/xine.h	2019-12-22 18:12:58.000000000 +0300
++++ pc/include/xine.h	2019-12-25 00:51:11.000000000 +0300
 @@ -1826,6 +1826,7 @@
  #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
  #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
@@ -118,7 +118,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  void        xine_osd_clear         (xine_osd_t *self) XINE_PROTECTED;
 diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
 --- o/src/demuxers/demux_ts.c	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/demuxers/demux_ts.c	2019-12-22 21:29:59.554392841 +0300
++++ pc/src/demuxers/demux_ts.c	2019-12-25 00:51:11.000000000 +0300
 @@ -160,7 +160,7 @@
  #define LOG
  */
@@ -241,7 +241,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  #endif
 diff -ruN o/src/input/combined_enigma.c pc/src/input/combined_enigma.c
 --- o/src/input/combined_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/input/combined_enigma.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/input/combined_enigma.c	2019-12-25 00:51:11.000000000 +0300
 @@ -0,0 +1,43 @@
 +/*
 + * Copyright (C) 2000-2004 the xine project
@@ -288,7 +288,7 @@ diff -ruN o/src/input/combined_enigma.c pc/src/input/combined_enigma.c
 +};
 diff -ruN o/src/input/combined_enigma.h pc/src/input/combined_enigma.h
 --- o/src/input/combined_enigma.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/input/combined_enigma.h	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/input/combined_enigma.h	2019-12-25 00:51:11.000000000 +0300
 @@ -0,0 +1,81 @@
 +/*
 + * Copyright (C) 2000-2004 the xine project
@@ -373,7 +373,7 @@ diff -ruN o/src/input/combined_enigma.h pc/src/input/combined_enigma.h
 +
 diff -ruN o/src/input/input_enigma.c pc/src/input/input_enigma.c
 --- o/src/input/input_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/input/input_enigma.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/input/input_enigma.c	2019-12-25 00:51:11.000000000 +0300
 @@ -0,0 +1,887 @@
 +/*
 + * Copyright (C) 2000-2003 the xine project
@@ -1264,7 +1264,7 @@ diff -ruN o/src/input/input_enigma.c pc/src/input/input_enigma.c
 +*/
 diff -ruN o/src/input/Makefile.am pc/src/input/Makefile.am
 --- o/src/input/Makefile.am	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/input/Makefile.am	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/input/Makefile.am	2019-12-25 00:51:11.000000000 +0300
 @@ -178,7 +178,8 @@
  	$(in_pvr) \
  	$(in_dvb) \
@@ -1286,7 +1286,7 @@ diff -ruN o/src/input/Makefile.am pc/src/input/Makefile.am
 +xineplug_inp_enigma_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL)
 diff -ruN o/src/input/post_enigma_audio.c pc/src/input/post_enigma_audio.c
 --- o/src/input/post_enigma_audio.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/input/post_enigma_audio.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/input/post_enigma_audio.c	2019-12-25 00:51:12.000000000 +0300
 @@ -0,0 +1,266 @@
 +/*
 + * Copyright (C) 2000-2004 the xine project
@@ -1556,7 +1556,7 @@ diff -ruN o/src/input/post_enigma_audio.c pc/src/input/post_enigma_audio.c
 +}
 diff -ruN o/src/input/post_enigma_video.c pc/src/input/post_enigma_video.c
 --- o/src/input/post_enigma_video.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/input/post_enigma_video.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/input/post_enigma_video.c	2019-12-25 00:51:12.000000000 +0300
 @@ -0,0 +1,507 @@
 +/*
 + * Copyright (C) 2000-2004 the xine project
@@ -2067,7 +2067,7 @@ diff -ruN o/src/input/post_enigma_video.c pc/src/input/post_enigma_video.c
 +}
 diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
 --- o/src/video_out/video_out_opengl.c	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/video_out/video_out_opengl.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/video_out/video_out_opengl.c	2019-12-25 00:51:12.000000000 +0300
 @@ -134,6 +134,14 @@
  
  #define MY_2PI               (M_PI * 2)
@@ -2457,7 +2457,7 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
  
 diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
 --- o/src/video_out/video_out_vdpau.c	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/video_out/video_out_vdpau.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/video_out/video_out_vdpau.c	2019-12-25 00:51:12.000000000 +0300
 @@ -776,7 +776,14 @@
        this->ovl_video_dest_rect = vid_rect;
      }
@@ -2489,8 +2489,8 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
          this->zoom_x = value;
 diff -ruN o/src/xine-engine/demux.c pc/src/xine-engine/demux.c
 --- o/src/xine-engine/demux.c	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/xine-engine/demux.c	2019-12-22 18:12:58.000000000 +0300
-@@ -425,6 +425,18 @@
++++ pc/src/xine-engine/demux.c	2020-01-22 23:45:40.386056639 +0300
+@@ -425,6 +425,14 @@
          } while (stream->demux_thread_running && (status == DEMUX_FINISHED));
          break;
        } else {
@@ -2500,16 +2500,12 @@ diff -ruN o/src/xine-engine/demux.c pc/src/xine-engine/demux.c
 +        if (stream->first_frame_flag) {
 +          stream->first_frame_flag = 0;
 +          pthread_cond_broadcast(&stream->first_frame_reached);
-+          pthread_mutex_unlock (&stream->first_frame_lock);
-+          xprintf (stream->s.xine, XINE_VERBOSITY_DEBUG,
-+            "demux: unblocked xine_play_internal ().\n");
-+        } else {
-+          pthread_mutex_unlock (&stream->first_frame_lock);
 +        }
++        pthread_mutex_unlock (&stream->first_frame_lock);
          /* stream end may well happen during xine_play () (seek close to end).
           * Lets not confuse frontend, and delay that message a bit. */
          ts = seek_time;
-@@ -440,14 +452,6 @@
+@@ -440,14 +448,6 @@
            break;
          xprintf (stream->s.xine, XINE_VERBOSITY_DEBUG,
            "demux: very short seek segment, delaying finish message.\n");
@@ -2526,7 +2522,7 @@ diff -ruN o/src/xine-engine/demux.c pc/src/xine-engine/demux.c
          int e = pthread_cond_timedwait (&stream->demux_resume, &stream->demux_lock, &ts);
 diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
 --- o/src/xine-engine/osd.c	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/xine-engine/osd.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/xine-engine/osd.c	2019-12-25 00:51:12.000000000 +0300
 @@ -521,6 +521,10 @@
    return _osd_show(osd, vpts, 1);
  }
@@ -2548,7 +2544,7 @@ diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
    this->r.set_video_window   = osd_set_video_window;
 diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
 --- o/src/xine-engine/video_out.c	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/xine-engine/video_out.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/xine-engine/video_out.c	2019-12-25 00:51:12.000000000 +0300
 @@ -182,6 +182,7 @@
  
    /* pts value when decoder delivered last video frame */
@@ -2610,7 +2606,7 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
     */
 diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
 --- o/src/xine-engine/xine_interface.c	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/xine-engine/xine_interface.c	2019-12-22 18:12:58.000000000 +0300
++++ pc/src/xine-engine/xine_interface.c	2019-12-25 00:51:12.000000000 +0300
 @@ -867,6 +867,10 @@
    this->osd.renderer->show_unscaled(&this->osd, vpts);
  }
