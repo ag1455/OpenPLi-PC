@@ -11,6 +11,7 @@ DO_MAKEINSTALL=1
 
 INSTALL_E2DIR="/usr/local/e2"
 PKG="enigma2"
+DVB_DEV="/dev/dvb/adapter0"
 
 e2_backup() {
 echo ""
@@ -230,8 +231,6 @@ fi
 
 # Remove old kernel module
 modprobe -r dvbsoftwareca
-rm /dev/dvb/adapter0/dvr1
-rm /dev/dvb/adapter0/demux1
 
 # Make dvbsoftwareca
 ln -s ../lib/dvb/ca.h dvbsoftwareca
@@ -248,11 +247,21 @@ fi
 cp -fv dvbsoftwareca.ko /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends
 depmod -a
 
-# Insert module dvbsoftwareca and create symlink
+# Create symlink
+if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
+	ln -s $DVB_DEV/demux0 $DVB_DEV/demux1
+else
+	echo "Symlink demux1 already exists"
+fi
+if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
+	ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
+else
+	echo "Symlink dvr1 already exists"
+fi
+
+# Insert module dvbsoftwareca
 if [ $(lsmod | grep -c dvbsoftwareca) -eq 0 ]; then
 	modprobe -v dvbsoftwareca
-	ln -s /dev/dvb/adapter0/dvr0 /dev/dvb/adapter0/dvr1
-	ln -s /dev/dvb/adapter0/demux0 /dev/dvb/adapter0/demux1
 fi
 
 cd ../..
@@ -380,15 +389,16 @@ fi
 gsettings set org.gnome.desktop.lockdown disable-lock-screen 'true'
 gsettings set org.gnome.desktop.screensaver lock-enabled false
 gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
+
 # Test result
+echo ""
+echo "********************************************************"
 echo "disable-lock-screen:"
 gsettings get org.gnome.desktop.lockdown disable-lock-screen
 echo "lock-enabled:"
 gsettings get org.gnome.desktop.screensaver lock-enabled
 echo "idle-activation-enabled:"
 gsettings get org.gnome.desktop.screensaver idle-activation-enabled
-echo ""
-echo "********************************************************"
 echo "If you want to return screensaver back, then you must"
 echo "do the opposite as user, but not as root."
 echo "********************************************************"
