@@ -11,28 +11,41 @@
 #
 # By default this script does nothing.
 
-
 # This is only for LCD!
 #	ln -s /dev/fb0 /dev/fb1
 
-#DVB_DEV="/dev/dvb/adapter0"
+DVB_DEV="/dev/dvb/adapter0"
+#LOG="/var/log/oscam/wait.log"
 
 #if [ -d /sys/class/dvb/dvb0.frontend1 ]; then
 #	rm $DVB_DEV/net1 $DVB_DEV/frontend1 $DVB_DEV/demux1 $DVB_DEV/dvr1 $DVB_DEV/net1
 #fi
 
-sleep 5
-
-for i in $(find /dev/dvb -name demux0 | sed 's/.\{6\}$//')
-do
-	echo "For $i"demux0" create symlink $i"demux1" "
-	ln -s $i"demux0" $i"demux1"
-	echo "For $i"dvr0" create symlink $i"dvr1" "
-	ln -s $i"dvr0" $i"dvr1"
-done
+sleep 1
 
 modprobe -v dvbsoftwareca
 
-sleep 1
+if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
+	echo "For $DVB_DEV/demux0 create symlink $DVB_DEV/demux1"
+	ln -s $DVB_DEV/demux0 $DVB_DEV/demux1
+fi
 
-softcam restart
+if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
+	echo "For $DVB_DEV/dvr0 create symlink $DVB_DEV/dvr1"
+	ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
+fi
+
+#if [ ! -f $LOG ]; then
+#	touch "$LOG"
+#fi
+
+while [ 1 != 0 ]; do
+	if [ $(ls $DVB_DEV | grep -w ca0) ]; then
+		softcam start
+#		echo " * Oscam started" >> $LOG
+		exit 0
+	else
+#		echo " * Waiting ca0" >> $LOG
+		sleep 1
+	fi
+done
