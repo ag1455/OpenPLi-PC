@@ -1,11 +1,11 @@
 NEWS
 ====
+- (2020.01.27) Revert overwrite headers ca.h, video.h, audio.h. Overwrite should be in the script 2.
+
 - (2020.01.25) Oscam expects ca0 to appear. *** Please, don't modify rc.local! ***
 - Otherwise, your PC simply will not boot to X and you will need to edit rc.local from safe mode.
 
-- (2020.01.21) Built-in headers ca.h, video.h, audio.h.
-  Correct reaction to the kernel version in the complilation script.
-  Some minor fixes.
+- (2020.01.21) Some minor fixes.
 
 - (2020.01.12) Own lirc-0.10.1-6-e2pc archive replaced by the original lirc-0.10.1-6 patch.
 
@@ -80,9 +80,6 @@ Please don't use ppa repositories containing system packages!
 
 Installation
 ============
-*** You should put the OpenPli-PC folder in /usr/src since there will appear the relative symbolic links! ***
-=============================================================================================================
-
 If necessary run scripts 1 ... 5 step by step. Either run 0_INSTALL_ALL.sh.
 All necessary libraries will be installed automaticly.
 To build on older versions of Ubuntu you need manually install some packages, since they are not described in 2_build_libs.sh.

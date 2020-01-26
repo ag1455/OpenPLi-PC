@@ -233,7 +233,6 @@ fi
 modprobe -r dvbsoftwareca
 
 # Make dvbsoftwareca
-ln -s ../lib/dvb/ca.h dvbsoftwareca
 cd dvbsoftwareca
 make -j"$DO_PARALLEL"
 if [ ! $? -eq 0 ]; then

@@ -398,12 +398,12 @@ diff -ruN o/dvbsoftwareca/ca_netlink.c pc/dvbsoftwareca/ca_netlink.c
 +}
 diff -ruN o/dvbsoftwareca/ca_netlink.h pc/dvbsoftwareca/ca_netlink.h
 --- o/dvbsoftwareca/ca_netlink.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/dvbsoftwareca/ca_netlink.h	2020-01-23 10:59:08.000000000 +0300
++++ pc/dvbsoftwareca/ca_netlink.h	2020-01-27 01:21:15.685742009 +0300
 @@ -0,0 +1,45 @@
 +#ifndef __CA_NETLINK_H
 +#define __CA_NETLINK_H
 +
-+#include "ca.h"
++#include <linux/dvb/ca.h>
 +#include <linux/netlink.h>
 +#include <net/genetlink.h>
 +#include <linux/kernel.h>
@@ -858,7 +858,7 @@ diff -ruN o/dvbsoftwareca/dvbdev.h pc/dvbsoftwareca/dvbdev.h
 +#endif /* #ifndef _DVBDEV_H_ */
 diff -ruN o/dvbsoftwareca/dvb_softwareca.c pc/dvbsoftwareca/dvb_softwareca.c
 --- o/dvbsoftwareca/dvb_softwareca.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/dvbsoftwareca/dvb_softwareca.c	2020-01-23 10:59:15.000000000 +0300
++++ pc/dvbsoftwareca/dvb_softwareca.c	2020-01-27 01:21:07.170597322 +0300
 @@ -0,0 +1,314 @@
 +/*
 + * dvb_softwareca.c
@@ -885,7 +885,7 @@ diff -ruN o/dvbsoftwareca/dvb_softwareca.c pc/dvbsoftwareca/dvb_softwareca.c
 + *
 + */
 +
-+#define DVBSOFTWARECA_VERSION "0.0.3"
++#define DVBSOFTWARECA_VERSION "0.0.2"
 +#define DVBSOFTWARECA_MAJOR 230
 +
 +#include <linux/errno.h>
@@ -894,7 +894,7 @@ diff -ruN o/dvbsoftwareca/dvb_softwareca.c pc/dvbsoftwareca/dvb_softwareca.c
 +#include <linux/platform_device.h>
 +#include "dvb_softwareca.h"
 +#include "ca_netlink.h"
-+#include "ca.h"
++#include <linux/dvb/ca.h>
 +#include "dvbdev.h"
 +
 +static struct platform_device *dvblb_basedev;
@@ -3920,12 +3920,12 @@ diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 +eAutoInitPtr<caConnector> init_caConnector(eAutoInitNumbers::dvb-1, "caConnector");
 diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 --- o/lib/dvb/ca_connector.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.h	2020-01-19 23:04:06.000000000 +0300
++++ pc/lib/dvb/ca_connector.h	2020-01-27 01:21:36.069090331 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __lib_dvb_ca_connector_h
 +#define __lib_dvb_ca_connector_h
 +
-+#include "ca.h"
++#include <linux/dvb/ca.h>
 +#include <lib/base/thread.h>
 +#include <netlink/netlink.h>
 +#include <netlink/genl/genl.h>
@@ -4138,7 +4138,7 @@ diff -ruN o/lib/dvb/ca.h pc/lib/dvb/ca.h
 +
 diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
 --- o/lib/dvb/decoder.cpp	2019-07-14 14:28:02.141114467 +0300
-+++ pc/lib/dvb/decoder.cpp	2020-01-19 23:04:06.000000000 +0300
++++ pc/lib/dvb/decoder.cpp	2020-01-27 01:23:23.054928265 +0300
 @@ -2,11 +2,13 @@
  #include <lib/base/ebase.h>
  #include <lib/base/eerror.h>
@@ -4146,10 +4146,8 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
 +#include <lib/base/eenv.h>
  #include <lib/dvb/decoder.h>
  #include <lib/components/tuxtxtapp.h>
--#include <linux/dvb/audio.h>
--#include <linux/dvb/video.h>
-+#include "audio.h"
-+#include "video.h"
+ #include <linux/dvb/audio.h>
+ #include <linux/dvb/video.h>
  #include <linux/dvb/dmx.h>
 +#include <lib/gdi/xineLib.h>
  
@@ -5058,12 +5056,12 @@ diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 +
 diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 --- o/lib/dvb/decsa.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.h	2020-01-19 23:03:32.000000000 +0300
++++ pc/lib/dvb/decsa.h	2020-01-27 01:21:27.606945397 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __dvb_decsa_h
 +#define __dvb_decsa_h
 +
-+#include "ca.h"
++#include <linux/dvb/ca.h>
 +#include <lib/base/condVar.h>
 +
 +extern "C" {
@@ -6409,16 +6407,7 @@ diff -ruN o/lib/dvb/idemux.h pc/lib/dvb/idemux.h
  #endif
 diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
 --- o/lib/dvb/idvb.h	2019-07-14 14:28:02.145114540 +0300
-+++ pc/lib/dvb/idvb.h	2020-01-19 23:04:06.000000000 +0300
-@@ -4,7 +4,7 @@
- #ifndef SWIG
- 
- #include <linux/dvb/frontend.h>
--#include <linux/dvb/video.h>
-+#include "video.h"
- #include <lib/base/object.h>
- #include <lib/base/ebase.h>
- #include <lib/base/elock.h>
++++ pc/lib/dvb/idvb.h	2020-01-27 01:22:28.308994493 +0300
 @@ -522,7 +522,7 @@
  	virtual int closeFrontend(bool force = false, bool no_delayed = false)=0;
  	virtual void reopenFrontend()=0;
@@ -7148,8 +7137,8 @@ diff -ruN o/lib/dvb/video.h pc/lib/dvb/video.h
 +#endif /* _DVBVIDEO_H_ */
 diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
 --- o/lib/dvb/volume.cpp	2019-07-14 14:28:02.148114594 +0300
-+++ pc/lib/dvb/volume.cpp	2020-01-19 23:03:32.000000000 +0300
-@@ -5,18 +5,17 @@
++++ pc/lib/dvb/volume.cpp	2020-01-27 01:23:16.307819426 +0300
+@@ -5,16 +5,15 @@
  #include <fcntl.h>
  #include <sys/ioctl.h>
  #include <unistd.h>
@@ -7165,14 +7154,10 @@ diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
  #else
 -#define VIDEO_DEV "/dev/dvb/adapter0/video0"
 -#define AUDIO_DEV "/dev/dvb/adapter0/audio0"
--#include <linux/dvb/audio.h>
--#include <linux/dvb/video.h>
 +#define AUDIO_DEV "/dev/snd/controlC0"
-+#include "audio.h"
-+#include "video.h"
+ #include <linux/dvb/audio.h>
+ #include <linux/dvb/video.h>
  #endif
- 
- #ifdef HAVE_ALSA
 @@ -138,8 +137,10 @@
  void eDVBVolumecontrol::setVolume(int left, int right)
  {

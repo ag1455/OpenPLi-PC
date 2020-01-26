@@ -99,7 +99,11 @@ for p in $REQPKG; do
 	fi
 done
 
+KERNEL=`uname -r | mawk -F. '{ printf("%d.%d\n",$1,$2); }'`
+
 cp -fv pre/sitecustomize.py /usr/local/lib/python2.7/site-packages
+cp -fv pre/dvb/* /usr/include/linux/dvb
+cp -fv pre/dvb/* /usr/src/linux-headers-$KERNEL*/include/uapi/linux/dvb
 
 BUILD_DIR="libs"
 if [ -d $BUILD_DIR ]; then

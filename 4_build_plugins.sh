@@ -107,9 +107,6 @@ if [ -d plugins ]; then
 		patch -p1 < servicemp3.patch
 	fi
 
-	ln -s ../../../../enigma2/lib/dvb/video.h servicemp3
-	ln -s ../../../../enigma2/lib/dvb/ca.h servicemp3
-
 	cd ..
 
 	#autoupdate
