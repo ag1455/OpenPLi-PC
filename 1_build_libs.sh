@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 14.xx (32/64-bit), 16.xx (32/64-bit), 18.xx (64-bit), 19.xx (64-bit)
+# To build enigma2 on Ubuntu 14.04 (32/64-bit), 16.04 (32/64-bit), 18.04 (64-bit), 19.04 (64-bit)
 # Install these packages:
 
 echo "-----------------------------------------"
