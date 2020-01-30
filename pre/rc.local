@@ -39,13 +39,17 @@ fi
 #	touch "$LOG"
 #fi
 
-while [ 1 != 0 ]; do
-	if [ $(ls $DVB_DEV | grep -w ca0) ]; then
+# Preventing stopping boot your PC without a dvb card.
+if [ -d $DVB_DEV ]; then
+	# The script will run in the loop if there is /dev/dvb folder only!
+	while [ 1 != 0 ]; do
+		if [ $(ls $DVB_DEV | grep -w ca0) ]; then
 		softcam start
-#		echo " * Oscam started" >> $LOG
-		exit 0
-	else
-#		echo " * Waiting ca0" >> $LOG
-		sleep 1
-	fi
-done
+#			echo " * Oscam started" >> $LOG
+			exit 0
+		else
+#			echo " * Waiting ca0" >> $LOG
+			sleep 1
+		fi
+	done
+fi

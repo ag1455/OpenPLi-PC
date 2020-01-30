@@ -105,6 +105,18 @@ if [ -d plugins ]; then
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach c7750c5a
 		patch -p1 < servicemp3.patch
+	elif [[ "$release" = "19.10" ]]; then
+		echo "-----------------------------------------"
+		echo "         *** release 19.10 ***           "
+		echo "-----------------------------------------"
+		echo ""
+		export CXX=/usr/bin/g++-9
+		echo "                  *** used g++-9 ***"
+		echo ""
+		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+		cd plugins/enigma2-plugins/servicemp3
+		git checkout --detach c7750c5a
+		patch -p1 < servicemp3.patch
 	fi
 
 	cd ..

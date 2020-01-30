@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 14.04 (32/64-bit), 16.04 (32/64-bit), 18.04 (64-bit), 19.04 (64-bit)
+# To build enigma2 on Ubuntu 14.04 (32/64-bit), 16.04 (32/64-bit), 18.04 (64-bit), 19.04 (64-bit), 19.10 (64-bit).
 # Install these packages:
 
 echo "-----------------------------------------"
@@ -14,14 +14,14 @@ REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-ess
 	libpcsclite-dev libjpeg8-dev libgif-dev libjpeg-turbo8-dev libgiftiio0 libaio-dev libxinerama-dev libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev \
 	libgtk2.0-dev libtool libxml2-dev libxml2-utils libxslt1-dev libssl-dev libvdpau-dev libcdio-dev libcrypto++-dev libudf-dev libvcdinfo-dev libusb-1.0-0-dev \
 	libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev \
-	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libgnomevfs2-dev libdirectfb-dev \
-	libmagickwand-dev libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 \
-	libglib2.0-dev libelf-dev libmysqlclient-dev libupnp-dev libgiftiio-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev mawk mercurial mingetty mock mjpegtools \
-	net-tools ntpdate openssh-sftp-server pmccabe python-dev python-setuptools python-twisted python-twisted-web python-twisted-mail python-ipaddr python-ipaddress \
-	python-pysqlite2 python-cryptography-vectors python-daap python-flickrapi python-lzma python-mechanize python-mutagen python-netifaces python-ntplib \
-	python-pyasn1-modules python-pycryptopp python-sendfile python-simplejson python-transmissionrpc python-yenc python-pycurl python-pil python-bzrlib python-gdata \
-	python-urllib3 python-openssl python-cheetah python-demjson python-blessings python-httpretty patch pyflakes pkg-config rpl rtmpdump sdparm setserial smartmontools \
-	software-properties-common sphinx-common streamripper subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm \
+	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libdirectfb-dev libmagickwand-dev \
+	libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 libglib2.0-dev \
+	libelf-dev libmysqlclient-dev libupnp-dev libgiftiio-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev gstreamer1.0-libav mawk mercurial mingetty mock \
+	mjpegtools net-tools ntpdate openssh-sftp-server pmccabe python-dev python-setuptools python-twisted python-twisted-web python-twisted-mail python-ipaddr \
+	python-ipaddress python-pysqlite2 python-cryptography-vectors python-flickrapi python-lzma python-mechanize python-mutagen python-netifaces python-pyasn1-modules \
+	python-pycryptopp python-sendfile python-simplejson python-pycurl python-pil python-bzrlib python-urllib3 python-openssl python-cheetah python-blessings python-httpretty \
+	patch pyflakes pkg-config rpl rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper subversion texi2html texinfo unclutter unzip \
+	uchardet youtube-dl w3m vsftpd xmlto xterm \
 	"
 
 for p in $REQPKG_ALL; do
@@ -49,8 +49,8 @@ if [[ "$release" = "14.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake gcc-6 g++-6 libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev \
-	libva-dev libqtgstreamer-dev libupnp6-dev swig2.0 \
+	REQPKG="flake gcc-6 g++-6 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev libva-dev libqtgstreamer-dev libupnp6-dev python-ntplib \
+	python-daap python-transmissionrpc python-yenc python-gdata python-demjson swig2.0 \
 	"
 elif [[ "$release" = "16.04" ]]; then
 	echo ""
@@ -62,9 +62,9 @@ elif [[ "$release" = "16.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake8 gcc-7 g++-7 libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev python-subprocess32 \
-	libva-dev libqt5gstreamer-dev python-cryptodome python-pickleshare python-service-identity python-certifi python-restructuredtext-lint pylint sphinx-rtd-theme-common libupnp6-dev \
-	swig2.0 yamllint \
+	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev python-subprocess32 libva-dev libqt5gstreamer-dev \
+	python-cryptodome python-pickleshare python-service-identity python-certifi python-restructuredtext-lint python-ntplib pylint python-daap python-transmissionrpc \
+	python-yenc python-gdata python-demjson sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -72,9 +72,9 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "                 *** release 18.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-7 g++-7 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 \
-	python-langdetect python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint pylint sphinx-rtd-theme-common libupnp6-dev \
-	swig yamllint \
+	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 python-langdetect python-pycryptodome \
+	python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata \
+	python-demjson pylint sphinx-rtd-theme-common libupnp6-dev swig yamllint \
 	"
 elif [[ "$release" = "19.04" ]]; then
 	echo ""
@@ -82,9 +82,19 @@ elif [[ "$release" = "19.04" ]]; then
 	echo "                 *** release 19.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 \
-	python-langdetect python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint pylint sphinx-rtd-theme-common libupnp-dev \
-	swig swig3.0 yamllint \
+	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
+	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson pylint sphinx-rtd-theme-common \
+	libupnp-dev swig swig3.0 yamllint \
+	"
+elif [[ "$release" = "19.10" ]]; then
+	echo ""
+	echo "********************************************************"
+	echo "                 *** release 19.10 ***                  "
+	echo "********************************************************"
+	echo ""
+	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
+	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson pylint sphinx-rtd-theme-common \
+	libupnp-dev swig swig3.0 yamllint \
 	"
 fi
 
@@ -104,6 +114,11 @@ KERNEL=`uname -r | mawk -F. '{ printf("%d.%d\n",$1,$2); }'`
 cp -fv pre/sitecustomize.py /usr/local/lib/python2.7/site-packages
 cp -fv pre/dvb/* /usr/include/linux/dvb
 cp -fv pre/dvb/* /usr/src/linux-headers-$KERNEL*/include/uapi/linux/dvb
+
+# Download dvb-firmwares
+wget https://bitbucket.org/CrazyCat/media_build/downloads/dvb-firmwares.tar.bz2
+tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
+rm -f dvb-firmwares.tar.bz2
 
 BUILD_DIR="libs"
 if [ -d $BUILD_DIR ]; then

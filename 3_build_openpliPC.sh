@@ -12,6 +12,7 @@ DO_MAKEINSTALL=1
 INSTALL_E2DIR="/usr/local/e2"
 PKG="enigma2"
 DVB_DEV="/dev/dvb/adapter0"
+KERNEL=`uname -r | mawk -F. '{ printf("%d.%d\n",$1,$2); }'`
 
 e2_backup() {
 echo ""
@@ -179,7 +180,26 @@ elif [ "$release" = "19.04" ]; then
 	cp patches/patch-42fd2b44-to-PC-sigc2.patch $PKG
 	cd $PKG
 	patch -p1 < patch-42fd2b44-to-PC-sigc2.patch
+elif [ "$release" = "19.10" ]; then
+	echo ""
+	echo "********************************************************"
+	echo "                 *** RELEASE 19.10 ***"
+	echo "                  *** USED g++-9 ***"
+	echo "********************************************************"
+	echo ""
+	export CXX=/usr/bin/g++-9
+	cp patches/patch-42fd2b44-to-PC-sigc2.patch $PKG
+	cd $PKG
+	patch -p1 < patch-42fd2b44-to-PC-sigc2.patch
 fi
+
+# Copy headers
+cd ..
+cp -fv enigma2/lib/gdi/gxlibdc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
+cp -fv enigma2/lib/gdi/gmaindc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
+cp -fv enigma2/lib/gdi/xineLib.h $INSTALL_E2DIR/include/enigma2/lib/gdi
+cp -fv enigma2/lib/gdi/post.h $INSTALL_E2DIR/include/enigma2/lib/gdi
+cd $PKG
 
 if [ "$DO_CONFIGURE" -eq "1" ]; then
 	echo ""
@@ -342,12 +362,6 @@ if [ $GPU == "Intel" ]; then
 	mv -f /usr/local/e2/share/enigma2/xine.conf.vaapi /usr/local/e2/share/enigma2/xine.conf
 fi
 
-# Copy missing headers
-cp -fv enigma2/lib/gdi/gxlibdc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cp -fv enigma2/lib/gdi/gmaindc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cp -fv enigma2/lib/gdi/xineLib.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cp -fv enigma2/lib/gdi/post.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-
 # Copy files
 cd pre
 cp -rfv enigma2 $INSTALL_E2DIR/etc
@@ -359,13 +373,13 @@ cp -fv enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv xine.conf $INSTALL_E2DIR/share/enigma2
 cp -fv xine.conf.vaapi $INSTALL_E2DIR/share/enigma2
 cp -fv logo.mvi $INSTALL_E2DIR/share/enigma2
-cp -fv e2pc.desktop ~/.local/share/applications
-cp -fv kill_e2pc.desktop ~/.local/share/applications
+cp -fv e2pc.desktop /home/$(logname)/.local/share/applications
+cp -fv kill_e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv modules /etc
 cd ..
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
-cp -fv /etc/network/interfaces /etc/network/interfaces~
+#cp -fv /etc/network/interfaces /etc/network/interfaces~
 ln -sv /etc/modules /etc/modules-load.d/modules.conf
 
 # Create symlink for tuxtxt font

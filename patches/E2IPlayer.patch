@@ -1,6 +1,6 @@
 diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconmenager.py
 --- o/IPTVPlayer/components/iconmenager.py	2019-12-23 12:00:49.489071002 +0300
-+++ pc/IPTVPlayer/components/iconmenager.py	2020-01-11 00:47:07.741355215 +0300
++++ pc/IPTVPlayer/components/iconmenager.py	2020-01-30 18:51:29.060519251 +0300
 @@ -28,7 +28,7 @@
  
  
@@ -21,7 +21,7 @@ diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconme
              params_cfad={}
 diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/iptvconfigmenu.py
 --- o/IPTVPlayer/components/iptvconfigmenu.py	2019-12-23 12:00:49.489071002 +0300
-+++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-01-11 00:47:07.742355231 +0300
++++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-01-30 18:51:29.061519765 +0300
 @@ -61,7 +61,7 @@
  config.plugins.iptvplayer.showinMainMenu     = ConfigYesNo(default = False)
  config.plugins.iptvplayer.ListaGraficzna     = ConfigYesNo(default = True)
@@ -62,7 +62,7 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
      def performCloseWithMessage(self, afterSave=True):
 diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/iptvplayerwidget.py
 --- o/IPTVPlayer/components/iptvplayerwidget.py	2019-12-23 12:00:49.491071032 +0300
-+++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-01-11 00:47:07.744355264 +0300
++++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-01-30 18:51:29.063520794 +0300
 @@ -60,7 +60,7 @@
  
  from Plugins.Extensions.IPTVPlayer.components.iptvplayerinit import TranslateTXT as _, IPTVPlayerNeedInit, GetIPTVPlayerLastHostError, GetIPTVNotify, GetIPTVSleep
@@ -108,7 +108,7 @@ diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/i
                      message.append("Please be also informed that users of http://ipab.tv/ will NOT get support, due to same reason.")
 diff -ruN o/IPTVPlayer/hosts/hostjoemonsterorg.py pc/IPTVPlayer/hosts/hostjoemonsterorg.py
 --- o/IPTVPlayer/hosts/hostjoemonsterorg.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostjoemonsterorg.py	2020-01-11 00:47:07.744355264 +0300
++++ pc/IPTVPlayer/hosts/hostjoemonsterorg.py	2020-01-30 18:51:29.064521308 +0300
 @@ -0,0 +1,224 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -336,7 +336,7 @@ diff -ruN o/IPTVPlayer/hosts/hostjoemonsterorg.py pc/IPTVPlayer/hosts/hostjoemon
 +        CHostBase.__init__(self, JoeMonster(), True, [])
 diff -ruN o/IPTVPlayer/hosts/hosttantifilmorg.py pc/IPTVPlayer/hosts/hosttantifilmorg.py
 --- o/IPTVPlayer/hosts/hosttantifilmorg.py	2019-12-23 12:00:49.515071393 +0300
-+++ pc/IPTVPlayer/hosts/hosttantifilmorg.py	2020-01-11 00:47:07.745355280 +0300
++++ pc/IPTVPlayer/hosts/hosttantifilmorg.py	2020-01-30 18:51:29.064521308 +0300
 @@ -477,5 +477,3 @@
  
      def __init__(self):
@@ -345,7 +345,7 @@ diff -ruN o/IPTVPlayer/hosts/hosttantifilmorg.py pc/IPTVPlayer/hosts/hosttantifi
 -    
 diff -ruN o/IPTVPlayer/hosts/hosttsiplayer.py pc/IPTVPlayer/hosts/hosttsiplayer.py
 --- o/IPTVPlayer/hosts/hosttsiplayer.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hosttsiplayer.py	2020-01-11 00:47:07.746355296 +0300
++++ pc/IPTVPlayer/hosts/hosttsiplayer.py	2020-01-30 18:51:29.065521822 +0300
 @@ -0,0 +1,909 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -1258,7 +1258,7 @@ diff -ruN o/IPTVPlayer/hosts/hosttsiplayer.py pc/IPTVPlayer/hosts/hosttsiplayer.
 +		
 diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
 --- o/IPTVPlayer/hosts/hosturllist.py	2019-12-23 12:00:49.517071423 +0300
-+++ pc/IPTVPlayer/hosts/hosturllist.py	2020-01-11 00:47:07.746355296 +0300
++++ pc/IPTVPlayer/hosts/hosturllist.py	2020-01-30 18:51:29.065521822 +0300
 @@ -22,7 +22,7 @@
  ###################################################
  # Config options for HOST
@@ -1270,8 +1270,8 @@ diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
  
 diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 --- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostXXX.py	2020-01-19 21:24:04.266024002 +0300
-@@ -0,0 +1,10550 @@
++++ pc/IPTVPlayer/hosts/hostXXX.py	2020-01-30 18:47:35.872349190 +0300
+@@ -0,0 +1,10630 @@
 +# -*- coding: utf-8 -*-
 + 
 +###################################################
@@ -1442,7 +1442,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +    ###################################################
 +
 +class Host:
-+    XXXversion = "2020.01.13.2"
++    XXXversion = "2020.01.25.1"
 +    XXXremote  = "0.0.0.0"
 +    currList = []
 +    MAIN_URL = ''
@@ -1648,15 +1648,16 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           valTab.append(CDisplayListItem('LOVE HOME PORN',     'https://lovehomeporn.com', CDisplayListItem.TYPE_CATEGORY, ['https://lovehomeporn.com/videos'],'lovehomeporn', 'https://cdn.static.lovehomeporn.com/templates/frontend/purple/new_images/logo-helloween.png', None)) 
 +           valTab.append(CDisplayListItem('EROPROFILE',     'http://www.eroprofile.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.eroprofile.com'],'EROPROFILE', 'http://amateurblogs.eroprofile.com/img/ep_new_gallery_header.png', None)) 
 +           valTab.append(CDisplayListItem('ABSOLUPORN',     'http://www.absoluporn.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.absoluporn.com/en/lettre-tag.html'],'absoluporn', 'http://www.absoluporn.com/image/deco/logo.gif', None)) 
-+           valTab.append(CDisplayListItem('AMATEUR COOL',     'https://www.amateurcool.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.amateurcool.com/channels/'],'amateurcool', 'https://www.amateurcool.com/templates/amateurcool/images/logo.png', None)) 
++           #valTab.append(CDisplayListItem('AMATEUR COOL',     'https://www.amateurcool.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.amateurcool.com/channels/'],'amateurcool', 'https://www.amateurcool.com/templates/amateurcool/images/logo.png', None)) 
 +           valTab.append(CDisplayListItem('YES PORN PLEASE',     'https://yespornplease.com', CDisplayListItem.TYPE_CATEGORY, ['https://yespornplease.com/categories'],'yespornplease', 'https://1000logos.net/wp-content/uploads/2019/02/YesPornPlease-Logo.png', None)) 
 +           valTab.append(CDisplayListItem('ANYBUNNY',     'http://anybunny.com', CDisplayListItem.TYPE_CATEGORY, ['http://anybunny.com'],'anybunny', 'http://anybunny.com/images/logo.png', None)) 
 +           valTab.append(CDisplayListItem('DATOPORN',     'http://datoporn.co', CDisplayListItem.TYPE_CATEGORY, ['http://datoporn.co/categories_all'],'datoporn', 'https://pbs.twimg.com/media/CtzxPlEWgAAiIjH.png', None)) 
 +           valTab.append(CDisplayListItem('HQPORNER',     'https://hqporner.com', CDisplayListItem.TYPE_CATEGORY, ['https://hqporner.com/porn-categories.php'],'hqporner', 'https://www.filmyporno.blog/wp-content/uploads/2018/12/channel-hqporner.jpg', None)) 
 +           valTab.append(CDisplayListItem('SPANKBANG',     'https://spankbang.com', CDisplayListItem.TYPE_CATEGORY, ['https://spankbang.com/categories'],'spankbang', 'https://static.spankbang.com/static_desktop/Images/logo_desktop_v4@2x.png', None)) 
 +           valTab.append(CDisplayListItem('CUMLOUDER',     'https://www.cumlouder.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.cumlouder.com/categories'],'cumlouder', 'https://1000logos.net/wp-content/uploads/2019/02/CumLouder-Logo.png', None)) 
-+           valTab.append(CDisplayListItem('WOXTUBE',     'http://www.woxtube.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.woxtube.com/categories/'],'woxtube', 'https://www.woxtube.com/wp-content/themes/woxtube/assets/img/logo1.png', None)) 
++           valTab.append(CDisplayListItem('PORNAQ',     'http://www.pornaq.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.pornaq.com/categories/'],'pornaq', 'https://www.pornaq.com/wp-content/themes/pornaq/assets/img/logo1.png', None)) 
 +           valTab.append(CDisplayListItem('WATCHPORNX',     'https://watchpornx.com/', CDisplayListItem.TYPE_CATEGORY, ['https://watchpornx.com/'],'watchpornx', 'https://watchpornfree.info/wp-content/uploads/2019/01/watchpornfreews-1-e1525276673535.png', None)) 
++           valTab.append(CDisplayListItem('VOLIMEEE',     'https://www.volimeee.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.volimeee.com/categories'],'volimeee', 'https://www.volimeee.com/images/logo/logo.png', None)) 
 +
 +           if config.plugins.iptvplayer.xxxsortall.value:
 +               valTab.sort(key=lambda poz: poz.name)
@@ -2317,16 +2318,17 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           if not sts: return valTab
 +           printDBG( 'Host getResolvedURL data: '+data )
 +           next = self.cm.ph.getSearchGroups(data, '''rel=['"]next['"]\s*href=['"]([^"^']+?)['"]''', 1, True)[0] 
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, 'data-video-id', '<i class="icon-thin-x">')
++           #data = self.cm.ph.getAllItemsBeetwenMarkers(data, 'data-video-id', '<i class="icon-thin-x">')
++           data = data.split('data-video-id=')
++           if len(data): del data[0]
 +           for item in data:
 +              phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0] 
 +              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?jpg)['"]''', 1, True)[0] 
-+              if not phImage: phImage = self.cm.ph.getSearchGroups(item, '''data-original=['"]([^"^']+?)['"]''', 1, True)[0] 
-+              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if not phImage: phImage = self.cm.ph.getSearchGroups(item, '''data-original=['"]([^"^']+?)['"]''', 1, True)[0].replace("&amp;","&")
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0].replace("&amp;","&") 
 +              phRuntime = self.cm.ph.getSearchGroups(item, '''duration">([^>]+?)<''', 1, True)[0] 
-+              phUrl = phUrl.replace("&amp;","&")
 +              if phUrl.startswith('/'): phUrl = 'https://www.youporn.com' + phUrl
-+              if len(phUrl)>5:
++              if len(phUrl)>5 and phTitle:
 +                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phRuntime.strip()+'] '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None)) 
 +           if next:
 +              next = next.replace("&amp;","&")
@@ -8345,37 +8347,37 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           #valTab.sort(key=lambda poz: poz.name)
 +           return valTab
 +
-+        if 'woxtube' == name:
++        if 'pornaq' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           self.MAIN_URL = 'https://www.woxtube.com'
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'woxtube.cookie')
++           self.MAIN_URL = 'https://www.pornaq.com'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'pornaq.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'woxtube.cookie', 'woxtube.com', self.defaultParams)
++           sts, data = self.getPage(url, 'pornaq.cookie', 'pornaq.com', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<div class="post-con', '</div>')
++           data = self.cm.ph.getDataBeetwenMarkers(data, '<ul class="category-menu', '</ul>', False)[1]
++           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<li', '</li>')
 +           for item in data:
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
-+              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0].replace('Porn Videos','')
-+              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTitle = self._cleanHtmlStr(decodeHtml(item)).replace('\n','').strip()
 +              if phUrl.startswith('//'): phUrl = 'https:' + phUrl + '/' 
 +              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl 
 +              if phUrl:
-+                 valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl],'woxtube-clips', '', None)) 
++                 valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl],'pornaq-clips', '', None)) 
 +           valTab.sort(key=lambda poz: poz.name)
-+           self.SEARCH_proc='woxtube-search'
++           self.SEARCH_proc='pornaq-search'
 +           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
 +           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
 +           return valTab
-+        if 'woxtube-search' == name:
++        if 'pornaq-search' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           valTab = self.listsItems(-1, 'http://www.woxtube.com/page/1/?s=%s' % url.replace(' ','+'), 'woxtube-clips')
++           valTab = self.listsItems(-1, 'http://www.pornaq.com/page/1/?s=%s' % url.replace(' ','+'), 'pornaq-clips')
 +           return valTab              
-+        if 'woxtube-clips' == name:
++        if 'pornaq-clips' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'woxtube.cookie')
++           COOKIEFILE = os_path.join(GetCookieDir(), 'pornaq.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'woxtube.cookie', 'woxtube.com', self.defaultParams)
++           sts, data = self.getPage(url, 'pornaq.cookie', 'pornaq.com', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           catUrl = self.currList[Index].possibleTypesOfSearch
@@ -8503,7 +8505,73 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl 
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl],'watchpornx-clips', '', None)) 
 +           return valTab
-+		   
++
++        if 'volimeee' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           self.MAIN_URL = 'https://www.volimeee.com'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'volimeee.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'volimeee.cookie', 'volimeee.com', self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           data = data.split('<div class="pull-right">')
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if phUrl.startswith('//'): phUrl = 'https:' + phUrl + '/' 
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl 
++              if phImage.startswith('//'): phImage = 'http:' + phImage + '/' 
++              if phImage.startswith('/'): phImage = self.MAIN_URL + phImage
++              if not 'CCBIll' in phTitle:
++                 valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl+'?type=public'],'volimeee-clips', phImage, None)) 
++           valTab.sort(key=lambda poz: poz.name)
++           valTab.insert(0,CDisplayListItem("--- HD ---","HD",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/hd?type=public'],             'volimeee-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Videos ---","Videos",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos?type=public'],             'volimeee-clips',    '',None))
++           self.SEARCH_proc='volimeee-search'
++           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
++           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
++           return valTab
++        if 'volimeee-search' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           valTab = self.listsItems(-1, 'https://www.volimeee.com/search/videos?search_query=%s' % url.replace(' ','+'), 'volimeee-clips')
++           return valTab              
++        if 'volimeee-clips' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           COOKIEFILE = os_path.join(GetCookieDir(), 'volimeee.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'volimeee.cookie', 'volimeee.com', self.defaultParams)
++           if not sts: return valTab
++           printDBG( 'Host listsItems data: '+data )
++           catUrl = self.currList[Index].possibleTypesOfSearch
++           next_page = self.cm.ph.getDataBeetwenMarkers(data, 'class="pagination', '&raquo', False)[1]
++           n = '<div class="video-views pull-right'
++           s = '<div class="video-rating pull-right'
++           if not n in data and not s in data:  return valTab
++           if n in data: data = data.split(n)
++           if s in data: data = data.split(s)
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0]
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTime = self.cm.ph.getSearchGroups(item, '''class="duration">([^>]+?)<''', 1, True)[0].strip()
++              Added = self.cm.ph.getSearchGroups(item, '''added">([^>]+?)<''', 1, True)[0].strip()
++              if not Added: Added = self.cm.ph.getSearchGroups(item, '''pull-left">([^>]+?)<''', 1, True)[0].strip()
++              if phImage.startswith('//'): phImage = 'http:' + phImage
++              if phUrl.startswith('//'): phUrl = 'http:' + phUrl
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
++              if 'label-private">PRIVATE<' in item: phTitle = phTitle + '   {PRIVATE}'
++              if not 'CCBIll' in phTitle:
++                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+'] '+decodeHtml(phTitle)+'\n'+Added,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None)) 
++           if next_page:
++              next_page = re.compile('href=[\"|\'](.*?)[\"|\']').findall(next_page)[-1]
++              if next_page.startswith('/'): next_page = self.MAIN_URL + next_page 
++              valTab.append(CDisplayListItem('Next', next_page.split('=')[-1], CDisplayListItem.TYPE_CATEGORY, [next_page], name, '', None))                
++           return valTab
++
 +		   
 +		   
 +		   
@@ -8797,7 +8865,8 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if self.MAIN_URL == 'https://hqporner.com':          return self.MAIN_URL 
 +        if self.MAIN_URL == 'https://www.naked.com':         return self.MAIN_URL  
 +        if self.MAIN_URL == 'https://www.cumlouder.com':     return self.MAIN_URL
-+        if self.MAIN_URL == 'https://www.woxtube.com':       return self.MAIN_URL
++        if self.MAIN_URL == 'https://www.pornaq.com':       return self.MAIN_URL
++        if self.MAIN_URL == 'https://www.volimeee.com':      return self.MAIN_URL
 +
 +        urlSupport = self.up.checkHostSupport( url )
 +        if 1 == urlSupport:
@@ -9565,13 +9634,14 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                 sources = self.cm.ph.getDataBeetwenMarkers(data, 'mediaDefinition = ', '];', False)[1]
 +                 result = byteify(simplejson.loads(sources+']'))
 +                 for item in result:
-+                    if str(item["quality"])=='720' : return str(item["videoUrl"])
-+                    if str(item["quality"])=='480' : return str(item["videoUrl"])
-+                    if str(item["quality"])=='360' : return str(item["videoUrl"])
++                    if str(item["quality"])=='720' : return str(item["videoUrl"]).replace('\u0026', '&')
++                    if str(item["quality"])=='480' : return str(item["videoUrl"]).replace('\u0026', '&')
++                    if str(item["quality"])=='360' : return str(item["videoUrl"]).replace('\u0026', '&')
++                    if str(item["quality"])=='240' : return str(item["videoUrl"]).replace('\u0026', '&')
 +              except Exception as e:
 +                 printExc()
-+           videoUrl = self.cm.ph.getSearchGroups(data, '''"videoUrl":['"]([^'"]+?)['"]''')[0]
-+           if videoUrl: return videoUrl.replace('&amp;','&').replace(r"\/",r"/")
++           videoUrl = self.cm.ph.getSearchGroups(data, '''"videoUrl":['"]([^'"]+?)['"]''')[0].replace('&amp;','&').replace(r"\/",r"/")
++           if videoUrl: return videoUrl.replace('\u0026', '&')
 +           return ''
 +
 +        # make by 12asdfg12
@@ -10736,10 +10806,10 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           videoPage = self.cm.ph.getSearchGroups(data, '''['"](https://pornicom.com/get_file/[^"^']+?)['"]''')[0] 
 +           if videoPage: return urllib2.unquote(videoPage)
 +
-+        if parser == 'https://www.woxtube.com':
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'woxtube.cookie')
++        if parser == 'https://www.pornaq.com':
++           COOKIEFILE = os_path.join(GetCookieDir(), 'pornaq.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'woxtube.cookie', 'woxtube.com', self.defaultParams)
++           sts, data = self.getPage(url, 'pornaq.cookie', 'pornaq.com', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           videoUrl = self.FullUrl(self.cm.ph.getSearchGroups(data, '''<source[^>]+?src=['"]([^"^']+?)['"]''')[0])
@@ -10747,6 +10817,16 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              return urlparser.decorateUrl(videoUrl, {'Referer': url}) 
 +           return ''
 +
++        if parser == 'https://www.volimeee.com':
++           COOKIEFILE = os_path.join(GetCookieDir(), 'volimeee.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'volimeee.cookie', 'volimeee.com', self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           videoUrl = self.FullUrl(self.cm.ph.getSearchGroups(data, '''<source[^>]+?src=['"]([^"^']+?)['"]''')[0])
++           if videoUrl:
++              return urlparser.decorateUrl(videoUrl, {'Referer': url}) 
++           return ''
 +##########################################################################################################################
 +        query_data = {'url': url, 'use_host': False, 'use_cookie': False, 'use_post': False, 'return_data': True}
 +        try:
@@ -11825,7 +11905,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
 --- o/IPTVPlayer/hosts/hostyoutube.py	2019-12-23 12:00:49.520071468 +0300
-+++ pc/IPTVPlayer/hosts/hostyoutube.py	2020-01-11 00:47:07.751355378 +0300
++++ pc/IPTVPlayer/hosts/hostyoutube.py	2020-01-30 18:51:29.071524908 +0300
 @@ -32,10 +32,13 @@
      optionList.append(getConfigListEntry(_("Video format:"), config.plugins.iptvplayer.ytformat))
      optionList.append(getConfigListEntry(_("Default video quality:"), config.plugins.iptvplayer.ytDefaultformat))
@@ -11847,7 +11927,7 @@ diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
 -
 diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
 --- o/IPTVPlayer/hosts/list.txt	2019-12-23 12:00:49.520071468 +0300
-+++ pc/IPTVPlayer/hosts/list.txt	2020-01-11 00:47:07.751355378 +0300
++++ pc/IPTVPlayer/hosts/list.txt	2020-01-30 18:51:29.071524908 +0300
 @@ -214,3 +214,4 @@
  hostyoutube
  hostzalukajcom
@@ -11855,7 +11935,7 @@ diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
 +hosttsiplayer
 diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
 --- o/IPTVPlayer/iptvdm/iptvdh.py	2019-12-23 12:00:49.554071979 +0300
-+++ pc/IPTVPlayer/iptvdm/iptvdh.py	2020-01-11 00:47:07.751355378 +0300
++++ pc/IPTVPlayer/iptvdm/iptvdh.py	2020-01-30 18:51:29.071524908 +0300
 @@ -101,7 +101,7 @@
          
      @staticmethod
@@ -11867,7 +11947,7 @@ diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
          return "ffmpeg"
 diff -ruN o/IPTVPlayer/iptvupdate/custom/tsiplayer.sh pc/IPTVPlayer/iptvupdate/custom/tsiplayer.sh
 --- o/IPTVPlayer/iptvupdate/custom/tsiplayer.sh	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/custom/tsiplayer.sh	2020-01-11 00:47:07.751355378 +0300
++++ pc/IPTVPlayer/iptvupdate/custom/tsiplayer.sh	2020-01-30 18:51:29.071524908 +0300
 @@ -0,0 +1,41 @@
 +#!/bin/sh
 +cp $1/iptvupdate/custom/tsiplayer.sh $2/iptvupdate/custom/tsiplayer.sh
@@ -11912,7 +11992,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/custom/tsiplayer.sh pc/IPTVPlayer/iptvupdate/c
 +exit 0
 diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/xxx.sh
 --- o/IPTVPlayer/iptvupdate/custom/xxx.sh	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2020-01-11 00:47:07.751355378 +0300
++++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2020-01-30 18:51:29.071524908 +0300
 @@ -0,0 +1,40 @@
 +#!/bin/sh
 +cp $1/iptvupdate/custom/xxx.sh $2/iptvupdate/custom/xxx.sh
@@ -11956,7 +12036,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/
 +exit 0
 diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/updatemainwindow.py
 --- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2019-12-23 12:00:49.555071994 +0300
-+++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-01-11 00:47:07.752355394 +0300
++++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-01-30 18:51:29.072525422 +0300
 @@ -295,7 +295,7 @@
          if os_path.isfile(newVerFile):
              verPattern = self.VERSION_PATTERN
@@ -11968,7 +12048,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/u
          try:
 diff -ruN o/IPTVPlayer/libs/youtube_dl/extractor/youtube.py pc/IPTVPlayer/libs/youtube_dl/extractor/youtube.py
 --- o/IPTVPlayer/libs/youtube_dl/extractor/youtube.py	2019-12-23 12:00:49.567072174 +0300
-+++ pc/IPTVPlayer/libs/youtube_dl/extractor/youtube.py	2020-01-11 00:47:07.752355394 +0300
++++ pc/IPTVPlayer/libs/youtube_dl/extractor/youtube.py	2020-01-30 18:51:29.072525422 +0300
 @@ -42,27 +42,34 @@
  
      def _findMainFunctionName(self):
@@ -12240,7 +12320,7 @@ diff -ruN o/IPTVPlayer/libs/youtube_dl/extractor/youtube.py pc/IPTVPlayer/libs/y
 +        return [(f, url_map[f]) for f in existing_formats] # All formats
 diff -ruN o/IPTVPlayer/libs/youtubeparser.py pc/IPTVPlayer/libs/youtubeparser.py
 --- o/IPTVPlayer/libs/youtubeparser.py	2019-12-23 12:00:49.568072189 +0300
-+++ pc/IPTVPlayer/libs/youtubeparser.py	2020-01-11 00:47:07.752355394 +0300
++++ pc/IPTVPlayer/libs/youtubeparser.py	2020-01-30 18:51:29.072525422 +0300
 @@ -25,8 +25,10 @@
  # Config options for HOST
  ###################################################
@@ -12307,7 +12387,7 @@ diff -ruN o/IPTVPlayer/libs/youtubeparser.py pc/IPTVPlayer/libs/youtubeparser.py
 +        return currList
 diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po
 --- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2019-12-23 12:00:49.580072369 +0300
-+++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-01-11 00:47:07.755355443 +0300
++++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-01-30 18:51:29.075526964 +0300
 @@ -2,95 +2,91 @@
  msgstr ""
  "Project-Id-Version: IPTVPlayer\n"
@@ -23638,7 +23718,7 @@ diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +msgstr "наихудшее"
 diff -ruN o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po
 --- o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	2020-01-11 00:47:07.757355476 +0300
++++ pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	2020-01-30 18:51:29.080529536 +0300
 @@ -0,0 +1,8780 @@
 +msgid ""
 +msgstr ""
@@ -41206,7 +41286,7 @@ diff -ruN o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 -#~ msgstr "Фільми 2015"
 diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
 --- o/IPTVPlayer/plugin.py	2019-12-23 12:00:49.581072384 +0300
-+++ pc/IPTVPlayer/plugin.py	2020-01-11 00:47:07.760355525 +0300
++++ pc/IPTVPlayer/plugin.py	2020-01-30 18:51:29.082530564 +0300
 @@ -6,7 +6,6 @@
  from Plugins.Extensions.IPTVPlayer.components.iptvconfigmenu import ConfigMenu
  from Plugins.Extensions.IPTVPlayer.components.iptvpin import IPTVPinWidget
@@ -41228,7 +41308,7 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
  def pinCallback(session, callbackFun, pin=None):
 diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.py
 --- o/IPTVPlayer/setup/iptvsetupimpl.py	2019-12-23 12:00:49.581072384 +0300
-+++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2020-01-11 00:47:07.760355525 +0300
++++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2020-01-30 18:51:29.083531078 +0300
 @@ -467,7 +467,7 @@
          def _verValidator(code, data):
              if 0 == code: return True,False
@@ -41240,7 +41320,7 @@ diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.
      def getFFmpegVerFinished(self, stsTab, dataTab):
 diff -ruN o/IPTVPlayer/subproviders/subprov_opensubtitlesorg.py pc/IPTVPlayer/subproviders/subprov_opensubtitlesorg.py
 --- o/IPTVPlayer/subproviders/subprov_opensubtitlesorg.py	2019-12-23 12:00:49.582072400 +0300
-+++ pc/IPTVPlayer/subproviders/subprov_opensubtitlesorg.py	2020-01-11 00:47:07.760355525 +0300
++++ pc/IPTVPlayer/subproviders/subprov_opensubtitlesorg.py	2020-01-30 18:51:29.083531078 +0300
 @@ -420,4 +420,3 @@
  
      def __init__(self, params={}):
@@ -41248,7 +41328,7 @@ diff -ruN o/IPTVPlayer/subproviders/subprov_opensubtitlesorg.py pc/IPTVPlayer/su
 -    
 diff -ruN o/IPTVPlayer/subproviders/subprov_youtubecom.py pc/IPTVPlayer/subproviders/subprov_youtubecom.py
 --- o/IPTVPlayer/subproviders/subprov_youtubecom.py	2019-12-23 12:00:49.583072414 +0300
-+++ pc/IPTVPlayer/subproviders/subprov_youtubecom.py	2020-01-11 00:47:07.760355525 +0300
++++ pc/IPTVPlayer/subproviders/subprov_youtubecom.py	2020-01-30 18:51:29.083531078 +0300
 @@ -134,4 +134,3 @@
  
      def __init__(self, params={}):
@@ -41256,7 +41336,7 @@ diff -ruN o/IPTVPlayer/subproviders/subprov_youtubecom.py pc/IPTVPlayer/subprovi
 -    
 diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.py
 --- o/IPTVPlayer/tools/iptvsubtitles.py	2019-12-23 12:00:49.584072430 +0300
-+++ pc/IPTVPlayer/tools/iptvsubtitles.py	2020-01-11 00:47:07.761355541 +0300
++++ pc/IPTVPlayer/tools/iptvsubtitles.py	2020-01-30 18:51:29.084531593 +0300
 @@ -364,5 +364,5 @@
          
  if __name__ == "__main__":
@@ -41266,7 +41346,7 @@ diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.
      obj.getSubtitles(10000)
 diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
 --- o/IPTVPlayer/tools/iptvtools.py	2019-12-23 12:00:49.584072430 +0300
-+++ pc/IPTVPlayer/tools/iptvtools.py	2020-01-11 00:47:07.761355541 +0300
++++ pc/IPTVPlayer/tools/iptvtools.py	2020-01-30 18:51:29.084531593 +0300
 @@ -303,8 +303,8 @@
      baseName = resolveFilename(SCOPE_PLUGINS, 'Extensions/IPTVPlayer/scripts/') + name
      if fileExists(baseName + '.py'):
@@ -41389,7 +41469,7 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
      if le: return ord(tmp[1]) << 8 | ord(tmp[0])
 diff -ruN o/IPTVPlayer/tsiplayer/cfscrape/__init__.py pc/IPTVPlayer/tsiplayer/cfscrape/__init__.py
 --- o/IPTVPlayer/tsiplayer/cfscrape/__init__.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/cfscrape/__init__.py	2020-01-11 00:47:07.761355541 +0300
++++ pc/IPTVPlayer/tsiplayer/cfscrape/__init__.py	2020-01-30 18:51:29.084531593 +0300
 @@ -0,0 +1,468 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG,GetDefaultLang
@@ -41861,7 +41941,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/cfscrape/__init__.py pc/IPTVPlayer/tsiplayer/cf
 +get_cookie_string = CloudflareScraper.get_cookie_string
 diff -ruN o/IPTVPlayer/tsiplayer/cfscrape/user_agents.py pc/IPTVPlayer/tsiplayer/cfscrape/user_agents.py
 --- o/IPTVPlayer/tsiplayer/cfscrape/user_agents.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/cfscrape/user_agents.py	2020-01-11 00:47:07.761355541 +0300
++++ pc/IPTVPlayer/tsiplayer/cfscrape/user_agents.py	2020-01-30 18:51:29.084531593 +0300
 @@ -0,0 +1,32 @@
 +USER_AGENTS = [
 +    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36",
@@ -41897,7 +41977,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/cfscrape/user_agents.py pc/IPTVPlayer/tsiplayer
 +]
 diff -ruN o/IPTVPlayer/tsiplayer/host_akoam.py pc/IPTVPlayer/tsiplayer/host_akoam.py
 --- o/IPTVPlayer/tsiplayer/host_akoam.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_akoam.py	2020-01-11 00:47:07.761355541 +0300
++++ pc/IPTVPlayer/tsiplayer/host_akoam.py	2020-01-30 18:51:29.084531593 +0300
 @@ -0,0 +1,262 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG,MergeDicts
@@ -42163,7 +42243,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_akoam.py pc/IPTVPlayer/tsiplayer/host_akoa
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_animekom.py pc/IPTVPlayer/tsiplayer/host_animekom.py
 --- o/IPTVPlayer/tsiplayer/host_animekom.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_animekom.py	2020-01-11 00:47:07.761355541 +0300
++++ pc/IPTVPlayer/tsiplayer/host_animekom.py	2020-01-30 18:51:29.084531593 +0300
 @@ -0,0 +1,167 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.libs import ph
@@ -42334,7 +42414,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_animekom.py pc/IPTVPlayer/tsiplayer/host_a
 +			self.showelems(cItem)	
 diff -ruN o/IPTVPlayer/tsiplayer/host_arablionz.py pc/IPTVPlayer/tsiplayer/host_arablionz.py
 --- o/IPTVPlayer/tsiplayer/host_arablionz.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_arablionz.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_arablionz.py	2020-01-30 18:51:29.085532107 +0300
 @@ -0,0 +1,256 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -42594,7 +42674,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_arablionz.py pc/IPTVPlayer/tsiplayer/host_
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_arabseed.py pc/IPTVPlayer/tsiplayer/host_arabseed.py
 --- o/IPTVPlayer/tsiplayer/host_arabseed.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_arabseed.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_arabseed.py	2020-01-30 18:51:29.085532107 +0300
 @@ -0,0 +1,184 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -42782,7 +42862,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_arabseed.py pc/IPTVPlayer/tsiplayer/host_a
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_archive.py pc/IPTVPlayer/tsiplayer/host_archive.py
 --- o/IPTVPlayer/tsiplayer/host_archive.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_archive.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_archive.py	2020-01-30 18:51:29.085532107 +0300
 @@ -0,0 +1,123 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -42909,7 +42989,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_archive.py pc/IPTVPlayer/tsiplayer/host_ar
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_arembed.py pc/IPTVPlayer/tsiplayer/host_arembed.py
 --- o/IPTVPlayer/tsiplayer/host_arembed.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_arembed.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_arembed.py	2020-01-30 18:51:29.085532107 +0300
 @@ -0,0 +1,64 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -42977,7 +43057,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_arembed.py pc/IPTVPlayer/tsiplayer/host_ar
 +			self.showmenu(cItem)
 diff -ruN o/IPTVPlayer/tsiplayer/host_asia2tv.py pc/IPTVPlayer/tsiplayer/host_asia2tv.py
 --- o/IPTVPlayer/tsiplayer/host_asia2tv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_asia2tv.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_asia2tv.py	2020-01-30 18:51:29.085532107 +0300
 @@ -0,0 +1,196 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -43177,7 +43257,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_asia2tv.py pc/IPTVPlayer/tsiplayer/host_as
 +			self.showelems(cItem)
 diff -ruN o/IPTVPlayer/tsiplayer/host_assabile.py pc/IPTVPlayer/tsiplayer/host_assabile.py
 --- o/IPTVPlayer/tsiplayer/host_assabile.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_assabile.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_assabile.py	2020-01-30 18:51:29.086532621 +0300
 @@ -0,0 +1,207 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -43388,7 +43468,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_assabile.py pc/IPTVPlayer/tsiplayer/host_a
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_beinmatch.py pc/IPTVPlayer/tsiplayer/host_beinmatch.py
 --- o/IPTVPlayer/tsiplayer/host_beinmatch.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_beinmatch.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_beinmatch.py	2020-01-30 18:51:29.086532621 +0300
 @@ -0,0 +1,124 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -43516,7 +43596,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_beinmatch.py pc/IPTVPlayer/tsiplayer/host_
 +			self.showreplay2(cItem)
 diff -ruN o/IPTVPlayer/tsiplayer/host_cartoonplus.py pc/IPTVPlayer/tsiplayer/host_cartoonplus.py
 --- o/IPTVPlayer/tsiplayer/host_cartoonplus.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_cartoonplus.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_cartoonplus.py	2020-01-30 18:51:29.086532621 +0300
 @@ -0,0 +1,134 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -43654,7 +43734,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_cartoonplus.py pc/IPTVPlayer/tsiplayer/hos
 +			self.showep(cItem)
 diff -ruN o/IPTVPlayer/tsiplayer/host_cima4u.py pc/IPTVPlayer/tsiplayer/host_cima4u.py
 --- o/IPTVPlayer/tsiplayer/host_cima4u.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_cima4u.py	2020-01-11 00:47:07.762355558 +0300
++++ pc/IPTVPlayer/tsiplayer/host_cima4u.py	2020-01-30 18:51:29.086532621 +0300
 @@ -0,0 +1,192 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -43850,7 +43930,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_cima4u.py pc/IPTVPlayer/tsiplayer/host_cim
 +			
 diff -ruN o/IPTVPlayer/tsiplayer/host_cimaclub.py pc/IPTVPlayer/tsiplayer/host_cimaclub.py
 --- o/IPTVPlayer/tsiplayer/host_cimaclub.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_cimaclub.py	2020-01-11 00:47:07.763355574 +0300
++++ pc/IPTVPlayer/tsiplayer/host_cimaclub.py	2020-01-30 18:51:29.086532621 +0300
 @@ -0,0 +1,254 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -44108,7 +44188,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_cimaclub.py pc/IPTVPlayer/tsiplayer/host_c
 +			self.showelems(cItem)
 diff -ruN o/IPTVPlayer/tsiplayer/host_cimaflix.py pc/IPTVPlayer/tsiplayer/host_cimaflix.py
 --- o/IPTVPlayer/tsiplayer/host_cimaflix.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_cimaflix.py	2020-01-11 00:47:07.763355574 +0300
++++ pc/IPTVPlayer/tsiplayer/host_cimaflix.py	2020-01-30 18:51:29.088533650 +0300
 @@ -0,0 +1,237 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -44349,7 +44429,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_cimaflix.py pc/IPTVPlayer/tsiplayer/host_c
 +			
 diff -ruN o/IPTVPlayer/tsiplayer/host_coolkora.py pc/IPTVPlayer/tsiplayer/host_coolkora.py
 --- o/IPTVPlayer/tsiplayer/host_coolkora.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_coolkora.py	2020-01-11 00:47:07.763355574 +0300
++++ pc/IPTVPlayer/tsiplayer/host_coolkora.py	2020-01-30 18:51:29.088533650 +0300
 @@ -0,0 +1,141 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -44494,7 +44574,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_coolkora.py pc/IPTVPlayer/tsiplayer/host_c
 +			self.showchaines(cItem)
 diff -ruN o/IPTVPlayer/tsiplayer/host_egybest.py pc/IPTVPlayer/tsiplayer/host_egybest.py
 --- o/IPTVPlayer/tsiplayer/host_egybest.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_egybest.py	2020-01-11 00:47:07.763355574 +0300
++++ pc/IPTVPlayer/tsiplayer/host_egybest.py	2020-01-30 18:51:29.088533650 +0300
 @@ -0,0 +1,344 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -44842,7 +44922,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_egybest.py pc/IPTVPlayer/tsiplayer/host_eg
 +			self.showelems(cItem)
 diff -ruN o/IPTVPlayer/tsiplayer/host_faselhd.py pc/IPTVPlayer/tsiplayer/host_faselhd.py
 --- o/IPTVPlayer/tsiplayer/host_faselhd.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_faselhd.py	2020-01-11 00:47:07.763355574 +0300
++++ pc/IPTVPlayer/tsiplayer/host_faselhd.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,280 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -45126,7 +45206,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_faselhd.py pc/IPTVPlayer/tsiplayer/host_fa
 +			self.showitms3(cItem)
 diff -ruN o/IPTVPlayer/tsiplayer/host_hdo.py pc/IPTVPlayer/tsiplayer/host_hdo.py
 --- o/IPTVPlayer/tsiplayer/host_hdo.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_hdo.py	2020-01-11 00:47:07.763355574 +0300
++++ pc/IPTVPlayer/tsiplayer/host_hdo.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,306 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -45436,7 +45516,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_hdo.py pc/IPTVPlayer/tsiplayer/host_hdo.py
 +			
 diff -ruN o/IPTVPlayer/tsiplayer/host_hdss.py pc/IPTVPlayer/tsiplayer/host_hdss.py
 --- o/IPTVPlayer/tsiplayer/host_hdss.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_hdss.py	2020-01-11 00:47:07.763355574 +0300
++++ pc/IPTVPlayer/tsiplayer/host_hdss.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,330 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -45770,7 +45850,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_hdss.py pc/IPTVPlayer/tsiplayer/host_hdss.
 +			
 diff -ruN o/IPTVPlayer/tsiplayer/host_imsakiya.py pc/IPTVPlayer/tsiplayer/host_imsakiya.py
 --- o/IPTVPlayer/tsiplayer/host_imsakiya.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_imsakiya.py	2020-01-11 00:47:07.763355574 +0300
++++ pc/IPTVPlayer/tsiplayer/host_imsakiya.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,99 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -45873,7 +45953,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_imsakiya.py pc/IPTVPlayer/tsiplayer/host_i
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_liveplus.py pc/IPTVPlayer/tsiplayer/host_liveplus.py
 --- o/IPTVPlayer/tsiplayer/host_liveplus.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_liveplus.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_liveplus.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,185 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -46062,7 +46142,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_liveplus.py pc/IPTVPlayer/tsiplayer/host_l
 +'''			
 diff -ruN o/IPTVPlayer/tsiplayer/host_maniatv.py pc/IPTVPlayer/tsiplayer/host_maniatv.py
 --- o/IPTVPlayer/tsiplayer/host_maniatv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_maniatv.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_maniatv.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,67 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -46133,7 +46213,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_maniatv.py pc/IPTVPlayer/tsiplayer/host_ma
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_moviflex.py pc/IPTVPlayer/tsiplayer/host_moviflex.py
 --- o/IPTVPlayer/tsiplayer/host_moviflex.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_moviflex.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_moviflex.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,204 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -46341,7 +46421,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_moviflex.py pc/IPTVPlayer/tsiplayer/host_m
 +			
 diff -ruN o/IPTVPlayer/tsiplayer/host_movizland_mobile.py pc/IPTVPlayer/tsiplayer/host_movizland_mobile.py
 --- o/IPTVPlayer/tsiplayer/host_movizland_mobile.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_movizland_mobile.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_movizland_mobile.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,84 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -46429,7 +46509,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_movizland_mobile.py pc/IPTVPlayer/tsiplaye
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_movizland.py pc/IPTVPlayer/tsiplayer/host_movizland.py
 --- o/IPTVPlayer/tsiplayer/host_movizland.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_movizland.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_movizland.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,177 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -46610,7 +46690,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_movizland.py pc/IPTVPlayer/tsiplayer/host_
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_movs4uar.py pc/IPTVPlayer/tsiplayer/host_movs4uar.py
 --- o/IPTVPlayer/tsiplayer/host_movs4uar.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_movs4uar.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_movs4uar.py	2020-01-30 18:51:29.089534164 +0300
 @@ -0,0 +1,159 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -46773,7 +46853,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_movs4uar.py pc/IPTVPlayer/tsiplayer/host_m
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_movs4u.py pc/IPTVPlayer/tsiplayer/host_movs4u.py
 --- o/IPTVPlayer/tsiplayer/host_movs4u.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_movs4u.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_movs4u.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,248 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -47025,7 +47105,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_movs4u.py pc/IPTVPlayer/tsiplayer/host_mov
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_mp3quran.py pc/IPTVPlayer/tsiplayer/host_mp3quran.py
 --- o/IPTVPlayer/tsiplayer/host_mp3quran.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_mp3quran.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_mp3quran.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,157 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -47186,7 +47266,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_mp3quran.py pc/IPTVPlayer/tsiplayer/host_m
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_n300.py pc/IPTVPlayer/tsiplayer/host_n300.py
 --- o/IPTVPlayer/tsiplayer/host_n300.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_n300.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_n300.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,136 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -47326,7 +47406,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_n300.py pc/IPTVPlayer/tsiplayer/host_n300.
 +			self.showitms(cItem)			
 diff -ruN o/IPTVPlayer/tsiplayer/host_officialfilmillimite.py pc/IPTVPlayer/tsiplayer/host_officialfilmillimite.py
 --- o/IPTVPlayer/tsiplayer/host_officialfilmillimite.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_officialfilmillimite.py	2020-01-11 00:47:07.764355590 +0300
++++ pc/IPTVPlayer/tsiplayer/host_officialfilmillimite.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,258 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -47588,7 +47668,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_officialfilmillimite.py pc/IPTVPlayer/tsip
 +			
 diff -ruN o/IPTVPlayer/tsiplayer/host_okanime.py pc/IPTVPlayer/tsiplayer/host_okanime.py
 --- o/IPTVPlayer/tsiplayer/host_okanime.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_okanime.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_okanime.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,174 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -47766,7 +47846,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_okanime.py pc/IPTVPlayer/tsiplayer/host_ok
 +			
 diff -ruN o/IPTVPlayer/tsiplayer/host_planetstreaming.py pc/IPTVPlayer/tsiplayer/host_planetstreaming.py
 --- o/IPTVPlayer/tsiplayer/host_planetstreaming.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_planetstreaming.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_planetstreaming.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,180 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -47950,7 +48030,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_planetstreaming.py pc/IPTVPlayer/tsiplayer
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_series4watch.py pc/IPTVPlayer/tsiplayer/host_series4watch.py
 --- o/IPTVPlayer/tsiplayer/host_series4watch.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_series4watch.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_series4watch.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,257 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -48211,7 +48291,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_series4watch.py pc/IPTVPlayer/tsiplayer/ho
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_seriestreaminghd.py pc/IPTVPlayer/tsiplayer/host_seriestreaminghd.py
 --- o/IPTVPlayer/tsiplayer/host_seriestreaminghd.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_seriestreaminghd.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_seriestreaminghd.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,159 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -48374,7 +48454,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_seriestreaminghd.py pc/IPTVPlayer/tsiplaye
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_shahid4u.py pc/IPTVPlayer/tsiplayer/host_shahid4u.py
 --- o/IPTVPlayer/tsiplayer/host_shahid4u.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_shahid4u.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_shahid4u.py	2020-01-30 18:51:29.090534678 +0300
 @@ -0,0 +1,262 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -48640,7 +48720,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_shahid4u.py pc/IPTVPlayer/tsiplayer/host_s
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_sporttv.py pc/IPTVPlayer/tsiplayer/host_sporttv.py
 --- o/IPTVPlayer/tsiplayer/host_sporttv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_sporttv.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_sporttv.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,76 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -48720,7 +48800,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_sporttv.py pc/IPTVPlayer/tsiplayer/host_sp
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_star7live.py pc/IPTVPlayer/tsiplayer/host_star7live.py
 --- o/IPTVPlayer/tsiplayer/host_star7live.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_star7live.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_star7live.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,120 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -48844,7 +48924,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_star7live.py pc/IPTVPlayer/tsiplayer/host_
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_stardima.py pc/IPTVPlayer/tsiplayer/host_stardima.py
 --- o/IPTVPlayer/tsiplayer/host_stardima.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_stardima.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_stardima.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,157 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -49005,7 +49085,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_stardima.py pc/IPTVPlayer/tsiplayer/host_s
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_streamlord.py pc/IPTVPlayer/tsiplayer/host_streamlord.py
 --- o/IPTVPlayer/tsiplayer/host_streamlord.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_streamlord.py	2020-01-11 00:47:07.765355606 +0300
++++ pc/IPTVPlayer/tsiplayer/host_streamlord.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,247 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG,byteify
@@ -49256,7 +49336,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_streamlord.py pc/IPTVPlayer/tsiplayer/host
 +			self.showelms(cItem)			
 diff -ruN o/IPTVPlayer/tsiplayer/host_telequebec.py pc/IPTVPlayer/tsiplayer/host_telequebec.py
 --- o/IPTVPlayer/tsiplayer/host_telequebec.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_telequebec.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_telequebec.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,76 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -49336,7 +49416,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_telequebec.py pc/IPTVPlayer/tsiplayer/host
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_voirfilm.py pc/IPTVPlayer/tsiplayer/host_voirfilm.py
 --- o/IPTVPlayer/tsiplayer/host_voirfilm.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_voirfilm.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_voirfilm.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,257 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -49597,7 +49677,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_voirfilm.py pc/IPTVPlayer/tsiplayer/host_v
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_vumoo.py pc/IPTVPlayer/tsiplayer/host_vumoo.py
 --- o/IPTVPlayer/tsiplayer/host_vumoo.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_vumoo.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_vumoo.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,180 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -49781,7 +49861,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_vumoo.py pc/IPTVPlayer/tsiplayer/host_vumo
 +			self.showelms(cItem)						
 diff -ruN o/IPTVPlayer/tsiplayer/host_wss.py pc/IPTVPlayer/tsiplayer/host_wss.py
 --- o/IPTVPlayer/tsiplayer/host_wss.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_wss.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_wss.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,73 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -49858,7 +49938,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_wss.py pc/IPTVPlayer/tsiplayer/host_wss.py
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_X3sk.py pc/IPTVPlayer/tsiplayer/host_X3sk.py
 --- o/IPTVPlayer/tsiplayer/host_X3sk.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_X3sk.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_X3sk.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,167 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -50029,7 +50109,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_X3sk.py pc/IPTVPlayer/tsiplayer/host_X3sk.
 +
 diff -ruN o/IPTVPlayer/tsiplayer/host_xtreamlive.py pc/IPTVPlayer/tsiplayer/host_xtreamlive.py
 --- o/IPTVPlayer/tsiplayer/host_xtreamlive.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_xtreamlive.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_xtreamlive.py	2020-01-30 18:51:29.091535192 +0300
 @@ -0,0 +1,108 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -50141,7 +50221,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_xtreamlive.py pc/IPTVPlayer/tsiplayer/host
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_xtreamvod.py pc/IPTVPlayer/tsiplayer/host_xtreamvod.py
 --- o/IPTVPlayer/tsiplayer/host_xtreamvod.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_xtreamvod.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_xtreamvod.py	2020-01-30 18:51:29.092535707 +0300
 @@ -0,0 +1,201 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -50346,7 +50426,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_xtreamvod.py pc/IPTVPlayer/tsiplayer/host_
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_yallashoot.py pc/IPTVPlayer/tsiplayer/host_yallashoot.py
 --- o/IPTVPlayer/tsiplayer/host_yallashoot.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_yallashoot.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_yallashoot.py	2020-01-30 18:51:29.092535707 +0300
 @@ -0,0 +1,88 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -50438,7 +50518,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_yallashoot.py pc/IPTVPlayer/tsiplayer/host
 +		return True
 diff -ruN o/IPTVPlayer/tsiplayer/host_zimabdko.py pc/IPTVPlayer/tsiplayer/host_zimabdko.py
 --- o/IPTVPlayer/tsiplayer/host_zimabdko.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/host_zimabdko.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/host_zimabdko.py	2020-01-30 18:51:29.092535707 +0300
 @@ -0,0 +1,156 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG
@@ -50598,12 +50678,12 @@ diff -ruN o/IPTVPlayer/tsiplayer/host_zimabdko.py pc/IPTVPlayer/tsiplayer/host_z
 +			
 diff -ruN o/IPTVPlayer/tsiplayer/__init__.py pc/IPTVPlayer/tsiplayer/__init__.py
 --- o/IPTVPlayer/tsiplayer/__init__.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/__init__.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/__init__.py	2020-01-30 18:51:29.092535707 +0300
 @@ -0,0 +1 @@
 +
 diff -ruN o/IPTVPlayer/tsiplayer/pars_openload.py pc/IPTVPlayer/tsiplayer/pars_openload.py
 --- o/IPTVPlayer/tsiplayer/pars_openload.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/pars_openload.py	2020-01-11 00:47:07.766355623 +0300
++++ pc/IPTVPlayer/tsiplayer/pars_openload.py	2020-01-30 18:51:29.092535707 +0300
 @@ -0,0 +1,125 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.components.ihost import CBaseHostClass 
@@ -50732,7 +50812,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/pars_openload.py pc/IPTVPlayer/tsiplayer/pars_o
 +
 diff -ruN o/IPTVPlayer/tsiplayer/pCommon.py pc/IPTVPlayer/tsiplayer/pCommon.py
 --- o/IPTVPlayer/tsiplayer/pCommon.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/pCommon.py	2020-01-11 00:47:07.767355639 +0300
++++ pc/IPTVPlayer/tsiplayer/pCommon.py	2020-01-30 18:51:29.093536221 +0300
 @@ -0,0 +1,1402 @@
 +# -*- coding: utf-8 -*-
 +
@@ -52138,12 +52218,12 @@ diff -ruN o/IPTVPlayer/tsiplayer/pCommon.py pc/IPTVPlayer/tsiplayer/pCommon.py
 +        return strTab
 diff -ruN o/IPTVPlayer/tsiplayer/ph.py pc/IPTVPlayer/tsiplayer/ph.py
 --- o/IPTVPlayer/tsiplayer/ph.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/ph.py	2020-01-11 00:47:07.767355639 +0300
++++ pc/IPTVPlayer/tsiplayer/ph.py	2020-01-30 18:51:29.093536221 +0300
 @@ -0,0 +1 @@
 +﻿
 diff -ruN o/IPTVPlayer/tsiplayer/telequebec.tsbase pc/IPTVPlayer/tsiplayer/telequebec.tsbase
 --- o/IPTVPlayer/tsiplayer/telequebec.tsbase	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/telequebec.tsbase	2020-01-11 00:47:07.768355656 +0300
++++ pc/IPTVPlayer/tsiplayer/telequebec.tsbase	2020-01-30 18:51:29.094536735 +0300
 @@ -0,0 +1,3556 @@
 +12997;Grizzy et les Lemmings;1x1-Ours Polaire;30724;
 +;Grizzy et les Lemmings;1x2-Ours à tartiner;30725;
@@ -55703,7 +55783,7 @@ diff -ruN o/IPTVPlayer/tsiplayer/telequebec.tsbase pc/IPTVPlayer/tsiplayer/teleq
 +;Jelly Jamm;1x65-L'archi-ennemi;17919;
 diff -ruN o/IPTVPlayer/tsiplayer/tstools.py pc/IPTVPlayer/tsiplayer/tstools.py
 --- o/IPTVPlayer/tsiplayer/tstools.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/tstools.py	2020-01-11 00:47:07.768355656 +0300
++++ pc/IPTVPlayer/tsiplayer/tstools.py	2020-01-30 18:51:29.094536735 +0300
 @@ -0,0 +1,388 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Extensions.IPTVPlayer.components.iptvplayerinit import TranslateTXT as _, GetIPTVNotify
@@ -56095,13 +56175,13 @@ diff -ruN o/IPTVPlayer/tsiplayer/tstools.py pc/IPTVPlayer/tsiplayer/tstools.py
 +
 diff -ruN o/IPTVPlayer/tsiplayer/version.py pc/IPTVPlayer/tsiplayer/version.py
 --- o/IPTVPlayer/tsiplayer/version.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/tsiplayer/version.py	2020-01-11 00:47:07.768355656 +0300
++++ pc/IPTVPlayer/tsiplayer/version.py	2020-01-30 18:51:29.094536735 +0300
 @@ -0,0 +1,2 @@
 +# -*- coding: utf-8 -*-
 +TSIPlayer_VERSION="2019.07.08.2"
 diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
 --- o/IPTVPlayer/Web/webSite.py	2019-12-23 12:00:49.486070957 +0300
-+++ pc/IPTVPlayer/Web/webSite.py	2020-01-11 00:47:07.768355656 +0300
++++ pc/IPTVPlayer/Web/webSite.py	2020-01-30 18:51:29.094536735 +0300
 @@ -26,15 +26,15 @@
      #### Reload scripts if new version of source exists ####
      webPath = GetPluginDir(file = '/Web/')

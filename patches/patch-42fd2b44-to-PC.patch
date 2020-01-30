@@ -187,55 +187,45 @@ diff -ruN o/data/setup.xml pc/data/setup.xml
  </setupxml>
 diff -ruN o/dvbsoftwareca/ca_netlink.c pc/dvbsoftwareca/ca_netlink.c
 --- o/dvbsoftwareca/ca_netlink.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/dvbsoftwareca/ca_netlink.c	2020-01-23 13:48:59.000000000 +0300
-@@ -0,0 +1,207 @@
++++ pc/dvbsoftwareca/ca_netlink.c	2020-01-30 13:01:41.000000000 +0300
+@@ -0,0 +1,184 @@
 +/*
 + * ca_netlink.c: Generic netlink communication
 + *
 + * See the main source file 'dvb_softwareca.c' for copyright information.
 + *
++ * Tested on kernel v3.19 ... 5.3.
 + */
 +
 +#include "ca_netlink.h"
 +
-+// attribute policy 
++// attribute policy
 +struct nla_policy ca_policy[ATTR_MAX + 1] = {
 +	[ATTR_CA_SIZE] = { .type = NLA_U32 },
 +};
 +
 +// commands: mapping between the command enumeration and the actual function
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,13,0)
-+struct genl_ops ask_ca_size_ops = {
-+	.cmd = CMD_ASK_CA_SIZE,
-+	.flags = 0,
-+	.policy = ca_policy,
-+	.doit = reply_ca,
-+	.dumpit = NULL,
-+};
-+#else
 +struct genl_ops ask_ca_size_ops[] = {
 +	{
 +	.cmd = CMD_ASK_CA_SIZE,
 +	.flags = 0,
++#if LINUX_VERSION_CODE < KERNEL_VERSION(5,3,0)
 +	.policy = ca_policy,
++#endif
 +	.doit = reply_ca,
 +	.dumpit = NULL,
 +	},
 +};
-+#endif
 +
 +struct genl_family ca_family = {
-+#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,9,0)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4,9,0)
 +	.id = GENL_ID_GENERATE,
++#endif
 +	.hdrsize = 0,
 +	.name = "CA_SEND",
 +	.version = 1,
 +	.maxattr = ATTR_MAX,
-+#else
-+	.hdrsize = 0,
-+	.name = "CA_SEND",
-+	.version = 1,
-+	.maxattr = ATTR_MAX,
++#if LINUX_VERSION_CODE > KERNEL_VERSION(4,9,0)
 +	.ops = ask_ca_size_ops,
 +	.n_ops = ARRAY_SIZE(ask_ca_size_ops),
 +#endif
@@ -365,41 +355,28 @@ diff -ruN o/dvbsoftwareca/ca_netlink.c pc/dvbsoftwareca/ca_netlink.c
 +	int ret;
 +
 +	// register new family
-+#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,9,0)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4,9,0)
 +	ret = genl_register_family_with_ops(&ca_family, ask_ca_size_ops);
 +#else
 +	ret = genl_register_family(&ca_family);
 +#endif
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,13,0)
-+	// register functions (commands) of the new family
-+	ret = genl_register_ops(&ca_family, &ask_ca_size_ops);
-+	if (ret) {
-+		genl_unregister_family(&ca_family);
-+		printk("dvbsoftwareca: genl_register_family error\n");
-+	}
-+#else
++
 +	if (ret) {
 +		printk("dvbsoftwareca: genl_register_family error\n");
 +		return ret;
 +	}
-+#endif
 +
 +	return ret;
 +}
 +
 +void unregister_netlink(void) {
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,13,0)
-+	// unregister the functions
-+	genl_unregister_ops(&ca_family, &ask_ca_size_ops);
-+#else
 +	// unregister the family
 +	genl_unregister_family(&ca_family);
-+#endif
 +}
 diff -ruN o/dvbsoftwareca/ca_netlink.h pc/dvbsoftwareca/ca_netlink.h
 --- o/dvbsoftwareca/ca_netlink.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/dvbsoftwareca/ca_netlink.h	2020-01-27 01:21:15.685742009 +0300
-@@ -0,0 +1,45 @@
++++ pc/dvbsoftwareca/ca_netlink.h	2020-01-30 13:02:06.000000000 +0300
+@@ -0,0 +1,41 @@
 +#ifndef __CA_NETLINK_H
 +#define __CA_NETLINK_H
 +
@@ -437,17 +414,13 @@ diff -ruN o/dvbsoftwareca/ca_netlink.h pc/dvbsoftwareca/ca_netlink.h
 +
 +extern struct nla_policy ca_policy[ATTR_MAX + 1];
 +extern struct genl_family ca_family;
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,13,0)
-+extern struct genl_ops ask_ca_size_ops;
-+#else
 +extern struct genl_ops ask_ca_size_ops[];
-+#endif
 +extern int devices_counter;
 +
 +#endif
 diff -ruN o/dvbsoftwareca/dvbdev.h pc/dvbsoftwareca/dvbdev.h
 --- o/dvbsoftwareca/dvbdev.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/dvbsoftwareca/dvbdev.h	2020-01-23 10:59:28.000000000 +0300
++++ pc/dvbsoftwareca/dvbdev.h	2020-01-30 10:51:14.000000000 +0300
 @@ -0,0 +1,407 @@
 +/*
 + * dvbdev.h
@@ -858,7 +831,7 @@ diff -ruN o/dvbsoftwareca/dvbdev.h pc/dvbsoftwareca/dvbdev.h
 +#endif /* #ifndef _DVBDEV_H_ */
 diff -ruN o/dvbsoftwareca/dvb_softwareca.c pc/dvbsoftwareca/dvb_softwareca.c
 --- o/dvbsoftwareca/dvb_softwareca.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/dvbsoftwareca/dvb_softwareca.c	2020-01-27 01:21:07.170597322 +0300
++++ pc/dvbsoftwareca/dvb_softwareca.c	2020-01-30 12:37:37.000000000 +0300
 @@ -0,0 +1,314 @@
 +/*
 + * dvb_softwareca.c
@@ -885,7 +858,7 @@ diff -ruN o/dvbsoftwareca/dvb_softwareca.c pc/dvbsoftwareca/dvb_softwareca.c
 + *
 + */
 +
-+#define DVBSOFTWARECA_VERSION "0.0.2"
++#define DVBSOFTWARECA_VERSION "0.0.4"
 +#define DVBSOFTWARECA_MAJOR 230
 +
 +#include <linux/errno.h>
@@ -1176,7 +1149,7 @@ diff -ruN o/dvbsoftwareca/dvb_softwareca.c pc/dvbsoftwareca/dvb_softwareca.c
 +MODULE_VERSION( DVBSOFTWARECA_VERSION );
 diff -ruN o/dvbsoftwareca/dvb_softwareca.h pc/dvbsoftwareca/dvb_softwareca.h
 --- o/dvbsoftwareca/dvb_softwareca.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/dvbsoftwareca/dvb_softwareca.h	2020-01-23 10:59:21.000000000 +0300
++++ pc/dvbsoftwareca/dvb_softwareca.h	2020-01-30 10:51:14.000000000 +0300
 @@ -0,0 +1,16 @@
 +#include <linux/wait.h>
 +#include <linux/proc_fs.h>
@@ -1196,7 +1169,7 @@ diff -ruN o/dvbsoftwareca/dvb_softwareca.h pc/dvbsoftwareca/dvb_softwareca.h
 +};
 diff -ruN o/dvbsoftwareca/Makefile pc/dvbsoftwareca/Makefile
 --- o/dvbsoftwareca/Makefile	1970-01-01 03:00:00.000000000 +0300
-+++ pc/dvbsoftwareca/Makefile	2020-01-23 10:48:01.000000000 +0300
++++ pc/dvbsoftwareca/Makefile	2020-01-30 10:51:14.000000000 +0300
 @@ -0,0 +1,16 @@
 +obj-m := dvbsoftwareca.o
 +dvbsoftwareca-objs := dvb_softwareca.o ca_netlink.o
@@ -1204,7 +1177,7 @@ diff -ruN o/dvbsoftwareca/Makefile pc/dvbsoftwareca/Makefile
 +PWD := $(shell pwd)
 +
 +default:
-+	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
++	$(MAKE) -C $(KDIR) M=$(PWD) modules
 +clean:
 +	rm -f Module.symvers
 +	rm -f *.o
