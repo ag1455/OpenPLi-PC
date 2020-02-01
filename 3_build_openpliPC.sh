@@ -12,7 +12,6 @@ DO_MAKEINSTALL=1
 INSTALL_E2DIR="/usr/local/e2"
 PKG="enigma2"
 DVB_DEV="/dev/dvb/adapter0"
-KERNEL=`uname -r | mawk -F. '{ printf("%d.%d\n",$1,$2); }'`
 
 e2_backup() {
 echo ""
@@ -128,9 +127,9 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 42fd2b44
+git reset --hard 82a35ec3
 cd ..
-cp -fv $PKG/data/skin_display_default.xml $PKG/data/skin_display.xml
+cp -fv $PKG/data/display/skin_display_default.xml $PKG/data/display/skin_display.xml
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
@@ -143,10 +142,10 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-6
-	cp patches/patch-42fd2b44-to-PC.patch $PKG
+	cp patches/patch-82a35ec3-to-PC.patch $PKG
 	cp patches/ubuntu-14.04.patch $PKG
 	cd $PKG
-	patch -p1 < patch-42fd2b44-to-PC.patch
+	patch -p1 < patch-82a35ec3-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -156,9 +155,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-42fd2b44-to-PC.patch $PKG
+	cp patches/patch-82a35ec3-to-PC.patch $PKG
 	cd $PKG
-	patch -p1 < patch-42fd2b44-to-PC.patch
+	patch -p1 < patch-82a35ec3-to-PC.patch
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -166,9 +165,9 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-7 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-42fd2b44-to-PC-sigc2.patch $PKG
+	cp patches/patch-82a35ec3-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-42fd2b44-to-PC-sigc2.patch
+	patch -p1 < patch-82a35ec3-to-PC-sigc2.patch
 elif [ "$release" = "19.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -177,9 +176,9 @@ elif [ "$release" = "19.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-42fd2b44-to-PC-sigc2.patch $PKG
+	cp patches/patch-82a35ec3-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-42fd2b44-to-PC-sigc2.patch
+	patch -p1 < patch-82a35ec3-to-PC-sigc2.patch
 elif [ "$release" = "19.10" ]; then
 	echo ""
 	echo "********************************************************"
@@ -188,9 +187,9 @@ elif [ "$release" = "19.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-42fd2b44-to-PC-sigc2.patch $PKG
+	cp patches/patch-82a35ec3-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-42fd2b44-to-PC-sigc2.patch
+	patch -p1 < patch-82a35ec3-to-PC-sigc2.patch
 fi
 
 # Copy headers
@@ -199,6 +198,8 @@ cp -fv enigma2/lib/gdi/gxlibdc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv enigma2/lib/gdi/gmaindc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv enigma2/lib/gdi/xineLib.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv enigma2/lib/gdi/post.h $INSTALL_E2DIR/include/enigma2/lib/gdi
+cp -fv pre/dvb/* /usr/include/linux/dvb
+cp -fv pre/dvb/* /usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb
 cd $PKG
 
 if [ "$DO_CONFIGURE" -eq "1" ]; then

@@ -20,7 +20,7 @@ REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-ess
 	mjpegtools net-tools ntpdate openssh-sftp-server pmccabe python-dev python-setuptools python-twisted python-twisted-web python-twisted-mail python-ipaddr \
 	python-ipaddress python-pysqlite2 python-cryptography-vectors python-flickrapi python-lzma python-mechanize python-mutagen python-netifaces python-pyasn1-modules \
 	python-pycryptopp python-sendfile python-simplejson python-pycurl python-pil python-bzrlib python-urllib3 python-openssl python-cheetah python-blessings python-httpretty \
-	patch pyflakes pkg-config rpl rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper subversion texi2html texinfo unclutter unzip \
+	patch pyflakes pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper subversion texi2html texinfo unclutter unzip \
 	uchardet youtube-dl w3m vsftpd xmlto xterm \
 	"
 
@@ -109,11 +109,7 @@ for p in $REQPKG; do
 	fi
 done
 
-KERNEL=`uname -r | mawk -F. '{ printf("%d.%d\n",$1,$2); }'`
-
 cp -fv pre/sitecustomize.py /usr/local/lib/python2.7/site-packages
-cp -fv pre/dvb/* /usr/include/linux/dvb
-cp -fv pre/dvb/* /usr/src/linux-headers-$KERNEL*/include/uapi/linux/dvb
 
 # Download dvb-firmwares
 wget https://bitbucket.org/CrazyCat/media_build/downloads/dvb-firmwares.tar.bz2
