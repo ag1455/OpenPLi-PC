@@ -336,7 +336,7 @@ else
 		./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
 		checkinstall -D --install=yes --default --pkgname=libgstreamer-plugins-dvbmediasink --pkgversion=0.10.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	else
-		git checkout 16cae1a0
+		git checkout 12511897
 		cd ../..
 		cp patches/dvbmediasink-1.0.patch libs/$PKG
 		cd libs/$PKG

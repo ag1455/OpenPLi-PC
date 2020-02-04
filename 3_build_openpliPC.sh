@@ -250,11 +250,13 @@ if [ "$DO_MAKEINSTALL" -eq "0" ]; then
 	fi
 fi
 
-# Remove old kernel module
+# Make dvbsoftwareca module
+killall -9 oscam
 modprobe -r dvbsoftwareca
-
-# Make dvbsoftwareca
-cd dvbsoftwareca
+cd ../dvbsoftwareca
+if [ -f dvbsoftwareca.ko ]; then
+	make clean
+fi
 make -j"$DO_PARALLEL"
 if [ ! $? -eq 0 ]; then
 	echo ""
@@ -265,7 +267,8 @@ if [ ! $? -eq 0 ]; then
 	exit
 fi
 cp -fv dvbsoftwareca.ko /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends
-depmod -a
+/sbin/depmod -a
+cd ..
 
 # Create symlink
 if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
@@ -283,8 +286,6 @@ fi
 if [ $(lsmod | grep -c dvbsoftwareca) -eq 0 ]; then
 	modprobe -v dvbsoftwareca
 fi
-
-cd ../..
 
 echo ""
 echo "********************************************************"

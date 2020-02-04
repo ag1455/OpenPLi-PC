@@ -201,7 +201,7 @@ if [ -d plugins ]; then
 		cd ../..
 		cp patches/OpenWebif.patch  plugins/e2openplugin/e2openplugin-OpenWebif
 		cd plugins/e2openplugin/e2openplugin-OpenWebif
-		git checkout --detach b2e9d0da
+		git checkout --detach 80d88395
 		patch -p1 < OpenWebif.patch
 		sh create_ipk.sh
 		ar -x *.ipk
