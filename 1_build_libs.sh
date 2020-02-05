@@ -49,8 +49,8 @@ if [[ "$release" = "14.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake gcc-6 g++-6 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev libva-dev libqtgstreamer-dev libupnp6-dev python-ntplib \
-	python-daap python-transmissionrpc python-yenc python-gdata python-demjson swig2.0 \
+	REQPKG="flake gcc-6 g++-6 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev libqtgstreamer-dev libupnp6-dev \
+	libva-glx1 libva-dev python-ntplib python-daap python-transmissionrpc python-yenc python-gdata python-demjson swig2.0 \
 	"
 elif [[ "$release" = "16.04" ]]; then
 	echo ""
@@ -62,9 +62,9 @@ elif [[ "$release" = "16.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev python-subprocess32 libva-dev libqt5gstreamer-dev \
-	python-cryptodome python-pickleshare python-service-identity python-certifi python-restructuredtext-lint python-ntplib pylint python-daap python-transmissionrpc \
-	python-yenc python-gdata python-demjson sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
+	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev python-subprocess32 \
+	libqt5gstreamer-dev python-cryptodome python-pickleshare python-service-identity python-certifi python-restructuredtext-lint python-ntplib pylint python-daap \
+	python-transmissionrpc python-yenc python-gdata python-demjson sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -72,9 +72,9 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "                 *** release 18.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 python-langdetect python-pycryptodome \
-	python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata \
-	python-demjson pylint sphinx-rtd-theme-common libupnp6-dev swig yamllint \
+	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python-subprocess32 \
+	python-langdetect python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib \
+	python-transmissionrpc python-yenc python-gdata python-demjson pylint sphinx-rtd-theme-common libupnp6-dev swig yamllint \
 	"
 elif [[ "$release" = "19.04" ]]; then
 	echo ""
@@ -82,9 +82,9 @@ elif [[ "$release" = "19.04" ]]; then
 	echo "                 *** release 19.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
-	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson pylint sphinx-rtd-theme-common \
-	libupnp-dev swig swig3.0 yamllint \
+	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python-subprocess32 python-langdetect \
+	python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc \
+	python-sabyenc python3-demjson pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
 	"
 elif [[ "$release" = "19.10" ]]; then
 	echo ""
@@ -92,9 +92,9 @@ elif [[ "$release" = "19.10" ]]; then
 	echo "                 *** release 19.10 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
-	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson pylint sphinx-rtd-theme-common \
-	libupnp-dev swig swig3.0 yamllint \
+	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python-subprocess32 python-langdetect \
+	python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc \
+	python-sabyenc python3-demjson pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
 	"
 fi
 
