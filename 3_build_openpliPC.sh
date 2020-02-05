@@ -352,18 +352,6 @@ fi
 # Strip binary
 strip $INSTALL_E2DIR/bin/enigma2
 
-# Use xine.conf for vaapi
-GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "NVIDIA|INTEL|ATI"`
-if [ $GPU == "Intel" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                  YOUR HAVE VAAPI GPU!"
-	echo "                USED xine.conf FOR VAAPI!"
-	echo "********************************************************"
-	echo ""
-	mv -f /usr/local/e2/share/enigma2/xine.conf.vaapi /usr/local/e2/share/enigma2/xine.conf
-fi
-
 # Copy files
 cd pre
 cp -rfv enigma2 $INSTALL_E2DIR/etc
@@ -373,7 +361,6 @@ cp -fv rc.local /etc
 cp -fv enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv xine.conf $INSTALL_E2DIR/share/enigma2
-cp -fv xine.conf.vaapi $INSTALL_E2DIR/share/enigma2
 cp -fv logo.mvi $INSTALL_E2DIR/share/enigma2
 cp -fv e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv kill_e2pc.desktop /home/$(logname)/.local/share/applications
