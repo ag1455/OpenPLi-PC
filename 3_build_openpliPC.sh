@@ -251,7 +251,6 @@ if [ "$DO_MAKEINSTALL" -eq "0" ]; then
 fi
 
 # Make dvbsoftwareca module
-killall -9 oscam
 modprobe -r dvbsoftwareca
 cd ../dvbsoftwareca
 if [ -f dvbsoftwareca.ko ]; then
