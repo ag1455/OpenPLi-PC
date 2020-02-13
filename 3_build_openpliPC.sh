@@ -217,7 +217,7 @@ if [ "$DO_CONFIGURE" -eq "1" ]; then
 #	autoreconf -v -f -i -W all
 	autoreconf -i
 #	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-fbdev=/dev/fb0 --with-boxtype=generic
-	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=nobox --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-gstversion=1.0 --with-textlcd
+	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=nobox --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd
 	# generate pot
 	#./configure --prefix=$INSTALL_E2DIR --with-xlib --with-debug --with-po
 fi
