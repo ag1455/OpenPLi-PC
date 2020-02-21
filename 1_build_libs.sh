@@ -110,6 +110,8 @@ for p in $REQPKG; do
 done
 
 cp -fv pre/sitecustomize.py /usr/local/lib/python2.7/site-packages
+cp -fv pre/dvb/* /usr/include/linux/dvb
+cp -fv pre/dvb/* /usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb
 
 # Download dvb-firmwares
 wget https://bitbucket.org/CrazyCat/media_build/downloads/dvb-firmwares.tar.bz2
