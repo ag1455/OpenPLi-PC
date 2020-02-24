@@ -109,9 +109,19 @@ for p in $REQPKG; do
 	fi
 done
 
+HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
+INCLUDE="/usr/include/linux/dvb"
+
+if [ ! -f $HEADERS/video.h.gz ]; then
+	gzip -v $HEADERS/video.h
+	gzip -v $INCLUDE/video.h
+	gzip -v $HEADERS/audio.h
+	gzip -v $INCLUDE/audio.h
+fi
+
+cp -fv pre/dvb/* $INCLUDE
+cp -fv pre/dvb/* $HEADERS
 cp -fv pre/sitecustomize.py /usr/local/lib/python2.7/site-packages
-cp -fv pre/dvb/* /usr/include/linux/dvb
-cp -fv pre/dvb/* /usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb
 
 # Download dvb-firmwares
 wget https://bitbucket.org/CrazyCat/media_build/downloads/dvb-firmwares.tar.bz2
