@@ -1,53 +1,55 @@
 #!/bin/bash
 
-REQPKG="cmake"
 SOURCE="oscam-patched"
+CONF="/etc/vdr/oscam"
+BIN="/usr/local/bin"
 
-for p in $REQPKG; do
-	echo -n ">>> Checking \"$p\" : "
-	dpkg -s $p >/dev/null
-	if [ "$?" -eq "0" ]; then
-		echo "package is installed, skip it"
-	else
-		echo "package NOT present, installing it"
-		apt-get -y install $p
-	fi
-done
-echo "-----------------------------------------"
-echo "*** INSTALL OSCAM ***"
-echo "-----------------------------------------"
+echo "-------------------------------------------"
+echo "          *** INSTALL OSCAM ***"
+echo "-------------------------------------------"
 
 cd oscam
+
 if [ -d $SOURCE ]; then
 	rm -fr $SOURCE
 fi
 
 git clone https://github.com/oscam-emu/oscam-patched.git
-cp demux.patch $SOURCE
+patch -p1 < path.patch
 cd $SOURCE
-patch -p1 < demux.patch
-mkdir build
-cd build
-cmake --DHAVE_DVBAPI --DHAVE_WEBIF ../
-make install
-cd ../..
+./config.sh -E WITH_SSL MODULE_CONSTCW
+make
 
-echo "-----------------------------------------"
+mv -v Distribution/*.debug Distribution/oscam.debug
+cp -fv Distribution/oscam-* $BIN/oscam
+cd ..
+
+echo "-------------------------------------------"
 echo "*** COPY CONFIG FILES in /etc/vdr/oscam ***"
-echo "*** EDIT DATA FOR YOU ***"
-echo "-----------------------------------------"
+echo "       *** EDIT DATA FOR YOU ***"
+echo "-------------------------------------------"
 
-if [ ! -d /etc/vdr/oscam ]; then
-mkdir -p /etc/vdr/oscam
+if [ ! -d $CONF ]; then
+	mkdir -p $CONF
 fi
+
 if [ ! -d /var/log/oscam ]; then
-mkdir -p /var/log/oscam
+	mkdir -p /var/log/oscam
 fi
-cp -rfv conf/* /etc/vdr/oscam
-cp -fv softcam.oscam /usr/local/bin
-cp -fv oscamchk /usr/local/bin
+
+cp -rfv conf/* $CONF
+cp -fv softcam.oscam $BIN
+cp -fv oscamchk $BIN
 cp -fv root /var/spool/cron/crontabs
-if [ ! -f /usr/local/bin/softcam ]; then
-	ln -s /usr/local/bin/softcam.oscam /usr/local/bin/softcam
+
+if [ ! -f $BIN/softcam ]; then
+	ln -s $BIN/softcam.oscam $BIN/softcam
 fi
+
+if [ ! -f $CONF/SoftCam.Key ]; then
+	ln -s /var/keys/SoftCam.Key $CONF
+	ln -s /var/keys/AutoRoll.Key $CONF
+	ln -s /var/keys/Autoupdate.Key $CONF
+fi
+
 softcam restart
