@@ -48,10 +48,10 @@ if [ -d $DVB_DEV ]; then
 	while [ 1 != 0 ]; do
 		if [ $(ls $DVB_DEV | grep -w ca0) ]; then
 		softcam start
-			echo " * Oscam started" >> $LOG
+#			echo " * Oscam started" >> $LOG
 			exit 0
 		else
-			echo " * Waiting ca0" >> $LOG
+#			echo " * Waiting ca0" >> $LOG
 			sleep 1
 		fi
 	done
