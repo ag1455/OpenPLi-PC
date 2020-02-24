@@ -27,14 +27,14 @@ struct genl_ops ask_ca_size_ops[] = {
 };
 
 struct genl_family ca_family = {
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4,9,0)
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,9,0)
 	.id = GENL_ID_GENERATE,
 #endif
 	.hdrsize = 0,
 	.name = "CA_SEND",
 	.version = 1,
 	.maxattr = ATTR_MAX,
-#if LINUX_VERSION_CODE > KERNEL_VERSION(4,9,0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,9,0)
 	.ops = ask_ca_size_ops,
 	.n_ops = ARRAY_SIZE(ask_ca_size_ops),
 #endif
@@ -48,14 +48,14 @@ int reply_ca(struct sk_buff *skb_2, struct genl_info *info)
 	void *msg_head;
 	int ret;
 
-	if (!info)
-		goto out;
-
 #if LINUX_VERSION_CODE < KERNEL_VERSION(3,7,0)
 	printk("reply_ca %d\n", info->snd_pid);
 #else
 	printk("reply_ca %d\n", info->snd_portid);
 #endif
+
+        if (!info)
+                goto out;
 
 	skb = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
 	if (!skb)
@@ -87,7 +87,7 @@ int reply_ca(struct sk_buff *skb_2, struct genl_info *info)
 #endif
 	return 0;
 
-	out:
+ out:
 	printk("dvbsoftwareca: reply_ca error\n");
 	return 0;
 }
@@ -121,7 +121,7 @@ int netlink_send_cw(unsigned short ca_num, ca_descr_t *ca_descr) {
 
 	return 0;
 
-	out:
+ out:
 	printk("dvbsoftwareca: send_cw error\n");
 	return 0;
 }
@@ -155,7 +155,7 @@ int netlink_send_pid(unsigned short ca_num, ca_pid_t *ca_pid) {
 
 	return 0;
 
-	out:
+ out:
         printk("dvbsoftwareca: send_pid error\n");
 	return 0;
 }
@@ -164,12 +164,11 @@ int register_netlink(void) {
 	int ret;
 
 	// register new family
-#if LINUX_VERSION_CODE < KERNEL_VERSION(4,9,0)
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,9,0)
 	ret = genl_register_family_with_ops(&ca_family, ask_ca_size_ops);
 #else
 	ret = genl_register_family(&ca_family);
 #endif
-
 	if (ret) {
 		printk("dvbsoftwareca: genl_register_family error\n");
 		return ret;

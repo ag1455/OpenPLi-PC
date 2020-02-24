@@ -12,6 +12,8 @@ DO_MAKEINSTALL=1
 INSTALL_E2DIR="/usr/local/e2"
 PKG="enigma2"
 DVB_DEV="/dev/dvb/adapter0"
+HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
+INCLUDE="/usr/include/linux/dvb"
 
 e2_backup() {
 echo ""
@@ -194,12 +196,19 @@ fi
 
 # Copy headers
 cd ..
+if [ ! -f $HEADERS/video.h.gz ]; then
+	gzip -v $HEADERS/video.h
+	gzip -v $INCLUDE/video.h
+	gzip -v $HEADERS/audio.h
+	gzip -v $INCLUDE/audio.h
+fi
+
+cp -fv pre/dvb/* $INCLUDE
+cp -fv pre/dvb/* $HEADERS
 cp -fv enigma2/lib/gdi/gxlibdc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv enigma2/lib/gdi/gmaindc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv enigma2/lib/gdi/xineLib.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv enigma2/lib/gdi/post.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cp -fv pre/dvb/* /usr/include/linux/dvb
-cp -fv pre/dvb/* /usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb
 cd $PKG
 
 if [ "$DO_CONFIGURE" -eq "1" ]; then
@@ -296,10 +305,16 @@ echo ""
 rm -rf /usr/local/e2/lib/enigma2/python/Plugins/SystemPlugins/VideoEnhancement
 rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/SoftwareManager
 
-# Create symlinks in /usr diectory post install enigma2 and copying needed files
-mkdir -p $INSTALL_E2DIR/etc
-mkdir -p /home/hdd/movies
-mkdir -p /usr/local/etc
+# Creating symlinks after installing enigma2 and copying the necessary files
+if [ ! -d $INSTALL_E2DIR/etc ]; then
+	mkdir -p $INSTALL_E2DIR/etc
+fi
+if [ ! -d /home/hdd/movies ]; then
+	mkdir -p /home/hdd/movies
+fi
+if [ ! -d /usr/local/etc ]; then
+	mkdir -p /usr/local/etc
+fi
 if [ ! -d /home/hdd/movie ]; then
 	ln -s /home/hdd/movies /home/hdd/movie
 fi
@@ -336,8 +351,16 @@ fi
 if [ ! -f ./e2bin ]; then
 	ln -sf $INSTALL_E2DIR/bin/enigma2 ./e2bin
 fi
-
-# Create symlinks in /lib diectory post install enigma2
+if [ ! -d $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca ]; then
+	mkdir $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca
+	cp dvbsoftwareca/ca.h $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca
+fi
+if [ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.otb ]; then
+	ln -s /usr/share/fonts/tuxtxt.otb $INSTALL_E2DIR/share/fonts/tuxtxt.otb
+fi
+if [ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.ttf ]; then
+	ln -s /usr/share/fonts/tuxtxt.otb $INSTALL_E2DIR/share/fonts/tuxtxt.ttf
+fi
 if [ ! -f /lib/libc.so.6 ]; then
 	ARCH_MY=`uname -i`
 	ln -s `ls /lib/"$ARCH_MY"-linux-gnu/libc-2.??.so` /lib/libc.so.6
@@ -348,10 +371,6 @@ if [ -d /lib/i386-linux-gnu ]; then
 	fi
 fi
 
-# Strip binary
-strip $INSTALL_E2DIR/bin/enigma2
-
-# Copy files
 cd pre
 cp -rfv enigma2 $INSTALL_E2DIR/etc
 cp -rfv stb $INSTALL_E2DIR/etc
@@ -368,15 +387,9 @@ cd ..
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
 #cp -fv /etc/network/interfaces /etc/network/interfaces~
-ln -sv /etc/modules /etc/modules-load.d/modules.conf
 
-# Create symlink for tuxtxt font
-if [ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.otb ]; then
-	ln -s /usr/share/fonts/tuxtxt.otb $INSTALL_E2DIR/share/fonts/tuxtxt.otb
-fi
-if [ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.ttf ]; then
-	ln -s /usr/share/fonts/tuxtxt.otb $INSTALL_E2DIR/share/fonts/tuxtxt.ttf
-fi
+# Strip binary
+strip $INSTALL_E2DIR/bin/enigma2
 
 # Removing compiled now pyo or pyc files
 find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[o]" -exec rm {} \;

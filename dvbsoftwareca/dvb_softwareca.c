@@ -28,11 +28,11 @@
 
 #include <linux/errno.h>
 #include <linux/module.h>
+#include "ca.h"
 #include <linux/cdev.h>
 #include <linux/platform_device.h>
 #include "dvb_softwareca.h"
 #include "ca_netlink.h"
-#include <linux/dvb/ca.h>
 #include "dvbdev.h"
 
 static struct platform_device *dvblb_basedev;
@@ -44,8 +44,8 @@ static struct cdev ca_devices_cdev;
 struct ca_device* find_device(int minor) {
 	int i;
 
-	for (i = 0; i < devices_counter; i++)
-		if (ca_devices[i]->minor == minor)
+	for(i = 0; i < devices_counter; i++)
+		if(ca_devices[i]->minor == minor)
 			return ca_devices[i];
 	return NULL;
 }

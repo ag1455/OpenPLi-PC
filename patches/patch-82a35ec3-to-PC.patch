@@ -2776,7 +2776,7 @@ diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 +#ifndef __lib_dvb_ca_connector_h
 +#define __lib_dvb_ca_connector_h
 +
-+#include <linux/dvb/ca.h>
++#include "../dvbsoftwareca/ca.h"
 +#include <lib/base/thread.h>
 +#include <netlink/netlink.h>
 +#include <netlink/genl/genl.h>
@@ -3748,7 +3748,7 @@ diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 +#ifndef __dvb_decsa_h
 +#define __dvb_decsa_h
 +
-+#include <linux/dvb/ca.h>
++#include "../dvbsoftwareca/ca.h"
 +#include <lib/base/condVar.h>
 +
 +extern "C" {
