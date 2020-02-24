@@ -35,9 +35,12 @@ if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
 	ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
 fi
 
-#if [ ! -f $LOG ]; then
-#	touch "$LOG"
-#fi
+chmod 660 /dev/dvb/adapter0/ca0
+chown root:video /dev/dvb/adapter0/ca0
+
+if [ ! -f $LOG ]; then
+	touch "$LOG"
+fi
 
 # Preventing stopping boot your PC without a dvb card.
 if [ -d $DVB_DEV ]; then
@@ -45,10 +48,10 @@ if [ -d $DVB_DEV ]; then
 	while [ 1 != 0 ]; do
 		if [ $(ls $DVB_DEV | grep -w ca0) ]; then
 		softcam start
-#			echo " * Oscam started" >> $LOG
+			echo " * Oscam started" >> $LOG
 			exit 0
 		else
-#			echo " * Waiting ca0" >> $LOG
+			echo " * Waiting ca0" >> $LOG
 			sleep 1
 		fi
 	done
