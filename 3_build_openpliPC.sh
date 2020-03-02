@@ -129,7 +129,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 82a35ec3
+git reset --hard f787dc50
 cd ..
 cp -fv $PKG/data/display/skin_display_default.xml $PKG/data/display/skin_display.xml
 
@@ -144,10 +144,10 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-6
-	cp patches/patch-82a35ec3-to-PC.patch $PKG
+	cp patches/patch-f787dc50-to-PC.patch $PKG
 	cp patches/ubuntu-14.04.patch $PKG
 	cd $PKG
-	patch -p1 < patch-82a35ec3-to-PC.patch
+	patch -p1 < patch-f787dc50-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -157,9 +157,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-82a35ec3-to-PC.patch $PKG
+	cp patches/patch-f787dc50-to-PC.patch $PKG
 	cd $PKG
-	patch -p1 < patch-82a35ec3-to-PC.patch
+	patch -p1 < patch-f787dc50-to-PC.patch
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -167,9 +167,9 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-7 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-82a35ec3-to-PC-sigc2.patch $PKG
+	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-82a35ec3-to-PC-sigc2.patch
+	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
 elif [ "$release" = "19.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -178,9 +178,9 @@ elif [ "$release" = "19.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-82a35ec3-to-PC-sigc2.patch $PKG
+	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-82a35ec3-to-PC-sigc2.patch
+	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
 elif [ "$release" = "19.10" ]; then
 	echo ""
 	echo "********************************************************"
@@ -189,9 +189,9 @@ elif [ "$release" = "19.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-82a35ec3-to-PC-sigc2.patch $PKG
+	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-82a35ec3-to-PC-sigc2.patch
+	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
 fi
 
 # Copy headers
