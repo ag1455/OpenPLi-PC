@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PIDFILE=/tmp/.oscam/oscam.pid
+PIDFILE=/var/run/oscam.pid
 if (kill -0 `cat $PIDFILE`)
 	then
 	echo "it's alive!" > /dev/null

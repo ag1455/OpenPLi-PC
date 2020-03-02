@@ -12,18 +12,18 @@
 # By default this script does nothing.
 
 # This is only for LCD!
-#	ln -s /dev/fb0 /dev/fb1
-
-DVB_DEV="/dev/dvb/adapter0"
-#LOG="/var/log/oscam/wait.log"
+# ln -s /dev/fb0 /dev/fb1
 
 #if [ -d /sys/class/dvb/dvb0.frontend1 ]; then
 #	rm $DVB_DEV/net1 $DVB_DEV/frontend1 $DVB_DEV/demux1 $DVB_DEV/dvr1 $DVB_DEV/net1
 #fi
 
-sleep 5
+#LOG="/var/log/oscam/wait.log"
+#if [ ! -f $LOG ]; then
+#	touch "$LOG"
+#fi
 
-modprobe -v dvbsoftwareca
+DVB_DEV="/dev/dvb/adapter0"
 
 if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
 	echo "For $DVB_DEV/demux0 create symlink $DVB_DEV/demux1"
@@ -35,19 +35,17 @@ if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
 	ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
 fi
 
-chmod 660 /dev/dvb/adapter0/ca0
-chown root:video /dev/dvb/adapter0/ca0
-
-if [ ! -f $LOG ]; then
-	touch "$LOG"
-fi
-
 # Preventing stopping boot your PC without a dvb card.
 if [ -d $DVB_DEV ]; then
+
+	modprobe -v dvbsoftwareca
+	chmod 660 $DVB_DEV/ca0
+	chown root:video $DVB_DEV/ca0
+
 	# The script will run in the loop if there is /dev/dvb folder only!
 	while [ 1 != 0 ]; do
 		if [ $(ls $DVB_DEV | grep -w ca0) ]; then
-		softcam start
+			softcam start
 #			echo " * Oscam started" >> $LOG
 			exit 0
 		else
@@ -55,4 +53,5 @@ if [ -d $DVB_DEV ]; then
 			sleep 1
 		fi
 	done
+
 fi

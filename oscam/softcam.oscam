@@ -2,7 +2,6 @@
 
 DAEMON=/usr/local/bin/oscam
 CONFIGDIR=/etc/vdr/oscam
-PIDFILE=/tmp/.oscam/oscam.pid
 #DAEMON_OPTS="-p 4096 -r 2 -a -u -c ${CONFIGDIR} -B ${PIDFILE} -d 65535" # full log
 DAEMON_OPTS="-p 1024 -r 2 -a -u -c ${CONFIGDIR} -B ${PIDFILE}"
 
