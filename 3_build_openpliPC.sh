@@ -375,14 +375,19 @@ cd pre
 cp -rfv enigma2 $INSTALL_E2DIR/etc
 cp -rfv stb $INSTALL_E2DIR/etc
 cp -rfv tuxbox $INSTALL_E2DIR/etc
-cp -fv rc.local /etc
 cp -fv enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv xine.conf $INSTALL_E2DIR/share/enigma2
 cp -fv logo.mvi $INSTALL_E2DIR/share/enigma2
 cp -fv e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv kill_e2pc.desktop /home/$(logname)/.local/share/applications
-cp -fv modules /etc
+if [ -d $DVB_DEV ]; then
+	cp -fv rc.local /etc
+else
+# Preventing stopping boot your PC without a dvb card.
+	cp -fv rc.local.orig /etc
+	mv -fv /etc/rc.local.orig /etc/rc.local
+fi
 cd ..
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
