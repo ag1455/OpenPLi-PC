@@ -25,7 +25,7 @@ fi
 
 DVB_DEV="/dev/dvb/adapter0"
 
-# Preventing stopping boot your PC without a dvb card. The script will run in the loop if there is /dev/dvb folder only.
+# The script will run in a loop until frontend0 appears.
 while [ 1 != 0 ]; do
 	if [ $(ls $DVB_DEV | grep -w frontend0) ]; then
 		ln -s $DVB_DEV/demux0 $DVB_DEV/demux1
