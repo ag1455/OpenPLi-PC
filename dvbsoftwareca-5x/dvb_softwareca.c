@@ -85,7 +85,6 @@ static int ca_release(struct inode *inode, struct file *f) {
 
 static DEFINE_MUTEX(dst_ca_mutex);
 
-//static long ca_ioctl(struct file *f, unsigned int cmd, void *arg) {
 static long ca_ioctl(struct file *f, unsigned int cmd,  unsigned long arg) {
 	struct inode *inode;
 	struct ca_device *cadev;
@@ -110,8 +109,6 @@ static long ca_ioctl(struct file *f, unsigned int cmd,  unsigned long arg) {
 			printk("CA arg: %ld\n", arg);
 			if (arg > 0) {
 				printk("CA_SET_DESCR ARG\n");
-//				copy_from_user(&ca_descr, arg, sizeof (ca_descr));
-//				copy_from_user(&ca_descr, long unsigned int, sizeof (ca_descr));
 				copy_from_user(&ca_descr, (ca_descr_t *)arg, sizeof (ca_descr));
 				ca_num = ((cadev->adapter_num & 0xFF) << 8) | (cadev->device_num & 0xFF);
 
@@ -128,7 +125,6 @@ static long ca_ioctl(struct file *f, unsigned int cmd,  unsigned long arg) {
 			printk("CA arg: %ld\n", arg);
 			if (arg > 0) {
 				printk("CA_SET_PID ARG\n");
-//				copy_from_user(&ca_pid, arg, sizeof (ca_pid));
 				copy_from_user(&ca_pid, (ca_pid_t *)arg, sizeof (ca_pid));
 				ca_num = ((cadev->adapter_num & 0xFF) << 8) | (cadev->device_num & 0xFF);
 
