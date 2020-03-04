@@ -261,7 +261,7 @@ fi
 
 # Make dvbsoftwareca module
 modprobe -r dvbsoftwareca
-cd ../dvbsoftwareca
+cd ../dvbsoftwareca-5x
 if [ -f dvbsoftwareca.ko ]; then
 	make clean
 fi
