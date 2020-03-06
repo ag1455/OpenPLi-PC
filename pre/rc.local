@@ -11,6 +11,8 @@
 #
 # By default this script does nothing.
 
-/usr/local/e2/bin/prestart.sh
+if [ -d /dev/dvb ]; then
+	/usr/local/e2/bin/prestart.sh
+fi
 
 exit 0
