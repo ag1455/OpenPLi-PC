@@ -201,7 +201,7 @@ if [ -d plugins ]; then
 		cd ../..
 		cp patches/OpenWebif.patch  plugins/e2openplugin/e2openplugin-OpenWebif
 		cd plugins/e2openplugin/e2openplugin-OpenWebif
-		git checkout --detach 80d88395
+		git checkout --detach b79cfb76
 		patch -p1 < OpenWebif.patch
 		sh create_ipk.sh
 		ar -x *.ipk
@@ -223,7 +223,7 @@ if [ -d plugins ]; then
 		cd ../..
 		cp patches/SetPicon.patch plugins/e2openplugin/e2openplugin-SetPicon
 		cd plugins/e2openplugin/e2openplugin-SetPicon
-		git checkout --detach 949b6373
+		git checkout --detach 1ec3cace
 		patch -p1 < SetPicon.patch
 		python setup.py install
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SetPicon $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
