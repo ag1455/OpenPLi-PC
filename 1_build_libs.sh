@@ -477,7 +477,11 @@ else
 	echo "-----------------------------------------"
 	git clone git://github.com/pingflood/$PKG
 	cd $PKG
-	python2 setup.py install
+	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	else
+		python setup.py install
+	fi
 	cd ..
 	rm -f /usr/local/INSTALL
 	rm -f /usr/local/README
@@ -499,7 +503,11 @@ else
 	tar -xvf TwistedSNMP-0.3.13.tar.gz
 	rm -f TwistedSNMP-0.3.13.tar.gz
 	cd $PKG
-	python2 setup.py install
+	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	else
+		python setup.py install
+	fi
 	cd ..
 fi
 
@@ -519,7 +527,11 @@ else
 	tar -xvf pysnmp-se-3.5.2.tar.gz
 	rm -f pysnmp-se-3.5.2.tar.gz
 	cd $PKG
-	python2 setup.py install
+	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	else
+		python setup.py install
+	fi
 	cd ..
 fi
 
@@ -537,7 +549,11 @@ else
 	echo "-----------------------------------------"
 	git clone https://github.com/python-attrs/attrs.git
 	cd $PKG
-	python2 setup.py install
+	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	else
+		python setup.py install
+	fi
 	cd ..
 fi
 
@@ -555,7 +571,11 @@ else
 	echo "-----------------------------------------"
 	git clone https://github.com/twisted/constantly.git
 	cd $PKG
-	python2 setup.py install
+	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	else
+		python setup.py install
+	fi
 	cd ..
 fi
 
@@ -573,7 +593,11 @@ else
 	echo "-----------------------------------------"
 	git clone https://github.com/python-hyper/hyperlink.git
 	cd $PKG
-	python2 setup.py install
+	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	else
+		python setup.py install
+	fi
 	cd ..
 fi
 
@@ -591,7 +615,11 @@ else
 	echo "-----------------------------------------"
 	git clone https://github.com/twisted/incremental.git
 	cd $PKG
-	python2 setup.py install
+	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	else
+		python setup.py install
+	fi
 	cd ..
 fi
 
@@ -617,7 +645,11 @@ else
 	tar -xvf Js2Py-0.50.tar.gz
 	rm -f Js2Py-0.50.tar.gz
 	cd $PKG
-	python2 setup.py install
+	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	else
+		python setup.py install
+	fi
 	cd ../..
 	echo ""
 	echo "************************************ DONE! *****************************************"
