@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# Script for install patched lirc-0.10.1. Get repeats again.
-# In version Ubuntu-14.04, use lirc 0.9.0 from the repository only.
+# Script for install patched lirc-0.10.1. Get repeats again. In version Ubuntu-14.04, use lirc 0.9.0 from the repository only.
 
 # If your system has two devices /dev/lirc0 and /dev/lirc1 (for example, a built-in IR-receiver in the card card)
 # then you can add a rule to /etc/udev/rules.d/99-lirc-symlinks.rules:
-# KERNEL=="lirc[0-4]", SUBSYSTEM=="lirc", ATTRS{driver_override}=="(null)", SYMLINK+="lirc_serial"
+# KERNELS=="serial_ir.0", SUBSYSTEM=="lirc", DRIVERS=="serial_ir", ATTRS{driver_override}=="(null)", SYMLINK+="lirc_serial"
 # and use "/dev/lirc_serial" in your *.lircd.conf.
 # You also need to disable the uinput service by command:
 # systemctl mask lircd-uinput.service
@@ -19,7 +18,7 @@ if [[ "$release" = "14.04" ]]; then
 	echo "**** Incompatible! ****"
 else
 	dpkg -r liblirc-dev liblirc0 liblircclient-dev lirc lirc-doc lirc-x
-	apt install -y dh-exec dh-systemd doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
+	apt install -y dh-exec dh-python dh-systemd doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
 
 	mkdir $DIR
 	cd $DIR
@@ -31,13 +30,18 @@ else
 	rm -vf lirc_0.10.1.orig.tar.gz
 	cd ..
 	cp -v patches/lirc_0.10.1-6.patch $DIR/$PKG
+	cp -v patches/python38_client_py.patch $DIR/$PKG
 	cd $DIR/$PKG
 	patch -p1 < lirc_0.10.1-6.patch
+	if [[ "$release" = "20.04" ]]; then
+		patch -p1 < python38_client_py.patch
+	fi
 	rm -f lirc_0.10.1-6.patch
+	rm -f python38_client_py.patch
 	chmod 755 debian/install
 	chmod 755 debian/pbuilder-test
-	chmod 755 lirc-old2new
-	chmod 755 postrm
+	chmod 755 debian/lirc-old2new
+	chmod 755 debian/postrm
 	cd ..
 	tar -cvzf lirc_0.10.1-6.orig.tar.gz $PKG
 	cd $PKG

@@ -117,6 +117,18 @@ if [ -d plugins ]; then
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach c7750c5a
 		patch -p1 < servicemp3.patch
+	elif [[ "$release" = "20.04" ]]; then
+		echo "-----------------------------------------"
+		echo "         *** release 20.04 ***           "
+		echo "-----------------------------------------"
+		echo ""
+		export CXX=/usr/bin/g++-9
+		echo "                  *** used g++-9 ***"
+		echo ""
+		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+		cd plugins/enigma2-plugins/servicemp3
+		git checkout --detach c7750c5a
+		patch -p1 < servicemp3.patch
 	fi
 
 	cd ..
@@ -146,7 +158,11 @@ if [ -d plugins ]; then
 		cd e2openplugin
 		git clone https://github.com/E2OpenPlugins/e2openplugin-StreamInterface.git
 		cd e2openplugin-StreamInterface
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/StreamInterface $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_streaminterface* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/StreamInterface
@@ -166,7 +182,11 @@ if [ -d plugins ]; then
 		cp patches/SystemTools.patch plugins/e2openplugin/e2openplugin-SystemTools
 		cd plugins/e2openplugin/e2openplugin-SystemTools
 		patch -p1 < SystemTools.patch
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SystemTools $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_systemtools* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools
@@ -183,7 +203,11 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-AddStreamUrl.git
 		cd e2openplugin-AddStreamUrl
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/AddStreamUrl $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_addstreamurl* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cd ..
@@ -225,7 +249,11 @@ if [ -d plugins ]; then
 		cd plugins/e2openplugin/e2openplugin-SetPicon
 		git checkout --detach 1ec3cace
 		patch -p1 < SetPicon.patch
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SetPicon $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_setpicon* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon
@@ -245,7 +273,11 @@ if [ -d plugins ]; then
 		cp patches/SnmpAgent.patch plugins/e2openplugin/e2openplugin-SnmpAgent
 		cd plugins/e2openplugin/e2openplugin-SnmpAgent
 		patch -p1 < SnmpAgent.patch
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SnmpAgent $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_snmpagent* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent
@@ -265,7 +297,11 @@ if [ -d plugins ]; then
 		cp patches/SimpleUmount.patch plugins/e2openplugin/e2openplugin-SimpleUmount
 		cd plugins/e2openplugin/e2openplugin-SimpleUmount
 		patch -p1 < SimpleUmount.patch
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SimpleUmount $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_simpleumount* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount
@@ -284,7 +320,11 @@ if [ -d plugins ]; then
 		rpl "Foreca - прогноз погоды" "'Foreca' - Прогноз погоды" e2openplugin-Foreca/plugin/locale/ru/LC_MESSAGES/Foreca.po
 		rpl '\x1b' 'KEY_ESC' e2openplugin-Foreca/plugin/keymap.xml
 		cd e2openplugin-Foreca
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/Foreca $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_foreca* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Foreca
@@ -301,7 +341,11 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/Taapat/enigma2-plugin-youtube.git
 		cd enigma2-plugin-youtube
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/YouTube $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_youtube* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv build/lib/Extensions/YouTube/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/YouTube
@@ -322,7 +366,11 @@ if [ -d plugins ]; then
 		cd plugins/e2openplugin/e2openplugin-OscamStatus
 		patch -p1 < OscamStatus.patch
 		find plugin/locale -name "*.mo" -exec rm {} \;
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/OscamStatus $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_oscamstatus* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
@@ -353,8 +401,13 @@ if [ -d plugins ]; then
 		patch -p1 < E2IPlayer.patch
 		rm -rf IPTVPlayer/locale/uk
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
-		python setup_translate.py
-		python setup.py install
+		if [ "$release" = "20.04" ]; then
+			python2 setup_translate.py
+			python2 setup.py install
+		else
+			python setup_translate.py
+			python setup.py install
+		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/IPTVPlayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_iptvplayer* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
@@ -440,11 +493,18 @@ if [ -d plugins ]; then
 		find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[o]" -exec rm {} \;
 
 		# Compile other pyc files
-		python -m compileall $INSTALL_E2DIR/lib/enigma2/python
+		if [ "$release" = "20.04" ]; then
+			python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
+		else
+			python -m compileall $INSTALL_E2DIR/lib/enigma2/python
+		fi
 
 		# Force recompile new pyc files
-#		python -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
-
+		#if [ "$release" = "20.04" ]; then
+		#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
+		#else
+		#	python -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
+		#fi
 		echo ""
 		echo "************* Plugins, skins, E2PC python files installed successfully.*************"
 	fi

@@ -1,0 +1,15 @@
+--- o/python-pkg/lirc/client.py	2017-09-10 11:52:19.000000000 +0300
++++ pc/python-pkg/lirc/client.py	2020-03-16 11:40:40.568842130 +0300
+@@ -219,10 +219,10 @@
+     def readline(self, timeout: float = None) -> str:
+         ''' Implements AbstractConnection.readline(). '''
+         if timeout:
+-            start = time.clock()
++            start = time.time()
+         while b'\n' not in self._buffer:
+             ready = self._select.select(
+-                start + timeout - time.clock() if timeout else timeout)
++                start + timeout - time.time() if timeout else timeout)
+             if ready == []:
+                 if timeout:
+                     raise TimeoutException(

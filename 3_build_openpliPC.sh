@@ -192,6 +192,19 @@ elif [ "$release" = "19.10" ]; then
 	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
 	cd $PKG
 	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
+elif [ "$release" = "20.04" ]; then
+	echo ""
+	echo "********************************************************"
+	echo "                 *** RELEASE 20.04 ***"
+	echo "                  *** USED g++-9 ***"
+	echo "********************************************************"
+	echo ""
+	export CXX=/usr/bin/g++-9
+	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
+	cp patches/20_04_Makefile.am.patch $PKG
+	cd $PKG
+	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
+	patch -p1 < 20_04_Makefile.am.patch
 fi
 
 # Copy headers

@@ -1,0 +1,8 @@
+--- o/data/Makefile.am	2020-03-15 14:03:10.004400446 +0300
++++ pc/data/Makefile.am	2020-03-15 18:51:01.313763530 +0300
+@@ -22,4 +22,4 @@
+ 	unicable.xml
+ 
+ iso-639-3.pck: $(srcdir)/iso-639-3.tab
+-	python $(srcdir)/convert-iso-639-3.py $< $@
++	python2 $(srcdir)/convert-iso-639-3.py $< $@
