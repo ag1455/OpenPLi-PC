@@ -509,19 +509,19 @@ diff -ruN o/src/input/input_enigma.c pc/src/input/input_enigma.c
 +  pthread_cond_t      vpts_offset_queue_changed_cond;
 +  int                 vpts_offset_queue_changes;
 +
-+//* xvdr 
++// xvdr
 +  int     trickspeed;    // current trick speed
 +  int     still_mode;
-+  int64_t last_vo_pts;   // last displayed video frame PTS 
-+  int     wired;         // true if currently wired to stream 
++  int64_t last_vo_pts;   // last displayed video frame PTS
++  int     wired;         // true if currently wired to stream
 +
 +  /* initial buffering in live mode */
-+/*  uint8_t  buffering;      // buffering active 
-+  uint8_t  live_buffering; // live buffering enabled 
++/*  uint8_t  buffering;      // buffering active
++  uint8_t  live_buffering; // live buffering enabled
 +  uint8_t  stream_start;
-+  int64_t  vid_pts;        // last seen video pts 
-+  int64_t  aud_pts;        // last seen audio pts 
-+  int64_t  disc_pts;       // reported discontinuity pts 
++  int64_t  vid_pts;        // last seen video pts
++  int64_t  aud_pts;        // last seen audio pts
++  int64_t  disc_pts;       // reported discontinuity pts
 +  uint64_t buffering_start_time;
 +  uint64_t first_frame_seen_time;
 +
@@ -2487,39 +2487,6 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
      case VO_PROP_ZOOM_X:
        if ((value >= XINE_VO_ZOOM_MIN) && (value <= XINE_VO_ZOOM_MAX)) {
          this->zoom_x = value;
-diff -ruN o/src/xine-engine/demux.c pc/src/xine-engine/demux.c
---- o/src/xine-engine/demux.c	2019-12-22 16:01:49.000000000 +0300
-+++ pc/src/xine-engine/demux.c	2020-01-22 23:45:40.386056639 +0300
-@@ -425,6 +425,14 @@
-         } while (stream->demux_thread_running && (status == DEMUX_FINISHED));
-         break;
-       } else {
-+        /* there may be no first frame at all here.
-+         * make sure xine_play returns first. */
-+        pthread_mutex_lock (&stream->first_frame_lock);
-+        if (stream->first_frame_flag) {
-+          stream->first_frame_flag = 0;
-+          pthread_cond_broadcast(&stream->first_frame_reached);
-+        }
-+        pthread_mutex_unlock (&stream->first_frame_lock);
-         /* stream end may well happen during xine_play () (seek close to end).
-          * Lets not confuse frontend, and delay that message a bit. */
-         ts = seek_time;
-@@ -440,14 +448,6 @@
-           break;
-         xprintf (stream->s.xine, XINE_VERBOSITY_DEBUG,
-           "demux: very short seek segment, delaying finish message.\n");
--        /* there may be no first frame at all here.
--         * make sure xine_play returns first. */
--        pthread_mutex_lock (&stream->first_frame_lock);
--        if (stream->first_frame_flag) {
--          stream->first_frame_flag = 0;
--          pthread_cond_broadcast(&stream->first_frame_reached);
--        }
--        pthread_mutex_unlock (&stream->first_frame_lock);
-       }
-       do {
-         int e = pthread_cond_timedwait (&stream->demux_resume, &stream->demux_lock, &ts);
 diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
 --- o/src/xine-engine/osd.c	2019-12-22 16:01:49.000000000 +0300
 +++ pc/src/xine-engine/osd.c	2019-12-25 00:51:12.000000000 +0300
