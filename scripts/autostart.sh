@@ -3,6 +3,7 @@
 HDD="/media/hdd"
 PREFIX="/usr/local/e2/bin"
 
+#systemctl restart rc-local.service # Uncomment this line in case of failure after a system upgrade or if ca0 doesn't appear.
 rm -f $HDD/timeshift.* # Case broken pause.
 
 while [ 1 != 0 ]; do
