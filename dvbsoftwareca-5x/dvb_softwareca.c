@@ -23,7 +23,7 @@
  *
  */
 
-#define DVBSOFTWARECA_VERSION "0.0.5"
+#define DVBSOFTWARECA_VERSION "0.0.5x"
 #define DVBSOFTWARECA_MAJOR 230
 
 #include <linux/errno.h>
@@ -42,7 +42,7 @@ static struct cdev ca_devices_cdev;
 
 struct ca_device* find_device(int minor) {
 	int i;
-	printk("find_device");
+//	printk("find_device");
 
 for (i = 0; i < devices_counter; i++) {
 	if (ca_devices[i]->minor == minor) 
@@ -53,7 +53,7 @@ for (i = 0; i < devices_counter; i++) {
 
 static int ca_open(struct inode *inode, struct file *file) {
 	struct ca_device *cadev = find_device(iminor(inode));
-	printk("ca_open");
+//	printk("ca_open");
 	if (!cadev)
 		return -ENODEV;
 	if (!cadev->users)
@@ -63,13 +63,13 @@ static int ca_open(struct inode *inode, struct file *file) {
 
 	cadev->users--;
 	try_module_get(THIS_MODULE);
-	printk("ca_open OK");
+//	printk("ca_open OK");
 	return 0;
 }
 
 static int ca_release(struct inode *inode, struct file *f) {
 	struct ca_device *cadev = find_device(iminor(inode));
-	printk("ca_release");
+//	printk("ca_release");
 	if (!cadev) {
 		printk("Failed to locate device\n");
 		return -EFAULT;
@@ -79,7 +79,7 @@ static int ca_release(struct inode *inode, struct file *f) {
 
 	cadev->users++;
 	module_put(THIS_MODULE);
-	printk("ca_release OK");
+//	printk("ca_release OK");
 	return 0;
 }
 
@@ -105,31 +105,28 @@ static long ca_ioctl(struct file *f, unsigned int cmd,  unsigned long arg) {
 
 		switch (cmd) {
 		case CA_SET_DESCR:
-			printk("CA_SET_DESCR\n");
-			printk("CA arg: %ld\n", arg);
+//			printk("CA_SET_DESCR\n");
+//			printk("CA arg: %ld\n", arg);
 			if (arg > 0) {
-				printk("CA_SET_DESCR ARG\n");
+//				printk("CA_SET_DESCR ARG\n");
 				copy_from_user(&ca_descr, (ca_descr_t *)arg, sizeof (ca_descr));
 				ca_num = ((cadev->adapter_num & 0xFF) << 8) | (cadev->device_num & 0xFF);
 
-				printk("cactl CA_SET_DESCR par %d idx %d %02X...%02X\n",
-				ca_descr.parity, ca_descr.index, ca_descr.cw[0], ca_descr.cw[7]);
-
+//				printk("cactl CA_SET_DESCR par %d idx %d %02X...%02X\n",
+//				ca_descr.parity, ca_descr.index, ca_descr.cw[0], ca_descr.cw[7]);
 				netlink_send_cw(ca_num, &ca_descr);
-
 				ret = 0;
 			}
 		break;
 		case CA_SET_PID:
-			printk("CA_SET_PID\n");
-			printk("CA arg: %ld\n", arg);
+//			printk("CA_SET_PID\n");
+//			printk("CA arg: %ld\n", arg);
 			if (arg > 0) {
-				printk("CA_SET_PID ARG\n");
+//				printk("CA_SET_PID ARG\n");
 				copy_from_user(&ca_pid, (ca_pid_t *)arg, sizeof (ca_pid));
 				ca_num = ((cadev->adapter_num & 0xFF) << 8) | (cadev->device_num & 0xFF);
 
-				printk("cactl CA_SET_PID %04X index %d\n", ca_pid.pid, ca_pid.index);
-
+//				printk("cactl CA_SET_PID %04X index %d\n", ca_pid.pid, ca_pid.index);
 				netlink_send_pid(ca_num, &ca_pid);
 				ret = 0;
 			}
