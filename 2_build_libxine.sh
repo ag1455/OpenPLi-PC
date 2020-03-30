@@ -1,7 +1,5 @@
 #!/bin/bash
 
-release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
-
 # Build and install xine-lib:
 LIB="libxine2"
 PKG="xine-lib-1.2-1.2.9+hg-e2pc"
@@ -9,7 +7,7 @@ I=`dpkg -s $LIB | grep "Status"`
 
 # Remove old package libxine2.
 if [ -n "$I" ]; then
-	apt -y purge libxine2*
+	apt-get -y purge libxine2*
 else
 	echo "$LIB not installed"
 fi
@@ -28,7 +26,7 @@ if [ -d "$PKG" ]; then
 	echo "-----------------------------------------"
 	echo "         head now on b6cc71673eb9        "
 	echo "-----------------------------------------"
-	cp patches/xine-lib-1.2*.patch $PKG
+	cp patches/xine-lib-1.2-14450:b6cc71673eb9.patch $PKG
 else
 	echo "-----------------------------------------"
 	echo "        CHECK INTERNET CONNECTION!       "
@@ -36,7 +34,7 @@ else
 fi
 
 cd $PKG
-patch -p1 < xine-lib-1.2*.patch
+patch -p1 < xine-lib-1.2-14450:b6cc71673eb9.patch
 echo "-----------------------------------------"
 echo "       patch for xine-lib applied        "
 echo "-----------------------------------------"
