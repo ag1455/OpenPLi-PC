@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKUP_E2="etc/tuxbox/timezone.xml etc/tuxbox/satellites.xml etc/enigma2"
+BACKUP_E2="etc/tuxbox/satellites.xml etc/enigma2"
 
 DO_BACKUP=1
 DO_RESTORE=1
@@ -129,7 +129,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard f787dc50
+git reset --hard 09e3763b
 cd ..
 cp -fv $PKG/data/display/skin_display_default.xml $PKG/data/display/skin_display.xml
 
@@ -144,10 +144,10 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-6
-	cp patches/patch-f787dc50-to-PC.patch $PKG
+	cp patches/patch-09e3763b-to-PC.patch $PKG
 	cp patches/ubuntu-14.04.patch $PKG
 	cd $PKG
-	patch -p1 < patch-f787dc50-to-PC.patch
+	patch -p1 < patch-09e3763b-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -157,9 +157,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-f787dc50-to-PC.patch $PKG
+	cp patches/patch-09e3763b-to-PC.patch $PKG
 	cd $PKG
-	patch -p1 < patch-f787dc50-to-PC.patch
+	patch -p1 < patch-09e3763b-to-PC.patch
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -167,9 +167,9 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-7 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
+	cp patches/patch-09e3763b-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
+	patch -p1 < patch-09e3763b-to-PC-sigc2.patch
 elif [ "$release" = "19.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -178,9 +178,9 @@ elif [ "$release" = "19.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
+	cp patches/patch-09e3763b-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
+	patch -p1 < patch-09e3763b-to-PC-sigc2.patch
 elif [ "$release" = "19.10" ]; then
 	echo ""
 	echo "********************************************************"
@@ -189,9 +189,9 @@ elif [ "$release" = "19.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
+	cp patches/patch-09e3763b-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
+	patch -p1 < patch-09e3763b-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -200,10 +200,10 @@ elif [ "$release" = "20.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-f787dc50-to-PC-sigc2.patch $PKG
+	cp patches/patch-09e3763b-to-PC-sigc2.patch $PKG
 	cp patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-f787dc50-to-PC-sigc2.patch
+	patch -p1 < patch-09e3763b-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
 fi
 
