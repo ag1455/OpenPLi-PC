@@ -1,6 +1,6 @@
 diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconmenager.py
---- o/IPTVPlayer/components/iconmenager.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/components/iconmenager.py	2020-04-03 11:35:26.379487921 +0300
+--- o/IPTVPlayer/components/iconmenager.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/components/iconmenager.py	2020-04-04 12:32:10.967449351 +0200
 @@ -28,7 +28,7 @@
  
  
@@ -20,8 +20,8 @@ diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconme
          else:
              params_cfad={}
 diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/iptvconfigmenu.py
---- o/IPTVPlayer/components/iptvconfigmenu.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-04-03 11:35:26.380487921 +0300
+--- o/IPTVPlayer/components/iptvconfigmenu.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-04-04 11:59:05.688287820 +0200
 @@ -61,7 +61,7 @@
  config.plugins.iptvplayer.showinMainMenu     = ConfigYesNo(default = False)
  config.plugins.iptvplayer.ListaGraficzna     = ConfigYesNo(default = True)
@@ -49,55 +49,50 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
  
  #icons
  config.plugins.iptvplayer.IconsSize = ConfigSelection(default = "100", choices = [("135", "135x135"),("120", "120x120"),("100", "100x100")]) 
-@@ -555,8 +555,8 @@
+@@ -555,8 +555,6 @@
              needPluginUpdate = True
              
          if needPluginUpdate:
 -            return _('Some changes will be applied only after plugin update.\nDo you want to perform update now?')
 -        else:
-+#            return _('Some changes will be applied only after plugin update.\nDo you want to perform update now?')
-+#        else:
              return ''
              
      def performCloseWithMessage(self, afterSave=True):
 diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/iptvplayerwidget.py
---- o/IPTVPlayer/components/iptvplayerwidget.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-04-03 11:35:26.381487921 +0300
-@@ -60,7 +60,7 @@
+--- o/IPTVPlayer/components/iptvplayerwidget.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-04-04 11:54:10.166494341 +0200
+@@ -60,7 +60,6 @@
  
  from Plugins.Extensions.IPTVPlayer.components.iptvplayerinit import TranslateTXT as _, IPTVPlayerNeedInit, GetIPTVPlayerLastHostError, GetIPTVNotify, GetIPTVSleep
  
 -from Plugins.Extensions.IPTVPlayer.setup.iptvsetupwidget import IPTVSetupMainWidget
-+#from Plugins.Extensions.IPTVPlayer.setup.iptvsetupwidget import IPTVSetupMainWidget
  from Plugins.Extensions.IPTVPlayer.components.iptvplayer import IPTVStandardMoviePlayer, IPTVMiniMoviePlayer
  from Plugins.Extensions.IPTVPlayer.components.iptvextmovieplayer import IPTVExtMoviePlayer
  from Plugins.Extensions.IPTVPlayer.components.iptvpictureplayer import IPTVPicturePlayerWidget
-@@ -1143,8 +1143,8 @@
+@@ -1142,10 +1141,6 @@
+             self.displayGroupsList.append((item.title, item.name))
          self.displayGroupsList.append((_('All'), 'all'))
          self.displayGroupsList.append((_("Configuration"), "config"))
-         
+-        
 -        if config.plugins.iptvplayer.AktualizacjaWmenu.value == True:
 -            self.displayGroupsList.append((_("Update"), "update"))
-+#        if config.plugins.iptvplayer.AktualizacjaWmenu.value == True:
-+#            self.displayGroupsList.append((_("Update"), "update"))
-         
+-        
          self.newDisplayGroupsList = []
          self.session.openWithCallback(self.selectGroupCallback, PlayerSelectorWidget, inList = self.displayGroupsList, outList = self.newDisplayGroupsList, numOfLockedItems = self.getNumOfSpecialItems(self.displayGroupsList) , groupName='selectgroup')
-@@ -1944,10 +1944,10 @@
+         
+@@ -1944,10 +1939,8 @@
  
      def configCallback(self):
          if IPTVPlayerNeedInit():
 -            self.session.openWithCallback(self.selectHost, IPTVSetupMainWidget, True)
 -        else:
-+#            self.session.openWithCallback(self.selectHost, IPTVSetupMainWidget, True)
-+#        else:
              self.askUpdateAvailable(self.selectHost)
 -            
 +
      def randomizePlayableItems(self, randomize=True):
          printDBG("randomizePlayableItems")
          self.stopAutoPlaySequencer()
-@@ -2197,7 +2197,7 @@
+@@ -2197,7 +2190,7 @@
          if self.checkWrongImage:
              self.checkWrongImage = False
              try:
@@ -107,10 +102,10 @@ diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/i
                      message.append("Because of blocking part of functionality of the IPTVPlayer by http://ipab.tv/ developer your image was blacklisted.")
                      message.append("Please be also informed that users of http://ipab.tv/ will NOT get support, due to same reason.")
 diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
---- o/IPTVPlayer/hosts/aliases.txt	2020-03-13 14:43:05.489083060 +0300
-+++ pc/IPTVPlayer/hosts/aliases.txt	2020-04-03 11:35:26.381487921 +0300
+--- o/IPTVPlayer/hosts/aliases.txt	2020-04-04 10:58:01.571054645 +0200
++++ pc/IPTVPlayer/hosts/aliases.txt	2020-04-04 11:33:14.137400531 +0200
 @@ -1 +1,219 @@
--{"hostwatchmovies": "https://watch-movies.pl/", "hostekinomaniak": "https://ekinomaniak.net/", "host3filmy": "https://3filmy.com/", "hostcdafilmy": "https://cda-filmy.online/", "hostfullmatchtvcom": "https://fullmatchtv.com/", "hostustvgo": "http://ustvgo.tv/", "hostjoemonsterorg": "https://joemonster.org/", "hostredbull": "http://redbull.tv/", "host3sktv": "http://33sk.tv/", "hostiptvplayerinfo": "E2iPlayer info", "hosttvjworg": "https://tv.jw.org/", "hosteskago": "http://www.eskago.pl/", "hostmeczykipl": "http://www.meczyki.pl/", "hostlosmovies": "http://losmovies.cx/", "hostliveleak": "https://liveleak.com/", "hostkinox": "https://kinox.to/", "hostchristusvincit": "http://christusvincit-tv.pl/", "hostmovs4ucom": "http://movs4u.tv/", "hostplaypuls": "http://playpuls.pl/", "hostcinemaxx": "http://cinemaxx.cc/", "hostandrijaiandjelka": "https://andrija-i-andjelka.com/", "hostoipeirates": "https://oipeirates.tv/", "hostdel": "https://del.org/", "hostdailymotion": "http://dailymotion.com/", "hostclassiccinemaonline": "http://classiccinemaonline.com/", "hostiitvpl": "http://iitvx.pl/", "hostmovie4kto": "http://movie4k.org/", "hostyifytv": "https://ymovies.tv/", "hostarconaitvme": "http://arconaitv.us/", "hosttfarjocom": "http://tfarjo.ws/", "hostfilmpalast": "http://filmpalast.to/", "hostfilmeonlineto": "https://filme-online.to/", "hostorthobulletscom": "https://orthobullets.com/", "hostsovdub": "http://sovdub.ru/", "hostkreskoweczki": "http://kreskoweczki.pl/", "hostcinemay": "http://cinemay.ws/", "hostserijeonline": "http://www.serije.online/", "hosttvnowde": "https://www.tvnow.de/", "hosticefilmsinfo": "http://icefilms.info/", "hostplanetstreamingcom": "http://ww4.planet-streaming.com/", "hostuktvplay": "https://uktvplay.uktv.co.uk/", "hostofficialfilmillimite": "https://official-film-illimite.ws/", "hosthdkinomir": "http://hdkinomir.com/", "hostcrtankocom": "http://www.crtanko.com/", "hostgreekdocumentaries3": "http://greekdocumentaries2.blogspot.gr/", "hostserialeco": "http://seriale.co/", "hostinteriatv": "http://interia.tv/", "hostshahiidanimenet": "https://shahiid-anime.net/", "hostegybest": "http://egy.best/", "hostekstraklasatv": "http://ekstraklasa.tv/", "hostanimeodcinki": "https://anime-odcinki.pl/", "hostluxveritatis": "https://luxveritatis.pl/", "hostlibrestream": "http://ls-streaming.com/", "hostmediasetplay": "https://mediasetplay.it/", "hostwatchwrestlinguno": "http://watchwrestling.la/", "hostmovierulzsx": "https://movierulz.be/", "hostthewatchseriesto": "https://swatchseries.to/", "hoststreamcomplet": "https://streamcomplet.me/", "hostaltadefinizione": "https://altadefinizione.fm/", "hosthdstreams": "https://hd-streams.org/", "hosttreetv": "http://tree.tv/", "hostkabarety": "http://kabaret.tworzymyhistorie.pl/", "hostradiostacja": "http://radiostacja.pl/", "hostdarshowcom": "http://darshow.com/", "hostyesmoviesto": "https://yesmovies.to/", "hostdixmax": "https://dixmax.com/", "hostwpolscepl": "http://wpolsce.pl/", "hostcartoonhd": "https://cartoonhd.care/", "hostmozicsillag": "https://mozicsillag.me/", "hostbajeczkiorg": "http://bajeczki.org/", "hosthdfull": "https://hdfull.me/", "hostkinogo": "http://kinogo.cc/", "hostfilmezz": "http://filmezz.eu/", "hostrtlmost": "https://rtlmost.hu/", "hostgamatocom": "https://gamato-movies.com/", "hostwatchcartoononline": "https://watchcartoononline.com/", "hostallboxtv": "https://allbox.tv/", "hostlaola1tv": "http://laola1.tv/", "hostxrysoise": "https://xrysoi.tv/", "hostgledalica": "https://gledalica.com/", "hostfreediscpl": "https://freedisc.pl/", "hostfilmaoncom": "http://filmaon.com/", "hostwrealu24tv": "https://wrealu24.tv/", "hostforjatn": "https://forja.tn/", "hostyoutube": "https://youtube.com/", "hostitvcom": "https://www.itv.com/", "hosttwitchtv": "https://twitch.tv/", "hostspiegeltv": "http://spiegel.tv/", "hostzdfmediathek": "ZDFmediathek", "hostfilmovizijastudio": "https://filmovizija.fun/", "hostsportdeutschland": "http://sportdeutschland.tv/", "hostchomikuj": "http://chomikuj.pl/", "hostsolarmovie": "https://solarmoviex.to/", "hostmythewatchseries": "https://gowatchseries.io/", "hostfenixsite": "http://fenixsite.com/", "hostmooviecc": "https://moovie.cc/", "hosttainieskaiseirestv": "http://tainieskaiseires.tv/", "hostlocalmedia": "LocalMedia", "hostmyfreemp3": "https://my-free-mp3.net/", "hostseriesonline": "https://series9.io/", "hostzalukajcom": "http://zalukaj.com/", "hostmrpiracy": "http://mrpiracy.site/", "hostvimeo": "https://vimeo.com/", "hostkisscartoonme": "https://kisscartoon.ac/", "hostfilma24hdcom": "http://www.filma24hd.com/", "hostsvtplayse": "https://svtplay.se/", "hostardmediathek": "ARDmediathek", "hostdrdk": "http://dr.dk/", "hostfilmehdnet": "http://filmehd.net/", "hostkinotan": "http://kinotan.ru/", "hosthdpopcornscom": "http://hdpopcorns.co/", "hostfilmstreamvkcom": "http://filmstreamvk.club/", "hosttvplayercom": "https://tvplayer.com/", "hostserienstreamto": "https://serienstream.to/", "hostkreskowkazone": "http://kreskowkazone.pl/", "hostputlockertvto": "https://putlockertv.to/", "hosthd1080online": "https://hd1080.online/", "hostcdapl": "https://cda.pl/", "hostcineto": "https://cine.to/", "hosteurosportplayer": "https://www.eurosportplayer.com/", "hostmusicmp3ru": "https://musicmp3.ru/", "hostokgoals": "http://okgoals.com/", "hostspryciarze": "https://spryciarze.pl/", "hostdokumentalnenet": "https://dokumentalne.net/", "hostvodpl": "https://vod.pl/", "hostted": "https://ted.com/", "hostwolnelekturypl": "http://wolnelektury.pl/", "hostfightvideo": "http://fight.mmashare.club/", "hostngolos": "https://ngolos.com/", "hosthitboxtv": "http://hitbox.tv/", "hostplayrtsiw": "https://srgssr.ch/", "hostfilmixco": "https://filmix.co/", "hostpinkbike": "https://pinkbike.com/", "hosturllist": "Urllists player", "hostotakufr": "http://otakufr.com/", "hostfavourites": "Favourites", "hostkijknl": "http://kijk.nl/", "hostvidcorncom": "https://vidcorn.tv/", "hostdancetrippin": "http://dancetrippin.tv/", "hostgamatotvme": "http://gamatotv.me/", "hosthdsto": "http://hds.to/", "hostvevo": "https://vevo.com/", "hosttvn24": "TVN 24", "hostninateka": "http://ninateka.pl/", "hostappletrailers": "https://trailers.apple.com/", "hostefilmytv": "http://www.efilmy.tv/", "hosttvrepublika": "http://telewizjarepublika.pl/", "hostvideopenny": "https://videopenny.net/", "hostworldfree4u": "https://www.worldfree4u.ws/", "hostnuteczki": "https://nuteczki.eu/", "hostskstream": "https://skstream.info/", "hostmusicbox": "Music-Box", "hosthoofootcom": "http://hoofoot.com/", "hostourmatchnet": "http://ourmatch.net/", "hostdardarkomcom": "http://dardarkom.com/", "hostplusdede": "https://megadede.com/", "hostmovienightws": "http://movienight.ws/", "hostekinotv": "http://ekino-tv.pl/", "hostalltubetv": "http://alltube.pl/", "hostvumedicom": "https://vumedi.com/", "hostfilmativa": "http://filmativa.ws/", "hoststreamliveto": "https://streamlive.to/", "hostwgrane": "http://wgrane.pl/", "host7tvde": "https://7tv.de/", "hostororotv": "https://ororo.tv/", "hostshoutcast": "http://shoutcast.com/", "host9anime": "https://9anime.to/", "hostcimaclubcom": "http://cimaclub.com/", "hostddl": "http://ddl.me/", "hostbbcsport": "https://www.bbc.co.uk/sport", "hostwebstream": "\"Web\" streams player", "hosttantifilmorg": "https://tantifilm.gratis/", "hostmovizlandcom": "http://movizland.com/", "hostbsto": "https://bs.to/", "hostfaselhdcom": "https://faselhd.co/", "hostartetv": "https://www.arte.tv/", "hostbbciplayer": "http://www.bbc.co.uk/iplayer", "hostustreamtv": "http://ustream.tv/", "host3player": "https://virginmediatelevision.ie/player", "hostquesttvcouk": "http://questtv.co.uk/", "hostkissanimeto": "http://kissanime.ru/", "hostfilmpertutti": "https://filmpertutti.uno/", "hostszenestreamz": "http://szene-streamz.com/", "hostmaxtvgo": "https://maxtvgo.com/", "hostipla": "https://ipla.tv/", "hostfilma24io": "http://filma24.io/", "hosthdfilmetv": "http://hdfilme.tv/", "hosttvpvod": "https://vod.tvp.pl/", "hostwatchwrestling": "http://watchwrestling.nl/", "hostdpstreamingcx": "https://streaming-series.watch/", "hosttvnvod": "TVN Player", "hosttvgrypl": "https://tvgry.pl/", "hostfilmstreamhdit": "http://filmstreamhd.it/", "host123movieshd": "https://123movieshd.sc/", "hostrtbfbe": "https://www.rtbf.be/", "hoststreaminghdfun": "https://streaminghd.online/", "hostrteieplayer": "http://rte.ie/player", "hostguardaserie": "http://guardaserie.watch/", "hosttvproart": "http://tvproart.pl/", "hostaltadefinizione01": "https://altadefinizione01.film/", "hostkkiste": "https://kinokiste.me/", "hostakoam": "https://ar.akoam.net/", "hostserialnet": "http://serialnet.pl/", "hostwptv": "http://wp.tv/","hostraiplay":"http://raiplay.it","hostdplayit":"https://it.dplay.com/"}
+-{"hostwatchmovies": "https://watch-movies.pl/", "hostekinomaniak": "https://ekinomaniak.net/", "host3filmy": "https://3filmy.com/", "hostcdafilmy": "https://cda-filmy.online/", "hostfullmatchtvcom": "https://fullmatchtv.com/", "hostustvgo": "http://ustvgo.tv/", "hostjoemonsterorg": "https://joemonster.org/", "hostredbull": "http://redbull.tv/", "host3sktv": "http://33sk.tv/", "hostiptvplayerinfo": "E2iPlayer info", "hosttvjworg": "https://tv.jw.org/", "hosteskago": "http://www.eskago.pl/", "hostmeczykipl": "http://www.meczyki.pl/", "hostlosmovies": "http://losmovies.cx/", "hostliveleak": "https://liveleak.com/", "hostkinox": "https://kinox.to/", "hostchristusvincit": "http://christusvincit-tv.pl/", "hostmovs4ucom": "http://movs4u.tv/", "hostplaypuls": "http://playpuls.pl/", "hostcinemaxx": "http://cinemaxx.cc/", "hostandrijaiandjelka": "https://andrija-i-andjelka.com/", "hostoipeirates": "https://oipeirates.tv/", "hostdel": "https://del.org/", "hostdailymotion": "http://dailymotion.com/", "hostclassiccinemaonline": "http://classiccinemaonline.com/", "hostiitvpl": "http://iitvx.pl/", "hostmovie4kto": "http://movie4k.org/", "hostyifytv": "https://ymovies.tv/", "hostarconaitvme": "http://arconaitv.us/", "hosttfarjocom": "http://tfarjo.ws/", "hostfilmpalast": "http://filmpalast.to/", "hostfilmeonlineto": "https://filme-online.to/", "hostorthobulletscom": "https://orthobullets.com/", "hostsovdub": "http://sovdub.ru/", "hostkreskoweczki": "http://kreskoweczki.pl/", "hostcinemay": "http://cinemay.ws/", "hostserijeonline": "http://www.serije.online/", "hosttvnowde": "https://www.tvnow.de/", "hosticefilmsinfo": "http://icefilms.info/", "hostplanetstreamingcom": "http://ww4.planet-streaming.com/", "hostuktvplay": "https://uktvplay.uktv.co.uk/", "hostofficialfilmillimite": "https://official-film-illimite.ws/", "hosthdkinomir": "http://hdkinomir.com/", "hostcrtankocom": "http://www.crtanko.com/", "hostgreekdocumentaries3": "http://greekdocumentaries2.blogspot.gr/", "hostserialeco": "http://seriale.co/", "hostinteriatv": "http://interia.tv/", "hostshahiidanimenet": "https://shahiid-anime.net/", "hostegybest": "http://egy.best/", "hostekstraklasatv": "http://ekstraklasa.tv/", "hostanimeodcinki": "https://anime-odcinki.pl/", "hostluxveritatis": "https://luxveritatis.pl/", "hostlibrestream": "http://ls-streaming.com/", "hostmediasetplay": "https://mediasetplay.it/", "hostwatchwrestlinguno": "http://watchwrestling.la/", "hostmovierulzsx": "https://movierulz.be/", "hostthewatchseriesto": "https://swatchseries.to/", "hoststreamcomplet": "https://streamcomplet.me/", "hostaltadefinizione": "https://altadefinizione.fm/", "hosthdstreams": "https://hd-streams.org/", "hosttreetv": "http://tree.tv/", "hostkabarety": "http://kabaret.tworzymyhistorie.pl/", "hostradiostacja": "http://radiostacja.pl/", "hostdarshowcom": "http://darshow.com/", "hostyesmoviesto": "https://yesmovies.to/", "hostdixmax": "https://dixmax.com/", "hostwpolscepl": "http://wpolsce.pl/", "hostcartoonhd": "https://cartoonhd.care/", "hostmozicsillag": "https://mozicsillag.me/", "hostbajeczkiorg": "http://bajeczki.org/", "hosthdfull": "https://hdfull.me/", "hostkinogo": "http://kinogo.cc/", "hostfilmezz": "http://filmezz.eu/", "hostrtlmost": "https://rtlmost.hu/", "hostgamatocom": "https://gamato-movies.com/", "hostwatchcartoononline": "https://watchcartoononline.com/", "hostallboxtv": "https://allbox.tv/", "hostlaola1tv": "http://laola1.tv/", "hostxrysoise": "https://xrysoi.tv/", "hostgledalica": "https://gledalica.com/", "hostfreediscpl": "https://freedisc.pl/", "hostfilmaoncom": "http://filmaon.com/", "hostwrealu24tv": "https://wrealu24.tv/", "hostforjatn": "https://forja.tn/", "hostyoutube": "https://youtube.com/", "hostitvcom": "https://www.itv.com/", "hosttwitchtv": "https://twitch.tv/", "hostspiegeltv": "http://spiegel.tv/", "hostzdfmediathek": "ZDFmediathek", "hostfilmovizijastudio": "https://filmovizija.fun/", "hostsportdeutschland": "http://sportdeutschland.tv/", "hostchomikuj": "http://chomikuj.pl/", "hostsolarmovie": "https://solarmoviex.to/", "hostmythewatchseries": "https://gowatchseries.io/", "hostfenixsite": "http://fenixsite.com/", "hostmooviecc": "https://moovie.cc/", "hosttainieskaiseirestv": "http://tainieskaiseires.tv/", "hostlocalmedia": "LocalMedia", "hostmyfreemp3": "https://my-free-mp3.net/", "hostseriesonline": "https://series9.io/", "hostzalukajcom": "http://zalukaj.com/", "hostmrpiracy": "http://mrpiracy.site/", "hostvimeo": "https://vimeo.com/", "hostkisscartoonme": "https://kisscartoon.ac/", "hostfilma24hdcom": "http://www.filma24hd.com/", "hostsvtplayse": "https://svtplay.se/", "hostardmediathek": "ARDmediathek", "hostdrdk": "http://dr.dk/", "hostfilmehdnet": "http://filmehd.net/", "hostkinotan": "http://kinotan.ru/", "hosthdpopcornscom": "http://hdpopcorns.co/", "hostfilmstreamvkcom": "http://filmstreamvk.club/", "hosttvplayercom": "https://tvplayer.com/", "hostserienstreamto": "https://serienstream.to/", "hostkreskowkazone": "http://kreskowkazone.pl/", "hostputlockertvto": "https://putlockertv.to/", "hosthd1080online": "https://hd1080.online/", "hostcdapl": "https://cda.pl/", "hostcineto": "https://cine.to/", "hosteurosportplayer": "https://www.eurosportplayer.com/", "hostmusicmp3ru": "https://musicmp3.ru/", "hostokgoals": "http://okgoals.com/", "hostspryciarze": "https://spryciarze.pl/", "hostdokumentalnenet": "https://dokumentalne.net/", "hostvodpl": "https://vod.pl/", "hostted": "https://ted.com/", "hostwolnelekturypl": "http://wolnelektury.pl/", "hostfightvideo": "http://fight.mmashare.club/", "hostngolos": "https://ngolos.com/", "hosthitboxtv": "http://hitbox.tv/", "hostplayrtsiw": "https://srgssr.ch/", "hostfilmixco": "https://filmix.co/", "hostpinkbike": "https://pinkbike.com/", "hosturllist": "Urllists player", "hostotakufr": "http://otakufr.com/", "hostfavourites": "Favourites", "hostkijknl": "http://kijk.nl/", "hostvidcorncom": "https://vidcorn.tv/", "hostdancetrippin": "http://dancetrippin.tv/", "hostgamatotvme": "http://gamatotv.me/", "hosthdsto": "http://hds.to/", "hostvevo": "https://vevo.com/", "hosttvn24": "TVN 24", "hostninateka": "http://ninateka.pl/", "hostappletrailers": "https://trailers.apple.com/", "hostefilmytv": "http://www.efilmy.tv/", "hosttvrepublika": "http://telewizjarepublika.pl/", "hostvideopenny": "https://videopenny.net/", "hostworldfree4u": "https://www.worldfree4u.ws/", "hostnuteczki": "https://nuteczki.eu/", "hostskstream": "https://skstream.info/", "hostmusicbox": "Music-Box", "hosthoofootcom": "http://hoofoot.com/", "hostourmatchnet": "http://ourmatch.net/", "hostdardarkomcom": "http://dardarkom.com/", "hostplusdede": "https://megadede.com/", "hostmovienightws": "http://movienight.ws/", "hostekinotv": "http://ekino-tv.pl/", "hostalltubetv": "http://alltube.pl/", "hostvumedicom": "https://vumedi.com/", "hostfilmativa": "http://filmativa.ws/", "hoststreamliveto": "https://streamlive.to/", "hostwgrane": "http://wgrane.pl/", "host7tvde": "https://7tv.de/", "hostororotv": "https://ororo.tv/", "hostshoutcast": "http://shoutcast.com/", "host9anime": "https://9anime.to/", "hostcimaclubcom": "http://cimaclub.com/", "hostddl": "http://ddl.me/", "hostbbcsport": "https://www.bbc.co.uk/sport", "hostwebstream": "\"Web\" streams player", "hosttantifilmorg": "https://tantifilm.eu/", "hostmovizlandcom": "http://movizland.com/", "hostbsto": "https://bs.to/", "hostfaselhdcom": "https://faselhd.co/", "hostartetv": "https://www.arte.tv/", "hostbbciplayer": "http://www.bbc.co.uk/iplayer", "hostustreamtv": "http://ustream.tv/", "host3player": "https://virginmediatelevision.ie/player", "hostquesttvcouk": "http://questtv.co.uk/", "hostkissanimeto": "http://kissanime.ru/", "hostfilmpertutti": "https://filmpertutti.uno/", "hostszenestreamz": "http://szene-streamz.com/", "hostmaxtvgo": "https://maxtvgo.com/", "hostipla": "https://ipla.tv/", "hostfilma24io": "http://filma24.io/", "hosthdfilmetv": "http://hdfilme.tv/", "hosttvpvod": "https://vod.tvp.pl/", "hostwatchwrestling": "http://watchwrestling.nl/", "hostdpstreamingcx": "https://streaming-series.watch/", "hosttvnvod": "TVN Player", "hosttvgrypl": "https://tvgry.pl/", "hostfilmstreamhdit": "http://filmstreamhd.it/", "host123movieshd": "https://123movieshd.sc/", "hostrtbfbe": "https://www.rtbf.be/", "hoststreaminghdfun": "https://streaminghd.online/", "hostrteieplayer": "http://rte.ie/player", "hostguardaserie": "https://www.guardaserie.digital/", "hosttvproart": "http://tvproart.pl/", "hostaltadefinizione01": "https://altadefinizione01.film/", "hostkkiste": "https://kinokiste.me/", "hostakoam": "https://ar.akoam.net/", "hostserialnet": "http://serialnet.pl/", "hostwptv": "http://wp.tv/","hostraiplay":"http://raiplay.it","hostdplayit":"https://it.dplay.com/"}
 \ В конце файла нет новой строки
 +{
 +"host123movieshd": "https://123movieshd.sc/",
@@ -194,7 +189,7 @@ diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
 +"hostgamatotvme": "http://gamatotv.me/",
 +"hostgledalica": "https://gledalica.com/",
 +"hostgreekdocumentaries3": "http://greekdocumentaries2.blogspot.gr/",
-+"hostguardaserie": "http://guardaserie.media/",
++"hostguardaserie": "https://www.guardaserie.digital/",
 +"hosthd1080online": "https://hd1080.online/",
 +"hosthdfilmetv": "http://hdfilme.cc/",
 +"hosthdfull": "https://hdfull.me/",
@@ -329,11 +324,11 @@ diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
 +"hostyifytv": "https://ymovies.tv/",
 +"hostyoutube": "https://youtube.com/",
 +"hostzalukajcom": "http://zalukaj.com/",
-+"hostzdfmediathek": "ZDFmediathek",
++"hostzdfmediathek": "ZDFmediathek"
 +}
 diff -ruN o/IPTVPlayer/hosts/hostaltadefinizione1.py pc/IPTVPlayer/hosts/hostaltadefinizione1.py
---- o/IPTVPlayer/hosts/hostaltadefinizione1.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostaltadefinizione1.py	2020-04-03 11:35:26.381487921 +0300
+--- o/IPTVPlayer/hosts/hostaltadefinizione1.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostaltadefinizione1.py	2020-04-04 12:32:10.970449351 +0200
 @@ -0,0 +1,318 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -654,8 +649,8 @@ diff -ruN o/IPTVPlayer/hosts/hostaltadefinizione1.py pc/IPTVPlayer/hosts/hostalt
 +        if 'prev_url' in cItem or cItem.get('category', '') == 'explore_item': return True
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostaltadefinizionecool.py pc/IPTVPlayer/hosts/hostaltadefinizionecool.py
---- o/IPTVPlayer/hosts/hostaltadefinizionecool.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostaltadefinizionecool.py	2020-04-03 11:35:26.381487921 +0300
+--- o/IPTVPlayer/hosts/hostaltadefinizionecool.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostaltadefinizionecool.py	2020-04-04 12:32:10.970449351 +0200
 @@ -0,0 +1,453 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -1112,8 +1107,8 @@ diff -ruN o/IPTVPlayer/hosts/hostaltadefinizionecool.py pc/IPTVPlayer/hosts/host
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostcb01.py pc/IPTVPlayer/hosts/hostcb01.py
---- o/IPTVPlayer/hosts/hostcb01.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostcb01.py	2020-04-03 11:35:26.382487921 +0300
+--- o/IPTVPlayer/hosts/hostcb01.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostcb01.py	2020-04-04 12:32:10.971449352 +0200
 @@ -0,0 +1,399 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -1515,8 +1510,8 @@ diff -ruN o/IPTVPlayer/hosts/hostcb01.py pc/IPTVPlayer/hosts/hostcb01.py
 +        if 'prev_url' in cItem or cItem.get('category', '') == 'explore_item': return True
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostcb01uno.py pc/IPTVPlayer/hosts/hostcb01uno.py
---- o/IPTVPlayer/hosts/hostcb01uno.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostcb01uno.py	2020-04-03 11:35:26.382487921 +0300
+--- o/IPTVPlayer/hosts/hostcb01uno.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostcb01uno.py	2020-04-04 12:32:10.971449352 +0200
 @@ -0,0 +1,304 @@
 +###################################################
 +# LOCAL import
@@ -1823,8 +1818,8 @@ diff -ruN o/IPTVPlayer/hosts/hostcb01uno.py pc/IPTVPlayer/hosts/hostcb01uno.py
 +        if 'prev_url' in cItem or cItem.get('category', '') == 'explore_item': return True
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostdsda.py pc/IPTVPlayer/hosts/hostdsda.py
---- o/IPTVPlayer/hosts/hostdsda.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostdsda.py	2020-04-03 11:35:26.382487921 +0300
+--- o/IPTVPlayer/hosts/hostdsda.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostdsda.py	2020-04-04 12:32:10.971449352 +0200
 @@ -0,0 +1,266 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -2093,8 +2088,8 @@ diff -ruN o/IPTVPlayer/hosts/hostdsda.py pc/IPTVPlayer/hosts/hostdsda.py
 +    def __init__(self):
 +        CHostBase.__init__(self, DSDA(), True, favouriteTypes=[]) 
 diff -ruN o/IPTVPlayer/hosts/hostfilisertv.py pc/IPTVPlayer/hosts/hostfilisertv.py
---- o/IPTVPlayer/hosts/hostfilisertv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfilisertv.py	2020-04-03 11:35:26.382487921 +0300
+--- o/IPTVPlayer/hosts/hostfilisertv.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostfilisertv.py	2020-04-04 12:32:10.971449352 +0200
 @@ -0,0 +1,529 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -2626,8 +2621,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfilisertv.py pc/IPTVPlayer/hosts/hostfilisertv.
 +
 +
 diff -ruN o/IPTVPlayer/hosts/hostfilmowood.py pc/IPTVPlayer/hosts/hostfilmowood.py
---- o/IPTVPlayer/hosts/hostfilmowood.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfilmowood.py	2020-04-03 11:35:26.382487921 +0300
+--- o/IPTVPlayer/hosts/hostfilmowood.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostfilmowood.py	2020-04-04 12:32:10.972449352 +0200
 @@ -0,0 +1,219 @@
 +# -*- coding: utf-8 -*-
 +# typical import for a standard host
@@ -2849,8 +2844,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfilmowood.py pc/IPTVPlayer/hosts/hostfilmowood.
 +        CHostBase.__init__(self, Filmowood(), True, [])
 +    
 diff -ruN o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py
---- o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	2020-04-03 11:35:26.382487921 +0300
+--- o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	2020-04-04 12:32:10.972449352 +0200
 @@ -0,0 +1,284 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -3137,8 +3132,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py pc/IPTVPlayer/hosts/host
 +            self.searchType = ''
 +        return
 diff -ruN o/IPTVPlayer/hosts/hostfokustv.py pc/IPTVPlayer/hosts/hostfokustv.py
---- o/IPTVPlayer/hosts/hostfokustv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfokustv.py	2020-04-03 11:35:26.383487921 +0300
+--- o/IPTVPlayer/hosts/hostfokustv.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostfokustv.py	2020-04-04 12:32:10.972449352 +0200
 @@ -0,0 +1,353 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -3495,8 +3490,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfokustv.py pc/IPTVPlayer/hosts/hostfokustv.py
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostfrancetv.py pc/IPTVPlayer/hosts/hostfrancetv.py
---- o/IPTVPlayer/hosts/hostfrancetv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfrancetv.py	2020-04-03 11:35:26.383487921 +0300
+--- o/IPTVPlayer/hosts/hostfrancetv.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostfrancetv.py	2020-04-04 12:32:10.972449352 +0200
 @@ -0,0 +1,549 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -4049,8 +4044,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfrancetv.py pc/IPTVPlayer/hosts/hostfrancetv.py
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostkinomanco.py pc/IPTVPlayer/hosts/hostkinomanco.py
---- o/IPTVPlayer/hosts/hostkinomanco.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostkinomanco.py	2020-04-03 11:35:26.383487921 +0300
+--- o/IPTVPlayer/hosts/hostkinomanco.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostkinomanco.py	2020-04-04 12:32:10.973449352 +0200
 @@ -0,0 +1,858 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -4912,8 +4907,8 @@ diff -ruN o/IPTVPlayer/hosts/hostkinomanco.py pc/IPTVPlayer/hosts/hostkinomanco.
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostla7it.py pc/IPTVPlayer/hosts/hostla7it.py
---- o/IPTVPlayer/hosts/hostla7it.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostla7it.py	2020-04-03 11:35:26.383487921 +0300
+--- o/IPTVPlayer/hosts/hostla7it.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostla7it.py	2020-04-04 12:32:10.973449352 +0200
 @@ -0,0 +1,353 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -5269,8 +5264,8 @@ diff -ruN o/IPTVPlayer/hosts/hostla7it.py pc/IPTVPlayer/hosts/hostla7it.py
 +        CHostBase.__init__(self, La7it(), True, [])
 +    
 diff -ruN o/IPTVPlayer/hosts/hostlookmovieag.py pc/IPTVPlayer/hosts/hostlookmovieag.py
---- o/IPTVPlayer/hosts/hostlookmovieag.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostlookmovieag.py	2020-04-03 11:35:26.384487921 +0300
+--- o/IPTVPlayer/hosts/hostlookmovieag.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostlookmovieag.py	2020-04-04 12:32:10.973449352 +0200
 @@ -0,0 +1,292 @@
 +# -*- coding: utf-8 -*-
 +
@@ -5564,881 +5559,9 @@ diff -ruN o/IPTVPlayer/hosts/hostlookmovieag.py pc/IPTVPlayer/hosts/hostlookmovi
 +        searchTypesOptions.append((_("TV Series"), "tvseries"))
 +        return searchTypesOptions
 +
-diff -ruN o/IPTVPlayer/hosts/hostmediasetplay.py pc/IPTVPlayer/hosts/hostmediasetplay.py
---- o/IPTVPlayer/hosts/hostmediasetplay.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostmediasetplay.py	2020-04-03 11:35:26.384487921 +0300
-@@ -25,6 +25,7 @@
- import datetime
- import math
- import cookielib
-+import datetime
- from datetime import timedelta
- ###################################################
- 
-@@ -42,37 +43,133 @@
-         self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': self.COOKIE_FILE}
- 
-         self.MAIN_URL    = 'https://www.mediasetplay.mediaset.it/'
--        self.API_BASE_URL = 'https://api-ott-prod-fe.mediaset.net/PROD/play/'
-+        self.INDEX_URL = "https://static3.mediasetplay.mediaset.it/cataloglisting/azListing.json"
-+        self.API_BASE_URL = 'https://api-ott-prod-fe.mediaset.net/PROD/play'
-+        
-+        self.FEED_URL = 'https://feed.entertainment.tv.theplatform.eu/f/PR1GhC'
-+        self.FEED_EPG_URL = self.FEED_URL + '/mediaset-prod-all-listings?byListingTime=%interval%&byCallSign=%cs%'
-+        self.FEED_CHANNELS_URL = self.FEED_URL + '/mediaset-prod-all-stations?fields=title,callsign,thumbnails&sort=mediasetstation$comscoreVodChId'
-+        self.FEED_CHANNEL_URL = self.FEED_URL + '/mediaset-prod-all-stations?byCallSign=%cs%'
-+        self.FEED_SHOW_URL = self.FEED_URL + '/mediaset-prod-all-brands?byCustomValue={brandId}{%brandId%}&sort=mediasetprogram$order'
-+        self.FEED_SHOW_COUNT = self.FEED_URL + '/mediaset-prod-all-brands?byTags=%cat%&count=true&entries=false'
-+        self.FEED_SHOW_INDEX_URL = self.FEED_URL + '/mediaset-prod-all-brands?byTags=%cat%&fields=title,description,thumbnails,mediasetprogram$brandId,mediasetprogram$seasonTitle,mediasetprogram$brandChannelCode&sort=title,mediasetprogram$seasonTitle&range=%range%'       
-+        self.FEED_SHOW_SUBITEM_URL = self.FEED_URL + '/mediaset-prod-all-programs?byCustomValue={brandId}{%brandId%},{subBrandId}{%subBrandId%}&sort=mediasetprogram$publishInfo_lastPublished|desc&count=true&entries=true&range=0-200'
-+        self.FEED_EPISODE_URL = self.FEED_URL + '/mediaset-prod-all-programs?byGuid={0}'
-         self.DEFAULT_ICON_URL = 'https://i.pinimg.com/originals/34/67/9b/34679b83e426516b478ba9d63dcebfa2.png' #'http://www.digitaleterrestrefacile.it/wp-content/uploads/2018/07/mediaset-play.jpg' #'https://cdn.one.accedo.tv/files/5b0d3b6e23eec6000dd56c7f'
- 
-         self.cacheLinks = {}
-         self.initData = {}
--
--        self.OFFSET = datetime.datetime.now() - datetime.datetime.utcnow()
--        seconds = self.OFFSET.seconds + self.OFFSET.days * 24 * 3600
--        if ((seconds + 1) % 10) == 0: seconds += 1  
--        elif ((seconds - 1) % 10) == 0: seconds -= 1 
--        self.OFFSET = timedelta(seconds=seconds)
--
-+        
-     def getPage(self, baseUrl, addParams={}, post_data=None):
-         if addParams == {}: addParams = dict(self.defaultParams)
-         return self.cm.getPage(baseUrl, addParams, post_data)
-+
-+
-+    def getBestThumb(self, thumbnails, vertical=False):
-+        # get best thumbnail available
-+        if vertical:
-+            target = 'image_vertical-'
-+        else:
-+            target = 'image_keyframe_poster-'
-+
-+        thumbs = [];        
-+        for t in thumbnails:
-+            if t.find(target) != -1:
-+                t = t.replace(target, '')
-+                thumbs.append({'x': int(t.split('x')[0]) , 'y': int(t.split('x')[1]) })
-+
-+        thumbs.sort(reverse=True)
-+
-+        if len(thumbs)> 0:
-+                label = target + str(thumbs[0]["x"]) + 'x' + str(thumbs[0]["y"])
-+                return thumbnails[label]['url']
-+        else:          
-+            if vertical:
-+                return self.getBestThumb(thumbnails, False)
-+            else:
-+                return ""
-+    
-+    def getVideoLinks(self, videoUrl):
-+        printDBG("MediasetPlay.getVideoLinks [%s]" % videoUrl)
-+        # mark requested link as used one
-+        if len(self.cacheLinks.keys()):
-+            for key in self.cacheLinks:
-+                for idx in range(len(self.cacheLinks[key])):
-+                    if videoUrl in self.cacheLinks[key][idx]['url']:
-+                        if not self.cacheLinks[key][idx]['name'].startswith('*'):
-+                            self.cacheLinks[key][idx]['name'] = '*' + self.cacheLinks[key][idx]['name']
-+        
-+        type = strwithmeta(videoUrl).meta.get('priv_type', '')
-+        if type == 'DASH/MPD':
-+            return getMPDLinksWithMeta(videoUrl, checkExt=False, sortWithMaxBandwidth=999999999)
-+        elif type == 'HLS/M3U8':
-+            return getDirectM3U8Playlist(videoUrl, checkExt=False, variantCheck=True, checkContent=True, sortWithMaxBitrate=999999999)
-+
-+        return []
-+    
-+    def getLinksForVideo(self, cItem):
-+        printDBG(": %s" % cItem)
-+        #self.initApi()
-+
-+        linksTab=[]
-+
-+        if cItem['category'] == 'onair':
-+            channelId = cItem.get('call_sign')
-+            url = self.FEED_CHANNEL_URL.replace("%cs%", channelId)
-+            sts, data = self.getPage(url)
-+            if not sts: return
-+
-+            data = json_loads(data)
-+            for tuningInstructions in data['entries'][0]['tuningInstruction'].itervalues():
-+                for item in tuningInstructions:
-+                    printDBG(" ------------>>>>>> " + str(item))
-+                    url = item['publicUrls'][0]
-+                    if 'mpegurl' in item['format'].lower():
-+                        f = 'HLS/M3U8'
-+                        req=urllib.urlopen(url)
-+                        videoUrl=req.geturl()                        
-+                        
-+                        linksTab.append({'name':f, 'url': videoUrl})
-+                        #linksTab.extend(getDirectM3U8Playlist(videoUrl, checkExt=False, variantCheck=True, checkContent=True, sortWithMaxBitrate=999999999))
-+                        
-+        elif cItem['category'] == 'epg_video':
-+            url = self.FEED_EPISODE_URL.format(cItem["guid"])
-+            
-+            sts, data = self.getPage(url)
-+            if not sts: return
-+
-+            url = json_loads(data)['entries'][0]['media'][0]['publicUrl']
-+            req=urllib.urlopen(url)
-+            videoUrl=req.geturl()                        
-+            
-+            linksTab.append({'name': 'link', 'url': videoUrl})
-+
-+        elif cItem['category'] == 'program_video':
-+            req=urllib.urlopen(cItem["url"])
-+            videoUrl=req.geturl()                        
-+
-+            linksTab.append({'name': 'link', 'url': videoUrl})
-+            
-+        elif cItem["category"] == 'no_video':
-+            printDBG('no video for %s' % str(cItem))
-         
--    def dateRange(self, d):
--        d1 = d.replace(minute=0, hour=0, second=0, microsecond=0)
--        d2 = d.replace(minute=59, hour=23, second=59, microsecond=999999)
--        return (d1, d2)
-+        else:
-+            linksTab.append({'name': 'link', 'url': cItem["url"]})
- 
-+        printDBG(str(linksTab))
-+        return linksTab
-+    
-     def initApi(self):
-         if self.initData: return 
--        url = self.API_BASE_URL + 'idm/anonymous/login/v1.0'
-+        url = self.API_BASE_URL + '/idm/anonymous/login/v1.0'
-         params = MergeDicts(self.defaultParams, {'raw_post_data':True, 'collect_all_headers':True})
-         cid = str(uuid.uuid4())
--        post_data = '{"cid":"%s","platform":"pc","appName":"web/mediasetplay-web/18be850"}' % cid
-+        post_data = '{"cid":"%s","platform":"pc","appName":"web/mediasetplay-web/2e96f80"}' % cid
- 
-         sts, data = self.getPage(url, params, post_data=post_data)
-         if not sts: return
-         printDBG(data)
-+        printDBG(self.cm.meta)
-         try:
-             headers = {'t-apigw':self.cm.meta['t-apigw'], 't-cts':self.cm.meta['t-cts']}
-             data = json_loads(data)
-@@ -82,425 +179,247 @@
-                 self.HTTP_HEADER.update(headers)
-         except Exception:
-             printExc()
-+        
-         if not self.initData: self.sessionEx.waitForFinishOpen(MessageBox, _("API initialization failed!"), type=MessageBox.TYPE_ERROR, timeout=20)
--
--    def listMain(self, cItem, nextCategory):
-+    
-+    def listMain(self, cItem):
-         printDBG("MediasetPlay.listMain")
--        sts, data = self.getPage(self.getMainUrl())
--        if not sts: return
--        self.setMainUrl(self.cm.meta['url'])
--
--        subItems = []
--        subItems.append(MergeDicts(cItem, {'category':'cat_az',     'title':'Tutto A-Z'}))
--        subItems.append(MergeDicts(cItem, {'category':'cat_series', 'title':'Fiction e Serie TV', 'url':self.getFullUrl('/fiction')}))
--        subItems.append(MergeDicts(cItem, {'category':'cat_movies', 'title':'Film',               'url':self.getFullUrl('/film')}))
--
--        self.addDir(MergeDicts(cItem, {'category':'sub_items',     'title':'On Demand',   'sub_items':subItems,}))
--        self.addDir(MergeDicts(cItem, {'category':'on_air',        'title':'Ora in onda', 'url':self.getMainUrl()}))
--        self.addDir(MergeDicts(cItem, {'category':'cat_channels',  'title':'Canali',      'url':self.getMainUrl()}))
--        self.addDir(MergeDicts(cItem, {'category':'list_catalog_items',  'title':_('Top day'),      'f_ref':'CWTOPVIEWEDDAY'}))
--
--        MAIN_CAT_TAB = [{'category':'search',         'title': _('Search'),       'search_item':True       },
--                        {'category':'search_history', 'title': _('Search history'),                        }]
--        self.listsTab(MAIN_CAT_TAB, cItem)
--
--    def listSubItems(self, cItem):
--        printDBG("MediasetPlay.listSubItems")
--        self.currList = cItem['sub_items']
-+        MAIN_CAT_TAB = [{'category':'ondemand', 'title': 'Programmi on demand'},
-+                        {'category':'onair', 'title': 'Dirette tv'},
-+                        {'category':'channels', 'title': 'Replay/EPG'}]
-+        self.listsTab(MAIN_CAT_TAB, cItem)  
-+
-+    def getChannelList(self):
-+        printDBG("MediasetPlay.getChannelList")
-+        channels = []
- 
--    def listOnAir(self, cItem):
--        printDBG("MediasetPlay.listOnAir")
--        sts, data = self.getPage('https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-stations?bycallsign')
--        if not sts: return
--        try:
-+        sts, data = self.getPage(self.FEED_CHANNELS_URL)
-+        if sts: 
-             data = json_loads(data)
-             for item in data['entries']:
--                if 'vip' in item['mediasetstation$pageUrl']: continue
-                 icon = self.getFullIconUrl( item['thumbnails']['channel_logo-100x100']['url']) #next(iter(item['thumbnails']))['url'] )
-                 title = item['title']
--                url = self.getFullIconUrl( item['mediasetstation$pageUrl'] )
--                self.addVideo(MergeDicts(cItem, {'good_for_fav':True, 'title':title, 'url':url, 'icon':icon, 'call_sign':item['callSign'], 'is_live':True}))
--        except Exception:
--            printExc()
--
--    def listChannels(self, cItem, nextCategory):
--        printDBG("MediasetPlay.listChannels")
--        sts, data = self.getPage(cItem['url'])
--        if not sts: return
--        cUrl = self.cm.meta['url']
--
--        data = ph.find(data, '<span>Canali</span>', '>On Demand<', flags=0)[1]
--        data = ph.findall(data, ('<a', '>'), '</a>', flags=ph.START_S)
--        for idx in range(1, len(data), 2):
--            url = self.getFullUrl(ph.getattr(data[idx-1], 'href'), cUrl)
--            title = ph.clean_html(data[idx])
--            self.addDir(MergeDicts(cItem, {'good_for_fav':True, 'category':nextCategory, 'title':title, 'url':url}))
--
--    def listChannelItems(self, cItem, nextCategory):
--        printDBG("MediasetPlay.listChannelItems")
--        sts, data = self.getPage(cItem['url'])
--        if not sts: return
--        self.setMainUrl(self.cm.meta['url'])
-+                channels.append ( {'title':title, 'icon':icon, 'call_sign':item['callSign']})
-+            
-+        return channels
-+    
-+    def listOnAir(self, cItem):
-+        printDBG("MediasetPlay.listOnAir")
- 
--        channelId = ph.search(data, '''/diretta/[^'^"]+?_c([^'^"]+?)['"][^>]*?>\s*?diretta\s*?<''', flags=ph.I)[0]
-+        channels = self.getChannelList()
-+        for item in channels:
-+            self.addVideo(MergeDicts(cItem, {'category': 'onair', 'good_for_fav':True, 'title': item["title"], 'icon': item["icon"], 'call_sign': item['call_sign']}))
- 
--        self.listCatalog(cItem, 'list_catalog_items', 'video_mixed', data)
--        
--        ABBREVIATED_DAYS_NAME_TAB = ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB', 'DOM']
--        subItems = []
--        today = datetime.datetime.utcnow()
--        r = self.dateRange(today)
--        start = r[0] + self.OFFSET
--        end = r[1] + self.OFFSET
--        for i in range(8):
--            s = int(time.mktime(start.timetuple()) * 1000)
-+    def listChannels(self,cItem):
-+        printDBG("MediasetPlay.listChannels")
-+        channels=self.getChannelList()
-+        for item in channels:
-+            self.addDir(MergeDicts(cItem, {'category': 'list_time', 'title': item["title"] , 'icon': item["icon"], 'call_sign': item['call_sign']}))
-+
-+    def listDates(self, cItem):
-+        printDBG("MediasetPlay.listDates")
-+
-+        days = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"]
-+        months = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
-+    
-+        for i in range(7):
-+            day = datetime.date.today() - datetime.timedelta(days = i)
-+            start = datetime.datetime(day.year,day.month,day.day,0,0,0) 
-+            end = start + datetime.timedelta(days=1, hours=2)
-+            s = int (time.mktime(start.timetuple())* 1000)
-             e = int(time.mktime(end.timetuple()) * 1000)
--            title = 'Oggi' if  i == 0 else ABBREVIATED_DAYS_NAME_TAB[start.weekday()] + ' ' + str(start.day).zfill(2)
--            url = self.API_BASE_URL + 'alive/allListingFeedFilter/v1.0?byListingTime=%s~%s&byVod=true&byCallSign=%s' % (s, e, channelId)
--
--            subItems.append(MergeDicts(cItem, {'good_for_fav':False, 'category':nextCategory, 'title':title, 'url':url}))
--            start = PrevDay(start)
--            end = PrevDay(end)
--        self.addDir(MergeDicts(cItem, {'category':'sub_items', 'title':'Ultima settimana', 'sub_items':subItems,}))
--
--    def listTime(self, cItem, nextCategory):
--        printDBG("MediasetPlay.listTime")
--        sts, data = self.getPage(cItem['url'])
-+            interval = "%s~%s" % (s, e)
-+            printDBG("Ricerca fra i tempi unix : " + interval)
-+            day_str = days[int(day.strftime("%w"))] + " " + day.strftime("%d") + " " + months[int(day.strftime("%m"))-1]
-+            self.addDir(MergeDicts(cItem, {'good_for_fav':False, 'category':'date', 'title': day_str , 'name': day.strftime("%d-%m-%Y"), 'interval': interval}))              
-+   
-+    def getDateTimeFromStr(self,s):
-+        sec=int(s)/1000
-+        t=time.localtime(sec)
-+        return t
-+    
-+    def listEPG(self,cItem):
-+        printDBG("MediasetPlay.listEPG")
-+        url = self.FEED_EPG_URL.replace('%interval%',cItem['interval']).replace('%cs%',cItem['call_sign'])
-+        
-+        sts, data = self.getPage(url)
-         if not sts: return
--        try:
--            data = json_loads(data)['response']
--            for item in data['entries'][0]['listings']:
--                item = item['program']
--                title = item['title']
-+        
-+        data=json_loads(data)
-+        for item2 in data['entries'][0]['listings']:
-+            d1 = self.getDateTimeFromStr(item2["startTime"])
-+            d2 = self.getDateTimeFromStr(item2["endTime"])
-+            title = "%02d:%02d-%02d:%02d     " % (d1[3],d1[4],d2[3],d2[4]) + item2["mediasetlisting$epgTitle"] 
-+
-+            item = item2['program']
-+            guid = item['guid']
-+            icon = self.getBestThumb(item['thumbnails'], True)
-+            if item["mediasetprogram$hasVod"]:
-+                # video on demand available
-                 desc = []
--                videoUrl = item.get('mediasetprogram$videoPageUrl', '')
--                if videoUrl:
-+                if 'last_published' in item['mediasetprogram$publishInfo']: 
-                     desc.append(item['mediasetprogram$publishInfo']['last_published'].split('T', 1)[0]) 
--                    desc.append(item['mediasetprogram$publishInfo']['description']) 
--                    desc.append(str(timedelta(seconds=int(item['mediasetprogram$duration']))))
-+                
-+                desc.append(item['mediasetprogram$publishInfo']['description']) 
-+                desc.append(str(timedelta(seconds=int(item['mediasetprogram$duration']))))
-+                if 'mediasetprogram$numberOfViews' in item:
-                     desc.append(_('%s views') % item['mediasetprogram$numberOfViews'] )
--                    desc = [' | '.join(desc)]
--                    icon = item['thumbnails']['image_keyframe_poster-292x165']['url']
--                    url = self.getFullUrl(videoUrl)
--                    guid = item['guid']
--                else:
--                    icon = item['thumbnails']['image_vertical-264x396']['url']
--                    url = self.getFullUrl(item['mediasetprogram$pageUrl'])
--                desc.append(item.get('description', ''))
--                params = {'good_for_fav':True, 'category':nextCategory, 'title':title, 'url':url, 'icon':icon, 'desc':'[/br]'.join(desc)}
--                if videoUrl: self.addVideo(MergeDicts(cItem, params, {'guid':guid}))
--                else: self.addDir(MergeDicts(cItem, params))
--        except Exception:
--            printExc()
-+                desc = [' | '.join(desc)]
-+                desc.append(item['title'])
-+                if item.get('description', ''):
-+                    desc.append(item.get('description', ''))
-+                printDBG(str(desc))
-+                desc= '\n'.join(desc)
-+                params = {'good_for_fav':True, 'category': 'epg_video', 'title':title, 'desc': desc, 'icon':icon, 'guid':guid}
-+                printDBG(str(params))
-+                self.addVideo( params)
-+            else:
-+                # no video on demand
-+                title = title + "\c00??8800 [" + _("not available") + "]"
-+                params = {'good_for_fav': False, 'category': 'no_video', 'title':title, 'icon':icon, 'guid':guid, 'desc' : 'Non disponibile'}
-+                printDBG(str(params))
-+                self.addVideo(params)
-+                
-+    def listOnDemand(self, cItem):
-+        printDBG("MediasetPlay.listMain")
-+        
-+        MAIN_CAT_TAB = [{'category':'az', 'title': 'Programmi on demand'},
-+                        {'category':'onair', 'title': 'Dirette tv'},
-+                        {'category':'channels', 'title': 'Canali'}]
-+        self.listsTab(MAIN_CAT_TAB, cItem)  
- 
-     def listAZFilters(self, cItem, nextCategory):
-         printDBG('MediasetPlay.listAZFilters')
-         idx = cItem.get('az_filter_idx', 0)
-         cItem = MergeDicts(cItem, {'az_filter_idx':idx + 1})
-         if idx == 0:
--            filtersTab = [{'title': 'Tutti generi'},
--                          {'title': 'Cinema',       'f_category':'Cinema'},
--                          {'title': 'Fiction',      'f_category':'Fiction'},
--                          {'title': 'Documentari',  'f_category':'Documentari'},
--                          {'title': 'Programmi Tv', 'f_category':'Programmi Tv'},]
-+            # create first choice list (categories)
-+            sts, data = self.getPage(self.INDEX_URL)
-+            if not sts: return
-+            
-+            categories = json_loads(data)["metadata"]["categories"]
-+            filtersTab = [{'title': 'Tutti generi'}]
-+            for c in categories:
-+                filtersTab.append({'title': c, 'f_category':c})
-+
-         elif idx == 1:
-             filtersTab = [{'title': 'Tutti'},
-                           {'title': 'In onda',      'f_onair':True},]
-         elif idx == 2:
--            cItem['category'] = nextCategory
-             filtersTab = []
--            filtersTab.append({'title': 'Tutti',  'f_query':'*:*'})
--            for i in range(0, 24): 
--                filtersTab.append({'title':chr(ord('A')+i),      'f_query':'TitleFullSearch:%s*' % chr(ord('a')+i)})
--            filtersTab.append({'title': '#',      'f_query':'-(TitleFullSearch:{A TO *})'})
--        self.listsTab(filtersTab, cItem)
--
--    def listAZItems(self, cItem, nextCategory):
--        printDBG('MediasetPlay.listAZItems')
--
--        query = {'hitsPerPage':50}
--        if 'f_onair' in cItem: query['inOnda'] = 'true'
--        url = self.API_BASE_URL + 'rec/azlisting/v1.0?' + urllib.urlencode(query)
--        if 'f_query' in cItem: url += '&query=%s' % cItem['f_query'] #query['query'] = cItem['f_query']
--        if 'f_category' in cItem: url += '&categories=%s' % cItem['f_category'] #query['categories'] = cItem['f_category']
--
--        cItem = MergeDicts(cItem, {'category':'list_items', 'url':url})
--        self.listItems(cItem, nextCategory)
--
--    def listItems(self, cItem, nextCategory):
--        printDBG('MediasetPlay.listItems')
--        page = cItem.get('page', 1)
--        url = cItem['url'] + '&page=%s' % page
--        sts, data = self.getPage(url)
--        if not sts: return
--        try:
--            data = json_loads(data)['response']
--            for item in data['entries']:
--                title = item['title']
--                desc = []
--                videoUrl = item.get('mediasetprogram$videoPageUrl', '')
--                if videoUrl:
--                    desc.append(item['mediasetprogram$publishInfo']['last_published'].split('T', 1)[0]) 
--                    desc.append(item['mediasetprogram$publishInfo']['description']) 
--                    desc.append(str(timedelta(seconds=int(item['mediasetprogram$duration']))))
--                    desc.append(_('%s views') % item['mediasetprogram$numberOfViews'] )
--                    desc = [' | '.join(desc)]
--                    icon = item['thumbnails']['image_keyframe_poster-292x165']['url']
--                    url = self.getFullUrl(videoUrl)
--                    guid = item['guid']
--                else:
--                    icon = item['thumbnails']['image_vertical-264x396']['url']
--                    url = self.getFullUrl(item['mediasetprogram$pageUrl'])
--                desc.append(item.get('description', ''))
--                params = {'good_for_fav':True, 'category':nextCategory, 'title':title, 'url':url, 'icon':icon, 'desc':'[/br]'.join(desc)}
--                if videoUrl: self.addVideo(MergeDicts(cItem, params, {'guid':guid}))
--                else: self.addDir(MergeDicts(cItem, params))
--
--            if data.get('hasMore'):
--                self.addDir(MergeDicts(cItem, {'title':_('Next page'), 'page':page + 1}))
--        except Exception:
--            printExc()
-+            cItem['category'] = nextCategory
- 
--    def listCatalog(self, cItem, nextCategory1, nextCategory2, data=None):
--        printDBG("MediasetPlay.listCatalog")
--        if not data:
--            sts, data = self.getPage(cItem['url'])
-+            sts, data = self.getPage(self.INDEX_URL)
-             if not sts: return
--            self.setMainUrl(self.cm.meta['url'])
--
--        exports = {"button-special": "_1u_k9 _3Pqi-", "wrapper": "C6FJZ", "description": "_3XiTc", "sub-title-banner": "_1tNlk", "title-banner": "_1KV50", "airing-time": "_3pYTW", "description-wrapper": "glxlH", "title-hero":"dTamS", "title-hero-small":"_1AN7g"}
--
--        data = ph.find(data, ('<article', '>'), '</article>', flags=0)[1]
--        data = ph.findall(data, ('<section', '>'), '</section>', flags=0)
--        for sectionItem in data:
--            sectionItem = sectionItem.split('</header>', 1)
--            sIcon = self.getFullUrl(ph.search(sectionItem[0], ph.IMAGE_SRC_URI_RE)[1])
--            sTitle = ph.clean_html(ph.find(sectionItem[0], ('<h2', '>'), '</h2>', flags=0)[1])
--            if not sTitle: sTitle = ph.clean_html(ph.getattr(sectionItem[0], 'title'))
--            subItems = []
--            item = ph.rfind(sectionItem[0], '</div>', ('<div', '>', exports['wrapper']), flags=0)[1]
--            url = self.getFullUrl(ph.getattr(item, 'href'))
--            desc = ph.clean_html(ph.find(item, ('<div', '>', exports['description']), '</div>', flags=0)[1])
--            title = ph.clean_html(ph.find(item, ('<div', '>', exports['button-special']), '</div>', flags=0)[1])
--            if url and title:
--                subItems.append(MergeDicts(cItem, {'good_for_fav':True, 'category':nextCategory2, 'url':url, 'title':title, 'icon':sIcon, 'desc':desc}))
--
--            sectionItem = ph.rfindall(sectionItem[-1], '</div>', ('<a', '>'), flags=ph.END_S)
--            for idx in range(1, len(sectionItem), 2):
--                url = self.getFullUrl(ph.getattr(sectionItem[idx-1], 'href'))
--                item = sectionItem[idx]
--                icon = self.getFullUrl(ph.search(item, ph.IMAGE_SRC_URI_RE)[1])
--                title1 = ph.clean_html(ph.find(item, ('<h3', '>'), '</h3>', flags=0)[1])
--                title2 = ph.clean_html(ph.find(item, ('<h4', '>'), '</h4>', flags=0)[1])
--                if not title1: title1 = ph.clean_html(ph.find(item, ('<p', '>', exports['title-banner']), '</p>', flags=0)[1])
--                if not title2: title2 = ph.clean_html(ph.find(item, ('<p', '>', exports['sub-title-banner']), '</p>', flags=0)[1])
--                if not title1: title1 = ph.clean_html(ph.find(item, ('<p', '>', exports['title-hero']), '</p>', flags=0)[1])
--                if not title2: title2 = ph.clean_html(ph.find(item, ('<p', '>', exports['title-hero-small']), '</p>', flags=0)[1])
--                if not title1: title1 = ph.clean_html(ph.find(item, ('<h2', '>'), '</h2>', flags=0)[1])
--                
--                title = []
--                if title1: title.append(title1)
--                if title2: title.append(title2)
--                desc = []
--                desc.append(ph.clean_html(ph.find(item, ('<div', '>', exports['airing-time']), '</div>', flags=0)[1]))
--                desc.append(ph.clean_html(ph.find(item, ('<div', '>', exports['description-wrapper']), '</div>', flags=0)[1]))
--                params = {'good_for_fav':True, 'url':url, 'title':' - '.join(title), 'icon':icon, 'desc':'[/br]'.join(desc)}
--                if '/diretta/' in url:
--                    subItems.append(MergeDicts(params, {'type':'video', 'is_live':True, 'desc':_('live')}))
--                elif '/video' in url:
--                    subItems.append(MergeDicts(params, {'type':'video'}))
--                else:
--                    subItems.append(MergeDicts(cItem, params, {'category':nextCategory2}))
--            if len(subItems) == 1:
--                self.currList.extend(subItems)
--            elif len(subItems) > 1:
--                self.addDir(MergeDicts(cItem, {'good_for_fav':False, 'category':'sub_items', 'title':sTitle, 'icon':sIcon, 'sub_items':subItems}))
--        
--        if len(self.currList) == 1 and self.currList[0].get('category') == 'sub_items':
--            self.currList = self.currList[0]['sub_items']
--        
--        tab = []
--        category = cItem['category']
--        cItem = MergeDicts(cItem, {'good_for_fav':True, 'category':nextCategory1})
--        if category == 'cat_movies':
--            tab = [{'title':'Film più visti',                'f_ref':'CWFILMTOPVIEWED'},
--                   {'title':'Commedia',                      'f_ref':'CWFILMCOMEDY'   },
--                   {'title':'Drammatico',                    'f_ref':'CWFILMDRAMATIC' },
--                   {'title':'Thriller, Azione e Avventura',  'f_ref':'CWFILMACTION'   },
--                   {'title':'Documentari',                   'f_ref':'CWFILMDOCU'     },]
--        elif category == 'cat_series':
--            tab = [{'title':'Poliziesco',                     'f_ref':'CWFICTIONPOLICE'       },
--                   {'title':'Sentimentale',                   'f_ref':'CWFICTIONSENTIMENTAL'  },
--                   {'title':'Commedia',                       'f_ref':'CWFICTIONCOMEDY'       },
--                   {'title':'Thriller, Azione e Avventura',   'f_ref':'CWFICTIONACTION'       },
--                   {'title':'Biografico',                     'f_ref':'CWFICTIONBIOGRAPHICAL' },
--                   {'title':'Sit-Com',                        'f_ref':'CWFICTIONSITCOM'       },
--                   {'title':'Drammatico',                     'f_ref':'CWFICTIONDRAMATIC'     },
--                   {'title':'Avventura',                      'f_ref':'CWFICTIONADVENTURE'    },]
--        self.listsTab(tab, cItem)
-+            data = json_loads(data)
- 
-+            if "f_category" in cItem:
-+                label = cItem["f_category"]
-+            else:
-+                label = "nofilter"
-             
--    def listCatalogItems(self, cItem, nextCategory):
--        printDBG("MediasetPlay.listCatalogItems")
--        query = {'uxReference':cItem['f_ref'], 'platform':'pc'}
--        query.update(self.initData)
--        url = self.API_BASE_URL + 'rec/cataloguelisting/v1.0?' + urllib.urlencode(query)
--
--        sts, data = self.getPage(url)
--        if not sts: return
--        try:
--            data = json_loads(data)['response']
--            for item in data['entries']:
--                title = item['title']
--                desc = item['description']
--                icon = item['thumbnails']['image_vertical-264x396']['url']
--                url = self.getFullUrl(item['mediasetprogram$pageUrl'])
--                self.addDir(MergeDicts(cItem, {'good_for_fav':True, 'category':nextCategory, 'title':title, 'url':url, 'icon':icon, 'desc':desc}))
-+            if "f_onair" in cItem:
-+                # only on air programs
-+                label = label + "_onair"
-+            else:
-+                label = label 
-+
-+            filtersTab.append({'title': 'Tutti',  'f_query':'*'})
-+            for l in data["data"][label]:
-+                filtersTab.append({'title': l.upper(), 'f_query': l.upper() })
- 
--            if data.get('hasMore'):
--                self.addDir(MergeDicts(cItem, {'title':_('Next page'), 'page':page + 1}))
--        except Exception:
--            printExc()
-+        self.listsTab(filtersTab, cItem)
- 
--    def listVideoMixed(self, cItem):
--        printDBG("MediasetPlay.listVideoMixed")
-+    def listAZItems(self, cItem, page=0):
-+        printDBG('MediasetPlay.listAZItems')
- 
--        sts, data = self.getPage(cItem['url'])
-+        if 'f_category' in cItem: 
-+            url = self.FEED_SHOW_INDEX_URL.replace("%cat%", cItem['f_category'].replace(" ", "%20"))
-+            url_count = self.FEED_SHOW_COUNT.replace("%cat%", cItem['f_category'].replace(" ", "%20"))
-+        else:
-+            url = self.FEED_SHOW_INDEX_URL.replace("%cat%", "Brand")
-+            url_count = self.FEED_SHOW_COUNT.replace("%cat%", "Brand")
-+        
-+        sts, data = self.getPage(url_count)
-         if not sts: return
--        cUrl = self.cm.meta['url']
--        self.setMainUrl(cUrl)
--
--        exports = {"airing-time": "_3pYTW", "description-wrapper": "glxlH"}
--
--        data = ph.find(data, ('<article', '>'), '</article>', flags=0)[1]
--        data = ph.findall(data, ('<section', '>', 'videoMixed'), '</section>', flags=0)
--        for sectionItem in data:
--            sectionItem = sectionItem.split('</header>', 1)
--            sTitle = ph.clean_html(ph.find(sectionItem[0], ('<h2', '>'), '</h2>', flags=0)[1])
--            subItems = []
--            sectionItem = ph.findall(sectionItem[-1], ('<a', '>'), '</a>', flags=ph.START_S)
--            for idx in range(1, len(sectionItem), 2):
--                url = self.getFullUrl(ph.getattr(sectionItem[idx-1], 'href'))
--                item = sectionItem[idx]
--                icon = self.getFullUrl(ph.search(item, ph.IMAGE_SRC_URI_RE)[1])
--                title = ph.clean_html(ph.find(item, ('<h4', '>'), '</h4>', flags=0)[1])
--                desc = [ph.clean_html(ph.find(item, ('<h3', '>'), '</h3>', flags=0)[1])]
--                desc.append(ph.clean_html(ph.find(item, ('<div', '>', exports['airing-time']), '</div>', flags=0)[1]))
--                desc.append(ph.clean_html(ph.find(item, ('<div', '>', exports['description-wrapper']), '</div>', flags=0)[1]))
--                subItems.append({'type':'video', 'good_for_fav':True, 'url':url, 'title':title, 'icon':icon, 'desc':'[/br]'.join(desc)})
--            if len(subItems) == 1:
--                self.currList.extend(subItems)
--            elif len(subItems) > 1:
--                self.addDir(MergeDicts(cItem, {'good_for_fav':False, 'category':'sub_items', 'title':sTitle, 'sub_items':subItems}))
--        
--        if len(self.currList) == 1 and self.currList[0].get('category') == 'sub_items':
--            self.currList = self.currList[0]['sub_items']
--        
--        # https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-brands?byCustomValue={brandId}{100000513}&sort=mediasetprogram$order
--        # https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-programs?byCustomValue={brandId}{100000513},{subBrandId}{100000722}&sort=mediasetprogram$publishInfo_lastPublished|desc
--        # https://feed.entertainment.tv.theplatform.eu/f/PR1GhC/mediaset-prod-all-programs?byCustomValue={brandId}{100000513}&sort=mediasetprogram$publishInfo_lastPublished|desc
--
--    def listSearchResult(self, cItem, searchPattern, searchType):
--        self.initApi()
--
--        query = {'uxReference':'CWSEARCH%s' % searchType.upper(), 'query':searchPattern, 'platform':'pc'}
--        query.update(self.initData)
--
--        url = self.API_BASE_URL + 'rec/search/v1.0?' + urllib.urlencode(query)
--        if 'clip' == searchType: url += '&sort=Viewers=DESC'
--
--        cItem = MergeDicts(cItem, {'category':'list_items', 'url':url})
--        self.listItems(cItem, 'video_mixed')
--        
--        #'CWSEARCHBRAND'
--        #'CWSEARCHCLIP',
--        #'CWSEARCHEPISODE'
--        #'CWSEARCHMOVIE'
--        
--        #https://api-ott-prod-fe.mediaset.net/PROD/play/rec/search/v1.0?uxReference=CWSEARCHBRAND&query=shrek&platform=pc&traceCid=73dd1614-f553-4851-ace3-bd01e34bdd26&page=1
--        #https://api-ott-prod-fe.mediaset.net/PROD/play/rec/search/v1.0?uxReference=CWSEARCHCLIP&query=shrek&platform=pc&traceCid=73dd1614-f553-4851-ace3-bd01e34bdd26&sort=Viewers=DESC&page=1
--        #https://api-ott-prod-fe.mediaset.net/PROD/play/rec/search/v1.0?uxReference=CWSEARCHEPISODE&query=shrek&platform=pc&traceCid=73dd1614-f553-4851-ace3-bd01e34bdd26&page=1
--        #https://api-ott-prod-fe.mediaset.net/PROD/play/rec/search/v1.0?uxReference=CWSEARCHMOVIE&query=shrek&platform=pc&traceCid=73dd1614-f553-4851-ace3-bd01e34bdd26&page=1
--
--    def getLinksForVideo(self, cItem):
--        printDBG(": %s" % cItem)
--        self.initApi()
-+        
-+        data = json_loads(data)
-+        number_of_entries = data["totalResults"]
-+        printDBG("entries: %s " % number_of_entries)
-+        
-+        range_start = 1 
-+        while range_start < number_of_entries:
-+            range_end = range_start + 299
-+            range_str = "%s-%s" % (range_start,range_end)
- 
--        linksTab = self.cacheLinks.get(cItem['url'], [])
--        if linksTab: return linksTab
-+            sts, data = self.getPage(url.replace("%range%", range_str))
-+            if sts: 
- 
--        if cItem.get('is_live'):
--            channelId = cItem.get('call_sign')
--            if not channelId:
--                sts, data = self.getPage(cItem['url'])
--                if not sts: return
--                channelId = ph.search(data, '''/diretta/[^'^"]+?_c([^'^"]+?)['"][^>]*?>\s*?diretta\s*?<''', flags=ph.I)[0]
--
--            url = self.API_BASE_URL + 'alive/nownext/v1.0?channelId=' + channelId
--            sts, data = self.getPage(url)
--            if not sts: return
--            try:
-                 data = json_loads(data)
--                for tuningInstructions in data['response']['tuningInstruction'].itervalues():
--                    for item in tuningInstructions:
--                        printDBG(item)
--                        url = item['streamingUrl'].split('?', 1)[0].replace('t-mediaset-it', '-mediaset-it')
--                        if 'mpegurl' in item['format'].lower():
--                            f = 'HLS/M3U8'
--                        elif 'dash' in item['format'].lower():
--                            f = 'DASH/MPD'
--                        else:
--                            continue
--                        linksTab.append({'name':f, 'url':strwithmeta(url, {'priv_type':f}), 'need_resolve': 1})
--            except Exception:
--                printExc()
--        else:
--            guid = cItem.get('guid', '')
--            if not guid: guid  = ph.search(cItem['url'], r'''https?://(?:(?:www|static3)\.)?mediasetplay\.mediaset\.it/(?:(?:video|on-demand)/(?:[^/]+/)+[^/]+_|player/index\.html\?.*?\bprogramGuid=)([0-9A-Z]{16})''')[0]
--            if not guid: return linksTab
--
--            tp_path = 'PR1GhC/media/guid/2702976343/' + guid
--
--            uniqueUrls = set()
--            for asset_type in ('SD', 'HD'):
--                for f in (('MPEG4', 'MP4', 0), ('MPEG-DASH', 'DASH/MPD', 1), ('M3U', 'HLS/M3U8', 1)):
--                    url = 'http://link.theplatform.%s/s/%s?mbr=true&formats=%s&assetTypes=%s' % ('eu', tp_path, f[0], asset_type)
--                    sts, data = self.cm.getPage(url, post_data={'format': 'SMIL'})
--                    if not sts: continue
--                    if 'GeoLocationBlocked' in data:
--                        SetIPTVPlayerLastHostError(ph.getattr(data, 'abstract'))
--                    printDBG("++++++++++++++++++++++++++++++++++")
--                    printDBG(data)
--                    tmp = ph.findall(data, '<video', '>')
--                    for item in tmp:
--                        url = ph.getattr(item, 'src')
--                        if not self.cm.isValidUrl(url): continue
--                        if url not in uniqueUrls:
--                            uniqueUrls.add(url)
--                            linksTab.append({'name':'%s - %s' % (f[1], asset_type), 'url':strwithmeta(url, {'priv_type':f[1]}), 'need_resolve':f[2]})
--        if len(linksTab):
--            self.cacheLinks[cItem['url']] = linksTab
- 
--        return linksTab
--
--    def getVideoLinks(self, videoUrl):
--        printDBG("MediasetPlay.getVideoLinks [%s]" % videoUrl)
--        # mark requested link as used one
--        if len(self.cacheLinks.keys()):
--            for key in self.cacheLinks:
--                for idx in range(len(self.cacheLinks[key])):
--                    if videoUrl in self.cacheLinks[key][idx]['url']:
--                        if not self.cacheLinks[key][idx]['name'].startswith('*'):
--                            self.cacheLinks[key][idx]['name'] = '*' + self.cacheLinks[key][idx]['name']
-+                for item in data['entries']:
-+                    # control if program is on air now, if requested 
-+                    title = item['title']
-+                    f_query = cItem.get('f_query','*')
-+                    if (not ('f_onair' in cItem)) or (('f_onair' in cItem) and ("mediasetprogram$brandChannelCode" in item)) : 
-+                        # control starting letter
-+                        if (f_query == '*') or ((f_query == '0') and title[:1].isdigit() ) or ( not(f_query in ['0','*']) and title[:1] == f_query ) :  
-+                            # can add program to list    
-+                            printDBG(title)
-+                            icon = self.getBestThumb(item['thumbnails'], True)
-+                            brandId = item.get("mediasetprogram$brandId",'')
-+                            desc = ["Id:" + brandId, item.get('description', '')]
-+                            if desc[1] == None:
-+                                desc = "Id:" + brandId
-+                            else:
-+                                desc = '\n'.join(desc)
-+                            if "mediasetprogram$seasonTitle" in item:
-+                                if item["mediasetprogram$seasonTitle"] != "0":
-+                                    title = item["mediasetprogram$seasonTitle"]
-+                            params = {'good_for_fav':True, 'title':title, 'url':url, 'icon': icon, 'desc': desc, 'category': 'program', 'brandId': brandId}
-+                            self.addDir(MergeDicts(cItem, params))
-+
-+            range_start= range_start + 300
-+                                     
-+    def listProgramItems(self, cItem):
-+        brandId=cItem["brandId"]    
-+        url = self.FEED_SHOW_URL.replace('%brandId%',brandId)
-+        sts, data = self.getPage(url)
-+        if not sts: return
-+        
-+        data = json_loads(data)
-+        for entry in data['entries']:
-+            if 'mediasetprogram$subBrandId' in entry:
-+                desc = entry['description']
-+                subBrandId=entry['mediasetprogram$subBrandId']
-+                self.addDir(MergeDicts(cItem, {"title": desc, "subBrandId": subBrandId, "category": "program_item"}))
-+
-+    
-+    def listProgramSubItems(self, cItem):
-+
-+        brandId = cItem["brandId"]
-+        subBrandId = cItem["subBrandId"]
-+        url = self.FEED_SHOW_SUBITEM_URL.replace('%brandId%', brandId).replace('%subBrandId%', subBrandId)
-+    
-+        sts, data = self.getPage(url)
-+        if not sts: return
-+        
-+        data = json_loads(data)
-+        for item in data['entries']:
-+            desc = []
-+            desc.append(item['mediasetprogram$publishInfo']['last_published'].split('T', 1)[0]) 
-+            if 'description' in item['mediasetprogram$publishInfo']:
-+                desc.append(item['mediasetprogram$publishInfo']['description']) 
-+            desc.append(str(timedelta(seconds=int(item['mediasetprogram$duration']))))
-+            desc.append(_('%s views') % item['mediasetprogram$numberOfViews'] )
-+            
-+            desc = [' | '.join(desc)]
-+            desc.append(item.get('description', ''))
-+            icon = item['thumbnails']['image_keyframe_poster-292x165']['url']
-+            url = item['media'][0]['publicUrl']
-+            title = item ["title"]
-+            self.addVideo ({'category': 'program_video', 'title' : title , 'desc': '\n'.join(desc) , 'url' : url, 'icon' : icon})                
-         
--        type = strwithmeta(videoUrl).meta.get('priv_type', '')
--        if type == 'DASH/MPD':
--            return getMPDLinksWithMeta(videoUrl, sortWithMaxBandwidth=999999999)
--        elif type == 'HLS/M3U8':
--            return getDirectM3U8Playlist(videoUrl, variantCheck=True, checkContent=True, sortWithMaxBitrate=999999999)
--
--        return []
--
-     def handleService(self, index, refresh = 0, searchPattern = '', searchType = ''):
-         printDBG('handleService start')
-         
-@@ -510,53 +429,29 @@
-         category = self.currItem.get("category", '')
-         printDBG( "handleService: ||| name[%s], category[%s] " % (name, category) )
-         self.currList = []
--        self.initApi()
-+        #self.initApi()
- 
--    #MAIN MENU
-+        #MAIN MENU
-         if name == None:
--            self.listMain({'name':'category', 'type':'category'}, 'list_items')
--
--        elif category == 'sub_items':
--            self.listSubItems(self.currItem)
--
--        elif category == 'on_air':
-+            self.listMain(self.currItem)
-+        elif category == 'onair':
-             self.listOnAir(self.currItem)
--
--        elif category == 'cat_channels':
--            self.listChannels(self.currItem, 'list_channel_items')
--
--        elif category == 'list_channel_items':
--            self.listChannelItems(self.currItem, 'list_time')
--
-+        elif category == 'ondemand':
-+            self.listAZFilters(self.currItem, 'list_az_item')
-+        elif category == 'list_az_item':
-+            self.listAZItems(self.currItem)
-+        elif category == 'list_az_item_next':
-+            self.listAZItems(self.currItem, self.currItem["page_number"])
-+        elif category == 'channels':
-+            self.listDates(self.currItem)
-+        elif category == 'date':
-+            self.listChannels(self.currItem)
-         elif category == 'list_time':
--            self.listTime(self.currItem, 'video_mixed')
--
--        elif category == 'cat_az':
--            self.listAZFilters(self.currItem, 'list_az_items')
--
--        elif category == 'list_az_items':
--            self.listAZItems(self.currItem, 'video_mixed')
--
--        elif category == 'list_items':
--            self.listItems(self.currItem, 'video_mixed')
--
--        elif category in ('cat_movies', 'cat_series'):
--            self.listCatalog(self.currItem, 'list_catalog_items', 'video_mixed')
--
--        elif category == 'list_catalog_items':
--            self.listCatalogItems(self.currItem, 'video_mixed')
--
--        elif category == 'video_mixed':
--            self.listVideoMixed(self.currItem)
--
--    #SEARCH
--        elif category in ["search", "search_next_page"]:
--            cItem = dict(self.currItem)
--            cItem.update({'search_item':False, 'name':'category'}) 
--            self.listSearchResult(cItem, searchPattern, searchType)
--    #HISTORIA SEARCH
--        elif category == "search_history":
--            self.listsHistory({'name':'history', 'category': 'search'}, 'desc', _("Type: "))
-+            self.listEPG(self.currItem)
-+        elif category == 'program':
-+            self.listProgramItems(self.currItem)
-+        elif category == 'program_item':
-+            self.listProgramSubItems(self.currItem)
-         else:
-             printExc()
- 
-@@ -566,10 +461,3 @@
-     def __init__(self):
-         CHostBase.__init__(self, MediasetPlay(), True, [])
- 
--    def getSearchTypes(self):
--        searchTypesOptions = []
--        searchTypesOptions.append((_("Brand"),   "brand"))
--        searchTypesOptions.append((_("Clip"),    "clip"))
--        searchTypesOptions.append((_("Episode"), "episode"))
--        searchTypesOptions.append((_("Movie"),   "movie"))
--        return searchTypesOptions
 diff -ruN o/IPTVPlayer/hosts/hostnaszekinotv.py pc/IPTVPlayer/hosts/hostnaszekinotv.py
---- o/IPTVPlayer/hosts/hostnaszekinotv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostnaszekinotv.py	2020-04-03 11:35:26.384487921 +0300
+--- o/IPTVPlayer/hosts/hostnaszekinotv.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostnaszekinotv.py	2020-04-04 12:32:10.974449352 +0200
 @@ -0,0 +1,740 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -7181,297 +6304,9 @@ diff -ruN o/IPTVPlayer/hosts/hostnaszekinotv.py pc/IPTVPlayer/hosts/hostnaszekin
 +        else: return False
 +    
 \ В конце файла нет новой строки
-diff -ruN o/IPTVPlayer/hosts/hostorthobulletscom.py pc/IPTVPlayer/hosts/hostorthobulletscom.py
---- o/IPTVPlayer/hosts/hostorthobulletscom.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostorthobulletscom.py	2020-04-03 11:35:26.385487920 +0300
-@@ -1,4 +1,6 @@
--﻿# -*- coding: utf-8 -*-
-+# -*- coding: utf-8 -*-
-+# Codermik (codermik@tuta.io)
-+
- ###################################################
- # LOCAL import
- ###################################################
-@@ -6,6 +8,7 @@
- from Plugins.Extensions.IPTVPlayer.components.ihost import CHostBase, CBaseHostClass
- from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG, printExc, rm
- from Plugins.Extensions.IPTVPlayer.tools.iptvtypes import strwithmeta
-+from Plugins.Extensions.IPTVPlayer.libs import ph
- ###################################################
- 
- ###################################################
-@@ -45,6 +48,7 @@
- class OrthoBullets(CBaseHostClass):
- 
-     def __init__(self):
-+        printDBG("..:: E2iStream ::..   __init__(self):")
-         CBaseHostClass.__init__(self, {'history':'orthobullets.com', 'cookie':'orthobullets.com.cookie'})
-         
-         self.USER_AGENT = 'Mozilla/5.0'
-@@ -59,7 +63,62 @@
-         self.loggedIn = None
-         self.login    = ''
-         self.password = ''
--    
-+             
-+        self.MAIN_CAT_TAB =     [
-+                                    {'category':'categories',           'title': _('Categories'),       'url':self.MAIN_URL, 'icon':self.DEFAULT_ICON_URL},
-+                                    {'category':'subspeciality',        'title': _('Subspecialities'),    'url':self.MAIN_URL, 'icon':self.DEFAULT_ICON_URL},
-+                                    {'category':'search',           'title': _('Search'), 'search_item':True},
-+                                    {'category':'search_history',   'title': _('Search history')} 
-+                                ]
-+
-+
-+
-+        self.CATEGORIES_TAB =   [
-+                                    {'category':'list_categories',  'title': _('All'), 'url':self.MAIN_URL + 'video/list.aspx'},
-+                                    {'category':'list_categories',  'title': _('Board Review'), 'url':self.MAIN_URL + 'video/list.aspx?c=7'},
-+                                    {'category':'list_categories',  'title': _('CME SAE'), 'url':self.MAIN_URL + 'video/list.aspx?c=20'},
-+                                    {'category':'list_categories',  'title': _('Educational Animation'), 'url':self.MAIN_URL + 'video/list.aspx?c=109'},
-+                                    {'category':'list_categories',  'title': _('Ethical & Legal'), 'url':self.MAIN_URL + 'video/list.aspx?c=10'},
-+                                    {'category':'list_categories',  'title': _('Exam Review'), 'url':self.MAIN_URL + 'video/list.aspx?c=19'},
-+                                    {'category':'list_categories',  'title': _('Humanitarian'), 'url':self.MAIN_URL + 'video/list.aspx?c=8'},
-+                                    {'category':'list_categories',  'title': _('Industry'), 'url':self.MAIN_URL + 'video/list.aspx?c=107'},
-+                                    {'category':'list_categories',  'title': _('Interactive Learning Center(ILC)'), 'url':self.MAIN_URL + 'video/list.aspx?c=17'},
-+                                    {'category':'list_categories',  'title': _('Jobs & Positions'), 'url':self.MAIN_URL + 'video/list.aspx?c=14'},
-+                                    {'category':'list_categories',  'title': _('Journal Club'), 'url':self.MAIN_URL + 'video/list.aspx?c=9'},
-+                                    {'category':'list_categories',  'title': _('Medtryx Marketing'), 'url':self.MAIN_URL + 'video/list.aspx?c=24'},
-+                                    {'category':'list_categories',  'title': _('Meetings'), 'url':self.MAIN_URL + 'video/list.aspx?c=12'},
-+                                    {'category':'list_categories',  'title': _('Pathology Rounds'), 'url':self.MAIN_URL + 'video/list.aspx?c=16'},
-+                                    {'category':'list_categories',  'title': _('Physical Exam'), 'url':self.MAIN_URL + 'video/list.aspx?c=5'},
-+                                    {'category':'list_categories',  'title': _('Powerpoint Presentation'), 'url':self.MAIN_URL + 'video/list.aspx?c=108'},
-+                                    {'category':'list_categories',  'title': _('Practice Management'), 'url':self.MAIN_URL + 'video/list.aspx?c=11'},
-+                                    {'category':'list_categories',  'title': _('Professional Networks'), 'url':self.MAIN_URL + 'video/list.aspx?c=13'},
-+                                    {'category':'list_categories',  'title': _('Radiology Rounds'), 'url':self.MAIN_URL + 'video/list.aspx?c=15'},
-+                                    {'category':'list_categories',  'title': _('Study Plan'), 'url':self.MAIN_URL + 'video/list.aspx?c=21'},
-+                                    {'category':'list_categories',  'title': _('Surgical Approaches'), 'url':self.MAIN_URL + 'video/list.aspx?c=3'},
-+                                    {'category':'list_categories',  'title': _('Surgical Cases'), 'url':self.MAIN_URL + 'video/list.aspx?c=100'},
-+                                    {'category':'list_categories',  'title': _('Surgical Complications'), 'url':self.MAIN_URL + 'video/list.aspx?c=4'},
-+                                    {'category':'list_categories',  'title': _('Surgical Techniques'), 'url':self.MAIN_URL + 'video/list.aspx?c=2'},
-+                                    {'category':'list_categories',  'title': _('Techniques'), 'url':self.MAIN_URL + 'video/list.aspx?c=106'},
-+                                    {'category':'list_categories',  'title': _('Treatment Consult'), 'url':self.MAIN_URL + 'video/list.aspx?c=1'},
-+                                    {'category':'list_categories',  'title': _('Written Boards Review'), 'url':self.MAIN_URL + 'video/list.aspx?c=102'}
-+                                ]
-+
-+        self.SPECIALITY_TAB =   [
-+                                    {'category':'list_speciality',  'title': _('Trauma'), 'url':self.MAIN_URL + 'video/list.aspx?s=1'},
-+                                    {'category':'list_speciality',  'title': _('Spine'), 'url':self.MAIN_URL + 'video/list.aspx?s=2'},
-+                                    {'category':'list_speciality',  'title': _('Shoulder & Elbow'), 'url':self.MAIN_URL + 'video/list.aspx?s=3'},
-+                                    {'category':'list_speciality',  'title': _('Knee & Sports'), 'url':self.MAIN_URL + 'video/list.aspx?s=225'},
-+                                    {'category':'list_speciality',  'title': _('Pediatrics'), 'url':self.MAIN_URL + 'video/list.aspx?s=4'},
-+                                    {'category':'list_speciality',  'title': _('Recon'), 'url':self.MAIN_URL + 'video/list.aspx?s=5'},
-+                                    {'category':'list_speciality',  'title': _('Hand'), 'url':self.MAIN_URL + 'video/list.aspx?s=6'},
-+                                    {'category':'list_speciality',  'title': _('Foot & Ankle'), 'url':self.MAIN_URL + 'video/list.aspx?s=7'},
-+                                    {'category':'list_speciality',  'title': _('Pathology'), 'url':self.MAIN_URL + 'video/list.aspx?s=8'},
-+                                    {'category':'list_speciality',  'title': _('Basic Science'), 'url':self.MAIN_URL + 'video/list.aspx?s=9'},
-+                                    {'category':'list_speciality',  'title': _('Anatomy'), 'url':self.MAIN_URL + 'video/list.aspx?s=10'},
-+                                    {'category':'list_speciality',  'title': _('Approaches'), 'url':self.MAIN_URL + 'video/list.aspx?s=12'},
-+                                    {'category':'list_speciality',  'title': _('General'), 'url':self.MAIN_URL + 'video/list.aspx?s=13'},
-+                                ]
-+        
-     def getPage(self, baseUrl, addParams = {}, post_data = None):
-         if addParams == {}:
-             addParams = dict(self.defaultParams)
-@@ -67,101 +126,50 @@
-             if self.cm.isValidUrl(url):
-                 return url
-             else:
--                return urljoin(baseUrl, url)
-+                return urljoin(baseUrl, url)            
-         addParams['cloudflare_params'] = {'domain':self.up.getDomain(baseUrl), 'cookie_file':self.COOKIE_FILE, 'User-Agent':self.USER_AGENT, 'full_url_handle':_getFullUrl}
-         return self.cm.getPageCFProtection(baseUrl, addParams, post_data)
--    
--    def listMainMenu(self, cItem):
--        printDBG("OrthoBullets.listMainMenu")
- 
--        sts, data = self.getPage(self.getFullUrl('/video/list.aspx'))
--        if not sts: return
--        self.setMainUrl(self.cm.meta['url'])
--        
--        reObj = re.compile('''<ul[^>]+?subMenu[^>]*?>''')
--        data = self.cm.ph.getAllItemsBeetwenNodes(data, ('<ul', '>', 'dropList'), ('</ul', '>'))
--        printDBG(data)
--        for sItem in data:
--            sItem = reObj.split(sItem, 1)
--            if len(sItem) < 2: continue
--            sTitle = self.cleanHtmlStr(sItem[0])
--            categories = []
--            sItem = self.cm.ph.getAllItemsBeetwenMarkers(sItem[1], '<li', '</li>')
--            for item in sItem:
--                url = self.getFullUrl( self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''')[0] )
--                title = self.cleanHtmlStr(item)
--                params = dict(cItem)
--                params.update({'name':'category', 'category':'list_sort', 'title':title, 'url':url})
--                categories.append(params)
--            
--            if len(categories):
--                params = dict(cItem)
--                params.update({'name':'category', 'category':'sub_items', 'title':sTitle, 'sub_items':categories})
--                self.addDir(params)
--
--        MAIN_CAT_TAB = [{'category':'search',          'title': _('Search'), 'search_item':True},
--                        {'category':'search_history',  'title': _('Search history')} ]
--        self.listsTab(MAIN_CAT_TAB, cItem)
--        
--    def listSort(self, cItem, nextCategory):
--        printDBG("OrthoBullets.listItems [%s]" % cItem)
--        
--        sts, data = self.getPage(cItem['url'])
--        if not sts: return
--        self.setMainUrl(self.cm.meta['url'])
--        
--        data = self.cm.ph.getDataBeetwenNodes(data, ('<div', '>', 'tabNavigation'), ('</div', '>'), False)[1]
--        data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<a', '</a>')
--        for item in data:
--            url = self.getFullUrl( self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''')[0] )
--            title = self.cleanHtmlStr(item)
--            params = dict(cItem)
--            params.update({'name':'category', 'category':nextCategory, 'title':title, 'url':url})
--            self.addDir(params)
--    
-+
-     def listItems(self, cItem):
--        printDBG("OrthoBullets.listItems [%s]" % cItem)
-+        printDBG("..:: E2iStream ::.. -  listItems(self, cItem): [%s]" % cItem)         
-+        i = 0    
-+           
-         page = cItem.get('page', 1)
-         
-         sts, data = self.getPage(cItem['url'])
-         if not sts: return
-         self.setMainUrl(self.cm.meta['url'])
--        
--        nextPage = self.cm.ph.getDataBeetwenNodes(data, ('<div', '>', 'dashboardPaging'), ('</div', '>'))[1]
-+
-+        nextPage = self.cm.ph.getDataBeetwenNodes(data, ('<div class=', '>', 'paging paging--right paging--padding'), ('</div', '>'))[1]
-         nextPage = self.cm.ph.getSearchGroups(nextPage, '''<a[^>]+?href=['"]([^'^"]+?)['"][^>]*?>%s</a>''' % (page + 1))[0]
--        
--        data = self.cm.ph.getDataBeetwenNodes(data, ('<div', '>', 'videos'), ('<script', '>'), False)[1].split('data-video-id')
--        for item in data:
--            url = self.getFullUrl(self.cm.ph.getSearchGroups(item, '''\shref=['"]([^'^"]+?)['"]''')[0])
--            if url == '': continue
--            icon = self.getFullIconUrl(self.cm.ph.getSearchGroups(item, '''\ssrc=['"]([^'^"]+?)['"]''')[0])
--            title = self.cleanHtmlStr(self.cm.ph.getDataBeetwenMarkers(item, '<h3', '</h3>')[1])
--            
--            desc = []
--            tmp = self.cm.ph.getDataBeetwenNodes(item, ('<div', '>', 'dashboardItem-right'), ('</div', '>'), False)[1]
--            t = self.cleanHtmlStr(self.cm.ph.getDataBeetwenMarkers(tmp, '<time', '</time>')[1])
--            if t != '': desc.append(t)
--            t = self.cleanHtmlStr(self.cm.ph.getDataBeetwenMarkers(tmp, '<span', '</span>')[1])
--            if t != '': desc.append(t)
--            stars = tmp.count('blank')
--            desc.append('%s/%s' % (5-stars, 5))
--            desc = [' | '.join(desc)]
--            
--            tmp = self.cleanHtmlStr(self.cm.ph.getDataBeetwenMarkers(item, '<ul', '</ul>')[1])
--            if tmp != '': desc.append(tmp)
--            
--            tmp = self.cleanHtmlStr(self.cm.ph.getDataBeetwenMarkers(item, '<p', '</p>')[1])
--            if tmp != '': desc.append(tmp)
--            
-+        nextPage = ph.clean_html(nextPage)   
-+                     
-+        block = self.cm.ph.getAllItemsBeetwenNodes(data, '<div class="videos ">', '<div class="group-items-list__bottom-paging"',False)[0]  
-+        block = self.cm.ph.getAllItemsBeetwenNodes(block, '<a class="dashboard-item__link"', '</a>')     
-+
-+        for videos in block:
-+            title = self.cm.ph.getAllItemsBeetwenNodes(videos, '<div class="dashboard-item__title">', '</div>',False)
-+            title = map(lambda cleanTitle: cleanTitle.replace('\r\n                    ', ''), title)
-+            title = map(lambda cleanTitle: cleanTitle.replace('\r\n                ', ''), title)
-+            title = title[0]
-+            title  = ph.clean_html(title)
-+            videourl = self.MAIN_URL + self.cm.ph.getSearchGroups(videos, 'href="([^"]+?)"')[0]
-+            imageurl = self.cm.ph.getAllItemsBeetwenNodes(videos,'style="background-image: url(\'', ('\');">'),False)[1]
-+            viddate = self.cm.ph.getAllItemsBeetwenNodes(videos, '<div class="dashboard-item__date">', '</div>',False)[0]
-+            viddate = viddate.strip()
-+            vidviews = self.cm.ph.getAllItemsBeetwenNodes(videos, '<div class="dashboard-item__views">', '</div>',False)[0]
-+            vidviews = vidviews.strip()
-+            desc = '\c00????00 Title: \c00??????%s\\n \c00????00Date: \c00??????%s\\n \c00????00Views: \c00??????%s\\n' %(title, viddate, vidviews)
-             params = dict(cItem)
--            params.update({'good_for_fav':True, 'title':title, 'url':url, 'icon':icon, 'desc':'[/br]'.join(desc)})
--            self.addVideo(params)
--        
-+            params.update({'good_for_fav':True, 'title':title, 'url':videourl, 'icon':imageurl, 'desc':desc})
-+            self.addVideo(params)                    
-+            
-         if nextPage:
-             params = dict(cItem)
-             params.update({'good_for_fav':False, 'title':_("Next page"), 'page':page+1, 'url':self.getFullUrl(nextPage)})
--            self.addDir(params)
--
-+            self.addDir(params)  
-+              
-     def listSearchResult(self, cItem, searchPattern, searchType):
-         printDBG("OrthoBullets.listSearchResult cItem[%s], searchPattern[%s] searchType[%s]" % (cItem, searchPattern, searchType))
-         self.tryTologin()
-@@ -181,7 +189,7 @@
-         
-         url = self.getFullUrl(self.cm.ph.getSearchGroups(data, '''<iframe[^>]+?src=['"]([^"^']+?)['"]''', 1, True)[0])
-         return self.up.getVideoLinkExt(strwithmeta(url, {'Referer':self.cm.meta['url']}))
--
-+    
-     def tryTologin(self):
-         printDBG('tryTologin start')
-         if None == self.loggedIn or self.login != config.plugins.iptvplayer.orthobulletscom_login.value or\
-@@ -245,10 +253,11 @@
-             if not self.loggedIn:
-                 self.sessionEx.open(MessageBox, _('Login failed.'), type = MessageBox.TYPE_ERROR, timeout = 10)
-                 printDBG('tryTologin failed')
-+                
-         return self.loggedIn
-     
-+    
-     def handleService(self, index, refresh = 0, searchPattern = '', searchType = ''):
--        printDBG('handleService start')
-         
-         CBaseHostClass.handleService(self, index, refresh, searchPattern, searchType)
- 
-@@ -258,24 +267,33 @@
-         category = self.currItem.get("category", '')
-         mode     = self.currItem.get("mode", '')
-         
--        printDBG( "handleService: || name[%s], category[%s] " % (name, category) )
-+        printDBG( "handleService: || name [%s], category [%s], mode [%s] " % (name, category, mode) )
-+        
-         self.currList = []
-         
--    #MAIN MENU
-+        # First Menu
-+    
-         if name == None:
--            self.listMainMenu({'name':'category', 'type':'category'})
--        elif category == 'list_sort':
--            self.listSort(self.currItem, 'list_items')
-+            self.listsTab(self.MAIN_CAT_TAB, self.currItem)
-+        elif category == 'categories':
-+            printDBG("handleService(self, index, refresh = 0, searchPattern = '', searchType = ''):   Category = %s" % category)
-+            self.listsTab(self.CATEGORIES_TAB, self.currItem)
-+        elif category == 'subspeciality':
-+            printDBG("handleService(self, index, refresh = 0, searchPattern = '', searchType = ''):   Category = %s" % category)
-+            self.listsTab(self.SPECIALITY_TAB, self.currItem)
-         elif category == 'list_items':
-             self.listItems(self.currItem)
--        elif category == 'sub_items':
--            self.currList = self.currItem.get('sub_items', [])
--    #SEARCH
-+        elif category == 'list_categories':
-+            self.listItems(self.currItem)
-+        elif category == 'list_speciality':
-+            self.listItems(self.currItem)
-+
-+        # Searching / Search History
-+        
-         elif category in ["search", "search_next_page"]:
-             cItem = dict(self.currItem)
-             cItem.update({'search_item':False, 'name':'category'}) 
-             self.listSearchResult(cItem, searchPattern, searchType)
--    #HISTORIA SEARCH
-         elif category == "search_history":
-             self.listsHistory({'name':'history', 'category': 'search'}, 'desc', _("Type: "))
-         else:
 diff -ruN o/IPTVPlayer/hosts/hostpmgsport.py pc/IPTVPlayer/hosts/hostpmgsport.py
---- o/IPTVPlayer/hosts/hostpmgsport.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostpmgsport.py	2020-04-03 11:35:26.385487920 +0300
+--- o/IPTVPlayer/hosts/hostpmgsport.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostpmgsport.py	2020-04-04 12:32:10.975449352 +0200
 @@ -0,0 +1,190 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -7665,8 +6500,8 @@ diff -ruN o/IPTVPlayer/hosts/hostpmgsport.py pc/IPTVPlayer/hosts/hostpmgsport.py
 +   
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostsportitalia.py pc/IPTVPlayer/hosts/hostsportitalia.py
---- o/IPTVPlayer/hosts/hostsportitalia.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostsportitalia.py	2020-04-03 11:35:26.385487920 +0300
+--- o/IPTVPlayer/hosts/hostsportitalia.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostsportitalia.py	2020-04-04 12:32:10.975449352 +0200
 @@ -0,0 +1,279 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -7948,36 +6783,9 @@ diff -ruN o/IPTVPlayer/hosts/hostsportitalia.py pc/IPTVPlayer/hosts/hostsportita
 +        CHostBase.__init__(self, Sportitalia(), True, [])
 +    
 \ В конце файла нет новой строки
-diff -ruN o/IPTVPlayer/hosts/hosttantifilmorg.py pc/IPTVPlayer/hosts/hosttantifilmorg.py
---- o/IPTVPlayer/hosts/hosttantifilmorg.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hosttantifilmorg.py	2020-04-03 11:35:26.385487920 +0300
-@@ -19,7 +19,7 @@
- ###################################################
- 
- def gettytul():
--    return 'https://tantifilm.gratis/'
-+    return 'https://tantifilm.eu/'
- 
- class TantiFilmOrg(CBaseHostClass):
-     REMOVE_COOKIE = True
-@@ -32,7 +32,7 @@
-         self.cm.HEADER = self.HEADER # default header
-         self.defaultParams = {'header':self.HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': self.COOKIE_FILE}
-         
--        self.MAIN_URL = 'https://www.tantifilm.gratis/'
-+        self.MAIN_URL = 'https://www.tantifilm.eu/'
-         self.DEFAULT_ICON_URL = 'https://raw.githubusercontent.com/Zanzibar82/images/master/posters/tantifilm.png'
-         
-         self.MAIN_CAT_TAB = [{'category':'list_categories',    'title': _('Categories'),                           'url':self.MAIN_URL  },
-@@ -477,5 +477,3 @@
- 
-     def __init__(self):
-         CHostBase.__init__(self, TantiFilmOrg(), True, [])
--
--    
 diff -ruN o/IPTVPlayer/hosts/hostturcjatv.py pc/IPTVPlayer/hosts/hostturcjatv.py
---- o/IPTVPlayer/hosts/hostturcjatv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostturcjatv.py	2020-04-03 11:35:26.385487920 +0300
+--- o/IPTVPlayer/hosts/hostturcjatv.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostturcjatv.py	2020-04-04 12:32:10.975449352 +0200
 @@ -0,0 +1,235 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -8214,21 +7022,9 @@ diff -ruN o/IPTVPlayer/hosts/hostturcjatv.py pc/IPTVPlayer/hosts/hostturcjatv.py
 +
 +    def __init__(self):
 +        CHostBase.__init__(self, TurcjaTv(), True, [])
-diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
---- o/IPTVPlayer/hosts/hosturllist.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hosturllist.py	2020-04-03 11:35:26.385487920 +0300
-@@ -22,7 +22,7 @@
- ###################################################
- # Config options for HOST
- ###################################################
--config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/hdd/")
-+config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/media/hdd/")
- config.plugins.iptvplayer.grupujurllist  = ConfigYesNo(default = True)
- config.plugins.iptvplayer.sortuj         = ConfigYesNo(default = True)
- 
 diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
---- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostXXX.py	2020-04-03 11:41:46.188457705 +0300
+--- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostXXX.py	2020-04-04 12:32:10.980449352 +0200
 @@ -0,0 +1,11073 @@
 +# -*- coding: utf-8 -*-
 + 
@@ -19305,8 +18101,8 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +    return m 
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
---- o/IPTVPlayer/hosts/list.txt	2020-03-13 14:43:05.492083060 +0300
-+++ pc/IPTVPlayer/hosts/list.txt	2020-04-03 12:13:32.415858372 +0300
+--- o/IPTVPlayer/hosts/list.txt	2020-04-04 10:58:01.574054667 +0200
++++ pc/IPTVPlayer/hosts/list.txt	2020-04-04 12:32:10.980449352 +0200
 @@ -4,10 +4,13 @@
  host3sktv
  host7tvde
@@ -19416,8 +18212,8 @@ diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
  hosttvjworg
  hosttvn24
 diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
---- o/IPTVPlayer/iptvdm/iptvdh.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/iptvdm/iptvdh.py	2020-04-03 11:35:26.391487920 +0300
+--- o/IPTVPlayer/iptvdm/iptvdh.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/iptvdm/iptvdh.py	2020-04-04 12:32:10.981449352 +0200
 @@ -101,7 +101,7 @@
          
      @staticmethod
@@ -19428,8 +18224,8 @@ diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
              return altFFMPEGPath
          return "ffmpeg"
 diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/xxx.sh
---- o/IPTVPlayer/iptvupdate/custom/xxx.sh	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2020-04-03 11:35:26.391487920 +0300
+--- o/IPTVPlayer/iptvupdate/custom/xxx.sh	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2020-04-04 12:32:10.996449353 +0200
 @@ -0,0 +1,40 @@
 +#!/bin/sh
 +cp $1/iptvupdate/custom/xxx.sh $2/iptvupdate/custom/xxx.sh
@@ -19472,8 +18268,8 @@ diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/
 +echo "Wykonywanie $0 zakończone sukcesem."
 +exit 0
 diff -ruN o/IPTVPlayer/iptvupdate/serwerslist.json pc/IPTVPlayer/iptvupdate/serwerslist.json
---- o/IPTVPlayer/iptvupdate/serwerslist.json	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/serwerslist.json	2020-04-03 11:35:26.391487920 +0300
+--- o/IPTVPlayer/iptvupdate/serwerslist.json	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/iptvupdate/serwerslist.json	2020-04-04 12:32:10.996449353 +0200
 @@ -0,0 +1,6 @@
 +{
 +    "icons_hash": "1541442800", 
@@ -19483,8 +18279,8 @@ diff -ruN o/IPTVPlayer/iptvupdate/serwerslist.json pc/IPTVPlayer/iptvupdate/serw
 +}
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/updatemainwindow.py
---- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-04-03 09:30:55.687371444 +0300
-+++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-04-03 11:35:26.391487920 +0300
+--- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-04-04 10:58:01.575054674 +0200
++++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-04-04 12:32:10.996449353 +0200
 @@ -295,7 +295,7 @@
          if os_path.isfile(newVerFile):
              verPattern = self.VERSION_PATTERN
@@ -19494,21 +18290,9 @@ diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/u
              verPattern = '([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'
  
          try:
-diff -ruN o/IPTVPlayer/libs/m3u8/parser.py pc/IPTVPlayer/libs/m3u8/parser.py
---- o/IPTVPlayer/libs/m3u8/parser.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/libs/m3u8/parser.py	2020-04-03 11:35:26.391487920 +0300
-@@ -159,7 +159,7 @@
-     data[param] = cast_to(value)
- 
- def string_to_lines(string):
--    return string.strip().replace('\r\n', '\n').split('\n')
-+    return string.strip().replace('\r\n', '\n').replace('\r', '\n').split('\n')
- 
- def remove_quotes(string):
-     '''
 diff -ruN o/IPTVPlayer/libs/wiziwig1.py pc/IPTVPlayer/libs/wiziwig1.py
---- o/IPTVPlayer/libs/wiziwig1.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/libs/wiziwig1.py	2020-04-03 11:35:26.391487920 +0300
+--- o/IPTVPlayer/libs/wiziwig1.py	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/libs/wiziwig1.py	2020-04-04 12:32:11.024449355 +0200
 @@ -0,0 +1,110 @@
 +﻿# -*- coding: utf-8 -*-
 +
@@ -19621,8 +18405,8 @@ diff -ruN o/IPTVPlayer/libs/wiziwig1.py pc/IPTVPlayer/libs/wiziwig1.py
 +        return urlsTab
 +    
 diff -ruN o/IPTVPlayer/locale/IPTVPlayer.pot pc/IPTVPlayer/locale/IPTVPlayer.pot
---- o/IPTVPlayer/locale/IPTVPlayer.pot	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/locale/IPTVPlayer.pot	2020-04-03 11:35:26.393487920 +0300
+--- o/IPTVPlayer/locale/IPTVPlayer.pot	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/locale/IPTVPlayer.pot	2020-04-04 12:32:11.026449355 +0200
 @@ -0,0 +1,6853 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -26478,8 +25262,8 @@ diff -ruN o/IPTVPlayer/locale/IPTVPlayer.pot pc/IPTVPlayer/locale/IPTVPlayer.pot
 +msgid "Search in "
 +msgstr ""
 diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po
---- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-04-03 11:35:26.395487920 +0300
+--- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-04-04 12:32:11.028449355 +0200
 @@ -1,54 +1,103 @@
  msgid ""
  msgstr ""
@@ -34604,8 +33388,8 @@ diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +msgid "worst"
 +msgstr "наихудшее"
 diff -ruN o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po
---- o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	2020-04-03 11:35:26.398487919 +0300
+--- o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	1970-01-01 01:00:00.000000000 +0100
++++ pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	2020-04-04 12:32:11.041449356 +0200
 @@ -0,0 +1,8780 @@
 +msgid ""
 +msgstr ""
@@ -43388,8 +42172,8 @@ diff -ruN o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +#~ msgid "Фильмы 2015"
 +#~ msgstr "Фільми 2015"
 diff -ruN o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po
---- o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po	1970-01-01 03:00:00.000000000 +0300
+--- o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po	1970-01-01 01:00:00.000000000 +0100
 @@ -1,3651 +0,0 @@
 -msgid ""
 -msgstr ""
@@ -47043,8 +45827,8 @@ diff -ruN o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 -msgid "Фильмы 2015"
 -msgstr "Фільми 2015"
 diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
---- o/IPTVPlayer/plugin.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/plugin.py	2020-04-03 11:35:26.399487919 +0300
+--- o/IPTVPlayer/plugin.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/plugin.py	2020-04-04 12:32:11.042449356 +0200
 @@ -6,7 +6,6 @@
  from Plugins.Extensions.IPTVPlayer.components.iptvconfigmenu import ConfigMenu
  from Plugins.Extensions.IPTVPlayer.components.iptvpin import IPTVPinWidget
@@ -47065,8 +45849,8 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
          
  def pinCallback(session, callbackFun, pin=None):
 diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.py
---- o/IPTVPlayer/setup/iptvsetupimpl.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2020-04-03 11:35:26.399487919 +0300
+--- o/IPTVPlayer/setup/iptvsetupimpl.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2020-04-04 12:32:11.054449357 +0200
 @@ -463,7 +463,7 @@
          def _verValidator(code, data):
              if 0 == code: return True,False
@@ -47098,8 +45882,8 @@ diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.
              self.exteplayer3Step()
          elif "" != self.gstreamerVersion: self.gstplayerStep()
 diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.py
---- o/IPTVPlayer/tools/iptvsubtitles.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/tools/iptvsubtitles.py	2020-04-03 11:35:26.399487919 +0300
+--- o/IPTVPlayer/tools/iptvsubtitles.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/tools/iptvsubtitles.py	2020-04-04 12:32:11.068449358 +0200
 @@ -364,5 +364,5 @@
          
  if __name__ == "__main__":
@@ -47108,8 +45892,8 @@ diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.
 +    obj.loadSubtitles('/media/hdd/_Back.To.The.Future[1985]DvDrip-aXXo.pl.srt')
      obj.getSubtitles(10000)
 diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
---- o/IPTVPlayer/tools/iptvtools.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/tools/iptvtools.py	2020-04-03 11:35:26.399487919 +0300
+--- o/IPTVPlayer/tools/iptvtools.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/tools/iptvtools.py	2020-04-04 12:32:11.083449359 +0200
 @@ -303,8 +303,8 @@
      baseName = resolveFilename(SCOPE_PLUGINS, 'Extensions/IPTVPlayer/scripts/') + name
      if fileExists(baseName + '.py'):
@@ -47231,8 +46015,8 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  def ReadUint16(tmp, le=True):
      if le: return ord(tmp[1]) << 8 | ord(tmp[0])
 diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
---- o/IPTVPlayer/Web/webSite.py	2019-12-23 13:09:37.000000000 +0300
-+++ pc/IPTVPlayer/Web/webSite.py	2020-04-03 11:35:26.400487919 +0300
+--- o/IPTVPlayer/Web/webSite.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/Web/webSite.py	2020-04-04 12:32:11.098449360 +0200
 @@ -26,15 +26,15 @@
      #### Reload scripts if new version of source exists ####
      webPath = GetPluginDir(file = '/Web/')
