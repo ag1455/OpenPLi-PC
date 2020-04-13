@@ -3,9 +3,10 @@
 HDD="/media/hdd"
 PREFIX="/usr/local/e2/bin"
 
-#systemctl restart rc-local.service # Uncomment this line in case of failure after a system upgrade or if ca0 doesn't appear.
+systemctl restart rc-local.service # Uncomment this line in case of failure after a system upgrade or if ca0 doesn't appear.
 rm -f $HDD/timeshift.* # Case broken pause.
 mv -f $HDD/enigma2_crash_*.log /tmp # Case hangs up.
+rm -f /tmp/ENIGMA_FIFO.sc
 
 while [ 1 != 0 ]; do
 	# Start  enigma2.
