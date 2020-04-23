@@ -10,7 +10,7 @@ echo "-----------------------------------------"
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
 REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-essential checkinstall chrpath cmake coreutils cvs debhelper desktop-file-utils docbook-utils \
-	diffstat dropbear dvb-apps dvdbackup ethtool fakeroot flex ffmpeg gawk gettext git help2man linux-headers-`uname -r` libdvdnav-dev libfreetype6-dev libfribidi-dev \
+	diffstat dvb-apps dvdbackup ethtool fakeroot flex ffmpeg gawk gettext git help2man linux-headers-`uname -r` libdvdnav-dev libfreetype6-dev libfribidi-dev \
 	libpcsclite-dev libjpeg8-dev libgif-dev libjpeg-turbo8-dev libgiftiio0 libaio-dev libxinerama-dev libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev \
 	libgtk2.0-dev libtool libtool-bin libxml2-dev libxml2-utils libxslt1-dev libssl-dev libvdpau-dev libcdio-dev libcrypto++-dev libudf-dev libvcdinfo-dev libusb-1.0-0-dev \
 	libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev \
@@ -18,7 +18,7 @@ REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-ess
 	libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 libglib2.0-dev \
 	libelf-dev libmysqlclient-dev libupnp-dev libgiftiio-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev gstreamer1.0-libav mawk mercurial mingetty mjpegtools \
 	net-tools ntpdate openssh-sftp-server pmccabe python-setuptools python-twisted python-twisted-web python-twisted-mail python-ipaddr python-ipaddress python-pysqlite2 \
-	python-cryptography-vectors python-mutagen python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-urllib3 \
+	python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-urllib3 \
 	python-openssl python-cheetah patch pyflakes pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper \
 	subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm \
 	"
@@ -50,7 +50,7 @@ if [[ "$release" = "14.04" ]]; then
 	fi
 	REQPKG="flake gcc-6 g++-6 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev \
 	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-ntplib python-daap python-transmissionrpc \
-	python-yenc python-gdata python-demjson swig2.0 \
+	python-yenc python-gdata python-demjson python-mutagen swig2.0 \
 	"
 elif [[ "$release" = "16.04" ]]; then
 	echo ""
@@ -65,7 +65,7 @@ elif [[ "$release" = "16.04" ]]; then
 	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev python-subprocess32 libqt5gstreamer-dev \
 	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-cryptodome python-pickleshare \
 	python-service-identity python-certifi python-restructuredtext-lint python-ntplib pylint python-daap python-transmissionrpc python-yenc python-gdata python-demjson \
-	sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
+	python-mutagen sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -76,7 +76,7 @@ elif [[ "$release" = "18.04" ]]; then
 	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma \
 	python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
 	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson \
-	pylint sphinx-rtd-theme-common libupnp6-dev swig yamllint \
+	python-mutagen pylint sphinx-rtd-theme-common libupnp6-dev swig yamllint \
 	"
 elif [[ "$release" = "19.04" ]]; then
 	echo ""
@@ -87,7 +87,7 @@ elif [[ "$release" = "19.04" ]]; then
 	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma python-mechanize \
 	python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
 	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson \
-	pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
+	python-mutagen pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
 	"
 elif [[ "$release" = "19.10" ]]; then
 	echo ""
@@ -98,7 +98,7 @@ elif [[ "$release" = "19.10" ]]; then
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma python-mechanize \
 	python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
 	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson \
-	pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
+	python-mutagen pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
 	"
 elif [[ "$release" = "20.04" ]]; then
 	echo ""
@@ -108,8 +108,8 @@ elif [[ "$release" = "20.04" ]]; then
 	echo ""
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python3-langdetect \
 	python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python2-dev \
-	python-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 \
-	yamllint \
+	python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen pylint sphinx-rtd-theme-common \
+	libupnp-dev swig swig3.0 yamllint \
 	"
 fi
 
