@@ -17,8 +17,8 @@ REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-ess
 	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libdirectfb-dev libmagickwand-dev \
 	libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 libglib2.0-dev \
 	libelf-dev libmysqlclient-dev libupnp-dev libgiftiio-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev gstreamer1.0-libav mawk mercurial mingetty mjpegtools \
-	net-tools ntpdate openssh-sftp-server pmccabe python-setuptools python-twisted python-twisted-web python-twisted-mail python-ipaddr python-ipaddress python-pysqlite2 \
-	python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-urllib3 \
+	net-tools ntpdate openssh-sftp-server pmccabe python-setuptools python-ipaddress python-pysqlite2 \
+	python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil \
 	python-openssl python-cheetah patch pyflakes pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper \
 	subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm \
 	"
@@ -49,8 +49,8 @@ if [[ "$release" = "14.04" ]]; then
 	apt-get update
 	fi
 	REQPKG="flake gcc-6 g++-6 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev \
-	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-ntplib python-daap python-transmissionrpc \
-	python-yenc python-gdata python-demjson python-mutagen swig2.0 \
+	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc \
+	python-yenc python-gdata python-demjson python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev swig2.0 \
 	"
 elif [[ "$release" = "16.04" ]]; then
 	echo ""
@@ -63,9 +63,9 @@ elif [[ "$release" = "16.04" ]]; then
 	apt-get update
 	fi
 	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev python-subprocess32 libqt5gstreamer-dev \
-	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-cryptodome python-pickleshare \
+	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-cryptodome python-pickleshare \
 	python-service-identity python-certifi python-restructuredtext-lint python-ntplib pylint python-daap python-transmissionrpc python-yenc python-gdata python-demjson \
-	python-mutagen sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
+	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -74,9 +74,9 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "********************************************************"
 	echo ""
 	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma \
-	python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
+	python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
 	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson \
-	python-mutagen pylint sphinx-rtd-theme-common libupnp6-dev swig yamllint \
+	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint sphinx-rtd-theme-common libupnp6-dev swig yamllint \
 	"
 elif [[ "$release" = "19.04" ]]; then
 	echo ""
@@ -85,9 +85,9 @@ elif [[ "$release" = "19.04" ]]; then
 	echo "********************************************************"
 	echo ""
 	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma python-mechanize \
-	python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
+	python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
 	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson \
-	python-mutagen pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
+	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
 	"
 elif [[ "$release" = "19.10" ]]; then
 	echo ""
@@ -96,9 +96,9 @@ elif [[ "$release" = "19.10" ]]; then
 	echo "********************************************************"
 	echo ""
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma python-mechanize \
-	python-sendfile python-bzrlib python-blessings python-httpretty python-dev python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
+	python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python3-langdetect python-pycryptodome python-pickleshare pycodestyle \
 	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson \
-	python-mutagen pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
+	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
 	"
 elif [[ "$release" = "20.04" ]]; then
 	echo ""
@@ -106,11 +106,43 @@ elif [[ "$release" = "20.04" ]]; then
 	echo "                 *** release 20.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python3-langdetect \
-	python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python2-dev \
-	python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen pylint sphinx-rtd-theme-common \
+	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python-pycryptodome \
+	python3-langdetect python-pycryptodome pycodestyle python-service-identity python-certifi python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python2-dev \
+	python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 python-dev-is-python2 \
+	python-automat python-constantly python-hyperlink python-zope.interface python-chardet python-docutils python-pygments python-roman pylint sphinx-rtd-theme-common \
 	libupnp-dev swig swig3.0 yamllint \
 	"
+apt-get purge -y python-twisted-bin python-incremental python-twisted-core python-twisted-web python-twisted-names python-twisted-mail python-ipaddr python-urllib3 python-configobj \
+python-bzrlib python-lzma python-blessings python-mechanize python-flickrapi python-langdetect python-pickleshare python-sabyenc python-restructuredtext-lint python-requests \
+python-requests-toolbelt python-jwt python-oauthlib python-requests-oauthlib python-blinker python-flickrapi
+wget http://archive.ubuntu.com/ubuntu/pool/universe/i/incremental/python-incremental_16.10.1-3_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-bin_18.9.0-3ubuntu1.1_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-web_18.9.0-3ubuntu1.1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-names_18.9.0-3ubuntu1.1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-mail_18.9.0-3ubuntu1.1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-core_18.9.0-3ubuntu1.1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-ipaddr/python-ipaddr_2.2.0-2_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-urllib3/python-urllib3_1.24.1-1ubuntu1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/c/configobj/python-configobj_5.0.6-3_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/b/bzr/python-bzrlib_2.7.0+bzr6622-17ubuntu1_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pysendfile/python-sendfile_2.0.1-2build1_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-lzma/python-lzma_0.5.3-4_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/b/blessings/python-blessings_1.6-2build1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-mechanize/python-mechanize_0.2.5-3_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-langdetect/python-langdetect_1.0.7-3_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pickleshare/python-pickleshare_0.7.5-1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-sabyenc/python-sabyenc_3.3.5-1_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-restructuredtext-lint/python-restructuredtext-lint_0.12.2-2_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/r/requests/python-requests_2.21.0-1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pyjwt/python-jwt_1.7.0-2_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/b/blinker/python-blinker_1.4+dfsg1-0.2_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-oauthlib/python-oauthlib_2.1.0-1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb
+dpkg -i *.deb
+rm -f *.deb
+apt-get --fix-broken install -y
 fi
 
 for p in $REQPKG; do
