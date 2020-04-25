@@ -2102,6 +2102,18 @@ diff -ruN o/IPTVPlayer/hosts/hostdsda.py pc/IPTVPlayer/hosts/hostdsda.py
 +
 +    def __init__(self):
 +        CHostBase.__init__(self, DSDA(), True, favouriteTypes=[]) 
+diff -ruN o/IPTVPlayer/hosts/hostekinotv.py pc/IPTVPlayer/hosts/hostekinotv.py
+--- o/IPTVPlayer/hosts/hostekinotv.py	2020-04-24 15:03:14.088584552 +0200
++++ pc/IPTVPlayer/hosts/hostekinotv.py	2020-04-24 15:11:42.065618837 +0200
+@@ -251,7 +251,7 @@
+         printDBG("EkinoTv.listSearchResult cItem[%s], searchPattern[%s] searchType[%s]" % (cItem, searchPattern, searchType))
+         searchPattern = searchPattern.replace(' ', '+')
+         
+-        url = 'https://ekino-tv.pl/search/qf/?q=' + urllib.quote_plus(searchPattern)
++        url = 'https://ekino-tv.pl/search/qf/?q=' + urllib.quote_plus(searchPattern)
+         sts, data = self.getPage(url)
+         if not sts: return
+ #        if not 'search' in self.cm.meta['url']:
 diff -ruN o/IPTVPlayer/hosts/hostfilisertv.py pc/IPTVPlayer/hosts/hostfilisertv.py
 --- o/IPTVPlayer/hosts/hostfilisertv.py	1970-01-01 01:00:00.000000000 +0100
 +++ pc/IPTVPlayer/hosts/hostfilisertv.py	2020-04-04 12:32:10.971449352 +0200
