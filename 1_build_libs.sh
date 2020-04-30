@@ -110,7 +110,7 @@ elif [[ "$release" = "20.04" ]]; then
 	python3-langdetect python-pycryptodome pycodestyle python-service-identity python-certifi python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python2-dev \
 	python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 python-dev-is-python2 \
 	python-automat python-constantly python-hyperlink python-zope.interface python-chardet python-docutils python-pygments python-roman pylint sphinx-rtd-theme-common \
-	libupnp-dev swig swig3.0 yamllint \
+	libupnp-dev libvdpau1 swig swig3.0 yamllint \
 	"
 	apt-get purge -y python-twisted-bin python-incremental python-twisted-core python-twisted-web python-twisted-names python-twisted-mail python-ipaddr python-urllib3 python-configobj \
 	python-bzrlib python-lzma python-blessings python-mechanize python-flickrapi python-langdetect python-pickleshare python-sabyenc python-restructuredtext-lint python-requests \
