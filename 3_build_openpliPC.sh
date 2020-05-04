@@ -129,7 +129,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 09e3763b
+git reset --hard 6dfd70f5
 cd ..
 cp -fv $PKG/data/display/skin_display_default.xml $PKG/data/display/skin_display.xml
 
@@ -144,10 +144,10 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-6
-	cp patches/patch-09e3763b-to-PC.patch $PKG
+	cp patches/patch-6dfd70f5-to-PC.patch $PKG
 	cp patches/ubuntu-14.04.patch $PKG
 	cd $PKG
-	patch -p1 < patch-09e3763b-to-PC.patch
+	patch -p1 < patch-6dfd70f5-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -157,9 +157,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-09e3763b-to-PC.patch $PKG
+	cp patches/patch-6dfd70f5-to-PC.patch $PKG
 	cd $PKG
-	patch -p1 < patch-09e3763b-to-PC.patch
+	patch -p1 < patch-6dfd70f5-to-PC.patch
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -167,9 +167,9 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-7 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-09e3763b-to-PC-sigc2.patch $PKG
+	cp patches/patch-6dfd70f5-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-09e3763b-to-PC-sigc2.patch
+	patch -p1 < patch-6dfd70f5-to-PC-sigc2.patch
 elif [ "$release" = "19.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -178,9 +178,9 @@ elif [ "$release" = "19.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-09e3763b-to-PC-sigc2.patch $PKG
+	cp patches/patch-6dfd70f5-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-09e3763b-to-PC-sigc2.patch
+	patch -p1 < patch-6dfd70f5-to-PC-sigc2.patch
 elif [ "$release" = "19.10" ]; then
 	echo ""
 	echo "********************************************************"
@@ -189,9 +189,9 @@ elif [ "$release" = "19.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-09e3763b-to-PC-sigc2.patch $PKG
+	cp patches/patch-6dfd70f5-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-09e3763b-to-PC-sigc2.patch
+	patch -p1 < patch-6dfd70f5-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -200,10 +200,10 @@ elif [ "$release" = "20.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-09e3763b-to-PC-sigc2.patch $PKG
+	cp patches/patch-6dfd70f5-to-PC-sigc2.patch $PKG
 	cp patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-09e3763b-to-PC-sigc2.patch
+	patch -p1 < patch-6dfd70f5-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
 fi
 
@@ -239,7 +239,7 @@ if [ "$DO_CONFIGURE" -eq "1" ]; then
 #	autoreconf -v -f -i -W all
 	autoreconf -i
 #	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-fbdev=/dev/fb0 --with-boxtype=generic
-	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=nobox --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd
+	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=vuplus --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd
 	# generate pot
 	#./configure --prefix=$INSTALL_E2DIR --with-xlib --with-debug --with-po
 fi
@@ -390,7 +390,6 @@ cp -rfv stb $INSTALL_E2DIR/etc
 cp -rfv tuxbox $INSTALL_E2DIR/etc
 cp -fv enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
-cp -fv xine.conf $INSTALL_E2DIR/share/enigma2
 cp -fv logo.mvi $INSTALL_E2DIR/share/enigma2
 cp -fv e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv kill_e2pc.desktop /home/$(logname)/.local/share/applications
@@ -408,6 +407,20 @@ cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManage
 
 # Strip binary
 strip $INSTALL_E2DIR/bin/enigma2
+
+# Use xine.conf for intel IGPU
+#GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "NVIDIA|INTEL|ATI"`
+#if [ $GPU == "Intel" ]; then
+#	echo ""
+#	echo "********************************************************"
+#	echo "                  Your have intel IGPU."
+#	cp -fv xine.conf.vaapi $INSTALL_E2DIR/share/enigma2/xine.conf
+#	echo "                Used xine.conf for vaapi."
+#	echo "********************************************************"
+#	echo ""
+#else
+#	cp -fv xine.conf $INSTALL_E2DIR/share/enigma2
+#fi
 
 # Removing compiled now pyo or pyc files
 find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[o]" -exec rm {} \;

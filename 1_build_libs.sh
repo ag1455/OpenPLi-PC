@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 14.04 (32/64-bit), 16.04 (32/64-bit), 18.04 (64-bit), 19.04 (64-bit), 19.10 (64-bit), 20.04 (64-bit).
+# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 19.04 (64-bit), 19.10 (64-bit), 20.04 LTS (64-bit).
 # Install these packages:
 
 echo "-----------------------------------------"
@@ -17,10 +17,9 @@ REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-ess
 	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libdirectfb-dev libmagickwand-dev \
 	libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 libglib2.0-dev \
 	libelf-dev libmysqlclient-dev libupnp-dev libgiftiio-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev gstreamer1.0-libav mawk mercurial mingetty mjpegtools \
-	net-tools ntpdate openssh-sftp-server pmccabe python-setuptools python-ipaddress python-pysqlite2 \
-	python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil \
-	python-openssl python-cheetah patch pyflakes pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper \
-	subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm ubuntu-restricted-extras \
+	net-tools ntpdate openssh-sftp-server pmccabe python-setuptools python-ipaddress python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules \
+	python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah patch pyflakes pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools \
+	software-properties-common sphinx-common streamripper subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm ubuntu-restricted-extras \
 	"
 
 for p in $REQPKG_ALL; do
