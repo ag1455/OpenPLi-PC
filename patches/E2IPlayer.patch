@@ -20,14 +20,14 @@ diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconme
          else:
              params_cfad={}
 diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/iptvconfigmenu.py
---- o/IPTVPlayer/components/iptvconfigmenu.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-04-04 11:59:05.688287820 +0200
+--- o/IPTVPlayer/components/iptvconfigmenu.py	2020-05-02 10:11:47.341432223 +0200
++++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-05-02 10:30:02.573597315 +0200
 @@ -61,7 +61,7 @@
  config.plugins.iptvplayer.showinMainMenu     = ConfigYesNo(default = False)
  config.plugins.iptvplayer.ListaGraficzna     = ConfigYesNo(default = True)
  config.plugins.iptvplayer.group_hosts        = ConfigYesNo(default = True)
 -config.plugins.iptvplayer.NaszaSciezka       = ConfigDirectory(default = "/hdd/movie/") #, fixed_size = False)
-+config.plugins.iptvplayer.NaszaSciezka       = ConfigDirectory(default = "/media/hdd/movies/") #, fixed_size = False)
++config.plugins.iptvplayer.NaszaSciezka       = ConfigDirectory(default = "/media/hdd/movie/") #, fixed_size = False)
  config.plugins.iptvplayer.bufferingPath      = ConfigDirectory(default = config.plugins.iptvplayer.NaszaSciezka.value) #, fixed_size = False)
  config.plugins.iptvplayer.buforowanie        = ConfigYesNo(default = False)
  config.plugins.iptvplayer.buforowanie_m3u8   = ConfigYesNo(default = True)
@@ -40,24 +40,6 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
  config.plugins.iptvplayer.NaszaTMP = ConfigDirectory(default = "/tmp/") #, fixed_size = False)
  config.plugins.iptvplayer.ZablokujWMV = ConfigYesNo(default = True)
  
-@@ -162,7 +162,7 @@
- config.plugins.iptvplayer.napisy24pl_login    = ConfigText(default="", fixed_size = False)
- config.plugins.iptvplayer.napisy24pl_password = ConfigText(default="", fixed_size = False)
- 
--config.plugins.iptvplayer.debugprint = ConfigSelection(default = "", choices = [("", _("no")),("console", _("yes, to console")),("debugfile", _("yes, to file /hdd/iptv.dbg"))]) 
-+config.plugins.iptvplayer.debugprint = ConfigSelection(default = "", choices = [("", _("no")),("console", _("yes, to console")),("debugfile", _("yes, to file /media/hdd/iptv.dbg"))])
- 
- #icons
- config.plugins.iptvplayer.IconsSize = ConfigSelection(default = "100", choices = [("135", "135x135"),("120", "120x120"),("100", "100x100")]) 
-@@ -555,8 +555,6 @@
-             needPluginUpdate = True
-             
-         if needPluginUpdate:
--            return _('Some changes will be applied only after plugin update.\nDo you want to perform update now?')
--        else:
-             return ''
-             
-     def performCloseWithMessage(self, afterSave=True):
 diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/iptvplayerwidget.py
 --- o/IPTVPlayer/components/iptvplayerwidget.py	2019-12-23 11:09:37.000000000 +0100
 +++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-04-04 11:54:10.166494341 +0200
@@ -2102,18 +2084,6 @@ diff -ruN o/IPTVPlayer/hosts/hostdsda.py pc/IPTVPlayer/hosts/hostdsda.py
 +
 +    def __init__(self):
 +        CHostBase.__init__(self, DSDA(), True, favouriteTypes=[]) 
-diff -ruN o/IPTVPlayer/hosts/hostekinotv.py pc/IPTVPlayer/hosts/hostekinotv.py
---- o/IPTVPlayer/hosts/hostekinotv.py	2020-04-24 15:03:14.088584552 +0200
-+++ pc/IPTVPlayer/hosts/hostekinotv.py	2020-04-24 15:11:42.065618837 +0200
-@@ -251,7 +251,7 @@
-         printDBG("EkinoTv.listSearchResult cItem[%s], searchPattern[%s] searchType[%s]" % (cItem, searchPattern, searchType))
-         searchPattern = searchPattern.replace(' ', '+')
-         
--        url = 'https://ekino-tv.pl/search/qf/?q=' + urllib.quote_plus(searchPattern)
-+        url = 'https://ekino-tv.pl/search/qf/?q=' + urllib.quote_plus(searchPattern)
-         sts, data = self.getPage(url)
-         if not sts: return
- #        if not 'search' in self.cm.meta['url']:
 diff -ruN o/IPTVPlayer/hosts/hostfilisertv.py pc/IPTVPlayer/hosts/hostfilisertv.py
 --- o/IPTVPlayer/hosts/hostfilisertv.py	1970-01-01 01:00:00.000000000 +0100
 +++ pc/IPTVPlayer/hosts/hostfilisertv.py	2020-04-04 12:32:10.971449352 +0200
@@ -7049,9 +7019,21 @@ diff -ruN o/IPTVPlayer/hosts/hostturcjatv.py pc/IPTVPlayer/hosts/hostturcjatv.py
 +
 +    def __init__(self):
 +        CHostBase.__init__(self, TurcjaTv(), True, [])
+diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
+--- o/IPTVPlayer/hosts/hosturllist.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/hosts/hosturllist.py	2020-05-02 10:29:17.330496666 +0200
+@@ -22,7 +22,7 @@
+ ###################################################
+ # Config options for HOST
+ ###################################################
+-config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/hdd/")
++config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/media/hdd/")
+ config.plugins.iptvplayer.grupujurllist  = ConfigYesNo(default = True)
+ config.plugins.iptvplayer.sortuj         = ConfigYesNo(default = True)
+ 
 diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 --- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostXXX.py	2020-04-12 13:04:20.047513150 +0200
++++ pc/IPTVPlayer/hosts/hostXXX.py	2020-05-02 10:29:47.064883962 +0200
 @@ -0,0 +1,11073 @@
 +# -*- coding: utf-8 -*-
 + 
@@ -7093,7 +7075,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +# Config options for HOST
 +###################################################
 +config.plugins.iptvplayer.xxxwymagajpin = ConfigYesNo(default = True)
-+config.plugins.iptvplayer.xxxlist = ConfigDirectory(default = "/hdd/")
++config.plugins.iptvplayer.xxxlist = ConfigDirectory(default = "/media/hdd/")
 +config.plugins.iptvplayer.xxxsortuj = ConfigYesNo(default = True)
 +config.plugins.iptvplayer.xxxsearch = ConfigYesNo(default = False)
 +config.plugins.iptvplayer.xxxsortmfc = ConfigYesNo(default = False)
@@ -18127,6 +18109,18 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +            m = m + str(n)
 +    return m 
 \ В конце файла нет новой строки
+diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
+--- o/IPTVPlayer/hosts/hostyoutube.py	2019-12-23 11:09:37.000000000 +0100
++++ pc/IPTVPlayer/hosts/hostyoutube.py	2020-05-02 10:29:33.913144345 +0200
+@@ -23,7 +23,7 @@
+ ###################################################
+ # Config options for HOST
+ ###################################################
+-config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/hdd/")
++config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/media/hdd/")
+ 
+ def GetConfigList():
+     optionList = []
 diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
 --- o/IPTVPlayer/hosts/list.txt	2020-04-08 13:57:49.893599918 +0200
 +++ pc/IPTVPlayer/hosts/list.txt	2020-04-08 14:45:47.558423840 +0200
