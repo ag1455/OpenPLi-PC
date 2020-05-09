@@ -15,6 +15,13 @@ DVB_DEV="/dev/dvb/adapter0"
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 
+export PYTHON_VERSION=2.7
+export PYTHON_CPPFLAGS=-I/usr/include/python2.7
+export PYTHON_LDFLAGS="-L/usr/lib/python2.7 -lpython2.7"
+export PYTHON_SITE_PKG=/usr/local/lib/python2.7/dist-packages
+export PYTHON_EXTRA_LIBS="-lpthread -ldl -lutil -lm"
+export PYTHON_EXTRA_LDFLAGS="-Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions"
+
 e2_backup() {
 echo ""
 echo "********************************************************"
@@ -238,8 +245,7 @@ if [ "$DO_CONFIGURE" -eq "1" ]; then
 #	autoupdate
 #	autoreconf -v -f -i -W all
 	autoreconf -i
-#	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-fbdev=/dev/fb0 --with-boxtype=generic
-	./configure --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=vuplus --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd
+	./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=vuduo4k --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd --with-debug
 	# generate pot
 	#./configure --prefix=$INSTALL_E2DIR --with-xlib --with-debug --with-po
 fi
@@ -384,15 +390,54 @@ if [ -d /lib/i386-linux-gnu ]; then
 	fi
 fi
 
-cd pre
-cp -rfv enigma2 $INSTALL_E2DIR/etc
-cp -rfv stb $INSTALL_E2DIR/etc
-cp -rfv tuxbox $INSTALL_E2DIR/etc
-cp -fv enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
-cp -fv enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
-cp -fv logo.mvi $INSTALL_E2DIR/share/enigma2
-cp -fv e2pc.desktop /home/$(logname)/.local/share/applications
-cp -fv kill_e2pc.desktop /home/$(logname)/.local/share/applications
+cp -rfv pre/enigma2 $INSTALL_E2DIR/etc
+cp -rfv pre/stb $INSTALL_E2DIR/etc
+cp -rfv pre/tuxbox $INSTALL_E2DIR/etc
+cp -fv pre/enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
+cp -fv pre/enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
+cp -fv pre/logo.mvi $INSTALL_E2DIR/share/enigma2
+cp -fv pre/e2pc.desktop /home/$(logname)/.local/share/applications
+cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
+
+# Use xine.conf for any GPU
+GPU1=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "NVIDIA"`
+GPU2=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "Intel"`
+GPU3=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "ATI"`
+
+if [ $GPU1 ]; then
+	echo ""
+	echo "********************************************************"
+	echo "                  Your have nVidia GPU."
+	cp -fv pre/xine.conf.vdpau $INSTALL_E2DIR/share/enigma2/xine.conf
+	echo "                Used xine.conf for vdpau."
+	echo "********************************************************"
+	echo ""
+fi
+
+if [ $GPU2 ]; then
+	echo ""
+	echo "********************************************************"
+	echo "                   Your have intel GPU."
+#	cp -fv pre/xine.conf.vaapi $INSTALL_E2DIR/share/enigma2/xine.conf
+#	echo "                Used xine.conf for vaapi."
+	cp -fv pre/xine.conf.opengl $INSTALL_E2DIR/share/enigma2/xine.conf
+	echo "                Used xine.conf for opengl."
+	echo "********************************************************"
+	echo ""
+fi
+
+if [ $GPU3 ]; then
+	echo ""
+	echo "********************************************************"
+	echo "                   Your have ATI GPU."
+#	cp -fv pre/xine.conf.vaapi $INSTALL_E2DIR/share/enigma2/xine.conf
+#	echo "                Used xine.conf for vaapi."
+	cp -fv pre/xine.conf.opengl $INSTALL_E2DIR/share/enigma2/xine.conf
+	echo "                Used xine.conf for opengl."
+	echo "********************************************************"
+	echo ""
+fi
+
 if [ -d $DVB_DEV ]; then
 	cp -fv rc.local /etc
 else
@@ -400,27 +445,13 @@ else
 	cp -fv rc.local.orig /etc
 	mv -fv /etc/rc.local.orig /etc/rc.local
 fi
-cd ..
+
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
 #cp -fv /etc/network/interfaces /etc/network/interfaces~
 
 # Strip binary
 strip $INSTALL_E2DIR/bin/enigma2
-
-# Use xine.conf for intel IGPU
-#GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "NVIDIA|INTEL|ATI"`
-#if [ $GPU == "Intel" ]; then
-#	echo ""
-#	echo "********************************************************"
-#	echo "                  Your have intel IGPU."
-#	cp -fv xine.conf.vaapi $INSTALL_E2DIR/share/enigma2/xine.conf
-#	echo "                Used xine.conf for vaapi."
-#	echo "********************************************************"
-#	echo ""
-#else
-#	cp -fv xine.conf $INSTALL_E2DIR/share/enigma2
-#fi
 
 # Removing compiled now pyo or pyc files
 find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[o]" -exec rm {} \;
