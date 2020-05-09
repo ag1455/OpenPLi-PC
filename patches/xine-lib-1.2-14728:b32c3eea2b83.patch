@@ -1,6 +1,6 @@
 diff -ruN o/configure.ac pc/configure.ac
---- o/configure.ac	2020-05-04 17:36:01.996963023 +0300
-+++ pc/configure.ac	2020-05-04 17:37:28.787956118 +0300
+--- o/configure.ac	2020-05-09 14:48:17.724568217 +0300
++++ pc/configure.ac	2020-05-09 14:49:45.495574901 +0300
 @@ -1655,7 +1655,8 @@
  src/video_out/macosx/Makefile
  src/xine-utils/Makefile
@@ -12,10 +12,10 @@ diff -ruN o/configure.ac pc/configure.ac
  AC_OUTPUT
  
 diff -ruN o/debian/changelog pc/debian/changelog
---- o/debian/changelog	2020-05-04 17:36:02.036963019 +0300
-+++ pc/debian/changelog	2020-05-04 17:37:28.787956118 +0300
+--- o/debian/changelog	2020-05-09 14:48:17.795568222 +0300
++++ pc/debian/changelog	2020-05-09 14:52:34.518587771 +0300
 @@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.10+hg-9a1373620220-14722-e2pc) experimental; urgency=low
++xine-lib-1.2 (1.2.10+hg-b32c3eea2b83-14728-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
 +  * Patched by '1455'.
@@ -26,8 +26,8 @@ diff -ruN o/debian/changelog pc/debian/changelog
  
    * Hg snapshot.
 diff -ruN o/debian/control pc/debian/control
---- o/debian/control	2020-05-04 17:36:02.104963014 +0300
-+++ pc/debian/control	2020-05-04 17:37:28.788956118 +0300
+--- o/debian/control	2020-05-09 14:48:17.812568224 +0300
++++ pc/debian/control	2020-05-09 14:49:45.495574901 +0300
 @@ -73,7 +73,7 @@
  Suggests: ${shlibs:Suggests}, libxine2-doc | libxine-doc
  Conflicts: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x
@@ -38,8 +38,8 @@ diff -ruN o/debian/control pc/debian/control
   This is the xine media player library (libxine).
   .
 diff -ruN o/debian/rules pc/debian/rules
---- o/debian/rules	2020-05-04 17:36:02.066963017 +0300
-+++ pc/debian/rules	2020-05-04 17:37:28.788956118 +0300
+--- o/debian/rules	2020-05-09 14:48:17.787568222 +0300
++++ pc/debian/rules	2020-05-09 14:49:45.495574901 +0300
 @@ -71,6 +71,9 @@
  	--with-wavpack \
  	--enable-ipv6 \
@@ -51,8 +51,8 @@ diff -ruN o/debian/rules pc/debian/rules
  
  configure: configure-stamp
 diff -ruN o/include/xine/attributes.h pc/include/xine/attributes.h
---- o/include/xine/attributes.h	2020-05-04 17:36:02.078963016 +0300
-+++ pc/include/xine/attributes.h	2020-05-04 17:37:28.788956118 +0300
+--- o/include/xine/attributes.h	2020-05-09 14:48:17.799568223 +0300
++++ pc/include/xine/attributes.h	2020-05-09 14:49:45.495574901 +0300
 @@ -27,9 +27,7 @@
  #define ATTRIBUTE_H_
  
@@ -65,8 +65,8 @@ diff -ruN o/include/xine/attributes.h pc/include/xine/attributes.h
  # if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 95 )
  #  define SUPPORT_ATTRIBUTE_PACKED 1
 diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
---- o/include/xine/metronom.h	2020-05-04 17:36:02.080963016 +0300
-+++ pc/include/xine/metronom.h	2020-05-04 17:37:28.789956118 +0300
+--- o/include/xine/metronom.h	2020-05-09 14:48:17.801568223 +0300
++++ pc/include/xine/metronom.h	2020-05-09 14:49:45.496574901 +0300
 @@ -191,6 +191,11 @@
  #define METRONOM_VDR_TRICK_PTS    11
  #define METRONOM_NO_LOCK          0x8000
@@ -80,8 +80,8 @@ diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
  
  metronom_t *_x_metronom_init (int have_video, int have_audio, xine_t *xine) XINE_MALLOC XINE_PROTECTED;
 diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
---- o/include/xine/osd.h	2020-05-04 17:36:02.094963015 +0300
-+++ pc/include/xine/osd.h	2020-05-04 17:37:28.789956118 +0300
+--- o/include/xine/osd.h	2020-05-09 14:48:17.809568223 +0300
++++ pc/include/xine/osd.h	2020-05-09 14:49:45.496574901 +0300
 @@ -216,6 +216,7 @@
     * overlay is blended at output (screen) resolution.
     */
@@ -91,8 +91,8 @@ diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
    /*
     * see xine.h for defined XINE_OSD_CAP_ values.
 diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
---- o/include/xine/video_out.h	2020-05-04 17:36:02.046963019 +0300
-+++ pc/include/xine/video_out.h	2020-05-04 17:37:28.789956118 +0300
+--- o/include/xine/video_out.h	2020-05-09 14:48:17.815568224 +0300
++++ pc/include/xine/video_out.h	2020-05-09 14:49:45.496574901 +0300
 @@ -272,7 +272,10 @@
  #define VO_PROP_BUFS_FREE             27 /* read-only */
  #define VO_PROP_MAX_VIDEO_WIDTH       28 /* read-only */
@@ -106,8 +106,8 @@ diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
  /* number of colors in the overlay palette. Currently limited to 256
     at most, because some alphablend functions use an 8-bit index into
 diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
---- o/include/xine/xineintl.h	2020-05-04 17:36:02.086963015 +0300
-+++ pc/include/xine/xineintl.h	2020-05-04 17:37:28.789956118 +0300
+--- o/include/xine/xineintl.h	2020-05-09 14:48:17.806568223 +0300
++++ pc/include/xine/xineintl.h	2020-05-09 14:49:45.496574901 +0300
 @@ -27,6 +27,9 @@
  
  #include <locale.h>
@@ -119,8 +119,8 @@ diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
  #    include <libintl.h>
  #    define _(String) dgettext (XINE_TEXTDOMAIN, String)
 diff -ruN o/include/xine.h pc/include/xine.h
---- o/include/xine.h	2020-05-04 17:36:02.042963019 +0300
-+++ pc/include/xine.h	2020-05-04 17:37:28.790956118 +0300
+--- o/include/xine.h	2020-05-09 14:48:17.808568223 +0300
++++ pc/include/xine.h	2020-05-09 14:49:45.497574901 +0300
 @@ -1826,6 +1826,7 @@
  #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
  #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
@@ -218,8 +218,8 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /* empty drawing area */
  void        xine_osd_clear         (xine_osd_t *self) XINE_PROTECTED;
 diff -ruN o/m4/input.m4 pc/m4/input.m4
---- o/m4/input.m4	2020-05-04 17:36:02.140963011 +0300
-+++ pc/m4/input.m4	2020-05-04 17:37:28.791956118 +0300
+--- o/m4/input.m4	2020-05-09 14:48:17.835568225 +0300
++++ pc/m4/input.m4	2020-05-09 14:49:45.497574901 +0300
 @@ -20,6 +20,7 @@
      default_enable_vcd=yes
      default_enable_vcdo=no
@@ -248,8 +248,8 @@ diff -ruN o/m4/input.m4 pc/m4/input.m4
      XINE_ARG_ENABLE([bluray], [Enable BluRay support])
      if test "x$enable_bluray" != "xno"; then
 diff -ruN o/m4/summary.m4 pc/m4/summary.m4
---- o/m4/summary.m4	2020-05-04 17:36:02.097963015 +0300
-+++ pc/m4/summary.m4	2020-05-04 17:37:28.791956118 +0300
+--- o/m4/summary.m4	2020-05-09 14:48:17.812568224 +0300
++++ pc/m4/summary.m4	2020-05-09 14:49:45.497574901 +0300
 @@ -43,6 +43,7 @@
      test x"$have_v4l" = x"yes"       && echo "   - v4l"
      test x"$have_v4l2" = x"yes"      && echo "   - v4l2"
@@ -267,8 +267,8 @@ diff -ruN o/m4/summary.m4 pc/m4/summary.m4
      echo "   - goom            - oscope"
      echo "   - fftscope        - mosaico"
 diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
---- o/src/demuxers/demux_mpeg_pes.c	2020-05-04 17:36:02.288962999 +0300
-+++ pc/src/demuxers/demux_mpeg_pes.c	2020-05-04 17:37:28.792956117 +0300
+--- o/src/demuxers/demux_mpeg_pes.c	2020-05-09 14:48:17.955568234 +0300
++++ pc/src/demuxers/demux_mpeg_pes.c	2020-05-09 14:49:45.498574901 +0300
 @@ -71,6 +71,7 @@
  
    input_plugin_t       *input;
@@ -323,8 +323,8 @@ diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
    /* Don't start demuxing stream until we see a program_stream_pack_header */
    /* We need to system header in order to identify is the stream is mpeg1 or mpeg2. */
 diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
---- o/src/demuxers/demux_ts.c	2020-05-04 17:36:02.298962999 +0300
-+++ pc/src/demuxers/demux_ts.c	2020-05-04 17:37:28.793956117 +0300
+--- o/src/demuxers/demux_ts.c	2020-05-09 14:48:17.969568236 +0300
++++ pc/src/demuxers/demux_ts.c	2020-05-09 14:49:45.498574901 +0300
 @@ -160,7 +160,7 @@
  #define LOG
  */
@@ -450,7 +450,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  #endif
 diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 --- o/src/e2pc/combined_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.c	2020-05-04 17:37:28.793956117 +0300
++++ pc/src/e2pc/combined_enigma.c	2020-05-09 14:49:45.499574901 +0300
 @@ -0,0 +1,48 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -502,7 +502,7 @@ diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 +
 diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 --- o/src/e2pc/combined_enigma.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.h	2020-05-04 17:37:28.793956117 +0300
++++ pc/src/e2pc/combined_enigma.h	2020-05-09 14:49:45.499574901 +0300
 @@ -0,0 +1,82 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -588,7 +588,7 @@ diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 +
 diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 --- o/src/e2pc/input_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/input_enigma.c	2020-05-04 17:37:28.793956117 +0300
++++ pc/src/e2pc/input_enigma.c	2020-05-09 14:49:45.499574901 +0300
 @@ -0,0 +1,845 @@
 +/*
 + * Copyright (C) 2003-2019 the xine project
@@ -1437,7 +1437,7 @@ diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 +}
 diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 --- o/src/e2pc/Makefile.am	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/Makefile.am	2020-05-04 17:37:28.794956117 +0300
++++ pc/src/e2pc/Makefile.am	2020-05-09 14:49:45.499574901 +0300
 @@ -0,0 +1,13 @@
 +include $(top_builddir)/misc/Makefile.plugins
 +include $(top_srcdir)/misc/Makefile.common
@@ -1454,7 +1454,7 @@ diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 +xineplug_enigma_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL)
 diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 --- o/src/e2pc/post_enigma_audio.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_audio.c	2020-05-04 17:37:28.794956117 +0300
++++ pc/src/e2pc/post_enigma_audio.c	2020-05-09 14:49:45.499574901 +0300
 @@ -0,0 +1,260 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -1718,7 +1718,7 @@ diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 +}
 diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 --- o/src/e2pc/post_enigma_video.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_video.c	2020-05-04 17:37:28.794956117 +0300
++++ pc/src/e2pc/post_enigma_video.c	2020-05-09 14:49:45.500574901 +0300
 @@ -0,0 +1,514 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -2235,8 +2235,8 @@ diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 +  return skip;
 +}
 diff -ruN o/src/Makefile.am pc/src/Makefile.am
---- o/src/Makefile.am	2020-05-04 17:36:02.160963010 +0300
-+++ pc/src/Makefile.am	2020-05-04 17:37:28.794956117 +0300
+--- o/src/Makefile.am	2020-05-09 14:48:17.852568227 +0300
++++ pc/src/Makefile.am	2020-05-09 14:49:45.500574901 +0300
 @@ -16,4 +16,5 @@
  	libreal \
  	post \
@@ -2245,8 +2245,8 @@ diff -ruN o/src/Makefile.am pc/src/Makefile.am
 +	vdr \
 +	e2pc
 diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
---- o/src/video_out/video_out_opengl.c	2020-05-04 17:36:02.375962992 +0300
-+++ pc/src/video_out/video_out_opengl.c	2020-05-04 17:37:28.795956117 +0300
+--- o/src/video_out/video_out_opengl.c	2020-05-09 14:48:18.073568243 +0300
++++ pc/src/video_out/video_out_opengl.c	2020-05-09 14:49:45.500574901 +0300
 @@ -134,6 +134,14 @@
  
  #define MY_2PI               (M_PI * 2)
@@ -2635,8 +2635,8 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
    this->config                  = config;
  
 diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
---- o/src/video_out/video_out_vaapi.c	2020-05-04 17:36:02.372962993 +0300
-+++ pc/src/video_out/video_out_vaapi.c	2020-05-04 17:37:28.795956117 +0300
+--- o/src/video_out/video_out_vaapi.c	2020-05-09 14:48:18.054568242 +0300
++++ pc/src/video_out/video_out_vaapi.c	2020-05-09 14:49:45.501574901 +0300
 @@ -203,6 +203,8 @@
  
    uint32_t            vdr_osd_width;
@@ -2730,8 +2730,8 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
 diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
---- o/src/video_out/video_out_vdpau.c	2020-05-04 17:36:02.383962992 +0300
-+++ pc/src/video_out/video_out_vdpau.c	2020-05-04 17:37:28.796956117 +0300
+--- o/src/video_out/video_out_vdpau.c	2020-05-09 14:48:18.082568244 +0300
++++ pc/src/video_out/video_out_vdpau.c	2020-05-09 14:49:45.502574901 +0300
 @@ -776,7 +776,14 @@
        this->ovl_video_dest_rect = vid_rect;
      }
@@ -2762,8 +2762,8 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
        if ((value >= XINE_VO_ZOOM_MIN) && (value <= XINE_VO_ZOOM_MAX)) {
          this->zoom_x = value;
 diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
---- o/src/xine-engine/metronom.c	2020-05-04 17:36:02.394962991 +0300
-+++ pc/src/xine-engine/metronom.c	2020-05-04 17:37:28.796956117 +0300
+--- o/src/xine-engine/metronom.c	2020-05-09 14:48:18.097568245 +0300
++++ pc/src/xine-engine/metronom.c	2020-05-09 14:49:45.502574901 +0300
 @@ -451,6 +451,7 @@
      int           seek;
      int           force_jump;
@@ -2872,8 +2872,8 @@ diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
    this->audio.samples          = 0;
    this->audio.drift_step       = 0;
 diff -ruN o/src/xine-engine/net_buf_ctrl.c pc/src/xine-engine/net_buf_ctrl.c
---- o/src/xine-engine/net_buf_ctrl.c	2020-05-04 17:36:02.354962994 +0300
-+++ pc/src/xine-engine/net_buf_ctrl.c	2020-05-04 17:37:28.796956117 +0300
+--- o/src/xine-engine/net_buf_ctrl.c	2020-05-09 14:48:18.094568245 +0300
++++ pc/src/xine-engine/net_buf_ctrl.c	2020-05-09 14:49:45.503574901 +0300
 @@ -49,6 +49,8 @@
  #define FIFO_PUT                   0
  #define FIFO_GET                   1
@@ -2884,8 +2884,8 @@ diff -ruN o/src/xine-engine/net_buf_ctrl.c pc/src/xine-engine/net_buf_ctrl.c
    /* pointer */
    fifo_buffer_t   *fifo;
 diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
---- o/src/xine-engine/osd.c	2020-05-04 17:36:02.269963001 +0300
-+++ pc/src/xine-engine/osd.c	2020-05-04 17:37:28.796956117 +0300
+--- o/src/xine-engine/osd.c	2020-05-09 14:48:18.114568247 +0300
++++ pc/src/xine-engine/osd.c	2020-05-09 14:49:45.503574901 +0300
 @@ -525,6 +525,10 @@
    return _osd_show(osd, vpts, 1);
  }
@@ -2906,8 +2906,8 @@ diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
    this->r.set_extent         = osd_set_extent;
    this->r.set_video_window   = osd_set_video_window;
 diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
---- o/src/xine-engine/video_out.c	2020-05-04 17:36:02.364962993 +0300
-+++ pc/src/xine-engine/video_out.c	2020-05-04 17:37:28.797956117 +0300
+--- o/src/xine-engine/video_out.c	2020-05-09 14:48:18.099568245 +0300
++++ pc/src/xine-engine/video_out.c	2020-05-09 14:49:45.504574901 +0300
 @@ -207,6 +207,7 @@
  
    /* pts value when decoder delivered last video frame */
@@ -2968,8 +2968,8 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
     * handle XINE_PARAM_xxx properties (convert from driver's range)
     */
 diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
---- o/src/xine-engine/xine_interface.c	2020-05-04 17:36:02.368962993 +0300
-+++ pc/src/xine-engine/xine_interface.c	2020-05-04 17:37:28.797956117 +0300
+--- o/src/xine-engine/xine_interface.c	2020-05-09 14:48:18.101568246 +0300
++++ pc/src/xine-engine/xine_interface.c	2020-05-09 14:49:45.504574901 +0300
 @@ -867,6 +867,10 @@
    this->osd.renderer->show_unscaled(&this->osd, vpts);
  }
