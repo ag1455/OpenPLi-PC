@@ -1,0 +1,230 @@
+#
+# xine config file
+#
+.version:2
+
+# Entries which are still set to their default values are commented out.
+# Remove the '#' at the beginning of the line, if you want to change them.
+
+# use A/52 dynamic range compression
+# bool, default: 0
+#audio.a52.dynamic_range:0
+
+# A/52 volume
+# [0..200], default: 100
+#audio.a52.level:100
+
+# A/52 bass downmix volume
+# [0..200], default: 100
+#audio.a52.lfe_level:100
+
+# downmix audio to 2 channel surround stereo
+# bool, default: 0
+#audio.a52.surround_downmix:0
+
+# use A/52 pass through
+# bool, default: 0
+#audio.device.pulseaudio_a52_pass_through:0
+
+# используемый аудиодрайвер
+# { auto  null  pulseaudio  alsa  oss  jack  file  none }, default: 0
+audio.driver:alsa
+
+# device used for pulseaudio
+# string, default: 
+#audio.pulseaudio_device:
+
+# a/v sync precision
+# { Normal  Fine }, default: 1
+#audio.synchronization.av_fine_sync:Fine
+
+# method to sync audio and video
+# { metronom feedback  resample }, default: 0
+#audio.synchronization.av_sync_method:metronom feedback
+
+# always resample to this rate (0 to disable)
+# numeric, default: 0
+#audio.synchronization.force_rate:0
+
+# offset for digital passthrough
+# numeric, default: 0
+#audio.synchronization.passthrough_offset:0
+
+# enable resampling
+# { auto  off  on }, default: 0
+#audio.synchronization.resample_mode:auto
+
+# play audio even on slow/fast speeds
+# bool, default: 0
+#audio.synchronization.slow_fast_audio:0
+
+# startup audio volume
+# [0..100], default: 50
+audio.volume.mixer_volume:100
+
+# restore volume level at startup
+# bool, default: 0
+#audio.volume.remember_volume:0
+
+# используемый видеодрайвер
+# { auto  vdpau  aadxr3  dxr3  xv  vaapi  opengl2  XDirectFB  DirectFB  raw  opengl  xshm  caca  aa  xxmc  none  sdl  fb  xvmc }, default: 0
+video.driver:vaapi
+
+# basic video to audio delay in pts
+# numeric, default: 0
+#video.output.base_delay:0
+
+# Output colour matrix
+# { Signal  Signal+Size  SD  HD }, default: 1
+#video.output.color_matrix:Signal+Size
+
+# Output colour range
+# { Auto  MPEG  FULL }, default: 0
+#video.output.color_range:Auto
+
+# disable all video scaling
+# bool, default: 0
+#video.output.disable_scaling:0
+
+# horizontal image position in the output window
+# [0..100], default: 50
+#video.output.horizontal_position:50
+
+# treat screen pixels as exactly square
+# bool, default: 0
+#video.output.square_pixels:0
+
+# Brightness setting
+# [-100..100], default: 0
+#video.output.vaapi_brightness:0
+
+# Contrast setting
+# [-100..100], default: 0
+#video.output.vaapi_contrast:0
+
+# VAAPI colour conversion method
+# { user_matrix  simple  simple+2  simple+3 }, default: 3
+#video.output.vaapi_csc_mode:simple+3
+
+# vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob ).
+# numeric, default: 0
+video.output.vaapi_deinterlace:2
+
+# vaapi: enigma osd height workaround.
+# numeric, default: 0
+video.output.vaapi_enigma_osd_height:1080
+
+# vaapi: enigma osd width workaround.
+# numeric, default: 0
+video.output.vaapi_enigma_osd_width:1920
+
+# vaapi: set vaapi_guarded_render to 0 ( no ) 1 ( yes )
+# numeric, default: 1
+#video.output.vaapi_guarded_render:1
+
+# Hue setting
+# [-100..100], default: 0
+#video.output.vaapi_hue:0
+
+# vaapi: opengl output rendering
+# bool, default: 0
+#video.output.vaapi_opengl_render:0
+
+# vaapi: opengl rendering tfp
+# bool, default: 0
+#video.output.vaapi_opengl_use_tfp:0
+
+# Saturation setting
+# [-100..100], default: 0
+#video.output.vaapi_saturation:0
+
+# vaapi: set scaling level to : default (default) fast (fast) hq (HQ) nla (anamorphic)
+# { default  fast  hq  nla }, default: 0
+#video.output.vaapi_scaling_level:default
+
+# vaapi: swap UV planes.
+# bool, default: 0
+#video.output.vaapi_swap_uv_planes:0
+
+# vaapi: VDR osd height workaround.
+# numeric, default: 0
+#video.output.vaapi_vdr_osd_height:0
+
+# vaapi: VDR osd width workaround.
+# numeric, default: 0
+#video.output.vaapi_vdr_osd_width:0
+
+# vertical image position in the output window
+# [0..100], default: 50
+#video.output.vertical_position:50
+
+# Choose speed over specification compliance
+# bool, default: 0
+#video.processing.ffmpeg_choose_speed_over_accuracy:0
+
+# Enable direct rendering
+# bool, default: 1
+#video.processing.ffmpeg_direct_rendering:1
+
+# Enable VAAPI
+# bool, default: 1
+#video.processing.ffmpeg_enable_vaapi:1
+
+# MPEG-4 postprocessing quality
+# [0..6], default: 3
+#video.processing.ffmpeg_pp_quality:3
+
+# Skip loop filter
+# { default  none  nonref  bidir  nonkey  all }, default: 0
+#video.processing.ffmpeg_skip_loop_filter:default
+
+# FFmpeg video decoding thread count
+# numeric, default: 1
+#video.processing.ffmpeg_thread_count:1
+
+# VAAPI Mpeg2 softdecoding
+# bool, default: 0
+#video.processing.vaapi_mpeg_softdec:0
+
+# number of audio buffers
+# numeric, default: 230
+engine.buffers.audio_num_buffers:230
+
+# number of video buffers
+# numeric, default: 500
+engine.buffers.video_num_buffers:500
+
+# default number of video frames
+# numeric, default: 50
+#engine.buffers.video_num_frames:50
+
+# disable decoder flush at discontinuity
+# bool, default: 0
+#engine.decoder.disable_flush_at_discontinuity:0
+
+# disable decoder flush from video out
+# bool, default: 0
+#engine.decoder.disable_flush_from_video_out:0
+
+# memcopy method used by xine
+# { probe  libc  kernel  mmx  mmxext  sse  avx }, default: 0
+engine.performance.memcpy_method:kernel
+
+# percentage of discarded frames to tolerate
+# numeric, default: 10
+#engine.performance.warn_discarded_threshold:10
+
+# percentage of skipped frames to tolerate
+# numeric, default: 10
+#engine.performance.warn_skipped_threshold:10
+
+# Sync multiple clocks in a separate thread
+# bool, default: 0
+#engine.use_metronom_sync_thread:0
+
+# allow implicit changes to the configuration (e.g. by MRL)
+# bool, default: 0
+misc.implicit_config:1
+
+#set ENIGMA_FIFO buffer mode 0=fixed / 1=dynamic, default: 0
+input.buffer.dynamic:0
