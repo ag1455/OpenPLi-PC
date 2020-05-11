@@ -1,6 +1,6 @@
 diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconmenager.py
---- o/IPTVPlayer/components/iconmenager.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/components/iconmenager.py	2020-04-04 12:32:10.967449351 +0200
+--- o/IPTVPlayer/components/iconmenager.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/components/iconmenager.py	2020-05-12 00:07:45.095290929 +0300
 @@ -28,7 +28,7 @@
  
  
@@ -20,14 +20,14 @@ diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconme
          else:
              params_cfad={}
 diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/iptvconfigmenu.py
---- o/IPTVPlayer/components/iptvconfigmenu.py	2020-05-02 10:11:47.341432223 +0200
-+++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-05-02 10:30:02.573597315 +0200
+--- o/IPTVPlayer/components/iptvconfigmenu.py	2020-05-02 11:11:47.341432223 +0300
++++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-05-12 00:56:41.134289906 +0300
 @@ -61,7 +61,7 @@
  config.plugins.iptvplayer.showinMainMenu     = ConfigYesNo(default = False)
  config.plugins.iptvplayer.ListaGraficzna     = ConfigYesNo(default = True)
  config.plugins.iptvplayer.group_hosts        = ConfigYesNo(default = True)
 -config.plugins.iptvplayer.NaszaSciezka       = ConfigDirectory(default = "/hdd/movie/") #, fixed_size = False)
-+config.plugins.iptvplayer.NaszaSciezka       = ConfigDirectory(default = "/media/hdd/movie/") #, fixed_size = False)
++config.plugins.iptvplayer.NaszaSciezka       = ConfigDirectory(default = "/media/hdd/movies/") #, fixed_size = False)
  config.plugins.iptvplayer.bufferingPath      = ConfigDirectory(default = config.plugins.iptvplayer.NaszaSciezka.value) #, fixed_size = False)
  config.plugins.iptvplayer.buforowanie        = ConfigYesNo(default = False)
  config.plugins.iptvplayer.buforowanie_m3u8   = ConfigYesNo(default = True)
@@ -41,8 +41,8 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
  config.plugins.iptvplayer.ZablokujWMV = ConfigYesNo(default = True)
  
 diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/iptvplayerwidget.py
---- o/IPTVPlayer/components/iptvplayerwidget.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-04-04 11:54:10.166494341 +0200
+--- o/IPTVPlayer/components/iptvplayerwidget.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-05-12 00:07:45.097290929 +0300
 @@ -60,7 +60,6 @@
  
  from Plugins.Extensions.IPTVPlayer.components.iptvplayerinit import TranslateTXT as _, IPTVPlayerNeedInit, GetIPTVPlayerLastHostError, GetIPTVNotify, GetIPTVSleep
@@ -84,8 +84,8 @@ diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/i
                      message.append("Because of blocking part of functionality of the IPTVPlayer by http://ipab.tv/ developer your image was blacklisted.")
                      message.append("Please be also informed that users of http://ipab.tv/ will NOT get support, due to same reason.")
 diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
---- o/IPTVPlayer/hosts/aliases.txt	2020-04-08 13:57:49.892599918 +0200
-+++ pc/IPTVPlayer/hosts/aliases.txt	2020-04-08 16:38:04.871011599 +0200
+--- o/IPTVPlayer/hosts/aliases.txt	2020-04-08 14:57:49.892599918 +0300
++++ pc/IPTVPlayer/hosts/aliases.txt	2020-05-12 00:07:45.097290929 +0300
 @@ -1 +1,234 @@
 -{"hostzalukajvip": "https://zalukaj.vip/", "hostwatchmovies": "https://watch-movies.pl/", "hostekinomaniak": "https://ekinomaniak.net/", "host3filmy": "https://3filmy.com/", "hostcdafilmy": "https://cda-filmy.online/", "hostfullmatchtvcom": "https://fullmatchtv.com/", "hostustvgo": "http://ustvgo.tv/", "hostjoemonsterorg": "https://joemonster.org/", "hostredbull": "http://redbull.tv/", "host3sktv": "http://33sk.tv/", "hostiptvplayerinfo": "E2iPlayer info", "hosttvjworg": "https://tv.jw.org/", "hosteskago": "http://www.eskago.pl/", "hostmeczykipl": "http://www.meczyki.pl/", "hostlosmovies": "http://losmovies.cx/", "hostliveleak": "https://liveleak.com/", "hostkinox": "https://kinox.to/", "hostchristusvincit": "http://christusvincit-tv.pl/", "hostmovs4ucom": "http://movs4u.tv/", "hostplaypuls": "http://playpuls.pl/", "hostcinemaxx": "http://cinemaxx.cc/", "hostandrijaiandjelka": "https://andrija-i-andjelka.com/", "hostoipeirates": "https://oipeirates.tv/", "hostdel": "https://del.org/", "hostdailymotion": "http://dailymotion.com/", "hostclassiccinemaonline": "http://classiccinemaonline.com/", "hostiitvpl": "http://iitvx.pl/", "hostmovie4kto": "http://movie4k.org/", "hostyifytv": "https://ymovies.tv/", "hostarconaitvme": "http://arconaitv.us/", "hosttfarjocom": "http://tfarjo.ws/", "hostfilmpalast": "http://filmpalast.to/", "hostfilmeonlineto": "https://filme-online.to/", "hostorthobulletscom": "https://orthobullets.com/", "hostsovdub": "http://sovdub.ru/", "hostkreskoweczki": "http://kreskoweczki.pl/", "hostcinemay": "http://cinemay.ws/", "hostserijeonline": "http://www.serije.online/", "hosttvnowde": "https://www.tvnow.de/", "hosticefilmsinfo": "http://icefilms.info/", "hostplanetstreamingcom": "http://ww4.planet-streaming.com/", "hostuktvplay": "https://uktvplay.uktv.co.uk/", "hostofficialfilmillimite": "https://official-film-illimite.ws/", "hosthdkinomir": "http://hdkinomir.com/", "hostcrtankocom": "http://www.crtanko.com/", "hostgreekdocumentaries3": "http://greekdocumentaries2.blogspot.gr/", "hostserialeco": "http://seriale.co/", "hostinteriatv": "http://interia.tv/", "hostshahiidanimenet": "https://shahiid-anime.net/", "hostegybest": "http://egy.best/", "hostekstraklasatv": "http://ekstraklasa.tv/", "hostanimeodcinki": "https://anime-odcinki.pl/", "hostluxveritatis": "https://luxveritatis.pl/", "hostlibrestream": "http://ls-streaming.com/", "hostmediasetplay": "https://mediasetplay.it/", "hostwatchwrestlinguno": "http://watchwrestling.la/", "hostmovierulzsx": "https://movierulz.be/", "hostthewatchseriesto": "https://swatchseries.to/", "hoststreamcomplet": "https://streamcomplet.me/", "hostaltadefinizione": "https://altadefinizione.fm/", "hosthdstreams": "https://hd-streams.org/", "hosttreetv": "http://tree.tv/", "hostkabarety": "http://kabaret.tworzymyhistorie.pl/", "hostradiostacja": "http://radiostacja.pl/", "hostdarshowcom": "http://darshow.com/", "hostyesmoviesto": "https://yesmovies.to/", "hostdixmax": "https://dixmax.com/", "hostwpolscepl": "http://wpolsce.pl/", "hostcartoonhd": "https://cartoonhd.care/", "hostmozicsillag": "https://mozicsillag.me/", "hostbajeczkiorg": "http://bajeczki.org/", "hosthdfull": "https://hdfull.me/", "hostkinogo": "http://kinogo.cc/", "hostfilmezz": "http://filmezz.eu/", "hostrtlmost": "https://rtlmost.hu/", "hostgamatocom": "https://gamato-movies.com/", "hostwatchcartoononline": "https://watchcartoononline.com/", "hostallboxtv": "https://allbox.tv/", "hostlaola1tv": "http://laola1.tv/", "hostxrysoise": "https://xrysoi.tv/", "hostgledalica": "https://gledalica.com/", "hostfreediscpl": "https://freedisc.pl/", "hostfilmaoncom": "http://filmaon.com/", "hostwrealu24tv": "https://wrealu24.tv/", "hostforjatn": "https://forja.tn/", "hostyoutube": "https://youtube.com/", "hostitvcom": "https://www.itv.com/", "hosttwitchtv": "https://twitch.tv/", "hostspiegeltv": "http://spiegel.tv/", "hostzdfmediathek": "ZDFmediathek", "hostfilmovizijastudio": "https://filmovizija.fun/", "hostsportdeutschland": "http://sportdeutschland.tv/", "hostchomikuj": "http://chomikuj.pl/", "hostsolarmovie": "https://solarmoviex.to/", "hostmythewatchseries": "https://gowatchseries.io/", "hostfenixsite": "http://fenixsite.com/", "hostmooviecc": "https://moovie.cc/", "hosttainieskaiseirestv": "http://tainieskaiseires.tv/", "hostlocalmedia": "LocalMedia", "hostmyfreemp3": "https://my-free-mp3.net/", "hostseriesonline": "https://series9.io/", "hostzalukajcom": "http://zalukaj.com/", "hostmrpiracy": "http://mrpiracy.site/", "hostvimeo": "https://vimeo.com/", "hostkisscartoonme": "https://kisscartoon.ac/", "hostfilma24hdcom": "http://www.filma24hd.com/", "hostsvtplayse": "https://svtplay.se/", "hostardmediathek": "ARDmediathek", "hostdrdk": "http://dr.dk/", "hostfilmehdnet": "http://filmehd.net/", "hostkinotan": "http://kinotan.ru/", "hosthdpopcornscom": "http://hdpopcorns.co/", "hostfilmstreamvkcom": "http://filmstreamvk.club/", "hosttvplayercom": "https://tvplayer.com/", "hostserienstreamto": "https://serienstream.to/", "hostkreskowkazone": "http://kreskowkazone.pl/", "hostputlockertvto": "https://putlockertv.to/", "hosthd1080online": "https://hd1080.online/", "hostcdapl": "https://cda.pl/", "hostcineto": "https://cine.to/", "hosteurosportplayer": "https://www.eurosportplayer.com/", "hostmusicmp3ru": "https://musicmp3.ru/", "hostokgoals": "http://okgoals.com/", "hostspryciarze": "https://spryciarze.pl/", "hostdokumentalnenet": "https://dokumentalne.net/", "hostvodpl": "https://vod.pl/", "hostted": "https://ted.com/", "hostwolnelekturypl": "http://wolnelektury.pl/", "hostfightvideo": "http://fight.mmashare.club/", "hostngolos": "https://ngolos.com/", "hosthitboxtv": "http://hitbox.tv/", "hostplayrtsiw": "https://srgssr.ch/", "hostfilmixco": "https://filmix.co/", "hostpinkbike": "https://pinkbike.com/", "hosturllist": "Urllists player", "hostotakufr": "http://otakufr.com/", "hostfavourites": "Favourites", "hostkijknl": "http://kijk.nl/", "hostvidcorncom": "https://vidcorn.tv/", "hostdancetrippin": "http://dancetrippin.tv/", "hostgamatotvme": "http://gamatotv.me/", "hosthdsto": "http://hds.to/", "hostvevo": "https://vevo.com/", "hosttvn24": "TVN 24", "hostninateka": "http://ninateka.pl/", "hostappletrailers": "https://trailers.apple.com/", "hostefilmytv": "http://www.efilmy.tv/", "hosttvrepublika": "http://telewizjarepublika.pl/", "hostworldfree4u": "https://www.worldfree4u.ws/", "hostnuteczki": "https://nuteczki.eu/", "hostskstream": "https://skstream.info/", "hostmusicbox": "Music-Box", "hosthoofootcom": "http://hoofoot.com/", "hostourmatchnet": "http://ourmatch.net/", "hostdardarkomcom": "http://dardarkom.com/", "hostplusdede": "https://megadede.com/", "hostmovienightws": "http://movienight.ws/", "hostekinotv": "http://ekino-tv.pl/", "hostalltubetv": "http://alltube.pl/", "hostvumedicom": "https://vumedi.com/", "hostfilmativa": "http://filmativa.ws/", "hoststreamliveto": "https://streamlive.to/", "hostwgrane": "http://wgrane.pl/", "host7tvde": "https://7tv.de/", "hostororotv": "https://ororo.tv/", "hostshoutcast": "http://shoutcast.com/", "host9anime": "https://9anime.to/", "hostcimaclubcom": "http://cimaclub.com/", "hostddl": "http://ddl.me/", "hostbbcsport": "https://www.bbc.co.uk/sport", "hostwebstream": "\"Web\" streams player", "hosttantifilmorg": "https://tantifilm.eu/", "hostmovizlandcom": "http://movizland.com/", "hostbsto": "https://bs.to/", "hostfaselhdcom": "https://faselhd.co/", "hostartetv": "https://www.arte.tv/", "hostbbciplayer": "http://www.bbc.co.uk/iplayer", "hostustreamtv": "http://ustream.tv/", "host3player": "https://virginmediatelevision.ie/player", "hostquesttvcouk": "http://questtv.co.uk/", "hostkissanimeto": "http://kissanime.ru/", "hostfilmpertutti": "https://filmpertutti.uno/", "hostszenestreamz": "http://szene-streamz.com/", "hostmaxtvgo": "https://maxtvgo.com/", "hostipla": "https://ipla.tv/", "hostfilma24io": "http://filma24.io/", "hosthdfilmetv": "http://hdfilme.tv/", "hosttvpvod": "https://vod.tvp.pl/", "hostwatchwrestling": "http://watchwrestling.nl/", "hostdpstreamingcx": "https://streaming-series.watch/", "hosttvnvod": "TVN Player", "hosttvgrypl": "https://tvgry.pl/", "hostfilmstreamhdit": "http://filmstreamhd.it/", "host123movieshd": "https://123movieshd.sc/", "hostrtbfbe": "https://www.rtbf.be/", "hoststreaminghdfun": "https://streaminghd.online/", "hostrteieplayer": "http://rte.ie/player", "hostguardaserie": "https://www.guardaserie.digital/", "hosttvproart": "http://tvproart.pl/", "hostaltadefinizione01": "https://altadefinizione01.film/", "hostkkiste": "https://kinokiste.me/", "hostakoam": "https://ar.akoam.net/", "hostserialnet": "http://serialnet.pl/", "hostwptv": "http://wp.tv/","hostraiplay":"http://raiplay.it","hostdplayit":"https://it.dplay.com/"}
 \ В конце файла нет новой строки
@@ -324,8 +324,8 @@ diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
 +"hostturcjatv": "http://turcjatv.pl/"
 +}
 diff -ruN o/IPTVPlayer/hosts/hostaltadefinizione1.py pc/IPTVPlayer/hosts/hostaltadefinizione1.py
---- o/IPTVPlayer/hosts/hostaltadefinizione1.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostaltadefinizione1.py	2020-04-04 12:32:10.970449351 +0200
+--- o/IPTVPlayer/hosts/hostaltadefinizione1.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostaltadefinizione1.py	2020-05-12 00:07:45.097290929 +0300
 @@ -0,0 +1,318 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -646,8 +646,8 @@ diff -ruN o/IPTVPlayer/hosts/hostaltadefinizione1.py pc/IPTVPlayer/hosts/hostalt
 +        if 'prev_url' in cItem or cItem.get('category', '') == 'explore_item': return True
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostaltadefinizionecool.py pc/IPTVPlayer/hosts/hostaltadefinizionecool.py
---- o/IPTVPlayer/hosts/hostaltadefinizionecool.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostaltadefinizionecool.py	2020-04-04 12:32:10.970449351 +0200
+--- o/IPTVPlayer/hosts/hostaltadefinizionecool.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostaltadefinizionecool.py	2020-05-12 00:07:45.097290929 +0300
 @@ -0,0 +1,453 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -1104,8 +1104,8 @@ diff -ruN o/IPTVPlayer/hosts/hostaltadefinizionecool.py pc/IPTVPlayer/hosts/host
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostcb01.py pc/IPTVPlayer/hosts/hostcb01.py
---- o/IPTVPlayer/hosts/hostcb01.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostcb01.py	2020-04-04 12:32:10.971449352 +0200
+--- o/IPTVPlayer/hosts/hostcb01.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostcb01.py	2020-05-12 00:07:45.098290929 +0300
 @@ -0,0 +1,399 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -1507,8 +1507,8 @@ diff -ruN o/IPTVPlayer/hosts/hostcb01.py pc/IPTVPlayer/hosts/hostcb01.py
 +        if 'prev_url' in cItem or cItem.get('category', '') == 'explore_item': return True
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostcb01uno.py pc/IPTVPlayer/hosts/hostcb01uno.py
---- o/IPTVPlayer/hosts/hostcb01uno.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostcb01uno.py	2020-04-04 12:32:10.971449352 +0200
+--- o/IPTVPlayer/hosts/hostcb01uno.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostcb01uno.py	2020-05-12 00:07:45.098290929 +0300
 @@ -0,0 +1,304 @@
 +###################################################
 +# LOCAL import
@@ -1815,8 +1815,8 @@ diff -ruN o/IPTVPlayer/hosts/hostcb01uno.py pc/IPTVPlayer/hosts/hostcb01uno.py
 +        if 'prev_url' in cItem or cItem.get('category', '') == 'explore_item': return True
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostdsda.py pc/IPTVPlayer/hosts/hostdsda.py
---- o/IPTVPlayer/hosts/hostdsda.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostdsda.py	2020-04-04 12:32:10.971449352 +0200
+--- o/IPTVPlayer/hosts/hostdsda.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostdsda.py	2020-05-12 00:07:45.098290929 +0300
 @@ -0,0 +1,266 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -2085,8 +2085,8 @@ diff -ruN o/IPTVPlayer/hosts/hostdsda.py pc/IPTVPlayer/hosts/hostdsda.py
 +    def __init__(self):
 +        CHostBase.__init__(self, DSDA(), True, favouriteTypes=[]) 
 diff -ruN o/IPTVPlayer/hosts/hostfilisertv.py pc/IPTVPlayer/hosts/hostfilisertv.py
---- o/IPTVPlayer/hosts/hostfilisertv.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostfilisertv.py	2020-04-04 12:32:10.971449352 +0200
+--- o/IPTVPlayer/hosts/hostfilisertv.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostfilisertv.py	2020-05-12 00:07:45.098290929 +0300
 @@ -0,0 +1,529 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -2618,8 +2618,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfilisertv.py pc/IPTVPlayer/hosts/hostfilisertv.
 +
 +
 diff -ruN o/IPTVPlayer/hosts/hostfilmowood.py pc/IPTVPlayer/hosts/hostfilmowood.py
---- o/IPTVPlayer/hosts/hostfilmowood.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostfilmowood.py	2020-04-04 12:32:10.972449352 +0200
+--- o/IPTVPlayer/hosts/hostfilmowood.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostfilmowood.py	2020-05-12 00:07:45.098290929 +0300
 @@ -0,0 +1,219 @@
 +# -*- coding: utf-8 -*-
 +# typical import for a standard host
@@ -2841,8 +2841,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfilmowood.py pc/IPTVPlayer/hosts/hostfilmowood.
 +        CHostBase.__init__(self, Filmowood(), True, [])
 +    
 diff -ruN o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py
---- o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	2020-04-04 12:32:10.972449352 +0200
+--- o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	2020-05-12 00:07:45.098290929 +0300
 @@ -0,0 +1,284 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -3129,8 +3129,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py pc/IPTVPlayer/hosts/host
 +            self.searchType = ''
 +        return
 diff -ruN o/IPTVPlayer/hosts/hostfokustv.py pc/IPTVPlayer/hosts/hostfokustv.py
---- o/IPTVPlayer/hosts/hostfokustv.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostfokustv.py	2020-04-04 12:32:10.972449352 +0200
+--- o/IPTVPlayer/hosts/hostfokustv.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostfokustv.py	2020-05-12 00:07:45.099290929 +0300
 @@ -0,0 +1,353 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -3487,8 +3487,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfokustv.py pc/IPTVPlayer/hosts/hostfokustv.py
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostfrancetv.py pc/IPTVPlayer/hosts/hostfrancetv.py
---- o/IPTVPlayer/hosts/hostfrancetv.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostfrancetv.py	2020-04-04 12:32:10.972449352 +0200
+--- o/IPTVPlayer/hosts/hostfrancetv.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostfrancetv.py	2020-05-12 00:07:45.099290929 +0300
 @@ -0,0 +1,549 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -4041,8 +4041,8 @@ diff -ruN o/IPTVPlayer/hosts/hostfrancetv.py pc/IPTVPlayer/hosts/hostfrancetv.py
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostkinomanco.py pc/IPTVPlayer/hosts/hostkinomanco.py
---- o/IPTVPlayer/hosts/hostkinomanco.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostkinomanco.py	2020-04-04 12:32:10.973449352 +0200
+--- o/IPTVPlayer/hosts/hostkinomanco.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostkinomanco.py	2020-05-12 00:07:45.099290929 +0300
 @@ -0,0 +1,858 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -4904,8 +4904,8 @@ diff -ruN o/IPTVPlayer/hosts/hostkinomanco.py pc/IPTVPlayer/hosts/hostkinomanco.
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostla7it.py pc/IPTVPlayer/hosts/hostla7it.py
---- o/IPTVPlayer/hosts/hostla7it.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostla7it.py	2020-04-04 12:32:10.973449352 +0200
+--- o/IPTVPlayer/hosts/hostla7it.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostla7it.py	2020-05-12 00:07:45.099290929 +0300
 @@ -0,0 +1,353 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -5261,8 +5261,8 @@ diff -ruN o/IPTVPlayer/hosts/hostla7it.py pc/IPTVPlayer/hosts/hostla7it.py
 +        CHostBase.__init__(self, La7it(), True, [])
 +    
 diff -ruN o/IPTVPlayer/hosts/hostlookmovieag.py pc/IPTVPlayer/hosts/hostlookmovieag.py
---- o/IPTVPlayer/hosts/hostlookmovieag.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostlookmovieag.py	2020-04-04 12:32:10.973449352 +0200
+--- o/IPTVPlayer/hosts/hostlookmovieag.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostlookmovieag.py	2020-05-12 00:07:45.099290929 +0300
 @@ -0,0 +1,292 @@
 +# -*- coding: utf-8 -*-
 +
@@ -5557,8 +5557,8 @@ diff -ruN o/IPTVPlayer/hosts/hostlookmovieag.py pc/IPTVPlayer/hosts/hostlookmovi
 +        return searchTypesOptions
 +
 diff -ruN o/IPTVPlayer/hosts/hostnaszekinotv.py pc/IPTVPlayer/hosts/hostnaszekinotv.py
---- o/IPTVPlayer/hosts/hostnaszekinotv.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostnaszekinotv.py	2020-04-04 12:32:10.974449352 +0200
+--- o/IPTVPlayer/hosts/hostnaszekinotv.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostnaszekinotv.py	2020-05-12 00:07:45.100290928 +0300
 @@ -0,0 +1,740 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -6302,8 +6302,8 @@ diff -ruN o/IPTVPlayer/hosts/hostnaszekinotv.py pc/IPTVPlayer/hosts/hostnaszekin
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostpmgsport.py pc/IPTVPlayer/hosts/hostpmgsport.py
---- o/IPTVPlayer/hosts/hostpmgsport.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostpmgsport.py	2020-04-04 12:32:10.975449352 +0200
+--- o/IPTVPlayer/hosts/hostpmgsport.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostpmgsport.py	2020-05-12 00:07:45.100290928 +0300
 @@ -0,0 +1,190 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -6497,8 +6497,8 @@ diff -ruN o/IPTVPlayer/hosts/hostpmgsport.py pc/IPTVPlayer/hosts/hostpmgsport.py
 +   
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostsportitalia.py pc/IPTVPlayer/hosts/hostsportitalia.py
---- o/IPTVPlayer/hosts/hostsportitalia.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostsportitalia.py	2020-04-04 12:32:10.975449352 +0200
+--- o/IPTVPlayer/hosts/hostsportitalia.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostsportitalia.py	2020-05-12 00:07:45.100290928 +0300
 @@ -0,0 +1,279 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -6781,8 +6781,8 @@ diff -ruN o/IPTVPlayer/hosts/hostsportitalia.py pc/IPTVPlayer/hosts/hostsportita
 +    
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostturcjatv.py pc/IPTVPlayer/hosts/hostturcjatv.py
---- o/IPTVPlayer/hosts/hostturcjatv.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostturcjatv.py	2020-04-04 12:32:10.975449352 +0200
+--- o/IPTVPlayer/hosts/hostturcjatv.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostturcjatv.py	2020-05-12 00:07:45.100290928 +0300
 @@ -0,0 +1,235 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -7020,8 +7020,8 @@ diff -ruN o/IPTVPlayer/hosts/hostturcjatv.py pc/IPTVPlayer/hosts/hostturcjatv.py
 +    def __init__(self):
 +        CHostBase.__init__(self, TurcjaTv(), True, [])
 diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
---- o/IPTVPlayer/hosts/hosturllist.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hosturllist.py	2020-05-02 10:29:17.330496666 +0200
+--- o/IPTVPlayer/hosts/hosturllist.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/hosts/hosturllist.py	2020-05-12 00:07:45.100290928 +0300
 @@ -22,7 +22,7 @@
  ###################################################
  # Config options for HOST
@@ -7032,9 +7032,9 @@ diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
  config.plugins.iptvplayer.sortuj         = ConfigYesNo(default = True)
  
 diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
---- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostXXX.py	2020-05-02 10:29:47.064883962 +0200
-@@ -0,0 +1,11073 @@
+--- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostXXX.py	2020-05-12 01:07:38.663238570 +0300
+@@ -0,0 +1,11358 @@
 +# -*- coding: utf-8 -*-
 + 
 +###################################################
@@ -7205,7 +7205,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +    ###################################################
 +
 +class Host:
-+    XXXversion = "2020.04.01.0"
++    XXXversion = "2020.05.11.1"
 +    XXXremote  = "0.0.0.0"
 +    currList = []
 +    MAIN_URL = ''
@@ -7409,19 +7409,23 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           valTab.append(CDisplayListItem('AMATEUR COOL',     'https://www.amateurcool.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.amateurcool.com/channels/'],'amateurcool', 'https://www.amateurcool.com/templates/amateurcool/images/logo.png', None)) 
 +           #valTab.append(CDisplayListItem('YES PORN PLEASE',     'https://yespornplease.com', CDisplayListItem.TYPE_CATEGORY, ['https://yespornplease.com/categories'],'yespornplease', 'https://1000logos.net/wp-content/uploads/2019/02/YesPornPlease-Logo.png', None)) 
 +           valTab.append(CDisplayListItem('ANYBUNNY',     'http://anybunny.com', CDisplayListItem.TYPE_CATEGORY, ['http://anybunny.com'],'anybunny', 'http://anybunny.com/images/logo.png', None)) 
-+           valTab.append(CDisplayListItem('DATOPORN',     'http://datoporn.co', CDisplayListItem.TYPE_CATEGORY, ['http://datoporn.co/categories_all'],'datoporn', 'https://pbs.twimg.com/media/CtzxPlEWgAAiIjH.png', None)) 
++           valTab.append(CDisplayListItem('DATOPORN',     'http://dato.porn', CDisplayListItem.TYPE_CATEGORY, ['https://dato.porn/categories/'],'datoporn', 'https://pbs.twimg.com/media/CtzxPlEWgAAiIjH.png', None)) 
 +           valTab.append(CDisplayListItem('HQPORNER',     'https://hqporner.com', CDisplayListItem.TYPE_CATEGORY, ['https://hqporner.com/porn-categories.php'],'hqporner', 'https://www.filmyporno.blog/wp-content/uploads/2018/12/channel-hqporner.jpg', None)) 
 +           valTab.append(CDisplayListItem('SPANKBANG',     'https://spankbang.com', CDisplayListItem.TYPE_CATEGORY, ['https://spankbang.com/categories'],'spankbang', 'https://static.spankbang.com/static_desktop/Images/logo_desktop_v4@2x.png', None)) 
 +           valTab.append(CDisplayListItem('CUMLOUDER',     'https://www.cumlouder.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.cumlouder.com/categories'],'cumlouder', 'https://1000logos.net/wp-content/uploads/2019/02/CumLouder-Logo.png', None)) 
-+           valTab.append(CDisplayListItem('PORNAQ',     'http://www.pornaq.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.pornaq.com/categories/'],'pornaq', 'https://www.pornaq.com/wp-content/themes/pornaq/assets/img/logo1.png', None)) 
++           valTab.append(CDisplayListItem('PORN00',     'http://www.porn00.org', CDisplayListItem.TYPE_CATEGORY, ['http://www.porn00.org/categories/'],'porn00', 'http://www.porn00.org/wp-content/themes/porn00v3/assets/img/logo4.png', None)) 
 +           valTab.append(CDisplayListItem('WATCHPORNX',     'https://watchpornx.com/', CDisplayListItem.TYPE_CATEGORY, ['https://watchpornx.com/'],'watchpornx', 'https://watchpornfree.info/wp-content/uploads/2019/01/watchpornfreews-1-e1525276673535.png', None)) 
-+           valTab.append(CDisplayListItem('VOLIMEEE',     'https://www.volimeee.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.volimeee.com/categories'],'volimeee', 'https://www.volimeee.com/images/logo/logo.png', None)) 
++           #valTab.append(CDisplayListItem('VOLIMEEE',     'https://www.volimeee.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.volimeee.com/categories'],'volimeee', 'https://www.volimeee.com/images/logo/logo.png', None)) 
 +           valTab.append(CDisplayListItem('P720',     'https://p720.net', CDisplayListItem.TYPE_CATEGORY, ['https://p720.net/categories/'],'P720', 'https://p720.net/static/images/logo.png', None)) 
 +           valTab.append(CDisplayListItem('PORNOPERSIK',     'https://pornopersik.com', CDisplayListItem.TYPE_CATEGORY, ['https://pornopersik.com/categories/'],'pornopersik', 'https://pornopersik.com/static/images/logo.png', None)) 
 +           valTab.append(CDisplayListItem('ANYPORN',     'https://anyporn.com', CDisplayListItem.TYPE_CATEGORY, ['https://anyporn.com/categories/'],'ANYPORN', 'https://anyporn.com/images/logo.png', None)) 
 +           valTab.append(CDisplayListItem('ANON-V',     'https://anon-v.com', CDisplayListItem.TYPE_CATEGORY, ['https://anon-v.com/categories/'],'ANON-V', 'https://anon-v.com/logo350.png', None)) 
 +           valTab.append(CDisplayListItem('BRAVOPORN',     'https://www.bravoporn.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.bravoporn.com/c/'],'bravoporn', 'https://www.bravoporn.com/v/images/logo.png', None)) 
 +           valTab.append(CDisplayListItem('BRAVOTEENS',     'https://www.bravoteens.com/', CDisplayListItem.TYPE_CATEGORY, ['https://www.bravoteens.com//cats/'],'bravoteens', 'https://www.bravoteens.com/tb/images/logo.png', None)) 
++           valTab.append(CDisplayListItem('SLEAZYNEASY',     'https://www.sleazyneasy.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.sleazyneasy.com/categories/'],'sleazyneasy', 'https://cdni.sleazyneasy.com/images/favicon-152.png', None)) 
++           valTab.append(CDisplayListItem('VJAV',     'https://vjav.com', CDisplayListItem.TYPE_CATEGORY, ['https://vjav.com/categories/'],'vjav', 'https://vjav.com/images/favicons/apple-touch-icon.png', None)) 
++           valTab.append(CDisplayListItem('JAVHOHO',     'https://javhoho.com', CDisplayListItem.TYPE_CATEGORY, ['https://javhoho.com/category/free-jav-uncensored/'],'javhoho', 'https://javhoho.com/wp-content/uploads/2019/11/JAVhoho.com-logo.png', None)) 
++
 +
 +           if config.plugins.iptvplayer.xxxsortall.value:
 +               valTab.sort(key=lambda poz: poz.name)
@@ -11004,7 +11008,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           next_page = self.cm.ph.getSearchGroups(data, '''<link rel='next' href=['"]([^"^']+?)['"]''', 1, True)[0] 
 +           data = data.split('data-postid=')
 +           for item in data:
-+              printDBG( 'Host listsItems item: '+str(item) )
++              #printDBG( 'Host listsItems item: '+str(item) )
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"](/post/[^"^']+?)['"]''', 1, True)[0] 
 +              if not phUrl: phUrl = self.cm.ph.getSearchGroups(item, '''href=['"](http[^"^']+?)['"]''', 1, True)[0] 
 +              phImage = self.cm.ph.getSearchGroups(item, '''src=['"](//[^"^']+?)['"]''', 1, True)[0] 
@@ -11029,6 +11033,10 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if 'External Link' in item:
 +                 phUrl = self.cm.ph.getSearchGroups(item, '''href=['"](https://gounlimited[^"^']+?)['"]''', 1, True)[0]
 +                 phRuntime = 'External Link'
++                 if phUrl.startswith('https://gounlimited.to'):
++                    if not 'embed' in phUrl:
++                       phUrl = 'https://gounlimited.to' + '/embed-'+ phUrl.split('/')[3] +'.html'
++              if phRuntime=='': continue 
 +              printDBG( 'Host phTitle6: '+phTitle )
 +              printDBG( 'Host phUrl: '+phUrl )
 +              printDBG( 'Host phImage: '+phImage )
@@ -12575,12 +12583,12 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           for item in data:
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
 +              phTitle = self._cleanHtmlStr(item)
-+              if 'HITFILE' in phTitle.upper(): phTitle=''
-+              if 'SHARE-ONLINE' in phTitle.upper(): phTitle=''
-+              if 'UBIQFILE' in phTitle.upper(): phTitle=''
-+              if 'RAPIDGATOR' in phTitle.upper(): phTitle=''
-+              if 'OPENLOAD' in phTitle.upper(): phTitle=''
-+              if 'SEVEREPORN' in phTitle.upper(): phTitle=''
++              if 'HITFILE' in phTitle.upper(): continue
++              if 'SHARE-ONLINE' in phTitle.upper(): continue
++              if 'UBIQFILE' in phTitle.upper(): continue
++              if 'RAPIDGATOR' in phTitle.upper(): continue
++              if 'OPENLOAD' in phTitle.upper(): continue
++              if 'SEVEREPORN' in phTitle.upper(): continue
 +              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
 +              if phImage.startswith('/'): phImage = 'http:' + phImage
 +              if 'clipwatching.com' in phUrl:
@@ -12775,6 +12783,9 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
 +              phTitle = self._cleanHtmlStr(item)
 +              phUrl = urlparser.decorateUrl(phUrl, {'Referer': url})
++              if phUrl.startswith('https://gounlimited.to'):
++                 if not 'embed' in phUrl:
++                    phUrl = 'https://gounlimited.to' + '/embed-'+ phUrl.split('/')[3] +'.html'
 +              if 'Streaming' in item:
 +                 valTab.append(CDisplayListItem(decodeHtml(catUrl)+' > '+phUrl.split('/')[2],phUrl,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None)) 
 +           return valTab
@@ -13799,18 +13810,20 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.MAIN_URL = 'http://datoporn.co' 
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'datoporn.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'datoporn.cookie', 'datoporn.co', self.defaultParams)
++           sts, data = self.getPage(url, 'datoporn.cookie', 'dato.porn', self.defaultParams)
 +           if not sts: return valTab
 +           printDBG( 'Host listsItems data: '+data )
-+           data = data.split('<div class="vid_block">')
++           data = data.split('<a class="item"')
 +           if len(data): del data[0]
 +           for item in data:
-+              phTitle = self._cleanHtmlStr(decodeHtml(item)).replace('\n','').strip()
-+              phTitle = self.cm.ph.getSearchGroups(item, '''link"><b>([^>]+?)<''', 1, True)[0].replace('\n','').strip()
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0].replace('\n','').strip()
++              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0].replace('\n','').strip()
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0]
-+              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
++              if phUrl.startswith('/'): phUrl = 'https://dato.porn' + phUrl
++              if not 'sort_by' in phUrl: phUrl= phUrl+'?sort_by=post_date'     
 +              if phUrl:
-+                 valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'datoporn-clips', '', None)) 
++                 valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'datoporn-clips', phImage, None)) 
 +           valTab.sort(key=lambda poz: poz.name)
 +           self.SEARCH_proc='datoporn-search'
 +           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
@@ -13818,7 +13831,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           return valTab
 +        if 'datoporn-search' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           valTab = self.listsItems(-1, 'http://datoporn.co/?op=search&k=%s' % url.replace(' ','+'), 'datoporn-clips')
++           valTab = self.listsItems(-1, 'https://dato.porn/search/%s/' % url.replace(' ','+'), 'datoporn-clips')
 +           return valTab
 +        if 'datoporn-clips' == name:
 +           printDBG( 'Host listsItems begin name='+name )
@@ -13827,28 +13840,27 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           sts, data = self.getPage(url, 'datoporn.cookie', 'datoporn.co', self.defaultParams)
 +           if not sts: return valTab
 +           printDBG( 'Host listsItems data: '+data )
-+           next = self.cm.ph.getDataBeetwenMarkers(data, 'pagination', '>Next', False)[1]
-+           data = data.split('boxvid')
++           next = self.cm.ph.getSearchGroups(data, '''class="next".*?from:(\d)"''', 1, True)[0] 
++           data = data.split('<div class="item')
 +           if len(data): del data[0]
 +           for item in data:
-+              phTitle = self.cm.ph.getSearchGroups(item, '''title">([^>]+?)<''', 1, True)[0].replace('\n','').strip()
-+              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''link"><b>([^>]+?)<''', 1, True)[0].replace('\n','').strip()
-+              phImage = self.cm.ph.getSearchGroups(item, '''(https://c[^"^']+?)['"]''', 1, True)[0] 
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0].replace('\n','').strip()
++              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0].replace('\n','')
++              phImage = self.cm.ph.getSearchGroups(item, '''data-original=['"]([^"^']+?)['"]''', 1, True)[0]
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0].replace('..','')
-+              Time = self.cm.ph.getSearchGroups(item, '''<span>([^>]+?)<''', 1, True)[0].replace('Video','').strip()
-+              Added = self.cm.ph.getSearchGroups(item, '''date">([^>]+?)<''', 1, True)[0].strip()
-+              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
++              Time = self.cm.ph.getSearchGroups(item, '''duration">([^>]+?)<''', 1, True)[0].replace('Video','').strip()
++              Added = self.cm.ph.getSearchGroups(item, '''added"><em>([^>]+?)<''', 1, True)[0].strip()
++              if phUrl.startswith('/'): phUrl = 'https://dato.porn' + phUrl
 +              if phImage.startswith('//'): phImage = 'http:' + phImage
 +              try:
-+                 phImage = urlparser.decorateUrl(phImage, {'Referer': self.MAIN_URL})
++                 phImage = urlparser.decorateUrl(phImage, {'Referer': 'https://dato.porn'})
 +              except: pass
 +              if phTitle:
-+                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+Time+'] '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)],'', phImage, None)) 
++                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+Time+'] '+decodeHtml(phTitle)+'\n'+Added,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)],'', phImage, None)) 
 +           if next:
-+              next = re.compile('href=[\"|\'](.*?)[\"|\']').findall(next)[-1]
-+              next = next.replace('&amp;','&')
-+              if next.startswith('/'): next = self.MAIN_URL + next
-+              valTab.append(CDisplayListItem('Next ', 'Page: '+next.split('=')[-1].replace('.html','').replace('page',''), CDisplayListItem.TYPE_CATEGORY, [next], name, '', 'next'))
++              next_page = url.replace('&'+url.split('&')[-1],'')+'&from='+str(next)
++              if '/search/' in url: next_page = url.replace('&'+url.split('&')[-1],'')+'&from_videos='+str(next)
++              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, '', None))
 +           return valTab
 +
 +        if 'hqporner' == name:
@@ -14049,12 +14061,12 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           #valTab.sort(key=lambda poz: poz.name)
 +           return valTab
 +
-+        if 'pornaq' == name:
++        if 'porn00' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           self.MAIN_URL = 'https://www.pornaq.com'
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'pornaq.cookie')
++           self.MAIN_URL = 'http://www.porn00.org'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'porn00.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'pornaq.cookie', 'pornaq.com', self.defaultParams)
++           sts, data = self.getPage(url, 'porn00.cookie', 'porn00.org', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           data = self.cm.ph.getDataBeetwenMarkers(data, '<ul class="category-menu', '</ul>', False)[1]
@@ -14065,35 +14077,37 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if phUrl.startswith('//'): phUrl = 'https:' + phUrl + '/' 
 +              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl 
 +              if phUrl:
-+                 valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl],'pornaq-clips', '', None)) 
++                 valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl],'porn00-clips', '', None)) 
 +           valTab.sort(key=lambda poz: poz.name)
-+           self.SEARCH_proc='pornaq-search'
++           self.SEARCH_proc='porn00-search'
 +           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
 +           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
 +           return valTab
-+        if 'pornaq-search' == name:
++        if 'porn00-search' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           valTab = self.listsItems(-1, 'http://www.pornaq.com/page/1/?s=%s' % url.replace(' ','+'), 'pornaq-clips')
++           valTab = self.listsItems(-1, 'http://www.porn00.org/page/1/?s=%s' % url.replace(' ','+'), 'porn00-clips')
 +           return valTab              
-+        if 'pornaq-clips' == name:
++        if 'porn00-clips' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'pornaq.cookie')
++           COOKIEFILE = os_path.join(GetCookieDir(), 'porn00.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'pornaq.cookie', 'pornaq.com', self.defaultParams)
++           sts, data = self.getPage(url, 'porn00.cookie', 'porn00.org', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           catUrl = self.currList[Index].possibleTypesOfSearch
 +           next = self.cm.ph.getSearchGroups(data, '''<link rel="next" href=['"]([^"^']+?)['"]''', 1, True)[0].replace('&amp;','&').replace('..','')
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<div class="post-con">', '</div>')
++           data = data.split('<div class="post-con">')
++           if len(data): del data[0]
 +           for item in data:
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
 +              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0]
 +              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
 +              phTime = self.cm.ph.getSearchGroups(item, '''([\d]?\d\d:\d\d)''', 1, True)[0] 
++              Added = self.cm.ph.getSearchGroups(item, '''dunk">([^>]+?)<''', 1, True)[0].strip()
 +              if phImage.startswith('//'): phImage = 'http:' + phImage
 +              if phUrl.startswith('//'): phUrl = 'http:' + phUrl + '/' 
 +              if phTitle:
-+                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+'] '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)],'', phImage, None)) 
++                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+'] '+decodeHtml(phTitle)+'\n'+Added,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)],'', phImage, None)) 
 +           if next:
 +              valTab.append(CDisplayListItem('Next', next, CDisplayListItem.TYPE_CATEGORY, [next], name, '', None))                
 +           return valTab
@@ -14692,9 +14706,209 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                 printExc()
 +           return valTab
 +
++        if 'sleazyneasy' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           self.MAIN_URL = 'https://www.sleazyneasy.com'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'sleazyneasy.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'sleazyneasy.cookie', 'sleazyneasy.com', self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           data = data.split('<div class="thumb">')
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if phUrl.startswith('//'): phUrl = 'https:' + phUrl + '/' 
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl 
++              if phImage.startswith('//'): phImage = 'https:' + phImage
++              if phImage.startswith('/'): phImage = self.MAIN_URL + phImage
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl+'?sort_by=post_date'],'sleazyneasy-clips', phImage, None)) 
++           valTab.sort(key=lambda poz: poz.name)
++           valTab.insert(0,CDisplayListItem("--- Top Rated ---","Top Rated",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/top-rated/'],             'sleazyneasy-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Popular ---","Popular",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/most-popular/'],             'sleazyneasy-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- New ---","New",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/latest-updates/'],             'sleazyneasy-clips',    '',None))
++           self.SEARCH_proc='sleazyneasy-search'
++           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
++           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
++           return valTab
++        if 'sleazyneasy-search' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           valTab = self.listsItems(-1, 'https://www.sleazyneasy.com/search/?q=%s' % url.replace(' ','+'), 'sleazyneasy-clips')
++           return valTab              
++        if 'sleazyneasy-clips' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           COOKIEFILE = os_path.join(GetCookieDir(), 'sleazyneasy.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'sleazyneasy.cookie', 'sleazyneasy.com', self.defaultParams)
++           if not sts: return valTab
++           printDBG( 'Host listsItems data: '+data )
++           catUrl = self.currList[Index].possibleTypesOfSearch
++           next = self.cm.ph.getDataBeetwenMarkers(data, 'class="pager', '</div>', False)[1]
++           n = '<span class="thumb-info">'
++           s = '<div class="video-rating pull-right'
++           if not n in data and not s in data:  return valTab
++           if n in data: data = data.split(n)
++           if s in data: data = data.split(s)
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"](https://www.sleazyneasy.com/videos/[^"^']+?)['"]''', 1, True)[0].replace('&amp;','&')
++              phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
++              if phTitle=='ASACP': continue
++              phImage = self.cm.ph.getSearchGroups(item, '''data-poster=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTime = self.cm.ph.getSearchGroups(item, '''<i>([^>]+?)<''', 1, True)[0].strip()
++              Added = self.cm.ph.getSearchGroups(item, '''truncate">([^>]+?)<''', 1, True)[0].strip()
++              if phImage.startswith('//'): phImage = 'http:' + phImage
++              if phUrl.startswith('//'): phUrl = 'http:' + phUrl
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+'] '+decodeHtml(phTitle)+'\n'+Added,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None)) 
++           if next:
++              try:
++                 next_page = re.compile('href="(.+?)"', re.DOTALL).findall(next)[-1]
++                 if next_page.startswith('/'): next_page = self.MAIN_URL + next_page
++                 valTab.append(CDisplayListItem(_("Next page"), 'Page: '+next_page.split('/')[-2], CDisplayListItem.TYPE_CATEGORY, [next_page], name, '', None))                
++              except Exception:
++                 printExc()
++           return valTab
 +
++        if 'vjav' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           self.MAIN_URL = 'https://vjav.com'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'vjav.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'vjav.cookie', 'vjav.com', self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           data = data.split('<a class="item')
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if phUrl.startswith('//'): phUrl = 'https:' + phUrl + '/' 
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl 
++              if phImage.startswith('//'): phImage = 'https:' + phImage
++              if phImage.startswith('/'): phImage = self.MAIN_URL + phImage
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl+'?sort_by=post_date'],'vjav-clips', phImage, None)) 
++           valTab.sort(key=lambda poz: poz.name)
++           valTab.insert(0,CDisplayListItem("--- Top Rated ---","Top Rated",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/top-rated/'],             'vjav-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Popular ---","Popular",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/most-popular/'],             'vjav-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- New ---","New",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/latest-updates/'],             'vjav-clips',    '',None))
++           self.SEARCH_proc='vjav-search'
++           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
++           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
++           return valTab
++        if 'vjav-search' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           valTab = self.listsItems(-1, 'https://www.vjav.com/search/?q=%s' % url.replace(' ','+'), 'vjav-clips')
++           return valTab              
++        if 'vjav-clips' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           COOKIEFILE = os_path.join(GetCookieDir(), 'vjav.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'vjav.cookie', 'vjav.com', self.defaultParams)
++           if not sts: return valTab
++           printDBG( 'Host listsItems data: '+data )
++           catUrl = self.currList[Index].possibleTypesOfSearch
++           next = self.cm.ph.getDataBeetwenMarkers(data, '<li class="next">', '</li>', False)[1]
++           n = 'data-id='
++           s = '<div class="video-rating pull-right'
++           if not n in data and not s in data:  return valTab
++           if n in data: data = data.split(n)
++           if s in data: data = data.split(s)
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0].replace('&amp;','&')
++              phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
++              if phTitle=='ASACP': continue
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTime = self.cm.ph.getSearchGroups(item, '''duration">([^>]+?)<''', 1, True)[0].strip()
++              Added = self.cm.ph.getSearchGroups(item, '''truncate">([^>]+?)<''', 1, True)[0].strip()
++              if phImage.startswith('//'): phImage = 'http:' + phImage
++              if phUrl.startswith('//'): phUrl = 'http:' + phUrl
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+'] '+decodeHtml(phTitle)+'\n'+Added,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None)) 
++           if next:
++              try:
++                 page = self.cm.ph.getSearchGroups(str(next), '''page:([^"^']+?)['"]''')[0]
++                 url = url.replace(url.split('/')[-1],'')
++                 next = url + '?mode=async&function=get_block&block_id=list_videos_common_videos_list&sort_by=post_date&from='+page
++                 valTab.append(CDisplayListItem('Next', 'Page : '+page, CDisplayListItem.TYPE_CATEGORY, [next], name, '', 'Next'))  
++              except Exception:
++                 printExc()
++           return valTab
 +
-+
++        if 'javhoho' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           self.MAIN_URL = 'https://javhoho.com'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'javhoho.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'javhoho.cookie', 'javhoho.com', self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           data = data.split('<a class="item')
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if phUrl.startswith('//'): phUrl = 'https:' + phUrl + '/' 
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl 
++              if phImage.startswith('//'): phImage = 'https:' + phImage
++              if phImage.startswith('/'): phImage = self.MAIN_URL + phImage
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl+'?sort_by=post_date'],'javhoho-clips', phImage, None)) 
++           valTab.sort(key=lambda poz: poz.name)
++           valTab.insert(0,CDisplayListItem("--- Free Asian Porn ---","Free Asian Porn",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/category/free-asian-porn/'],             'javhoho-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Free Korean Porn ---","Free Korean Porn",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/category/free-korean-porn/'],             'javhoho-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Free Chinese Porn ---","Free Chinese Porn",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/category/free-chinese-porn/'],             'javhoho-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Free JAV Censored ---","Free JAV Censored",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/category/free-jav-censored/'],             'javhoho-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Free JAV Uncensored ---","Free JAV Uncensored",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/category/free-jav-uncensored/'],             'javhoho-clips',    '',None))
++           self.SEARCH_proc='javhoho-search'
++           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
++           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
++           return valTab
++        if 'javhoho-search' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           valTab = self.listsItems(-1, 'https://javhoho.com/search/%s/' % url.replace(' ','+'), 'javhoho-clips')
++           return valTab              
++        if 'javhoho-clips' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           COOKIEFILE = os_path.join(GetCookieDir(), 'javhoho.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'javhoho.cookie', 'javhoho.com', self.defaultParams)
++           if not sts: return valTab
++           printDBG( 'Host listsItems data: '+data )
++           catUrl = self.currList[Index].possibleTypesOfSearch
++           next = self.cm.ph.getSearchGroups(data, '''<link rel="next" href=['"]([^"^']+?)['"]''', 1, True)[0].replace('&amp;','&')
++           n = '<div id="post-'
++           s = '<div class="video-rating pull-right'
++           if not n in data and not s in data:  return valTab
++           if n in data: data = data.split(n)
++           if s in data: data = data.split(s)
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0].replace('&amp;','&')
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0]
++              if phTitle=='ASACP': continue
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTime = self.cm.ph.getSearchGroups(item, '''duration">([^>]+?)<''', 1, True)[0].strip()
++              Added = self.cm.ph.getSearchGroups(item, '''date">([^>]+?)<''', 1, True)[0].strip()
++              if phImage.startswith('//'): phImage = 'http:' + phImage
++              if phUrl.startswith('//'): phUrl = 'http:' + phUrl
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+'] '+decodeHtml(phTitle)+'\n'+Added,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None)) 
++           if next:
++              try:
++                 valTab.append(CDisplayListItem('Next', 'Page : '+next, CDisplayListItem.TYPE_CATEGORY, [next], name, '', 'Next'))  
++              except Exception:
++                 printExc()
++           return valTab 
++   
++   
 +        return valTab
 +
 +    def getLinksForVideo(self, url):
@@ -14813,6 +15027,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if url.startswith('https://fileone.tv'):                      return 'xxxlist.txt'
 +        if url.startswith('https://streamcherry.com'):                return 'xxxlist.txt'
 +        if url.startswith('https://vk.com'):                          return 'xxxlist.txt'
++        if url.startswith('https://www.fembed.com'):                  return 'xxxlist.txt'
 +        if url.startswith('https://videobin.co'):                     return 'https://videobin.co'
 +        if url.startswith('http://dato.porn'):                        return 'http://dato.porn'
 +        if url.startswith('https://dato.porn'):                       return 'http://dato.porn'
@@ -14973,7 +15188,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if self.MAIN_URL == 'https://hqporner.com':          return self.MAIN_URL 
 +        if self.MAIN_URL == 'https://www.naked.com':         return self.MAIN_URL  
 +        if self.MAIN_URL == 'https://www.cumlouder.com':     return self.MAIN_URL
-+        if self.MAIN_URL == 'https://www.pornaq.com':        return self.MAIN_URL
++        if self.MAIN_URL == 'http://www.porn00.org':         return self.MAIN_URL
 +        if self.MAIN_URL == 'https://www.volimeee.com':      return self.MAIN_URL
 +        if self.MAIN_URL == 'https://p720.net':              return self.MAIN_URL
 +        if self.MAIN_URL == 'https://pornopersik.com':       return 'https://p720.net'
@@ -14981,18 +15196,11 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if self.MAIN_URL == 'https://anon-v.com':            return self.MAIN_URL
 +        if self.MAIN_URL == 'https://www.bravoporn.com':     return 'https://anyporn.com'
 +        if self.MAIN_URL == 'https://www.bravoteens.com':    return 'https://anyporn.com'
++        if self.MAIN_URL == 'https://www.sleazyneasy.com':   return 'https://www.sleazyneasy.com'
++        if self.MAIN_URL == 'https://vjav.com':              return 'http://www.hdzog.com'
++        if self.MAIN_URL == 'https://javhoho.com':           return self.MAIN_URL
 +
-+        urlSupport = self.up.checkHostSupport( url )
-+        if 1 == urlSupport:
-+            retTab = self.up.getVideoLinkExt( url )
-+            videoUrls.extend(retTab)
-+            printDBG("Video url[%s]" % videoUrls)
-+            if videoUrls:
-+                for item in videoUrls:
-+                    Url = item['url']
-+                    Name = item['name']
-+                    printDBG( 'Host url:  '+Url )
-+                    return Url
++
 +        return ''
 +
 +    def getResolvedURL(self, url):
@@ -15001,7 +15209,15 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        videoUrl = ''
 +        parser = self.getParser(url)
 +        printDBG( 'Host getResolvedURL parser: '+parser )
-+        if parser == '': return url
++        #if parser == '': return url
++
++        if 'gounlimited.to' in url:
++            if 'embed' not in url:
++                url = 'https://gounlimited.to/embed-{0}.html'.format(url.split('/')[3])
++        if 'clipwatching.com' in url:
++            if 'embed' not in url:
++                video_id = self.cm.ph.getSearchGroups(url, 'clipwatching.com/([A-Za-z0-9]{12})[/.-]')[0]
++                url = 'http://clipwatching.com/embed-{0}.html'.format(video_id)
 +
 +        if parser == 'mjpg_stream':
 +           try:
@@ -15403,7 +15619,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.HTTP_HEADER['Referer'] = url
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url, self.defaultParams)
-+           if not sts: return valTab
++           if not sts: return ''
 +           self.page = 1
 +           printDBG( 'Host listsItems data: '+data )
 +
@@ -15704,7 +15920,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           self.defaultParams['header']['Referer'] = url
 +           sts, data = self.get_Page(url)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host getResolvedURL data: '+data )
 +           if 'mediaDefinition' in data:
 +              try:
@@ -15771,18 +15987,16 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           sts, data = self.getPage(url, 'playvids.cookie', 'playvids.com', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+str(data) )
-+           videoUrl = self.cm.ph.getSearchGroups(data, '''data-src720=['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
++           videoUrl = self.cm.ph.getSearchGroups(data, '''src720=['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
 +           if videoUrl:
-+              if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
-+              return videoUrl
-+           videoUrl = self.cm.ph.getSearchGroups(data, '''data-src480=['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
++              return self.FullUrl(videoUrl)
++           videoUrl = self.cm.ph.getSearchGroups(data, '''src480=['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
 +           if videoUrl:
-+              if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
-+              return videoUrl
-+           videoUrl = self.cm.ph.getSearchGroups(data, '''data-src360=['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
++              return self.FullUrl(videoUrl)
++           videoUrl = self.cm.ph.getSearchGroups(data, '''src360=['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
 +           if videoUrl:
-+              if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
-+              return videoUrl
++              return self.FullUrl(videoUrl)
++           return ''
 +
 +        if parser == 'http://www.tubewolf.com':
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'tubewolf.cookie')
@@ -16217,7 +16431,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           return self.cm.ph.getSearchGroups(data, '''<source src=['"]([^"^']+?)['"]''', 1, True)[0]
 +
@@ -16334,7 +16548,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           videoPage = re.findall('video src="(.*?)"', data, re.S)   
 +           if videoPage:
@@ -16347,21 +16561,30 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           videoUrl = self.cm.ph.getSearchGroups(data, '''<source src=['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
 +           if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
 +           return urllib2.unquote(videoUrl)
 +
 +        if parser == 'http://dato.porn':
-+           if not 'embed' in url:
-+              url = 'https://datoporn.co/embed-%s-658x400.html' % url.split('/')[-1]
++           #if not 'embed' in url:
++           #   url = 'https://datoporn.co/embed-%s-658x400.html' % url.split('/')[-1]
 +           USER_AGENT = 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.120 Chrome/37.0.2062.120 Safari/537.36'
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'datoporn.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE, 'return_data': True}
 +           sts, data = self.getPage(url, 'datoporn.cookie', 'datoporn.co', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+str(data) )
++           license_code = self.cm.ph.getSearchGroups(data, '''license_code\s*?:\s*?['"]([^"^']+?)['"]''')[0]
++           videoUrl = self.cm.ph.getSearchGroups(data, '''video_alt_url\s*?:\s*?['"]([^"^']+?)['"]''')[0]
++           if 'login' in videoUrl: videoUrl = self.cm.ph.getSearchGroups(data, '''video_url\s*?:\s*?['"]([^"^']+?)['"]''')[0]
++           printDBG( 'Host license_code: %s' % license_code )
++           printDBG( 'Host video_url: %s' % videoUrl )		   
++           if 'function/0/' in videoUrl:
++              videoUrl = decryptHash(videoUrl, license_code, '16')
++           return urlparser.decorateUrl(videoUrl, {'Referer': url, 'User-Agent': USER_AGENT}) 
++
 +           if "eval(function(p,a,c,k,e,d)" in data:
 +              printDBG( 'Host resolveUrl packed' )
 +              packed = re.compile('>eval\(function\(p,a,c,k,e,d\)(.+?)</script>', re.DOTALL).findall(data)
@@ -16508,7 +16731,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                    #        return item['url']
 +                elif videoUrl.split('?')[0].endswith('mp4'):
 +                    printDBG( 'Host  videoUrl: %s' % videoUrl )
-+                    videoUrl = urlparser.decorateUrl(videoUrl, {'Referer': referer}) 
++                    videoUrl = urlparser.decorateUrl(videoUrl, {'Referer': referer, 'User-Agent': self.USER_AGENT}) 
 +                    return videoUrl
 +            return ''
 +
@@ -16593,7 +16816,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.defaultParams = {'header':self.HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           self.defaultParams['header']['Referer'] = referer
 +           sts, data = self.getPage(url, 'yespornplease.cookie', 'yespornplease.com', self.defaultParams)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           return ''
 +
@@ -16739,7 +16962,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           videoUrl = self.cm.ph.getSearchGroups(data, '''video_url:\s*['"]([^"^']+?)['"]''')[0] 
 +           return videoUrl
@@ -16820,7 +17043,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'cumlouder.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.getPage(url, 'cumlouder.cookie', 'cumlouder.com', self.defaultParams)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           videoUrl = self.cm.ph.getSearchGroups(data, '''<source src=['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
 +           if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
@@ -16830,7 +17053,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'vporn.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.getPage(url, 'vporn.cookie', 'vporn.com', self.defaultParams)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           if 'This video has been deleted' in data:
 +              SetIPTVPlayerLastHostError(_(' This video has been deleted.'))
@@ -16848,7 +17071,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           videoUrl = self.cm.ph.getSearchGroups(data, '''downloadUrl":['"]([^"^']+?)['"]''')[0].replace('&amp;','&')
 +           if videoUrl:
@@ -16917,15 +17140,22 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              return videoPage
 +           return ''
 +
-+        if parser == 'https://www.pornaq.com':
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'pornaq.cookie')
++        if parser == 'http://www.porn00.org':
++           COOKIEFILE = os_path.join(GetCookieDir(), 'porn00.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'pornaq.cookie', 'pornaq.com', self.defaultParams)
++           sts, data = self.getPage(url, 'porn00.cookie', 'porn00.org', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           videoUrl = self.FullUrl(self.cm.ph.getSearchGroups(data, '''<source[^>]+?src=['"]([^"^']+?)['"]''')[0])
 +           if videoUrl:
 +              return urlparser.decorateUrl(videoUrl, {'Referer': url}) 
++           videoUrl = self.FullUrl(self.cm.ph.getSearchGroups(data, '''<iframe[^>]+?src=['"]([^"^']+?)['"]''')[0])
++           if videoUrl:
++              sts, data = self.getPage(videoUrl, 'porn00.cookie', 'porn00.org', self.defaultParams)
++              if not sts: return ''
++              printDBG( 'Host listsItems data: '+data )
++              videoUrl = re.compile(r"""<source[^>]+?src=(?:"|')?([^'";]+)(?:"|')""", re.DOTALL | re.IGNORECASE).findall(data)
++              return urlparser.decorateUrl(videoUrl[-1], {'Referer': url}) 
 +           return ''
 +
 +        if parser == 'https://www.volimeee.com':
@@ -16948,20 +17178,37 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           sts, data = self.get_Page(url, self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
++           videoPage = self.FullUrl(self.cm.ph.getSearchGroups(data, '''embedURL"\s*href=['"]([^"^']+?)['"]''')[0])
++           id = self.cm.ph.getSearchGroups(data, '''"id":\s*['"]([^"^']+?)['"]''')[0]
++           videoUrl= 'https://porndoe.com/service/index?device=desktop&page=video&id='+id
++           sts, data = self.get_Page(videoUrl, self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data2: '+data )
 +           try:
-+              data2 = self.cm.ph.getDataBeetwenMarkers(data, '"videos": ', '"preview"', False)[1].strip()
-+              urls = re.findall('"url": "(.*?mp4)"', data2, re.S|re.I)
-+              return self.cm.getFullUrl(urls[-1])
-+           except Exception: 
++              data = self.cm.ph.getDataBeetwenMarkers(data, '"sources":', '}},', False)[1]
++              if data.startswith('{'): data = '['+data+'}]'
++              printDBG( 'Host listsItems data3: '+data )
++              result = byteify(simplejson.loads(data))
++              for item in result:
++                 try:
++                    if str(item["720"]["url"]) : return strwithmeta(str(item["720"]["url"]), {'Referer': url}) 
++                    if str(item["480"]["url"]) : return strwithmeta(str(item["480"]["url"]), {'Referer': url})
++                    if str(item["240"]["url"]) : return strwithmeta(str(item["240"]["url"]), {'Referer': url})
++                 except Exception as e:
++                    printExc()
++           except Exception as e:
 +              printExc()
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '      <source', '>')
-+           for item in data:
-+              printDBG( 'Host item: '+str(item) )
-+              if '1080p' in item: return self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0]
-+              if '720p' in item: return self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0]
-+              if '480p' in item: return self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0]
-+              if '360p' in item: return self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0]
-+              if '240p' in item: return self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0]
++           sts, data = self.get_Page(videoPage, self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data4: '+data )
++           try:
++              data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<source', '>')
++              for item in data:
++                 printDBG( 'Host item: '+str(item) )
++              videoUrl = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0]
++              if videoUrl: return strwithmeta(videoUrl, {'Referer': url})
++           except Exception as e:
++              printExc()
 +           return ''
 +
 +        if parser == 'https://hdsite.net':
@@ -16974,8 +17221,9 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           printDBG( 'Host listsItems data: '+data )
 +           license_code = self.cm.ph.getSearchGroups(data, '''license_code\s*?:\s*?['"]([^"^']+?)['"]''')[0]
 +           videoUrl = self.cm.ph.getSearchGroups(data, '''video_url\s*?:\s*?['"]([^"^']+?)['"]''')[0]
++           videoUrl = self.cm.ph.getSearchGroups(data, '''video_url\s*?:\s*?['"]([^"^']+?)['"]''')[0]
 +           printDBG( 'Host license_code: %s' % license_code )
-+           printDBG( 'Host video_url: %s' % videoUrl )		   
++           printDBG( 'Host video_url: %s' % videoUrl )
 +           if 'function/0/' in videoUrl:
 +              videoUrl = decryptHash(videoUrl, license_code, '16')
 +           return urlparser.decorateUrl(videoUrl, {'Referer': url, 'User-Agent': self.HTTP_HEADER['User-Agent']})
@@ -16988,6 +17236,9 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           sts, data = self.get_Page(url, self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
++           if 'hdsite.net/embed/' in data:
++              videoUrl = self.FullUrl(self.cm.ph.getSearchGroups(data, '''<iframe[^>]+?src=['"]([^"^']+?)['"]''')[0])
++              return self.getResolvedURL(videoUrl)
 +           if not 'mp4' in data: SetIPTVPlayerLastHostError('LOGIN REQUIRED')
 +           license_code = self.cm.ph.getSearchGroups(data, '''license_code\s*?:\s*?['"]([^"^']+?)['"]''')[0]
 +           videoUrl = self.cm.ph.getSearchGroups(data, '''video_url\s*?:\s*?['"]([^"^']+?)['"]''')[0]
@@ -17002,7 +17253,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +            self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +            self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +            sts, data = self.get_Page(url)
-+            if not sts: return valTab
++            if not sts: return ''
 +            printDBG( 'Host listsItems data: '+data )
 +            videoPage = re.findall('"quality_\d+p":"(.*?)"', data, re.S) 
 +            if videoPage:
@@ -17015,7 +17266,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url)
-+           if not sts: return valTab
++           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           videoUrl = self.FullUrl(self.cm.ph.getSearchGroups(data, '''1080p['"]:['"]([^'"]+?)['"]''')[0]).replace('&amp;','&').replace(r"\/",r"/")
 +           if videoUrl: 
@@ -17058,6 +17309,32 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              videoUrl = decryptHash(videoUrl, license_code, '16')
 +           if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
 +           return urlparser.decorateUrl(videoUrl, {'Referer': url})
++
++        if parser == 'https://www.sleazyneasy.com':
++           COOKIEFILE = os_path.join(GetCookieDir(), 'sleazyneasy.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'sleazyneasy.cookie', 'sleazyneasy.com', self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           license_code = self.cm.ph.getSearchGroups(data, '''license_code\s*?:\s*?['"]([^"^']+?)['"]''')[0]
++           videoUrl = self.cm.ph.getSearchGroups(data, '''video_url\s*?:\s*?['"]([^"^']+?)['"]''')[0]
++           printDBG( 'Host license_code: %s' % license_code )
++           printDBG( 'Host video_url: %s' % videoUrl )
++           if 'function/0/' in videoUrl:
++              videoUrl = decryptHash(videoUrl, license_code, '16')
++           if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
++           return urlparser.decorateUrl(videoUrl, {'Referer': self.cm.meta['url']})
++
++        if parser == 'https://javhoho.com':
++           COOKIEFILE = os_path.join(GetCookieDir(), 'javhoho.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'javhoho.cookie', 'javhoho.com', self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           videoUrl = self.cm.ph.getSearchGroups(data, '''['"](https://upstream.to[^"^']+?)['"]''')[0]
++           if not videoUrl: videoUrl = self.cm.ph.getSearchGroups(data, '''['"](https://www.fembed.com[^"^']+?)['"]''')[0]
++           return self.getResolvedURL(videoUrl)
++
 +
 +##########################################################################################################################
 +        query_data = {'url': url, 'use_host': False, 'use_cookie': False, 'use_post': False, 'return_data': True}
@@ -17492,7 +17769,15 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
 +              return urlparser.decorateUrl(videoUrl, {'Referer': 'https://momxxxfun.com'}) 
 +
-+
++        videoUrls = []
++        urlSupport = self.up.checkHostSupport( url )
++        if 1 == urlSupport:
++            retTab = self.up.getVideoLinkExt( url )
++            videoUrls.extend(retTab)
++            printDBG("Video url[%s]" % videoUrls)
++            if videoUrls:
++                for item in videoUrls:
++                    if item['url']: return item['url']
 +
 +        printDBG( 'Host getResolvedURL end' )
 +        return videoUrl
@@ -18110,8 +18395,8 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +    return m 
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
---- o/IPTVPlayer/hosts/hostyoutube.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/hosts/hostyoutube.py	2020-05-02 10:29:33.913144345 +0200
+--- o/IPTVPlayer/hosts/hostyoutube.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/hosts/hostyoutube.py	2020-05-12 00:07:45.105290928 +0300
 @@ -23,7 +23,7 @@
  ###################################################
  # Config options for HOST
@@ -18122,8 +18407,8 @@ diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
  def GetConfigList():
      optionList = []
 diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
---- o/IPTVPlayer/hosts/list.txt	2020-04-08 13:57:49.893599918 +0200
-+++ pc/IPTVPlayer/hosts/list.txt	2020-04-08 14:45:47.558423840 +0200
+--- o/IPTVPlayer/hosts/list.txt	2020-04-08 14:57:49.893599918 +0300
++++ pc/IPTVPlayer/hosts/list.txt	2020-05-12 00:07:45.106290928 +0300
 @@ -4,10 +4,13 @@
  host3sktv
  host7tvde
@@ -18232,13 +18517,9 @@ diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
  hosttvgrypl
  hosttvjworg
  hosttvn24
-Двоичные файлы o/IPTVPlayer/icons/logos/XXXlogo.png и pc/IPTVPlayer/icons/logos/XXXlogo.png различаются
-Двоичные файлы o/IPTVPlayer/icons/PlayerSelector/XXX100.png и pc/IPTVPlayer/icons/PlayerSelector/XXX100.png различаются
-Двоичные файлы o/IPTVPlayer/icons/PlayerSelector/XXX120.png и pc/IPTVPlayer/icons/PlayerSelector/XXX120.png различаются
-Двоичные файлы o/IPTVPlayer/icons/PlayerSelector/XXX135.png и pc/IPTVPlayer/icons/PlayerSelector/XXX135.png различаются
 diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
---- o/IPTVPlayer/iptvdm/iptvdh.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/iptvdm/iptvdh.py	2020-04-04 12:32:10.981449352 +0200
+--- o/IPTVPlayer/iptvdm/iptvdh.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/iptvdm/iptvdh.py	2020-05-12 00:07:45.106290928 +0300
 @@ -101,7 +101,7 @@
          
      @staticmethod
@@ -18249,8 +18530,8 @@ diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
              return altFFMPEGPath
          return "ffmpeg"
 diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/xxx.sh
---- o/IPTVPlayer/iptvupdate/custom/xxx.sh	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2020-04-04 12:32:10.996449353 +0200
+--- o/IPTVPlayer/iptvupdate/custom/xxx.sh	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2020-02-18 23:35:14.816359101 +0300
 @@ -0,0 +1,40 @@
 +#!/bin/sh
 +cp $1/iptvupdate/custom/xxx.sh $2/iptvupdate/custom/xxx.sh
@@ -18293,8 +18574,8 @@ diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/
 +echo "Wykonywanie $0 zakończone sukcesem."
 +exit 0
 diff -ruN o/IPTVPlayer/iptvupdate/serwerslist.json pc/IPTVPlayer/iptvupdate/serwerslist.json
---- o/IPTVPlayer/iptvupdate/serwerslist.json	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/iptvupdate/serwerslist.json	2020-04-04 12:32:10.996449353 +0200
+--- o/IPTVPlayer/iptvupdate/serwerslist.json	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/iptvupdate/serwerslist.json	2020-05-12 00:07:45.106290928 +0300
 @@ -0,0 +1,6 @@
 +{
 +    "icons_hash": "1541442800", 
@@ -18304,8 +18585,8 @@ diff -ruN o/IPTVPlayer/iptvupdate/serwerslist.json pc/IPTVPlayer/iptvupdate/serw
 +}
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/updatemainwindow.py
---- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-04-04 10:58:01.575054674 +0200
-+++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-04-04 12:32:10.996449353 +0200
+--- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-04-04 11:58:01.575054674 +0300
++++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-05-12 00:07:45.106290928 +0300
 @@ -295,7 +295,7 @@
          if os_path.isfile(newVerFile):
              verPattern = self.VERSION_PATTERN
@@ -18316,8 +18597,8 @@ diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/u
  
          try:
 diff -ruN o/IPTVPlayer/libs/wiziwig1.py pc/IPTVPlayer/libs/wiziwig1.py
---- o/IPTVPlayer/libs/wiziwig1.py	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/libs/wiziwig1.py	2020-04-04 12:32:11.024449355 +0200
+--- o/IPTVPlayer/libs/wiziwig1.py	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/libs/wiziwig1.py	2020-05-12 00:07:45.106290928 +0300
 @@ -0,0 +1,110 @@
 +﻿# -*- coding: utf-8 -*-
 +
@@ -18430,8 +18711,8 @@ diff -ruN o/IPTVPlayer/libs/wiziwig1.py pc/IPTVPlayer/libs/wiziwig1.py
 +        return urlsTab
 +    
 diff -ruN o/IPTVPlayer/locale/IPTVPlayer.pot pc/IPTVPlayer/locale/IPTVPlayer.pot
---- o/IPTVPlayer/locale/IPTVPlayer.pot	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/locale/IPTVPlayer.pot	2020-04-04 12:32:11.026449355 +0200
+--- o/IPTVPlayer/locale/IPTVPlayer.pot	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/locale/IPTVPlayer.pot	2020-05-12 00:07:45.108290928 +0300
 @@ -0,0 +1,6853 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -25287,8 +25568,8 @@ diff -ruN o/IPTVPlayer/locale/IPTVPlayer.pot pc/IPTVPlayer/locale/IPTVPlayer.pot
 +msgid "Search in "
 +msgstr ""
 diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po
---- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-04-04 12:32:11.028449355 +0200
+--- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-05-12 00:07:45.110290928 +0300
 @@ -1,54 +1,103 @@
  msgid ""
  msgstr ""
@@ -33413,8 +33694,8 @@ diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +msgid "worst"
 +msgstr "наихудшее"
 diff -ruN o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po
---- o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	1970-01-01 01:00:00.000000000 +0100
-+++ pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	2020-04-04 12:32:11.041449356 +0200
+--- o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	1970-01-01 03:00:00.000000000 +0300
++++ pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	2020-05-12 00:07:45.112290927 +0300
 @@ -0,0 +1,8780 @@
 +msgid ""
 +msgstr ""
@@ -42197,8 +42478,8 @@ diff -ruN o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +#~ msgid "Фильмы 2015"
 +#~ msgstr "Фільми 2015"
 diff -ruN o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po
---- o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po	1970-01-01 01:00:00.000000000 +0100
+--- o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po	1970-01-01 03:00:00.000000000 +0300
 @@ -1,3651 +0,0 @@
 -msgid ""
 -msgstr ""
@@ -45852,8 +46133,8 @@ diff -ruN o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 -msgid "Фильмы 2015"
 -msgstr "Фільми 2015"
 diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
---- o/IPTVPlayer/plugin.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/plugin.py	2020-04-04 12:32:11.042449356 +0200
+--- o/IPTVPlayer/plugin.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/plugin.py	2020-05-12 00:07:45.113290927 +0300
 @@ -6,7 +6,6 @@
  from Plugins.Extensions.IPTVPlayer.components.iptvconfigmenu import ConfigMenu
  from Plugins.Extensions.IPTVPlayer.components.iptvpin import IPTVPinWidget
@@ -45874,8 +46155,8 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
          
  def pinCallback(session, callbackFun, pin=None):
 diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.py
---- o/IPTVPlayer/setup/iptvsetupimpl.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2020-04-04 12:32:11.054449357 +0200
+--- o/IPTVPlayer/setup/iptvsetupimpl.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2020-05-12 00:07:45.113290927 +0300
 @@ -463,7 +463,7 @@
          def _verValidator(code, data):
              if 0 == code: return True,False
@@ -45907,8 +46188,8 @@ diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.
              self.exteplayer3Step()
          elif "" != self.gstreamerVersion: self.gstplayerStep()
 diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.py
---- o/IPTVPlayer/tools/iptvsubtitles.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/tools/iptvsubtitles.py	2020-04-04 12:32:11.068449358 +0200
+--- o/IPTVPlayer/tools/iptvsubtitles.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/tools/iptvsubtitles.py	2020-05-12 00:07:45.113290927 +0300
 @@ -364,5 +364,5 @@
          
  if __name__ == "__main__":
@@ -45917,8 +46198,8 @@ diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.
 +    obj.loadSubtitles('/media/hdd/_Back.To.The.Future[1985]DvDrip-aXXo.pl.srt')
      obj.getSubtitles(10000)
 diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
---- o/IPTVPlayer/tools/iptvtools.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/tools/iptvtools.py	2020-04-04 12:32:11.083449359 +0200
+--- o/IPTVPlayer/tools/iptvtools.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/tools/iptvtools.py	2020-05-12 00:07:45.114290927 +0300
 @@ -303,8 +303,8 @@
      baseName = resolveFilename(SCOPE_PLUGINS, 'Extensions/IPTVPlayer/scripts/') + name
      if fileExists(baseName + '.py'):
@@ -46040,8 +46321,8 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  def ReadUint16(tmp, le=True):
      if le: return ord(tmp[1]) << 8 | ord(tmp[0])
 diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
---- o/IPTVPlayer/Web/webSite.py	2019-12-23 11:09:37.000000000 +0100
-+++ pc/IPTVPlayer/Web/webSite.py	2020-04-04 12:32:11.098449360 +0200
+--- o/IPTVPlayer/Web/webSite.py	2019-12-23 13:09:37.000000000 +0300
++++ pc/IPTVPlayer/Web/webSite.py	2020-05-12 00:07:45.114290927 +0300
 @@ -26,15 +26,15 @@
      #### Reload scripts if new version of source exists ####
      webPath = GetPluginDir(file = '/Web/')
