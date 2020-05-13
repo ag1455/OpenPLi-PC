@@ -30,10 +30,6 @@
 # { auto  null  pulseaudio  alsa  oss  jack  file  none }, default: 0
 audio.driver:alsa
 
-# device used for pulseaudio
-# string, default: 
-#audio.pulseaudio_device:
-
 # a/v sync precision
 # { Normal  Fine }, default: 1
 #audio.synchronization.av_fine_sync:Fine
@@ -56,15 +52,11 @@ audio.driver:alsa
 
 # play audio even on slow/fast speeds
 # bool, default: 0
-#audio.synchronization.slow_fast_audio:0
+audio.synchronization.slow_fast_audio:1
 
 # startup audio volume
 # [0..100], default: 50
 audio.volume.mixer_volume:100
-
-# restore volume level at startup
-# bool, default: 0
-#audio.volume.remember_volume:0
 
 # используемый видеодрайвер
 # { auto  vdpau  aadxr3  dxr3  xv  vaapi  opengl2  XDirectFB  DirectFB  raw  opengl  xshm  caca  aa  xxmc  none  sdl  fb  xvmc }, default: 0
@@ -86,10 +78,6 @@ video.driver:vaapi
 # bool, default: 0
 #video.output.disable_scaling:0
 
-# horizontal image position in the output window
-# [0..100], default: 50
-#video.output.horizontal_position:50
-
 # treat screen pixels as exactly square
 # bool, default: 0
 #video.output.square_pixels:0
@@ -108,7 +96,7 @@ video.driver:vaapi
 
 # vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob ).
 # numeric, default: 0
-video.output.vaapi_deinterlace:2
+video.output.vaapi_deinterlace:1
 
 # vaapi: enigma osd height workaround.
 # numeric, default: 0
@@ -146,18 +134,6 @@ video.output.vaapi_enigma_osd_width:1920
 # bool, default: 0
 #video.output.vaapi_swap_uv_planes:0
 
-# vaapi: VDR osd height workaround.
-# numeric, default: 0
-#video.output.vaapi_vdr_osd_height:0
-
-# vaapi: VDR osd width workaround.
-# numeric, default: 0
-#video.output.vaapi_vdr_osd_width:0
-
-# vertical image position in the output window
-# [0..100], default: 50
-#video.output.vertical_position:50
-
 # Choose speed over specification compliance
 # bool, default: 0
 #video.processing.ffmpeg_choose_speed_over_accuracy:0
@@ -168,7 +144,7 @@ video.output.vaapi_enigma_osd_width:1920
 
 # Enable VAAPI
 # bool, default: 1
-#video.processing.ffmpeg_enable_vaapi:1
+video.processing.ffmpeg_enable_vaapi:0
 
 # MPEG-4 postprocessing quality
 # [0..6], default: 3
@@ -180,7 +156,7 @@ video.output.vaapi_enigma_osd_width:1920
 
 # FFmpeg video decoding thread count
 # numeric, default: 1
-#video.processing.ffmpeg_thread_count:1
+video.processing.ffmpeg_thread_count:2
 
 # VAAPI Mpeg2 softdecoding
 # bool, default: 0
@@ -196,7 +172,7 @@ engine.buffers.video_num_buffers:500
 
 # default number of video frames
 # numeric, default: 50
-#engine.buffers.video_num_frames:50
+engine.buffers.video_num_frames:50
 
 # disable decoder flush at discontinuity
 # bool, default: 0
@@ -209,14 +185,6 @@ engine.buffers.video_num_buffers:500
 # memcopy method used by xine
 # { probe  libc  kernel  mmx  mmxext  sse  avx }, default: 0
 engine.performance.memcpy_method:kernel
-
-# percentage of discarded frames to tolerate
-# numeric, default: 10
-#engine.performance.warn_discarded_threshold:10
-
-# percentage of skipped frames to tolerate
-# numeric, default: 10
-#engine.performance.warn_skipped_threshold:10
 
 # Sync multiple clocks in a separate thread
 # bool, default: 0

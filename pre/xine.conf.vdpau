@@ -30,10 +30,6 @@
 # { auto  null  pulseaudio  alsa  oss  jack  file  none }, default: 0
 audio.driver:alsa
 
-# device used for pulseaudio
-# string, default: 
-#audio.pulseaudio_device:
-
 # a/v sync precision
 # { Normal  Fine }, default: 1
 #audio.synchronization.av_fine_sync:Fine
@@ -42,7 +38,7 @@ audio.driver:alsa
 # { metronom feedback  resample }, default: 0
 #audio.synchronization.av_sync_method:metronom feedback
 
-# always resample to this rate (0 to disable) ::DONT USE FOR E2PC!
+# always resample to this rate (0 to disable)
 # numeric, default: 0
 #audio.synchronization.force_rate:0
 
@@ -60,11 +56,7 @@ audio.synchronization.slow_fast_audio:1
 
 # startup audio volume
 # [0..100], default: 50
-#audio.volume.mixer_volume:50
-
-# restore volume level at startup
-# bool, default: 0
-#audio.volume.remember_volume:0
+audio.volume.mixer_volume:100
 
 # используемый видеодрайвер
 # { auto  vdpau  aadxr3  dxr3  xv vaapi opengl2  XDirectFB  DirectFB  raw  opengl  aa  xshm  caca  xxmc  none  fb  xvmc }, default: 0
@@ -85,10 +77,6 @@ video.driver:vdpau
 # disable all video scaling
 # bool, default: 0
 #video.output.disable_scaling:0
-
-# horizontal image position in the output window
-# [0..100], default: 50
-#video.output.horizontal_position:50
 
 # treat screen pixels as exactly square
 # bool, default: 0
@@ -112,7 +100,7 @@ video.driver:vdpau
 
 # vdpau: disable deinterlacing when progressive_frame flag is set
 # bool, default: 0
-#video.output.vdpau_honor_progressive:0
+video.output.vdpau_honor_progressive:1
 
 # maximum number of output surfaces buffered for reuse
 # numeric, default: 10
@@ -128,15 +116,11 @@ video.driver:vdpau
 
 # vdpau: restrict enabling video properties for SD video only
 # { none  noise  sharpness  noise+sharpness }, default: 0
-#video.output.vdpau_sd_only_properties:none
+video.output.vdpau_sd_only_properties:noise+sharpness
 
 # vdpau: disable advanced deinterlacers chroma filter
 # bool, default: 0
 #video.output.vdpau_skip_chroma_deinterlace:0
-
-# vertical image position in the output window
-# [0..100], default: 50
-#video.output.vertical_position:50
 
 # Choose speed over specification compliance
 # bool, default: 0
@@ -160,11 +144,11 @@ video.processing.ffmpeg_thread_count:2
 
 # number of audio buffers
 # numeric, default: 230
-#engine.buffers.audio_num_buffers:230
+engine.buffers.audio_num_buffers:230
 
 # number of video buffers
 # numeric, default: 500
-#engine.buffers.video_num_buffers:500
+engine.buffers.video_num_buffers:500
 
 # default number of video frames
 # numeric, default: 15
@@ -178,21 +162,9 @@ engine.buffers.video_num_frames:22
 # bool, default: 0
 #engine.decoder.disable_flush_from_video_out:0
 
-# media format detection strategy
-# { default  reverse  content  extension }, default: 0
-#engine.demux.strategy:default
-
 # memcopy method used by xine
 # { probe  libc  kernel  mmx  mmxext  sse  avx }, default: 0
 engine.performance.memcpy_method:kernel
-
-# percentage of discarded frames to tolerate
-# numeric, default: 10
-#engine.performance.warn_discarded_threshold:10
-
-# percentage of skipped frames to tolerate
-# numeric, default: 10
-#engine.performance.warn_skipped_threshold:10
 
 # Sync multiple clocks in a separate thread
 # bool, default: 0

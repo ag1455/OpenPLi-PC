@@ -30,10 +30,6 @@
 # { auto  null  pulseaudio  alsa  oss  jack  file  none }, default: 0
 audio.driver:alsa
 
-# device used for pulseaudio
-# string, default: 
-#audio.pulseaudio_device:
-
 # a/v sync precision
 # { Normal  Fine }, default: 1
 #audio.synchronization.av_fine_sync:Fine
@@ -42,7 +38,7 @@ audio.driver:alsa
 # { metronom feedback  resample }, default: 0
 #audio.synchronization.av_sync_method:metronom feedback
 
-# always resample to this rate (0 to disable) ::DONT USE FOR E2PC!
+# always resample to this rate (0 to disable)
 # numeric, default: 0
 #audio.synchronization.force_rate:0
 
@@ -60,11 +56,7 @@ audio.synchronization.slow_fast_audio:1
 
 # startup audio volume
 # [0..100], default: 50
-#audio.volume.mixer_volume:50
-
-# restore volume level at startup
-# bool, default: 0
-#audio.volume.remember_volume:0
+audio.volume.mixer_volume:100
 
 # используемый видеодрайвер
 # { auto  vdpau  aadxr3  dxr3  xv  vaapi  opengl2  XDirectFB  DirectFB  raw  opengl  xshm  caca  aa  xxmc  none  sdl  fb  xvmc }, default: 0
@@ -86,57 +78,9 @@ video.driver:opengl
 # bool, default: 0
 #video.output.disable_scaling:0
 
-# horizontal image position in the output window
-# [0..100], default: 50
-#video.output.horizontal_position:50
-
 # treat screen pixels as exactly square
 # bool, default: 0
 #video.output.square_pixels:0
-
-# vdpau: colour of none video area in output window
-# numeric, default: 0
-#video.output.vdpau_background_color:0
-
-# default length of display queue
-# numeric, default: 3
-#video.output.vdpau_display_queue_length:3
-
-# vdpau: Try to recreate progressive frames from pulldown material
-# bool, default: 1
-#video.output.vdpau_enable_inverse_telecine:1
-
-# vdpau: HD deinterlace method
-# { bob  half temporal  half temporal_spatial  temporal  temporal_spatial }, default: 3
-#video.output.vdpau_hd_deinterlace_method:temporal
-
-# vdpau: disable deinterlacing when progressive_frame flag is set
-# bool, default: 0
-#video.output.vdpau_honor_progressive:0
-
-# maximum number of output surfaces buffered for reuse
-# numeric, default: 10
-#video.output.vdpau_output_surface_buffer_size:10
-
-# vdpau: Scaling Quality
-# [0..1], default: 0
-#video.output.vdpau_scaling_quality:0
-
-# vdpau: SD deinterlace method
-# { bob  half temporal  half temporal_spatial  temporal  temporal_spatial }, default: 3
-#video.output.vdpau_sd_deinterlace_method:temporal
-
-# vdpau: restrict enabling video properties for SD video only
-# { none  noise  sharpness  noise+sharpness }, default: 0
-#video.output.vdpau_sd_only_properties:none
-
-# vdpau: disable advanced deinterlacers chroma filter
-# bool, default: 0
-#video.output.vdpau_skip_chroma_deinterlace:0
-
-# vertical image position in the output window
-# [0..100], default: 50
-#video.output.vertical_position:50
 
 # Choose speed over specification compliance
 # bool, default: 0
@@ -145,10 +89,6 @@ video.driver:opengl
 # Enable direct rendering
 # bool, default: 1
 #video.processing.ffmpeg_direct_rendering:1
-
-# Enable VAAPI
-# bool, default: 1
-#video.processing.ffmpeg_enable_vaapi:1
 
 # MPEG-4 postprocessing quality
 # [0..6], default: 3
@@ -161,10 +101,6 @@ video.driver:opengl
 # FFmpeg video decoding thread count
 # numeric, default: 1
 video.processing.ffmpeg_thread_count:2
-
-# VAAPI Mpeg2 softdecoding
-# bool, default: 0
-#video.processing.vaapi_mpeg_softdec:0
 
 # number of audio buffers
 # numeric, default: 230
@@ -186,21 +122,9 @@ engine.buffers.video_num_frames:22
 # bool, default: 0
 #engine.decoder.disable_flush_from_video_out:0
 
-# media format detection strategy
-# { default  reverse  content  extension }, default: 0
-#engine.demux.strategy:default
-
 # memcopy method used by xine
 # { probe  libc  kernel  mmx  mmxext  sse  avx }, default: 0
 engine.performance.memcpy_method:kernel
-
-# percentage of discarded frames to tolerate
-# numeric, default: 10
-#engine.performance.warn_discarded_threshold:10
-
-# percentage of skipped frames to tolerate
-# numeric, default: 10
-#engine.performance.warn_skipped_threshold:10
 
 # Sync multiple clocks in a separate thread
 # bool, default: 0
