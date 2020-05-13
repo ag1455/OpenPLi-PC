@@ -138,7 +138,11 @@ git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
 git reset --hard 6dfd70f5
 cd ..
+
 cp -fv $PKG/data/display/skin_display_default.xml $PKG/data/display/skin_display.xml
+# Copy headers
+cp -fv pre/dvb/* $INCLUDE
+cp -fv pre/dvb/* $HEADERS
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
@@ -214,23 +218,7 @@ elif [ "$release" = "20.04" ]; then
 	patch -p1 < 20_04_Makefile.am.patch
 fi
 
-# Copy headers
-cd ..
-if [ ! -f $HEADERS/video.h.gz ]; then
-	gzip -v $HEADERS/video.h
-	gzip -v $INCLUDE/video.h
-	gzip -v $HEADERS/audio.h
-	gzip -v $INCLUDE/audio.h
-fi
-
-cp -fv pre/dvb/* $INCLUDE
-cp -fv pre/dvb/* $HEADERS
-cp -fv enigma2/lib/gdi/gxlibdc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cp -fv enigma2/lib/gdi/gmaindc.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cp -fv enigma2/lib/gdi/xineLib.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cp -fv enigma2/lib/gdi/post.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cd $PKG
-
+# Configure
 if [ "$DO_CONFIGURE" -eq "1" ]; then
 	echo ""
 	echo "********************************************************"
@@ -390,6 +378,7 @@ if [ -d /lib/i386-linux-gnu ]; then
 	fi
 fi
 
+# Copy files
 cp -rfv pre/enigma2 $INSTALL_E2DIR/etc
 cp -rfv pre/stb $INSTALL_E2DIR/etc
 cp -rfv pre/tuxbox $INSTALL_E2DIR/etc
@@ -398,6 +387,17 @@ cp -fv pre/enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv pre/logo.mvi $INSTALL_E2DIR/share/enigma2
 cp -fv pre/e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
+cp -fv scripts/* $INSTALL_E2DIR/bin
+cp -fv enigma2/lib/gdi/*.h $INSTALL_E2DIR/include/enigma2/lib/gdi
+cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
+#cp -fv /etc/network/interfaces /etc/network/interfaces~
+if [ -d $DVB_DEV ]; then
+	cp -fv pre/rc.local /etc
+else
+	# Preventing stopping boot your PC without a dvb card.
+	cp -fv pre/rc.local.orig /etc
+	mv -fv /etc/rc.local.orig /etc/rc.local
+fi
 
 # Use xine.conf for any GPU
 GPU1=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "NVIDIA"`
@@ -437,18 +437,6 @@ if [ $GPU3 ]; then
 	echo "********************************************************"
 	echo ""
 fi
-
-if [ -d $DVB_DEV ]; then
-	cp -fv rc.local /etc
-else
-# Preventing stopping boot your PC without a dvb card.
-	cp -fv rc.local.orig /etc
-	mv -fv /etc/rc.local.orig /etc/rc.local
-fi
-
-cp -fv scripts/* $INSTALL_E2DIR/bin
-cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
-#cp -fv /etc/network/interfaces /etc/network/interfaces~
 
 # Strip binary
 strip $INSTALL_E2DIR/bin/enigma2
