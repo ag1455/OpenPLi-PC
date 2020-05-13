@@ -14,13 +14,15 @@ The working folder for the entry now is /media/hdd because often the sda3 drive 
 In this folder: /media/hdd, /media/hdd/movies, /media/hdd/icons, etc.
 The downloaded keys are located in the /var/keys folder.
 
+Start
+=====
+Run "autostart.sh" as super user.
+
 Current issues
 ==============
 1. When using multi standart dvb cards, for example HVR-4000, calling SatFinder or PoitionerSetup calls frontend1, rather than frontend0, as intended.
 In SatFinder, you can switch the dvb card with the right-to-the-left arrows and then the signal appears, but it calling PoisonerSetup crash.
 Most likely, the reason is that the enigma2 receivers using single tuners in different slots.
-If you don't need a second tuner in multi standart dvb card, copy the file scripts/enigma2_pre_start-2.sh to /usr/local/e2/bin and rename it to enigma2_pre_start.sh.
-On next boot you will not see the second card in /dev/dvb/adapter0. Additionally, you can remove the second card from nim_sockets, but this will not affect the first card.
 
 2. Teletext doesn't work through the framebuffer.
 
