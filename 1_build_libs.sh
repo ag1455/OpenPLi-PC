@@ -106,42 +106,42 @@ elif [[ "$release" = "20.04" ]]; then
 	echo "********************************************************"
 	echo ""
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python-pycryptodome \
-	python3-langdetect python-pycryptodome pycodestyle python-service-identity python-certifi python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python2-dev \
-	python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 python-dev-is-python2 \
-	python-automat python-constantly python-hyperlink python-zope.interface python-chardet python-docutils python-pygments python-roman pylint sphinx-rtd-theme-common \
+	python-pycryptodome pycodestyle python-service-identity python-certifi python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface \
+	python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc \
+	python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common \
 	libupnp-dev libvdpau1 swig swig3.0 yamllint \
 	"
 	apt-get purge -y python-twisted-bin python-incremental python-twisted-core python-twisted-web python-twisted-names python-twisted-mail python-ipaddr python-urllib3 python-configobj \
 	python-bzrlib python-lzma python-blessings python-mechanize python-flickrapi python-langdetect python-pickleshare python-sabyenc python-restructuredtext-lint python-requests \
 	python-requests-toolbelt python-jwt python-oauthlib python-requests-oauthlib python-blinker python-flickrapi
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/i/incremental/python-incremental_16.10.1-3_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-bin_18.9.0-3ubuntu1.1_amd64.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-web_18.9.0-3ubuntu1.1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-names_18.9.0-3ubuntu1.1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-mail_18.9.0-3ubuntu1.1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-core_18.9.0-3ubuntu1.1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-ipaddr/python-ipaddr_2.2.0-2_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-urllib3/python-urllib3_1.24.1-1ubuntu1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/c/configobj/python-configobj_5.0.6-3_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/b/bzr/python-bzrlib_2.7.0+bzr6622-17ubuntu1_amd64.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pysendfile/python-sendfile_2.0.1-2build1_amd64.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-lzma/python-lzma_0.5.3-4_amd64.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/b/blessings/python-blessings_1.6-2build1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-mechanize/python-mechanize_0.2.5-3_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-langdetect/python-langdetect_1.0.7-3_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pickleshare/python-pickleshare_0.7.5-1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-sabyenc/python-sabyenc_3.3.5-1_amd64.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-restructuredtext-lint/python-restructuredtext-lint_0.12.2-2_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/r/requests/python-requests_2.21.0-1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/pyjwt/python-jwt_1.7.0-2_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/b/blinker/python-blinker_1.4+dfsg1-0.2_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-oauthlib/python-oauthlib_2.1.0-1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb
-	wget http://archive.ubuntu.com/ubuntu/pool/universe/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb
+	wget http://archive.ubuntu.com/ubuntu/pool/universe/i/incremental/python-incremental_16.10.1-3_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-bin_18.9.0-3ubuntu1.1_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-web_18.9.0-3ubuntu1.1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-names_18.9.0-3ubuntu1.1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-mail_18.9.0-3ubuntu1.1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-core_18.9.0-3ubuntu1.1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-ipaddr/python-ipaddr_2.2.0-2_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-urllib3/python-urllib3_1.24.1-1ubuntu1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/c/configobj/python-configobj_5.0.6-3_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/b/bzr/python-bzrlib_2.7.0+bzr6622-17ubuntu1_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/pysendfile/python-sendfile_2.0.1-2build1_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-lzma/python-lzma_0.5.3-4_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/b/blessings/python-blessings_1.6-2build1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-mechanize/python-mechanize_0.2.5-3_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-langdetect/python-langdetect_1.0.7-3_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/pickleshare/python-pickleshare_0.7.5-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-sabyenc/python-sabyenc_3.3.5-1_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-restructuredtext-lint/python-restructuredtext-lint_0.12.2-2_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/r/requests/python-requests_2.21.0-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/pyjwt/python-jwt_1.7.0-2_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/b/blinker/python-blinker_1.4+dfsg1-0.2_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-oauthlib/python-oauthlib_2.1.0-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb
 	dpkg -i *.deb
 	rm -f *.deb
-	apt-get --fix-broken install -y
+	apt-get -f install -y
 fi
 
 for p in $REQPKG; do
@@ -158,13 +158,6 @@ done
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 
-if [ ! -f $HEADERS/video.h.gz ]; then
-	gzip -v $HEADERS/video.h
-	gzip -v $INCLUDE/video.h
-	gzip -v $HEADERS/audio.h
-	gzip -v $INCLUDE/audio.h
-fi
-
 cp -fv pre/dvb/* $INCLUDE
 cp -fv pre/dvb/* $HEADERS
 cp -fv pre/sitecustomize.py /usr/local/lib/python2.7/site-packages
@@ -176,9 +169,9 @@ rm -f dvb-firmwares.tar.bz2
 
 BUILD_DIR="libs"
 if [ -d $BUILD_DIR ]; then
-	rm -rf $BUILD_DIR
+	rm -rfv $BUILD_DIR
 fi
-mkdir $BUILD_DIR
+mkdir -v $BUILD_DIR
 cd $BUILD_DIR
 
 # Build and install libdvbsi++-git:
