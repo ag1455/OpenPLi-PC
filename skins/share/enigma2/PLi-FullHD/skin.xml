@@ -95,7 +95,7 @@
 	</colors>
 
 	<parameters>
-        <parameter name="ConfigListSlider" value="22,0"/>
+		<parameter name="ConfigListSlider" value="22,0"/>
 		<parameter name="ChoicelistName" value="68,3,1000,31"/>
 		<parameter name="ExpandableListIcon" value="0,0,55,38"/>
 		<parameter name="ExpandableListDescr" value="55,2,1000,45"/>
@@ -106,9 +106,14 @@
 		<parameter name="AutotimerListIcons" value="*skin_default/icons/lock_on.png,*skin_default/icons/lock_off.png,*skin_default/icons/timer_rec.png,*skin_default/icons/timer_zap.png"/>
 		<parameter name="ImsSelectionListDescr" value="46,4,1000,45"/>
 		<parameter name="ImsSelectionListLock" value="0,2,36,36"/>
+		<parameter name="FcFileListIcon" value="10,4,32,30"/>
+		<parameter name="FcFileListMultiIcon" value="45,4,30,30"/>
+		<parameter name="FcFileListMultiLock" value="2,0,36,36"/>
+		<parameter name="FcFileListMultiName" value="90,3,1000,32"/>
+		<parameter name="FcFileListName" value="68,4,1000,34"/>
 	</parameters>
 
-    <switchpixmap>
+	<switchpixmap>
 		<pixmap name="menu_on" filename="icons/menu_on.png"/>
 		<pixmap name="menu_off" filename="icons/menu_off.png"/>
 	</switchpixmap>
@@ -587,7 +592,7 @@
 
 	<screen flags="wfNoBorder" name="MenuSort" position="fill">
 		<panel name="MenuTemplate"/>
-                <ePixmap pixmap="buttons/key_prev.png" zPosition="1" alphatest="blend" position="30,1031" size="52,38"/>
+		<ePixmap pixmap="buttons/key_prev.png" zPosition="1" alphatest="blend" position="30,1031" size="52,38"/>
 		<ePixmap pixmap="buttons/key_next.png" zPosition="1" alphatest="blend" position="82,1031" size="52,38"/>
 	</screen>
 
@@ -611,7 +616,7 @@
 
 	<screen name="Setup" title="Setup" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
-                <panel name="VKeyIconPanel"/>
+		<panel name="VKeyIconPanel"/>
 		<widget name="HelpWindow" position="center,650" size="80,0"/>
 		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
 		<widget name="description" position="30,570" size="720,300" itemHeight="38" font="Regular;30" valign="top"/>
@@ -1077,7 +1082,7 @@
 		<panel name="PigTemplate"/>
 		<eLabel text="Movie list configuration" position="30,7" size="1830,75" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;36" valign="center" halign="left"/>
 		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" transparent="1" scrollbarMode="showOnDemand"/>
-                <widget name="description" position="30,550" size="720,105" font="Regular;30" halign="left"/>
+		<widget name="description" position="30,550" size="720,105" font="Regular;30" halign="left"/>
 	</screen>
 
 	<!-- Bouquet Selector -->
@@ -1179,16 +1184,16 @@
 		<widget name="checkList" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" backgroundColor="background" zPosition="3" transparent="1" scrollbarMode="showOnDemand"/>
 	</screen>
 
-	<!-- Ipkg installer -->
+	<!-- Opkg installer -->
 
-	<screen name="IpkgInstaller" position="fill" flags="wfNoBorder">
+	<screen name="OpkgInstaller" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
 		<eLabel text="Install extensions" position="30,7" size="1830,75" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;36" valign="center" halign="left"/>
 		<widget name="list" position="780,100" size="1110,798" itemHeight="38" font="Regular;28" backgroundColor="background" zPosition="3" transparent="1" scrollbarMode="showOnDemand"/>
 		<widget source="introduction" render="Label" position="780,975" size="1110,37" backgroundColor="background" zPosition="1" transparent="1" foregroundColor="white" font="Regular;33" halign="center"/>
 	</screen>
 
-	<screen name="Ipkg" title="Installing Software" position="fill" flags="wfNoBorder">
+	<screen name="Opkg" title="Installing Software" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
 		<widget name="package" position="780,110" size="1110,35" backgroundColor="darkgrey" transparent="1" font="Regular;32"/>
 		<widget name="status" position="780,163" size="1110,70" backgroundColor="darkgrey" transparent="1" font="Regular;32"/>
@@ -1198,21 +1203,21 @@
 
 	<!-- Choose upgrade source -->
 
-	<screen name="IPKGMenu" title="Select IPKG source" position="fill" flags="wfNoBorder">
+	<screen name="OPKGMenu" title="Select OPKG source" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
 		<widget name="filelist" position="780,105" size="1110,450" itemHeight="38" font="Regular;28" zPosition="3" transparent="1" scrollbarMode="showOnDemand"/>
 	</screen>
 
 	<!-- Edit upgrade source -->
 
-	<screen name="IPKGSource" title="IPKG source" position="fill" flags="wfNoBorder">
+	<screen name="OPKGSource" title="OPKG source" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
 		<widget name="text" position="30,570" size="1860,45" font="Regular;34" zPosition="3" transparent="1"/>
 	</screen>
 
 	<!-- Packet Manager -->
 
-	<screen name="PacketManager" title="IPKG upgrade" position="fill" flags="wfNoBorder">
+	<screen name="PacketManager" title="OPKG upgrade" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
 		<widget source="list" render="Listbox" position="780,105" size="1110,858" zPosition="3" transparent="1" scrollbarMode="showOnDemand">
 	<convert type="TemplatedMultiContent">
@@ -1342,6 +1347,115 @@
 	<screen name="RestoreMenu" title="Restore Backups" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
 		<widget name="filelist" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" backgroundColor="darkgrey" zPosition="3" transparent="1" scrollbarMode="showOnDemand"/>
+	</screen>
+
+	<!-- Extra margin for wizard, never know how bad the TV is... -->
+	<screen name="WizardMarginsTemplate">
+		<panel position="left" size="10%,*"/>
+		<panel position="right" size="8%,*"/>
+		<panel position="top" size="8%,*"/>
+		<panel position="bottom" size="10%,*"/>
+	</screen>
+
+	<!-- Start Wizard -->
+
+	<screen name="RemoteControlTemplate">
+		<panel position="right" size="154,*">
+			<panel position="top" size="*,50"/>
+			<widget name="rc" pixmaps="rc.png,rcold.png" position="top" zPosition="10" size="154,500" alphatest="blend"/>
+			<widget name="arrowdown" pixmap="arrowdown.png" position="0,0" zPosition="11" size="37,70" transparent="1" alphatest="blend"/>
+			<widget name="arrowdown2" pixmap="arrowdown.png" position="0,0" zPosition="11" size="37,70" transparent="1" alphatest="blend"/>
+			<widget name="arrowup" pixmap="arrowup.png" position="-100,-100" zPosition="11" size="37,70" transparent="1" alphatest="blend"/>
+			<widget name="arrowup2" pixmap="arrowup.png" position="-100,-100" zPosition="11" size="37,70" transparent="1" alphatest="blend"/>
+		</panel>
+	</screen>
+	<screen name="WizardPictureLangTemplate">
+		<panel position="top" size="*,50"/>
+		<panel position="top" size="*,50">
+			<ePixmap pixmap="buttons/red.png" position="left" zPosition="0" size="50,34" transparent="1" alphatest="blend"/>
+			<widget name="languagetext" position="fill" font="Regular;34"/>
+		</panel>
+	</screen>
+	<!-- it's the same screen... -->
+	<screen name="StartWizard" position="fill" flags="wfNoBorder">
+		<panel name="DefaultWizard"/>
+	</screen>
+	<!-- Default wizard -->
+	<screen name="DefaultWizard" position="fill" flags="wfNoBorder">
+		<panel name="WizardMarginsTemplate"/>
+		<panel name="WizardPictureLangTemplate"/>
+		<panel name="RemoteControlTemplate"/>
+		<panel position="left" size="10,*"/>
+		<panel position="right" size="10,*"/>
+		<panel position="fill">
+			<widget name="text" position="top" size="*,400" font="Regular;34" valign="center"/>
+			<widget position="bottom" size="*,50"/>
+			<panel position="fill" layout="stack">
+				<widget source="list" render="Listbox" position="fill" scrollbarMode="showOnDemand">
+					<convert type="TemplatedMultiContent">
+						{"template": [ MultiContentEntryText(pos = (0,0),size = (1035,42),flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
+						"fonts": [gFont("Regular",34)],
+						"itemHeight": 42 }
+					</convert>
+				</widget>
+				<widget name="config" position="0,0" size="1300,502" zPosition="1" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand" transparent="1"/>
+			</panel>
+		</panel>
+	</screen>
+	<!-- Video wizard -->
+	<screen name="VideoWizard" position="fill" flags="wfNoBorder" >
+		<panel name="WizardMarginsTemplate"/>
+		<panel name="WizardPictureLangTemplate"/>
+		<panel name="RemoteControlTemplate"/>
+		<panel position="left" size="10,*"/>
+		<panel position="right" size="10,*"/>
+		<panel position="fill">
+			<widget name="text" position="top" size="*,400" font="Regular;34" valign="center"/>
+			<panel position="fill">
+				<panel position="left" size="150,*">
+					<widget name="portpic" position="top" zPosition="10" size="150,150" transparent="1" alphatest="on"/>
+				</panel>
+				<panel position="fill" layout="stack">
+					<widget source="list" render="Listbox" position="fill" font="Regular;34" scrollbarMode="showOnDemand" >
+						<convert type="TemplatedMultiContent">
+							{"template": [ MultiContentEntryText(pos = (0,0),size = (1035,42),flags = RT_HALIGN_LEFT|RT_VALIGN_CENTER,text = 0) ],
+							"fonts": [gFont("Regular",34)],
+							"itemHeight": 42 }
+						</convert>
+					</widget>
+				</panel>
+				</panel>
+			</panel>
+	</screen>
+	<!-- Language wizard -->
+	<screen name="LanguageWizard" position="fill" flags="wfNoBorder">
+		<panel name="WizardMarginsTemplate"/>
+		<panel name="RemoteControlTemplate"/>
+		<panel position="left" size="10,*"/>
+		<panel position="right" size="10,*"/>
+		<panel position="fill">
+			<widget name="text" position="top" size="*,240" font="Regular;34" valign="center"/>
+			<panel position="bottom" size="*,50"/>
+			<widget source="languages" render="Listbox" position="fill" scrollbarMode="showOnDemand">
+				<convert type="TemplatedMultiContent">
+					{"template": [
+							MultiContentEntryText(pos = (80, 10), size = (200, 50), flags = RT_HALIGN_LEFT, text = 1), # index 1 is the language name,
+							MultiContentEntryPixmap(pos = (10, 5), size = (60, 40), png = 2), # index 2 is the pixmap
+						],
+					"fonts": [gFont("Regular", 30)],
+					"itemHeight": 50
+					}
+				</convert>
+			</widget>
+		</panel>
+	</screen>
+	<screen name="InstallWizardOpkgUpdater" position="fill" flags="wfNoBorder">
+		<panel name="WizardMarginsTemplate"/>
+		<panel position="top" size="*,100"/>
+		<panel name="RemoteControlTemplate"/>
+		<panel position="left" size="10,*"/>
+		<panel position="right" size="10,*"/>
+		<widget source="statusbar" render="Label" position="fill" zPosition="10" halign="center" valign="center" font="Regular;34" transparent="1"/>
 	</screen>
 
 	<!-- ImageWizard -->
@@ -1853,52 +1967,51 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 
 	<screen name="PositionerSetup" title="Positioner setup" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
-		<panel name="KeyInfoTemplate"/>
+		<panel name="KeyMenuInfoTemplate"/>
 		<widget name="list" position="780,105" size="1110,380" itemHeight="38" font="Regular;28" backgroundColor="secondBG" transparent="1"/>
-		<eLabel text="Frequency:" position="780,525" size="330,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<widget name="frequency_value" position="1110,525" size="150,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<eLabel text="Polarisation:" position="780,570" size="330,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<widget name="polarisation" position="1110,570" size="150,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<eLabel text="Symbolrate:" position="780,615" size="330,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<eLabel text="Frequency:" position="795,570" size="330,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<widget name="frequency_value" position="1110,570" size="150,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<eLabel text="Symbolrate:" position="795,615" size="330,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
 		<widget name="symbolrate_value" position="1110,615" size="150,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<eLabel text="FEC:" position="780,660" size="330,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<eLabel text="FEC:" position="795,660" size="330,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
 		<widget name="fec_value" position="1110,660" size="150,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<widget name="snr_db" position="1110,742" size="300,37" backgroundColor="secondBG" foregroundColor="white" transparent="1" font="Regular;30" halign="center"/>
-		<eLabel text="SNR:" position="780,780" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<widget name="snr_bar" position="1110,783" size="300,26" backgroundColor="secondBG" transparent="1" borderWidth="1"/>
-		<widget name="snr_percentage" position="1425,780" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<eLabel text="BER:" position="780,825" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<widget name="ber_bar" position="1110,828" size="300,26" backgroundColor="secondBG" transparent="1" borderWidth="1"/>
-		<widget name="ber_value" position="1425,825" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
-		<eLabel text="Lock:" position="780,870" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<widget name="snr_db" position="1110,742" size="450,37" backgroundColor="secondBG" foregroundColor="white" transparent="1" font="Regular;30" halign="center"/>
+		<eLabel text="SNR:" position="795,780" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<widget name="snr_bar" position="1110,783" size="450,26" backgroundColor="secondBG" transparent="1" borderWidth="1"/>
+		<widget name="snr_percentage" position="1575,780" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<eLabel text="BER:" position="795,825" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<widget name="ber_bar" position="1110,828" size="450,26" backgroundColor="secondBG" transparent="1" borderWidth="1"/>
+		<widget name="ber_value" position="1575,825" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
+		<eLabel text="Lock:" position="795,870" size="120,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
 		<widget name="lock_state" position="1110,870" size="300,37" backgroundColor="secondBG" transparent="1" font="Regular;30"/>
 		<widget name="status_bar" position="30,600" size="720,37" font="Regular;30" foregroundColor="yellow" halign="center"/>
 	</screen>
 
-	<!-- Positioner Setup Log -->
+	<!-- Positioner Setup - Log -->
 
-	<screen name="PositionerSetupLog" position="fill" title="Positioner Setup Log" >
+	<screen name="PositionerSetupLog" position="fill" title="Positioner Setup Log">
 		<panel name="PigTemplate"/>
-		<widget name="list" font="Console;30" position="780,107" size="1110,910"/>
+		<widget name="list" font="Regular;28" position="780,105" size="1110,918"/>
 	</screen>
 
-	<!-- Select Sats Entry -->
+	<!-- Positioner Setup - Select Sats Entry -->
 
-	<screen name="SelectSatsEntryScreen" position="fill" title="Select satellites" >
+	<screen name="SelectSatsEntryScreen" position="fill" title="Select satellites">
 		<panel name="PigTemplate"/>
 		<widget name="list" position="780,105" size="1110,810" scrollbarMode="showOnDemand"/>
-		<widget name="hint" position="780,975" size="1110,34" font="Regular;30" halign="center"/>
+		<widget name="hint" position="780,975" size="1110,35" font="Regular;30" halign="center"/>
+
 	</screen>
 
-	<!-- Tuner Screen -->
+	<!-- Positioner Setup - Tuner Screen -->
 
 	<screen name="TunerScreen" position="fill" title="Tune">
 		<panel name="PigTemplate"/>
-		<widget name="config" position="780,105" size="1110,532" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
-		<widget name="introduction" position="780,705" size="1110,34" font="Regular;30"/>
+		<widget name="config" position="780,105" size="1110,760" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
+		<widget name="introduction" position="780,975" size="1110,35" font="Regular;30" halign="center"/>
 	</screen>
 
-	<!-- Rotor Nim Selection -->
+	<!-- Positioner Setup - Rotor Nim Selection -->
 
 	<screen name="RotorNimSelection" position="fill" title="select Slot">
 		<panel name="PigTemplate"/>
@@ -2227,16 +2340,16 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	<!-- Common interface -->
 	<screen name="MMIDialog" position="fill">
 		<panel name="PigTemplate"/>
-		<widget name="title" position="780,105" size="430,35" font="Regular;32"/>
-		<widget name="subtitle" position="780,145" size="430,35" font="Regular;32"/>
-		<widget name="entries" position="780,185" size="430,150" itemHeight="35" font="Regular;32" scrollbarMode="showOnDemand"/>
-		<widget name="bottom" position="780,225" size="430,35" font="Regular;32"/>
+		<widget name="title" position="780,105" size="900,35" font="Regular;32"/>
+		<widget name="subtitle" position="780,145" size="900,35" font="Regular;32"/>
+		<widget name="entries" position="780,185" size="900,780" itemHeight="35" font="Regular;32" scrollbarMode="showOnDemand"/>
+		<widget name="bottom" position="780,980" size="900,35" font="Regular;32"/>
 	</screen>
 	<!-- Common interface - selection -->
 	<screen name="CiSelection" position="fill" title="Common Interface">
 		<panel name="PigTemplate"/>
 		<widget name="text" position="780,105" size="1100,35" font="Regular;32"/>
-		<widget name="entries" position="780,160" size="1100,570" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
+		<widget name="entries" position="780,160" size="1100,840" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
 	</screen>
 
 	<!-- Subservices Quickzap -->

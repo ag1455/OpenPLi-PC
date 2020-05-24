@@ -1800,9 +1800,9 @@
 		<widget name="statusbar" position="7,900" size="765,110" font="Regular;27" halign="center" valign="bottom"/>
 		<widget name="poster" position="780,123" size="165,270" alphatest="blend"/>
 		<widget name="detailslabel" position="960,123" size="945,270" font="Regular;30" halign="center"/>
-		<widget name="menu" position="780,213" size="1132,765" font="Regular;33" itemHeight="45" scrollbarMode="showOnDemand" zPosition="3" enableWrapAround="1" foregroundColor="grey"/>
-		<widget name="castlabel" position="780,397" size="1132,610" font="Regular;33" foregroundColor="grey"/>
-		<widget name="extralabel" position="735,123" size="1177,855" font="Regular;33" foregroundColor="grey"/>
+		<widget name="menu" position="780,213" size="1132,765" font="Regular;30" itemHeight="45" scrollbarMode="showOnDemand" zPosition="3" enableWrapAround="1" foregroundColor="grey"/>
+		<widget name="castlabel" position="780,397" size="1132,610" font="Regular;30" foregroundColor="grey"/>
+		<widget name="extralabel" position="780,123" size="1132,850" font="Regular;30" foregroundColor="grey"/>
 	</screen>
 	<screen name="IMDbSetup" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
@@ -2209,13 +2209,17 @@
 	<screen name="FilebrowserScreen" position="fill" title="File Browser">
 		<panel name="BasicTemplate"/>
 		<panel name="KeyChannelTemplate"/>
-		<panel name="KeyMenuTemplate"/>
+		<panel name="KeyMenuInfoTemplate"/>
 		<widget name="list_left" position="30,95" size="925,912" scrollbarMode="showOnDemand"/>
 		<widget name="list_right" position="965,95" size="925,912" scrollbarMode="showOnDemand"/>
 	</screen>
 	<screen name="FilebrowserConfigScreen" position="fill" title="">
 		<panel name="PigTemplate"/>
 		<widget name="config" position="780,105" size="1110,874" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
+	</screen>
+	<screen name="FilebrowserScreenInfo" position="fill" title="Info" flags="wfNoBorder" backgroundColor="selectorcolor">
+		<widget name="path" position="30,25" size="1860,32" font="Regular;28" backgroundColor="selectorcolor"/>
+		<widget name="size" position="30,65" size="1860,32" font="Regular;28" backgroundColor="selectorcolor"/>
 	</screen>
 
 	<!-- BluetoothSetup -->
