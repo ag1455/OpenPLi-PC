@@ -11,7 +11,7 @@ rm -f /tmp/ENIGMA_FIFO.sc
 while [ 1 != 0 ]; do
 	# Start  enigma2.
 	if [ $(ps -A | grep -c enigma2) -eq 0 ]; then
-		sleep 2 # If you want to autostart from boot.
+		sleep 3 # If you want to autostart from boot.
 		# Case screensaver is enabled.
 		xterm -bg black -geometry 1x1 -e $PREFIX/enigma2.sh &
 		xset -dpms
