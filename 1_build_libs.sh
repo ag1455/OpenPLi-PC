@@ -3,9 +3,9 @@
 # To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 19.04 (64-bit), 19.10 (64-bit), 20.04 LTS (64-bit).
 # Install these packages:
 
-echo "-----------------------------------------"
-echo "*** INSTALL REQUIRED PACKAGES ***"
-echo "-----------------------------------------"
+echo "********************************************************"
+echo "            *** INSTALL REQUIRED PACKAGES ***"
+echo "********************************************************"
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
@@ -105,6 +105,21 @@ elif [[ "$release" = "20.04" ]]; then
 	echo "                 *** release 20.04 ***                  "
 	echo "********************************************************"
 	echo ""
+
+	# Add new libraries
+	if [ ! -f /etc/apt/sources.list.d/oibaf-ubuntu-graphics-drivers-focal.list ]; then
+		add-apt-repository -y ppa:oibaf/graphics-drivers
+	fi
+	if [ ! -f /etc/apt/sources.list.d/mamarley-ubuntu-updates-focal.list ]; then
+		add-apt-repository -y ppa:mamarley/updates
+		apt-get update
+		apt-get -y upgrade
+	else
+		echo "********************************************************"
+		echo "            *** Packages already updated. ***"
+		echo "********************************************************"
+	fi
+
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python-pycryptodome \
 	python-pycryptodome pycodestyle python-service-identity python-certifi python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface \
 	python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc \
