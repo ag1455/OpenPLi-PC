@@ -75,7 +75,8 @@ elif [[ "$release" = "18.04" ]]; then
 	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma \
 	python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
 	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson \
-	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint sphinx-rtd-theme-common libupnp6-dev swig yamllint \
+	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint libvdpau1 libvdpau-va-gl1 sphinx-rtd-theme-common \
+	libupnp6-dev swig yamllint \
 	"
 elif [[ "$release" = "19.04" ]]; then
 	echo ""
@@ -85,8 +86,8 @@ elif [[ "$release" = "19.04" ]]; then
 	echo ""
 	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma python-mechanize \
 	python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
-	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson \
-	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
+	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson python-mutagen python-twisted \
+	python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
 	"
 elif [[ "$release" = "19.10" ]]; then
 	echo ""
@@ -96,8 +97,8 @@ elif [[ "$release" = "19.10" ]]; then
 	echo ""
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma python-mechanize \
 	python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python3-langdetect python-pycryptodome python-pickleshare pycodestyle \
-	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson \
-	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
+	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson python-mutagen python-twisted \
+	python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint libvdpau1 libvdpau-va-gl1 sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
 	"
 elif [[ "$release" = "20.04" ]]; then
 	echo ""
@@ -124,7 +125,7 @@ elif [[ "$release" = "20.04" ]]; then
 	python-pycryptodome pycodestyle python-service-identity python-certifi python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface \
 	python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc \
 	python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common \
-	libupnp-dev libvdpau1 swig swig3.0 yamllint \
+	libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
 	"
 	apt-get purge -y python-twisted-bin python-incremental python-twisted-core python-twisted-web python-twisted-names python-twisted-mail python-ipaddr python-urllib3 python-configobj \
 	python-bzrlib python-lzma python-blessings python-mechanize python-flickrapi python-langdetect python-pickleshare python-sabyenc python-restructuredtext-lint python-requests \

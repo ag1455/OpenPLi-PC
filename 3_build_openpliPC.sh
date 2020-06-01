@@ -136,7 +136,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 6dfd70f5
+git reset --hard 6415c212
 cd ..
 
 cp -fv $PKG/data/display/skin_display_default.xml $PKG/data/display/skin_display.xml
@@ -155,10 +155,10 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-6
-	cp patches/patch-6dfd70f5-to-PC.patch $PKG
+	cp patches/patch-6415c212-to-PC.patch $PKG
 	cp patches/ubuntu-14.04.patch $PKG
 	cd $PKG
-	patch -p1 < patch-6dfd70f5-to-PC.patch
+	patch -p1 < patch-6415c212-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -168,9 +168,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-6dfd70f5-to-PC.patch $PKG
+	cp patches/patch-6415c212-to-PC.patch $PKG
 	cd $PKG
-	patch -p1 < patch-6dfd70f5-to-PC.patch
+	patch -p1 < patch-6415c212-to-PC.patch
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -178,9 +178,9 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-7 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-6dfd70f5-to-PC-sigc2.patch $PKG
+	cp patches/patch-6415c212-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-6dfd70f5-to-PC-sigc2.patch
+	patch -p1 < patch-6415c212-to-PC-sigc2.patch
 elif [ "$release" = "19.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -189,9 +189,9 @@ elif [ "$release" = "19.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-6dfd70f5-to-PC-sigc2.patch $PKG
+	cp patches/patch-6415c212-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-6dfd70f5-to-PC-sigc2.patch
+	patch -p1 < patch-6415c212-to-PC-sigc2.patch
 elif [ "$release" = "19.10" ]; then
 	echo ""
 	echo "********************************************************"
@@ -200,9 +200,9 @@ elif [ "$release" = "19.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-6dfd70f5-to-PC-sigc2.patch $PKG
+	cp patches/patch-6415c212-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-6dfd70f5-to-PC-sigc2.patch
+	patch -p1 < patch-6415c212-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -211,10 +211,10 @@ elif [ "$release" = "20.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-6dfd70f5-to-PC-sigc2.patch $PKG
+	cp patches/patch-6415c212-to-PC-sigc2.patch $PKG
 	cp patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-6dfd70f5-to-PC-sigc2.patch
+	patch -p1 < patch-6415c212-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
 fi
 
@@ -233,7 +233,8 @@ if [ "$DO_CONFIGURE" -eq "1" ]; then
 #	autoupdate
 #	autoreconf -v -f -i -W all
 	autoreconf -i
-	./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=vuduo4k --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd --with-debug
+	#./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=vuduo4k --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd --with-debug
+	./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-boxtype=generic --with-debug
 	# generate pot
 	#./configure --prefix=$INSTALL_E2DIR --with-xlib --with-debug --with-po
 fi
@@ -385,6 +386,7 @@ cp -rfv pre/tuxbox $INSTALL_E2DIR/etc
 cp -fv pre/enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv pre/enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv pre/logo.mvi $INSTALL_E2DIR/share/enigma2
+cp -fv pre/radio.mvi $INSTALL_E2DIR/share/enigma2
 cp -fv pre/e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv scripts/* $INSTALL_E2DIR/bin
