@@ -92,11 +92,11 @@ video.driver:vaapi
 
 # VAAPI colour conversion method
 # { user_matrix  simple  simple+2  simple+3 }, default: 3
-#video.output.vaapi_csc_mode:simple+3
+#video.output.vaapi_csc_mode:simple+2
 
 # vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob ).
 # numeric, default: 0
-video.output.vaapi_deinterlace:1
+#video.output.vaapi_deinterlace:0
 
 # vaapi: enigma osd height workaround.
 # numeric, default: 0
@@ -136,15 +136,15 @@ video.output.vaapi_enigma_osd_width:1920
 
 # Choose speed over specification compliance
 # bool, default: 0
-#video.processing.ffmpeg_choose_speed_over_accuracy:0
+video.processing.ffmpeg_choose_speed_over_accuracy:1
 
 # Enable direct rendering
 # bool, default: 1
-#video.processing.ffmpeg_direct_rendering:1
+video.processing.ffmpeg_direct_rendering:1
 
 # Enable VAAPI
 # bool, default: 1
-video.processing.ffmpeg_enable_vaapi:0
+video.processing.ffmpeg_enable_vaapi:1
 
 # MPEG-4 postprocessing quality
 # [0..6], default: 3
@@ -168,11 +168,11 @@ engine.buffers.audio_num_buffers:230
 
 # number of video buffers
 # numeric, default: 500
-engine.buffers.video_num_buffers:500
+engine.buffers.video_num_buffers:800
 
 # default number of video frames
 # numeric, default: 50
-engine.buffers.video_num_frames:50
+#engine.buffers.video_num_frames:50
 
 # disable decoder flush at discontinuity
 # bool, default: 0
@@ -184,7 +184,7 @@ engine.buffers.video_num_frames:50
 
 # memcopy method used by xine
 # { probe  libc  kernel  mmx  mmxext  sse  avx }, default: 0
-engine.performance.memcpy_method:kernel
+#engine.performance.memcpy_method:kernel
 
 # Sync multiple clocks in a separate thread
 # bool, default: 0

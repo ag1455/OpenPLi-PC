@@ -1,0 +1,15 @@
+For stable watch and playback of HEVC streams (4k, UHD), you need a CPU with UHD integrated graphics. For example, the budget Intel Celeron G3930 (Kaby Lake, 7-gen with 'Intel HD Graphics 610', i965 driver).
+That is, the 'vainfo' command should have output:
+      ...
+      VAProfileHEVCMain               : VAEntrypointVLD
+      VAProfileHEVCMain               : VAEntrypointEncSlice
+      VAProfileHEVCMain10             : VAEntrypointVLD
+      VAProfileHEVCMain10             : VAEntrypointEncSlice
+      ...
+Viewing on nVidia cards isn't yet possible because they don't support the hardware acceleration HEVCMain10, which is used for broadcasting 4k from satellites. HEVCMain only.
+
+You should add the following lines to /etc/environment :
+ #LIBVA_DRIVER_NAME=i915
+ LIBVA_DRIVER_NAME=i965
+ #LIBVA_DRIVER_NAME=iHD
+and check with the 'vainfo' command.

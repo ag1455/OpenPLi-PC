@@ -420,10 +420,8 @@ if [ $GPU2 ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                   Your have intel GPU."
-#	cp -fv pre/xine.conf.vaapi $INSTALL_E2DIR/share/enigma2/xine.conf
-#	echo "                Used xine.conf for vaapi."
-	cp -fv pre/xine.conf.opengl $INSTALL_E2DIR/share/enigma2/xine.conf
-	echo "                Used xine.conf for opengl."
+	cp -fv pre/xine.conf.vaapi $INSTALL_E2DIR/share/enigma2/xine.conf
+	echo "                Used xine.conf for vaapi."
 	echo "********************************************************"
 	echo ""
 fi

@@ -1,6 +1,6 @@
 diff -ruN o/configure.ac pc/configure.ac
 --- o/configure.ac	2020-05-27 13:58:18.528404634 +0300
-+++ pc/configure.ac	2020-05-27 14:00:08.000000000 +0300
++++ pc/configure.ac	2020-06-04 12:38:27.373546907 +0300
 @@ -1655,7 +1655,8 @@
  src/video_out/macosx/Makefile
  src/xine-utils/Makefile
@@ -13,21 +13,27 @@ diff -ruN o/configure.ac pc/configure.ac
  
 diff -ruN o/debian/changelog pc/debian/changelog
 --- o/debian/changelog	2020-05-27 13:58:18.598405852 +0300
-+++ pc/debian/changelog	2020-05-27 14:05:58.000000000 +0300
++++ pc/debian/changelog	2020-06-04 14:50:37.398578938 +0300
 @@ -1,3 +1,10 @@
 +xine-lib-1.2 (1.2.10+hg-fe8de93e2c7e-14734-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
-+  * Patched by '1455'.
++  * Patched version for e2pc.
 +
-+ -- Torsten Jager <t.jager@gmx.de> Sat, 11 Apr 2020 14:18:40 +0200
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Sat, 11 Apr 2020 14:18:40 +0100
 +
  xine-lib-1.2 (1.2.9+hg-0) experimental; urgency=low
  
    * Hg snapshot.
+diff -ruN o/debian/compat pc/debian/compat
+--- o/debian/compat	2020-05-27 13:58:18.612406096 +0300
++++ pc/debian/compat	2020-06-04 14:21:47.309841027 +0300
+@@ -1 +1 @@
+-5
++10
 diff -ruN o/debian/control pc/debian/control
 --- o/debian/control	2020-05-27 13:58:18.605405974 +0300
-+++ pc/debian/control	2020-05-27 14:00:08.000000000 +0300
++++ pc/debian/control	2020-06-04 13:17:38.390641881 +0300
 @@ -73,7 +73,7 @@
  Suggests: ${shlibs:Suggests}, libxine2-doc | libxine-doc
  Conflicts: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x
@@ -37,9 +43,46 @@ diff -ruN o/debian/control pc/debian/control
  Description: the xine video/media player library, binary files
   This is the xine media player library (libxine).
   .
+diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
+--- o/debian/libxine2-dev.install	2020-05-27 13:58:18.605405974 +0300
++++ pc/debian/libxine2-dev.install	2020-06-04 14:45:32.688295630 +0300
+@@ -1,8 +1,8 @@
+ usr/bin/xine-config
+ usr/include
+-usr/lib/libxine.la
+ usr/lib/libxine*.so
+ usr/lib/pkgconfig/libxine.pc
++#usr/lib/libxine.la
+ #usr/lib/xine/plugins/*/*.la
+ #usr/lib/xine/plugins/*/post/*.la
+ #usr/lib/xine/plugins/*/vidix/*.la
+diff -ruN o/debian/libxine2-doc.docs pc/debian/libxine2-doc.docs
+--- o/debian/libxine2-doc.docs	2020-05-27 13:58:18.601405904 +0300
++++ pc/debian/libxine2-doc.docs	2020-06-04 15:13:21.027986828 +0300
+@@ -1,4 +1,3 @@
+-debian/tmp/usr/share/doc/libxine2/faq/*
+ debian/tmp/usr/share/doc/libxine2/README_xxmc.html
+ debian/tmp/usr/share/doc/libxine2/README
+ debian/tmp/usr/share/doc/libxine2/faq.*
+diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
+--- o/debian/libxine2.install	2020-05-27 13:58:18.614406131 +0300
++++ pc/debian/libxine2.install	2020-06-04 14:59:15.170025302 +0300
+@@ -2,9 +2,10 @@
+ usr/lib/libxine*.so.*
+ usr/lib/xine/plugins/*/post/*.so
+ usr/lib/xine/plugins/*/*.so
+-#usr/lib/xine/plugins/*/vidix/*.so
++usr/lib/xine/plugins/*/mime.types
+ usr/share/locale
+ usr/share/xine-lib
+-usr/share/doc/libxine2/hackersguide/*
++usr/share/doc/libxine2/*
+ usr/share/bug/libxine2/presubj
+ usr/share/man/man1/xine-list*.1
++#usr/lib/xine/plugins/*/vidix/*.so
 diff -ruN o/debian/rules pc/debian/rules
 --- o/debian/rules	2020-05-27 13:58:18.603405940 +0300
-+++ pc/debian/rules	2020-05-27 14:00:08.000000000 +0300
++++ pc/debian/rules	2020-06-04 13:19:27.025144703 +0300
 @@ -71,6 +71,9 @@
  	--with-wavpack \
  	--enable-ipv6 \
@@ -50,9 +93,18 @@ diff -ruN o/debian/rules pc/debian/rules
  	$(DEB_BUILD_CONFIG_OPTIONS)
  
  configure: configure-stamp
+@@ -135,7 +138,7 @@
+ 	mv debian/tmp/usr/share/doc/xine-lib debian/tmp/usr/share/doc/libxine${major}
+ #	build libxine${major} package by moving files from libxine-dev
+ 	dh_install --sourcedir=debian/tmp --list-missing
+-	dh_installman -plibxine-dev debian/dh_xine.1
++	dh_installman -plibxine2-dev debian/dh_xine.1
+ 	dh_installdocs
+ 	dh_installchangelogs -k ChangeLog
+ 	dh_link
 diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
 --- o/include/xine/metronom.h	2020-05-27 13:58:18.619406218 +0300
-+++ pc/include/xine/metronom.h	2020-05-27 14:00:08.000000000 +0300
++++ pc/include/xine/metronom.h	2020-06-04 12:38:27.505547085 +0300
 @@ -191,6 +191,11 @@
  #define METRONOM_VDR_TRICK_PTS    11
  #define METRONOM_NO_LOCK          0x8000
@@ -67,7 +119,7 @@ diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
  metronom_t *_x_metronom_init (int have_video, int have_audio, xine_t *xine) XINE_MALLOC XINE_PROTECTED;
 diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
 --- o/include/xine/osd.h	2020-05-27 13:58:18.630406410 +0300
-+++ pc/include/xine/osd.h	2020-05-27 14:00:08.000000000 +0300
++++ pc/include/xine/osd.h	2020-06-04 12:38:27.505547085 +0300
 @@ -216,6 +216,7 @@
     * overlay is blended at output (screen) resolution.
     */
@@ -78,7 +130,7 @@ diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
     * see xine.h for defined XINE_OSD_CAP_ values.
 diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
 --- o/include/xine/video_out.h	2020-05-27 13:58:18.625406323 +0300
-+++ pc/include/xine/video_out.h	2020-05-27 14:00:08.000000000 +0300
++++ pc/include/xine/video_out.h	2020-06-04 12:38:27.506547087 +0300
 @@ -272,7 +272,10 @@
  #define VO_PROP_BUFS_FREE             27 /* read-only */
  #define VO_PROP_MAX_VIDEO_WIDTH       28 /* read-only */
@@ -93,7 +145,7 @@ diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
     at most, because some alphablend functions use an 8-bit index into
 diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
 --- o/include/xine/xineintl.h	2020-05-27 13:58:18.624406305 +0300
-+++ pc/include/xine/xineintl.h	2020-05-27 14:00:08.000000000 +0300
++++ pc/include/xine/xineintl.h	2020-06-04 12:38:27.506547087 +0300
 @@ -27,6 +27,9 @@
  
  #include <locale.h>
@@ -106,7 +158,7 @@ diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
  #    define _(String) dgettext (XINE_TEXTDOMAIN, String)
 diff -ruN o/include/xine.h pc/include/xine.h
 --- o/include/xine.h	2020-05-27 13:58:18.613406114 +0300
-+++ pc/include/xine.h	2020-05-27 14:00:08.000000000 +0300
++++ pc/include/xine.h	2020-06-04 13:45:53.950936277 +0300
 @@ -1826,6 +1826,7 @@
  #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
  #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
@@ -115,7 +167,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  
  
  /* input events coming from frontend */
-@@ -1917,6 +1918,56 @@
+@@ -1917,6 +1918,17 @@
  /* events generated from post plugins */
  #define XINE_EVENT_POST_TVTIME_FILMMODE_CHANGE   400
  
@@ -123,56 +175,17 @@ diff -ruN o/include/xine.h pc/include/xine.h
 +#define XINE_EVENT_SET_AUDIO_STREAMTYPE 502
 +#define XINE_EVENT_SET_PVR_MODE         503
 +
-+/* ENIGMA specific event types */
-+#define XINE_EVENT_ENIGMA_RED              504
-+#define XINE_EVENT_ENIGMA_GREEN            505
-+#define XINE_EVENT_ENIGMA_YELLOW           506
-+#define XINE_EVENT_ENIGMA_BLUE             507
-+#define XINE_EVENT_ENIGMA_PLAY             508
-+#define XINE_EVENT_ENIGMA_PAUSE            509
-+#define XINE_EVENT_ENIGMA_STOP             510
-+#define XINE_EVENT_ENIGMA_RECORD           511
-+#define XINE_EVENT_ENIGMA_FASTFWD          512
-+#define XINE_EVENT_ENIGMA_FASTREW          513
-+#define XINE_EVENT_ENIGMA_POWER            514
-+#define XINE_EVENT_ENIGMA_CHANNELPLUS      515
-+#define XINE_EVENT_ENIGMA_CHANNELMINUS     516
-+#define XINE_EVENT_ENIGMA_SCHEDULE         517
-+#define XINE_EVENT_ENIGMA_CHANNELS         518
-+#define XINE_EVENT_ENIGMA_TIMERS           519
-+#define XINE_EVENT_ENIGMA_RECORDINGS       520
-+#define XINE_EVENT_ENIGMA_SETUP            521
-+#define XINE_EVENT_ENIGMA_COMMANDS         522
-+#define XINE_EVENT_ENIGMA_BACK             523
-+#define XINE_EVENT_ENIGMA_USER1            524
-+#define XINE_EVENT_ENIGMA_USER2            525
-+#define XINE_EVENT_ENIGMA_USER3            526
-+#define XINE_EVENT_ENIGMA_USER4            527
-+#define XINE_EVENT_ENIGMA_USER5            528
-+#define XINE_EVENT_ENIGMA_USER6            529
-+#define XINE_EVENT_ENIGMA_USER7            530
-+#define XINE_EVENT_ENIGMA_USER8            531
-+#define XINE_EVENT_ENIGMA_USER9            532
-+#define XINE_EVENT_ENIGMA_VOLPLUS          533
-+#define XINE_EVENT_ENIGMA_VOLMINUS         534
-+#define XINE_EVENT_ENIGMA_MUTE             535
-+#define XINE_EVENT_ENIGMA_AUDIO            536
-+#define XINE_EVENT_ENIGMA_INFO             537
-+#define XINE_EVENT_ENIGMA_CHANNELPREVIOUS  538
-+#define XINE_EVENT_ENIGMA_SUBTITLES        539
-+#define XINE_EVENT_ENIGMA_USER0            540
 +/* some space for further keys */
-+#define XINE_EVENT_ENIGMA_SETVIDEOWINDOW   541
-+#define XINE_EVENT_ENIGMA_FRAMESIZECHANGED 542
-+#define XINE_EVENT_ENIGMA_SELECTAUDIO      543
-+#define XINE_EVENT_ENIGMA_TRICKSPEEDMODE   544
-+#define XINE_EVENT_ENIGMA_PLUGINSTARTED    545
-+#define XINE_EVENT_ENIGMA_DISCONTINUITY    546
++#define XINE_EVENT_ENIGMA_FRAMESIZECHANGED 504
++#define XINE_EVENT_ENIGMA_SELECTAUDIO      505
++#define XINE_EVENT_ENIGMA_TRICKSPEEDMODE   506
++#define XINE_EVENT_ENIGMA_PLUGINSTARTED    507
++#define XINE_EVENT_ENIGMA_DISCONTINUITY    508
 +
  /*
   * xine event struct
   */
-@@ -1950,6 +2001,11 @@
+@@ -1950,6 +1962,11 @@
    char                str[256]; /* might be longer */
  } xine_ui_data_t;
  
@@ -184,7 +197,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * Send messages to UI. used mostly to report errors.
   */
-@@ -2028,6 +2084,10 @@
+@@ -2028,6 +2045,10 @@
    int                 type;         /* 0=buffer put, 1=buffer get */
  } xine_nbc_stats_data_t;
  
@@ -195,7 +208,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * mrl reference data is sent by demuxers when a reference stream is found.
   * this stream just contains pointers (urls) to the real data, which are
-@@ -2332,6 +2392,7 @@
+@@ -2332,6 +2353,7 @@
  void        xine_osd_set_position  (xine_osd_t *self, int x, int y) XINE_PROTECTED;
  void        xine_osd_show          (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
  void        xine_osd_show_unscaled (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
@@ -205,7 +218,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  void        xine_osd_clear         (xine_osd_t *self) XINE_PROTECTED;
 diff -ruN o/m4/input.m4 pc/m4/input.m4
 --- o/m4/input.m4	2020-05-27 13:58:18.631406427 +0300
-+++ pc/m4/input.m4	2020-05-27 14:00:08.000000000 +0300
++++ pc/m4/input.m4	2020-06-04 12:38:27.572547176 +0300
 @@ -20,6 +20,7 @@
      default_enable_vcd=yes
      default_enable_vcdo=no
@@ -235,7 +248,7 @@ diff -ruN o/m4/input.m4 pc/m4/input.m4
      if test "x$enable_bluray" != "xno"; then
 diff -ruN o/m4/summary.m4 pc/m4/summary.m4
 --- o/m4/summary.m4	2020-05-27 13:58:18.632406444 +0300
-+++ pc/m4/summary.m4	2020-05-27 14:00:08.000000000 +0300
++++ pc/m4/summary.m4	2020-06-04 12:38:27.572547176 +0300
 @@ -43,6 +43,7 @@
      test x"$have_v4l" = x"yes"       && echo "   - v4l"
      test x"$have_v4l2" = x"yes"      && echo "   - v4l2"
@@ -254,7 +267,7 @@ diff -ruN o/m4/summary.m4 pc/m4/summary.m4
      echo "   - fftscope        - mosaico"
 diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
 --- o/src/demuxers/demux_mpeg_pes.c	2020-05-27 13:58:18.764408743 +0300
-+++ pc/src/demuxers/demux_mpeg_pes.c	2020-05-31 18:15:04.927754305 +0300
++++ pc/src/demuxers/demux_mpeg_pes.c	2020-06-04 13:05:25.925960132 +0300
 @@ -71,6 +71,7 @@
  
    input_plugin_t       *input;
@@ -308,20 +321,9 @@ diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
  
    /* Don't start demuxing stream until we see a program_stream_pack_header */
    /* We need to system header in order to identify is the stream is mpeg1 or mpeg2. */
-@@ -1802,8 +1825,8 @@
-     .open_plugin     = open_plugin,
-     .description     = N_("mpeg pes demux plugin"),
-     .identifier      = "MPEG_PES",
--    .mimetypes       = "video/mp2p: m2p: MPEG2 program stream;",
--    .extensions      = "pes vdr:/ netvdr:/",
-+    .mimetypes       = "video/mp2p: m2p: tmp/ENIGMA_FIFO: MPEG2 program stream;",
-+    .extensions      = "pes vdr:/ netvdr:/ enigma:/ netenigma:/",
-     .dispose         = NULL,
-   };
- 
 diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
 --- o/src/demuxers/demux_ts.c	2020-05-27 13:58:18.780409022 +0300
-+++ pc/src/demuxers/demux_ts.c	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/demuxers/demux_ts.c	2020-06-04 13:14:05.704488633 +0300
 @@ -160,7 +160,7 @@
  #define LOG
  */
@@ -339,18 +341,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
  #ifdef DUMP_VIDEO_HEADS
    FILE *vhdfile;
-@@ -1147,10 +1148,6 @@
-     demux_ts_flush_media (this, &this->media[i]);
-     this->media[i].corrupted_pes = 1;
-   }
--
--  /* append sequence end code to video stream */
--  if (this->videoPid != INVALID_PID)
--    post_sequence_end(this->stream->video_fifo, this->media[this->videoMedia].type);
- }
- 
- /*
-@@ -2838,6 +2835,7 @@
+@@ -2838,6 +2839,7 @@
  
  static void demux_ts_event_handler (demux_ts_t *this) {
    xine_event_t *event = NULL;
@@ -358,7 +349,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
    while ((event = xine_event_next (this->event_queue, event))) {
  
-@@ -2847,6 +2845,7 @@
+@@ -2847,6 +2849,7 @@
        /* flush all streams */
        demux_ts_flush(this);
        /* fall thru */
@@ -366,7 +357,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
      case XINE_EVENT_PIDS_CHANGE:
  
-@@ -2855,6 +2854,36 @@
+@@ -2855,6 +2858,36 @@
        _x_demux_control_start (this->stream);
        break;
  
@@ -403,7 +394,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
      }
    }
  }
-@@ -3417,6 +3446,9 @@
+@@ -3417,6 +3450,9 @@
    this->pkt_size   = PKT_SIZE + this->pkt_offset;
  #endif
  
@@ -415,7 +406,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  #endif
 diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 --- o/src/e2pc/combined_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.c	2020-05-29 22:04:19.000000000 +0300
++++ pc/src/e2pc/combined_enigma.c	2020-06-04 12:38:27.608547225 +0300
 @@ -0,0 +1,48 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -467,7 +458,7 @@ diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 +
 diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 --- o/src/e2pc/combined_enigma.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.h	2020-05-29 22:02:50.000000000 +0300
++++ pc/src/e2pc/combined_enigma.h	2020-06-04 12:38:27.608547225 +0300
 @@ -0,0 +1,82 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -553,7 +544,7 @@ diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 +
 diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 --- o/src/e2pc/input_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/input_enigma.c	2020-05-28 15:00:12.000000000 +0300
++++ pc/src/e2pc/input_enigma.c	2020-06-04 12:38:27.608547225 +0300
 @@ -0,0 +1,845 @@
 +/*
 + * Copyright (C) 2003-2019 the xine project
@@ -1402,7 +1393,7 @@ diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 +}
 diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 --- o/src/e2pc/Makefile.am	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/Makefile.am	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/e2pc/Makefile.am	2020-06-04 12:38:27.608547225 +0300
 @@ -0,0 +1,13 @@
 +include $(top_builddir)/misc/Makefile.plugins
 +include $(top_srcdir)/misc/Makefile.common
@@ -1419,7 +1410,7 @@ diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 +xineplug_enigma_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL)
 diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 --- o/src/e2pc/post_enigma_audio.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_audio.c	2020-05-29 22:02:12.000000000 +0300
++++ pc/src/e2pc/post_enigma_audio.c	2020-06-04 12:38:27.608547225 +0300
 @@ -0,0 +1,264 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -1687,7 +1678,7 @@ diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 +}
 diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 --- o/src/e2pc/post_enigma_video.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_video.c	2020-05-29 22:08:56.000000000 +0300
++++ pc/src/e2pc/post_enigma_video.c	2020-06-04 12:38:27.608547225 +0300
 @@ -0,0 +1,518 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -2209,7 +2200,7 @@ diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 +}
 diff -ruN o/src/Makefile.am pc/src/Makefile.am
 --- o/src/Makefile.am	2020-05-27 13:58:18.677407228 +0300
-+++ pc/src/Makefile.am	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/Makefile.am	2020-06-04 12:38:27.608547225 +0300
 @@ -16,4 +16,5 @@
  	libreal \
  	post \
@@ -2219,7 +2210,7 @@ diff -ruN o/src/Makefile.am pc/src/Makefile.am
 +	e2pc
 diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
 --- o/src/video_out/video_out_opengl.c	2020-05-27 13:58:18.893410989 +0300
-+++ pc/src/video_out/video_out_opengl.c	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/video_out/video_out_opengl.c	2020-06-04 12:38:27.642547271 +0300
 @@ -134,6 +134,14 @@
  
  #define MY_2PI               (M_PI * 2)
@@ -2609,7 +2600,7 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
  
 diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
 --- o/src/video_out/video_out_vaapi.c	2020-05-27 13:58:18.946411912 +0300
-+++ pc/src/video_out/video_out_vaapi.c	2020-05-31 18:17:31.990670996 +0300
++++ pc/src/video_out/video_out_vaapi.c	2020-06-05 14:58:42.296828164 +0300
 @@ -203,6 +203,8 @@
  
    uint32_t            vdr_osd_width;
@@ -2652,7 +2643,22 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      }
    }
  
-@@ -3890,6 +3911,21 @@
+@@ -3661,14 +3682,10 @@
+       this->props[property].value = this->sc.output_yoffset;
+       break;
+     case VO_PROP_MAX_NUM_FRAMES:
+-#if 0 /* WTF !!!! */
+       if(!this->guarded_render)
+         this->props[property].value = RENDER_SURFACES;
+       else
+         this->props[property].value = 2;
+-#else
+-      this->props[property].value = RENDER_SURFACES;
+-#endif
+       break;
+   } 
+ 
+@@ -3890,6 +3907,21 @@
    this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
  }
  
@@ -2674,7 +2680,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
  {
    vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
-@@ -4099,6 +4135,8 @@
+@@ -4099,6 +4131,8 @@
    this->deinterlace                    = 0;
    this->vdr_osd_width                  = 0;
    this->vdr_osd_height                 = 0;
@@ -2683,7 +2689,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
          _("vaapi: VDR osd width workaround."),
-@@ -4112,6 +4150,18 @@
+@@ -4112,6 +4146,18 @@
          10, vaapi_vdr_osd_height_flag, this );
    this->vdr_osd_height = i < 0 ? 0 : i;
  
@@ -2704,7 +2710,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
 diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
 --- o/src/video_out/video_out_vdpau.c	2020-05-27 13:58:18.903411163 +0300
-+++ pc/src/video_out/video_out_vdpau.c	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/video_out/video_out_vdpau.c	2020-06-04 12:38:27.676547317 +0300
 @@ -776,7 +776,14 @@
        this->ovl_video_dest_rect = vid_rect;
      }
@@ -2736,7 +2742,7 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
          this->zoom_x = value;
 diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
 --- o/src/xine-engine/metronom.c	2020-05-27 13:58:18.918411425 +0300
-+++ pc/src/xine-engine/metronom.c	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/xine-engine/metronom.c	2020-06-04 12:38:27.710547363 +0300
 @@ -451,6 +451,7 @@
      int           seek;
      int           force_jump;
@@ -2846,7 +2852,7 @@ diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
    this->audio.drift_step       = 0;
 diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
 --- o/src/xine-engine/osd.c	2020-05-27 13:58:18.958412121 +0300
-+++ pc/src/xine-engine/osd.c	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/xine-engine/osd.c	2020-06-04 12:38:27.710547363 +0300
 @@ -525,6 +525,10 @@
    return _osd_show(osd, vpts, 1);
  }
@@ -2868,7 +2874,7 @@ diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
    this->r.set_video_window   = osd_set_video_window;
 diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
 --- o/src/xine-engine/video_out.c	2020-05-27 13:58:18.938411773 +0300
-+++ pc/src/xine-engine/video_out.c	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/xine-engine/video_out.c	2020-06-04 12:38:27.710547363 +0300
 @@ -207,6 +207,7 @@
  
    /* pts value when decoder delivered last video frame */
@@ -2930,7 +2936,7 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
     */
 diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
 --- o/src/xine-engine/xine_interface.c	2020-05-27 13:58:18.942411842 +0300
-+++ pc/src/xine-engine/xine_interface.c	2020-05-27 14:00:08.000000000 +0300
++++ pc/src/xine-engine/xine_interface.c	2020-06-04 12:38:27.711547364 +0300
 @@ -867,6 +867,10 @@
    this->osd.renderer->show_unscaled(&this->osd, vpts);
  }
