@@ -1,7 +1,0 @@
-I noticed that installing the nvidia proprietary driver on ssd with distributives 19.10 and 20.04 LTS (dev) isn't correct.
-After the second reboot, xserver doesn't start. At the same time, when installing on hdd there are no such problems.
-The solution is to modify /etc/gdm3/custom.conf. Uncomment the next line:
-#Wayland = false
-So now the line will look like this:
-Wayland = false
-Save and restart your PC.

@@ -124,7 +124,7 @@ video.output.vdpau_sd_only_properties:noise+sharpness
 
 # Choose speed over specification compliance
 # bool, default: 0
-#video.processing.ffmpeg_choose_speed_over_accuracy:0
+video.processing.ffmpeg_choose_speed_over_accuracy:1
 
 # Enable direct rendering
 # bool, default: 1
@@ -140,7 +140,7 @@ video.output.vdpau_sd_only_properties:noise+sharpness
 
 # FFmpeg video decoding thread count
 # numeric, default: 1
-video.processing.ffmpeg_thread_count:2
+video.processing.ffmpeg_thread_count:8
 
 # number of audio buffers
 # numeric, default: 230
