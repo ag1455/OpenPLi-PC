@@ -1,6 +1,6 @@
 diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconmenager.py
 --- o/IPTVPlayer/components/iconmenager.py	2020-05-29 12:31:04.307738898 +0300
-+++ pc/IPTVPlayer/components/iconmenager.py	2020-05-29 12:32:34.916944374 +0300
++++ pc/IPTVPlayer/components/iconmenager.py	2020-06-24 00:30:53.859975153 +0300
 @@ -28,7 +28,7 @@
  
  
@@ -21,7 +21,7 @@ diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconme
              params_cfad={}
 diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/iptvconfigmenu.py
 --- o/IPTVPlayer/components/iptvconfigmenu.py	2020-05-29 12:31:04.309738881 +0300
-+++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-05-29 12:32:34.917944365 +0300
++++ pc/IPTVPlayer/components/iptvconfigmenu.py	2020-06-24 00:30:53.860975176 +0300
 @@ -61,7 +61,7 @@
  config.plugins.iptvplayer.showinMainMenu     = ConfigYesNo(default = False)
  config.plugins.iptvplayer.ListaGraficzna     = ConfigYesNo(default = True)
@@ -42,7 +42,7 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
  
 diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/iptvplayerwidget.py
 --- o/IPTVPlayer/components/iptvplayerwidget.py	2020-05-29 12:31:04.315738831 +0300
-+++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-05-29 12:32:34.932944228 +0300
++++ pc/IPTVPlayer/components/iptvplayerwidget.py	2020-06-24 00:30:53.860975176 +0300
 @@ -60,7 +60,6 @@
  
  from Plugins.Extensions.IPTVPlayer.components.iptvplayerinit import TranslateTXT as _, IPTVPlayerNeedInit, GetIPTVPlayerLastHostError, GetIPTVNotify, GetIPTVSleep
@@ -84,13 +84,13 @@ diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/i
                      message.append("Because of blocking part of functionality of the IPTVPlayer by http://ipab.tv/ developer your image was blacklisted.")
                      message.append("Please be also informed that users of http://ipab.tv/ will NOT get support, due to same reason.")
 diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
---- o/IPTVPlayer/hosts/aliases.txt	2020-05-29 12:31:04.318738806 +0300
-+++ pc/IPTVPlayer/hosts/aliases.txt	2020-05-29 12:32:34.933944219 +0300
-@@ -1 +1,234 @@
--{"hostzalukajvip": "https://zalukaj.vip/", "hostwatchmovies": "https://watch-movies.pl/", "hostekinomaniak": "https://ekinomaniak.net/", "host3filmy": "https://3filmy.com/", "hostcdafilmy": "https://cda-filmy.online/", "hostfullmatchtvcom": "https://fullmatchtv.com/", "hostustvgo": "http://ustvgo.tv/", "hostjoemonsterorg": "https://joemonster.org/", "hostredbull": "http://redbull.tv/", "host3sktv": "http://33sk.tv/", "hostiptvplayerinfo": "E2iPlayer info", "hosttvjworg": "https://tv.jw.org/", "hosteskago": "http://www.eskago.pl/", "hostmeczykipl": "http://www.meczyki.pl/", "hostlosmovies": "http://losmovies.cx/", "hostliveleak": "https://liveleak.com/", "hostkinox": "https://kinox.to/", "hostchristusvincit": "http://christusvincit-tv.pl/", "hostmovs4ucom": "http://movs4u.tv/", "hostplaypuls": "http://playpuls.pl/", "hostcinemaxx": "http://cinemaxx.cc/", "hostandrijaiandjelka": "https://andrija-i-andjelka.com/", "hostoipeirates": "https://oipeirates.tv/", "hostdel": "https://del.org/", "hostdailymotion": "http://dailymotion.com/", "hostclassiccinemaonline": "http://classiccinemaonline.com/", "hostiitvpl": "http://iitvx.pl/", "hostmovie4kto": "http://movie4k.org/", "hostyifytv": "https://ymovies.tv/", "hostarconaitvme": "http://arconaitv.us/", "hosttfarjocom": "http://tfarjo.ws/", "hostfilmpalast": "http://filmpalast.to/", "hostfilmeonlineto": "https://filme-online.to/", "hostorthobulletscom": "https://orthobullets.com/", "hostsovdub": "http://sovdub.ru/", "hostkreskoweczki": "http://kreskoweczki.pl/", "hostcinemay": "http://cinemay.ws/", "hostserijeonline": "http://www.serije.online/", "hosttvnowde": "https://www.tvnow.de/", "hosticefilmsinfo": "http://icefilms.info/", "hostplanetstreamingcom": "http://ww4.planet-streaming.com/", "hostuktvplay": "https://uktvplay.uktv.co.uk/", "hostofficialfilmillimite": "https://official-film-illimite.ws/", "hosthdkinomir": "http://hdkinomir.com/", "hostcrtankocom": "http://www.crtanko.com/", "hostgreekdocumentaries3": "http://greekdocumentaries2.blogspot.gr/", "hostserialeco": "http://seriale.co/", "hostinteriatv": "http://interia.tv/", "hostshahiidanimenet": "https://shahiid-anime.net/", "hostegybest": "http://egy.best/", "hostekstraklasatv": "http://ekstraklasa.tv/", "hostanimeodcinki": "https://anime-odcinki.pl/", "hostluxveritatis": "https://luxveritatis.pl/", "hostlibrestream": "http://ls-streaming.com/", "hostmediasetplay": "https://mediasetplay.it/", "hostwatchwrestlinguno": "http://watchwrestling.la/", "hostmovierulzsx": "https://movierulz.be/", "hostthewatchseriesto": "https://swatchseries.to/", "hoststreamcomplet": "https://streamcomplet.me/", "hostaltadefinizione": "https://altadefinizione.fm/", "hosthdstreams": "https://hd-streams.org/", "hosttreetv": "http://tree.tv/", "hostkabarety": "http://kabaret.tworzymyhistorie.pl/", "hostradiostacja": "http://radiostacja.pl/", "hostdarshowcom": "http://darshow.com/", "hostyesmoviesto": "https://yesmovies.to/", "hostdixmax": "https://dixmax.com/", "hostwpolscepl": "http://wpolsce.pl/", "hostcartoonhd": "https://cartoonhd.care/", "hostmozicsillag": "https://mozicsillag.me/", "hostbajeczkiorg": "http://bajeczki.org/", "hosthdfull": "https://hdfull.me/", "hostkinogo": "http://kinogo.cc/", "hostfilmezz": "http://filmezz.eu/", "hostrtlmost": "https://rtlmost.hu/", "hostgamatocom": "https://gamato-movies.com/", "hostwatchcartoononline": "https://watchcartoononline.com/", "hostallboxtv": "https://allbox.tv/", "hostlaola1tv": "http://laola1.tv/", "hostxrysoise": "https://xrysoi.tv/", "hostgledalica": "https://gledalica.com/", "hostfreediscpl": "https://freedisc.pl/", "hostfilmaoncom": "http://filmaon.com/", "hostwrealu24tv": "https://wrealu24.tv/", "hostforjatn": "https://forja.tn/", "hostyoutube": "https://youtube.com/", "hostitvcom": "https://www.itv.com/", "hosttwitchtv": "https://twitch.tv/", "hostspiegeltv": "http://spiegel.tv/", "hostzdfmediathek": "ZDFmediathek", "hostfilmovizijastudio": "https://filmovizija.fun/", "hostsportdeutschland": "http://sportdeutschland.tv/", "hostchomikuj": "http://chomikuj.pl/", "hostsolarmovie": "https://solarmoviex.to/", "hostmythewatchseries": "https://gowatchseries.io/", "hostfenixsite": "http://fenixsite.com/", "hostmooviecc": "https://moovie.cc/", "hosttainieskaiseirestv": "http://tainieskaiseires.tv/", "hostlocalmedia": "LocalMedia", "hostmyfreemp3": "https://my-free-mp3.net/", "hostseriesonline": "https://series9.io/", "hostzalukajcom": "http://zalukaj.com/", "hostmrpiracy": "http://mrpiracy.site/", "hostvimeo": "https://vimeo.com/", "hostkisscartoonme": "https://kisscartoon.ac/", "hostfilma24hdcom": "http://www.filma24hd.com/", "hostsvtplayse": "https://svtplay.se/", "hostardmediathek": "ARDmediathek", "hostdrdk": "http://dr.dk/", "hostfilmehdnet": "http://filmehd.net/", "hostkinotan": "http://kinotan.ru/", "hosthdpopcornscom": "http://hdpopcorns.co/", "hostfilmstreamvkcom": "http://filmstreamvk.club/", "hosttvplayercom": "https://tvplayer.com/", "hostserienstreamto": "https://serienstream.to/", "hostkreskowkazone": "http://kreskowkazone.pl/", "hostputlockertvto": "https://putlockertv.to/", "hosthd1080online": "https://hd1080.online/", "hostcdapl": "https://cda.pl/", "hostcineto": "https://cine.to/", "hosteurosportplayer": "https://www.eurosportplayer.com/", "hostmusicmp3ru": "https://musicmp3.ru/", "hostokgoals": "http://okgoals.com/", "hostspryciarze": "https://spryciarze.pl/", "hostdokumentalnenet": "https://dokumentalne.net/", "hostvodpl": "https://vod.pl/", "hostted": "https://ted.com/", "hostwolnelekturypl": "http://wolnelektury.pl/", "hostfightvideo": "http://fight.mmashare.club/", "hostngolos": "https://ngolos.com/", "hosthitboxtv": "http://hitbox.tv/", "hostplayrtsiw": "https://srgssr.ch/", "hostfilmixco": "https://filmix.co/", "hostpinkbike": "https://pinkbike.com/", "hosturllist": "Urllists player", "hostotakufr": "http://otakufr.com/", "hostfavourites": "Favourites", "hostkijknl": "http://kijk.nl/", "hostvidcorncom": "https://vidcorn.tv/", "hostdancetrippin": "http://dancetrippin.tv/", "hostgamatotvme": "http://gamatotv.me/", "hosthdsto": "http://hds.to/", "hostvevo": "https://vevo.com/", "hosttvn24": "TVN 24", "hostninateka": "http://ninateka.pl/", "hostappletrailers": "https://trailers.apple.com/", "hostefilmytv": "http://www.efilmy.tv/", "hosttvrepublika": "http://telewizjarepublika.pl/", "hostworldfree4u": "https://www.worldfree4u.ws/", "hostnuteczki": "https://nuteczki.eu/", "hostskstream": "https://skstream.info/", "hostmusicbox": "Music-Box", "hosthoofootcom": "http://hoofoot.com/", "hostourmatchnet": "http://ourmatch.net/", "hostdardarkomcom": "http://dardarkom.com/", "hostplusdede": "https://megadede.com/", "hostmovienightws": "http://movienight.ws/", "hostekinotv": "http://ekino-tv.pl/", "hostalltubetv": "http://alltube.pl/", "hostvumedicom": "https://vumedi.com/", "hostfilmativa": "http://filmativa.ws/", "hoststreamliveto": "https://streamlive.to/", "hostwgrane": "http://wgrane.pl/", "host7tvde": "https://7tv.de/", "hostororotv": "https://ororo.tv/", "hostshoutcast": "http://shoutcast.com/", "host9anime": "https://9anime.to/", "hostcimaclubcom": "http://cimaclub.com/", "hostddl": "http://ddl.me/", "hostbbcsport": "https://www.bbc.co.uk/sport", "hostwebstream": "\"Web\" streams player", "hosttantifilmorg": "https://tantifilm.eu/", "hostmovizlandcom": "http://movizland.com/", "hostbsto": "https://bs.to/", "hostfaselhdcom": "https://faselhd.co/", "hostartetv": "https://www.arte.tv/", "hostbbciplayer": "http://www.bbc.co.uk/iplayer", "hostustreamtv": "http://ustream.tv/", "host3player": "https://virginmediatelevision.ie/player", "hostquesttvcouk": "http://questtv.co.uk/", "hostkissanimeto": "http://kissanime.ru/", "hostfilmpertutti": "https://filmpertutti.uno/", "hostszenestreamz": "http://szene-streamz.com/", "hostmaxtvgo": "https://maxtvgo.com/", "hostipla": "https://ipla.tv/", "hostfilma24io": "http://filma24.io/", "hosthdfilmetv": "http://hdfilme.tv/", "hosttvpvod": "https://vod.tvp.pl/", "hostwatchwrestling": "http://watchwrestling.nl/", "hostdpstreamingcx": "https://streaming-series.watch/", "hosttvnvod": "TVN Player", "hosttvgrypl": "https://tvgry.pl/", "hostfilmstreamhdit": "http://filmstreamhd.it/", "host123movieshd": "https://123movieshd.sc/", "hostrtbfbe": "https://www.rtbf.be/", "hoststreaminghdfun": "https://streaminghd.online/", "hostrteieplayer": "http://rte.ie/player", "hostguardaserie": "https://www.guardaserie.digital/", "hosttvproart": "http://tvproart.pl/", "hostaltadefinizione01": "https://altadefinizione01.film/", "hostkkiste": "https://kinokiste.me/", "hostakoam": "https://ar.akoam.net/", "hostserialnet": "http://serialnet.pl/", "hostwptv": "http://wp.tv/","hostraiplay":"http://raiplay.it","hostdplayit":"https://it.dplay.com/"}
+--- o/IPTVPlayer/hosts/aliases.txt	2020-06-24 00:29:43.342372801 +0300
++++ pc/IPTVPlayer/hosts/aliases.txt	2020-06-24 01:17:55.203278054 +0300
+@@ -1 +1,235 @@
+-{"hostogladajto": "https://ogladaj.to/", "hostwatchmovies": "https://watch-movies.pl/", "hostekinomaniak": "https://ekinomaniak.net/", "host3filmy": "https://3filmy.com/", "hostcdafilmy": "https://cda-filmy.online/", "hostfullmatchtvcom": "https://fullmatchtv.com/", "hostustvgo": "http://ustvgo.tv/", "hostjoemonsterorg": "https://joemonster.org/", "hostredbull": "http://redbull.tv/", "host3sktv": "http://33sk.tv/", "hostiptvplayerinfo": "E2iPlayer info", "hosttvjworg": "https://tv.jw.org/", "hosteskago": "http://www.eskago.pl/", "hostmeczykipl": "http://www.meczyki.pl/", "hostlosmovies": "http://losmovies.cx/", "hostliveleak": "https://liveleak.com/", "hostkinox": "https://kinox.to/", "hostchristusvincit": "http://christusvincit-tv.pl/", "hostmovs4ucom": "http://movs4u.tv/", "hostplaypuls": "http://playpuls.pl/", "hostcinemaxx": "http://cinemaxx.cc/", "hostandrijaiandjelka": "https://andrija-i-andjelka.com/", "hostoipeirates": "https://oipeirates.tv/", "hostdel": "https://del.org/", "hostdailymotion": "http://dailymotion.com/", "hostclassiccinemaonline": "http://classiccinemaonline.com/", "hostiitvpl": "http://iitvx.pl/", "hostmovie4kto": "http://movie4k.org/", "hostyifytv": "https://ymovies.tv/", "hostarconaitvme": "http://arconaitv.us/", "hosttfarjocom": "http://tfarjo.ws/", "hostfilmpalast": "http://filmpalast.to/", "hostfilmeonlineto": "https://filme-online.to/", "hostorthobulletscom": "https://orthobullets.com/", "hostsovdub": "http://sovdub.ru/", "hostkreskoweczki": "http://kreskoweczki.pl/", "hostcinemay": "http://cinemay.ws/", "hostserijeonline": "http://www.serije.online/", "hosttvnowde": "https://www.tvnow.de/", "hosticefilmsinfo": "http://icefilms.info/", "hostplanetstreamingcom": "http://ww4.planet-streaming.com/", "hostuktvplay": "https://uktvplay.uktv.co.uk/", "hostofficialfilmillimite": "https://official-film-illimite.ws/", "hosthdkinomir": "http://hdkinomir.com/", "hostcrtankocom": "http://www.crtanko.com/", "hostgreekdocumentaries3": "http://greekdocumentaries2.blogspot.gr/", "hostserialeco": "http://seriale.co/", "hostinteriatv": "http://interia.tv/", "hostshahiidanimenet": "https://shahiid-anime.net/", "hostegybest": "http://egy.best/", "hostekstraklasatv": "http://ekstraklasa.tv/", "hostanimeodcinki": "https://anime-odcinki.pl/", "hostluxveritatis": "https://luxveritatis.pl/", "hostlibrestream": "http://ls-streaming.com/", "hostmediasetplay": "https://mediasetplay.it/", "hostwatchwrestlinguno": "http://watchwrestling.la/", "hostmovierulzsx": "https://movierulz.be/", "hostthewatchseriesto": "https://swatchseries.to/", "hoststreamcomplet": "https://streamcomplet.me/", "hostaltadefinizione": "https://altadefinizione.fm/", "hosthdstreams": "https://hd-streams.org/", "hosttreetv": "http://tree.tv/", "hostkabarety": "http://kabaret.tworzymyhistorie.pl/", "hostradiostacja": "http://radiostacja.pl/", "hostdarshowcom": "http://darshow.com/", "hostyesmoviesto": "https://yesmovies.to/", "hostdixmax": "https://dixmax.com/", "hostwpolscepl": "http://wpolsce.pl/", "hostcartoonhd": "https://cartoonhd.care/", "hostmozicsillag": "https://mozicsillag.me/", "hostbajeczkiorg": "http://bajeczki.org/", "hosthdfull": "https://hdfull.me/", "hostkinogo": "http://kinogo.cc/", "hostfilmezz": "http://filmezz.eu/", "hostrtlmost": "https://rtlmost.hu/", "hostgamatocom": "https://gamato-movies.com/", "hostwatchcartoononline": "https://watchcartoononline.com/", "hostallboxtv": "https://allbox.tv/", "hostlaola1tv": "http://laola1.tv/", "hostxrysoise": "https://xrysoi.tv/", "hostgledalica": "https://gledalica.com/", "hostfreediscpl": "https://freedisc.pl/", "hostfilmaoncom": "http://filmaon.com/", "hostwrealu24tv": "https://wrealu24.tv/", "hostforjatn": "https://forja.tn/", "hostyoutube": "https://youtube.com/", "hostitvcom": "https://www.itv.com/", "hosttwitchtv": "https://twitch.tv/", "hostspiegeltv": "http://spiegel.tv/", "hostzdfmediathek": "ZDFmediathek", "hostfilmovizijastudio": "https://filmovizija.fun/", "hostsportdeutschland": "http://sportdeutschland.tv/", "hostchomikuj": "http://chomikuj.pl/", "hostsolarmovie": "https://solarmoviex.to/", "hostmythewatchseries": "https://gowatchseries.io/", "hostfenixsite": "http://fenixsite.com/", "hostmooviecc": "https://moovie.cc/", "hosttainieskaiseirestv": "http://tainieskaiseires.tv/", "hostlocalmedia": "LocalMedia", "hostmyfreemp3": "https://my-free-mp3.net/", "hostseriesonline": "https://series9.io/", "hostzalukajcom": "http://zalukaj.com/", "hostmrpiracy": "http://mrpiracy.site/", "hostvimeo": "https://vimeo.com/", "hostkisscartoonme": "https://kisscartoon.ac/", "hostfilma24hdcom": "http://www.filma24hd.com/", "hostsvtplayse": "https://svtplay.se/", "hostardmediathek": "ARDmediathek", "hostdrdk": "http://dr.dk/", "hostfilmehdnet": "http://filmehd.net/", "hostkinotan": "http://kinotan.ru/", "hosthdpopcornscom": "http://hdpopcorns.co/", "hostfilmstreamvkcom": "http://filmstreamvk.club/", "hosttvplayercom": "https://tvplayer.com/", "hostserienstreamto": "https://serienstream.to/", "hostkreskowkazone": "http://kreskowkazone.pl/", "hostputlockertvto": "https://putlockertv.to/", "hosthd1080online": "https://hd1080.online/", "hostcdapl": "https://cda.pl/", "hostcineto": "https://cine.to/", "hosteurosportplayer": "https://www.eurosportplayer.com/", "hostmusicmp3ru": "https://musicmp3.ru/", "hostokgoals": "http://okgoals.com/", "hostspryciarze": "https://spryciarze.pl/", "hostdokumentalnenet": "https://dokumentalne.net/", "hostvodpl": "https://vod.pl/", "hostted": "https://ted.com/", "hostwolnelekturypl": "http://wolnelektury.pl/", "hostfightvideo": "http://fight.mmashare.club/", "hostngolos": "https://ngolos.com/", "hosthitboxtv": "http://hitbox.tv/", "hostplayrtsiw": "https://srgssr.ch/", "hostfilmixco": "https://filmix.co/", "hostpinkbike": "https://pinkbike.com/", "hosturllist": "Urllists player", "hostotakufr": "http://otakufr.com/", "hostfavourites": "Favourites", "hostkijknl": "http://kijk.nl/", "hostvidcorncom": "https://vidcorn.tv/", "hostdancetrippin": "http://dancetrippin.tv/", "hostgamatotvme": "http://gamatotv.me/", "hosthdsto": "http://hds.to/", "hostvevo": "https://vevo.com/", "hosttvn24": "TVN 24", "hostninateka": "http://ninateka.pl/", "hostappletrailers": "https://trailers.apple.com/", "hostefilmytv": "http://www.efilmy.tv/", "hosttvrepublika": "http://telewizjarepublika.pl/", "hostworldfree4u": "https://www.worldfree4u.ws/", "hostnuteczki": "https://nuteczki.eu/", "hostskstream": "https://skstream.info/", "hostmusicbox": "Music-Box", "hosthoofootcom": "http://hoofoot.com/", "hostourmatchnet": "http://ourmatch.net/", "hostdardarkomcom": "http://dardarkom.com/", "hostplusdede": "https://megadede.com/", "hostmovienightws": "http://movienight.ws/", "hostekinotv": "http://ekino-tv.pl/", "hostalltubetv": "http://alltube.pl/", "hostvumedicom": "https://vumedi.com/", "hostfilmativa": "http://filmativa.ws/", "hoststreamliveto": "https://streamlive.to/", "hostwgrane": "http://wgrane.pl/", "host7tvde": "https://7tv.de/", "hostororotv": "https://ororo.tv/", "hostshoutcast": "http://shoutcast.com/", "host9anime": "https://9anime.to/", "hostcimaclubcom": "http://cimaclub.com/", "hostddl": "http://ddl.me/", "hostbbcsport": "https://www.bbc.co.uk/sport", "hostwebstream": "\"Web\" streams player", "hosttantifilmorg": "https://tantifilm.eu/", "hostmovizlandcom": "http://movizland.com/", "hostbsto": "https://bs.to/", "hostfaselhdcom": "https://faselhd.co/", "hostartetv": "https://www.arte.tv/", "hostbbciplayer": "http://www.bbc.co.uk/iplayer", "hostustreamtv": "http://ustream.tv/", "host3player": "https://virginmediatelevision.ie/player", "hostquesttvcouk": "http://questtv.co.uk/", "hostkissanimeto": "http://kissanime.ru/", "hostfilmpertutti": "https://filmpertutti.uno/", "hostszenestreamz": "http://szene-streamz.com/", "hostmaxtvgo": "https://maxtvgo.com/", "hostipla": "https://ipla.tv/", "hostfilma24io": "http://filma24.io/", "hosthdfilmetv": "http://hdfilme.tv/", "hosttvpvod": "https://vod.tvp.pl/", "hostwatchwrestling": "http://watchwrestling.nl/", "hostdpstreamingcx": "https://streaming-series.watch/", "hosttvnvod": "TVN Player", "hosttvgrypl": "https://tvgry.pl/", "hostfilmstreamhdit": "http://filmstreamhd.it/", "host123movieshd": "https://123movieshd.sc/", "hostrtbfbe": "https://www.rtbf.be/", "hoststreaminghdfun": "https://streaminghd.online/", "hostrteieplayer": "http://rte.ie/player", "hostguardaserie": "https://www.guardaserie.digital/", "hosttvproart": "http://tvproart.pl/", "hostaltadefinizione01": "https://altadefinizione01.film/", "hostkkiste": "https://kinokiste.me/", "hostakoam": "https://ar.akoam.net/", "hostserialnet": "http://serialnet.pl/", "hostwptv": "http://wp.tv/","hostraiplay":"http://raiplay.it","hostdplayit":"https://it.dplay.com/"}
 \ В конце файла нет новой строки
 +{
-+"hostzalukajvip": "https://zalukaj.vip/",
++"hostogladajto": "https://ogladaj.to/",
 +"hostwatchmovies": "https://watch-movies.pl/",
 +"hostekinomaniak": "https://ekinomaniak.net/",
 +"host3filmy": "https://3filmy.com/",
@@ -155,7 +155,7 @@ diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
 +"hostkabarety": "http://kabaret.tworzymyhistorie.pl/",
 +"hostradiostacja": "http://radiostacja.pl/",
 +"hostdarshowcom": "http://darshow.com/",
-+"hostyesmoviesto": "https://yesmovies.to/","hostwatchmovies": "https://watch-movies.pl/",
++"hostyesmoviesto": "https://yesmovies.to/",
 +"hostdixmax": "https://dixmax.com/",
 +"hostwpolscepl": "http://wpolsce.pl/",
 +"hostcartoonhd": "https://cartoonhd.care/",
@@ -283,7 +283,7 @@ diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
 +"hosttvnvod": "TVN Player",
 +"hosttvgrypl": "https://tvgry.pl/",
 +"hostfilmstreamhdit": "http://filmstreamhd.it/",
-+"host123movieshd": "https://123movieshd.sc/","hostwatchmovies": "https://watch-movies.pl/",
++"host123movieshd": "https://123movieshd.sc/",
 +"hostrtbfbe": "https://www.rtbf.be/",
 +"hoststreaminghdfun": "https://streaminghd.online/",
 +"hostrteieplayer": "http://rte.ie/player/",
@@ -322,10 +322,11 @@ diff -ruN o/IPTVPlayer/hosts/aliases.txt pc/IPTVPlayer/hosts/aliases.txt
 +"hostserienstreamto": "https://serienstream.sx/",
 +"hostsportitalia": "https://www.sportitalia.com/",
 +"hostturcjatv": "http://turcjatv.pl/"
++"hostzalukajvip": "https://zalukaj.vip/",
 +}
 diff -ruN o/IPTVPlayer/hosts/hostaltadefinizione1.py pc/IPTVPlayer/hosts/hostaltadefinizione1.py
 --- o/IPTVPlayer/hosts/hostaltadefinizione1.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostaltadefinizione1.py	2020-05-29 12:32:34.947944091 +0300
++++ pc/IPTVPlayer/hosts/hostaltadefinizione1.py	2020-06-24 00:30:53.861975198 +0300
 @@ -0,0 +1,318 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -647,7 +648,7 @@ diff -ruN o/IPTVPlayer/hosts/hostaltadefinizione1.py pc/IPTVPlayer/hosts/hostalt
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostaltadefinizionecool.py pc/IPTVPlayer/hosts/hostaltadefinizionecool.py
 --- o/IPTVPlayer/hosts/hostaltadefinizionecool.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostaltadefinizionecool.py	2020-05-29 12:32:34.948944082 +0300
++++ pc/IPTVPlayer/hosts/hostaltadefinizionecool.py	2020-06-24 00:30:53.862975220 +0300
 @@ -0,0 +1,453 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -1105,7 +1106,7 @@ diff -ruN o/IPTVPlayer/hosts/hostaltadefinizionecool.py pc/IPTVPlayer/hosts/host
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostcb01.py pc/IPTVPlayer/hosts/hostcb01.py
 --- o/IPTVPlayer/hosts/hostcb01.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostcb01.py	2020-05-29 12:32:34.949944073 +0300
++++ pc/IPTVPlayer/hosts/hostcb01.py	2020-06-24 00:30:53.862975220 +0300
 @@ -0,0 +1,399 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -1508,7 +1509,7 @@ diff -ruN o/IPTVPlayer/hosts/hostcb01.py pc/IPTVPlayer/hosts/hostcb01.py
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostcb01uno.py pc/IPTVPlayer/hosts/hostcb01uno.py
 --- o/IPTVPlayer/hosts/hostcb01uno.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostcb01uno.py	2020-05-29 12:32:34.950944064 +0300
++++ pc/IPTVPlayer/hosts/hostcb01uno.py	2020-06-24 00:30:53.862975220 +0300
 @@ -0,0 +1,304 @@
 +###################################################
 +# LOCAL import
@@ -1816,7 +1817,7 @@ diff -ruN o/IPTVPlayer/hosts/hostcb01uno.py pc/IPTVPlayer/hosts/hostcb01uno.py
 +        else: return False
 diff -ruN o/IPTVPlayer/hosts/hostdsda.py pc/IPTVPlayer/hosts/hostdsda.py
 --- o/IPTVPlayer/hosts/hostdsda.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostdsda.py	2020-05-29 12:32:34.950944064 +0300
++++ pc/IPTVPlayer/hosts/hostdsda.py	2020-06-24 00:30:53.862975220 +0300
 @@ -0,0 +1,266 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -2086,7 +2087,7 @@ diff -ruN o/IPTVPlayer/hosts/hostdsda.py pc/IPTVPlayer/hosts/hostdsda.py
 +        CHostBase.__init__(self, DSDA(), True, favouriteTypes=[]) 
 diff -ruN o/IPTVPlayer/hosts/hostfilisertv.py pc/IPTVPlayer/hosts/hostfilisertv.py
 --- o/IPTVPlayer/hosts/hostfilisertv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfilisertv.py	2020-05-29 12:32:34.951944054 +0300
++++ pc/IPTVPlayer/hosts/hostfilisertv.py	2020-06-24 00:30:53.863975243 +0300
 @@ -0,0 +1,529 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -2619,7 +2620,7 @@ diff -ruN o/IPTVPlayer/hosts/hostfilisertv.py pc/IPTVPlayer/hosts/hostfilisertv.
 +
 diff -ruN o/IPTVPlayer/hosts/hostfilmowood.py pc/IPTVPlayer/hosts/hostfilmowood.py
 --- o/IPTVPlayer/hosts/hostfilmowood.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfilmowood.py	2020-05-29 12:32:34.952944045 +0300
++++ pc/IPTVPlayer/hosts/hostfilmowood.py	2020-06-24 00:30:53.863975243 +0300
 @@ -0,0 +1,219 @@
 +# -*- coding: utf-8 -*-
 +# typical import for a standard host
@@ -2842,7 +2843,7 @@ diff -ruN o/IPTVPlayer/hosts/hostfilmowood.py pc/IPTVPlayer/hosts/hostfilmowood.
 +    
 diff -ruN o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py
 --- o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	2020-05-29 12:32:34.952944045 +0300
++++ pc/IPTVPlayer/hosts/hostfilmydokumentalneeu.py	2020-06-24 00:30:53.863975243 +0300
 @@ -0,0 +1,284 @@
 +﻿# -*- coding: utf-8 -*-
 +###################################################
@@ -3130,7 +3131,7 @@ diff -ruN o/IPTVPlayer/hosts/hostfilmydokumentalneeu.py pc/IPTVPlayer/hosts/host
 +        return
 diff -ruN o/IPTVPlayer/hosts/hostfokustv.py pc/IPTVPlayer/hosts/hostfokustv.py
 --- o/IPTVPlayer/hosts/hostfokustv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfokustv.py	2020-05-29 12:32:34.953944036 +0300
++++ pc/IPTVPlayer/hosts/hostfokustv.py	2020-06-24 00:30:53.863975243 +0300
 @@ -0,0 +1,353 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -3488,7 +3489,7 @@ diff -ruN o/IPTVPlayer/hosts/hostfokustv.py pc/IPTVPlayer/hosts/hostfokustv.py
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostfrancetv.py pc/IPTVPlayer/hosts/hostfrancetv.py
 --- o/IPTVPlayer/hosts/hostfrancetv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostfrancetv.py	2020-05-29 12:32:34.954944027 +0300
++++ pc/IPTVPlayer/hosts/hostfrancetv.py	2020-06-24 00:30:53.863975243 +0300
 @@ -0,0 +1,549 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -4042,7 +4043,7 @@ diff -ruN o/IPTVPlayer/hosts/hostfrancetv.py pc/IPTVPlayer/hosts/hostfrancetv.py
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostkinomanco.py pc/IPTVPlayer/hosts/hostkinomanco.py
 --- o/IPTVPlayer/hosts/hostkinomanco.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostkinomanco.py	2020-05-29 12:32:34.955944018 +0300
++++ pc/IPTVPlayer/hosts/hostkinomanco.py	2020-06-24 00:30:53.864975265 +0300
 @@ -0,0 +1,858 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -4905,7 +4906,7 @@ diff -ruN o/IPTVPlayer/hosts/hostkinomanco.py pc/IPTVPlayer/hosts/hostkinomanco.
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostla7it.py pc/IPTVPlayer/hosts/hostla7it.py
 --- o/IPTVPlayer/hosts/hostla7it.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostla7it.py	2020-05-29 12:32:34.956944009 +0300
++++ pc/IPTVPlayer/hosts/hostla7it.py	2020-06-24 00:30:53.864975265 +0300
 @@ -0,0 +1,353 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -5262,7 +5263,7 @@ diff -ruN o/IPTVPlayer/hosts/hostla7it.py pc/IPTVPlayer/hosts/hostla7it.py
 +    
 diff -ruN o/IPTVPlayer/hosts/hostlookmovieag.py pc/IPTVPlayer/hosts/hostlookmovieag.py
 --- o/IPTVPlayer/hosts/hostlookmovieag.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostlookmovieag.py	2020-05-29 12:32:34.957944000 +0300
++++ pc/IPTVPlayer/hosts/hostlookmovieag.py	2020-06-24 00:30:53.864975265 +0300
 @@ -0,0 +1,292 @@
 +# -*- coding: utf-8 -*-
 +
@@ -5558,7 +5559,7 @@ diff -ruN o/IPTVPlayer/hosts/hostlookmovieag.py pc/IPTVPlayer/hosts/hostlookmovi
 +
 diff -ruN o/IPTVPlayer/hosts/hostnaszekinotv.py pc/IPTVPlayer/hosts/hostnaszekinotv.py
 --- o/IPTVPlayer/hosts/hostnaszekinotv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostnaszekinotv.py	2020-05-29 12:32:34.958943990 +0300
++++ pc/IPTVPlayer/hosts/hostnaszekinotv.py	2020-06-24 00:30:53.864975265 +0300
 @@ -0,0 +1,740 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -6303,7 +6304,7 @@ diff -ruN o/IPTVPlayer/hosts/hostnaszekinotv.py pc/IPTVPlayer/hosts/hostnaszekin
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostpmgsport.py pc/IPTVPlayer/hosts/hostpmgsport.py
 --- o/IPTVPlayer/hosts/hostpmgsport.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostpmgsport.py	2020-05-29 12:32:34.958943990 +0300
++++ pc/IPTVPlayer/hosts/hostpmgsport.py	2020-06-24 00:30:53.865975287 +0300
 @@ -0,0 +1,190 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -6498,7 +6499,7 @@ diff -ruN o/IPTVPlayer/hosts/hostpmgsport.py pc/IPTVPlayer/hosts/hostpmgsport.py
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostsportitalia.py pc/IPTVPlayer/hosts/hostsportitalia.py
 --- o/IPTVPlayer/hosts/hostsportitalia.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostsportitalia.py	2020-05-29 12:32:34.959943981 +0300
++++ pc/IPTVPlayer/hosts/hostsportitalia.py	2020-06-24 00:30:53.865975287 +0300
 @@ -0,0 +1,279 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -6782,7 +6783,7 @@ diff -ruN o/IPTVPlayer/hosts/hostsportitalia.py pc/IPTVPlayer/hosts/hostsportita
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostturcjatv.py pc/IPTVPlayer/hosts/hostturcjatv.py
 --- o/IPTVPlayer/hosts/hostturcjatv.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostturcjatv.py	2020-05-29 12:32:34.959943981 +0300
++++ pc/IPTVPlayer/hosts/hostturcjatv.py	2020-06-24 00:30:53.865975287 +0300
 @@ -0,0 +1,235 @@
 +# -*- coding: utf-8 -*-
 +###################################################
@@ -7021,7 +7022,7 @@ diff -ruN o/IPTVPlayer/hosts/hostturcjatv.py pc/IPTVPlayer/hosts/hostturcjatv.py
 +        CHostBase.__init__(self, TurcjaTv(), True, [])
 diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
 --- o/IPTVPlayer/hosts/hosturllist.py	2020-05-29 12:31:04.387738229 +0300
-+++ pc/IPTVPlayer/hosts/hosturllist.py	2020-05-29 12:32:34.960943972 +0300
++++ pc/IPTVPlayer/hosts/hosturllist.py	2020-06-24 00:30:53.865975287 +0300
 @@ -22,7 +22,7 @@
  ###################################################
  # Config options for HOST
@@ -7033,8 +7034,8 @@ diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
  
 diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 --- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostXXX.py	2020-05-29 12:34:37.709767535 +0300
-@@ -0,0 +1,11373 @@
++++ pc/IPTVPlayer/hosts/hostXXX.py	2020-06-24 01:22:58.260758663 +0300
+@@ -0,0 +1,11507 @@
 +# -*- coding: utf-8 -*-
 + 
 +###################################################
@@ -7205,7 +7206,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +    ###################################################
 +
 +class Host:
-+    XXXversion = "2020.05.27.0"
++    XXXversion = "2020.06.20.0"
 +    XXXremote  = "0.0.0.0"
 +    currList = []
 +    MAIN_URL = ''
@@ -7372,9 +7373,9 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           valTab.append(CDisplayListItem('PORNERBROS',     'http://www.pornerbros.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.pornerbros.com'],'pornerbros', 'https://cdn1-ht-assets.pornerbros.com/PornerBros.png', None)) 
 +           valTab.append(CDisplayListItem('MOVIEFAP',     'http://www.moviefap.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.moviefap.com/browse/'],'MOVIEFAP', 'http://www.moviefap.com/images/logo.gif', None)) 
 +           valTab.append(CDisplayListItem('YOURPORN.SEXY',     'https://sxyprn.com', CDisplayListItem.TYPE_CATEGORY, ['https://sxyprn.com'],'yourporn', 'http://cdn.itsyourporn.com/assets/images/logo.jpg', None)) 
-+           valTab.append(CDisplayListItem('FREEOMOVIE',     'http://www.freeomovie.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.freeomovie.com'],'freeomovie', 'http://www.freeomovie.com/wp-content/uploads/2013/04/logo.png', None)) 
++           valTab.append(CDisplayListItem('FREEOMOVIE',     'https://www.freeomovie.to', CDisplayListItem.TYPE_CATEGORY, ['https://www.freeomovie.to'],'freeomovie', 'https://www.freeomovie.to/wp-content/uploads/2013/04/logo.png', None)) 
 +           valTab.append(CDisplayListItem('KATESTUBE',     'http://www.katestube.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.katestube.com/categories/'],'KATESTUBE', 'https://www.katestube.com/images/logo.png', None)) 
-+           valTab.append(CDisplayListItem('VPORN',     'https://www.vporn.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.vporn.com/categories/'],'vporn', 'https://image.spreadshirtmedia.com/image-server/v1/mp/compositions/1012679167/views/1,width=300,height=300,backgroundColor=E8E8E8,version=1485256808/vporn-brand-dark.jpg', None)) 
++           valTab.append(CDisplayListItem('PORNONE',     'https://pornone.com', CDisplayListItem.TYPE_CATEGORY, ['https://pornone.com/categories/'],'pornone', 'https://th-eu4.pornone.com/images/logo-light-theme.png', None)) 
 +           valTab.append(CDisplayListItem('HOTMOVS',     'http://hotmovs.com', CDisplayListItem.TYPE_CATEGORY, ['http://hotmovs.com/categories/'],'hotmovs', 'http://hotmovs.com/images/logo.png', None)) 
 +           valTab.append(CDisplayListItem('PORNOXO',     'https://www.pornoxo.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.pornoxo.com'],'pornoxo', 'http://www.web-tv-sexe.fr/logo/pornoxo.jpg', None)) 
 +           valTab.append(CDisplayListItem('PINFLIX',     'http://www.pinflix.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.pinflix.com/category'],'pinflix', 'https://pbs.twimg.com/profile_images/568766044114657280/JYh2ZSF_.png', None)) 
@@ -7425,6 +7426,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           valTab.append(CDisplayListItem('SLEAZYNEASY',     'https://www.sleazyneasy.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.sleazyneasy.com/categories/'],'sleazyneasy', 'https://cdni.sleazyneasy.com/images/favicon-152.png', None)) 
 +           valTab.append(CDisplayListItem('VJAV',     'https://vjav.com', CDisplayListItem.TYPE_CATEGORY, ['https://vjav.com/categories/'],'vjav', 'https://vjav.com/images/favicons/apple-touch-icon.png', None)) 
 +           valTab.append(CDisplayListItem('JAVHOHO',     'https://javhoho.com', CDisplayListItem.TYPE_CATEGORY, ['https://javhoho.com/category/free-jav-uncensored/'],'javhoho', 'https://javhoho.com/wp-content/uploads/2019/11/JAVhoho.com-logo.png', None)) 
++           valTab.append(CDisplayListItem('FORCEDCELEBS',     'https://forcedcelebs.net', CDisplayListItem.TYPE_CATEGORY, ['https://forcedcelebs.net'],'forcedcelebs', '', None)) 
 +
 +
 +           if config.plugins.iptvplayer.xxxsortall.value:
@@ -7435,7 +7437,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +               valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
 +               valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),             CDisplayListItem.TYPE_SEARCH,             [''], '',        '', None)) 
 +
-+           valTab.insert(0,CDisplayListItem(_('PROSZĘ PRZEKAŻ 1% PODATKU NA KRS 0000049063'),  _('KRS 0000049063\nSTOWARZYSZENIE "OTWÓRZMY PRZED NIMI ŻYCIE"\nUL. KOŚCIUSZKI 43   32-065 KRZESZOWICE\nPRZEKAŻ 1 % SWOJEGO PODATKU\nPODARUJ NASZYM NIEPEŁNOSPRAWNYM SŁOŃCE'),             CDisplayListItem.TYPE_MORE,             [''], '',        '', None)) 
++           #valTab.insert(0,CDisplayListItem(_('PROSZĘ PRZEKAŻ 1% PODATKU NA KRS 0000049063'),  _('KRS 0000049063\nSTOWARZYSZENIE "OTWÓRZMY PRZED NIMI ŻYCIE"\nUL. KOŚCIUSZKI 43   32-065 KRZESZOWICE\nPRZEKAŻ 1 % SWOJEGO PODATKU\nPODARUJ NASZYM NIEPEŁNOSPRAWNYM SŁOŃCE'),             CDisplayListItem.TYPE_MORE,             [''], '',        '', None)) 
 +           valTab.append(CDisplayListItem('FOTKA-PL-KAMERKI',     'http://www.fotka.pl/kamerki', CDisplayListItem.TYPE_CATEGORY, ['http://api.fotka.pl/v2/cams/get?page=1&limit=100&gender=f'],'FOTKA-PL-KAMERKI', 'https://pbs.twimg.com/profile_images/3086758992/6fb5cc2ee2735c334d0363bcb01a52ca_400x400.png', None)) 
 +           url = 'https://chaturbate.com/tags/%s' % config.plugins.iptvplayer.chaturbate.value
 +           valTab.append(CDisplayListItem('CHATURBATE',     'chaturbate.com', CDisplayListItem.TYPE_CATEGORY, [url],'CHATURBATE','http://www.adultcamfriendx.com/wp-content/uploads/2016/11/chaturbate-cams-logo.png', None)) 
@@ -11057,10 +11059,10 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +
 +        if 'freeomovie' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           self.MAIN_URL = 'http://www.freeomovie.com/'
++           self.MAIN_URL = 'https://www.freeomovie.to/'
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'freeomovie.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage4k(url, 'freeomovie.cookie', 'freeomovie.com', self.defaultParams)
++           sts, data = self.getPage4k(url, 'freeomovie.cookie', 'freeomovie.to', self.defaultParams)
 +           if not sts: return ''
 +           #printDBG( 'Host listsItems data: '+str(data) )
 +           data = self.cm.ph.getDataBeetwenMarkers(data, 'Categories<', '</div>', False)[1]
@@ -11072,21 +11074,21 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
 +              valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'freeomovie-clips', '', None)) 
 +           valTab.sort(key=lambda poz: poz.name)
-+           valTab.insert(0,CDisplayListItem("--- Newest ---","Newest",     CDisplayListItem.TYPE_CATEGORY,['http://www.freeomovie.com'],             'freeomovie-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Newest ---","Newest",     CDisplayListItem.TYPE_CATEGORY,['https://www.freeomovie.to'],             'freeomovie-clips',    '',None))
 +           self.SEARCH_proc='freeomovie-search'
 +           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
 +           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
 +           return valTab
 +        if 'freeomovie-search' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           valTab = self.listsItems(-1, 'http://www.freeomovie.com/?s=%s' % url.replace(' ','+'), 'freeomovie-clips')
++           valTab = self.listsItems(-1, 'https://www.freeomovie.to/?s=%s' % url.replace(' ','+'), 'freeomovie-clips')
 +           return valTab              
 +        if 'freeomovie-clips' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           self.MAIN_URL = 'http://www.freeomovie.com/'
++           self.MAIN_URL = 'https://www.freeomovie.to/'
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'freeomovie.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage4k(url, 'freeomovie.cookie', 'freeomovie.com', self.defaultParams)
++           sts, data = self.getPage4k(url, 'freeomovie.cookie', 'freeomovie.to', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+str(data) )
 +           next_page = self.cm.ph.getSearchGroups(data, '''<link\s*rel=['"]next['"]\s*href=['"]([^"^']+?)['"]''', 1, True)[0] 
@@ -11109,7 +11111,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           catUrl = self.currList[Index].possibleTypesOfSearch
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'freeomovie.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage4k(url, 'freeomovie.cookie', 'freeomovie.com', self.defaultParams)
++           sts, data = self.getPage4k(url, 'freeomovie.cookie', 'freeomovie.to', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+str(data) )
 +           Title = self.cm.ph.getSearchGroups(data, '''"headline":['"]([^"^']+?)['"&]''', 1, True)[0] 
@@ -11313,10 +11315,10 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           data2 = None
 +           return valTab
 +
-+        if 'vporn' == name:
++        if 'pornone' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           self.MAIN_URL = 'https://www.vporn.com'
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'vporn.cookie')
++           self.MAIN_URL = 'https://pornone.com'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'pornone.cookie')
 +           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url)
@@ -11332,26 +11334,26 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if phUrl.startswith('//'): phUrl = 'http:' + phUrl
 +              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
 +              if phUrl and phTitle:
-+                 valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'vporn-clips', phImage, None)) 
++                 valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'pornone-clips', phImage, None)) 
 +           valTab.sort(key=lambda poz: poz.name)
-+           valTab.insert(0,CDisplayListItem("--- Longest ---","Longest",     CDisplayListItem.TYPE_CATEGORY,['http://www.vporn.com/longest/'],             'vporn-clips',    '',None))
-+           valTab.insert(0,CDisplayListItem("--- Most Votes ---","Most Votes",     CDisplayListItem.TYPE_CATEGORY,['http://www.vporn.com/votes/'],             'vporn-clips',    '',None))
-+           valTab.insert(0,CDisplayListItem("--- Most Comments ---","Most Comments",     CDisplayListItem.TYPE_CATEGORY,['http://www.vporn.com/comments/'],             'vporn-clips',    '',None))
-+           valTab.insert(0,CDisplayListItem("--- Most Favorited ---","Most Favorited",     CDisplayListItem.TYPE_CATEGORY,['http://www.vporn.com/favorites/'],             'vporn-clips',    '',None))
-+           valTab.insert(0,CDisplayListItem("--- Most Viewed ---","Most Viewed",     CDisplayListItem.TYPE_CATEGORY,['http://www.vporn.com/views/'],             'vporn-clips',    '',None))
-+           valTab.insert(0,CDisplayListItem("--- Top Rated ---","Top Rated",     CDisplayListItem.TYPE_CATEGORY,['http://www.vporn.com/rating/'],             'vporn-clips',    '',None))
-+           valTab.insert(0,CDisplayListItem("--- Newest ---","Newest",     CDisplayListItem.TYPE_CATEGORY,['http://www.vporn.com/newest/'],             'vporn-clips',    '',None))
-+           self.SEARCH_proc='vporn-search'
++           valTab.insert(0,CDisplayListItem("--- Longest ---","Longest",     CDisplayListItem.TYPE_CATEGORY,['http://www.pornone.com/longest/'],             'pornone-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Most Votes ---","Most Votes",     CDisplayListItem.TYPE_CATEGORY,['http://www.pornone.com/votes/'],             'pornone-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Most Comments ---","Most Comments",     CDisplayListItem.TYPE_CATEGORY,['http://www.pornone.com/comments/'],             'pornone-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Most Favorited ---","Most Favorited",     CDisplayListItem.TYPE_CATEGORY,['http://www.pornone.com/favorites/'],             'pornone-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Most Viewed ---","Most Viewed",     CDisplayListItem.TYPE_CATEGORY,['http://www.pornone.com/views/'],             'pornone-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Top Rated ---","Top Rated",     CDisplayListItem.TYPE_CATEGORY,['http://www.pornone.com/rating/'],             'pornone-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Newest ---","Newest",     CDisplayListItem.TYPE_CATEGORY,['http://www.pornone.com/newest/'],             'pornone-clips',    '',None))
++           self.SEARCH_proc='pornone-search'
 +           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
 +           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
 +           return valTab
-+        if 'vporn-search' == name:
++        if 'pornone-search' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           valTab = self.listsItems(-1, 'https://www.vporn.com/search?q=%s' % url.replace(' ','+'), 'vporn-clips')
++           valTab = self.listsItems(-1, 'https://pornone.com/search?q=%s' % url.replace(' ','+'), 'pornone-clips')
 +           return valTab              
-+        if 'vporn-clips' == name:
++        if 'pornone-clips' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'vporn.cookie')
++           COOKIEFILE = os_path.join(GetCookieDir(), 'pornone.cookie')
 +           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
 +           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
 +           sts, data = self.get_Page(url)
@@ -11365,12 +11367,12 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              phImage = self.cm.ph.getSearchGroups(item, '''<img src=['"]([^"^']+?)['"]''', 1, True)[0] 
 +              phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0] 
 +              phTime = self.cm.ph.getSearchGroups(item, '''"time">([^"^']+?)<''', 1, True)[0].strip()
-+              if phUrl.startswith('/'): phUrl = 'https://www.vporn.com' + phUrl
++              if phUrl.startswith('/'): phUrl = 'https://pornone.com' + phUrl
 +              if phImage.startswith('//'): phImage = 'http:' + phImage
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+']  '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None)) 
 +           if next_page:
 +              next = self.cm.ph.getSearchGroups(next_page, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
-+              if next.startswith('/'): next = 'https://www.vporn.com' + next
++              if next.startswith('/'): next = 'https://pornone.com' + next
 +              valTab.append(CDisplayListItem('Next', next, CDisplayListItem.TYPE_CATEGORY, [next], name, '', None))                
 +           return valTab
 +
@@ -14916,7 +14918,88 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                 printExc()
 +           return valTab 
 +   
-+   
++        if 'forcedcelebs' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           self.MAIN_URL = 'https://forcedcelebs.net'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'forcedcelebs.cookie')
++           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
++           self.HTTP_HEADER['Referer'] = url
++           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.get_Page(url, self.defaultParams)
++           if not sts: return valTab
++           printDBG( 'Host listsItems data: '+data )
++           data = data.split('<a class="item')
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              if phUrl.startswith('//'): phUrl = 'https:' + phUrl + '/' 
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl 
++              if phImage.startswith('//'): phImage = 'https:' + phImage
++              if phImage.startswith('/'): phImage = self.MAIN_URL + phImage
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl+'?sort_by=post_date'],'forcedcelebs-clips', phImage, None)) 
++           valTab.sort(key=lambda poz: poz.name)
++           #valTab.insert(0,CDisplayListItem("--- Free Scenes ---","Free Scenes",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos/free'],             'forcedcelebs-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Celebrity Scenes ---","Celebrity Scenes",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos/celebrities'],             'forcedcelebs-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Porn Rape Scenes ---","Porn Rape Scenes",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos/pornrape'],             'forcedcelebs-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Porn Scenes ---","Porn Scenes",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos/porn'],             'forcedcelebs-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Rape Scenes ---","Rape Scenes",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos/rape'],             'forcedcelebs-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Incest Scenes ---","Incest Scenes",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos/incest'],             'forcedcelebs-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Forced Scenes ---","Forced Scenes",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos/forced'],             'forcedcelebs-clips',    '',None))
++           valTab.insert(0,CDisplayListItem("--- Home ---","Home",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL],             'forcedcelebs-clips',    '',None))
++           self.SEARCH_proc='forcedcelebs-search'
++           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None)) 
++           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None)) 
++           return valTab
++        if 'forcedcelebs-search' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           valTab = self.listsItems(-1, 'https://forcedcelebs.net/search?query=%s' % url.replace(' ','+'), 'forcedcelebs-clips')
++           return valTab              
++        if 'forcedcelebs-clips' == name:
++           COOKIEFILE = os_path.join(GetCookieDir(), 'forcedcelebs.cookie')
++           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
++           self.HTTP_HEADER['Referer'] = url
++           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.get_Page(url, self.defaultParams)
++           if not sts: return valTab
++           printDBG( 'Host listsItems data: '+data )
++           catUrl = self.currList[Index].possibleTypesOfSearch
++           tmp = self.cm.ph.getAllItemsBeetwenMarkers(data, '<a ', '</a>')
++           next = ''
++           for item in tmp:
++              if '&raquo;' not in item: continue
++              next = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''')[0]
++              if next.startswith('/'): next = self.MAIN_URL + next
++           tmp = '' 
++           n = '<div class="thumb">'
++           s = '<div class="video-rating pull-right'
++           if not n in data and not s in data:  return valTab
++           if n in data: data = data.split(n)
++           if s in data: data = data.split(s)
++           if len(data): del data[0]
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0].replace('&amp;','&')
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0]
++              if phTitle=='ASACP': continue
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0] 
++              phTime = self.cm.ph.getSearchGroups(item, '''duration">([^>]+?)<''', 1, True)[0].strip()
++              Added = self.cm.ph.getSearchGroups(item, '''date">([^>]+?)<''', 1, True)[0].strip()
++              if phImage.startswith('//'): phImage = 'http:' + phImage
++              if phUrl.startswith('//'): phUrl = 'http:' + phUrl
++              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+'] '+decodeHtml(phTitle)+'\n'+Added,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None)) 
++           if next:
++              try:
++                 valTab.append(CDisplayListItem(_("Next page"), 'Page : '+next.split('=')[-1], CDisplayListItem.TYPE_CATEGORY, [next], name, '', 'Next'))  
++              except Exception:
++                 printExc()
++           return valTab 
++		   
++		   
++		   
++		   
 +        return valTab
 +
 +    def getLinksForVideo(self, url):
@@ -14948,6 +15031,10 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if url.startswith('http://www.dachix.com'):                   return 'http://www.dachix.com'
 +        if url.startswith('http://www.drtuber.com'):                  return 'http://www.drtuber.com'
 +        if url.startswith('http://www.eporner.com'):                  return 'http://www.eporner.com'
++        if url.startswith('http://www.yourupload.com'):               return 'https://www.yourupload.com'
++        if url.startswith('http//yourupload.com'):                    return 'https://www.yourupload.com'
++        if url.startswith('https://www.yourupload.com'):              return 'https://www.yourupload.com'
++        if url.startswith('https://yourupload.com'):                  return 'https://www.yourupload.com'
 +        if url.startswith('https://www.hclips.com'):                  return 'http://www.hclips.com'
 +        if url.startswith('http://www.hdporn.net'):                   return 'http://www.hdporn.net'
 +        if url.startswith('http://hdsite.net'):                       return 'https://hdsite.net'
@@ -14992,7 +15079,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if url.startswith('http://www.tube8.com'):                    return 'http://www.tube8.com'
 +        if url.startswith('http://m.tube8.com'):                      return 'http://m.tube8.com'
 +        if url.startswith('https://www.tube8.com'):                   return 'http://www.tube8.com'
-+        if url.startswith('https://www.vporn.com'):                   return 'https://www.vporn.com'
++        if url.startswith('https://pornone.com'):                   return 'https://pornone.com'
 +        if url.startswith('http://xhamster.com'):                     return 'http://xhamster.com'
 +        if url.startswith('https://xhamster.com'):                    return 'http://xhamster.com'
 +        if url.startswith('http://www.xnxx.com'):                     return 'http://www.xnxx.com'
@@ -15045,7 +15132,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if url.startswith('http://datoporn.com'):                     return 'http://dato.porn'
 +        if url.startswith('https://datoporn.com'):                    return 'http://dato.porn'
 +        if url.startswith('https://vidlox.tv'):                       return 'https://vidlox.tv'
-+        if self.MAIN_URL == 'http://www.freeomovie.com/':             return 'xxxlist.txt'
++        if self.MAIN_URL == 'https://www.freeomovie.to/':             return 'xxxlist.txt'
 +        if self.MAIN_URL == 'https://streamporn.pw':                  return 'xxxlist.txt' 
 +        if self.MAIN_URL == 'https://onlinepornfree.xyz':             return 'xxxlist.txt' 
 +        if self.MAIN_URL == 'http://www.xxxstreams.org':              return 'xxxlist.txt' 
@@ -15115,7 +15202,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if url.endswith('.mjpg'):                            return 'mjpg_stream'
 +        if url.endswith('.cgi'):                             return 'mjpg_stream'
 +        if self.MAIN_URL == 'http://hotmovs.com':            return 'http://www.hdzog.com'
-+        if self.MAIN_URL == 'https://www.vporn.com':         return self.MAIN_URL
++        if self.MAIN_URL == 'https://pornone.com':         return self.MAIN_URL
 +        if self.MAIN_URL == 'https://sxyprn.com':            return self.MAIN_URL
 +        if self.MAIN_URL == 'http://www.moviefap.com':       return self.MAIN_URL
 +        if self.MAIN_URL == 'http://www.homemoviestube.com': return self.MAIN_URL
@@ -15208,6 +15295,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if self.MAIN_URL == 'https://www.sleazyneasy.com':   return 'https://www.sleazyneasy.com'
 +        if self.MAIN_URL == 'https://vjav.com':              return 'http://www.hdzog.com'
 +        if self.MAIN_URL == 'https://javhoho.com':           return self.MAIN_URL
++        if self.MAIN_URL == 'https://forcedcelebs.net':      return self.MAIN_URL
 +
 +
 +        return ''
@@ -16841,13 +16929,32 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           sts, data = self.getPage(url, 'anybunny.cookie', 'anybunny.com', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
-+           videoUrl = self.cm.ph.getSearchGroups(data, '''<iframe[^>]+?src=['"]([^"^']+?)['"]''')[0] 
++           videoPage = self.cm.ph.getAllItemsBeetwenMarkers(data, '<iframe', '</iframe>')
++           for item in videoPage:
++              if 'exoclick' in item: continue
++              printDBG( 'Host  videoPage: '+item )
++              videoUrl = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''')[0] 
++           if ''== videoUrl:
++              videoUrl = self.cm.ph.getSearchGroups(data, '''source src=['"]([^"^']+?)['"]''')[0] 
++              if 'm3u8' in videoUrl:
++                 tmp = getDirectM3U8Playlist(videoUrl, checkContent=True, sortWithMaxBitrate=999999999)
++                 for item in tmp:
++                    return item['url']
++              else:
++                 return strwithmeta(videoUrl, {'Referer': url, 'User-Agent': self.USER_AGENT})
++
 +           if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
 +           sts, data = self.get_Page(videoUrl)
 +           if not sts: return ''
 +           printDBG( 'Host  data2: '+data )
 +           self.domains = ['vartuc.com', "azblowjobtube.com"]
-+           js_link = re.compile("src='(/kt_player/.*?)'", re.DOTALL | re.IGNORECASE).search(data).group(1)
++           try:
++              js_link = re.compile("src='(/kt_player/.*?)'", re.DOTALL | re.IGNORECASE).search(data).group(1)
++           except Exception: 
++              printExc()
++              videoUrl = self.cm.ph.getSearchGroups(data, '''source src=['"]([^"^']+?)['"]''')[0] 
++              printDBG( 'Host  videoUrl: '+videoUrl )
++
 +           js_path = 'https://' + self.domains[0] + js_link + '&ver=x'
 +           sts, data = self.getPage(js_path, 'anybunny.cookie', 'anybunny.com', self.defaultParams)
 +           js = data.split(";")
@@ -16858,7 +16965,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           videoUrl = self.cm.ph.getSearchGroups(urls['data'], '''src=['"]([^"^']+?)['"]''')[0] 
 +           if videoUrl:
 +              if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
-+              return videoUrl
++              return strwithmeta(videoUrl, {'Referer': url, 'User-Agent': self.USER_AGENT})
 +           return ''
 +
 +        if parser == 'https://hqporner.com':
@@ -17064,10 +17171,10 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
 +           return urlparser.decorateUrl(videoUrl, {'Referer': url})
 +
-+        if parser == 'https://www.vporn.com':
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'vporn.cookie')
++        if parser == 'https://pornone.com':
++           COOKIEFILE = os_path.join(GetCookieDir(), 'pornone.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'vporn.cookie', 'vporn.com', self.defaultParams)
++           sts, data = self.getPage(url, 'pornone.cookie', 'pornone.com', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           if 'This video has been deleted' in data:
@@ -17349,6 +17456,34 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           videoUrl = self.cm.ph.getSearchGroups(data, '''['"](https://upstream.to[^"^']+?)['"]''')[0]
 +           if not videoUrl: videoUrl = self.cm.ph.getSearchGroups(data, '''['"](https://www.fembed.com[^"^']+?)['"]''')[0]
 +           return self.getResolvedURL(videoUrl)
++
++        if parser == 'https://forcedcelebs.net':
++           COOKIEFILE = os_path.join(GetCookieDir(), 'forcedcelebs.cookie')
++           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
++           self.HTTP_HEADER['Referer'] = url
++           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.get_Page(url, self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           videoPage = self.cm.ph.getSearchGroups(data, '''<iframe[^>]+?src=['"]([^"^']+?)['"]''')[0] 
++           if videoPage.startswith('//'): videoPage = 'http:' + videoPage
++           return self.getResolvedURL(videoPage)
++
++        if parser == 'https://www.yourupload.com':
++           COOKIEFILE = os_path.join(GetCookieDir(), 'yourupload.cookie')
++           self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
++           self.HTTP_HEADER['Referer'] = url
++           self.defaultParams = {'header':self.HTTP_HEADER, 'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.get_Page(url, self.defaultParams)
++           if not sts: return ''
++           printDBG( 'Host listsItems data: '+data )
++           videoUrl = self.cm.ph.getSearchGroups(data, '''file\s*:\s*['"]([^"^']+?)['"]''')[0] 
++           if videoUrl.startswith('//'): videoUrl = 'http:' + videoUrl
++           videoUrl = urlparse.urljoin(url, videoUrl) 
++           self.defaultParams['max_data_size'] = 0
++           sts, data = self.get_Page(videoUrl, self.defaultParams)
++           if not sts: return ''
++           return strwithmeta(self.cm.meta['url'], {'User-Agent': self.HTTP_HEADER['User-Agent'], 'Referer': url})  #
 +
 +
 +##########################################################################################################################
@@ -18411,7 +18546,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
 --- o/IPTVPlayer/hosts/hostyoutube.py	2020-05-29 12:31:04.391738195 +0300
-+++ pc/IPTVPlayer/hosts/hostyoutube.py	2020-05-29 12:32:34.979943798 +0300
++++ pc/IPTVPlayer/hosts/hostyoutube.py	2020-06-24 00:30:53.873975466 +0300
 @@ -23,7 +23,7 @@
  ###################################################
  # Config options for HOST
@@ -18422,8 +18557,8 @@ diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
  def GetConfigList():
      optionList = []
 diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
---- o/IPTVPlayer/hosts/list.txt	2020-05-29 12:31:04.391738195 +0300
-+++ pc/IPTVPlayer/hosts/list.txt	2020-05-29 12:32:34.980943789 +0300
+--- o/IPTVPlayer/hosts/list.txt	2020-06-24 00:29:43.344372847 +0300
++++ pc/IPTVPlayer/hosts/list.txt	2020-06-24 00:30:53.873975466 +0300
 @@ -4,10 +4,13 @@
  host3sktv
  host7tvde
@@ -18508,7 +18643,7 @@ diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
  hostngolos
  hostninateka
  hostnuteczki
-@@ -131,6 +146,7 @@
+@@ -132,6 +147,7 @@
  hostotakufr
  hostourmatchnet
  hostpinkbike
@@ -18516,7 +18651,7 @@ diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
  hostplanetstreamingcom
  hostplaypuls
  hostplayrtsiw
-@@ -155,6 +171,7 @@
+@@ -156,6 +172,7 @@
  hostsovdub
  hostspiegeltv
  hostsportdeutschland
@@ -18524,7 +18659,7 @@ diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
  hostspryciarze
  hoststreamcomplet
  hoststreaminghdfun
-@@ -167,6 +184,7 @@
+@@ -168,6 +185,7 @@
  hosttfarjocom
  hostthewatchseriesto
  hosttreetv
@@ -18534,7 +18669,7 @@ diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
  hosttvn24
 diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
 --- o/IPTVPlayer/iptvdm/iptvdh.py	2020-05-29 12:31:04.428737885 +0300
-+++ pc/IPTVPlayer/iptvdm/iptvdh.py	2020-05-29 12:32:34.994943662 +0300
++++ pc/IPTVPlayer/iptvdm/iptvdh.py	2020-06-24 00:30:53.874975488 +0300
 @@ -101,7 +101,7 @@
          
      @staticmethod
@@ -18590,7 +18725,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/
 +exit 0
 diff -ruN o/IPTVPlayer/iptvupdate/serwerslist.json pc/IPTVPlayer/iptvupdate/serwerslist.json
 --- o/IPTVPlayer/iptvupdate/serwerslist.json	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/serwerslist.json	2020-05-29 12:32:35.008943533 +0300
++++ pc/IPTVPlayer/iptvupdate/serwerslist.json	2020-06-24 00:30:53.874975488 +0300
 @@ -0,0 +1,6 @@
 +{
 +    "icons_hash": "1541442800", 
@@ -18601,7 +18736,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/serwerslist.json pc/IPTVPlayer/iptvupdate/serw
 \ В конце файла нет новой строки
 diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/updatemainwindow.py
 --- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-05-29 12:31:04.429737877 +0300
-+++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-05-29 12:32:35.009943524 +0300
++++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2020-06-24 00:30:53.874975488 +0300
 @@ -295,7 +295,7 @@
          if os_path.isfile(newVerFile):
              verPattern = self.VERSION_PATTERN
@@ -18613,7 +18748,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/u
          try:
 diff -ruN o/IPTVPlayer/libs/wiziwig1.py pc/IPTVPlayer/libs/wiziwig1.py
 --- o/IPTVPlayer/libs/wiziwig1.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/libs/wiziwig1.py	2020-05-29 12:32:35.020943424 +0300
++++ pc/IPTVPlayer/libs/wiziwig1.py	2020-06-24 00:30:53.874975488 +0300
 @@ -0,0 +1,110 @@
 +﻿# -*- coding: utf-8 -*-
 +
@@ -18727,7 +18862,7 @@ diff -ruN o/IPTVPlayer/libs/wiziwig1.py pc/IPTVPlayer/libs/wiziwig1.py
 +    
 diff -ruN o/IPTVPlayer/locale/IPTVPlayer.pot pc/IPTVPlayer/locale/IPTVPlayer.pot
 --- o/IPTVPlayer/locale/IPTVPlayer.pot	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/locale/IPTVPlayer.pot	2020-05-29 12:32:35.026943369 +0300
++++ pc/IPTVPlayer/locale/IPTVPlayer.pot	2020-06-24 00:30:53.878975577 +0300
 @@ -0,0 +1,6853 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -25584,7 +25719,7 @@ diff -ruN o/IPTVPlayer/locale/IPTVPlayer.pot pc/IPTVPlayer/locale/IPTVPlayer.pot
 +msgstr ""
 diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po
 --- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-05-29 12:31:04.454737667 +0300
-+++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-05-29 12:32:35.035943286 +0300
++++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-06-24 00:30:53.881975644 +0300
 @@ -1,54 +1,103 @@
  msgid ""
  msgstr ""
@@ -33710,7 +33845,7 @@ diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +msgstr "наихудшее"
 diff -ruN o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po
 --- o/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	2020-05-29 12:32:35.044943204 +0300
++++ pc/IPTVPlayer/locale/ua/LC_MESSAGES/IPTVPlayer.po	2020-06-24 00:30:53.883975689 +0300
 @@ -0,0 +1,8780 @@
 +msgid ""
 +msgstr ""
@@ -46149,7 +46284,7 @@ diff -ruN o/IPTVPlayer/locale/uk/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 -msgstr "Фільми 2015"
 diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
 --- o/IPTVPlayer/plugin.py	2020-05-29 12:31:04.456737651 +0300
-+++ pc/IPTVPlayer/plugin.py	2020-05-29 12:32:35.046943186 +0300
++++ pc/IPTVPlayer/plugin.py	2020-06-24 00:30:53.893975912 +0300
 @@ -6,7 +6,6 @@
  from Plugins.Extensions.IPTVPlayer.components.iptvconfigmenu import ConfigMenu
  from Plugins.Extensions.IPTVPlayer.components.iptvpin import IPTVPinWidget
@@ -46171,7 +46306,7 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
  def pinCallback(session, callbackFun, pin=None):
 diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.py
 --- o/IPTVPlayer/setup/iptvsetupimpl.py	2020-05-29 12:31:04.456737651 +0300
-+++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2020-05-29 12:32:35.047943177 +0300
++++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2020-06-24 00:30:53.894975935 +0300
 @@ -463,7 +463,7 @@
          def _verValidator(code, data):
              if 0 == code: return True,False
@@ -46204,7 +46339,7 @@ diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.
          elif "" != self.gstreamerVersion: self.gstplayerStep()
 diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.py
 --- o/IPTVPlayer/tools/iptvsubtitles.py	2020-05-29 12:31:04.459737626 +0300
-+++ pc/IPTVPlayer/tools/iptvsubtitles.py	2020-05-29 12:32:35.047943177 +0300
++++ pc/IPTVPlayer/tools/iptvsubtitles.py	2020-06-24 00:30:53.894975935 +0300
 @@ -364,5 +364,5 @@
          
  if __name__ == "__main__":
@@ -46214,7 +46349,7 @@ diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.
      obj.getSubtitles(10000)
 diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
 --- o/IPTVPlayer/tools/iptvtools.py	2020-05-29 12:31:04.459737626 +0300
-+++ pc/IPTVPlayer/tools/iptvtools.py	2020-05-29 12:32:35.062943040 +0300
++++ pc/IPTVPlayer/tools/iptvtools.py	2020-06-24 00:30:53.896975979 +0300
 @@ -303,8 +303,8 @@
      baseName = resolveFilename(SCOPE_PLUGINS, 'Extensions/IPTVPlayer/scripts/') + name
      if fileExists(baseName + '.py'):
@@ -46337,7 +46472,7 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
      if le: return ord(tmp[1]) << 8 | ord(tmp[0])
 diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
 --- o/IPTVPlayer/Web/webSite.py	2020-05-29 12:31:04.299738965 +0300
-+++ pc/IPTVPlayer/Web/webSite.py	2020-05-29 12:32:35.063943030 +0300
++++ pc/IPTVPlayer/Web/webSite.py	2020-06-24 00:30:53.896975979 +0300
 @@ -26,15 +26,15 @@
      #### Reload scripts if new version of source exists ####
      webPath = GetPluginDir(file = '/Web/')

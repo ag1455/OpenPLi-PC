@@ -398,7 +398,7 @@ if [ -d plugins ]; then
 		cp -r pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
 		cp patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
 		cd plugins/e2openplugin/e2iplayer
-		git checkout --detach 522dd993
+		git checkout --detach 805e3d1d
 		patch -p1 < E2IPlayer.patch
 		rm -rf IPTVPlayer/locale/uk
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
