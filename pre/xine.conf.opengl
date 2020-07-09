@@ -100,7 +100,7 @@ video.driver:opengl
 
 # FFmpeg video decoding thread count
 # numeric, default: 1
-video.processing.ffmpeg_thread_count:8
+video.processing.ffmpeg_thread_count:4
 
 # number of audio buffers
 # numeric, default: 230
@@ -135,4 +135,4 @@ engine.performance.memcpy_method:kernel
 misc.implicit_config:1
 
 #set ENIGMA_FIFO buffer mode 0=fixed / 1=dynamic, default: 0
-input.buffer.dynamic:0
+input.buffer.dynamic:1

@@ -56,7 +56,7 @@ audio.synchronization.slow_fast_audio:1
 
 # startup audio volume
 # [0..100], default: 50
-audio.volume.mixer_volume:100
+#audio.volume.mixer_volume:100
 
 # используемый видеодрайвер
 # { auto  vdpau  aadxr3  dxr3  xv  vaapi  opengl2  XDirectFB  DirectFB  raw  opengl  xshm  caca  aa  xxmc  none  sdl  fb  xvmc }, default: 0
@@ -76,11 +76,11 @@ video.driver:vaapi
 
 # disable all video scaling
 # bool, default: 0
-#video.output.disable_scaling:0
+#video.output.disable_scaling:1
 
 # treat screen pixels as exactly square
 # bool, default: 0
-#video.output.square_pixels:0
+#video.output.square_pixels:1
 
 # Brightness setting
 # [-100..100], default: 0
@@ -92,11 +92,11 @@ video.driver:vaapi
 
 # VAAPI colour conversion method
 # { user_matrix  simple  simple+2  simple+3 }, default: 3
-#video.output.vaapi_csc_mode:simple+2
+#video.output.vaapi_csc_mode:simple+3
 
 # vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob ).
 # numeric, default: 0
-#video.output.vaapi_deinterlace:0
+video.output.vaapi_deinterlace:2
 
 # vaapi: enigma osd height workaround.
 # numeric, default: 0
@@ -128,7 +128,7 @@ video.output.vaapi_enigma_osd_width:1920
 
 # vaapi: set scaling level to : default (default) fast (fast) hq (HQ) nla (anamorphic)
 # { default  fast  hq  nla }, default: 0
-#video.output.vaapi_scaling_level:default
+video.output.vaapi_scaling_level:nla
 
 # vaapi: swap UV planes.
 # bool, default: 0
@@ -156,7 +156,7 @@ video.processing.ffmpeg_enable_vaapi:1
 
 # FFmpeg video decoding thread count
 # numeric, default: 1
-video.processing.ffmpeg_thread_count:8
+video.processing.ffmpeg_thread_count:2
 
 # VAAPI Mpeg2 softdecoding
 # bool, default: 0
@@ -168,11 +168,11 @@ engine.buffers.audio_num_buffers:230
 
 # number of video buffers
 # numeric, default: 500
-engine.buffers.video_num_buffers:800
+engine.buffers.video_num_buffers:500
 
 # default number of video frames
 # numeric, default: 50
-#engine.buffers.video_num_frames:50
+engine.buffers.video_num_frames:50
 
 # disable decoder flush at discontinuity
 # bool, default: 0
@@ -184,7 +184,7 @@ engine.buffers.video_num_buffers:800
 
 # memcopy method used by xine
 # { probe  libc  kernel  mmx  mmxext  sse  avx }, default: 0
-#engine.performance.memcpy_method:kernel
+engine.performance.memcpy_method:libc
 
 # Sync multiple clocks in a separate thread
 # bool, default: 0
@@ -195,4 +195,4 @@ engine.buffers.video_num_buffers:800
 misc.implicit_config:1
 
 #set ENIGMA_FIFO buffer mode 0=fixed / 1=dynamic, default: 0
-input.buffer.dynamic:0
+input.buffer.dynamic:1

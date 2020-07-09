@@ -21,11 +21,12 @@ while [ 1 != 0 ]; do # The script will run in a loop until frontend0 appears.
 		modprobe -v dvbsoftwareca
 		chmod 660 $DVB_DEV/ca0
 		chown root:video $DVB_DEV/ca0
+		sleep 5
 		softcam start
-		echo " * Oscam started" >> $LOG
+#		echo " * Oscam started" >> $LOG
 		exit 0
 	else
-		echo " * Waiting ca0" >> $LOG
+#		echo " * Waiting ca0" >> $LOG
 		sleep 1
 	fi
 done
