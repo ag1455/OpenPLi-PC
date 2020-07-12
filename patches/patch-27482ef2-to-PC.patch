@@ -6,7 +6,7 @@ diff -ruN a/autogen.sh b/autogen.sh
 -autoreconf -i
 diff -ruN a/configure.ac b/configure.ac
 --- a/configure.ac	2020-04-29 20:48:57.000000000 +0300
-+++ b/configure.ac	2020-07-02 23:41:53.985260935 +0300
++++ b/configure.ac	2020-07-12 15:52:46.267248529 +0300
 @@ -1,4 +1,4 @@
 -AC_INIT([enigma2],[4],[forum@openpli.org])
 +AC_INIT([enigma2],[PC7.2],[forum@openpli.org])
@@ -186,7 +186,7 @@ diff -ruN a/data/setup.xml b/data/setup.xml
  </setupxml>
 diff -ruN a/enigma2.pc.in b/enigma2.pc.in
 --- a/enigma2.pc.in	2020-04-29 20:48:57.000000000 +0300
-+++ b/enigma2.pc.in	2020-07-02 23:41:53.986260935 +0300
++++ b/enigma2.pc.in	2020-07-12 15:52:46.267248529 +0300
 @@ -7,4 +7,4 @@
  Description: Enigma2
  Version: @VERSION@
@@ -195,7 +195,7 @@ diff -ruN a/enigma2.pc.in b/enigma2.pc.in
 +Requires.private: sigc++-1.2
 diff -ruN a/include/connection.h b/include/connection.h
 --- a/include/connection.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/include/connection.h	2020-07-02 23:41:53.986260935 +0300
++++ b/include/connection.h	2020-07-12 15:52:46.267248529 +0300
 @@ -4,12 +4,12 @@
  #include <libsig_comp.h>
  #include <lib/base/object.h>
@@ -213,7 +213,7 @@ diff -ruN a/include/connection.h b/include/connection.h
  
 diff -ruN a/include/libsig_comp.h b/include/libsig_comp.h
 --- a/include/libsig_comp.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/include/libsig_comp.h	2020-07-02 23:41:53.986260935 +0300
++++ b/include/libsig_comp.h	2020-07-12 15:52:46.268248484 +0300
 @@ -2,8 +2,32 @@
  #define __LIBSIG_COMP_H
  
@@ -563,7 +563,7 @@ diff -ruN a/lib/base/condVar.h b/lib/base/condVar.h
 +#endif
 diff -ruN a/lib/base/console.h b/lib/base/console.h
 --- a/lib/base/console.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/base/console.h	2020-07-02 23:41:53.987260935 +0300
++++ b/lib/base/console.h	2020-07-12 15:52:46.268248484 +0300
 @@ -19,7 +19,7 @@
  	int dataSent;
  };
@@ -575,7 +575,7 @@ diff -ruN a/lib/base/console.h b/lib/base/console.h
  	int fd[3];
 diff -ruN a/lib/base/e2avahi.cpp b/lib/base/e2avahi.cpp
 --- a/lib/base/e2avahi.cpp	2020-05-18 12:24:34.000000000 +0300
-+++ b/lib/base/e2avahi.cpp	2020-07-02 23:41:53.987260935 +0300
++++ b/lib/base/e2avahi.cpp	2020-07-12 15:52:46.268248484 +0300
 @@ -15,7 +15,7 @@
  /* API to the E2 event loop */
  static AvahiPoll avahi_poll_api;
@@ -596,7 +596,7 @@ diff -ruN a/lib/base/e2avahi.cpp b/lib/base/e2avahi.cpp
  	AvahiWatchCallback callback;
 diff -ruN a/lib/base/httpsstream.h b/lib/base/httpsstream.h
 --- a/lib/base/httpsstream.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/base/httpsstream.h	2020-07-02 23:41:53.987260935 +0300
++++ b/lib/base/httpsstream.h	2020-07-12 15:52:46.268248484 +0300
 @@ -10,7 +10,7 @@
  #include <openssl/ssl.h>
  #include <openssl/err.h>
@@ -608,7 +608,7 @@ diff -ruN a/lib/base/httpsstream.h b/lib/base/httpsstream.h
  
 diff -ruN a/lib/base/httpstream.h b/lib/base/httpstream.h
 --- a/lib/base/httpstream.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/base/httpstream.h	2020-07-02 23:41:53.987260935 +0300
++++ b/lib/base/httpstream.h	2020-07-12 15:52:46.268248484 +0300
 @@ -6,7 +6,7 @@
  #include <lib/base/itssource.h>
  #include <lib/base/thread.h>
@@ -642,7 +642,7 @@ diff -ruN a/lib/base/Makefile.inc b/lib/base/Makefile.inc
 +	base/condVar.h
 diff -ruN a/lib/base/message.h b/lib/base/message.h
 --- a/lib/base/message.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/base/message.h	2020-07-02 23:41:53.988260935 +0300
++++ b/lib/base/message.h	2020-07-12 15:52:46.268248484 +0300
 @@ -50,7 +50,7 @@
   * Automatically creates a eSocketNotifier and gives you a callback.
   */
@@ -1325,7 +1325,7 @@ diff -ruN a/lib/base/tsRingbuffer.h b/lib/base/tsRingbuffer.h
 +#endif
 diff -ruN a/lib/components/file_eraser.h b/lib/components/file_eraser.h
 --- a/lib/components/file_eraser.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/components/file_eraser.h	2020-07-02 23:41:53.988260935 +0300
++++ b/lib/components/file_eraser.h	2020-07-12 15:52:46.268248484 +0300
 @@ -5,7 +5,7 @@
  #include <lib/base/message.h>
  #include <lib/base/ebase.h>
@@ -1337,7 +1337,7 @@ diff -ruN a/lib/components/file_eraser.h b/lib/components/file_eraser.h
  	{
 diff -ruN a/lib/components/scan.cpp b/lib/components/scan.cpp
 --- a/lib/components/scan.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/components/scan.cpp	2020-07-02 23:41:53.988260935 +0300
++++ b/lib/components/scan.cpp	2020-07-12 15:52:46.268248484 +0300
 @@ -117,7 +117,7 @@
  	}
  
@@ -1349,7 +1349,7 @@ diff -ruN a/lib/components/scan.cpp b/lib/components/scan.cpp
  	{
 diff -ruN a/lib/components/scan.h b/lib/components/scan.h
 --- a/lib/components/scan.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/components/scan.h	2020-07-02 23:41:53.988260935 +0300
++++ b/lib/components/scan.h	2020-07-12 15:52:46.268248484 +0300
 @@ -6,7 +6,7 @@
  
  class eDVBScan;
@@ -1361,7 +1361,7 @@ diff -ruN a/lib/components/scan.h b/lib/components/scan.h
  #ifndef SWIG
 diff -ruN a/lib/components/tuxtxtapp.h b/lib/components/tuxtxtapp.h
 --- a/lib/components/tuxtxtapp.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/components/tuxtxtapp.h	2020-07-02 23:41:53.988260935 +0300
++++ b/lib/components/tuxtxtapp.h	2020-07-12 15:52:46.268248484 +0300
 @@ -8,7 +8,7 @@
  #include <lib/python/python.h>
  #include <lib/python/connections.h>
@@ -1578,7 +1578,7 @@ diff -ruN a/lib/driver/avswitch.cpp b/lib/driver/avswitch.cpp
  eAutoInitP0<eAVSwitch> init_avswitch(eAutoInitNumbers::rc, "AVSwitch Driver");
 diff -ruN a/lib/driver/avswitch.h b/lib/driver/avswitch.h
 --- a/lib/driver/avswitch.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/driver/avswitch.h	2020-07-02 23:41:53.988260935 +0300
++++ b/lib/driver/avswitch.h	2020-07-12 15:52:46.268248484 +0300
 @@ -6,7 +6,7 @@
  
  class eSocketNotifier;
@@ -1662,7 +1662,7 @@ diff -ruN a/lib/driver/rcconsole.cpp b/lib/driver/rcconsole.cpp
 +#endif
 diff -ruN a/lib/driver/rc.h b/lib/driver/rc.h
 --- a/lib/driver/rc.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/driver/rc.h	2020-07-02 23:41:53.989260934 +0300
++++ b/lib/driver/rc.h	2020-07-12 15:52:46.269248439 +0300
 @@ -21,7 +21,7 @@
   *
   * Handles one remote control. Gets codes from a \ref eRCDriver. Produces events in \ref eRCInput.
@@ -2625,7 +2625,7 @@ diff -ruN a/lib/driver/rcxlib.h b/lib/driver/rcxlib.h
 +#endif
 diff -ruN a/lib/dvb/cablescan.h b/lib/dvb/cablescan.h
 --- a/lib/dvb/cablescan.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/cablescan.h	2020-07-02 23:41:53.989260934 +0300
++++ b/lib/dvb/cablescan.h	2020-07-12 15:52:46.269248439 +0300
 @@ -9,7 +9,7 @@
  #include <lib/dvb/idemux.h>
  #include <lib/dvb/esection.h>
@@ -2764,7 +2764,7 @@ diff -ruN a/lib/dvb/ca_connector.cpp b/lib/dvb/ca_connector.cpp
 +eAutoInitPtr<caConnector> init_caConnector(eAutoInitNumbers::dvb-1, "caConnector");
 diff -ruN a/lib/dvb/ca_connector.h b/lib/dvb/ca_connector.h
 --- a/lib/dvb/ca_connector.h	1970-01-01 03:00:00.000000000 +0300
-+++ b/lib/dvb/ca_connector.h	2020-07-02 23:41:53.989260934 +0300
++++ b/lib/dvb/ca_connector.h	2020-07-12 15:52:46.269248439 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __lib_dvb_ca_connector_h
 +#define __lib_dvb_ca_connector_h
@@ -2818,7 +2818,7 @@ diff -ruN a/lib/dvb/ca_connector.h b/lib/dvb/ca_connector.h
 +#endif
 diff -ruN a/lib/dvb/decoder.cpp b/lib/dvb/decoder.cpp
 --- a/lib/dvb/decoder.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/decoder.cpp	2020-07-02 23:41:53.989260934 +0300
++++ b/lib/dvb/decoder.cpp	2020-07-12 15:52:46.269248439 +0300
 @@ -7,6 +7,7 @@
  #include <linux/dvb/audio.h>
  #include <linux/dvb/video.h>
@@ -3284,7 +3284,7 @@ diff -ruN a/lib/dvb/decoder.cpp b/lib/dvb/decoder.cpp
  	return 0;
 diff -ruN a/lib/dvb/decoder.h b/lib/dvb/decoder.h
 --- a/lib/dvb/decoder.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/decoder.h	2020-07-02 23:41:53.989260934 +0300
++++ b/lib/dvb/decoder.h	2020-07-12 15:52:46.269248439 +0300
 @@ -3,6 +3,7 @@
  
  #include <lib/base/object.h>
@@ -3692,7 +3692,7 @@ diff -ruN a/lib/dvb/decsa.h b/lib/dvb/decsa.h
 +#endif
 diff -ruN a/lib/dvb/demux.cpp b/lib/dvb/demux.cpp
 --- a/lib/dvb/demux.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/demux.cpp	2020-07-02 23:41:53.990260934 +0300
++++ b/lib/dvb/demux.cpp	2020-07-12 15:52:46.269248439 +0300
 @@ -44,7 +44,11 @@
  	}
  	unsigned int megabytes = si.totalram >> 20;
@@ -3813,7 +3813,7 @@ diff -ruN a/lib/dvb/demux.cpp b/lib/dvb/demux.cpp
  	return 0;
 diff -ruN a/lib/dvb/demux.h b/lib/dvb/demux.h
 --- a/lib/dvb/demux.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/demux.h	2020-07-02 23:41:53.990260934 +0300
++++ b/lib/dvb/demux.h	2020-07-12 15:52:46.269248439 +0300
 @@ -6,58 +6,13 @@
  #include <lib/dvb/idemux.h>
  #include <lib/dvb/pvrparse.h>
@@ -3932,7 +3932,7 @@ diff -ruN a/lib/dvb/demux.h b/lib/dvb/demux.h
  
 diff -ruN a/lib/dvb/dvb.cpp b/lib/dvb/dvb.cpp
 --- a/lib/dvb/dvb.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/dvb.cpp	2020-07-02 23:41:53.990260934 +0300
++++ b/lib/dvb/dvb.cpp	2020-07-12 15:52:46.270248395 +0300
 @@ -97,7 +97,14 @@
  		if (eDVBAdapterLinux::isusb(num_adapter))
  		{
@@ -4071,7 +4071,7 @@ diff -ruN a/lib/dvb/dvb.cpp b/lib/dvb/dvb.cpp
  	return 0;
 diff -ruN a/lib/dvb/dvb.h b/lib/dvb/dvb.h
 --- a/lib/dvb/dvb.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/dvb.h	2020-07-02 23:41:53.990260934 +0300
++++ b/lib/dvb/dvb.h	2020-07-12 15:52:46.270248395 +0300
 @@ -23,13 +23,13 @@
  	   (and how to deallocate it). */
  class iDVBAdapter;
@@ -4160,7 +4160,7 @@ diff -ruN a/lib/dvb/dvb.h b/lib/dvb/dvb.h
  
 diff -ruN a/lib/dvb/dvbtime.cpp b/lib/dvb/dvbtime.cpp
 --- a/lib/dvb/dvbtime.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/dvbtime.cpp	2020-07-02 23:41:53.990260934 +0300
++++ b/lib/dvb/dvbtime.cpp	2020-07-12 15:52:46.270248395 +0300
 @@ -17,13 +17,13 @@
  
  void setRTC(time_t time)
@@ -4213,7 +4213,7 @@ diff -ruN a/lib/dvb/dvbtime.cpp b/lib/dvb/dvbtime.cpp
  
 diff -ruN a/lib/dvb/dvbtime.h b/lib/dvb/dvbtime.h
 --- a/lib/dvb/dvbtime.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/dvbtime.h	2020-07-02 23:41:53.990260934 +0300
++++ b/lib/dvb/dvbtime.h	2020-07-12 15:52:46.270248395 +0300
 @@ -64,7 +64,7 @@
  
  #endif  // SWIG
@@ -4225,7 +4225,7 @@ diff -ruN a/lib/dvb/dvbtime.h b/lib/dvb/dvbtime.h
  	struct channel_data
 diff -ruN a/lib/dvb/edvbdemux.h b/lib/dvb/edvbdemux.h
 --- a/lib/dvb/edvbdemux.h	1970-01-01 03:00:00.000000000 +0300
-+++ b/lib/dvb/edvbdemux.h	2020-07-02 23:41:53.991260934 +0300
++++ b/lib/dvb/edvbdemux.h	2020-07-12 15:52:46.270248395 +0300
 @@ -0,0 +1,59 @@
 +#ifndef __dvb_edvbdemux_h
 +#define __dvb_edvbdemux_h
@@ -4288,7 +4288,7 @@ diff -ruN a/lib/dvb/edvbdemux.h b/lib/dvb/edvbdemux.h
 +#endif
 diff -ruN a/lib/dvb/eit.cpp b/lib/dvb/eit.cpp
 --- a/lib/dvb/eit.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/eit.cpp	2020-07-02 23:41:53.991260934 +0300
++++ b/lib/dvb/eit.cpp	2020-07-12 15:52:46.270248395 +0300
 @@ -68,13 +68,13 @@
  							if (!a)
  							{
@@ -4307,7 +4307,7 @@ diff -ruN a/lib/dvb/eit.cpp b/lib/dvb/eit.cpp
  						}
 diff -ruN a/lib/dvb/eit.h b/lib/dvb/eit.h
 --- a/lib/dvb/eit.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/eit.h	2020-07-02 23:41:53.991260934 +0300
++++ b/lib/dvb/eit.h	2020-07-12 15:52:46.270248395 +0300
 @@ -7,7 +7,7 @@
  #include <dvbsi++/event_information_section.h>
  #include <lib/service/event.h>
@@ -4380,7 +4380,7 @@ diff -ruN a/lib/dvb/encoder.cpp b/lib/dvb/encoder.cpp
  			{
 diff -ruN a/lib/dvb/epgcache.cpp b/lib/dvb/epgcache.cpp
 --- a/lib/dvb/epgcache.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/epgcache.cpp	2020-07-02 23:41:53.992260934 +0300
++++ b/lib/dvb/epgcache.cpp	2020-07-12 15:52:46.271248350 +0300
 @@ -437,7 +437,7 @@
  	if (!res_mgr)
  		eDebug("[eEPGCache] no resource manager !!!!!!!");
@@ -4623,7 +4623,7 @@ diff -ruN a/lib/dvb/epgcache.cpp b/lib/dvb/epgcache.cpp
  
 diff -ruN a/lib/dvb/epgcache.h b/lib/dvb/epgcache.h
 --- a/lib/dvb/epgcache.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/epgcache.h	2020-07-02 23:41:53.992260934 +0300
++++ b/lib/dvb/epgcache.h	2020-07-12 15:52:46.271248350 +0300
 @@ -134,11 +134,11 @@
  };
  #endif
@@ -4640,7 +4640,7 @@ diff -ruN a/lib/dvb/epgcache.h b/lib/dvb/epgcache.h
  		channel_data(eEPGCache*);
 diff -ruN a/lib/dvb/esection.cpp b/lib/dvb/esection.cpp
 --- a/lib/dvb/esection.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/esection.cpp	2020-07-02 23:41:53.992260934 +0300
++++ b/lib/dvb/esection.cpp	2020-07-12 15:52:46.271248350 +0300
 @@ -62,7 +62,7 @@
  	m_table = table;
  
@@ -4652,7 +4652,7 @@ diff -ruN a/lib/dvb/esection.cpp b/lib/dvb/esection.cpp
  
 diff -ruN a/lib/dvb/esection.h b/lib/dvb/esection.h
 --- a/lib/dvb/esection.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/esection.h	2020-07-02 23:41:53.992260934 +0300
++++ b/lib/dvb/esection.h	2020-07-12 15:52:46.271248350 +0300
 @@ -8,7 +8,7 @@
  #define TABLE_eDebugNoNewLineStart(x...) do { if (m_debug) eDebugNoNewLineStart(x); } while(0)
  #define TABLE_eDebugNoNewLine(x...) do { if (m_debug) eDebugNoNewLine(x); } while(0)
@@ -4689,7 +4689,7 @@ diff -ruN a/lib/dvb/esection.h b/lib/dvb/esection.h
  
 diff -ruN a/lib/dvb/fastscan.h b/lib/dvb/fastscan.h
 --- a/lib/dvb/fastscan.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/fastscan.h	2020-07-02 23:41:53.992260934 +0300
++++ b/lib/dvb/fastscan.h	2020-07-12 15:52:46.272248304 +0300
 @@ -198,7 +198,7 @@
  		tableProgress(seen.size(), max);
  		return eTable<Section>::createTable(nr, data, max);
@@ -4740,7 +4740,7 @@ diff -ruN a/lib/dvb/fbc.cpp b/lib/dvb/fbc.cpp
  	if(!file.is_open())
 diff -ruN a/lib/dvb/fbc.h b/lib/dvb/fbc.h
 --- a/lib/dvb/fbc.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/fbc.h	2020-07-02 23:41:53.992260934 +0300
++++ b/lib/dvb/fbc.h	2020-07-12 15:52:46.272248304 +0300
 @@ -13,7 +13,7 @@
  class eDVBFrontend;
  class eDVBRegisteredFrontend;
@@ -4815,7 +4815,7 @@ diff -ruN a/lib/dvb/filepush.cpp b/lib/dvb/filepush.cpp
  {
 diff -ruN a/lib/dvb/filepush.h b/lib/dvb/filepush.h
 --- a/lib/dvb/filepush.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/filepush.h	2020-07-02 23:41:53.992260934 +0300
++++ b/lib/dvb/filepush.h	2020-07-12 15:52:46.272248304 +0300
 @@ -15,7 +15,7 @@
  	virtual ~iFilePushScatterGather() {}
  };
@@ -4864,7 +4864,7 @@ diff -ruN a/lib/dvb/filepush.h b/lib/dvb/filepush.h
  
 diff -ruN a/lib/dvb/frontend.cpp b/lib/dvb/frontend.cpp
 --- a/lib/dvb/frontend.cpp	2020-07-01 22:36:41.311769774 +0300
-+++ b/lib/dvb/frontend.cpp	2020-07-02 23:41:53.993260934 +0300
++++ b/lib/dvb/frontend.cpp	2020-07-12 15:52:46.272248304 +0300
 @@ -562,6 +562,7 @@
  	,m_state(stateClosed), m_timeout(0), m_tuneTimer(0)
  {
@@ -4908,7 +4908,7 @@ diff -ruN a/lib/dvb/frontend.cpp b/lib/dvb/frontend.cpp
  	return 0;
 diff -ruN a/lib/dvb/frontend.h b/lib/dvb/frontend.h
 --- a/lib/dvb/frontend.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/frontend.h	2020-07-02 23:41:53.993260934 +0300
++++ b/lib/dvb/frontend.h	2020-07-12 15:52:46.272248304 +0300
 @@ -52,7 +52,7 @@
  #include <lib/dvb/sec.h>
  class eSecCommandList;
@@ -4938,7 +4938,7 @@ diff -ruN a/lib/dvb/frontend.h b/lib/dvb/frontend.h
  	RESULT setVoltage(int voltage);
 diff -ruN a/lib/dvb/idemux.h b/lib/dvb/idemux.h
 --- a/lib/dvb/idemux.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/idemux.h	2020-07-02 23:41:53.993260934 +0300
++++ b/lib/dvb/idemux.h	2020-07-12 15:52:46.272248304 +0300
 @@ -9,7 +9,7 @@
  	virtual RESULT setBufferSize(int size)=0;
  	virtual RESULT start(const eDVBSectionFilterMask &mask)=0;
@@ -4968,7 +4968,7 @@ diff -ruN a/lib/dvb/idemux.h b/lib/dvb/idemux.h
  #endif
 diff -ruN a/lib/dvb/idvb.h b/lib/dvb/idvb.h
 --- a/lib/dvb/idvb.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/idvb.h	2020-07-02 23:41:53.993260934 +0300
++++ b/lib/dvb/idvb.h	2020-07-12 15:52:46.272248304 +0300
 @@ -522,7 +522,7 @@
  	virtual int closeFrontend(bool force = false, bool no_delayed = false)=0;
  	virtual void reopenFrontend()=0;
@@ -5038,7 +5038,7 @@ diff -ruN a/lib/dvb/idvb.h b/lib/dvb/idvb.h
  	virtual int getVideoHeight() = 0;
 diff -ruN a/lib/dvb/isection.h b/lib/dvb/isection.h
 --- a/lib/dvb/isection.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/isection.h	2020-07-02 23:41:53.993260934 +0300
++++ b/lib/dvb/isection.h	2020-07-12 15:52:46.273248259 +0300
 @@ -8,7 +8,7 @@
  public:
  	virtual RESULT start(const eDVBSectionFilterMask &mask)=0;
@@ -5073,7 +5073,7 @@ diff -ruN a/lib/dvb/Makefile.inc b/lib/dvb/Makefile.inc
 +	dvb/decsa.h
 diff -ruN a/lib/dvb/pmt.cpp b/lib/dvb/pmt.cpp
 --- a/lib/dvb/pmt.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/pmt.cpp	2020-07-02 23:41:53.994260934 +0300
++++ b/lib/dvb/pmt.cpp	2020-07-12 15:52:46.273248259 +0300
 @@ -946,13 +946,13 @@
  		if (m_channel)
  		{
@@ -5101,7 +5101,7 @@ diff -ruN a/lib/dvb/pmt.cpp b/lib/dvb/pmt.cpp
  		} else
 diff -ruN a/lib/dvb/pmt.h b/lib/dvb/pmt.h
 --- a/lib/dvb/pmt.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/pmt.h	2020-07-02 23:41:53.994260934 +0300
++++ b/lib/dvb/pmt.h	2020-07-12 15:52:46.273248259 +0300
 @@ -114,7 +114,7 @@
  		eventStopped,
  	};
@@ -5124,7 +5124,7 @@ diff -ruN a/lib/dvb/pmtparse.cpp b/lib/dvb/pmtparse.cpp
  				{
 diff -ruN a/lib/dvb/pmtparse.h b/lib/dvb/pmtparse.h
 --- a/lib/dvb/pmtparse.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/pmtparse.h	2020-07-02 23:41:53.994260934 +0300
++++ b/lib/dvb/pmtparse.h	2020-07-12 15:52:46.273248259 +0300
 @@ -10,7 +10,7 @@
  #include <dvbsi++/application_information_section.h>
  #include <dvbsi++/ca_descriptor.h>
@@ -5232,7 +5232,7 @@ diff -ruN a/lib/dvb/pvrparse.h b/lib/dvb/pvrparse.h
  	bool m_pts_found; /* 'real' mpeg pts has been found, no longer measuring streamtime */
 diff -ruN a/lib/dvb/radiotext.cpp b/lib/dvb/radiotext.cpp
 --- a/lib/dvb/radiotext.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/radiotext.cpp	2020-07-02 23:41:53.994260934 +0300
++++ b/lib/dvb/radiotext.cpp	2020-07-12 15:52:46.273248259 +0300
 @@ -18,9 +18,9 @@
  	if (demux->createPESReader(eApp, m_pes_reader))
  		eDebug("failed to create PES reader!");
@@ -5256,7 +5256,7 @@ diff -ruN a/lib/dvb/radiotext.cpp b/lib/dvb/radiotext.cpp
  }
 diff -ruN a/lib/dvb/radiotext.h b/lib/dvb/radiotext.h
 --- a/lib/dvb/radiotext.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/radiotext.h	2020-07-02 23:41:53.994260934 +0300
++++ b/lib/dvb/radiotext.h	2020-07-12 15:52:46.273248259 +0300
 @@ -6,7 +6,7 @@
  #include <lib/dvb/pesparse.h>
  #include <lib/gdi/gpixmap.h>
@@ -5286,7 +5286,7 @@ diff -ruN a/lib/dvb/radiotext.h b/lib/dvb/radiotext.h
  
 diff -ruN a/lib/dvb/scan.cpp b/lib/dvb/scan.cpp
 --- a/lib/dvb/scan.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/scan.cpp	2020-07-02 23:41:53.994260934 +0300
++++ b/lib/dvb/scan.cpp	2020-07-12 15:52:46.273248259 +0300
 @@ -45,7 +45,7 @@
  {
  	if (m_channel->getDemux(m_demux))
@@ -5307,7 +5307,7 @@ diff -ruN a/lib/dvb/scan.cpp b/lib/dvb/scan.cpp
  	return 0;
 diff -ruN a/lib/dvb/scan.h b/lib/dvb/scan.h
 --- a/lib/dvb/scan.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/scan.h	2020-07-02 23:41:53.995260934 +0300
++++ b/lib/dvb/scan.h	2020-07-12 15:52:46.273248259 +0300
 @@ -23,7 +23,7 @@
  	bool scrambled;
  };
@@ -5337,7 +5337,7 @@ diff -ruN a/lib/dvb/scan.h b/lib/dvb/scan.h
  	void getStats(int &transponders_done, int &transponders_total, int &services);
 diff -ruN a/lib/dvb/subtitle.cpp b/lib/dvb/subtitle.cpp
 --- a/lib/dvb/subtitle.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/subtitle.cpp	2020-07-02 23:41:53.995260934 +0300
++++ b/lib/dvb/subtitle.cpp	2020-07-12 15:52:46.274248215 +0300
 @@ -1084,7 +1084,7 @@
  	if (demux->createPESReader(eApp, m_pes_reader))
  		eDebug("[eDVBSubtitleParser] failed to create PES reader!");
@@ -5358,7 +5358,7 @@ diff -ruN a/lib/dvb/subtitle.cpp b/lib/dvb/subtitle.cpp
  }
 diff -ruN a/lib/dvb/subtitle.h b/lib/dvb/subtitle.h
 --- a/lib/dvb/subtitle.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/subtitle.h	2020-07-02 23:41:53.995260934 +0300
++++ b/lib/dvb/subtitle.h	2020-07-12 15:52:46.274248215 +0300
 @@ -109,14 +109,14 @@
  };
  
@@ -5387,7 +5387,7 @@ diff -ruN a/lib/dvb/subtitle.h b/lib/dvb/subtitle.h
  	int subtitle_process_pixel_data(subtitle_region *region, subtitle_region_object *object, int *linenr, int *linep, uint8_t *data);
 diff -ruN a/lib/dvb/teletext.cpp b/lib/dvb/teletext.cpp
 --- a/lib/dvb/teletext.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/teletext.cpp	2020-07-02 23:41:53.995260934 +0300
++++ b/lib/dvb/teletext.cpp	2020-07-12 15:52:46.274248215 +0300
 @@ -228,7 +228,7 @@
  		eDebug("[eDVBTeletextParser] failed to create teletext subtitle PES reader!");
  	else {
@@ -5414,7 +5414,7 @@ diff -ruN a/lib/dvb/teletext.cpp b/lib/dvb/teletext.cpp
  }
 diff -ruN a/lib/dvb/teletext.h b/lib/dvb/teletext.h
 --- a/lib/dvb/teletext.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/teletext.h	2020-07-02 23:41:53.995260934 +0300
++++ b/lib/dvb/teletext.h	2020-07-12 15:52:46.274248215 +0300
 @@ -33,7 +33,7 @@
  	void clear() { m_elements.clear(); }
  };
@@ -5448,7 +5448,7 @@ diff -ruN a/lib/dvb/teletext.h b/lib/dvb/teletext.h
  #endif
 diff -ruN a/lib/dvb/tstools.cpp b/lib/dvb/tstools.cpp
 --- a/lib/dvb/tstools.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/tstools.cpp	2020-07-02 23:41:53.995260934 +0300
++++ b/lib/dvb/tstools.cpp	2020-07-12 15:52:46.274248215 +0300
 @@ -46,7 +46,7 @@
  	return 0;
  }
@@ -5460,7 +5460,7 @@ diff -ruN a/lib/dvb/tstools.cpp b/lib/dvb/tstools.cpp
  	return 0;
 diff -ruN a/lib/dvb/tstools.h b/lib/dvb/tstools.h
 --- a/lib/dvb/tstools.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb/tstools.h	2020-07-02 23:41:53.996260934 +0300
++++ b/lib/dvb/tstools.h	2020-07-12 15:52:46.274248215 +0300
 @@ -15,12 +15,12 @@
  
  typedef long long pts_t;
@@ -5614,7 +5614,7 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  	return 0;
 diff -ruN a/lib/dvb_ci/dvbci_datetimemgr.cpp b/lib/dvb_ci/dvbci_datetimemgr.cpp
 --- a/lib/dvb_ci/dvbci_datetimemgr.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_datetimemgr.cpp	2020-07-02 23:41:53.996260934 +0300
++++ b/lib/dvb_ci/dvbci_datetimemgr.cpp	2020-07-12 15:52:46.274248215 +0300
 @@ -7,7 +7,7 @@
  	m_timer(eTimer::create(eApp)), m_interval(0)
  {
@@ -5626,7 +5626,7 @@ diff -ruN a/lib/dvb_ci/dvbci_datetimemgr.cpp b/lib/dvb_ci/dvbci_datetimemgr.cpp
  int eDVBCIDateTimeSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
 diff -ruN a/lib/dvb_ci/dvbci_datetimemgr.h b/lib/dvb_ci/dvbci_datetimemgr.h
 --- a/lib/dvb_ci/dvbci_datetimemgr.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_datetimemgr.h	2020-07-02 23:41:53.996260934 +0300
++++ b/lib/dvb_ci/dvbci_datetimemgr.h	2020-07-12 15:52:46.274248215 +0300
 @@ -3,7 +3,7 @@
  
  #include <lib/dvb_ci/dvbci_session.h>
@@ -5638,7 +5638,7 @@ diff -ruN a/lib/dvb_ci/dvbci_datetimemgr.h b/lib/dvb_ci/dvbci_datetimemgr.h
  		stateFinal=statePrivate, stateSendDateTime
 diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
 --- a/lib/dvb_ci/dvbci.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/dvb_ci/dvbci.h	2020-07-02 23:41:53.996260934 +0300
++++ b/lib/dvb_ci/dvbci.h	2020-07-12 15:52:46.275248169 +0300
 @@ -40,7 +40,7 @@
  typedef std::set<uint16_t> caidSet;
  typedef std::set<eServiceReference> serviceSet;
@@ -5650,7 +5650,7 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  	DECLARE_REF(eDVBCISlot);
 diff -ruN a/lib/gdi/compositing.h b/lib/gdi/compositing.h
 --- a/lib/gdi/compositing.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/gdi/compositing.h	2020-07-02 23:41:53.996260934 +0300
++++ b/lib/gdi/compositing.h	2020-07-12 15:52:46.275248169 +0300
 @@ -21,7 +21,7 @@
  	gContext m_context;
  };
@@ -5695,7 +5695,7 @@ diff -ruN a/lib/gdi/gpixmap.cpp b/lib/gdi/gpixmap.cpp
  		data = new unsigned char [y * stride];
 diff -ruN a/lib/gdi/grc.h b/lib/gdi/grc.h
 --- a/lib/gdi/grc.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/gdi/grc.h	2020-07-02 23:41:53.996260934 +0300
++++ b/lib/gdi/grc.h	2020-07-12 15:52:46.275248169 +0300
 @@ -150,7 +150,7 @@
  #define MAXSIZE 2048
  
@@ -6108,7 +6108,7 @@ diff -ruN a/lib/gdi/gxlibdc.cpp b/lib/gdi/gxlibdc.cpp
 +eAutoInitPtr<gXlibDC> init_gXlibDC(eAutoInitNumbers::graphic-1, "gXlibDC");
 diff -ruN a/lib/gdi/gxlibdc.h b/lib/gdi/gxlibdc.h
 --- a/lib/gdi/gxlibdc.h	1970-01-01 03:00:00.000000000 +0300
-+++ b/lib/gdi/gxlibdc.h	2020-07-02 23:41:53.996260934 +0300
++++ b/lib/gdi/gxlibdc.h	2020-07-12 15:52:46.275248169 +0300
 @@ -0,0 +1,80 @@
 +#ifndef __lib_gdi_gxlibdc_h
 +#define __lib_gdi_gxlibdc_h
@@ -6294,7 +6294,7 @@ diff -ruN a/lib/gdi/picload.cpp b/lib/gdi/picload.cpp
  	switch(aspect)
 diff -ruN a/lib/gdi/picload.h b/lib/gdi/picload.h
 --- a/lib/gdi/picload.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/gdi/picload.h	2020-07-02 23:41:53.996260934 +0300
++++ b/lib/gdi/picload.h	2020-07-12 15:52:46.275248169 +0300
 @@ -48,7 +48,7 @@
  };
  #endif
@@ -7316,7 +7316,7 @@ diff -ruN a/lib/gdi/post.h b/lib/gdi/post.h
 +/* end of post.h */
 diff -ruN a/lib/gdi/sdl.h b/lib/gdi/sdl.h
 --- a/lib/gdi/sdl.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/gdi/sdl.h	2020-07-02 23:41:53.997260934 +0300
++++ b/lib/gdi/sdl.h	2020-07-12 15:52:46.275248169 +0300
 @@ -6,7 +6,7 @@
  
  #include <SDL.h>
@@ -7328,7 +7328,7 @@ diff -ruN a/lib/gdi/sdl.h b/lib/gdi/sdl.h
  	SDL_Surface *m_screen;
 diff -ruN a/lib/gdi/xineLib.cpp b/lib/gdi/xineLib.cpp
 --- a/lib/gdi/xineLib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ b/lib/gdi/xineLib.cpp	2020-07-02 23:41:53.997260934 +0300
++++ b/lib/gdi/xineLib.cpp	2020-07-12 15:52:46.275248169 +0300
 @@ -0,0 +1,917 @@
 +#include <fstream>
 +#include <lib/gdi/xineLib.h>
@@ -8249,7 +8249,7 @@ diff -ruN a/lib/gdi/xineLib.cpp b/lib/gdi/xineLib.cpp
 +}
 diff -ruN a/lib/gdi/xineLib.h b/lib/gdi/xineLib.h
 --- a/lib/gdi/xineLib.h	1970-01-01 03:00:00.000000000 +0300
-+++ b/lib/gdi/xineLib.h	2020-07-02 23:41:53.997260934 +0300
++++ b/lib/gdi/xineLib.h	2020-07-12 15:52:46.275248169 +0300
 @@ -0,0 +1,117 @@
 +#ifndef __lib_gdi_xineLib_h
 +#define __lib_gdi_xineLib_h
@@ -8370,7 +8370,7 @@ diff -ruN a/lib/gdi/xineLib.h b/lib/gdi/xineLib.h
 +#endif
 diff -ruN a/lib/gui/elistboxcontent.h b/lib/gui/elistboxcontent.h
 --- a/lib/gui/elistboxcontent.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/gui/elistboxcontent.h	2020-07-02 23:41:53.997260934 +0300
++++ b/lib/gui/elistboxcontent.h	2020-07-12 15:52:46.275248169 +0300
 @@ -31,7 +31,7 @@
  	void cursorRestore();
  	int size();
@@ -8382,7 +8382,7 @@ diff -ruN a/lib/gui/elistboxcontent.h b/lib/gui/elistboxcontent.h
  	void setSize(const eSize &size);
 diff -ruN a/lib/gui/esubtitle.h b/lib/gui/esubtitle.h
 --- a/lib/gui/esubtitle.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/gui/esubtitle.h	2020-07-02 23:41:53.997260934 +0300
++++ b/lib/gui/esubtitle.h	2020-07-12 15:52:46.275248169 +0300
 @@ -40,7 +40,7 @@
  struct eDVBTeletextSubtitlePage;
  struct eDVBSubtitlePage;
@@ -8394,7 +8394,7 @@ diff -ruN a/lib/gui/esubtitle.h b/lib/gui/esubtitle.h
  	eSubtitleWidget(eWidget *parent);
 diff -ruN a/lib/gui/evideo.cpp b/lib/gui/evideo.cpp
 --- a/lib/gui/evideo.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/gui/evideo.cpp	2020-07-02 23:41:53.997260934 +0300
++++ b/lib/gui/evideo.cpp	2020-07-12 15:52:46.275248169 +0300
 @@ -1,6 +1,7 @@
  #include <lib/base/cfile.h>
  #include <lib/gui/evideo.h>
@@ -8450,7 +8450,7 @@ diff -ruN a/lib/gui/evideo.cpp b/lib/gui/evideo.cpp
  		m_state |= 8;
 diff -ruN a/lib/gui/ewidgetdesktop.h b/lib/gui/ewidgetdesktop.h
 --- a/lib/gui/ewidgetdesktop.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/gui/ewidgetdesktop.h	2020-07-02 23:41:53.997260934 +0300
++++ b/lib/gui/ewidgetdesktop.h	2020-07-12 15:52:46.276248124 +0300
 @@ -28,7 +28,7 @@
  	gRGB m_background_color;
  };
@@ -8462,7 +8462,7 @@ diff -ruN a/lib/gui/ewidgetdesktop.h b/lib/gui/ewidgetdesktop.h
  	eWidgetDesktop(eSize screen);
 diff -ruN a/lib/mmi/mmi_ui.h b/lib/mmi/mmi_ui.h
 --- a/lib/mmi/mmi_ui.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/mmi/mmi_ui.h	2020-07-02 23:41:53.997260934 +0300
++++ b/lib/mmi/mmi_ui.h	2020-07-12 15:52:46.276248124 +0300
 @@ -18,7 +18,7 @@
  };
  #endif
@@ -8474,7 +8474,7 @@ diff -ruN a/lib/mmi/mmi_ui.h b/lib/mmi/mmi_ui.h
  	virtual void stateChanged(int)=0;
 diff -ruN a/lib/nav/core.cpp b/lib/nav/core.cpp
 --- a/lib/nav/core.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/nav/core.cpp	2020-07-02 23:41:53.998260934 +0300
++++ b/lib/nav/core.cpp	2020-07-12 15:52:46.276248124 +0300
 @@ -33,19 +33,19 @@
  	if (m_runningService)
  	{
@@ -8509,7 +8509,7 @@ diff -ruN a/lib/nav/core.cpp b/lib/nav/core.cpp
  		}
 diff -ruN a/lib/nav/core.h b/lib/nav/core.h
 --- a/lib/nav/core.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/nav/core.h	2020-07-02 23:41:53.998260934 +0300
++++ b/lib/nav/core.h	2020-07-12 15:52:46.276248124 +0300
 @@ -7,7 +7,7 @@
  #include <map>
  #include <set>
@@ -8549,7 +8549,7 @@ diff -ruN a/lib/nav/core.h b/lib/nav/core.h
  
 diff -ruN a/lib/nav/pcore.cpp b/lib/nav/pcore.cpp
 --- a/lib/nav/pcore.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/nav/pcore.cpp	2020-07-02 23:41:53.998260934 +0300
++++ b/lib/nav/pcore.cpp	2020-07-12 15:52:46.276248124 +0300
 @@ -13,8 +13,8 @@
  	ASSERT(service_center);
  	m_core = new eNavigation(service_center, decoder);
@@ -8563,7 +8563,7 @@ diff -ruN a/lib/nav/pcore.cpp b/lib/nav/pcore.cpp
  RESULT pNavigation::playService(const eServiceReference &service)
 diff -ruN a/lib/nav/pcore.h b/lib/nav/pcore.h
 --- a/lib/nav/pcore.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/nav/pcore.h	2020-07-02 23:41:53.998260934 +0300
++++ b/lib/nav/pcore.h	2020-07-12 15:52:46.276248124 +0300
 @@ -6,7 +6,7 @@
  
  /* a subset of eNavigation */
@@ -8575,7 +8575,7 @@ diff -ruN a/lib/nav/pcore.h b/lib/nav/pcore.h
  public:
 diff -ruN a/lib/network/socket.h b/lib/network/socket.h
 --- a/lib/network/socket.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/network/socket.h	2020-07-02 23:41:53.998260934 +0300
++++ b/lib/network/socket.h	2020-07-12 15:52:46.276248124 +0300
 @@ -15,7 +15,7 @@
  #include <libsig_comp.h>
  #include <lib/base/buffer.h>
@@ -9547,7 +9547,7 @@ diff -ruN a/lib/python/Components/UsageConfig.py b/lib/python/Components/UsageCo
  	if choices:
 diff -ruN a/lib/python/connections.h b/lib/python/connections.h
 --- a/lib/python/connections.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/python/connections.h	2020-07-02 23:41:53.998260934 +0300
++++ b/lib/python/connections.h	2020-07-12 15:52:46.276248124 +0300
 @@ -36,7 +36,7 @@
  }
  
@@ -9661,7 +9661,7 @@ diff -ruN a/lib/python/Plugins/Extensions/MediaPlayer/plugin.py b/lib/python/Plu
  		currPlay = self.session.nav.getCurrentService()
 diff -ruN a/lib/python/Plugins/Extensions/SocketMMI/src/socket_mmi.h b/lib/python/Plugins/Extensions/SocketMMI/src/socket_mmi.h
 --- a/lib/python/Plugins/Extensions/SocketMMI/src/socket_mmi.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/python/Plugins/Extensions/SocketMMI/src/socket_mmi.h	2020-07-02 23:41:53.998260934 +0300
++++ b/lib/python/Plugins/Extensions/SocketMMI/src/socket_mmi.h	2020-07-12 15:52:46.276248124 +0300
 @@ -11,7 +11,7 @@
  #include <sys/socket.h>
  #include <sys/types.h>
@@ -11380,6 +11380,210 @@ diff -ruN a/lib/python/Screens/Satconfig.py b/lib/python/Screens/Satconfig.py
  						self.t2mirawmode = getConfigListEntry(self.indent % _("T2MI RAW Mode"), self.nimConfig.t2miRawMode, _("With T2MI RAW mode disabled (default) we can use single T2MI PLP de-encapsulation. With T2MI RAW mode enabled we can use astra-sm to analyze T2MI"))
  						self.list.append(self.t2mirawmode)
  		if self.nim.isCompatible("DVB-C") or (self.nim.isCombined() and self.nim.canBeCompatible("DVB-C")):
+diff -ruN a/lib/python/Screens/SkinSelector.py b/lib/python/Screens/SkinSelector.py
+--- a/lib/python/Screens/SkinSelector.py	2020-07-01 22:36:41.314769836 +0300
++++ b/lib/python/Screens/SkinSelector.py	2020-07-12 15:41:47.069089328 +0300
+@@ -5,7 +5,7 @@
+ from os import listdir
+ from os.path import dirname, exists, isdir, join as pathjoin
+ 
+-from skin import DEFAULT_SKIN, DEFAULT_DISPLAY_SKIN, EMERGENCY_NAME, EMERGENCY_SKIN, currentDisplaySkin, currentPrimarySkin, domScreens
++from skin import DEFAULT_SKIN, DEFAULT_DISPLAY_SKIN, EMERGENCY_SKIN, currentDisplaySkin, currentPrimarySkin, domScreens
+ from Components.ActionMap import HelpableNumberActionMap
+ from Components.config import config
+ from Components.Pixmap import Pixmap
+@@ -55,15 +55,10 @@
+ 	def __init__(self, session, screenTitle=_("GUI Skin")):
+ 		Screen.__init__(self, session)
+ 		HelpableScreen.__init__(self)
+-
+-		element = domScreens.get("SkinSelector", (None, None))[0]
+-		if element and 'introduction' in [widget.get('source', None) for widget in element.findall("widget")]:
+-			#screen from loaded skin is  not compatible so remove the screen
+-			del domScreens["SkinSelector"]
+-		if SkinSelector.skin is None or "SkinSelector" not in domScreens:
+-			# The skin template is designed for a HD screen so the scaling factor is 720.
+-			SkinSelector.skin = SkinSelector.skinTemplate % tuple([x * getDesktop(0).size().height() / 720 for x in SkinSelector.scaleData])
++		if SkinSelector.skin is None:
++			self.initialiseSkin()
+ 		Screen.setTitle(self, screenTitle)
++
+ 		self.rootDir = resolveFilename(SCOPE_SKIN)
+ 		self.config = config.skin.primary_skin
+ 		self.current = currentPrimarySkin
+@@ -89,6 +84,29 @@
+ 		self.picload.PictureData.get().append(self.showPic)
+ 		self.onLayoutFinish.append(self.layoutFinished)
+ 
++	def initialiseSkin(self):
++		element, path = domScreens.get("SkinSelector", (None, None))
++		if element is None:  # This skin does not have a SkinConverter screen.
++			buildSkin = True
++		else:  # Test the skin's SkinConverter screen to ensure it works with the new code.
++			buildSkin = False
++			widgets = element.findall("widget")
++			if widgets is not None:
++				for widget in widgets:
++					name = widget.get("name", None)
++					source = widget.get("source", None)
++					if name and name in ("Preview", "SkinList") or source == "introduction":
++						print "[SkinSelector] Warning: Current skin '%s' does not support this version of SkinSelector!    Please contact the skin's author!" % config.skin.primary_skin.value
++						del domScreens["SkinSelector"]  # It is incompatible, delete the screen from the skin.
++						buildSkin = True
++						break
++		if buildSkin:  # Build the embedded skin and scale it to the current screen resolution.
++			# The skin template is designed for a HD screen so the scaling factor is 720.
++			SkinSelector.skin = SkinSelector.skinTemplate % tuple([x * getDesktop(0).size().height() / 720 for x in SkinSelector.scaleData])
++			# print "[SkinSelector] DEBUG: Height=%d\n" % getDesktop(0).size().height(), SkinSelector.skin
++		else:
++			SkinSelector.skin = "<screen />"
++
+ 	def showPic(self, picInfo=""):
+ 		ptr = self.picload.getData()
+ 		if ptr is not None:
+@@ -99,11 +117,20 @@
+ 		self.refreshList()
+ 
+ 	def refreshList(self):
+-		emergency = _("Emergency")
+-		default = _("Default")
+-		defaultPicon = _("Default+Picon")
+-		current = _("Current")
+-		pending = _("Pending restart")
++		resolutions = {
++			"480": _("NTSC"),
++			"576": _("PAL"),
++			"720": _("HD"),
++			"1080": _("FHD"),
++			"2160": _("4K"),
++			"4320": _("8K"),
++			"8640": _("16K")
++		}
++		emergency = _("< Emergency >")
++		default = _("< Default >")
++		defaultPicon = _("< Default + Picon >")
++		current = _("< Current >")
++		pending = _("< Pending restart >")
+ 		displayPicon = pathjoin(dirname(DEFAULT_DISPLAY_SKIN), "skin_display_picon.xml")
+ 		skinList = []
+ 		# Find and list the available skins...
+@@ -116,25 +143,16 @@
+ 					resolution = None
+ 					if skinFile == "skin.xml":
+ 						with open(skinPath, "r") as fd:
+-							resolutions = {
+-								"480": _("NTSC"),
+-								"576": _("PAL"),
+-								"720": _("HD"),
+-								"1080": _("FHD"),
+-								"2160": _("4K"),
+-								"4320": _("8K"),
+-								"8640": _("16K")
+-							}
+ 							mm = mmap.mmap(fd.fileno(), 0, prot=mmap.PROT_READ)
+-							skinheight = re.search("\<?resolution.*?\syres\s*=\s*\"(\d+)\"", mm).group(1)
+-							resolution = skinheight and resolutions.get(skinheight, None)
++							resolution = re.search("\<?resolution.*?\syres\s*=\s*\"(\d+)\"", mm)
++							resolution = resolution and resolutions.get(resolution.group(1), None)
+ 							mm.close()
+-						print("[SkinSelector] Resolution of skin '%s': '%s'." % (skinPath, "Unknown" if resolution is None else resolution))
++						print "[SkinSelector] Resolution of skin '%s': '%s'." % (skinPath, "Unknown" if resolution is None else resolution)
+ 						# Code can be added here to reject unsupported resolutions.
+ 					# The "piconprev.png" image should be "prevpicon.png" to keep it with its partner preview image.
+ 					preview = pathjoin(previewPath, "piconprev.png" if skinFile == "skin_display_picon.xml" else "prev.png")
+ 					if skin == EMERGENCY_SKIN:
+-						list = [EMERGENCY_NAME, emergency, dir, skin, resolution, preview]
++						list = [emergency, emergency, dir, skin, resolution, preview]
+ 					elif skin == DEFAULT_SKIN:
+ 						list = [dir, default, dir, skin, resolution, preview]
+ 					elif skin == DEFAULT_DISPLAY_SKIN:
+@@ -147,10 +165,7 @@
+ 						list[1] = current
+ 					elif skin == self.config.value:
+ 						list[1] = pending
+-					list.append("%s (%s)" % (list[0], list[1]) if list[1] else list[0])
+-					if list[1]:
+-						list[1] = "<%s>" % list[1]
+-					#0=SortKey, 1=Label, 2=Flag, 3=Directory, 4=Skin, 5=Resolution, 6=Preview, 7=Label + Flag
++					# 0=SortKey, 1=Label, 2=Flag, 3=Directory, 4=Skin, 5=Resolution, 6=Preview
+ 					skinList.append(tuple([list[0].upper()] + list))
+ 		skinList.sort()
+ 		self["skins"].setList(skinList)
+@@ -162,16 +177,17 @@
+ 		self.loadPreview()
+ 
+ 	def loadPreview(self):
+-		self.currentSelectedSkin = self["skins"].getCurrent()
+-		preview, resolution, skin = self.currentSelectedSkin[6], self.currentSelectedSkin[5], self.currentSelectedSkin[4]
+ 		self.changedEntry()
++		preview = self["skins"].getCurrent()[6]
+ 		if not exists(preview):
+ 			preview = resolveFilename(SCOPE_CURRENT_SKIN, "noprev.png")
+ 		self.picload.startDecode(preview)
+-		if skin == self.config.value:
+-			self["description"].setText(_("Press OK to keep the currently selected %s skin.") % resolution)
++		resolution = self["skins"].getCurrent()[5]
++		msg = "" if resolution is None else " %s" % resolution
++		if self["skins"].getCurrent()[4] == self.config.value:
++			self["description"].setText(_("Press OK to keep the currently selected%s skin.") % msg)
+ 		else:
+-			self["description"].setText(_("Press OK to activate the selected %s skin.") % resolution)
++			self["description"].setText(_("Press OK to activate the selected%s skin.") % msg)
+ 
+ 	def cancel(self):
+ 		self.close(False)
+@@ -180,28 +196,29 @@
+ 		self.close(True)
+ 
+ 	def save(self):
+-		label, skin = self.currentSelectedSkin[1], self.currentSelectedSkin[4]
++		label = self["skins"].getCurrent()[1]
++		skin = self["skins"].getCurrent()[4]
+ 		if skin == self.config.value:
+ 			if skin == self.current:
+-				print("[SkinSelector] Selected skin: '%s' (Unchanged!)" % pathjoin(self.rootDir, skin))
++				print "[SkinSelector] Selected skin: '%s' (Unchanged!)" % pathjoin(self.rootDir, skin)
+ 				self.cancel()
+ 			else:
+-				print("[SkinSelector] Selected skin: '%s' (Trying to restart again!)" % pathjoin(self.rootDir, skin))
++				print "[SkinSelector] Selected skin: '%s' (Trying to restart again!)" % pathjoin(self.rootDir, skin)
+ 				restartBox = self.session.openWithCallback(self.restartGUI, MessageBox, _("To apply the selected '%s' skin the GUI needs to restart. Would you like to restart the GUI now?") % label, MessageBox.TYPE_YESNO)
+ 				restartBox.setTitle(_("SkinSelector: Restart GUI"))
+ 		elif skin == self.current:
+-			print("[SkinSelector] Selected skin: '%s' (Pending skin '%s' cancelled!)" % (pathjoin(self.rootDir, skin), pathjoin(self.rootDir, self.config.value)))
++			print "[SkinSelector] Selected skin: '%s' (Pending skin '%s' cancelled!)" % (pathjoin(self.rootDir, skin), pathjoin(self.rootDir, self.config.value))
+ 			self.config.value = skin
+ 			self.config.save()
+ 			self.cancel()
+ 		else:
+-			print("[SkinSelector] Selected skin: '%s'" % pathjoin(self.rootDir, skin))
++			print "[SkinSelector] Selected skin: '%s'" % pathjoin(self.rootDir, skin)
+ 			restartBox = self.session.openWithCallback(self.restartGUI, MessageBox, _("To save and apply the selected '%s' skin the GUI needs to restart. Would you like to save the selection and restart the GUI now?") % label, MessageBox.TYPE_YESNO)
+ 			restartBox.setTitle(_("SkinSelector: Restart GUI"))
+ 
+ 	def restartGUI(self, answer):
+ 		if answer is True:
+-			self.config.value = self.currentSelectedSkin[4]
++			self.config.value = self["skins"].getCurrent()[4]
+ 			self.config.save()
+ 			self.session.open(TryQuitMainloop, QUIT_RESTART)
+ 		self.refreshList()
+@@ -236,6 +253,7 @@
+ 			current = current.replace("_", " ")
+ 		return current
+ 
++
+ class LcdSkinSelector(SkinSelector):
+ 	def __init__(self, session, screenTitle=_("Display Skin")):
+ 		SkinSelector.__init__(self, session, screenTitle=screenTitle)
+@@ -245,6 +263,7 @@
+ 		self.current = currentDisplaySkin
+ 		self.xmlList = ["skin_display.xml", "skin_display_picon.xml"]
+ 
++
+ class SkinSelectorSummary(Screen):
+ 	def __init__(self, session, parent):
+ 		Screen.__init__(self, session, parent=parent)
 diff -ruN a/lib/python/Screens/SoftcamSetup.py b/lib/python/Screens/SoftcamSetup.py
 --- a/lib/python/Screens/SoftcamSetup.py	2020-04-29 20:48:57.000000000 +0300
 +++ b/lib/python/Screens/SoftcamSetup.py	2020-07-02 23:31:24.534701883 +0300
@@ -11580,7 +11784,7 @@ diff -ruN a/lib/python/Tools/StbHardware.py b/lib/python/Tools/StbHardware.py
  			fp = open("/dev/dbox/fp0")
 diff -ruN a/lib/service/iservice.h b/lib/service/iservice.h
 --- a/lib/service/iservice.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/iservice.h	2020-07-02 23:41:53.998260934 +0300
++++ b/lib/service/iservice.h	2020-07-12 15:52:46.276248124 +0300
 @@ -949,7 +949,7 @@
  	friend class iServiceHandler;
  public:
@@ -11620,7 +11824,7 @@ diff -ruN a/lib/service/Makefile.inc b/lib/service/Makefile.inc
  	service/servicepeer.h \
 diff -ruN a/lib/service/servicedvb.cpp b/lib/service/servicedvb.cpp
 --- a/lib/service/servicedvb.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicedvb.cpp	2020-07-02 23:41:53.999260934 +0300
++++ b/lib/service/servicedvb.cpp	2020-07-12 15:52:46.277248079 +0300
 @@ -646,7 +646,6 @@
  	if (sc)
  	{
@@ -12102,7 +12306,7 @@ diff -ruN a/lib/service/servicedvb.cpp b/lib/service/servicedvb.cpp
  	}
 diff -ruN a/lib/service/servicedvb.h b/lib/service/servicedvb.h
 --- a/lib/service/servicedvb.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicedvb.h	2020-07-02 23:41:53.999260934 +0300
++++ b/lib/service/servicedvb.h	2020-07-12 15:52:46.277248079 +0300
 @@ -9,6 +9,8 @@
  #include <lib/dvb/subtitle.h>
  #include <lib/dvb/teletext.h>
@@ -12163,7 +12367,7 @@ diff -ruN a/lib/service/servicedvb.h b/lib/service/servicedvb.h
  class eStaticServiceDVBBouquetInformation: public iStaticServiceInformation
 diff -ruN a/lib/service/servicedvbrecord.cpp b/lib/service/servicedvbrecord.cpp
 --- a/lib/service/servicedvbrecord.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicedvbrecord.cpp	2020-07-02 23:41:53.999260934 +0300
++++ b/lib/service/servicedvbrecord.cpp	2020-07-12 15:52:46.277248079 +0300
 @@ -317,7 +317,7 @@
  		}
  		m_record->setTargetFD(fd);
@@ -12184,7 +12388,7 @@ diff -ruN a/lib/service/servicedvbrecord.cpp b/lib/service/servicedvbrecord.cpp
  	return 0;
 diff -ruN a/lib/service/servicedvbrecord.h b/lib/service/servicedvbrecord.h
 --- a/lib/service/servicedvbrecord.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicedvbrecord.h	2020-07-02 23:41:53.999260934 +0300
++++ b/lib/service/servicedvbrecord.h	2020-07-12 15:52:46.277248079 +0300
 @@ -14,11 +14,11 @@
  	public iRecordableService,
  	public iStreamableService,
@@ -12210,7 +12414,7 @@ diff -ruN a/lib/service/servicedvbrecord.h b/lib/service/servicedvbrecord.h
  	void recordEvent(int event);
 diff -ruN a/lib/service/servicedvbstream.cpp b/lib/service/servicedvbstream.cpp
 --- a/lib/service/servicedvbstream.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicedvbstream.cpp	2020-07-02 23:41:53.999260934 +0300
++++ b/lib/service/servicedvbstream.cpp	2020-07-12 15:52:46.277248079 +0300
 @@ -143,7 +143,7 @@
  			return -1;
  		}
@@ -12222,7 +12426,7 @@ diff -ruN a/lib/service/servicedvbstream.cpp b/lib/service/servicedvbstream.cpp
  	eDebug("[eDVBServiceStream] start streaming...");
 diff -ruN a/lib/service/servicedvbstream.h b/lib/service/servicedvbstream.h
 --- a/lib/service/servicedvbstream.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicedvbstream.h	2020-07-02 23:41:54.000260934 +0300
++++ b/lib/service/servicedvbstream.h	2020-07-12 15:52:46.277248079 +0300
 @@ -9,7 +9,7 @@
  
  #include <lib/service/servicedvb.h>
@@ -12234,7 +12438,7 @@ diff -ruN a/lib/service/servicedvbstream.h b/lib/service/servicedvbstream.h
  public:
 diff -ruN a/lib/service/servicedvd.cpp b/lib/service/servicedvd.cpp
 --- a/lib/service/servicedvd.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicedvd.cpp	2020-07-02 23:41:54.000260934 +0300
++++ b/lib/service/servicedvd.cpp	2020-07-12 15:52:46.278248034 +0300
 @@ -188,7 +188,7 @@
  	if (ddvd_language != "")
  		ddvd_set_language(m_ddvdconfig, (ddvd_language.substr(0, 2)).c_str());
@@ -12293,7 +12497,7 @@ diff -ruN a/lib/service/servicedvd.cpp b/lib/service/servicedvd.cpp
  			
 diff -ruN a/lib/service/servicedvd.h b/lib/service/servicedvd.h
 --- a/lib/service/servicedvd.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicedvd.h	2020-07-02 23:41:54.000260934 +0300
++++ b/lib/service/servicedvd.h	2020-07-12 15:52:46.278248034 +0300
 @@ -58,7 +58,7 @@
  };
  
@@ -12323,7 +12527,7 @@ diff -ruN a/lib/service/servicedvd.h b/lib/service/servicedvd.h
  	ePtr<gPixmap> m_pixmap;
 diff -ruN a/lib/service/servicehdmi.cpp b/lib/service/servicehdmi.cpp
 --- a/lib/service/servicehdmi.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicehdmi.cpp	2020-07-02 23:41:54.000260934 +0300
++++ b/lib/service/servicehdmi.cpp	2020-07-12 15:52:46.278248034 +0300
 @@ -114,7 +114,7 @@
  
  DEFINE_REF(eServiceHDMI);
@@ -12356,7 +12560,7 @@ diff -ruN a/lib/service/servicehdmi.cpp b/lib/service/servicehdmi.cpp
  	return 0;
 diff -ruN a/lib/service/servicehdmi.h b/lib/service/servicehdmi.h
 --- a/lib/service/servicehdmi.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicehdmi.h	2020-07-02 23:41:54.000260934 +0300
++++ b/lib/service/servicehdmi.h	2020-07-12 15:52:46.278248034 +0300
 @@ -37,13 +37,13 @@
  	long long getFileSize(const eServiceReference &ref);
  };
@@ -12407,7 +12611,7 @@ diff -ruN a/lib/service/servicehdmi.h b/lib/service/servicehdmi.h
  	void recordEvent(int event);
 diff -ruN a/lib/service/servicets.cpp b/lib/service/servicets.cpp
 --- a/lib/service/servicets.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicets.cpp	2020-07-02 23:41:54.000260934 +0300
++++ b/lib/service/servicets.cpp	2020-07-12 15:52:46.278248034 +0300
 @@ -222,7 +222,7 @@
  	return fd;
  }
@@ -12439,7 +12643,7 @@ diff -ruN a/lib/service/servicets.cpp b/lib/service/servicets.cpp
  	} else {
 diff -ruN a/lib/service/servicets.h b/lib/service/servicets.h
 --- a/lib/service/servicets.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicets.h	2020-07-02 23:41:54.000260934 +0300
++++ b/lib/service/servicets.h	2020-07-12 15:52:46.278248034 +0300
 @@ -41,14 +41,14 @@
  class eStreamThread;
  class eServiceTS: public iPlayableService, public iPauseableService,
@@ -12484,7 +12688,7 @@ diff -ruN a/lib/service/servicets.h b/lib/service/servicets.h
  	bool m_running;
 diff -ruN a/lib/service/servicewebts.cpp b/lib/service/servicewebts.cpp
 --- a/lib/service/servicewebts.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicewebts.cpp	2020-07-02 23:41:54.001260934 +0300
++++ b/lib/service/servicewebts.cpp	2020-07-12 15:52:46.278248034 +0300
 @@ -295,7 +295,7 @@
  	return fd;
  }
@@ -12519,7 +12723,7 @@ diff -ruN a/lib/service/servicewebts.cpp b/lib/service/servicewebts.cpp
  	} else {
 diff -ruN a/lib/service/servicewebts.h b/lib/service/servicewebts.h
 --- a/lib/service/servicewebts.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicewebts.h	2020-07-02 23:41:54.001260934 +0300
++++ b/lib/service/servicewebts.h	2020-07-12 15:52:46.278248034 +0300
 @@ -72,14 +72,14 @@
  class eStreamThreadWeb;
  class eServiceWebTS: public iPlayableService, public iPauseableService,
@@ -12564,7 +12768,7 @@ diff -ruN a/lib/service/servicewebts.h b/lib/service/servicewebts.h
  	bool m_running;
 diff -ruN a/lib/service/servicexine.cpp b/lib/service/servicexine.cpp
 --- a/lib/service/servicexine.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicexine.cpp	2020-07-02 23:41:54.001260934 +0300
++++ b/lib/service/servicexine.cpp	2020-07-12 15:52:46.279247989 +0300
 @@ -164,7 +164,7 @@
  	}
  }
@@ -12576,7 +12780,7 @@ diff -ruN a/lib/service/servicexine.cpp b/lib/service/servicexine.cpp
  	return 0;
 diff -ruN a/lib/service/servicexine.h b/lib/service/servicexine.h
 --- a/lib/service/servicexine.h	2020-04-29 20:48:57.000000000 +0300
-+++ b/lib/service/servicexine.h	2020-07-02 23:41:54.001260934 +0300
++++ b/lib/service/servicexine.h	2020-07-12 15:52:46.279247989 +0300
 @@ -42,14 +42,14 @@
  typedef struct _GstElement GstElement;
  
@@ -12633,7 +12837,7 @@ diff -ruN a/main/bsod.cpp b/main/bsod.cpp
  
 diff -ruN a/main/enigma.cpp b/main/enigma.cpp
 --- a/main/enigma.cpp	2020-04-29 20:48:57.000000000 +0300
-+++ b/main/enigma.cpp	2020-07-02 23:41:54.001260934 +0300
++++ b/main/enigma.cpp	2020-07-12 15:52:46.279247989 +0300
 @@ -98,7 +98,7 @@
  /* Defined in eerror.cpp */
  void setDebugTime(bool enable);
@@ -23523,7 +23727,7 @@ diff -ruN a/tools/enigma2.sh.in b/tools/enigma2.sh.in
 +fi
 diff -ruN a/.travis.yml b/.travis.yml
 --- a/.travis.yml	2020-04-29 20:48:57.000000000 +0300
-+++ b/.travis.yml	2020-07-02 23:41:54.001260934 +0300
++++ b/.travis.yml	2020-07-12 15:52:46.279247989 +0300
 @@ -18,7 +18,7 @@
      - libgstreamer1.0-dev
      - libgstreamer-plugins-base1.0-dev
