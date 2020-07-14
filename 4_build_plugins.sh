@@ -392,13 +392,14 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		rm -f /usr/lib/librtmp.so.1
-		#git clone https://gitlab.com/maxbambi/e2iplayer.git
-		git clone https://gitlab.com/zadmario/e2iplayer.git
+		git clone https://gitlab.com/maxbambi/e2iplayer.git
+		#git clone https://gitlab.com/zadmario/e2iplayer.git
+		#git clone https://github.com/persianpros/e2iplayer.git
 		cd ../..
 		cp -r pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
 		cp patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
 		cd plugins/e2openplugin/e2iplayer
-		git checkout --detach 805e3d1d
+		git checkout --detach 62d1cd9c
 		patch -p1 < E2IPlayer.patch
 		rm -rf IPTVPlayer/locale/uk
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
