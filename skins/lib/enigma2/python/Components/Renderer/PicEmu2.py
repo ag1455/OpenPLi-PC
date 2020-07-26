@@ -14,8 +14,8 @@ class PicEmu2(Renderer, Poll):
     def __init__(self):
         Poll.__init__(self)
         Renderer.__init__(self)
-        self.piconWidth = 100
-        self.piconHeight = 60        
+        self.piconWidth = 150
+        self.piconHeight = 90
         self.path = 'picon'
         self.nameCache = {}
         self.nameCache1 = {}
@@ -23,7 +23,7 @@ class PicEmu2(Renderer, Poll):
         self.pngname1 = ''
         self.timerpicsPS1 = eTimer()
         self.timerpicsPS1.callback.append(self.timerpicsPSEvent1)
-        
+
     def applySkin(self, desktop, parent):
         attribs = []
         for attrib, value in self.skinAttributes:
