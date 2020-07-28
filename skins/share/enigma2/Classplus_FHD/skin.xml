@@ -1134,7 +1134,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 
 	<!-- Movie Context Menu -->
 	<screen name="MovieContextMenu" position="center,308" size="900,510">
-		<widget name="menu" position="30,30" size="840,450" transparent="1" itemHeight="38" font="Regular;30" scrollbarMode="showOnDemand"/>
+		<widget name="menu" position="30,30" size="840,458" transparent="1" itemHeight="38" font="Regular;30" scrollbarMode="showOnDemand"/>
 	</screen>
 
 	<!-- Location Box  -->
@@ -1158,24 +1158,28 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	</screen>
 
 	<!-- Movie Selection -->
-	<screen name="MovieSelection" position="0,0" size="1920,1080" title="Movie Selection" flags="wfNoBorder">
+	<screen name="MovieSelection" position="fill">
 		<ePixmap pixmap="frame_1.1-fs8.png" position="0,0" zPosition="-3" size="1920,1080"/>
-		<eLabel text="Select a movie" position="127,49" zPosition="2" size="600,48" font="Regular;42" halign="left" transparent="1" foregroundColor="unccff" backgroundColor="unb67a2"/>
-		<widget name="waitingtext" position="120,180" size="1140,675" zPosition="4" font="Regular;33" halign="center" valign="center" transparent="1"/>
-		<widget name="list" position="120,160" size="1140,567" itemHeight="38" font="Regular;30" scrollbarMode="showOnDemand" transparent="1"/>
-		<widget name="freeDiskSpace" position="120,885" zPosition="4" size="1140,37" font="Regular;33" halign="left" transparent="1"/>
-		<widget source="Service" render="Label" position="1395,165" zPosition="4" size="450,75" font="Regular;36" halign="center" foregroundColor="white" transparent="1">
-			<convert type="MovieInfo">RecordServiceName</convert>
-		</widget>
-		<widget source="Service" render="Label" position="1395,225" zPosition="4" size="450,78" font="Regular;33" halign="center" foregroundColor="white" transparent="1">
+		<eLabel text="Select a movie" position="127,49" zPosition="2" size="600,48" font="Regular;42" halign="left" foregroundColor="unccff" backgroundColor="unb67a2" transparent="1"/>
+		<widget name="waitingtext" position="160,132" size="1140,732" font="Regular;32" halign="center" valign="center" zPosition="4"/>
+		<widget name="chosenletter" position="166,132" size="1140,732" foregroundColor="yellow" font="Regular;112" halign="center" valign="center" transparent="1" zPosition="4"/>
+		<widget name="list" position="160,140" size="1140,720" scrollbarMode="showOnDemand" itemHeights="100,75,45" fontSizesOriginal="36,26,24" fontSizesCompact="36,28" fontSizesMinimal="34,30"
+			pbarShift="17" pbarHeight="20" pbarLargeWidth="72" spaceRight="3" columnsOriginal="270,300" columnsCompactDescription="240,220,240" compactColumn="300"
+			treeDescription="250" partIconeShiftMinimal="8" partIconeShiftCompact="2" partIconeShiftOriginal="3" iconsWidth="33" spaceIconeText="6" trashShift="4" dirShift="3" transparent="1"/>
+		<widget name="freeDiskSpace" position="120,885" zPosition="4" size="1140,37" font="Regular;32" halign="center" transparent="1"/>
+
+		<widget source="Service" render="Label" position="1355,165" zPosition="4" size="530,110" font="Regular;32" halign="center" foregroundColor="white" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="1395,322" zPosition="4" size="450,33" font="Regular;33" halign="center" transparent="1">
+		<widget source="Service" render="Label" position="1355,275" zPosition="4" size="530,110" font="Regular;32" halign="center" foregroundColor="white" transparent="1">
+			<convert type="MovieInfo">FileSize</convert>
+		</widget>
+		<widget source="Service" render="Label" position="1355,385" zPosition="4" size="530,110" font="Regular;32" halign="center" foregroundColor="white" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">AsLength</convert>
 		</widget>
-		<widget source="Service" render="Label" position="1395,369" zPosition="4" size="450,420" font="Regular;30" foregroundColor="white" transparent="1">
-			<convert type="EventName">ExtendedDescription</convert>
+		<widget source="Service" render="Label" position="1355,495" zPosition="4" size="530,420" font="Regular;32" foregroundColor="white" transparent="1">
+			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
 		<widget objectTypes="key_red,StaticText" source="key_red" render="Pixmap" pixmap="buttons/red25.png" position="84,960" size="375,60" alphatest="blend" zPosition="1">
 			<convert type="ConditionalShowHide"/>
@@ -1193,8 +1197,8 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 		<widget objectTypes="key_green,StaticText" source="key_green" render="Label" position="570,960" size="375,60" font="Regular;36" zPosition="2" halign="center" valign="center" transparent="1"/>
 		<widget objectTypes="key_yellow,StaticText" source="key_yellow" render="Label" position="1026,960" size="375,60" font="Regular;36" zPosition="2" halign="center" valign="center" transparent="1"/>
 		<widget objectTypes="key_blue,StaticText" source="key_blue" render="Label" position="1482,960" size="375,60" font="Regular;36" zPosition="2" halign="center" valign="center" transparent="1"/>
-		<ePixmap position="1518,870" zPosition="4" size="111,54" pixmap="buttons/key_info1.png" transparent="1" alphatest="blend"/>
-		<ePixmap position="1674,870" zPosition="4" size="111,54" pixmap="buttons/key_menu1.png" transparent="1" alphatest="blend"/>
+		<ePixmap position="1518,870" zPosition="4" size="111,54" pixmap="buttons/key_info1.png" alphatest="blend"/>
+		<ePixmap position="1674,870" zPosition="4" size="111,54" pixmap="buttons/key_menu1.png" alphatest="blend"/>
 	</screen>
 
 	<!-- Nim Selection -->
@@ -2957,7 +2961,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	</screen>-->
 
 	<!-- MovieoffChoiceBox -->
-<!--	<screen name="MovieoffChoiceBox" title="Sorting" position="fill" flags="wfNoBorder">
+	<screen name="MovieoffChoiceBox" title="Sorting" position="fill" flags="wfNoBorder">
 		<ePixmap pixmap="icons/ask.png" position="1838,108" zPosition="2" size="52,30" transparent="1" alphatest="blend"/>
 		<ePixmap pixmap="icons/movielist.png" position="1838,146" zPosition="2" size="52,30" transparent="1" alphatest="blend"/>
 		<ePixmap pixmap="icons/quit.png" position="1838,184" zPosition="2" size="52,30" transparent="1" alphatest="blend"/>
@@ -2966,7 +2970,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 		<ePixmap pixmap="icons/playlistquit.png" position="1838,298" zPosition="2" size="52,30" transparent="1" alphatest="blend"/>
 		<ePixmap pixmap="icons/loop.png" position="1838,336" zPosition="2" size="52,30" transparent="1" alphatest="blend"/>
 		<ePixmap pixmap="icons/rep.png" position="1838,374" zPosition="2" size="52,30" transparent="1" alphatest="blend"/>
-	</screen>-->
+	</screen>
 
 	<!-- BufferIndicator -->
 <!--	<screen name="BufferIndicator" title="Channel" position="c-100,45" size="200,35" backgroundColor="transparent" flags="wfNoBorder" zPosition="100">
