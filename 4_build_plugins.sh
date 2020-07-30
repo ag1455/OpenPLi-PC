@@ -43,6 +43,9 @@ if [ -d plugins ]; then
 	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus ]; then
 		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
 	fi
+	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport ]; then
+		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
+	fi
 	# Temporarily
 	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi ]; then
 		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi
@@ -377,8 +380,34 @@ if [ -d plugins ]; then
 		cd ..
 	fi
 
-	# Build python plugin IPTVPlayer
+	# Build python plugin EPGImport for IPTV
 	if [ ! -d e2openplugin-OscamStatus ]; then
+		set -e
+		set -o pipefail
+	else
+		echo ""
+		echo "**************************** OK. Go to the next step. ******************************"
+		echo ""
+		git clone https://github.com/OpenPLi/enigma2-plugin-extensions-epgimport.git
+		cd ../..
+		cp patches/EPGImport.patch plugins/e2openplugin/enigma2-plugin-extensions-epgimport
+		cd plugins/e2openplugin/enigma2-plugin-extensions-epgimport
+		git checkout --detach 4af378a2
+		patch -p1 < EPGImport.patch
+		cd src
+		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		else
+			python setup.py install
+		fi
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/EPGImport $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_xmltvimport* $INSTALL_E2DIR/lib/enigma2/python/Plugins
+		cp -rfv EPGImport/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
+		cd ../..
+	fi
+
+	# Build python plugin IPTVPlayer
+	if [ ! -d enigma2-plugin-extensions-epgimport ]; then
 		set -e
 		set -o pipefail
 		# Message if error at any point of script
@@ -401,7 +430,6 @@ if [ -d plugins ]; then
 		cd plugins/e2openplugin/e2iplayer
 		git checkout --detach 381a4478
 		patch -p1 < E2IPlayer.patch
-		rm -rf IPTVPlayer/locale/uk
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then
 			python2 setup_translate.py
@@ -477,6 +505,8 @@ if [ -d plugins ]; then
 		echo "******************************** Copy  plugins E2PC ********************************"
 		cp -rfv plugins/third-party-plugins/Plugins $INSTALL_E2DIR/lib/enigma2/python
 		cp -fv pre/urllib.py /usr/lib/python2.7
+		cp -rfv pre/epgimport $INSTALL_E2DIR/etc
+		cp -rfv pre/xmltvimport $INSTALL_E2DIR/etc
 		cp -rfv skins/* $INSTALL_E2DIR
 
 		if [ ! -f /usr/local/bin/bitrate ]; then

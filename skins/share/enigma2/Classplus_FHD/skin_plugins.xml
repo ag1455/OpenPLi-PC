@@ -474,62 +474,6 @@
 		<widget name="statusbar" position="20,495" size="970,30" font="Regular;26"/>
 	</screen>
 
-	<!-- Graph MultiEPG -->
-	<screen name="GraphMultiEPG" position="0,0" size="1920,1080" title="Electronic Program Guide" backgroundColor="black" flags="wfNoBorder">
-		<ePixmap pixmap="frame_1.1-fs8.png" position="0,0" zPosition="-3" size="1920,1080" alphatest="blend" transparent="1"/>
-		<ePixmap position="1371,405" zPosition="2" size="450,15" pixmap="chan_p1_bar.png" alphatest="blend"/>
-		<eLabel text="Electronic Program Guide" position="172,52" zPosition="2" size="600,48" font="Regular;42" halign="left" transparent="1" foregroundColor="unccff" backgroundColor="unb67a2"/>
-		<widget name="timeline_text" position="105,165" size="1200,45" transparent="1"/>
-		<widget name="list" position="120,240" size="1170,648" itemHeight="38" font="Regular;30" scrollbarMode="showOnDemand" EntryBorderColor="#0b67a2" EntryBackgroundColor="#2f4964" EntryBackgroundColorSelected="#073a6c" transparent="1"/>
-		<eLabel position="105,240" size="1140,2" backgroundColor="und6c07f"/>
-		<eLabel position="105,321" size="1140,2" backgroundColor="und6c07f"/>
-		<eLabel position="105,402" size="1140,2" backgroundColor="und6c07f"/>
-		<eLabel position="105,483" size="1140,2" backgroundColor="und6c07f"/>
-		<eLabel position="105,564" size="1140,2" backgroundColor="und6c07f"/>
-		<eLabel position="105,645" size="1140,2" backgroundColor="und6c07f"/>
-		<eLabel position="105,726" size="1140,2" backgroundColor="und6c07f"/>
-		<eLabel position="105,807" size="1140,2" backgroundColor="und6c07f"/>
-		<eLabel position="105,888" size="1140,2" backgroundColor="und6c07f"/>
-		<widget name="timeline0" position="105,232" zPosition="1" size="2,663" pixmap="timeline.png"/>
-		<widget name="timeline1" position="105,232" zPosition="1" size="2,663" pixmap="timeline.png"/>
-		<widget name="timeline2" position="105,232" zPosition="1" size="2,663" pixmap="timeline.png"/>
-		<widget name="timeline3" position="105,232" zPosition="1" size="2,663" pixmap="timeline.png"/>
-		<widget name="timeline4" position="105,232" zPosition="1" size="2,663" pixmap="timeline.png"/>
-		<widget name="timeline5" position="105,232" zPosition="1" size="2,663" pixmap="timeline.png"/>
-		<widget name="timeline_now" position="105,229" zPosition="2" size="28,669" pixmap="timeline-now.png" alphatest="blend"/>
-		<widget source="Event" render="Label" position="1342,165" zPosition="2" size="525,120" font="Regular;36" halign="center" foregroundColor="white" transparent="1">
-			<convert type="EventName">Name</convert>
-		</widget>
-		<widget source="Event" render="Label" position="1350,292" zPosition="2" size="450,72" font="Regular;33" halign="center" transparent="1">
-			<convert type="EventTime">StartTime</convert>
-			<convert type="ClockToText">Format:(%A)</convert>
-		</widget>
-		<widget source="Event" render="Label" position="1479,345" zPosition="2" size="90,33" font="Regular;30" halign="right" transparent="1">
-			<convert type="EventTime">StartTime</convert>
-			<convert type="ClockToText">
-			</convert>
-		</widget>
-		<widget source="Event" render="Label" position="1572,345" zPosition="2" size="105,33" font="Regular;30" halign="left" transparent="1">
-			<convert type="EventTime">EndTime</convert>
-			<convert type="ClockToText">Format:- %H:%M</convert>
-		</widget>
-		<widget source="Event" render="Progress" position="1371,405" zPosition="3" pixmap="chan_p_bar.png" size="450,16" transparent="1">
-			<convert type="EventTime">Progress</convert>
-		</widget>
-		<widget source="Event" render="Label" position="1380,450" zPosition="2" size="420,426" font="Regular;27" foregroundColor="foreground" transparent="1">
-			<convert type="EventName">ExtendedDescription</convert>
-		</widget>
-		<ePixmap pixmap="icons/clock.png" position="1530,981" zPosition="2" size="21,21" alphatest="blend"/>
-		<widget source="global.CurrentTime" render="Label" position="1560,970" zPosition="2" size="105,36" font="Regular;33" halign="center" transparent="1">
-			<convert type="ClockToText">
-			</convert>
-		</widget>
-		<widget objectTypes="key_red,StaticText" source="key_red" render="Pixmap" pixmap="buttons/red25.png" position="180,960" size="375,60" alphatest="blend" zPosition="1"/>
-		<widget objectTypes="key_red,StaticText" source="key_red" render="Pixmap" pixmap="buttons/green25.png" position="795,960" size="375,60" alphatest="blend" zPosition="1"/>
-		<widget source="key_red" render="Label" position="180,961" zPosition="2" size="375,60" font="Regular;36" halign="center" valign="center" backgroundColor="red" transparent="1"/>
-		<widget source="key_green" render="Label" position="795,961" zPosition="2" size="375,60" font="Regular;36" halign="center" valign="center" backgroundColor="green" transparent="1"/>
-	</screen>
-
 	<!-- OpenWebIf -->
 	<screen name="OpenWebifConfig" position="center,180" size="1050,765" title="OpenWebif Configuration">
 		<widget name="lab1" position="20,30" halign="center" size="1010,135" zPosition="1" font="Regular;36" valign="top" transparent="1"/>
@@ -1542,6 +1486,96 @@
 			</convert>
 		</widget>
 		<widget name="HelpWindow" position="30,710" size="1,1" transparent="1" zPosition="3" alphatest="blend"/>
+	</screen>
+
+	<!-- IPTV EPG Import -->
+	<screen name="EPGImportConfig" position="center,190" size="1133,750" title="EPG Import Configuration">
+		<ePixmap name="red" pixmap="buttons/red16.png" position="10,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="green" pixmap="buttons/green16.png" position="260,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="yellow" pixmap="buttons/yellow16.png" position="510,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="blue" pixmap="buttons/blue16.png" position="760,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<widget name="key_red" position="10,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_green" position="260,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_yellow" position="510,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_blue" position="760,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<ePixmap pixmap="buttons/key_info.png" position="1010,22" size="53,38" alphatest="blend"/>
+		<ePixmap pixmap="buttons/key_menu.png" position="1073,22" size="53,38" alphatest="blend"/>
+		<widget name="config" position="15,105" size="1103,480" itemHeight="38" font="Regular;32" scrollbarMode="showOnDemand"/>
+		<widget name="status" position="15,600" size="1103,90" font="Regular;30" halign="center"/>
+		<ePixmap pixmap="icons/clock.png" position="1000,718" size="21,21" zPosition="3" alphatest="blend"/>
+		<widget source="global.CurrentTime" render="Label" font="Regular;27" position="1033,714" size="82,30" halign="left" valign="center" zPosition="3" transparent="1">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+		<widget name="statusbar" position="15,714" size="750,30" font="Regular;27"/>
+	</screen>
+	<screen name="EPGImportSources" position="center,190" size="1010,750" title="EPG Import Sources">
+		<ePixmap name="red" pixmap="buttons/red16.png" position="10,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="green" pixmap="buttons/green16.png" position="260,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="yellow" pixmap="buttons/yellow16.png" position="510,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="blue" pixmap="buttons/blue16.png" position="760,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<widget name="key_red" position="10,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_green" position="260,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_yellow" position="510,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;28" transparent="1"/>
+		<widget name="key_blue" position="760,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="list" position="10,80" size="990,616" itemHeight="44" font="Regular;32" scrollbarMode="showOnDemand"/>
+		<ePixmap pixmap="icons/clock.png" position="840,724" size="21,21" zPosition="3" alphatest="blend"/>
+		<widget source="global.CurrentTime" render="Label" font="Regular;27" position="877,720" size="82,30" halign="left" valign="center" zPosition="3" transparent="1">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+	</screen>
+	<screen name="EPGImportLog" position="center,266" size="1010,600" title="EPG Import Log">
+		<ePixmap name="red" pixmap="buttons/red16.png" position="10,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="green" pixmap="buttons/green16.png" position="260,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="yellow" pixmap="buttons/yellow16.png" position="510,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="blue" pixmap="buttons/blue16.png" position="760,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<widget name="key_red" position="10,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_green" position="260,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_yellow" position="510,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_blue" position="760,10" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="list" position="10,80" size="990,510" itemHeight="44" font="Regular;32" scrollbarMode="showOnDemand"/>
+		<ePixmap pixmap="icons/clock.png" position="840,724" size="21,21" zPosition="3" alphatest="blend"/>
+		<widget source="global.CurrentTime" render="Label" font="Regular;27" position="877,720" size="82,30" halign="left" valign="center" zPosition="3" transparent="1">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+	</screen>
+	<screen name="filtersServicesSetup" position="center,238" size="1120,660" title="Ignore services list">
+		<ePixmap name="red" pixmap="buttons/red16.png" position="32,585" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="green" pixmap="buttons/green16.png" position="304,585" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="yellow" pixmap="buttons/yellow16.png" position="576,585" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="blue" pixmap="buttons/blue16.png" position="848,585" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<widget name="key_red" position="32,585" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget name="key_green" position="304,585" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;26" transparent="1"/>
+		<widget name="key_yellow" position="576,585" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;28" transparent="1"/>
+		<widget name="key_blue" position="848,585" size="240,60" valign="center" halign="center" zPosition="4" foregroundColor="white" font="Regular;32" transparent="1"/>
+		<widget source="list" render="Listbox" position="15,15" size="1090,495" scrollbarMode="showOnDemand">
+			<convert type="TemplatedMultiContent">
+				{ "template": [
+				MultiContentEntryText(pos = (15, 7), size = (630, 34), font = 0, flags = RT_HALIGN_LEFT, text = 0),
+				MultiContentEntryText(pos = (75, 37), size = (570, 30), font = 1, flags = RT_HALIGN_LEFT, text = 1),
+				MultiContentEntryText(pos = (150, 70), size = (600, 23), font = 2, flags = RT_HALIGN_LEFT, text = 2),
+				],
+				"fonts": [gFont("Regular", 31), gFont("Regular", 29), gFont("Regular", 24)],
+				"itemHeight": 97 }
+			</convert>
+		</widget>
+	</screen>
+	<screen name="EPGImportProfile" position="center,392" size="600,345" title="EPGImportProfile">
+		<widget name="config" position="10,0" size="590,270" itemHeight="38" font="Regular;32" scrollbarMode="showOnDemand"/>
+		<ePixmap name="red" pixmap="buttons/red16.png" position="40,285" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="green" pixmap="buttons/green16.png" position="320,285" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<widget name="key_red" position="40,285" size="240,60" valign="center" halign="center" zPosition="4" font="Regular;32" foregroundColor="white" transparent="1"/>
+		<widget name="key_green" position="320,285" size="240,60" valign="center" halign="center" zPosition="4" font="Regular;32" foregroundColor="white" transparent="1"/>
+	</screen>
+	<screen name="filtersServicesSelection" position="center,238" size="1010,660" title="Channel Selection">
+		<ePixmap name="red" pixmap="buttons/red16.png" position="10,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="green" pixmap="buttons/green16.png" position="260,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="yellow" pixmap="buttons/yellow16.png" position="510,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<ePixmap name="blue" pixmap="buttons/blue16.png" position="760,10" zPosition="2" size="240,60" transparent="1" alphatest="blend"/>
+		<widget name="key_red" position="10,10" size="240,60" font="Regular;32" valign="center" halign="center" zPosition="4" foregroundColor="white" transparent="1"/>
+		<widget name="key_green" position="260,10" size="240,60" font="Regular;28" valign="center" halign="center" zPosition="4" foregroundColor="white" transparent="1"/>
+		<widget name="key_yellow" position="510,10" size="240,60" font="Regular;28" valign="center" halign="center" zPosition="4" foregroundColor="white" transparent="1"/>
+		<widget name="key_blue" position="760,10" size="240,60" font="Regular;32" valign="center" halign="center" zPosition="4" foregroundColor="white" transparent="1"/>
+		<widget name="list" position="10,80" size="990,562" itemHeight="44" font="Regular;32" scrollbarMode="showOnDemand"/>
 	</screen>
 
 	<!-- ## YoutubeTV ##-->

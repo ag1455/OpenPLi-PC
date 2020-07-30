@@ -1312,7 +1312,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	</screen>
 
 	<!-- Plugin Browser -->
-	<screen name="PluginBrowser" position="center,186" size="1160,780">
+	<screen name="PluginBrowser" position="center,174" size="1160,780">
 		<widget name="list" position="30,10" size="1100,684" itemHeight="76" scrollbarMode="showOnDemand" transparent="1"/>
 		<ePixmap pixmap="buttons/red25.png" position="136,708" size="375,60" alphatest="blend" zPosition="1"/>
 		<widget name="red" position="156,708" size="375,60" font="Regular;32" halign="center" valign="center" zPosition="2" transparent="1"/>
@@ -2870,71 +2870,6 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	<screen name="InputDeviceSetup" title="Input device setup" position="fill" flags="wfNoBorder">
 		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
 		<widget source="introduction" render="Label" position="780,975" size="1110,34" backgroundColor="darkgrey" shadowColor="black" shadowOffset="-2,-2" zPosition="1" transparent="1" font="Regular;30" halign="center"/>
-	</screen>-->
-
-	<!-- GraphMultiEPG -->
-<!--	<screen name="GraphMultiEPG" title="Electronic Program Guide" position="fill" flags="wfNoBorder">
-		<widget source="Event" render="Label" position="780,105" size="225,36" backgroundColor="background" transparent="1" foregroundColor="secondFG" font="Regular;33" valign="top">
-			<convert type="EventTime">StartTime</convert>
-			<convert type="ClockToText">ShortDate</convert>
-		</widget>
-		<widget source="Event" render="Label" position="930,105" size="120,36" backgroundColor="background" transparent="1" foregroundColor="secondFG" font="Regular;33" halign="right" valign="top">
-			<convert type="EventTime">StartTime</convert>
-			<convert type="ClockToText"/>
-		</widget>
-		<widget source="Event" render="Label" position="1050,105" size="120,36" backgroundColor="background" transparent="1" foregroundColor="secondFG" font="Regular;33" halign="left" valign="top">
-			<convert type="EventTime">EndTime</convert>
-			<convert type="ClockToText">Format: - %H:%M</convert>
-		</widget>
-		<widget source="Event" render="Label" position="1185,105" size="705,36" backgroundColor="background" transparent="1" foregroundColor="secondFG" font="Regular;33" valign="top">
-			<convert type="EventName">Name</convert>
-		</widget>
-		<widget source="Event" render="Progress" pixmap="infobar/pbar.png" position="780,147" size="1110,12" transparent="0" borderWidth="0" backgroundColor="un33333a">
-			<convert type="EventTime">Progress</convert>
-		</widget>
-		<widget source="Event" render="Label" position="780,165" size="1110,320" backgroundColor="background" transparent="1" font="Regular;28" halign="block">
-			<convert type="EventName">FullDescription</convert>
-		</widget>
-		<widget source="Event" render="Label" position="780,510" size="1110,30" foregroundColor="blue" backgroundColor="background" transparent="1" font="Regular;27" halign="left">
-			<convert type="EventName">Genre</convert>
-		</widget>
-		<widget source="Event" render="Label" position="1590,510" size="300,30" foregroundColor="blue" backgroundColor="background" transparent="1" font="Regular;27" halign="right">
-			<convert type="EventName">SmallRating</convert>
-		</widget>
-		<widget name="timeline_text" position="30,555" size="1860,38" itemHeight="38" font="Regular;26" foregroundColor="#00e5b243" backgroundColor="#000000" transparent="1"/>
-		<widget name="list" position="30,598" size="1860,420" itemHeight="75" ServiceFont="Regular;28" transparent="1" scrollbarMode="showNever"
-			EntryBackgroundColor="background" EventNamePadding="6" ServiceNamePadding="6" EntryBorderColor="#cccccc" EntryFont="Regular;28"
-			ServiceBorderVerWidth="3" EventBorderVerWidth="3" RecIconSize="32" IconXPadding="6" IconYPadding="4"/>
-		<widget name="timeline0" pixmap="window/timeline.png" position="0,593" size="1,422" zPosition="1"/>
-		<widget name="timeline1" pixmap="window/timeline.png" position="0,593" size="1,422" zPosition="1"/>
-		<widget name="timeline2" pixmap="window/timeline.png" position="0,593" size="1,422" zPosition="1"/>
-		<widget name="timeline3" pixmap="window/timeline.png" position="0,593" size="1,422" zPosition="1"/>
-		<widget name="timeline4" pixmap="window/timeline.png" position="0,593" size="1,422" zPosition="1"/>
-		<widget name="timeline5" pixmap="window/timeline.png" position="0,593" size="1,422" zPosition="1"/>
-		<widget name="timeline_now" pixmap="window/timeline-now.png" position="6,593" size="28,422" zPosition="2" alphatest="blend"/>
-	</screen>
-	<screen name="GraphMultiEPGList" title="Electronic Program Guide" position="fill" flags="wfNoBorder">
-		<widget source="Event" render="Label" position="30,105" size="1860,37" backgroundColor="background" transparent="1" foregroundColor="secondFG" font="Regular;34" valign="top">
-			<convert type="EventTime">StartTime</convert>
-			<convert type="ClockToText">Date</convert>
-		</widget>
-		<widget name="timeline_text" position="30,155" size="1860,38" itemHeight="38" font="Regular;26" foregroundColor="#00e5b243" backgroundColor="#000000" transparent="1"/>
-		<widget name="list" position="30,198" size="1860,817" itemHeight="75" ServiceFont="Regular;28" transparent="1" scrollbarMode="showNever"
-			EntryBackgroundColor="background" EventNamePadding="6" EntryBorderColor="#cccccc" EntryFont="Regular;28"
-			ServiceBorderVerWidth="3" EventBorderVerWidth="3" RecIconSize="32" IconXPadding="6" IconYPadding="4"/>
-		<widget name="timeline0" pixmap="window/timeline.png" position="0,193" size="1,824" zPosition="1"/>
-		<widget name="timeline1" pixmap="window/timeline.png" position="0,193" size="1,824" zPosition="1"/>
-		<widget name="timeline2" pixmap="window/timeline.png" position="0,193" size="1,824" zPosition="1"/>
-		<widget name="timeline3" pixmap="window/timeline.png" position="0,193" size="1,824" zPosition="1"/>
-		<widget name="timeline4" pixmap="window/timeline.png" position="0,193" size="1,824" zPosition="1"/>
-		<widget name="timeline5" pixmap="window/timeline.png" position="0,193" size="1,824" zPosition="1"/>
-		<widget name="timeline_now" pixmap="window/timeline-now.png" position="6,193" size="28,826" zPosition="2" alphatest="blend"/>
-	</screen>
-	<screen name="GraphMultiEpgSetup" position="fill" title="Electronic Program Guide Setup" flags="wfNoBorder">
-		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
-	</screen>
-	<screen name="SelectBouquet" position="fill" title="Choose bouquet" flags="wfNoBorder">
-		<widget name="menu" position="780,100" size="1110,912" itemHeight="45" font="Regular;36" scrollbarMode="showOnDemand"/>
 	</screen>-->
 
 	<!-- DVD Player Infobar -->
