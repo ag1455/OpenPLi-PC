@@ -70,7 +70,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach c7750c5a
+		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3-0.patch
 	elif [[ "$release" = "16.04" ]]; then
 		echo "-----------------------------------------"
@@ -82,7 +82,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach c7750c5a
+		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3-0.patch
 	elif [[ "$release" = "18.04" ]]; then
 		echo "-----------------------------------------"
@@ -94,7 +94,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach c7750c5a
+		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
 	elif [[ "$release" = "19.04" ]]; then
 		echo "-----------------------------------------"
@@ -106,7 +106,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach c7750c5a
+		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
 	elif [[ "$release" = "19.10" ]]; then
 		echo "-----------------------------------------"
@@ -118,7 +118,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach c7750c5a
+		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
 	elif [[ "$release" = "20.04" ]]; then
 		echo "-----------------------------------------"
@@ -130,7 +130,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach c7750c5a
+		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
 	fi
 

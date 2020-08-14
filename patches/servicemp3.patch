@@ -1,12 +1,12 @@
 diff -ruN o/autogen.sh pc/autogen.sh
---- o/autogen.sh	2019-11-11 10:49:09.114888053 +0300
+--- o/autogen.sh	2020-08-13 19:06:48.005906587 +0300
 +++ pc/autogen.sh	1970-01-01 03:00:00.000000000 +0300
 @@ -1,2 +0,0 @@
 -#!/bin/sh
 -autoreconf -i
 diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
---- o/servicemp3/servicemp3.cpp	2019-11-11 10:49:09.115888074 +0300
-+++ pc/servicemp3/servicemp3.cpp	2019-11-11 10:54:45.274373546 +0300
+--- o/servicemp3/servicemp3.cpp	2020-08-13 19:06:48.006906588 +0300
++++ pc/servicemp3/servicemp3.cpp	2020-08-13 22:16:19.621972433 +0300
 @@ -127,6 +127,9 @@
  		extensions.push_back("wv");
  		extensions.push_back("pva");
@@ -33,9 +33,8 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
 -				if (::access("/hdd/movie", X_OK) >= 0)
 +				if (::access("/media/hdd/movies", X_OK) >= 0)
  				{
--					/* It looks like /hdd points to a valid mount, so we can store a download buffer on it */
+ 					/* It looks like /hdd points to a valid mount, so we can store a download buffer on it */
 -					m_download_buffer_path = "/hdd/gstreamer_XXXXXXXXXX";
-+					/* It looks like /media/hdd points to a valid mount, so we can store a download buffer on it */
 +					m_download_buffer_path = "/media/hdd/gstreamer_XXXXXXXXXX";
  				}
  			}
@@ -134,7 +133,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -966,188 +958,39 @@
+@@ -966,188 +958,41 @@
  	if (!m_gst_playbin || m_state != stRunning)
  		return -1;
  
@@ -205,7 +204,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return ret;
  }
  
--
+ 
  RESULT eServiceMP3::trickSeek(gdouble ratio)
  {
 -	if (!m_gst_playbin)
@@ -318,7 +317,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return 0;
  }
  
--
+ 
  RESULT eServiceMP3::seekRelative(int direction, pts_t to)
  {
 -	if (!m_gst_playbin)
@@ -337,81 +336,8 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  #if GST_VERSION_MAJOR < 1
-@@ -1163,115 +1006,14 @@
- }
- #endif
+@@ -1165,37 +1010,12 @@
  
--#if HAVE_AMLOGIC
--GstElement *getAVDecElement(GstElement *m_gst_playbin, int i, int flag)
--{
--	GstPad *pad = NULL;
--	GstPad *dec_pad = NULL;
--	GstElement *e = NULL;
--
--	g_signal_emit_by_name(m_gst_playbin, flag ? "get-video-pad" : "get-audio-pad", i, &pad);
--	if (pad) {
--		dec_pad = gst_pad_get_peer(pad);
--		while (dec_pad && GST_IS_GHOST_PAD(dec_pad)) {
--			gst_object_unref(dec_pad);
--			dec_pad = gst_ghost_pad_get_target(GST_GHOST_PAD(dec_pad));
--		}
--		if (dec_pad) {
--			e = gst_pad_get_parent_element(dec_pad);
--			gst_object_unref(dec_pad);
--		}
--		gst_object_unref(pad);
--	}
--
--	if (!e)
--		eDebug("[eServiceMP3] no %sDecElement", flag ? "Video" : "Audio");
--
--	return e;
--}
--
--void eServiceMP3::AmlSwitchAudio(int index)
--{
--	gint i, n_audio = 0;
--	gint32 videonum = 0;
--	GstElement * adec = NULL, *vdec = NULL;
--
--	g_object_get(G_OBJECT (m_gst_playbin), "n-audio", &n_audio, NULL);
--	for (i = 0; i < n_audio; i++) {
--		adec = getAVDecElement(m_gst_playbin, i, 0);
--		if (adec) {
--			g_object_set(G_OBJECT(adec), "pass-through", TRUE, NULL);
--			gst_object_unref(adec);
--		}
--	}
--	adec = getAVDecElement(m_gst_playbin, index, 0);
--	if (adec) {
--		g_object_set(G_OBJECT(adec), "pass-through", FALSE, NULL);
--		gst_object_unref(adec);
--	}
--	g_object_get(G_OBJECT (m_gst_playbin), "current-video", &videonum, NULL);
--	vdec = getAVDecElement(m_gst_playbin, videonum, 1);
--	if (vdec)
--		g_object_set(G_OBJECT(vdec), "pass-through", TRUE, NULL);
--}
--
--unsigned int eServiceMP3::get_pts_pcrscr(void)
--{
--	int handle;
--	int size;
--	char s[16];
--	unsigned int value = 0;
--
--	handle = open("/sys/class/tsync/pts_pcrscr", O_RDONLY);
--	if (handle < 0)
--		return value;
--
--	size = read(handle, s, sizeof(s));
--	if (size > 0)
--		value = strtoul(s, NULL, 16);
--	close(handle);
--	return value;
--}
--#endif
--
  RESULT eServiceMP3::getPlayPosition(pts_t &pts)
  {
 -	gint64 pos;
@@ -420,10 +346,6 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	if (!m_gst_playbin || m_state != stRunning)
  		return -1;
  
--#if HAVE_AMLOGIC
--	if ((pos = get_pts_pcrscr()) > 0)
--		pos *= 11111LL;
--#else
 -#if GST_VERSION_MAJOR < 1
 -	if (audioSink || videoSink)
 -#else
@@ -433,7 +355,6 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
 -		g_signal_emit_by_name(videoSink ? videoSink : audioSink, "get-decoder-time", &pos);
 -		if (!GST_CLOCK_TIME_IS_VALID(pos)) return -1;
 -	}
--#endif
 -	else
 -	{
 -		GstFormat fmt = GST_FORMAT_TIME;
@@ -456,7 +377,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -1323,13 +1065,20 @@
+@@ -1247,13 +1067,20 @@
  int eServiceMP3::getInfo(int w)
  {
  	const gchar *tag = 0;
@@ -480,7 +401,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	case sProgressive: return m_progressive;
  	case sGamma: return m_gamma;
  	case sAspect: return m_aspect;
-@@ -1669,14 +1418,20 @@
+@@ -1593,14 +1420,20 @@
  
  int eServiceMP3::getNumberOfTracks()
  {
@@ -505,16 +426,12 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  RESULT eServiceMP3::selectTrack(unsigned int i)
-@@ -1700,20 +1455,9 @@
+@@ -1624,16 +1457,9 @@
  
  int eServiceMP3::selectAudioStream(int i)
  {
 -	int current_audio;
 -	g_object_set (G_OBJECT (m_gst_playbin), "current-audio", i, NULL);
--#if HAVE_AMLOGIC
--	if (m_currentAudioStream != i)
--		AmlSwitchAudio(i);
--#endif
 -	g_object_get (G_OBJECT (m_gst_playbin), "current-audio", &current_audio, NULL);
 -	if ( current_audio == i )
 -	{
@@ -529,7 +446,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  int eServiceMP3::getCurrentChannel()
-@@ -1729,16 +1473,12 @@
+@@ -1649,16 +1475,12 @@
  
  RESULT eServiceMP3::getTrackInfo(struct iAudioTrackInfo &info, unsigned int i)
  {
@@ -549,25 +466,3 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	}
  
  	return 0;
-@@ -2466,6 +2206,7 @@
- 	}
- }
- #endif
-+
- void eServiceMP3::playbinNotifySource(GObject *object, GParamSpec *unused, gpointer user_data)
- {
- 	GstElement *source = NULL;
-diff -ruN o/servicemp3/servicemp3.h pc/servicemp3/servicemp3.h
---- o/servicemp3/servicemp3.h	2019-11-11 10:49:09.115888074 +0300
-+++ pc/servicemp3/servicemp3.h	2019-11-11 10:51:11.866472940 +0300
-@@ -210,10 +210,6 @@
- 	void setAC3Delay(int);
- 	void setPCMDelay(int);
- 
--#if HAVE_AMLOGIC
--	void AmlSwitchAudio(int index);
--	unsigned int get_pts_pcrscr(void);
--#endif
- 	struct audioStream
- 	{
- 		GstPad* pad;

@@ -20,6 +20,7 @@ REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-ess
 	net-tools ntpdate openssh-sftp-server pmccabe python-setuptools python-ipaddress python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules \
 	python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah patch pyflakes pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools \
 	software-properties-common sphinx-common streamripper subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm ubuntu-restricted-extras \
+	wavpack \
 	"
 
 for p in $REQPKG_ALL; do
