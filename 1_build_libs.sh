@@ -180,7 +180,7 @@ cp -fv pre/dvb/* $HEADERS
 cp -fv pre/sitecustomize.py /usr/local/lib/python2.7/site-packages
 
 # Download dvb-firmwares
-wget https://bitbucket.org/CrazyCat/media_build/downloads/dvb-firmwares.tar.bz2
+wget https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
 tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
 rm -f dvb-firmwares.tar.bz2
 
