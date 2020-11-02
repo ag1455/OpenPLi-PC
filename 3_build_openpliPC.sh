@@ -139,7 +139,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard c4a2e608
+git reset --hard 163a70a7
 cd ..
 
 # Copy headers
@@ -157,10 +157,10 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-6
-	cp patches/patch-c4a2e608-to-PC.patch $PKG
+	cp patches/patch-163a70a7-to-PC.patch $PKG
 	cp patches/ubuntu-14.04.patch $PKG
 	cd $PKG
-	patch -p1 < patch-c4a2e608-to-PC.patch
+	patch -p1 < patch-163a70a7-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -170,9 +170,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-c4a2e608-to-PC.patch $PKG
+	cp patches/patch-163a70a7-to-PC.patch $PKG
 	cd $PKG
-	patch -p1 < patch-c4a2e608-to-PC.patch
+	patch -p1 < patch-163a70a7-to-PC.patch
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -180,9 +180,9 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-7 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-7
-	cp patches/patch-c4a2e608-to-PC-sigc2.patch $PKG
+	cp patches/patch-163a70a7-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-c4a2e608-to-PC-sigc2.patch
+	patch -p1 < patch-163a70a7-to-PC-sigc2.patch
 elif [ "$release" = "19.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -191,9 +191,9 @@ elif [ "$release" = "19.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-c4a2e608-to-PC-sigc2.patch $PKG
+	cp patches/patch-163a70a7-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-c4a2e608-to-PC-sigc2.patch
+	patch -p1 < patch-163a70a7-to-PC-sigc2.patch
 elif [ "$release" = "19.10" ]; then
 	echo ""
 	echo "********************************************************"
@@ -202,9 +202,9 @@ elif [ "$release" = "19.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-c4a2e608-to-PC-sigc2.patch $PKG
+	cp patches/patch-163a70a7-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-c4a2e608-to-PC-sigc2.patch
+	patch -p1 < patch-163a70a7-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -213,10 +213,10 @@ elif [ "$release" = "20.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-c4a2e608-to-PC-sigc2.patch $PKG
+	cp patches/patch-163a70a7-to-PC-sigc2.patch $PKG
 	cp patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-c4a2e608-to-PC-sigc2.patch
+	patch -p1 < patch-163a70a7-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
 fi
 
