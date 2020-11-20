@@ -1,0 +1,31 @@
+
+<screen name="jmxMainMenu" position="0,0" size="1280,720" backgroundColor="#ff000000" flags="wfNoBorder">
+
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/background.png" position="0,0" size="1280,720" zPosition="-2" />
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/vertical-saber.png"   alphatest="blend" position="319,0"  size="7,720" zPosition="2" />
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/horizontal-saber.png" alphatest="blend" position="0,179"  size="1280,7" zPosition="2" />
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/horizontal-saber.png" alphatest="blend" position="0,674" size="1280,7" zPosition="2" />
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/logo.png" position="37,346" size="245,120" alphatest="blend" />
+        
+        <widget source="session.VideoPicture" render="Pig" position="0,0"  size="320,180" backgroundColor="#ff000000" zPosition="2" />
+        <widget source="Title" render="Label" position="0,493" size="320,37"  valign="center" halign="center" font="jediregular;23"  transparent="1" foregroundColor="#ffffff" backgroundColor="#000000"/>
+
+        <eLabel position="0,680" size="1280,40" backgroundColor="#000000" transparent="0" zPosition="-1"/>
+        
+        <widget source="global.CurrentTime" render="Label" position="0,686" size="320,28" font="jediregular;20" foregroundColor="#ffffff" backgroundColor="#000000" valign="center" halign="center" transparent="1" >
+                <convert type="ClockToText">Format:%A, %b %d, %H.%M</convert>
+        </widget>
+        
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/key_red.png" position="345,686" size="6,28" zPosition="1" />
+
+	<widget source="key_red" render="Label" position="357,686" size="150,28" font="jediregular;20" valign="center" transparent="1" noWrap="1" foregroundColor="#ffffff" backgroundColor="#000000" halign="left" zPosition="1" />
+
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/key_ok.png" position="1234,687" size="25,25" alphatest="blend" />
+         
+        <widget name="menu" position="346,206" textOffset="12,0" size="594,448" font="jediregular;24" foregroundColor="#ffffff" backgroundColor="#000000"
+        foregroundColorSelected="#ffffff" backgroundColorSelected="#000000" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/select-892-56.png"
+        backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/hd/default/images/blank.png"
+        itemHeight="37" scrollbarMode="showOnDemand" transparent="1" zPosition="2" />
+
+  </screen>
+

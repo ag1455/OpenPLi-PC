@@ -1,0 +1,47 @@
+
+<screen name="jmxSettings" position="0,0" size="1920,1080"  backgroundColor="#ff000000" flags="wfNoBorder">
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/background.png" position="0,0" size="1920,1080" zPosition="-2" />
+	
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/logo.png" position="88,520" size="368,180" alphatest="blend" />
+
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/logo1.png" alphatest="blend" position="92,54" size="144,78" zPosition="2" />
+	
+        <widget source="global.CurrentTime" render="Label" position="340,80" size="143,40" font="slykregular;33" foregroundColor="#ffffff" backgroundColor="#014890" valign="center" halign="left" transparent="1" zPosition="2">
+		<convert type="ClockToText">Format:%H.%M</convert>
+	</widget>
+	<widget source="global.CurrentTime" render="Label" position="341,82" size="143,40" font="slykregular;33" foregroundColor="#000000" backgroundColor="#014890" valign="center" halign="left" transparent="1" zPosition="1">
+		<convert type="ClockToText">Format:%H.%M</convert>
+	</widget>
+	
+	<widget source="Title" render="Label" position="102,400" size="342,100" valign="top" halign="left" font="slykregular;42" zPosition="2" transparent="1" foregroundColor="#ffffff" backgroundColor="#024488" />
+	<widget source="Title" render="Label" position="104,402" size="342,100" valign="top" halign="left" font="slykregular;42" zPosition="1" transparent="1" foregroundColor="#000000" backgroundColor="#024488" />
+	
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/q-left-nav.png" position="23,0" size="40,1080" alphatest="blend" zPosition="4" />
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/q-right-nav.png" position="482,0" size="40,1080" alphatest="blend" zPosition="4" />
+	
+        <widget source="session.VideoPicture" render="Pig" position="39,125" size="486,285" backgroundColor="#ff000000" transparent="1" zPosition="-2" />
+	<widget source="session.CurrentService" render="Label" position="54,353" size="437,32" font="slykbold;24" foregroundColor="#ffffff" backgroundColor="#ff000000" borderWidth="2" borderColor="#000000" valign="center" halign="center" noWrap="1" transparent="1" zPosition="3">
+		<convert type="ServiceName">Name</convert>
+	</widget>
+	<eLabel position="54,140" size="436,245" backgroundColor="#ff000000" zPosition="2" />
+	<eLabel position="55,140" size="7,245" backgroundColor="#eeffffff" zPosition="3" />	
+	<eLabel position="483,140" size="7,245" backgroundColor="#eeffffff" zPosition="3" />
+	
+	<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/button-bg.png" position="494,1018" size="1427,62" alphatest="blend"/>
+	
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/key_red.png" position="512,1030" size="38,38" alphatest="blend" transparent="1" />
+	<widget source="key_red" render="Label" position="557,1030" size="255,38" font="slykregular;33" valign="center" halign="left" transparent="1" foregroundColor="#ffffff" backgroundColor="#1a4273" noWrap="1" />
+	
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/key_green.png" position="827,1030" size="38,38" alphatest="blend" transparent="1" />
+	<widget source="key_green" render="Label" position="872,1030" size="255,38" font="slykregular;33" valign="center" halign="left" transparent="1" foregroundColor="#ffffff" backgroundColor="#1a4273" noWrap="1" />
+	
+        <widget name="description" position="540,140" size="1329,195" font="slykregular;33" foregroundColor="#ffffff" backgroundColor="#015bb4" transparent="1" />
+         
+        <widget name="config" textOffset="15,0" position="540,385" size="1329,624" font="slykregular;33" secondfont="slykregular;30" foregroundColor="#ffffff" backgroundColor="#0152a4" backgroundColorSelected="#0c3764"
+         selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/q-menu-4.png" itemHeight="78" enableWrapAround="1" scrollbarMode="showOnDemand" transparent="1" zPosition="2" />
+         
+  	<widget name="VKeyIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/key_text.png" position="1845,1030" zPosition="4" size="38,38" transparent="1" alphatest="blend" />
+
+        <widget name="HelpWindow" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykQ/images/vkey_icon.png" position="0,0" size="1920,60" alphatest="blend" transparent="1" zPosition="1" />	
+  </screen>
+

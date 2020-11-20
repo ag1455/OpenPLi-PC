@@ -1,0 +1,23 @@
+
+<screen name="jmxProgress" position="0,0" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
+
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/default/images/horizontal-saber.png" alphatest="blend" position="0,732"  size="1920,10" zPosition="2" />
+        <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/default/images/horizontal-saber.png" alphatest="blend" position="0,1011" size="1920,10" zPosition="2" />
+
+        <eLabel position="0,732" size="1920,348" backgroundColor="#000000" transparent="0" zPosition="-1"/>
+
+        <widget source="global.CurrentTime" render="Label" position="0,1029" size="480,42" font="jediregular;30" foregroundColor="#ffffff" backgroundColor="#000000" valign="center" halign="center" transparent="1" >
+                 <convert type="ClockToText">Format:%A, %b %d, %H.%M</convert>
+        </widget>
+        
+        <widget name="action" position="center,777" size="1920,45" font="jediregular;35" foregroundColor="#ffffff" backgroundColor="#000000" halign="center" noWrap="1" transparent="1" />
+	<!-- progress background -->
+	<ePixmap position="309,915" size="1302,6" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/default/images/progress-bg.png" alphatest="blend" zPosition="1" />
+	<!--progress border -->
+	<ePixmap position="308,914" size="1305,9" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/default/images/progress-border.png" alphatest="blend" zPosition="4" />
+	<!-- progress bar-->
+	<widget name="progress" position="308,914" size="1305,9" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/default/images/progress.png" transparent="1" zPosition="3" />
+	<widget name="status" position="center,945" size="1920,45" font="jediregular;35" foregroundColor="#ffffff" backgroundColor="#000000" halign="center" noWrap="1" transparent="1" />
+
+  </screen>
+
