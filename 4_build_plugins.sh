@@ -428,7 +428,7 @@ if [ -d plugins ]; then
 		cp -r pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
 		cp patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
 		cd plugins/e2openplugin/e2iplayer
-		git checkout --detach a385b8d9
+		git checkout --detach 4bc9741a
 		patch -p1 < E2IPlayer.patch
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then
