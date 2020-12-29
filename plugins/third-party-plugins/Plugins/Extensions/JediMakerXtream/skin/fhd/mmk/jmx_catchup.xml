@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Skin mmk by mmark 30/08/2019 -->
+<screen name="jmxChannels" position="0,0" size="1920,1080" backgroundColor="#005fbd" flags="wfNoBorder">
+    <!-- Header -->
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/background.jpg" position="0,0" size="1920,1080" zPosition="-2" />
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/back.png" position="0,0" size="1920,110" alphatest="blend" transparent="1" zPosition="-1" />
+    <eLabel position="50,130" size="720,406" backgroundColor="#ff000000" zPosition="2" />
+    <widget source="Title" render="Label" position="50,30" size="500,100" valign="top" halign="left" font="slykregular;50" zPosition="1" transparent="1" foregroundColor="#00ff0011" backgroundColor="#101010" />
+    <widget source="global.CurrentTime" render="Label" position="1470,10" size="400,100" font="slykregular;34" halign="right" valign="center" foregroundColor="#808080" backgroundColor="#101010" transparent="1" zPosition="1">
+        <convert type="ClockToText">Format %A %d %B %H:%M:%S</convert>
+    </widget>
+    <widget source="session.VideoPicture" render="Pig" position="50,130" size="720,406" backgroundColor="#ff000000" transparent="1" zPosition="-2" />
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/box.png" position="50,130" size="720,406" alphatest="blend" transparent="1" zPosition="10" />
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/logo.png" position="180,560" size="368,180" alphatest="blend" />
+    <!-- Code -->
+    <widget source="list" render="Listbox" position="780,130" size="1080,800" foregroundColor="#ffffff" backgroundColor="#101010" foregroundColorSelected="#ffffff" backgroundColorSelected="#0c3764" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/q-menu-3.png" itemHeight="56" enableWrapAround="1" scrollbarMode="showOnDemand" transparent="1" zPosition="2">
+        <convert type="TemplatedMultiContent">{"template": [
+            MultiContentEntryText(pos = (24, 5), size = (214, 45), font=0, color = 0x00ffffff, color_sel = 0x00ffffff, backcolor_sel = None, flags = RT_HALIGN_LEFT, text = 1),
+            MultiContentEntryText(pos = (240, 5), size = (240, 45), font=0, color = 0x00ffffff, color_sel = 0x00ffffff, backcolor_sel = None, flags = RT_HALIGN_LEFT, text = 2),
+            MultiContentEntryText(pos = (480, 5), size = (600, 45), font=0, color = 0x00ffffff, color_sel = 0x00ffffff, backcolor_sel = None, flags = RT_HALIGN_LEFT, text = 3),
+            ],
+            "fonts": [gFont("slykregular", 32)],
+            "itemHeight": 50,
+            "scrollbarMode": "showOnDemand"
+        }</convert>
+    </widget>
+    <widget name="description" position="50,550" size="720,400" font="slykregular;30" halign="center" foregroundColor="#00ffff00" backgroundColor="#015bb4" transparent="1" />
+    <!-- Buttons -->
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/backb.png" position="0,970" size="1920,110" alphatest="blend" transparent="1" zPosition="-1" />
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/key_red.png" position="50,1005" size="38,38" alphatest="blend" transparent="1" />
+    <widget source="key_red" render="Label" position="100,1000" size="255,38" font="slykregular;33" valign="center" halign="left" transparent="1" foregroundColor="#ffffff" backgroundColor="#101010" noWrap="1" />
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/key_ok.png" position="1835,1000" size="38,38" alphatest="blend" />
+</screen>

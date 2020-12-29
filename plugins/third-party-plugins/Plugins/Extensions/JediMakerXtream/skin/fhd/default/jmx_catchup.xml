@@ -1,0 +1,37 @@
+
+<screen name="jmxCatchup" position="0,0" size="1920,1080" backgroundColor="#232323" flags="wfNoBorder">
+    <eLabel position="0,0" size="480,1280" backgroundColor="#161616" transparent="0" zPosition="-1" />
+    <eLabel position="0,268" size="1920,2" backgroundColor="#0e6382" transparent="0" zPosition="3" />
+    <eLabel position="0,1018" size="1920,2" backgroundColor="#0e6382" transparent="0" zPosition="-1" />
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/default/images/logo.png" position="56,520" size="368,180" alphatest="blend" />
+
+    <widget source="session.VideoPicture" render="Pig" position="0,0"  size="480,270" backgroundColor="#ff000000" zPosition="2" />
+    <widget source="Title" render="Label" position="0,740" size="480,56"  valign="center" halign="center" font="jediregular;35"  transparent="1" foregroundColor="#ffffff" backgroundColor="#161616" />
+
+    <widget source="global.CurrentTime" render="Label" position="0,1029" size="480,42" font="jediregular;30" foregroundColor="#ffffff" backgroundColor="#161616" valign="center" halign="center" transparent="1" >
+        <convert type="ClockToText">Format:%A, %b %d, %H.%M</convert>
+    </widget>
+
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/default/images/key_red.png" position="518,1029" size="9,42" zPosition="1" />
+
+    <widget name="description" position="536,30" size="1354,210" font="jediregular;30" foregroundColor="#ffffff" backgroundColor="#232323" halign="left" valign="top" transparent="1" />
+
+    <widget source="key_red" render="Label" position="536,1029" size="225,42" font="jediregular;30" valign="center" transparent="1" noWrap="1" foregroundColor="#ffffff" backgroundColor="#232323" halign="left" zPosition="1" />
+
+    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/default/images/key_ok.png" position="1852,1031" size="38,38" alphatest="blend" />
+
+    <widget source="list" render="Listbox" position="519,309" size="1372,672" foregroundColor="#ffffff" backgroundColor="#232323"
+    foregroundColorSelected="#ffffff" backgroundColorSelected="#0e6382" enableWrapAround="1"  scrollbarMode="showOnDemand" transparent="1" zPosition="2" >
+        <convert type="TemplatedMultiContent">{"template": [
+
+        MultiContentEntryText(pos = (24, 5), size = (214, 45), font=0, color = 0x00ffffff, color_sel = 0x00ffffff, backcolor_sel = None, flags = RT_HALIGN_LEFT, text = 1),
+        MultiContentEntryText(pos = (240, 5), size = (240, 45), font=0, color = 0x00ffffff, color_sel = 0x00ffffff, backcolor_sel = None, flags = RT_HALIGN_LEFT, text = 2),
+        MultiContentEntryText(pos = (480, 5), size = (828, 45), font=0, color = 0x00ffffff, color_sel = 0x00ffffff, backcolor_sel = None, flags = RT_HALIGN_LEFT, text = 3),
+        ],
+        "fonts": [gFont("jediregular", 36)],
+        "itemHeight": 56,
+        "scrollbarMode": "showOnDemand"
+        }</convert>
+    </widget>
+</screen>
+

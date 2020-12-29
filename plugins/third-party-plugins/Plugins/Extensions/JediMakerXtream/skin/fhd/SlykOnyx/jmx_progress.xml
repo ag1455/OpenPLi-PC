@@ -1,14 +1,11 @@
 
 <screen name="jmxProgress" position="0,0" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
-	
-		<eLabel position="0,760" size="1920,339" backgroundColor="#4d000000" transparent="0" zPosition="-2" />
-		<ePixmap position="0,724" size="1920,375" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykOnyx/images/infobar-blank.png" alphatest="blend" zPosition="-1" />
-		<widget source="global.CurrentTime" render="Label" position="18,995" size="396,42" font="onyxregular;33" foregroundColor="#8d8d8b" backgroundColor="#4d000000" valign="top" halign="right" transparent="1">
-			<convert type="ClockToText">Format:%A, %H.%M</convert>
-		</widget>
-	
-		<widget name="action" position="center,805" size="1920,72" font="onyxregular;33" foregroundColor="#ffffff" backgroundColor="#4d000000" valign="center" halign="center" noWrap="1" transparent="1" />
-		<widget name="status" position="center,857" size="1920,72" font="onyxregular;33" foregroundColor="#ffffff" backgroundColor="#4d000000" valign="center" halign="center" noWrap="1" transparent="1" />
-		<widget name="progress" position="308,949" size="1305,9" foregroundColor="#44c1fb" backgroundColor="#252525" borderWidth="1" borderColor="#555555" zPosition="3" transparent="0" />
- </screen>
-
+    <eLabel position="0,760" size="1920,339" backgroundColor="#4d000000" transparent="0" zPosition="-2" />
+    <ePixmap position="0,724" size="1920,375" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykOnyx/images/infobar-blank.png" alphatest="blend" zPosition="-1" />
+    <widget source="global.CurrentTime" render="Label" position="18,995" size="396,42" font="onyxregular;33" foregroundColor="#8d8d8b" backgroundColor="#4d000000" valign="top" halign="right" transparent="1">
+        <convert type="ClockToText">Format:%A, %H.%M</convert>
+    </widget>
+    <widget name="action" position="center,805" size="1920,72" font="onyxregular;33" foregroundColor="#ffffff" backgroundColor="#4d000000" valign="center" halign="center" noWrap="1" transparent="1" />
+    <widget name="status" position="center,857" size="1920,72" font="onyxregular;33" foregroundColor="#ffffff" backgroundColor="#4d000000" valign="center" halign="center" noWrap="1" transparent="1" />
+    <widget name="progress" position="308,949" size="1305,9" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/SlykOnyx/images/progress.png" borderWidth="1" borderColor="#555555" zPosition="3" transparent="0" />
+</screen>

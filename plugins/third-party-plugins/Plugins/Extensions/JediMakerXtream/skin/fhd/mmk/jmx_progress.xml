@@ -1,0 +1,11 @@
+
+<!-- Skin mmk by mmark 31/08/2019 -->
+<screen name="jmxProgress" position="0,0" size="1920,1080" backgroundColor="#ff000000" flags="wfNoBorder">
+    <ePixmap position="0,860" size="1920,395" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/infobar-blank.png" alphatest="blend" />
+    <widget source="global.CurrentTime" render="Label" position="1420,865" size="400,72" font="slykregular;33" foregroundColor="#b0b0b0" backgroundColor="#000000" valign="center" halign="right" transparent="1" zPosition="2">
+        <convert type="ClockToText">Format:%A, %H.%M</convert>
+    </widget>
+    <widget name="action" position="center,865" size="1820,72" font="slykregular;33" foregroundColor="#00ffff00" backgroundColor="#000000" valign="center" halign="center" transparent="1" zPosition="1" />
+    <widget name="status" position="center,930" size="1820,72" font="slykregular;33" foregroundColor="#ffffff" backgroundColor="#000000" valign="center" halign="center" transparent="1" zPosition="1" />
+    <widget name="progress" position="50,1020" size="1820,15" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/skin/fhd/mmk/images/progress.png" borderWidth="1" borderColor="#555555" transparent="0" zPosition="10" />
+</screen>

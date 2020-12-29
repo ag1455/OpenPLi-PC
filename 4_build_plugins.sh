@@ -226,9 +226,9 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-OpenWebif.git
 		cd ../..
-		cp patches/OpenWebif.patch  plugins/e2openplugin/e2openplugin-OpenWebif
+		cp patches/OpenWebif.patch plugins/e2openplugin/e2openplugin-OpenWebif
 		cd plugins/e2openplugin/e2openplugin-OpenWebif
-		git checkout --detach b79cfb76
+		git checkout --detach 6c181a08
 		patch -p1 < OpenWebif.patch
 		sh create_ipk.sh
 		ar -x *.ipk
@@ -428,7 +428,7 @@ if [ -d plugins ]; then
 		cp -r pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
 		cp patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
 		cd plugins/e2openplugin/e2iplayer
-		git checkout --detach 1cf1d084
+		git checkout --detach 4a0f9164
 		patch -p1 < E2IPlayer.patch
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then

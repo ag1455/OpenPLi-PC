@@ -1,11 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# for localized messages
+from . import _
+
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.Sources.StaticText import StaticText
-from plugin import skin_path
+from .plugin import skin_path
 from Screens.Screen import Screen
+
 
 class JediMakerXtream_About(Screen):
 
@@ -20,19 +24,19 @@ class JediMakerXtream_About(Screen):
         self.setup_title = _('About')
 
         self['actions'] = ActionMap(['SetupActions'], {
-         'ok': self.quit,
-         'cancel': self.quit,
-         'menu': self.quit}, -2)
+            'ok': self.quit,
+            'cancel': self.quit,
+            'menu': self.quit}, -2)
         self['key_red'] = StaticText(_('Close'))
         self['about'] = Label('')
-        self.createSetup()
+        self.onFirstExecBegin.append(self.createSetup)
         self.onLayoutFinish.append(self.__layoutFinished)
 
     def __layoutFinished(self):
         self.setTitle(self.setup_title)
 
     def createSetup(self):
-        self.credit = 'JediMakerXtream V4.16 (C) 2018/2019 - KiddaC\n\n'
+        self.credit = 'JediMakerXtream V6.11 (C) 2018/2019/2020 - KiddaC\n\n'
         self.credit += 'Support for this plugin can be found on https://linuxsat-support.com\n\n'
         self.credit += 'Plugin enables the simple bouquet creation of standard xtream and M3U playlist(s).\n'
         self.credit += '*Playing streams via the plugin is currently unavailable.\n'
@@ -42,7 +46,7 @@ class JediMakerXtream_About(Screen):
         self.credit += 'Lululla for all the hard work done on XCPlugin and assistance with the project.\n'
         self.credit += 'Massive thanks to Seagen for his endless multi image testing.\n'
         self.credit += 'And thanks to all the other testers and those who helped in the development of this project.\n\n'
-        self.credit += "You can donate to my redbull, cigs and stress fund here. https://paypal.me/kiddac \n"
+        self.credit += "If you would like to donate to my redbull, cigs and stress fund. https://paypal.me/kiddac \n"
         self.credit += 'Cheers'
         self['about'].setText(self.credit)
 

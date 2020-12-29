@@ -1,26 +1,28 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# for localized messages
+from . import _
+from . import jediglobals as jglob
 
-from Components.config import *
-#from enigma import getDesktop, addFont, eTimer
-
+from Components.ActionMap import HelpableActionMap
+from Components.config import config, ConfigSelection, ConfigNumber, ConfigClock, ConfigDirectory, ConfigSubsection, ConfigYesNo
+from enigma import eTimer, eServiceReference, getDesktop, addFont
 from Plugins.Plugin import PluginDescriptor
-import time
-import os
-import socket
-import jediglobals as jglob
-
-from Components.ActionMap import ActionMap, NumberActionMap
-from Components.Label import Label
-from enigma import eConsoleAppContainer, eListboxPythonMultiContent, eTimer, eEPGCache, eServiceReference, getDesktop, gFont, loadPic, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_WRAP, addFont, iServiceInformation, iPlayableService
 from Screens.EpgSelection import EPGSelection
-from Screens.ChannelSelection import *
 from Screens.MessageBox import MessageBox
-from Screens.Screen import Screen
-
 from ServiceReference import ServiceReference
-from Components.ServiceList import ServiceList
+
+import os
+
+
+vixEPG = False
+
+try:
+    from Screens.EpgSelectionGrid import EPGSelectionGrid
+    vixEPG = True
+except:
+    pass
 
 
 autoStartTimer = None
@@ -46,13 +48,14 @@ cfg.m3ulocation = ConfigDirectory(default='/etc/enigma2/jediplaylists/')
 cfg.main = ConfigYesNo(default=True)
 cfg.unique = ConfigNumber()
 cfg.usershow = ConfigSelection(default='domain', choices=[('domain', _('Domain')), ('domainconn', _('Domain | Connections'))])
-cfg.enabled = ConfigEnableDisable(default=False)
-cfg.wakeup = ConfigClock(default = ((7*60) + 9) * 60) # 7:00
+cfg.enabled = ConfigYesNo(default=False)
+cfg.wakeup = ConfigClock(default=((7 * 60) + 9) * 60)  # 7:00
 cfg.skin = ConfigSelection(default='default', choices=folders)
 cfg.bouquet_id = ConfigNumber()
 cfg.timeout = ConfigNumber(default=3)
-cfg.catchup = ConfigEnableDisable(default=False)
-cfg.catchupprefix = ConfigSelection(default='~', choices=[('~', _('~')), ('!', _('!')), ('#', _('#')), ('-', _('-')), ('<', _('<')), ('^', _('^'))])
+cfg.catchup = ConfigYesNo(default=False)
+cfg.catchupprefix = ConfigSelection(default='~', choices=[('~', '~'), ('!', '!'), ('#', '#'), ('-', '-'), ('<', '<'), ('^', '^')])
+cfg.groups = ConfigYesNo(default=False)
 
 skin_path = skin_directory + cfg.skin.value + '/'
 playlist_path = cfg.location.text + 'playlists.txt'
@@ -64,8 +67,9 @@ alias_file = '/etc/enigma2/jediplaylists/alias.txt'
 sat28_file = '/etc/enigma2/jediplaylists/28.2e.txt'
 
 
-hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
-         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}
+hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
+       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+       'Accept-Encoding': 'deflate'}
 
 
 if not os.path.exists('/etc/enigma2/jediplaylists/'):
@@ -94,7 +98,7 @@ def add_skin_font():
 
 
 def main(session, **kwargs):
-    import menu
+    from . import menu
     session.open(menu.JediMakerXtream_Menu)
     return
 
@@ -107,46 +111,40 @@ def mainmenu(menuid, **kwargs):
 
 
 def extensionsmenu(session, **kwargs):
-    import playlists
+    from . import playlists
     session.open(playlists.JediMakerXtream_Playlist)
 
 
 class AutoStartTimer:
-
     def __init__(self, session):
         self.session = session
-        self.timer = eTimer() 
-        self.timer.callback.append(self.onTimer)
+        self.timer = eTimer()
+        try:  # DreamOS fix
+            self.timer_conn = self.timer.timeout.connect(self.onTimer)
+        except:
+            self.timer.callback.append(self.onTimer)
         self.update()
 
-
     def getWakeTime(self):
+        import time
         if cfg.enabled.value:
             clock = cfg.wakeup.value
             nowt = time.time()
             now = time.localtime(nowt)
-            return int(time.mktime((now.tm_year,
-             now.tm_mon,
-             now.tm_mday,
-             clock[0],
-             clock[1],
-             0,
-             now.tm_wday,
-             now.tm_yday,
-             now.tm_isdst)))
+            return int(time.mktime((now.tm_year, now.tm_mon, now.tm_mday, clock[0], clock[1], 0, now.tm_wday, now.tm_yday, now.tm_isdst)))
         else:
             return -1
 
-
-    def update(self, atLeast = 0):
+    def update(self, atLeast=0):
+        import time
         self.timer.stop()
         wake = self.getWakeTime()
-        now = int(time.time())
+        nowtime = time.time()
         if wake > 0:
-            if wake < now + atLeast:
+            if wake < nowtime + atLeast:
                 # Tomorrow.
-                wake += 24*3600
-            next = wake - now
+                wake += 24 * 3600
+            next = wake - int(nowtime)
             if next > 3600:
                 next = 3600
             if next <= 0:
@@ -156,46 +154,61 @@ class AutoStartTimer:
             wake = -1
         return wake
 
-
     def onTimer(self):
+        import time
         self.timer.stop()
         now = int(time.time())
         wake = self.getWakeTime()
         atLeast = 0
         if abs(wake - now) < 60:
-            self.runUpdate() 
+            self.runUpdate()
             atLeast = 60
         self.update(atLeast)
 
     def runUpdate(self):
-        print '\n *********** Updating Jedi Bouquets************ \n'
-        import update2
-        self.session.open(update2.JediMakerXtream_Update, 'auto')
+        print('\n *********** Updating Jedi Bouquets************ \n')
+        from . import update
+        self.session.open(update.JediMakerXtream_Update, 'auto')
 
 
-def autostart(reason, session = None, **kwargs):
+def autostart(reason, session=None, **kwargs):
 
     if session is not None:
         global jediEPGSelection__init__
-
         jediEPGSelection__init__ = EPGSelection.__init__
 
-        try:
-            check = EPGSelection.setPiPService
-            EPGSelection.__init__ = EPGSelectionVTi__init__
-        except AttributeError:
-            try:
-                check = EPGSelection.togglePIG
-                EPGSelection.__init__ = EPGSelectionATV__init__
-            except AttributeError:
-                try:
-                    check = EPGSelection.runPlugin
-                    EPGSelection.__init__ = EPGSelectionPLI__init__
-                except AttributeError:
-                    EPGSelection.__init__ = EPGSelection__init__
+        if vixEPG:
+            global jediEPGSelectionGrid__init__
+            jediEPGSelectionGrid__init__ = EPGSelectionGrid.__init__
 
-        EPGSelection.showJediCatchup = showJediCatchup
-        EPGSelection.playOriginalChannel = playOriginalChannel
+            try:
+                check = EPGSelectionGrid.togglePIG
+                EPGSelectionGrid.__init__ = EPGSelectionVIX__init__
+                EPGSelectionGrid.showJediCatchup = showJediCatchup
+                EPGSelectionGrid.playOriginalChannel = playOriginalChannel
+            except AttributeError:
+                print("******** VIX check failed *****")
+                pass
+        else:
+            try:
+                check = EPGSelection.setPiPService
+                EPGSelection.__init__ = EPGSelectionVTi__init__
+            except AttributeError:
+                print("******** VTI check failed *****")
+                try:
+                    check = EPGSelection.togglePIG
+                    EPGSelection.__init__ = EPGSelectionATV__init__
+                except AttributeError:
+                    print("******** ATV check failed *****")
+                    try:
+                        check = EPGSelection.runPlugin
+                        EPGSelection.__init__ = EPGSelectionPLI__init__
+                    except AttributeError:
+                        print("******** PLI check failed *****")
+                        EPGSelection.__init__ = EPGSelection__init__
+
+            EPGSelection.showJediCatchup = showJediCatchup
+            EPGSelection.playOriginalChannel = playOriginalChannel
 
     global autoStartTimer
     if reason == 0:
@@ -205,68 +218,45 @@ def autostart(reason, session = None, **kwargs):
     return
 
 
-
-def EPGSelection__init__(self, session, service, zapFunc = None, eventid = None, bouquetChangeCB = None, serviceChangeCB = None):
-
-    print "**** ​EPGSelection ****"
-
+def EPGSelection__init__(self, session, service, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None):
+    print("**** EPGSelection ****")
     jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB)
-    self['jediCatchupAction'] = ActionMap(['ButtonSetupActions', 'MoviePlayerActions', 'HotkeyActions'], {
-    'favorites': self.showJediCatchup,
-    'pvr': self.showJediCatchup,
-    'list': self.showJediCatchup,
-    'playlist': self.showJediCatchup,
-    'stop': self.showJediCatchup,
-    'leavePlayer': self.showJediCatchup,
+    self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
+        'catchup': self.showJediCatchup,
     })
 
 
-def EPGSelectionVTi__init__(self, session, service, zapFunc = None, eventid = None, bouquetChangeCB = None, serviceChangeCB = None, isEPGBar = None, switchBouquet = None, EPGNumberZap = None, togglePiP = None):
-
-    print "**** ​EPGSelectionVTi ****"
-
+def EPGSelectionVTi__init__(self, session, service, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None, isEPGBar=None, switchBouquet=None, EPGNumberZap=None, togglePiP=None):
+    print("**** EPGSelectionVTi ****")
     jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, isEPGBar, switchBouquet, EPGNumberZap, togglePiP)
-    self['jediCatchupAction'] = ActionMap(['MoviePlayerActions', 'HotkeyActions', 'ButtonSetupActions'], {
-    'favorites': self.showJediCatchup,
-    'pvr': self.showJediCatchup,
-    'list': self.showJediCatchup,
-    'playlist': self.showJediCatchup,
-    'stop': self.showJediCatchup,
-    'leavePlayer': self.showJediCatchup,
+    self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
+        'catchup': self.showJediCatchup,
     })
 
 
-def EPGSelectionATV__init__(self, session, service = None, zapFunc = None, eventid = None, bouquetChangeCB = None, serviceChangeCB = None, EPGtype = None, StartBouquet = None, StartRef = None, bouquets = None):
-
-    print "**** ​EPGSelectionATV ****"
-
+def EPGSelectionATV__init__(self, session, service=None, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None, EPGtype=None, StartBouquet=None, StartRef=None, bouquets=None):
+    print("**** EPGSelectionATV ****")
     jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, EPGtype, StartBouquet, StartRef, bouquets)
     if EPGtype != "vertical":
-        self['jediCatchupAction'] = ActionMap(['ButtonSetupActions', 'MoviePlayerActions'], {
-        'favorites': self.showJediCatchup,
-        'pvr': self.showJediCatchup,
-        'list': self.showJediCatchup,
-        'playlist': self.showJediCatchup,
-        'stop': self.showJediCatchup,
-        'leavePlayer': self.showJediCatchup,
+        self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
+            'catchup': self.showJediCatchup,
         })
 
 
-def EPGSelectionPLI__init__(self, session, service = None, zapFunc = None, eventid = None, bouquetChangeCB = None, serviceChangeCB = None, parent = None):
-
-    print "**** ​EPGSelectionPLI ****"
-
-    jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, parent)
-    self['jediCatchupAction'] = ActionMap(['MoviePlayerActions', 'HotkeyActions'], {
-    'favorites': self.showJediCatchup,
-    'pvr': self.showJediCatchup,
-    'list': self.showJediCatchup,
-    'playlist': self.showJediCatchup,
-    'stop': self.showJediCatchup,
-    'leavePlayer': self.showJediCatchup,
+def EPGSelectionVIX__init__(self, session, zapFunc, startBouquet, startRef, bouquets, timeFocus=None, isInfobar=False):
+    print("**** EPGSelectionVIX ****")
+    jediEPGSelectionGrid__init__(self, session, zapFunc, startBouquet, startRef, bouquets, timeFocus, isInfobar)
+    self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
+        'catchup': self.showJediCatchup,
     })
 
 
+def EPGSelectionPLI__init__(self, session, service=None, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None, parent=None):
+    print("**** EPGSelectionPLI ****")
+    jediEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, parent)
+    self['jediCatchupAction'] = HelpableActionMap(self, "JediCatchupActions", {
+        'catchup': self.showJediCatchup,
+    })
 
 
 def showJediCatchup(self):
@@ -274,40 +264,33 @@ def showJediCatchup(self):
     error_message = ""
     hascatchup = False
 
-    # get currently playing channel
-
-    print "**** store original channel ****"
     self.oldref = self.session.nav.getCurrentlyPlayingServiceReference()
     self.oldrefstring = self.oldref.toString()
 
-    service_event, service_ref = self['list'].getCurrent()
+    listcurrent = self['list'].getCurrent()
+    service_ref = listcurrent[1]
+
     current_service = service_ref.ref.toString()
 
-    eventName = ''
-    if service_event is not None:
-        eventName = service_event.getEventName()
-
-
-    # zap to highlighted channel before continuing 
-
-    print "**** zap to selected channel ****"
-    self.session.nav.playService(eServiceReference(current_service))
+    if self.oldrefstring != current_service:
+        self.session.nav.playService(eServiceReference(current_service))
     service = self.session.nav.getCurrentService()
 
     jglob.currentref = self.session.nav.getCurrentlyPlayingServiceReference()
     jglob.currentrefstring = jglob.currentref.toString()
     jglob.name = ServiceReference(jglob.currentref).getServiceName()
 
-    print "**** calling playOriginalChannel() ****"
     self.playOriginalChannel()
 
-
     if service.streamed():
-        import catchup
-        error_message, hascatchup = catchup.downloadSimpleData()
+        from . import catchup
+        try:
+            error_message, hascatchup = catchup.downloadSimpleData()
+        except:
+            pass
 
         if error_message != "":
-            self.session.open(MessageBox, _('%s' % error_message), MessageBox.TYPE_ERROR, timeout=5)
+            self.session.open(MessageBox, '%s' % error_message, MessageBox.TYPE_ERROR, timeout=5)
         elif hascatchup:
             self.session.openWithCallback(self.playOriginalChannel, catchup.JediMakerXtream_Catchup)
     else:
@@ -315,9 +298,8 @@ def showJediCatchup(self):
 
 
 def playOriginalChannel(self):
-    print "**** playing original channel ****"
-    self.session.nav.playService(eServiceReference(self.oldrefstring))
-    print "**** playing original channel success ****"
+    if self.oldrefstring != jglob.currentrefstring:
+        self.session.nav.playService(eServiceReference(self.oldrefstring))
 
 
 def Plugins(**kwargs):
@@ -328,11 +310,11 @@ def Plugins(**kwargs):
     description = _('IPTV Bouquets Creator')
     pluginname = _('JediMakerXtream')
 
-    main_menu = PluginDescriptor(name = pluginname, description=description, where=PluginDescriptor.WHERE_MENU, fnc=mainmenu, needsRestart=True)
-    extensions_menu = PluginDescriptor(name = pluginname, description=description, where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=extensionsmenu, needsRestart=True)
+    main_menu = PluginDescriptor(name=pluginname, description=description, where=PluginDescriptor.WHERE_MENU, fnc=mainmenu, needsRestart=True)
+    extensions_menu = PluginDescriptor(name=pluginname, description=description, where=PluginDescriptor.WHERE_EXTENSIONSMENU, fnc=extensionsmenu, needsRestart=True)
 
-    result = [PluginDescriptor(name = pluginname, description = description, where = [PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART],fnc = autostart),
-    PluginDescriptor(name = pluginname, description = description,where = PluginDescriptor.WHERE_PLUGINMENU,icon = iconFile,fnc = main)]
+    result = [PluginDescriptor(name=pluginname, description=description, where=[PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART], fnc=autostart),
+              PluginDescriptor(name=pluginname, description=description, where=PluginDescriptor.WHERE_PLUGINMENU, icon=iconFile, fnc=main)]
 
     if cfg.main.getValue():
         result.append(main_menu)
