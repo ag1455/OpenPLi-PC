@@ -6,7 +6,7 @@ diff -ruN o/autogen.sh pc/autogen.sh
 -autoreconf -i
 diff -ruN o/configure.ac pc/configure.ac
 --- o/configure.ac	2021-01-01 19:36:07.000000000 +0300
-+++ pc/configure.ac	2021-01-11 19:09:52.856424833 +0300
++++ pc/configure.ac	2021-01-11 19:09:52.000000000 +0300
 @@ -1,4 +1,4 @@
 -AC_INIT([enigma2],[4],[forum@openpli.org])
 +AC_INIT([enigma2],[PC7.3],[forum@openpli.org])
@@ -72,7 +72,7 @@ diff -ruN o/configure.ac pc/configure.ac
  Makefile
 diff -ruN o/data/keymap.xml pc/data/keymap.xml
 --- o/data/keymap.xml	2021-01-06 20:08:46.000000000 +0300
-+++ pc/data/keymap.xml	2021-01-11 19:09:52.856424833 +0300
++++ pc/data/keymap.xml	2021-01-11 19:09:52.000000000 +0300
 @@ -37,7 +37,6 @@
  	<map context="HelpActions">
  		<key id="KEY_HELP" mapto="displayHelp" flags="b" />
@@ -141,7 +141,7 @@ diff -ruN o/data/keymap.xml pc/data/keymap.xml
  	</map>
 diff -ruN o/data/menu.xml pc/data/menu.xml
 --- o/data/menu.xml	2020-08-01 17:47:17.000000000 +0300
-+++ pc/data/menu.xml	2021-01-11 19:09:52.856424833 +0300
++++ pc/data/menu.xml	2021-01-11 19:09:52.000000000 +0300
 @@ -35,9 +35,8 @@
  			</menu>
  			<menu weight="5" level="0" text="System" entryID="system_selection">
@@ -179,7 +179,7 @@ diff -ruN o/data/menu.xml pc/data/menu.xml
  </menu>
 diff -ruN o/data/setup.xml pc/data/setup.xml
 --- o/data/setup.xml	2020-12-28 23:50:44.000000000 +0300
-+++ pc/data/setup.xml	2021-01-11 19:09:52.856424833 +0300
++++ pc/data/setup.xml	2021-01-11 19:09:52.000000000 +0300
 @@ -3,9 +3,6 @@
  		<item level="0" text="Time zone area" description="Select your time zone area or region.">config.timezone.area</item>
  		<item level="0" text="Time zone" description="Select the time zone within the area or region.">config.timezone.val</item>
@@ -207,7 +207,7 @@ diff -ruN o/data/setup.xml pc/data/setup.xml
  </setupxml>
 diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 --- o/lib/base/condVar.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/condVar.cpp	2021-01-11 19:09:52.857424814 +0300
++++ pc/lib/base/condVar.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,240 @@
 +/*
 + * condVar.cpp: Mutexes, conditional vars.
@@ -451,7 +451,7 @@ diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 +}
 diff -ruN o/lib/base/condVar.h pc/lib/base/condVar.h
 --- o/lib/base/condVar.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/condVar.h	2021-01-11 19:09:52.857424814 +0300
++++ pc/lib/base/condVar.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,64 @@
 +#ifndef __base_condVar_h
 +#define __base_condVar_h
@@ -519,7 +519,7 @@ diff -ruN o/lib/base/condVar.h pc/lib/base/condVar.h
 +#endif
 diff -ruN o/lib/base/Makefile.inc pc/lib/base/Makefile.inc
 --- o/lib/base/Makefile.inc	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/base/Makefile.inc	2021-01-11 19:09:52.857424814 +0300
++++ pc/lib/base/Makefile.inc	2021-01-11 19:09:52.000000000 +0300
 @@ -24,7 +24,9 @@
  	base/thread.cpp \
  	base/httpsstream.cpp \
@@ -541,7 +541,7 @@ diff -ruN o/lib/base/Makefile.inc pc/lib/base/Makefile.inc
 +	base/condVar.h
 diff -ruN o/lib/base/rawfile.cpp pc/lib/base/rawfile.cpp
 --- o/lib/base/rawfile.cpp	2021-01-01 19:36:07.000000000 +0300
-+++ pc/lib/base/rawfile.cpp	2021-01-11 19:09:52.857424814 +0300
++++ pc/lib/base/rawfile.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -3,6 +3,7 @@
  #include <fcntl.h>
  #include <lib/base/rawfile.h>
@@ -691,7 +691,7 @@ diff -ruN o/lib/base/rawfile.cpp pc/lib/base/rawfile.cpp
 +}
 diff -ruN o/lib/base/rawfile.h pc/lib/base/rawfile.h
 --- o/lib/base/rawfile.h	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/base/rawfile.h	2021-01-11 19:09:52.888424199 +0300
++++ pc/lib/base/rawfile.h	2021-01-11 19:09:52.000000000 +0300
 @@ -3,23 +3,27 @@
  
  #include <string>
@@ -747,7 +747,7 @@ diff -ruN o/lib/base/rawfile.h pc/lib/base/rawfile.h
  #endif
 diff -ruN o/lib/base/tsRingbuffer.cpp pc/lib/base/tsRingbuffer.cpp
 --- o/lib/base/tsRingbuffer.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/tsRingbuffer.cpp	2021-01-11 19:09:52.888424199 +0300
++++ pc/lib/base/tsRingbuffer.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,328 @@
 +/*
 + * tsRingbuffer.cpp: A ring buffer
@@ -1079,7 +1079,7 @@ diff -ruN o/lib/base/tsRingbuffer.cpp pc/lib/base/tsRingbuffer.cpp
 +}
 diff -ruN o/lib/base/tsRingbuffer.h pc/lib/base/tsRingbuffer.h
 --- o/lib/base/tsRingbuffer.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/tsRingbuffer.h	2021-01-11 19:09:52.888424199 +0300
++++ pc/lib/base/tsRingbuffer.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,106 @@
 +/*
 + * tsRingbuffer.h: A ring buffer
@@ -1189,7 +1189,7 @@ diff -ruN o/lib/base/tsRingbuffer.h pc/lib/base/tsRingbuffer.h
 +#endif
 diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
 --- o/lib/driver/avswitch.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/driver/avswitch.cpp	2021-01-11 19:09:52.888424199 +0300
++++ pc/lib/driver/avswitch.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -9,6 +9,7 @@
  #include <lib/base/eerror.h>
  #include <lib/base/ebase.h>
@@ -1394,7 +1394,7 @@ diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
  eAutoInitP0<eAVSwitch> init_avswitch(eAutoInitNumbers::rc, "AVSwitch Driver");
 diff -ruN o/lib/driver/avswitch.h pc/lib/driver/avswitch.h
 --- o/lib/driver/avswitch.h	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/driver/avswitch.h	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/avswitch.h	2021-01-11 19:09:52.000000000 +0300
 @@ -29,9 +29,16 @@
  	int getVCRSlowBlanking();
  	void setColorFormat(int format);
@@ -1414,7 +1414,7 @@ diff -ruN o/lib/driver/avswitch.h pc/lib/driver/avswitch.h
  };
 diff -ruN o/lib/driver/Makefile.inc pc/lib/driver/Makefile.inc
 --- o/lib/driver/Makefile.inc	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/driver/Makefile.inc	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/Makefile.inc	2021-01-11 19:09:52.000000000 +0300
 @@ -31,3 +31,12 @@
  	driver/rcsdl.cpp \
  	driver/rcsdl.h
@@ -1430,7 +1430,7 @@ diff -ruN o/lib/driver/Makefile.inc pc/lib/driver/Makefile.inc
 +
 diff -ruN o/lib/driver/misc_options.cpp pc/lib/driver/misc_options.cpp
 --- o/lib/driver/misc_options.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/driver/misc_options.cpp	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/misc_options.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -22,10 +22,10 @@
  {
  	if (state == m_12V_output_state)
@@ -1459,7 +1459,7 @@ diff -ruN o/lib/driver/misc_options.cpp pc/lib/driver/misc_options.cpp
  	close(fd);
 diff -ruN o/lib/driver/rcconsole.cpp pc/lib/driver/rcconsole.cpp
 --- o/lib/driver/rcconsole.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/driver/rcconsole.cpp	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/rcconsole.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -111,4 +111,6 @@
  	}
  };
@@ -1469,7 +1469,7 @@ diff -ruN o/lib/driver/rcconsole.cpp pc/lib/driver/rcconsole.cpp
 +#endif
 diff -ruN o/lib/driver/rcinput.cpp pc/lib/driver/rcinput.cpp
 --- o/lib/driver/rcinput.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/driver/rcinput.cpp	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/rcinput.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -208,6 +208,7 @@
  	}
  };
@@ -1485,7 +1485,7 @@ diff -ruN o/lib/driver/rcinput.cpp pc/lib/driver/rcinput.cpp
 +#endif
 diff -ruN o/lib/driver/rclirc.cpp pc/lib/driver/rclirc.cpp
 --- o/lib/driver/rclirc.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rclirc.cpp	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/rclirc.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,586 @@
 +/*
 + * LIRC support based on LIRC for VDR, which was written by
@@ -2075,7 +2075,7 @@ diff -ruN o/lib/driver/rclirc.cpp pc/lib/driver/rclirc.cpp
 +eAutoInitP0<eRCLircInit> init_rcLirc(eAutoInitNumbers::rc+1, "Lirc RC Driver");
 diff -ruN o/lib/driver/rclirc.h pc/lib/driver/rclirc.h
 --- o/lib/driver/rclirc.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rclirc.h	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/rclirc.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,56 @@
 +#ifndef __lib_driver_rclirc_h
 +#define __lib_driver_rclirc_h
@@ -2135,7 +2135,7 @@ diff -ruN o/lib/driver/rclirc.h pc/lib/driver/rclirc.h
 +#endif
 diff -ruN o/lib/driver/rcxlib.cpp pc/lib/driver/rcxlib.cpp
 --- o/lib/driver/rcxlib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rcxlib.cpp	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/rcxlib.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,215 @@
 +#include <lib/driver/rcxlib.h>
 +#include <lib/base/init.h>
@@ -2354,7 +2354,7 @@ diff -ruN o/lib/driver/rcxlib.cpp pc/lib/driver/rcxlib.cpp
 +eAutoInitP0<eRCXlibInit> init_rcXlib(eAutoInitNumbers::rc+1, "Xlib RC Driver");
 diff -ruN o/lib/driver/rcxlib.h pc/lib/driver/rcxlib.h
 --- o/lib/driver/rcxlib.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rcxlib.h	2021-01-11 19:09:52.889424179 +0300
++++ pc/lib/driver/rcxlib.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,35 @@
 +#ifndef __lib_driver_rcxlib_h
 +#define __lib_driver_rcxlib_h
@@ -2393,7 +2393,7 @@ diff -ruN o/lib/driver/rcxlib.h pc/lib/driver/rcxlib.h
 +#endif
 diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 --- o/lib/dvb/ca_connector.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.cpp	2021-01-11 19:09:52.890424160 +0300
++++ pc/lib/dvb/ca_connector.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,123 @@
 +#include <lib/dvb/ca_connector.h>
 +#include <lib/dvb/dvb.h>
@@ -2520,7 +2520,7 @@ diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 +eAutoInitPtr<caConnector> init_caConnector(eAutoInitNumbers::dvb-1, "caConnector");
 diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 --- o/lib/dvb/ca_connector.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.h	2021-01-11 19:09:52.890424160 +0300
++++ pc/lib/dvb/ca_connector.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __lib_dvb_ca_connector_h
 +#define __lib_dvb_ca_connector_h
@@ -2574,7 +2574,7 @@ diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 +#endif
 diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
 --- o/lib/dvb/decoder.cpp	2020-12-28 23:50:44.000000000 +0300
-+++ pc/lib/dvb/decoder.cpp	2021-01-11 19:09:52.890424160 +0300
++++ pc/lib/dvb/decoder.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -7,6 +7,7 @@
  #include <linux/dvb/audio.h>
  #include <linux/dvb/video.h>
@@ -3038,7 +3038,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  				bool seq_end_avail = false;
 diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
 --- o/lib/dvb/decoder.h	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/decoder.h	2021-01-11 19:09:52.920423565 +0300
++++ pc/lib/dvb/decoder.h	2021-01-11 19:09:52.000000000 +0300
 @@ -3,6 +3,7 @@
  
  #include <lib/base/object.h>
@@ -3088,7 +3088,7 @@ diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
  	RESULT setPCMDelay(int delay);
 diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 --- o/lib/dvb/decsa.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.cpp	2021-01-11 19:09:52.921423545 +0300
++++ pc/lib/dvb/decsa.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,247 @@
 +/*
 + * Based on "Softcam plugin to VDR (C++)"
@@ -3339,7 +3339,7 @@ diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 +
 diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 --- o/lib/dvb/decsa.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.h	2021-01-11 19:09:52.921423545 +0300
++++ pc/lib/dvb/decsa.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __dvb_decsa_h
 +#define __dvb_decsa_h
@@ -3393,7 +3393,7 @@ diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 +#endif
 diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
 --- o/lib/dvb/demux.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/demux.cpp	2021-01-11 19:09:52.921423545 +0300
++++ pc/lib/dvb/demux.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -44,7 +44,11 @@
  	}
  	unsigned int megabytes = si.totalram >> 20;
@@ -3489,7 +3489,7 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  
 diff -ruN o/lib/dvb/demux.h pc/lib/dvb/demux.h
 --- o/lib/dvb/demux.h	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/demux.h	2021-01-11 19:09:52.921423545 +0300
++++ pc/lib/dvb/demux.h	2021-01-11 19:09:52.000000000 +0300
 @@ -6,52 +6,7 @@
  #include <lib/dvb/idemux.h>
  #include <lib/dvb/pvrparse.h>
@@ -3546,7 +3546,7 @@ diff -ruN o/lib/dvb/demux.h pc/lib/dvb/demux.h
  {
 diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
 --- o/lib/dvb/dvb.cpp	2020-12-28 23:50:44.000000000 +0300
-+++ pc/lib/dvb/dvb.cpp	2021-01-11 19:09:52.921423545 +0300
++++ pc/lib/dvb/dvb.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -97,7 +97,14 @@
  		if (eDVBAdapterLinux::isusb(num_adapter))
  		{
@@ -3633,7 +3633,7 @@ diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
  	m_source = NULL;
 diff -ruN o/lib/dvb/dvb.h pc/lib/dvb/dvb.h
 --- o/lib/dvb/dvb.h	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/dvb.h	2021-01-11 19:09:52.922423525 +0300
++++ pc/lib/dvb/dvb.h	2021-01-11 19:09:52.000000000 +0300
 @@ -243,6 +243,7 @@
  	bool frontendIsMultistream(int index);
  	std::string getFrontendCapabilities(int index);
@@ -3644,7 +3644,7 @@ diff -ruN o/lib/dvb/dvb.h pc/lib/dvb/dvb.h
  SWIG_EXTEND(ePtr<eDVBResourceManager>,
 diff -ruN o/lib/dvb/dvbtime.cpp pc/lib/dvb/dvbtime.cpp
 --- o/lib/dvb/dvbtime.cpp	2020-12-30 16:57:58.000000000 +0300
-+++ pc/lib/dvb/dvbtime.cpp	2021-01-11 19:09:52.922423525 +0300
++++ pc/lib/dvb/dvbtime.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -17,13 +17,13 @@
  
  void setRTC(time_t time)
@@ -3679,7 +3679,7 @@ diff -ruN o/lib/dvb/dvbtime.cpp pc/lib/dvb/dvbtime.cpp
  		fclose(f);
 diff -ruN o/lib/dvb/edvbdemux.h pc/lib/dvb/edvbdemux.h
 --- o/lib/dvb/edvbdemux.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/edvbdemux.h	2021-01-11 19:09:52.922423525 +0300
++++ pc/lib/dvb/edvbdemux.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,59 @@
 +#ifndef __dvb_edvbdemux_h
 +#define __dvb_edvbdemux_h
@@ -3741,8 +3741,8 @@ diff -ruN o/lib/dvb/edvbdemux.h pc/lib/dvb/edvbdemux.h
 +
 +#endif
 diff -ruN o/lib/dvb/encoder.cpp pc/lib/dvb/encoder.cpp
---- o/lib/dvb/encoder.cpp	2021-01-11 19:09:20.319069883 +0300
-+++ pc/lib/dvb/encoder.cpp	2021-01-11 19:09:52.922423525 +0300
+--- o/lib/dvb/encoder.cpp	2021-01-11 19:09:20.000000000 +0300
++++ pc/lib/dvb/encoder.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -61,7 +61,7 @@
  		{
  			char filename[64];
@@ -3857,7 +3857,7 @@ diff -ruN o/lib/dvb/encoder.cpp pc/lib/dvb/encoder.cpp
  	if(encoder[0].navigation_instance->playService(serviceref) < 0)
 diff -ruN o/lib/dvb/fbc.cpp pc/lib/dvb/fbc.cpp
 --- o/lib/dvb/fbc.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/fbc.cpp	2021-01-11 19:09:52.922423525 +0300
++++ pc/lib/dvb/fbc.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -17,7 +17,7 @@
  	std::stringstream path;
  	std::ifstream file;
@@ -3886,8 +3886,8 @@ diff -ruN o/lib/dvb/fbc.cpp pc/lib/dvb/fbc.cpp
  
  	if(!file.is_open())
 diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
---- o/lib/dvb/filepush.cpp	2021-01-11 19:09:20.319069883 +0300
-+++ pc/lib/dvb/filepush.cpp	2021-01-11 19:33:36.585336134 +0300
+--- o/lib/dvb/filepush.cpp	2021-01-11 19:09:20.000000000 +0300
++++ pc/lib/dvb/filepush.cpp	2021-01-11 20:38:15.877306841 +0300
 @@ -3,8 +3,7 @@
  #include <errno.h>
  #include <fcntl.h>
@@ -3915,22 +3915,23 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  				sendEvent(evtEOF);
  			else
  				sendEvent(evtUser); // start of file event
-@@ -327,9 +327,6 @@
+@@ -326,10 +326,6 @@
+ 
  void eFilePushThreadRecorder::thread()
  {
- 	ssize_t bytes;
+-	ssize_t bytes;
 -	int rv;
 -	struct pollfd pfd;
 -
  	setIoPrio(IOPRIO_CLASS_RT, 7);
  
  	eDebug("[eFilePushThreadRecorder] THREAD START");
-@@ -345,67 +342,13 @@
+@@ -345,67 +341,13 @@
  	/* m_stop must be evaluated after each syscall. */
  	while (!m_stop)
  	{
 -		bytes = ::read(m_fd_source, m_buffer, m_buffersize);
-+		bytes = m_source->read(m_fd_source, m_buffer, m_buffersize);
++		ssize_t bytes = m_source->read(m_fd_source, m_buffer, m_buffersize);
  
  		if (bytes < 0)
  		{
@@ -3995,19 +3996,18 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  			{
  				eDebug("[eFilePushThreadRecorder] read got interrupted by signal, stop: %d", m_stop);
  				continue;
-@@ -454,6 +397,18 @@
+@@ -454,6 +396,17 @@
  	run();
  }
  
 +void eFilePushThreadRecorder::start(int fd, ePtr<eDVBDemux> &demux)
 +{
 +	eDecryptRawFile *f = new eDecryptRawFile();
-+	m_fd_source = 0;
 +	m_source = f;
-+	m_stop = 0;
-+	m_stopped = false;
 +	f->setfd(fd);
 +	f->setDemux(demux);
++	m_fd_source = 0;
++	m_stop = 0;
 +	run();
 +}
 +
@@ -4015,8 +4015,8 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  {
  	static const struct timespec timespec_1 = { .tv_sec =  0, .tv_nsec = 1000000000 / 10 };
 diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
---- o/lib/dvb/filepush.h	2021-01-11 19:09:20.319069883 +0300
-+++ pc/lib/dvb/filepush.h	2021-01-11 19:09:52.923423505 +0300
+--- o/lib/dvb/filepush.h	2021-01-11 19:09:20.000000000 +0300
++++ pc/lib/dvb/filepush.h	2021-01-11 19:09:52.000000000 +0300
 @@ -69,6 +69,7 @@
  	void thread();
  	void stop();
@@ -4035,7 +4035,7 @@ diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
  
 diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
 --- o/lib/dvb/frontend.cpp	2021-01-06 20:08:46.000000000 +0300
-+++ pc/lib/dvb/frontend.cpp	2021-01-11 19:09:52.923423505 +0300
++++ pc/lib/dvb/frontend.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -562,6 +562,7 @@
  	,m_state(stateClosed), m_timeout(0), m_tuneTimer(0)
  {
@@ -4070,7 +4070,7 @@ diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
  					{
 diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
 --- o/lib/dvb/idvb.h	2020-08-24 13:46:09.000000000 +0300
-+++ pc/lib/dvb/idvb.h	2021-01-11 19:09:52.924423485 +0300
++++ pc/lib/dvb/idvb.h	2021-01-11 19:09:52.000000000 +0300
 @@ -703,11 +703,11 @@
  public:
  	enum { pidDisabled = -1 };
@@ -4087,7 +4087,7 @@ diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
  		/** Set Displayed Audio Channel */
 diff -ruN o/lib/dvb/Makefile.inc pc/lib/dvb/Makefile.inc
 --- o/lib/dvb/Makefile.inc	2021-01-02 13:20:21.000000000 +0300
-+++ pc/lib/dvb/Makefile.inc	2021-01-11 19:09:52.924423485 +0300
++++ pc/lib/dvb/Makefile.inc	2021-01-11 19:09:52.000000000 +0300
 @@ -35,7 +35,9 @@
  	dvb/pmtparse.cpp \
  	dvb/encoder.cpp \
@@ -4110,7 +4110,7 @@ diff -ruN o/lib/dvb/Makefile.inc pc/lib/dvb/Makefile.inc
 +	dvb/decsa.h
 diff -ruN o/lib/dvb/pmtparse.cpp pc/lib/dvb/pmtparse.cpp
 --- o/lib/dvb/pmtparse.cpp	2020-12-28 23:50:44.000000000 +0300
-+++ pc/lib/dvb/pmtparse.cpp	2021-01-11 19:09:52.924423485 +0300
++++ pc/lib/dvb/pmtparse.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -99,6 +99,7 @@
  				video.type = videoStream::vtMPEG2;
  				audio.type = audioStream::atMPEG;
@@ -4121,7 +4121,7 @@ diff -ruN o/lib/dvb/pmtparse.cpp pc/lib/dvb/pmtparse.cpp
  				{
 diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
 --- o/lib/dvb/pmtparse.h	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/pmtparse.h	2021-01-11 19:09:52.924423485 +0300
++++ pc/lib/dvb/pmtparse.h	2021-01-11 19:09:52.000000000 +0300
 @@ -26,6 +26,7 @@
  		int component_tag;
  		enum { vtMPEG2, vtMPEG4_H264, vtVC1 = 3, vtMPEG4_Part2, vtVC1_SM, vtMPEG1, vtH265_HEVC, vtCAVS = 16 };
@@ -4132,7 +4132,7 @@ diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
  	struct audioStream
 diff -ruN o/lib/dvb/pvrparse.cpp pc/lib/dvb/pvrparse.cpp
 --- o/lib/dvb/pvrparse.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/pvrparse.cpp	2021-01-11 19:09:52.926423446 +0300
++++ pc/lib/dvb/pvrparse.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -7,6 +7,7 @@
  #include <fcntl.h>
  #include <byteswap.h>
@@ -4207,7 +4207,7 @@ diff -ruN o/lib/dvb/pvrparse.cpp pc/lib/dvb/pvrparse.cpp
  
 diff -ruN o/lib/dvb/pvrparse.h pc/lib/dvb/pvrparse.h
 --- o/lib/dvb/pvrparse.h	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/pvrparse.h	2021-01-11 19:09:52.926423446 +0300
++++ pc/lib/dvb/pvrparse.h	2021-01-11 19:09:52.000000000 +0300
 @@ -136,6 +136,9 @@
  	pts_t m_first_pts;
  	int m_packetsize;
@@ -4220,7 +4220,7 @@ diff -ruN o/lib/dvb/pvrparse.h pc/lib/dvb/pvrparse.h
  	bool m_pts_found; /* 'real' mpeg pts has been found, no longer measuring streamtime */
 diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
 --- o/lib/dvb/volume.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb/volume.cpp	2021-01-11 19:09:52.926423446 +0300
++++ pc/lib/dvb/volume.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -5,16 +5,15 @@
  #include <fcntl.h>
  #include <sys/ioctl.h>
@@ -4287,7 +4287,7 @@ diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
  void eDVBVolumecontrol::volumeToggleMute()
 diff -ruN o/lib/dvb_ci/dvbci.cpp pc/lib/dvb_ci/dvbci.cpp
 --- o/lib/dvb_ci/dvbci.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/dvb_ci/dvbci.cpp	2021-01-11 19:09:52.927423426 +0300
++++ pc/lib/dvb_ci/dvbci.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -183,7 +183,7 @@
  	{
  		path.str("");
@@ -4335,7 +4335,7 @@ diff -ruN o/lib/dvb_ci/dvbci.cpp pc/lib/dvb_ci/dvbci.cpp
  	return 0;
 diff -ruN o/lib/gdi/fblcd.cpp pc/lib/gdi/fblcd.cpp
 --- o/lib/gdi/fblcd.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/gdi/fblcd.cpp	2021-01-11 19:09:52.927423426 +0300
++++ pc/lib/gdi/fblcd.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -275,11 +275,11 @@
  int eFbLCD::setLCDBrightness(int brightness)
  {
@@ -4352,7 +4352,7 @@ diff -ruN o/lib/gdi/fblcd.cpp pc/lib/gdi/fblcd.cpp
  	return 0;
 diff -ruN o/lib/gdi/gpixmap.cpp pc/lib/gdi/gpixmap.cpp
 --- o/lib/gdi/gpixmap.cpp	2020-12-28 23:50:44.000000000 +0300
-+++ pc/lib/gdi/gpixmap.cpp	2021-01-11 19:09:52.935423267 +0300
++++ pc/lib/gdi/gpixmap.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -205,12 +205,6 @@
  gSurface::gSurface(int width, int height, int _bpp, int accel):
  	gUnmanagedSurface(width, height, _bpp)
@@ -4368,7 +4368,7 @@ diff -ruN o/lib/gdi/gpixmap.cpp pc/lib/gdi/gpixmap.cpp
  		data = new unsigned char [y * stride];
 diff -ruN o/lib/gdi/gxlibdc.cpp pc/lib/gdi/gxlibdc.cpp
 --- o/lib/gdi/gxlibdc.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/gxlibdc.cpp	2021-01-11 19:09:52.936423248 +0300
++++ pc/lib/gdi/gxlibdc.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,388 @@
 +#include <fstream>
 +#include <lib/gdi/gxlibdc.h>
@@ -4760,7 +4760,7 @@ diff -ruN o/lib/gdi/gxlibdc.cpp pc/lib/gdi/gxlibdc.cpp
 +eAutoInitPtr<gXlibDC> init_gXlibDC(eAutoInitNumbers::graphic-1, "gXlibDC");
 diff -ruN o/lib/gdi/gxlibdc.h pc/lib/gdi/gxlibdc.h
 --- o/lib/gdi/gxlibdc.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/gxlibdc.h	2021-01-11 19:09:52.936423248 +0300
++++ pc/lib/gdi/gxlibdc.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,80 @@
 +#ifndef __lib_gdi_gxlibdc_h
 +#define __lib_gdi_gxlibdc_h
@@ -4844,7 +4844,7 @@ diff -ruN o/lib/gdi/gxlibdc.h pc/lib/gdi/gxlibdc.h
 +#endif
 diff -ruN o/lib/gdi/lcd.cpp pc/lib/gdi/lcd.cpp
 --- o/lib/gdi/lcd.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/gdi/lcd.cpp	2021-01-11 19:09:52.936423248 +0300
++++ pc/lib/gdi/lcd.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -82,8 +82,8 @@
  	lcdfd = open("/dev/dbox/oled0", O_RDWR);
  	if (lcdfd < 0)
@@ -4899,7 +4899,7 @@ diff -ruN o/lib/gdi/lcd.cpp pc/lib/gdi/lcd.cpp
  	else
 diff -ruN o/lib/gdi/Makefile.inc pc/lib/gdi/Makefile.inc
 --- o/lib/gdi/Makefile.inc	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/gdi/Makefile.inc	2021-01-11 19:09:52.936423248 +0300
++++ pc/lib/gdi/Makefile.inc	2021-01-11 19:09:52.000000000 +0300
 @@ -44,8 +44,17 @@
  	gdi/pixmapcache.h \
  	gdi/region.h
@@ -4926,7 +4926,7 @@ diff -ruN o/lib/gdi/Makefile.inc pc/lib/gdi/Makefile.inc
 +endif
 diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
 --- o/lib/gdi/picload.cpp	2021-01-01 19:36:07.000000000 +0300
-+++ pc/lib/gdi/picload.cpp	2021-01-11 19:09:52.936423248 +0300
++++ pc/lib/gdi/picload.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -700,8 +700,6 @@
  
  void ePicLoad::decodePic()
@@ -4946,7 +4946,7 @@ diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
  	switch(aspect)
 diff -ruN o/lib/gdi/post.cpp pc/lib/gdi/post.cpp
 --- o/lib/gdi/post.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/post.cpp	2021-01-11 19:09:52.946423049 +0300
++++ pc/lib/gdi/post.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,903 @@
 +/*
 + * Copyright (C) 2003 by Dirk Meyer
@@ -5853,7 +5853,7 @@ diff -ruN o/lib/gdi/post.cpp pc/lib/gdi/post.cpp
 +}
 diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 --- o/lib/gdi/post.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/post.h	2021-01-11 19:09:52.946423049 +0300
++++ pc/lib/gdi/post.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,99 @@
 +/*
 + * Copyright (C) 2003 by Dirk Meyer
@@ -5956,7 +5956,7 @@ diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 +/* end of post.h */
 diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 --- o/lib/gdi/xineLib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.cpp	2021-01-11 19:09:52.946423049 +0300
++++ pc/lib/gdi/xineLib.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,948 @@
 +#include <fstream>
 +#include <lib/gdi/xineLib.h>
@@ -6908,7 +6908,7 @@ diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 +}
 diff -ruN o/lib/gdi/xineLib.h pc/lib/gdi/xineLib.h
 --- o/lib/gdi/xineLib.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.h	2021-01-11 19:09:52.946423049 +0300
++++ pc/lib/gdi/xineLib.h	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,117 @@
 +#ifndef __lib_gdi_xineLib_h
 +#define __lib_gdi_xineLib_h
@@ -7029,7 +7029,7 @@ diff -ruN o/lib/gdi/xineLib.h pc/lib/gdi/xineLib.h
 +#endif
 diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
 --- o/lib/gui/evideo.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/gui/evideo.cpp	2021-01-11 19:09:52.946423049 +0300
++++ pc/lib/gui/evideo.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -1,6 +1,7 @@
  #include <lib/base/cfile.h>
  #include <lib/gui/evideo.h>
@@ -7076,7 +7076,7 @@ diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
  		m_state |= 8;
 diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 --- o/lib/python/Components/About.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/About.py	2021-01-11 19:09:52.946423049 +0300
++++ pc/lib/python/Components/About.py	2021-01-11 19:09:52.000000000 +0300
 @@ -8,8 +8,8 @@
  
  def getImageVersionString():
@@ -7156,7 +7156,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  		return _("unknown")
 diff -ruN o/lib/python/Components/AVSwitch.py pc/lib/python/Components/AVSwitch.py
 --- o/lib/python/Components/AVSwitch.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/AVSwitch.py	2021-01-11 19:09:52.947423029 +0300
++++ pc/lib/python/Components/AVSwitch.py	2021-01-11 19:09:52.000000000 +0300
 @@ -23,7 +23,7 @@
  			return (4,3)
  		elif valstr == "16_9": # auto ... 4:3 or 16:9
@@ -7262,7 +7262,7 @@ diff -ruN o/lib/python/Components/AVSwitch.py pc/lib/python/Components/AVSwitch.
  
 diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Components/Converter/EventName.py
 --- o/lib/python/Components/Converter/EventName.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Converter/EventName.py	2021-01-11 19:09:52.947423029 +0300
++++ pc/lib/python/Components/Converter/EventName.py	2021-01-11 19:09:52.000000000 +0300
 @@ -103,10 +103,6 @@
  				return ""
  			else:
@@ -7276,7 +7276,7 @@ diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Component
  		elif self.type == self.EXTENDED_DESCRIPTION:
 diff -ruN o/lib/python/Components/Converter/PliExtraInfo.py pc/lib/python/Components/Converter/PliExtraInfo.py
 --- o/lib/python/Components/Converter/PliExtraInfo.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Converter/PliExtraInfo.py	2021-01-11 19:09:52.947423029 +0300
++++ pc/lib/python/Components/Converter/PliExtraInfo.py	2021-01-11 19:09:52.000000000 +0300
 @@ -164,7 +164,7 @@
  		fps = (info.getInfo(iServiceInformation.sFrameRate) + 500) / 1000
  		if not fps:
@@ -7288,7 +7288,7 @@ diff -ruN o/lib/python/Components/Converter/PliExtraInfo.py pc/lib/python/Compon
  		return "%sx%s%s%s" % (xres, yres, mode, fps)
 diff -ruN o/lib/python/Components/Converter/TemplatedMultiContent.py pc/lib/python/Components/Converter/TemplatedMultiContent.py
 --- o/lib/python/Components/Converter/TemplatedMultiContent.py	2020-10-28 15:03:25.000000000 +0300
-+++ pc/lib/python/Components/Converter/TemplatedMultiContent.py	2021-01-11 19:09:52.948423010 +0300
++++ pc/lib/python/Components/Converter/TemplatedMultiContent.py	2021-01-11 19:09:52.000000000 +0300
 @@ -6,9 +6,8 @@
  	def __init__(self, args):
  		StringList.__init__(self, args)
@@ -7302,7 +7302,7 @@ diff -ruN o/lib/python/Components/Converter/TemplatedMultiContent.py pc/lib/pyth
  		del loc["args"]
 diff -ruN o/lib/python/Components/FanControl.py pc/lib/python/Components/FanControl.py
 --- o/lib/python/Components/FanControl.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/FanControl.py	2021-01-11 19:09:52.948423010 +0300
++++ pc/lib/python/Components/FanControl.py	2021-01-11 19:09:52.000000000 +0300
 @@ -9,7 +9,7 @@
  class FanControl:
  	# ATM there's only support for one fan
@@ -7350,7 +7350,7 @@ diff -ruN o/lib/python/Components/FanControl.py pc/lib/python/Components/FanCont
  fancontrol = FanControl()
 diff -ruN o/lib/python/Components/Harddisk.py pc/lib/python/Components/Harddisk.py
 --- o/lib/python/Components/Harddisk.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Harddisk.py	2021-01-11 19:09:52.949422990 +0300
++++ pc/lib/python/Components/Harddisk.py	2021-01-11 19:09:52.000000000 +0300
 @@ -46,7 +46,7 @@
  	def __init__(self, device, removable=False):
  		self.device = device
@@ -7386,7 +7386,7 @@ diff -ruN o/lib/python/Components/Harddisk.py pc/lib/python/Components/Harddisk.
  
 diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
 --- o/lib/python/Components/HdmiCec.py	2020-11-21 12:40:50.000000000 +0300
-+++ pc/lib/python/Components/HdmiCec.py	2021-01-11 19:09:52.949422990 +0300
++++ pc/lib/python/Components/HdmiCec.py	2021-01-11 19:09:52.000000000 +0300
 @@ -6,7 +6,7 @@
  from enigma import eTimer
  from sys import maxint
@@ -7398,7 +7398,7 @@ diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
  # CEC Version's table
 diff -ruN o/lib/python/Components/ImportChannels.py pc/lib/python/Components/ImportChannels.py
 --- o/lib/python/Components/ImportChannels.py	2020-10-08 17:00:52.000000000 +0300
-+++ pc/lib/python/Components/ImportChannels.py	2021-01-11 19:09:52.949422990 +0300
++++ pc/lib/python/Components/ImportChannels.py	2021-01-11 19:09:52.000000000 +0300
 @@ -68,7 +68,7 @@
  				return
  			print "[Import Channels] Get EPG Location"
@@ -7410,7 +7410,7 @@ diff -ruN o/lib/python/Components/ImportChannels.py pc/lib/python/Components/Imp
  				except:
 diff -ruN o/lib/python/Components/InputDevice.py pc/lib/python/Components/InputDevice.py
 --- o/lib/python/Components/InputDevice.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/InputDevice.py	2021-01-11 19:09:52.949422990 +0300
++++ pc/lib/python/Components/InputDevice.py	2021-01-11 19:09:52.000000000 +0300
 @@ -40,7 +40,6 @@
  				self.name = self.name[:self.name.find("\0")]
  				os.close(self.fd)
@@ -7448,7 +7448,7 @@ diff -ruN o/lib/python/Components/InputDevice.py pc/lib/python/Components/InputD
  iRcTypeControl = RcTypeControl()
 diff -ruN o/lib/python/Components/NimManager.py pc/lib/python/Components/NimManager.py
 --- o/lib/python/Components/NimManager.py	2020-09-01 15:30:28.000000000 +0300
-+++ pc/lib/python/Components/NimManager.py	2021-01-11 19:09:52.950422970 +0300
++++ pc/lib/python/Components/NimManager.py	2021-01-11 19:09:52.000000000 +0300
 @@ -540,7 +540,7 @@
  				types.remove("DVB-S")
  			if len(types) > 1:
@@ -7584,7 +7584,7 @@ diff -ruN o/lib/python/Components/NimManager.py pc/lib/python/Components/NimMana
  						if is_dvb_shutdown_timeout:
 diff -ruN o/lib/python/Components/Opkg.py pc/lib/python/Components/Opkg.py
 --- o/lib/python/Components/Opkg.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Opkg.py	2021-01-11 19:09:52.951422950 +0300
++++ pc/lib/python/Components/Opkg.py	2021-01-11 19:09:52.000000000 +0300
 @@ -24,10 +24,10 @@
  		if why == 'add':
  			if opkgStatusPath == '':
@@ -7639,7 +7639,7 @@ diff -ruN o/lib/python/Components/Opkg.py pc/lib/python/Components/Opkg.py
  			if args['installed_only']:
 diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Components/ParentalControlList.py
 --- o/lib/python/Components/ParentalControlList.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/python/Components/ParentalControlList.py	2021-01-11 19:09:52.951422950 +0300
++++ pc/lib/python/Components/ParentalControlList.py	2021-01-11 19:09:52.000000000 +0300
 @@ -0,0 +1,45 @@
 +from MenuList import MenuList
 +from Components.ParentalControl import IMG_WHITESERVICE, IMG_WHITEBOUQUET, IMG_BLACKSERVICE, IMG_BLACKBOUQUET
@@ -7688,7 +7688,7 @@ diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Component
 +		self.l.setList(self.list)
 diff -ruN o/lib/python/Components/PluginComponent.py pc/lib/python/Components/PluginComponent.py
 --- o/lib/python/Components/PluginComponent.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/PluginComponent.py	2021-01-11 19:09:52.951422950 +0300
++++ pc/lib/python/Components/PluginComponent.py	2021-01-11 19:09:52.000000000 +0300
 @@ -54,7 +54,7 @@
  						except Exception, exc:
  							print "Plugin ", c + "/" + pluginname, "failed to load:", exc
@@ -7700,7 +7700,7 @@ diff -ruN o/lib/python/Components/PluginComponent.py pc/lib/python/Components/Pl
  									from traceback import print_exc
 diff -ruN o/lib/python/Components/RcModel.py pc/lib/python/Components/RcModel.py
 --- o/lib/python/Components/RcModel.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/RcModel.py	2021-01-11 19:09:52.951422950 +0300
++++ pc/lib/python/Components/RcModel.py	2021-01-11 19:09:52.000000000 +0300
 @@ -20,8 +20,8 @@
  
  	def getRcFile(self, ext):
@@ -7714,7 +7714,7 @@ diff -ruN o/lib/python/Components/RcModel.py pc/lib/python/Components/RcModel.py
  			modeltype = None
 diff -ruN o/lib/python/Components/Renderer/FrontpanelLed.py pc/lib/python/Components/Renderer/FrontpanelLed.py
 --- o/lib/python/Components/Renderer/FrontpanelLed.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Renderer/FrontpanelLed.py	2021-01-11 19:09:52.951422950 +0300
++++ pc/lib/python/Components/Renderer/FrontpanelLed.py	2021-01-11 19:09:52.000000000 +0300
 @@ -17,16 +17,16 @@
  		(speed, pattern, pattern_4bit) = self.patterns[val]
  
@@ -7738,7 +7738,7 @@ diff -ruN o/lib/python/Components/Renderer/FrontpanelLed.py pc/lib/python/Compon
  				pass
 diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Components/Renderer/NextEpgInfo.py
 --- o/lib/python/Components/Renderer/NextEpgInfo.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Renderer/NextEpgInfo.py	2021-01-11 19:09:52.951422950 +0300
++++ pc/lib/python/Components/Renderer/NextEpgInfo.py	2021-01-11 19:09:52.000000000 +0300
 @@ -32,15 +32,11 @@
  					if event:
  						if self.hideLabel:
@@ -7757,7 +7757,7 @@ diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Componen
  		attribs = []
 diff -ruN o/lib/python/Components/Sensors.py pc/lib/python/Components/Sensors.py
 --- o/lib/python/Components/Sensors.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Sensors.py	2021-01-11 19:09:52.952422930 +0300
++++ pc/lib/python/Components/Sensors.py	2021-01-11 19:09:52.000000000 +0300
 @@ -51,12 +51,12 @@
  
  	def addSensors(self):
@@ -7778,7 +7778,7 @@ diff -ruN o/lib/python/Components/Sensors.py pc/lib/python/Components/Sensors.py
  				self.sensors_list.append((self.TYPE_FAN_RPM, _("Fan %d") % (fanid + 1), "rpm", fanid))
 diff -ruN o/lib/python/Components/Sources/List.py pc/lib/python/Components/Sources/List.py
 --- o/lib/python/Components/Sources/List.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Sources/List.py	2021-01-11 19:09:52.952422930 +0300
++++ pc/lib/python/Components/Sources/List.py	2021-01-11 19:09:52.000000000 +0300
 @@ -99,7 +99,6 @@
  
  	def updateList(self, list):
@@ -7789,7 +7789,7 @@ diff -ruN o/lib/python/Components/Sources/List.py pc/lib/python/Components/Sourc
  		self.list = list
 diff -ruN o/lib/python/Components/SystemInfo.py pc/lib/python/Components/SystemInfo.py
 --- o/lib/python/Components/SystemInfo.py	2021-01-06 20:08:46.000000000 +0300
-+++ pc/lib/python/Components/SystemInfo.py	2021-01-11 19:09:52.953422910 +0300
++++ pc/lib/python/Components/SystemInfo.py	2021-01-11 19:09:52.000000000 +0300
 @@ -21,8 +21,8 @@
  	return numVideoDecoders
  
@@ -7954,7 +7954,7 @@ diff -ruN o/lib/python/Components/SystemInfo.py pc/lib/python/Components/SystemI
  SystemInfo["FbcTunerPowerAlwaysOn"] = model in ("vusolo4k", "vuduo4k", "vuduo4kse", "vuultimo4k", "vuuno4k", "vuuno4kse", "gbquad4k", "gbue4k")
 diff -ruN o/lib/python/Components/Timezones.py pc/lib/python/Components/Timezones.py
 --- o/lib/python/Components/Timezones.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/Timezones.py	2021-01-11 19:09:52.953422910 +0300
++++ pc/lib/python/Components/Timezones.py	2021-01-11 19:09:52.000000000 +0300
 @@ -293,7 +293,7 @@
  		except Exception:
  			from enigma import e_tzset
@@ -7966,7 +7966,7 @@ diff -ruN o/lib/python/Components/Timezones.py pc/lib/python/Components/Timezone
  		timeFormat = "%a %d-%b-%Y %H:%M:%S"
 diff -ruN o/lib/python/Components/TunerInfo.py pc/lib/python/Components/TunerInfo.py
 --- o/lib/python/Components/TunerInfo.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Components/TunerInfo.py	2021-01-11 19:09:52.953422910 +0300
++++ pc/lib/python/Components/TunerInfo.py	2021-01-11 19:09:52.000000000 +0300
 @@ -43,8 +43,6 @@
  	def calc(self,val):
  		if not val:
@@ -7978,7 +7978,7 @@ diff -ruN o/lib/python/Components/TunerInfo.py pc/lib/python/Components/TunerInf
  	def update(self):
 diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageConfig.py
 --- o/lib/python/Components/UsageConfig.py	2020-10-08 17:00:52.000000000 +0300
-+++ pc/lib/python/Components/UsageConfig.py	2021-01-11 19:09:52.953422910 +0300
++++ pc/lib/python/Components/UsageConfig.py	2021-01-11 19:09:52.000000000 +0300
 @@ -343,8 +343,8 @@
  
  	if SystemInfo["Fan"]:
@@ -8044,7 +8044,7 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  	if choices:
 diff -ruN o/lib/python/enigma_python.i pc/lib/python/enigma_python.i
 --- o/lib/python/enigma_python.i	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/enigma_python.i	2021-01-11 19:09:52.953422910 +0300
++++ pc/lib/python/enigma_python.i	2021-01-11 19:09:52.000000000 +0300
 @@ -43,7 +43,6 @@
  #include <lib/base/message.h>
  #include <lib/base/e2avahi.h>
@@ -8063,7 +8063,7 @@ diff -ruN o/lib/python/enigma_python.i pc/lib/python/enigma_python.i
  %include <lib/gdi/gpixmap.h>
 diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml
 --- o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2021-01-11 19:09:52.953422910 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2021-01-11 19:09:52.000000000 +0300
 @@ -7,7 +7,7 @@
  		titlesetmode="multi"
  		vmgm="vmgmdream.mpg"
@@ -8075,7 +8075,7 @@ diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml pc/lib/p
  	<titles> </titles>
 diff -ruN o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py
 --- o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2021-01-11 19:09:52.954422891 +0300
++++ pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2021-01-11 19:09:52.000000000 +0300
 @@ -347,13 +347,11 @@
  		currPlay = self.session.nav.getCurrentService()
  		sTagAudioCodec = currPlay.info().getInfoString(iServiceInformation.sTagAudioCodec)
@@ -8092,7 +8092,7 @@ diff -ruN o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py pc/lib/python/Pl
  		currPlay = self.session.nav.getCurrentService()
 diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py
 --- o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-01-01 19:36:07.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-01-11 19:09:52.955422871 +0300
++++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-01-11 19:09:52.000000000 +0300
 @@ -171,7 +171,7 @@
  		if self.step == 1:
  			self.step = self.yes_no.value and 5 or 2
@@ -8104,7 +8104,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py 
  			self.step = 5
 diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py	2021-01-11 19:09:52.955422871 +0300
++++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py	2021-01-11 19:09:52.000000000 +0300
 @@ -13,10 +13,10 @@
  	if dst_top + dst_height > 576:
  		dst_height = 576 - dst_top
@@ -8122,7 +8122,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py pc/lib/p
  
 diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py
 --- o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2021-01-11 19:09:52.955422871 +0300
++++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2021-01-11 19:09:52.000000000 +0300
 @@ -116,7 +116,7 @@
  
  		self.selectedFiles = config.plugins.configurationbackup.backupdirs.value
@@ -8145,7 +8145,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc
  		if self.finished_cb:
 diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/plugin.py pc/lib/python/Plugins/SystemPlugins/SoftwareManager/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/SoftwareManager/plugin.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/plugin.py	2021-01-11 19:09:52.955422871 +0300
++++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/plugin.py	2021-01-11 19:09:52.000000000 +0300
 @@ -1384,7 +1384,7 @@
  
  	def fill_list(self):
@@ -8157,7 +8157,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/plugin.py pc/lib/py
  			return
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py pc/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py	2021-01-11 19:09:52.956422851 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py	2021-01-11 19:09:52.000000000 +0300
 @@ -98,16 +98,16 @@
  	if clip_top + clip_height > 576:
  		clip_height = 576 - clip_top
@@ -8190,7 +8190,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py pc/lib
  					PluginDescriptor(name = _("Video clipping setup"), description = "", where = PluginDescriptor.WHERE_SESSIONSTART, fnc = startup)]
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py	2021-01-11 19:09:52.956422851 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py	2021-01-11 19:09:52.000000000 +0300
 @@ -392,6 +392,6 @@
  
  def Plugins(**kwargs):
@@ -8201,7 +8201,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py pc/lib/p
  	return list
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py
 --- o/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py	2021-01-11 19:09:52.956422851 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py	2021-01-11 19:09:52.000000000 +0300
 @@ -1,7 +1,7 @@
  from Components.config import config, ConfigSubsection, ConfigSlider, ConfigSelection, ConfigBoolean, ConfigNothing, NoSave
  import os
@@ -8461,7 +8461,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.p
  
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2021-01-11 19:09:52.956422851 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2021-01-11 19:09:52.000000000 +0300
 @@ -16,11 +16,13 @@
  		Screen.__init__(self, session)
  		# for the skin: first try VideoSetup, then Setup, this allows individual skinning
@@ -8684,7 +8684,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  	from VideoWizard import VideoWizard
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2021-01-11 19:09:52.960422772 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2021-01-11 19:09:52.000000000 +0300
 @@ -1,202 +1,102 @@
 +from enigma import eTimer, eAVSwitch
  from Components.config import config, ConfigSelection, ConfigSubDict, ConfigYesNo
@@ -9185,7 +9185,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/p
  video_hw.setConfiguredMode()
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2021-01-11 19:09:52.960422772 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2021-01-11 19:09:52.000000000 +0300
 @@ -3,7 +3,7 @@
  from Screens.Rc import Rc
  from VideoHardware import video_hw
@@ -9280,7 +9280,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py pc/lib/pyt
  		configfile.save()
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am
 --- o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2021-01-11 19:09:52.960422772 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2021-01-11 19:09:52.000000000 +0300
 @@ -4,4 +4,4 @@
  
  install_PYTHON =	\
@@ -9289,7 +9289,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python
 +	plugin.py VideoFinetune.py
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py
 --- o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2021-01-11 19:09:52.961422752 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2021-01-11 19:09:52.000000000 +0300
 @@ -1,8 +1,6 @@
  from Screens.Screen import Screen
 -from Components.config import config
@@ -9538,7 +9538,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
 -		self.close(key)
 diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
 --- o/lib/python/Screens/About.py	2020-12-23 12:41:47.000000000 +0300
-+++ pc/lib/python/Screens/About.py	2021-01-11 19:09:52.961422752 +0300
++++ pc/lib/python/Screens/About.py	2021-01-11 19:09:52.000000000 +0300
 @@ -443,7 +443,7 @@
  		import glob
  		home_root = "/home/root/enigma2_crash.log"
@@ -9550,7 +9550,7 @@ diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
  		self.titles = ["dmesg", "ifconfig", "df", "top", "ps", "messages"]
 diff -ruN o/lib/python/Screens/AudioSelection.py pc/lib/python/Screens/AudioSelection.py
 --- o/lib/python/Screens/AudioSelection.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Screens/AudioSelection.py	2021-01-11 19:09:52.961422752 +0300
++++ pc/lib/python/Screens/AudioSelection.py	2021-01-11 19:09:52.000000000 +0300
 @@ -392,6 +392,20 @@
  		AudioSelection.__init__(self, session, infobar, page=PAGE_SUBTITLES)
  		self.skinName = ["AudioSelection"]
@@ -9574,7 +9574,7 @@ diff -ruN o/lib/python/Screens/AudioSelection.py pc/lib/python/Screens/AudioSele
  	<screen position="50,50" size="480,305" title="Subtitle settings" backgroundColor="#7f000000" flags="wfNoBorder">
 diff -ruN o/lib/python/Screens/ChannelSelection.py pc/lib/python/Screens/ChannelSelection.py
 --- o/lib/python/Screens/ChannelSelection.py	2021-01-06 20:08:46.000000000 +0300
-+++ pc/lib/python/Screens/ChannelSelection.py	2021-01-11 19:09:52.961422752 +0300
++++ pc/lib/python/Screens/ChannelSelection.py	2021-01-11 19:09:52.000000000 +0300
 @@ -177,7 +177,7 @@
  								append_when_current_valid(current, menu, (_("Remove from parental protection"), boundFunction(self.removeParentalProtection, current)), level=0)
  						if self.parentalControl.blacklist and config.ParentalControl.hideBlacklist.value and not self.parentalControl.sessionPinCached and config.ParentalControl.storeservicepin.value != "never":
@@ -9586,7 +9586,7 @@ diff -ruN o/lib/python/Screens/ChannelSelection.py pc/lib/python/Screens/Channel
  						else:
 diff -ruN o/lib/python/Screens/DVD.py pc/lib/python/Screens/DVD.py
 --- o/lib/python/Screens/DVD.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Screens/DVD.py	2021-01-11 19:09:52.962422732 +0300
++++ pc/lib/python/Screens/DVD.py	2021-01-11 19:09:52.000000000 +0300
 @@ -255,16 +255,16 @@
  		self.onFirstExecBegin.append(self.opened)
  		self.service = None
@@ -9630,7 +9630,7 @@ diff -ruN o/lib/python/Screens/DVD.py pc/lib/python/Screens/DVD.py
  		if not self.in_menu:
 diff -ruN o/lib/python/Screens/EpgSelection.py pc/lib/python/Screens/EpgSelection.py
 --- o/lib/python/Screens/EpgSelection.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Screens/EpgSelection.py	2021-01-11 19:09:52.962422732 +0300
++++ pc/lib/python/Screens/EpgSelection.py	2021-01-11 19:09:52.000000000 +0300
 @@ -66,8 +66,8 @@
  			self.setTitle(_("Multi EPG"))
  			self.skinName = "EPGSelectionMulti"
@@ -9644,7 +9644,7 @@ diff -ruN o/lib/python/Screens/EpgSelection.py pc/lib/python/Screens/EpgSelectio
  			self["more_button"] = Pixmap()
 diff -ruN o/lib/python/Screens/Hotkey.py pc/lib/python/Screens/Hotkey.py
 --- o/lib/python/Screens/Hotkey.py	2020-12-17 15:19:01.000000000 +0300
-+++ pc/lib/python/Screens/Hotkey.py	2021-01-11 19:09:52.962422732 +0300
++++ pc/lib/python/Screens/Hotkey.py	2021-01-11 19:09:52.000000000 +0300
 @@ -221,8 +221,8 @@
  	hotkey.functions.append((_("PowerMenu"), "Menu/shutdown", "Power"))
  	hotkey.functions.append((_("Standby"), "Module/Screens.Standby/Standby", "Power"))
@@ -9658,7 +9658,7 @@ diff -ruN o/lib/python/Screens/Hotkey.py pc/lib/python/Screens/Hotkey.py
  	hotkey.functions.append((_("Recording Setup"), "Setup/recording", "Setup"))
 diff -ruN o/lib/python/Screens/InfoBarGenerics.py pc/lib/python/Screens/InfoBarGenerics.py
 --- o/lib/python/Screens/InfoBarGenerics.py	2020-12-01 13:42:25.000000000 +0300
-+++ pc/lib/python/Screens/InfoBarGenerics.py	2021-01-11 19:09:52.963422712 +0300
++++ pc/lib/python/Screens/InfoBarGenerics.py	2021-01-11 19:09:52.000000000 +0300
 @@ -106,7 +106,7 @@
  	global resumePointCache, resumePointCacheLast
  	import cPickle
@@ -9698,7 +9698,7 @@ diff -ruN o/lib/python/Screens/InfoBarGenerics.py pc/lib/python/Screens/InfoBarG
  	def HDMIIn(self):
 diff -ruN o/lib/python/Screens/MovieSelection.py pc/lib/python/Screens/MovieSelection.py
 --- o/lib/python/Screens/MovieSelection.py	2020-08-19 11:30:41.000000000 +0300
-+++ pc/lib/python/Screens/MovieSelection.py	2021-01-11 19:09:52.963422712 +0300
++++ pc/lib/python/Screens/MovieSelection.py	2021-01-11 19:09:52.000000000 +0300
 @@ -48,7 +48,7 @@
  config.movielist.last_selected_tags = ConfigSet([], default=[])
  config.movielist.play_audio_internal = ConfigYesNo(default=True)
@@ -9710,7 +9710,7 @@ diff -ruN o/lib/python/Screens/MovieSelection.py pc/lib/python/Screens/MovieSele
  config.movielist.add_bookmark = ConfigYesNo(default=True)
 diff -ruN o/lib/python/Screens/PluginBrowser.py pc/lib/python/Screens/PluginBrowser.py
 --- o/lib/python/Screens/PluginBrowser.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Screens/PluginBrowser.py	2021-01-11 19:09:52.964422693 +0300
++++ pc/lib/python/Screens/PluginBrowser.py	2021-01-11 19:09:52.000000000 +0300
 @@ -57,7 +57,6 @@
  		self.firsttime = True
  
@@ -9749,7 +9749,7 @@ diff -ruN o/lib/python/Screens/PluginBrowser.py pc/lib/python/Screens/PluginBrow
  		for plugin in self.pluginlist:
 diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
 --- o/lib/python/Screens/Satconfig.py	2020-12-17 15:19:01.000000000 +0300
-+++ pc/lib/python/Screens/Satconfig.py	2021-01-11 19:09:52.966422653 +0300
++++ pc/lib/python/Screens/Satconfig.py	2021-01-11 19:09:52.000000000 +0300
 @@ -129,7 +129,7 @@
  				self.configMode = getConfigListEntry(self.indent % _("Configuration mode"), self.nimConfig.configMode, _("Select 'FBC SCR' if this tuner will connect to a SCR (Unicable/JESS) device. For all other setups select 'FBC automatic'.") if self.nim.isFBCLink() else _("Configure this tuner using simple or advanced options, or loop it through to another tuner, or copy a configuration from another tuner, or disable it."))
  				self.list.append(self.configMode)
@@ -9778,7 +9778,7 @@ diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
  		if self.nim.isCompatible("DVB-C") or (self.nim.isCombined() and self.nim.canBeCompatible("DVB-C")):
 diff -ruN o/lib/python/Screens/SkinSelector.py pc/lib/python/Screens/SkinSelector.py
 --- o/lib/python/Screens/SkinSelector.py	2020-08-29 17:37:20.000000000 +0300
-+++ pc/lib/python/Screens/SkinSelector.py	2021-01-11 19:09:52.966422653 +0300
++++ pc/lib/python/Screens/SkinSelector.py	2021-01-11 19:09:52.000000000 +0300
 @@ -5,7 +5,7 @@
  from os import listdir
  from os.path import dirname, exists, isdir, join as pathjoin
@@ -9963,7 +9963,7 @@ diff -ruN o/lib/python/Screens/SkinSelector.py pc/lib/python/Screens/SkinSelecto
  		self.refreshList()
 diff -ruN o/lib/python/Screens/SoftcamSetup.py pc/lib/python/Screens/SoftcamSetup.py
 --- o/lib/python/Screens/SoftcamSetup.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Screens/SoftcamSetup.py	2021-01-11 19:09:52.967422633 +0300
++++ pc/lib/python/Screens/SoftcamSetup.py	2021-01-11 19:09:52.000000000 +0300
 @@ -93,13 +93,13 @@
  
  	def ppanelShortcut(self):
@@ -9983,7 +9983,7 @@ diff -ruN o/lib/python/Screens/SoftcamSetup.py pc/lib/python/Screens/SoftcamSetu
  		else:
 diff -ruN o/lib/python/Screens/SoftwareUpdate.py pc/lib/python/Screens/SoftwareUpdate.py
 --- o/lib/python/Screens/SoftwareUpdate.py	2020-08-19 11:30:41.000000000 +0300
-+++ pc/lib/python/Screens/SoftwareUpdate.py	2021-01-11 19:09:52.967422633 +0300
++++ pc/lib/python/Screens/SoftwareUpdate.py	2021-01-11 19:09:52.000000000 +0300
 @@ -151,7 +151,7 @@
  				return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(calendar.timegm(urlopen("%s/Packages.gz" % url).info().getdate('Last-Modified'))-time.altzone))
  			except:
@@ -10013,7 +10013,7 @@ diff -ruN o/lib/python/Screens/SoftwareUpdate.py pc/lib/python/Screens/SoftwareU
  			self.opkg.startCmd(OpkgComponent.CMD_UPGRADE, args = {'test_only': False})
 diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.py
 --- o/lib/python/Screens/StartWizard.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Screens/StartWizard.py	2021-01-11 19:09:52.967422633 +0300
++++ pc/lib/python/Screens/StartWizard.py	2021-01-11 19:09:52.000000000 +0300
 @@ -94,7 +94,7 @@
  		self["AboutScrollLabel"] = ScrollLabel("", showscrollbar=False)
  		self["header"] = Label(_("Autoinstalling please wait for packages being updated"))
@@ -10034,7 +10034,7 @@ diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.
  			self.run_console()
 diff -ruN o/lib/python/Tools/Directories.py pc/lib/python/Tools/Directories.py
 --- o/lib/python/Tools/Directories.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Tools/Directories.py	2021-01-11 19:09:52.968422613 +0300
++++ pc/lib/python/Tools/Directories.py	2021-01-11 19:09:52.000000000 +0300
 @@ -61,7 +61,7 @@
  	SCOPE_KEYMAPS: (eEnv.resolve("${datadir}/keymaps/"), PATH_CREATE),
  	SCOPE_METADIR: (eEnv.resolve("${datadir}/meta"), PATH_CREATE),
@@ -10046,7 +10046,7 @@ diff -ruN o/lib/python/Tools/Directories.py pc/lib/python/Tools/Directories.py
  	SCOPE_CURRENT_LCDSKIN: (eEnv.resolve("${datadir}/enigma2/display/"), PATH_DONTCREATE),
 diff -ruN o/lib/python/Tools/HardwareInfo.py pc/lib/python/Tools/HardwareInfo.py
 --- o/lib/python/Tools/HardwareInfo.py	2020-11-15 16:27:29.000000000 +0300
-+++ pc/lib/python/Tools/HardwareInfo.py	2021-01-11 19:09:52.968422613 +0300
++++ pc/lib/python/Tools/HardwareInfo.py	2021-01-11 19:09:52.000000000 +0300
 @@ -19,25 +19,25 @@
  		print "[HardwareInfo] Scanning hardware info"
  		# Version
@@ -10088,7 +10088,7 @@ diff -ruN o/lib/python/Tools/HardwareInfo.py pc/lib/python/Tools/HardwareInfo.py
  					pass
 diff -ruN o/lib/python/Tools/Multiboot.py pc/lib/python/Tools/Multiboot.py
 --- o/lib/python/Tools/Multiboot.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Tools/Multiboot.py	2021-01-11 19:09:52.981422356 +0300
++++ pc/lib/python/Tools/Multiboot.py	2021-01-11 19:09:52.000000000 +0300
 @@ -98,7 +98,7 @@
  			if os.path.isfile(os.path.join(imagedir, 'usr/bin/enigma2')):
  				try:
@@ -10100,7 +10100,7 @@ diff -ruN o/lib/python/Tools/Multiboot.py pc/lib/python/Tools/Multiboot.py
  					date = max(date, datetime.fromtimestamp(os.stat(os.path.join(imagedir, "usr/bin/enigma2")).st_mtime).strftime('%Y-%m-%d'))
 diff -ruN o/lib/python/Tools/StbHardware.py pc/lib/python/Tools/StbHardware.py
 --- o/lib/python/Tools/StbHardware.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/python/Tools/StbHardware.py	2021-01-11 19:09:52.982422336 +0300
++++ pc/lib/python/Tools/StbHardware.py	2021-01-11 19:09:52.000000000 +0300
 @@ -6,7 +6,7 @@
  def getFPVersion():
  	ret = None
@@ -10168,7 +10168,7 @@ diff -ruN o/lib/python/Tools/StbHardware.py pc/lib/python/Tools/StbHardware.py
  			fp = open("/dev/dbox/fp0")
 diff -ruN o/lib/service/Makefile.inc pc/lib/service/Makefile.inc
 --- o/lib/service/Makefile.inc	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/service/Makefile.inc	2021-01-11 19:09:52.982422336 +0300
++++ pc/lib/service/Makefile.inc	2021-01-11 19:09:52.000000000 +0300
 @@ -10,7 +10,6 @@
  	service/servicedvb.cpp \
  	service/servicedvbrecord.cpp \
@@ -10186,8 +10186,8 @@ diff -ruN o/lib/service/Makefile.inc pc/lib/service/Makefile.inc
  	service/servicehdmi.h \
  	service/servicepeer.h \
 diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
---- o/lib/service/servicedvb.cpp	2021-01-11 19:09:20.320069863 +0300
-+++ pc/lib/service/servicedvb.cpp	2021-01-11 19:09:52.982422336 +0300
+--- o/lib/service/servicedvb.cpp	2021-01-11 19:09:20.000000000 +0300
++++ pc/lib/service/servicedvb.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -646,7 +646,6 @@
  	if (sc)
  	{
@@ -10628,7 +10628,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	}
 diff -ruN o/lib/service/servicedvb.h pc/lib/service/servicedvb.h
 --- o/lib/service/servicedvb.h	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/service/servicedvb.h	2021-01-11 19:09:52.983422316 +0300
++++ pc/lib/service/servicedvb.h	2021-01-11 19:09:52.000000000 +0300
 @@ -9,6 +9,8 @@
  #include <lib/dvb/subtitle.h>
  #include <lib/dvb/teletext.h>
@@ -10662,7 +10662,7 @@ diff -ruN o/lib/service/servicedvb.h pc/lib/service/servicedvb.h
  class eStaticServiceDVBBouquetInformation: public iStaticServiceInformation
 diff -ruN o/lib/service/servicedvd.cpp pc/lib/service/servicedvd.cpp
 --- o/lib/service/servicedvd.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/service/servicedvd.cpp	2021-01-11 19:09:52.983422316 +0300
++++ pc/lib/service/servicedvd.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -188,7 +188,7 @@
  	if (ddvd_language != "")
  		ddvd_set_language(m_ddvdconfig, (ddvd_language.substr(0, 2)).c_str());
@@ -10712,7 +10712,7 @@ diff -ruN o/lib/service/servicedvd.cpp pc/lib/service/servicedvd.cpp
  			
 diff -ruN o/lib/service/servicehdmi.cpp pc/lib/service/servicehdmi.cpp
 --- o/lib/service/servicehdmi.cpp	2021-01-06 20:08:46.000000000 +0300
-+++ pc/lib/service/servicehdmi.cpp	2021-01-11 19:09:52.996422058 +0300
++++ pc/lib/service/servicehdmi.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -123,9 +123,9 @@
  RESULT eServiceHDMI::start()
  {
@@ -10727,7 +10727,7 @@ diff -ruN o/lib/service/servicehdmi.cpp pc/lib/service/servicehdmi.cpp
  	return 0;
 diff -ruN o/lib/service/servicets.cpp pc/lib/service/servicets.cpp
 --- o/lib/service/servicets.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/service/servicets.cpp	2021-01-11 19:09:52.997422038 +0300
++++ pc/lib/service/servicets.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -250,8 +250,8 @@
  			return -1;
  		}
@@ -10750,7 +10750,7 @@ diff -ruN o/lib/service/servicets.cpp pc/lib/service/servicets.cpp
  	} else {
 diff -ruN o/lib/service/servicewebts.cpp pc/lib/service/servicewebts.cpp
 --- o/lib/service/servicewebts.cpp	2020-08-01 17:47:17.000000000 +0300
-+++ pc/lib/service/servicewebts.cpp	2021-01-11 19:09:52.997422038 +0300
++++ pc/lib/service/servicewebts.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -375,10 +375,10 @@
  			PID_SET = 1;
  			m_decodedemux->flush();
@@ -10776,7 +10776,7 @@ diff -ruN o/lib/service/servicewebts.cpp pc/lib/service/servicewebts.cpp
  	} else {
 diff -ruN o/main/bsod.cpp pc/main/bsod.cpp
 --- o/main/bsod.cpp	2020-12-28 23:50:44.000000000 +0300
-+++ pc/main/bsod.cpp	2021-01-11 19:09:52.997422038 +0300
++++ pc/main/bsod.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -126,7 +126,7 @@
  		 * alone because we may be in a crash loop and writing this file
  		 * all night long may damage the flash. Also, usually the first
@@ -10804,7 +10804,7 @@ diff -ruN o/main/bsod.cpp pc/main/bsod.cpp
  
 diff -ruN o/main/enigma.cpp pc/main/enigma.cpp
 --- o/main/enigma.cpp	2021-01-02 13:20:21.000000000 +0300
-+++ pc/main/enigma.cpp	2021-01-11 19:09:52.999421999 +0300
++++ pc/main/enigma.cpp	2021-01-11 19:09:52.000000000 +0300
 @@ -138,7 +138,7 @@
  
  void quitMainloop(int exitCode)
@@ -10816,7 +10816,7 @@ diff -ruN o/main/enigma.cpp pc/main/enigma.cpp
  		fprintf(f, "%d", 0);
 diff -ruN o/main/Makefile.am pc/main/Makefile.am
 --- o/main/Makefile.am	2020-08-01 17:47:17.000000000 +0300
-+++ pc/main/Makefile.am	2021-01-11 19:09:52.999421999 +0300
++++ pc/main/Makefile.am	2021-01-11 19:09:52.000000000 +0300
 @@ -45,7 +45,8 @@
  	@ALSA_LIBS@ \
  	@AVAHI_LIBS@ \
@@ -10829,7 +10829,7 @@ diff -ruN o/main/Makefile.am pc/main/Makefile.am
  
 diff -ruN o/mytest.py pc/mytest.py
 --- o/mytest.py	2020-08-01 17:47:17.000000000 +0300
-+++ pc/mytest.py	2021-01-11 19:09:53.007421840 +0300
++++ pc/mytest.py	2021-01-11 19:09:53.000000000 +0300
 @@ -53,7 +53,7 @@
  
  profile("config.misc")
@@ -10850,7 +10850,7 @@ diff -ruN o/mytest.py pc/mytest.py
  	if os.path.isdir(configElement.value) or os.path.islink(configElement.value):
 diff -ruN o/po/ru.po pc/po/ru.po
 --- o/po/ru.po	2020-12-01 13:42:25.000000000 +0300
-+++ pc/po/ru.po	2021-01-11 19:09:53.012421741 +0300
++++ pc/po/ru.po	2021-01-11 19:09:53.000000000 +0300
 @@ -2,16 +2,16 @@
  msgstr ""
  "Project-Id-Version: enigma2\n"
@@ -20565,7 +20565,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
 +msgstr "Установка 'горячих клавиш'"
 diff -ruN o/skin.py pc/skin.py
 --- o/skin.py	2020-12-17 15:19:01.000000000 +0300
-+++ pc/skin.py	2021-01-11 19:09:53.013421721 +0300
++++ pc/skin.py	2021-01-11 19:09:53.000000000 +0300
 @@ -1,20 +1,21 @@
 +from Tools.Profile import profile
 +profile("LOAD:ElementTree")
@@ -21262,7 +21262,7 @@ diff -ruN o/skin.py pc/skin.py
  # have a skin based screen.  This will allow coders to know if the named
 diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 --- o/tools/enigma2.sh.in	2020-08-01 17:47:17.000000000 +0300
-+++ pc/tools/enigma2.sh.in	2021-01-11 19:09:53.013421721 +0300
++++ pc/tools/enigma2.sh.in	2021-01-11 19:09:53.000000000 +0300
 @@ -1,144 +1,37 @@
  #!/bin/sh
  
