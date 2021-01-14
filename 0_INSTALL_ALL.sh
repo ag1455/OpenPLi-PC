@@ -1,8 +1,9 @@
 #!/bin/sh
 
-./1_build_libs.sh
-./2_build_libxine.sh
-./3_build_openpliPC.sh
-./4_build_plugins.sh
-./5_build_oscam.sh
-./6_build_lirc.sh
+#./1_optional_media_build.sh
+./2_build_libs.sh
+./3_build_libxine.sh
+./4_build_openpliPC.sh
+./5_build_plugins.sh
+./6_build_oscam.sh
+./7_build_lirc.sh
