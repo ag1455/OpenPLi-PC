@@ -1,6 +1,6 @@
-diff -ruN o/debian/changelog n/debian/changelog
+diff -ruN o/debian/changelog pc/debian/changelog
 --- o/debian/changelog	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/changelog	2019-12-29 12:40:08.000000000 +0300
++++ pc/debian/changelog	2021-01-15 14:58:06.941541528 +0300
 @@ -0,0 +1,1719 @@
 +lirc (0.10.1-6-e2pc) unstable; urgency=medium
 +
@@ -1721,14 +1721,14 @@ diff -ruN o/debian/changelog n/debian/changelog
 +  * Initial Release.
 +
 + -- Tom Lees <tom@debian.org>  Thu, 30 Mar 2000 19:30:57 +0100
-diff -ruN o/debian/compat n/debian/compat
+diff -ruN o/debian/compat pc/debian/compat
 --- o/debian/compat	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/compat	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/compat	2021-01-15 14:58:06.941541528 +0300
 @@ -0,0 +1 @@
 +10
-diff -ruN o/debian/control n/debian/control
+diff -ruN o/debian/control pc/debian/control
 --- o/debian/control	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/control	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/control	2021-01-15 14:58:06.941541528 +0300
 @@ -0,0 +1,179 @@
 +Source: lirc
 +Section: utils
@@ -1909,9 +1909,9 @@ diff -ruN o/debian/control n/debian/control
 +  - irxevent: Allows controlling X applications with a remote control.
 +  - xmode2:   Shows the IR waveform of the remote controller without an
 +              oscilloscope. Unneeded for TV cards or the Irman.
-diff -ruN o/debian/copyright n/debian/copyright
+diff -ruN o/debian/copyright pc/debian/copyright
 --- o/debian/copyright	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/copyright	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/copyright	2021-01-15 14:58:06.941541528 +0300
 @@ -0,0 +1,283 @@
 +Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 +Upstream-Name: lirc
@@ -2196,16 +2196,16 @@ diff -ruN o/debian/copyright n/debian/copyright
 + CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 + TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 + SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-diff -ruN o/debian/docs n/debian/docs
+diff -ruN o/debian/docs pc/debian/docs
 --- o/debian/docs	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/docs	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/docs	2021-01-15 14:58:06.941541528 +0300
 @@ -0,0 +1,3 @@
 +NEWS
 +README
 +README.conf.d
-diff -ruN o/debian/install n/debian/install
+diff -ruN o/debian/install pc/debian/install
 --- o/debian/install	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/install	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/install	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,60 @@
 +#! /usr/bin/dh-exec
 +
@@ -2267,28 +2267,28 @@ diff -ruN o/debian/install n/debian/install
 +usr/share/man/man1/irw.1*
 +[linux-any] usr/share/man/man1/irpipe.1*
 +var/lib/lirc
-diff -ruN o/debian/liblirc0.install n/debian/liblirc0.install
+diff -ruN o/debian/liblirc0.install pc/debian/liblirc0.install
 --- o/debian/liblirc0.install	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/liblirc0.install	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/liblirc0.install	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,3 @@
 +usr/lib/*/libirrecord.so.*
 +usr/lib/*/liblirc_driver.so.*
 +usr/lib/*/liblirc.so.*
-diff -ruN o/debian/liblirc-client0.install n/debian/liblirc-client0.install
+diff -ruN o/debian/liblirc-client0.install pc/debian/liblirc-client0.install
 --- o/debian/liblirc-client0.install	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/liblirc-client0.install	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/liblirc-client0.install	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1 @@
 +debian/tmp/usr/lib/*/liblirc_client.so.*
-diff -ruN o/debian/liblirc-dev.install n/debian/liblirc-dev.install
+diff -ruN o/debian/liblirc-dev.install pc/debian/liblirc-dev.install
 --- o/debian/liblirc-dev.install	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/liblirc-dev.install	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/liblirc-dev.install	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,3 @@
 +usr/lib/*/lib*.so
 +usr/lib/*/pkgconfig
 +usr/include
-diff -ruN o/debian/lirc-doc.doc-base n/debian/lirc-doc.doc-base
+diff -ruN o/debian/lirc-doc.doc-base pc/debian/lirc-doc.doc-base
 --- o/debian/lirc-doc.doc-base	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/lirc-doc.doc-base	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/lirc-doc.doc-base	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,9 @@
 +Document: lirc
 +Title: LIRC (Linux Infrared Remote Control)
@@ -2299,20 +2299,20 @@ diff -ruN o/debian/lirc-doc.doc-base n/debian/lirc-doc.doc-base
 +Format: HTML
 +Index: /usr/share/doc/lirc/lirc.org/html/index.html
 +Files: /usr/share/doc/lirc/lirc.org/html/*.html /usr/share/doc/lirc/lirc.org/api-docs/html/*
-diff -ruN o/debian/lirc-doc.install n/debian/lirc-doc.install
+diff -ruN o/debian/lirc-doc.install pc/debian/lirc-doc.install
 --- o/debian/lirc-doc.install	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/lirc-doc.install	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/lirc-doc.install	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1 @@
 +usr/share/doc
-diff -ruN o/debian/lirc.docs n/debian/lirc.docs
+diff -ruN o/debian/lirc.docs pc/debian/lirc.docs
 --- o/debian/lirc.docs	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/lirc.docs	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/lirc.docs	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,2 @@
 +NEWS
 +README
-diff -ruN o/debian/lirc.irexec.init n/debian/lirc.irexec.init
+diff -ruN o/debian/lirc.irexec.init pc/debian/lirc.irexec.init
 --- o/debian/lirc.irexec.init	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/lirc.irexec.init	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/lirc.irexec.init	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,69 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2383,9 +2383,9 @@ diff -ruN o/debian/lirc.irexec.init n/debian/lirc.irexec.init
 +esac
 +
 +exit 0
-diff -ruN o/debian/lirc.lircd.init n/debian/lirc.lircd.init
+diff -ruN o/debian/lirc.lircd.init pc/debian/lirc.lircd.init
 --- o/debian/lirc.lircd.init	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/lirc.lircd.init	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/lirc.lircd.init	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,64 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2451,9 +2451,9 @@ diff -ruN o/debian/lirc.lircd.init n/debian/lirc.lircd.init
 +esac
 +
 +exit 0
-diff -ruN o/debian/lirc.lircmd.init n/debian/lirc.lircmd.init
+diff -ruN o/debian/lirc.lircmd.init pc/debian/lirc.lircmd.init
 --- o/debian/lirc.lircmd.init	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/lirc.lircmd.init	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/lirc.lircmd.init	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,59 @@
 +#!/bin/sh
 +### BEGIN INIT INFO
@@ -2514,9 +2514,9 @@ diff -ruN o/debian/lirc.lircmd.init n/debian/lirc.lircmd.init
 +esac
 +
 +exit 0
-diff -ruN o/debian/lirc-old2new n/debian/lirc-old2new
+diff -ruN o/debian/lirc-old2new pc/debian/lirc-old2new
 --- o/debian/lirc-old2new	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/lirc-old2new	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/lirc-old2new	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,250 @@
 +#!/usr/bin/env python3
 +
@@ -2768,17 +2768,17 @@ diff -ruN o/debian/lirc-old2new n/debian/lirc-old2new
 +
 +
 +# vim: set expandtab ts=4 sw=4:
-diff -ruN o/debian/lirc-x.install n/debian/lirc-x.install
+diff -ruN o/debian/lirc-x.install pc/debian/lirc-x.install
 --- o/debian/lirc-x.install	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/lirc-x.install	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/lirc-x.install	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,4 @@
 +usr/bin/xmode2
 +usr/bin/irxevent
 +usr/share/man/man1/xmode2.1*
 +usr/share/man/man1/irxevent.1*
-diff -ruN o/debian/NEWS n/debian/NEWS
+diff -ruN o/debian/NEWS pc/debian/NEWS
 --- o/debian/NEWS	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/NEWS	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/NEWS	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,23 @@
 +lirc (0.9.4c-5) unstable; urgency=medium
 +
@@ -2803,9 +2803,9 @@ diff -ruN o/debian/NEWS n/debian/NEWS
 +   documentation and support tools presumes the preferred systemd setup.
 +
 + -- Alec Leamas  <leamas.alec@gmail.com>  Mon, 5 Oct 2015 11:14:25 +0100
-diff -ruN o/debian/patches/e2pc.patch n/debian/patches/e2pc.patch
+diff -ruN o/debian/patches/e2pc.patch pc/debian/patches/e2pc.patch
 --- o/debian/patches/e2pc.patch	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/patches/e2pc.patch	2020-01-12 12:07:57.136148260 +0300
++++ pc/debian/patches/e2pc.patch	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,39 @@
 +diff -ruN n/lib/lirc/receive.h o/lib/lirc/receive.h
 +--- n/lib/lirc/receive.h	2017-09-10 11:52:58.000000000 +0300
@@ -2846,9 +2846,9 @@ diff -ruN o/debian/patches/e2pc.patch n/debian/patches/e2pc.patch
 + /**
 +  * Set update mode, where recorded pre_data is verified to match
 +  * the template pre_data. By defaulöt false.
-diff -ruN o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch n/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch
+diff -ruN o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch pc/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch
 --- o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	2019-12-29 12:32:22.000000000 +0300
++++ pc/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch	2021-01-15 14:58:06.942541540 +0300
 @@ -0,0 +1,22 @@
 +From: Alec Leamas <leamas.alec@gmail.com>
 +Date: Sun, 30 Dec 2018 21:26:15 +0100
@@ -2872,191 +2872,9 @@ diff -ruN o/debian/patches/lircd-Fix-connect-option-parsing-error-343.patch n/de
 + 
 + 	if (peern < MAX_PEERS) {
 + 		peers[peern] = (struct peer_connection*) malloc(sizeof(
-diff -ruN o/debian/patches/lirc-gpio-ir-0.10.patch n/debian/patches/lirc-gpio-ir-0.10.patch
---- o/debian/patches/lirc-gpio-ir-0.10.patch	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/patches/lirc-gpio-ir-0.10.patch	2019-12-29 12:32:52.000000000 +0300
-@@ -0,0 +1,178 @@
-+Origin: https://github.com/neuralassembly/raspi/blob/master/lirc-gpio-ir-0.10.patch
-+Bug-Debian: bugs.debian.org/931078
-+
-+diff -ruN lirc-0.10.1.orig/lib/config_file.c lirc-0.10.1/lib/config_file.c
-+--- lirc-0.10.1.orig/lib/config_file.c	2017-09-10 17:52:19.000000000 +0900
-++++ lirc-0.10.1/lib/config_file.c	2019-06-26 00:39:45.734320696 +0900
-+@@ -71,7 +71,7 @@
-+ typedef void* (*array_guest_func)(void* item, void* arg);
-+ 
-+ 
-+-#define LINE_LEN 1024
-++#define LINE_LEN 4096
-+ #define MAX_INCLUDES 10
-+ 
-+ const char* whitespace = " \t";
-+diff -ruN lirc-0.10.1.orig/lib/ir_remote.h lirc-0.10.1/lib/ir_remote.h
-+--- lirc-0.10.1.orig/lib/ir_remote.h	2017-09-10 17:52:19.000000000 +0900
-++++ lirc-0.10.1/lib/ir_remote.h	2019-06-26 00:39:45.714321224 +0900
-+@@ -110,12 +110,17 @@
-+ 
-+ static inline int is_pulse(lirc_t data)
-+ {
-+-	return data & PULSE_BIT ? 1 : 0;
-++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_PULSE) ? 1 : 0;
-+ }
-+ 
-+ static inline int is_space(lirc_t data)
-+ {
-+-	return !is_pulse(data);
-++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_SPACE) ? 1 : 0;
-++}
-++
-++static inline int is_timeout(lirc_t data)
-++{
-++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_TIMEOUT) ? 1 : 0;
-+ }
-+ 
-+ static inline int has_repeat(const struct ir_remote* remote)
-+diff -ruN lirc-0.10.1.orig/lib/irrecord.c lirc-0.10.1/lib/irrecord.c
-+--- lirc-0.10.1.orig/lib/irrecord.c	2017-09-10 17:52:19.000000000 +0900
-++++ lirc-0.10.1/lib/irrecord.c	2019-06-26 00:39:45.724320960 +0900
-+@@ -1398,9 +1398,16 @@
-+ 		state->retval = 0;
-+ 		return STS_LEN_TIMEOUT;
-+ 	}
-++	if (is_timeout(state->data)) {
-++		return STS_LEN_AGAIN;
-++	}
-+ 	state->count++;
-+ 	if (state->mode == MODE_GET_GAP) {
-+-		state->sum += state->data & PULSE_MASK;
-++		if (state->sum != 0 || is_pulse(state->data)) {
-++			state->sum += state->data & PULSE_MASK;
-++		}else{
-++			return STS_LEN_AGAIN;
-++		}
-+ 		if (state->average == 0 && is_space(state->data)) {
-+ 			if (state->data > 100000) {
-+ 				state->sum = 0;
-+@@ -1472,6 +1479,10 @@
-+ 		state->keypresses = lastmaxcount;
-+ 		return STS_LEN_AGAIN;
-+ 	} else if (state->mode == MODE_HAVE_GAP) {
-++		if (state->count==1 && is_space(state->data))  {
-++			state->count = 0;
-++			return STS_LEN_AGAIN;
-++		}
-+ 		if (state->count <= MAX_SIGNALS) {
-+ 			signals[state->count - 1] = state->data & PULSE_MASK;
-+ 		} else {
-+@@ -1510,7 +1521,7 @@
-+ 			/* such long pulses may appear with
-+ 			 * crappy hardware (receiver? / remote?)
-+ 			 */
-+-			else {
-++			else if(is_pulse(state->data)) {
-+ 				remote->gap = 0;
-+ 				return STS_LEN_NO_GAP_FOUND;
-+ 			}
-+@@ -1811,22 +1822,24 @@
-+ 
-+ static int raw_data_ok(struct button_state* btn_state)
-+ {
-+-	int r;
-++	int r = 0;
-+ 	int ref;
-+ 
-+-	if (!is_space(btn_state->data)) {
-++	if (is_pulse(btn_state->data)) {
-+ 		r = 0;
-+-	} else if (is_const(&remote)) {
-+-		if (remote.gap > btn_state->sum) {
-+-			ref = (remote.gap - btn_state->sum);
-+-			ref *= (100 - remote.eps);
-+-			ref /= 100;
-++	} else if (is_space(btn_state->data)) {
-++		if (is_const(&remote)) {
-++			if (remote.gap > btn_state->sum) {
-++				ref = (remote.gap - btn_state->sum);
-++				ref *= (100 - remote.eps);
-++				ref /= 100;
-++			} else {
-++				ref = 0;
-++			}
-++			r = btn_state->data > ref;
-+ 		} else {
-+-			ref = 0;
-++			r = btn_state->data > (remote.gap * (100 - remote.eps)) / 100;
-+ 		}
-+-		r = btn_state->data > ref;
-+-	} else {
-+-		r = btn_state->data > (remote.gap * (100 - remote.eps)) / 100;
-+ 	}
-+ 	return r;
-+ }
-+@@ -1970,7 +1983,7 @@
-+ 				btn_state->data = remote.gap;
-+ 			}
-+ 			if (btn_state->count == 0) {
-+-				if (!is_space(btn_state->data)
-++				if (is_pulse(btn_state->data)
-+ 				    || btn_state->data <
-+ 				    remote.gap - remote.gap * remote.eps /
-+ 				    100) {
-+diff -ruN lirc-0.10.1.orig/lib/lirc/ir_remote.h lirc-0.10.1/lib/lirc/ir_remote.h
-+--- lirc-0.10.1.orig/lib/lirc/ir_remote.h	2017-09-10 17:52:58.000000000 +0900
-++++ lirc-0.10.1/lib/lirc/ir_remote.h	2019-06-26 00:39:45.724320960 +0900
-+@@ -110,12 +110,17 @@
-+ 
-+ static inline int is_pulse(lirc_t data)
-+ {
-+-	return data & PULSE_BIT ? 1 : 0;
-++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_PULSE) ? 1 : 0;
-+ }
-+ 
-+ static inline int is_space(lirc_t data)
-+ {
-+-	return !is_pulse(data);
-++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_SPACE) ? 1 : 0;
-++}
-++
-++static inline int is_timeout(lirc_t data)
-++{
-++	return ((data & LIRC_MODE2_MASK)==LIRC_MODE2_TIMEOUT) ? 1 : 0;
-+ }
-+ 
-+ static inline int has_repeat(const struct ir_remote* remote)
-+diff -ruN lirc-0.10.1.orig/tools/mode2.cpp lirc-0.10.1/tools/mode2.cpp
-+--- lirc-0.10.1.orig/tools/mode2.cpp	2017-09-10 17:52:19.000000000 +0900
-++++ lirc-0.10.1/tools/mode2.cpp	2019-06-26 00:45:38.840404976 +0900
-+@@ -326,12 +326,24 @@
-+ void print_mode2_data(unsigned int data)
-+ {
-+ 	static int bitno = 1;
-++	static bool leading_space = true;
-++	unsigned int msg = data & LIRC_MODE2_MASK;
-+ 
-+ 	switch (opt_dmode) {
-+ 	case 0:
-+-		printf("%s %u\n", (
-+-			       data & PULSE_BIT) ? "pulse" : "space",
-+-		       (uint32_t)(data & PULSE_MASK));
-++		if (leading_space && msg == LIRC_MODE2_SPACE ) {
-++			break;
-++		} else {
-++			leading_space = false;
-++		}
-++		if (msg == LIRC_MODE2_PULSE) {
-++			printf("pulse %u\n", (__u32)(data & PULSE_MASK));
-++		} else if (msg == LIRC_MODE2_SPACE) {
-++			printf("space %u\n", (__u32)(data & PULSE_MASK));
-++		} else if (msg == LIRC_MODE2_TIMEOUT) {
-++			printf("timeout %u\n", (__u32)(data & PULSE_MASK));
-++			leading_space = true;
-++		}
-+ 		break;
-+ 	case 1: {
-+ 		/* print output like irrecord raw config file data */
-diff -ruN o/debian/patches/lirc.org-Remove-non-free-advertising.patch n/debian/patches/lirc.org-Remove-non-free-advertising.patch
+diff -ruN o/debian/patches/lirc.org-Remove-non-free-advertising.patch pc/debian/patches/lirc.org-Remove-non-free-advertising.patch
 --- o/debian/patches/lirc.org-Remove-non-free-advertising.patch	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/patches/lirc.org-Remove-non-free-advertising.patch	2019-12-29 12:31:40.000000000 +0300
++++ pc/debian/patches/lirc.org-Remove-non-free-advertising.patch	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,111 @@
 +From: Alec Leamas <leamas@nowhere.net>
 +Date: Tue, 6 Oct 2015 01:56:21 +0200
@@ -3169,9 +2987,9 @@ diff -ruN o/debian/patches/lirc.org-Remove-non-free-advertising.patch n/debian/p
 +               </TD>
 +               <TD WIDTH="70%">
 +                 <P>
-diff -ruN o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch n/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
+diff -ruN o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch pc/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
 --- o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	2019-12-29 12:31:53.000000000 +0300
++++ pc/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,20 @@
 +From: Alec Leamas <leamas.alec@gmail.com>
 +Date: Fri, 12 Oct 2018 20:49:58 +0200
@@ -3193,9 +3011,9 @@ diff -ruN o/debian/patches/lirc-setup-Fix-crash-on-start-on-missing-lirc.config.
 + nodist_py_pkg_PYTHON    = python-pkg/lirc/config.py
 + 
 + if HAVE_PYTHON35
-diff -ruN o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch n/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
+diff -ruN o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch pc/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
 --- o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	2019-12-29 12:32:08.000000000 +0300
++++ pc/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,24 @@
 +From: Alec Leamas <leamas.alec@gmail.com>
 +Date: Fri, 23 Nov 2018 23:04:35 -0500
@@ -3221,20 +3039,19 @@ diff -ruN o/debian/patches/logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch n
 + 	} else {
 + 		lf = fopen(logfile, "a");
 + 		if (lf == NULL) {
-diff -ruN o/debian/patches/series n/debian/patches/series
+diff -ruN o/debian/patches/series pc/debian/patches/series
 --- o/debian/patches/series	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/patches/series	2020-01-12 12:08:48.655212780 +0300
-@@ -0,0 +1,7 @@
++++ pc/debian/patches/series	2021-01-15 17:19:22.633543082 +0300
+@@ -0,0 +1,6 @@
 +lirc.org-Remove-non-free-advertising.patch
 +lirc-setup-Fix-crash-on-start-on-missing-lirc.config.patch
 +logging-Don-t-use-broken-LOG_CONS-syslog-flag.patch
 +lircd-Fix-connect-option-parsing-error-343.patch
 +systemd-support-Notify-systemd-on-successful-startup.patch
-+lirc-gpio-ir-0.10.patch
 +e2pc.patch
-diff -ruN o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch n/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch
+diff -ruN o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch pc/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch
 --- o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	2019-12-29 12:32:35.000000000 +0300
++++ pc/debian/patches/systemd-support-Notify-systemd-on-successful-startup.patch	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,43 @@
 +From: William Manley <will@williammanley.net>
 +Date: Thu, 9 Aug 2018 18:26:44 +0100
@@ -3279,9 +3096,9 @@ diff -ruN o/debian/patches/systemd-support-Notify-systemd-on-successful-startup.
 + ExecStart=/usr/sbin/lircd --nodaemon
 + ; User=lirc
 + ; Group=lirc
-diff -ruN o/debian/pbuilder-test/007-lintian n/debian/pbuilder-test/007-lintian
+diff -ruN o/debian/pbuilder-test/007-lintian pc/debian/pbuilder-test/007-lintian
 --- o/debian/pbuilder-test/007-lintian	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/pbuilder-test/007-lintian	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/pbuilder-test/007-lintian	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,11 @@
 +#!/bin/sh
 +
@@ -3294,9 +3111,9 @@ diff -ruN o/debian/pbuilder-test/007-lintian n/debian/pbuilder-test/007-lintian
 +    /tmp/buildd/*.changes; :" - pbuilder
 +
 +echo "+++ end of lintian output +++"
-diff -ruN o/debian/postinst n/debian/postinst
+diff -ruN o/debian/postinst pc/debian/postinst
 --- o/debian/postinst	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/postinst	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/postinst	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,14 @@
 +#!/bin/sh
 +
@@ -3312,9 +3129,9 @@ diff -ruN o/debian/postinst n/debian/postinst
 +
 +
 +#DEBHELPER#
-diff -ruN o/debian/postrm n/debian/postrm
+diff -ruN o/debian/postrm pc/debian/postrm
 --- o/debian/postrm	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/postrm	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/postrm	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,14 @@
 +#!/bin/sh
 +
@@ -3330,9 +3147,9 @@ diff -ruN o/debian/postrm n/debian/postrm
 +
 +#DEBHELPER#
 +
-diff -ruN o/debian/prerm n/debian/prerm
+diff -ruN o/debian/prerm pc/debian/prerm
 --- o/debian/prerm	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/prerm	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/prerm	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,12 @@
 +#!/bin/sh
 +
@@ -3346,15 +3163,15 @@ diff -ruN o/debian/prerm n/debian/prerm
 +
 +
 +#DEBHELPER#
-diff -ruN o/debian/README n/debian/README
+diff -ruN o/debian/README pc/debian/README
 --- o/debian/README	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/README	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/README	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,2 @@
 +The debian packaging files has been moved to the separate branch
 +'debian' according to established debian workflows.
-diff -ruN o/debian/README.Debian n/debian/README.Debian
+diff -ruN o/debian/README.Debian pc/debian/README.Debian
 --- o/debian/README.Debian	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/README.Debian	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/README.Debian	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,171 @@
 +## 0.9.4 disruptive update
 +
@@ -3527,9 +3344,9 @@ diff -ruN o/debian/README.Debian n/debian/README.Debian
 +    - The rule has never worked with multiple /dev/lirc* devices.
 +
 +-- Alec Leamas <al@jessie.nowhere.net>  Wed, 2 Nov 2016 19:02:10 +0100
-diff -ruN o/debian/rules n/debian/rules
+diff -ruN o/debian/rules pc/debian/rules
 --- o/debian/rules	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/rules	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/rules	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1,87 @@
 +#!/usr/bin/make -f
 +
@@ -3618,14 +3435,28 @@ diff -ruN o/debian/rules n/debian/rules
 +override_dh_fixperms-arch:
 +	dh_fixperms
 +	chmod 755 debian/lirc/usr/share/lirc/contrib/irman2lirc
-diff -ruN o/debian/source/format n/debian/source/format
+diff -ruN o/debian/source/format pc/debian/source/format
 --- o/debian/source/format	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/source/format	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/source/format	2021-01-15 14:58:06.943541552 +0300
 @@ -0,0 +1 @@
 +3.0 (quilt)
-diff -ruN o/debian/watch n/debian/watch
+diff -ruN o/debian/watch pc/debian/watch
 --- o/debian/watch	1970-01-01 03:00:00.000000000 +0300
-+++ n/debian/watch	2019-12-29 11:24:48.000000000 +0300
++++ pc/debian/watch	2021-01-15 14:58:06.944541564 +0300
 @@ -0,0 +1,2 @@
 +version=3
 +opts="uversionmangle=s/rc/~rc/" http://sf.net/lirc/lirc-([0-9].+)\.tar\.gz
+diff -ruN o/plugins/default.c pc/plugins/default.c
+--- o/plugins/default.c	2017-09-10 11:52:19.000000000 +0300
++++ pc/plugins/default.c	2021-01-15 14:56:45.704924148 +0300
+@@ -324,10 +324,6 @@
+ 	rec_buffer_init();
+ 	send_buffer_init();
+ 
+-	if (set_rc_protocol(drv.device) != 0)
+-		log_info("Cannot configure the rc device for %s",
+-			  drv.device);
+-
+ 	if (stat(drv.device, &s) == -1) {
+ 		log_error("could not get file information for %s", drv.device);
+ 		log_perror_err("default_init()");
