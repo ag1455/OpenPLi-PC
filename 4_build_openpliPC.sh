@@ -414,6 +414,7 @@ if [ $GPU1 ]; then
 	echo "                  Your have nVidia GPU."
 	cp -fv pre/xine.conf.vdpau $INSTALL_E2DIR/share/enigma2/xine.conf
 	echo "                Used xine.conf for vdpau."
+	cp -fv pre/environment-orig /etc/environment
 	echo "********************************************************"
 	echo ""
 fi
@@ -424,6 +425,7 @@ if [ $GPU2 ]; then
 	echo "                   Your have intel GPU."
 	cp -fv pre/xine.conf.vaapi $INSTALL_E2DIR/share/enigma2/xine.conf
 	echo "                Used xine.conf for vaapi."
+	cp -fv pre/environment-intel /etc/environment
 	echo "********************************************************"
 	echo ""
 fi
@@ -436,6 +438,7 @@ if [ $GPU3 ]; then
 #	echo "                Used xine.conf for vaapi."
 	cp -fv pre/xine.conf.opengl $INSTALL_E2DIR/share/enigma2/xine.conf
 	echo "                Used xine.conf for opengl."
+	cp -fv pre/environment-orig /etc/environment
 	echo "********************************************************"
 	echo ""
 fi
