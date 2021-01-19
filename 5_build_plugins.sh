@@ -96,30 +96,6 @@ if [ -d plugins ]; then
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
-	elif [[ "$release" = "19.04" ]]; then
-		echo "-----------------------------------------"
-		echo "         *** release 19.04 ***           "
-		echo "-----------------------------------------"
-		echo ""
-		export CXX=/usr/bin/g++-8
-		echo "                  *** used g++-8 ***"
-		echo ""
-		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
-		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach a84cd6ed
-		patch -p1 < servicemp3.patch
-	elif [[ "$release" = "19.10" ]]; then
-		echo "-----------------------------------------"
-		echo "         *** release 19.10 ***           "
-		echo "-----------------------------------------"
-		echo ""
-		export CXX=/usr/bin/g++-9
-		echo "                  *** used g++-9 ***"
-		echo ""
-		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
-		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach a84cd6ed
-		patch -p1 < servicemp3.patch
 	elif [[ "$release" = "20.04" ]]; then
 		echo "-----------------------------------------"
 		echo "         *** release 20.04 ***           "
@@ -127,6 +103,18 @@ if [ -d plugins ]; then
 		echo ""
 		export CXX=/usr/bin/g++-9
 		echo "                  *** used g++-9 ***"
+		echo ""
+		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+		cd plugins/enigma2-plugins/servicemp3
+		git checkout --detach a84cd6ed
+		patch -p1 < servicemp3.patch
+	elif [[ "$release" = "20.10" ]]; then
+		echo "-----------------------------------------"
+		echo "         *** release 20.10 ***           "
+		echo "-----------------------------------------"
+		echo ""
+		export CXX=/usr/bin/g++-10
+		echo "                  *** used g++-10 ***"
 		echo ""
 		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
@@ -163,6 +151,8 @@ if [ -d plugins ]; then
 		cd e2openplugin-StreamInterface
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
+			python2 setup.py install
 		else
 			python setup.py install
 		fi
@@ -187,6 +177,8 @@ if [ -d plugins ]; then
 		patch -p1 < SystemTools.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
+			python2 setup.py install
 		else
 			python setup.py install
 		fi
@@ -207,6 +199,8 @@ if [ -d plugins ]; then
 		git clone https://github.com/E2OpenPlugins/e2openplugin-AddStreamUrl.git
 		cd e2openplugin-AddStreamUrl
 		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -254,6 +248,8 @@ if [ -d plugins ]; then
 		patch -p1 < SetPicon.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
+			python2 setup.py install
 		else
 			python setup.py install
 		fi
@@ -277,6 +273,8 @@ if [ -d plugins ]; then
 		cd plugins/e2openplugin/e2openplugin-SnmpAgent
 		patch -p1 < SnmpAgent.patch
 		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -302,6 +300,8 @@ if [ -d plugins ]; then
 		patch -p1 < SimpleUmount.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
+			python2 setup.py install
 		else
 			python setup.py install
 		fi
@@ -325,6 +325,8 @@ if [ -d plugins ]; then
 		cd e2openplugin-Foreca
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
+			python2 setup.py install
 		else
 			python setup.py install
 		fi
@@ -345,6 +347,8 @@ if [ -d plugins ]; then
 		git clone https://github.com/Taapat/enigma2-plugin-youtube.git
 		cd enigma2-plugin-youtube
 		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -371,6 +375,8 @@ if [ -d plugins ]; then
 		find plugin/locale -name "*.mo" -exec rm {} \;
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
+			python2 setup.py install
 		else
 			python setup.py install
 		fi
@@ -396,6 +402,8 @@ if [ -d plugins ]; then
 		patch -p1 < EPGImport.patch
 		cd src
 		if [ "$release" = "20.04" ]; then
+			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -432,6 +440,9 @@ if [ -d plugins ]; then
 		patch -p1 < E2IPlayer.patch
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then
+			python2 setup_translate.py
+			python2 setup.py install
+		elif [ "$release" = "20.10" ]; then
 			python2 setup_translate.py
 			python2 setup.py install
 		else
@@ -527,12 +538,16 @@ if [ -d plugins ]; then
 		# Compile other pyc files
 		if [ "$release" = "20.04" ]; then
 			python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
+		elif [ "$release" = "20.10" ]; then
+			python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
 		else
 			python -m compileall $INSTALL_E2DIR/lib/enigma2/python
 		fi
 
 		# Force recompile new pyc files
 		#if [ "$release" = "20.04" ]; then
+		#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
+		#elif [ "$release" = "20.10" ]; then
 		#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
 		#else
 		#	python -m compileall -f $INSTALL_E2DIR/lib/enigma2/python

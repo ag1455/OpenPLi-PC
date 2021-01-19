@@ -20,7 +20,7 @@ else
 fi
 
 # This is hg 1.2.10
-hg clone -r 14814 http://hg.code.sf.net/p/xine/xine-lib-1.2 $PKG
+hg clone -r14814 http://hg.code.sf.net/p/xine/xine-lib-1.2 $PKG
 
 if [ -d "$PKG" ]; then
 	echo "-----------------------------------------"

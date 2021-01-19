@@ -35,6 +35,8 @@ else
 	patch -p1 < lirc_0.10.1-6.patch
 	if [[ "$release" = "20.04" ]]; then
 		patch -p1 < python38_client_py.patch
+	elif [[ "$release" = "20.10" ]]; then
+		patch -p1 < python38_client_py.patch
 	fi
 	rm -f lirc_0.10.1-6.patch
 	rm -f python38_client_py.patch

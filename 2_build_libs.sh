@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 19.04 (64-bit), 19.10 (64-bit), 20.04 LTS (64-bit).
+# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and test 20.10 (64-bit).
 # Install these packages:
 
 echo "********************************************************"
@@ -79,28 +79,6 @@ elif [[ "$release" = "18.04" ]]; then
 	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint libvdpau1 libvdpau-va-gl1 sphinx-rtd-theme-common \
 	libupnp6-dev swig yamllint \
 	"
-elif [[ "$release" = "19.04" ]]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** release 19.04 ***                  "
-	echo "********************************************************"
-	echo ""
-	REQPKG="flake8 gcc-8 g++-8 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma python-mechanize \
-	python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
-	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson python-mutagen python-twisted \
-	python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
-	"
-elif [[ "$release" = "19.10" ]]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** release 19.10 ***                  "
-	echo "********************************************************"
-	echo ""
-	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma python-mechanize \
-	python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python3-langdetect python-pycryptodome python-pickleshare pycodestyle \
-	python-service-identity python-certifi python-restructuredtext-lint python3-ntplib python3-transmissionrpc python-sabyenc python3-demjson python-mutagen python-twisted \
-	python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint libvdpau1 libvdpau-va-gl1 sphinx-rtd-theme-common libupnp-dev swig swig3.0 yamllint \
-	"
 elif [[ "$release" = "20.04" ]]; then
 	echo ""
 	echo "********************************************************"
@@ -108,7 +86,7 @@ elif [[ "$release" = "20.04" ]]; then
 	echo "********************************************************"
 	echo ""
 
-	# Add new libraries
+	# Add new repositories
 	if [ ! -f /etc/apt/sources.list.d/oibaf-ubuntu-graphics-drivers-focal.list ]; then
 		add-apt-repository -y ppa:oibaf/graphics-drivers
 	fi
@@ -156,6 +134,75 @@ elif [[ "$release" = "20.04" ]]; then
 	http://ftp.br.debian.org/debian/pool/main/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb \
 	http://archive.ubuntu.com/ubuntu/pool/main/c/configobj/python-configobj_5.0.6-2_all.deb
+	dpkg -i *.deb
+	apt-get -f install -y
+	rm -f *.deb
+elif [[ "$release" = "20.10" ]]; then
+	echo ""
+	echo "********************************************************"
+	echo "                 *** release 20.10 ***                  "
+	echo "********************************************************"
+	echo ""
+
+	# Add new repositories
+#	if [ ! -f /etc/apt/sources.list.d/oibaf-ubuntu-graphics-drivers-groovy.list ]; then
+#		add-apt-repository -y ppa:oibaf/graphics-drivers
+#	fi
+	if [ ! -f /etc/apt/sources.list.d/mamarley-ubuntu-updates-groovy.list ]; then
+		add-apt-repository -y ppa:mamarley/updates
+		apt-get update
+		apt-get -y upgrade
+	else
+		echo "********************************************************"
+		echo "            *** Packages already updated. ***"
+		echo "********************************************************"
+	fi
+
+	REQPKG="flake8 gcc-10 g++-10 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev python2-dev \
+	pycodestyle python-service-identity python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface \
+	python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc \
+	python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-is-python2 \
+	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
+	"
+	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-web_18.9.0-3_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-names_18.9.0-3_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-mail_18.9.0-3_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-bin_18.9.0-3_amd64.deb \
+	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-core_18.9.0-3_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-ipaddr/python-ipaddr_2.2.0-2_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-urllib3/python-urllib3_1.24.1-1_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/b/bzr/python-bzrlib_2.7.0+bzr6622-15_amd64.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/pysendfile/python-sendfile_2.0.1-2_amd64.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-lzma/python-lzma_0.5.3-4_amd64.deb \
+	http://ftp.br.debian.org/debian/pool/main/b/blessings/python-blessings_1.6-2_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-mechanize/python-mechanize_0.2.5-3_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-langdetect/python-langdetect_1.0.7-3_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/pickleshare/python-pickleshare_0.7.5-1_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-sabyenc/python-sabyenc_3.3.5-1_amd64.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/pyjwt/python-jwt_1.7.0-2_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-oauthlib/python-oauthlib_2.1.0-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/b/blinker/python-blinker_1.4+dfsg1-0.3ubuntu1_all.deb\
+	http://archive.ubuntu.com/ubuntu/pool/main/c/configobj/python-configobj_5.0.6-2_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/main/p/pycurl/python-pycurl_7.43.0.1-0.2_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/c/cheetah/python-cheetah_3.2.4-1ubuntu1_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/pyflakes/pyflakes_1.6.0-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/pyflakes/python-pyflakes_1.6.0-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-pysqlite2/python-pysqlite2_2.7.0-1_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-cryptography-vectors/python-cryptography-vectors_2.1.4-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/pycryptopp/python-pycryptopp_0.7.1-3_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/main/s/simplejson/python-simplejson_3.13.2-1_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/main/p/pycryptodome/python-pycryptodome_3.4.7-1ubuntu1_amd64.deb \
+	http://archive.ubuntu.com/ubuntu/pool/main/p/python-certifi/python-certifi_2018.1.18-2_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-subprocess32/python-subprocess32_3.2.7-3_amd64.deb
+#	http://ftp.br.debian.org/debian/pool/main/p/python-restructuredtext-lint/python-restructuredtext-lint_0.12.2-2_all.deb \
+#	http://ftp.br.debian.org/debian/pool/main/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb \
+#	http://ftp.br.debian.org/debian/pool/main/r/requests/python-requests_2.21.0-1_all.deb \
+#	http://ftp.br.debian.org/debian/pool/main/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb \
+#	http://archive.ubuntu.com/ubuntu/pool/main/p/python-docutils/python-docutils_0.14+dfsg-3_all.deb \
+#	http://archive.ubuntu.com/ubuntu/pool/main/p/python-roman/python-roman_2.0.0-3_all.deb \
+#	http://archive.ubuntu.com/ubuntu/pool/main/c/chardet/python-chardet_3.0.4-1_all.deb \
+#	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb
 	dpkg -i *.deb
 	apt-get -f install -y
 	rm -f *.deb
@@ -464,48 +511,8 @@ else
 	cd ..
 fi
 
-# Build and install libdreamdvd-git:
-if [ ! -f gst-plugin-subsink/*.deb ]; then
-	set -e
-	set -o pipefail
-else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	LIB="libdreamdvd-dev"
-	PKG="libdreamdvd"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	I=`dpkg -s $LIB | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -r libdreamdvd0 libdreamdvd-dev
-	else
-		echo "$PKG not installed"
-	fi
-	git clone https://github.com/mirakels/$PKG.git
-	cd ..
-	cp patches/libdreamdvd.patch libs/$PKG
-	cd libs/$PKG
-	git checkout 02a0e7cb
-	patch -p1 < libdreamdvd.patch
-	if [[ "$release" = "14.04" ]]; then #for very old Ubuntu-14.04
-		export CFLAGS="-std=c99" #switch to с99
-		dpkg-buildpackage -uc -us
-		export CFLAGS="-std=c11" #return
-	else
-#	autoupdate
-	dpkg-buildpackage -uc -us
-	fi
-	cd ..
-	mv libdreamdvd*.* $PKG
-	cd $PKG
-	dpkg -i $PKG*.deb
-	cd ..
-fi
-
 # Build and install pythonwifi-git:
-if [ ! -f libdreamdvd/*.deb ]; then
+if [ ! -f gst-plugin-subsink/*.deb ]; then
 	set -e
 	set -o pipefail
 else
@@ -519,6 +526,8 @@ else
 	git clone git://github.com/pingflood/$PKG
 	cd $PKG
 	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	elif [ "$release" = "20.10" ]; then
 		python2 setup.py install
 	else
 		python setup.py install
@@ -546,6 +555,8 @@ else
 	cd $PKG
 	if [ "$release" = "20.04" ]; then
 		python2 setup.py install
+	elif [ "$release" = "20.10" ]; then
+		python2 setup.py install
 	else
 		python setup.py install
 	fi
@@ -570,6 +581,8 @@ else
 	cd $PKG
 	if [ "$release" = "20.04" ]; then
 		python2 setup.py install
+	elif [ "$release" = "20.10" ]; then
+		python2 setup.py install
 	else
 		python setup.py install
 	fi
@@ -591,6 +604,8 @@ else
 	git clone https://github.com/python-attrs/attrs.git
 	cd $PKG
 	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	elif [ "$release" = "20.10" ]; then
 		python2 setup.py install
 	else
 		python setup.py install
@@ -614,6 +629,8 @@ else
 	cd $PKG
 	if [ "$release" = "20.04" ]; then
 		python2 setup.py install
+	elif [ "$release" = "20.10" ]; then
+		python2 setup.py install
 	else
 		python setup.py install
 	fi
@@ -636,6 +653,8 @@ else
 	cd $PKG
 	if [ "$release" = "20.04" ]; then
 		python2 setup.py install
+	elif [ "$release" = "20.10" ]; then
+		python2 setup.py install
 	else
 		python setup.py install
 	fi
@@ -657,6 +676,8 @@ else
 	git clone https://github.com/twisted/incremental.git
 	cd $PKG
 	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	elif [ "$release" = "20.10" ]; then
 		python2 setup.py install
 	else
 		python setup.py install
@@ -687,6 +708,8 @@ else
 	rm -f Js2Py-0.50.tar.gz
 	cd $PKG
 	if [ "$release" = "20.04" ]; then
+		python2 setup.py install
+	elif [ "$release" = "20.10" ]; then
 		python2 setup.py install
 	else
 		python setup.py install

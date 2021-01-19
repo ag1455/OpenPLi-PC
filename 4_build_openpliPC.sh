@@ -32,7 +32,7 @@ echo "                    BACKUP E2 CONFIG"
 echo "********************************************************"
 echo ""
 
-# Wrevention of damage your old data
+# Prevention of damage your old data
 if [ -f $INSTALL_E2DIR/etc/enigma2/lamedb ]; then
 	cp -fv $INSTALL_E2DIR/etc/enigma2/lamedb $INSTALL_E2DIR/etc/enigma2/lamedb~
 	cp -fv $INSTALL_E2DIR/etc/enigma2/lamedb5 $INSTALL_E2DIR/etc/enigma2/lamedb5~
@@ -146,6 +146,11 @@ cd ..
 cp -fv pre/dvb/* $INCLUDE
 cp -fv pre/dvb/* $HEADERS
 
+# Create symlinks in /usr diectory before compile enigma2
+if [ ! -d /usr/include/netlink ]; then
+	ln -s /usr/include/libnl3/netlink /usr/include
+fi
+
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
 if [ "$release" = "14.04" ]; then
@@ -183,28 +188,6 @@ elif [ "$release" = "18.04" ]; then
 	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
-elif [ "$release" = "19.04" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 19.04 ***"
-	echo "                  *** USED g++-8 ***"
-	echo "********************************************************"
-	echo ""
-	export CXX=/usr/bin/g++-8
-	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
-	cd $PKG
-	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
-elif [ "$release" = "19.10" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 19.10 ***"
-	echo "                  *** USED g++-9 ***"
-	echo "********************************************************"
-	echo ""
-	export CXX=/usr/bin/g++-9
-	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
-	cd $PKG
-	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -213,6 +196,19 @@ elif [ "$release" = "20.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
+	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
+	cp patches/20_04_Makefile.am.patch $PKG
+	cd $PKG
+	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
+	patch -p1 < 20_04_Makefile.am.patch
+elif [ "$release" = "20.10" ]; then
+	echo ""
+	echo "********************************************************"
+	echo "                 *** RELEASE 20.10 ***"
+	echo "                  *** USED g++-10 ***"
+	echo "********************************************************"
+	echo ""
+	export CXX=/usr/bin/g++-10
 	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
 	cp patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
@@ -228,10 +224,6 @@ if [ "$DO_CONFIGURE" -eq "1" ]; then
 	echo "             Build $PKG, please wait..."
 	echo "********************************************************"
 	echo ""
-	# Create symlinks in /usr diectory before compile enigma2
-	if [ ! -d /usr/include/netlink ]; then
-		ln -s /usr/include/libnl3/netlink /usr/include
-	fi
 #	autoupdate
 #	autoreconf -v -f -i -W all
 	autoreconf -i
