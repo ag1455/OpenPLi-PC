@@ -77,8 +77,8 @@ if [ -d plugins ]; then
 		echo "         *** release 16.04 ***           "
 		echo "-----------------------------------------"
 		echo ""
-		export CXX=/usr/bin/g++-7
-		echo "                  *** used g++-7 ***"
+		export CXX=/usr/bin/g++-9
+		echo "                  *** used g++-9 ***"
 		echo ""
 		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3

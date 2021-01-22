@@ -62,7 +62,7 @@ elif [[ "$release" = "16.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev python-subprocess32 libqt5gstreamer-dev \
+	REQPKG="flake8 gcc-9 g++-9 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev python-subprocess32 libqt5gstreamer-dev \
 	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-cryptodome python-pickleshare \
 	python-service-identity python-certifi python-restructuredtext-lint python-ntplib pylint python-daap python-transmissionrpc python-yenc python-gdata python-demjson \
 	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \

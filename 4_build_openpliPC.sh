@@ -171,10 +171,10 @@ elif [ "$release" = "16.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 16.04 ***"
-	echo "                  *** USED g++-7 ***"
+	echo "                  *** USED g++-9 ***"
 	echo "********************************************************"
 	echo ""
-	export CXX=/usr/bin/g++-7
+	export CXX=/usr/bin/g++-9
 	cp patches/patch-84c159f9-to-PC.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC.patch
