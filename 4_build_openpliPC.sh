@@ -157,11 +157,11 @@ if [ "$release" = "14.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 14.04 ***"
-	echo "                  *** USED g++-6 ***"
+	echo "                  *** USED g++-8 ***"
 	echo "        *** PICLOAD PATCH FOR 14.04 APPLIED.  ***"
 	echo "********************************************************"
 	echo ""
-	export CXX=/usr/bin/g++-6
+	export CXX=/usr/bin/g++-8
 	cp patches/patch-84c159f9-to-PC.patch $PKG
 	cp patches/ubuntu-14.04.patch $PKG
 	cd $PKG
@@ -171,10 +171,10 @@ elif [ "$release" = "16.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 16.04 ***"
-	echo "                  *** USED g++-9 ***"
+	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
 	echo ""
-	export CXX=/usr/bin/g++-9
+	export CXX=/usr/bin/g++-8
 	cp patches/patch-84c159f9-to-PC.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC.patch
@@ -182,9 +182,9 @@ elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 18.04 ***"
-	echo "                  *** USED g++-7 ***"
+	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
-	export CXX=/usr/bin/g++-7
+	export CXX=/usr/bin/g++-8
 	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC-sigc2.patch

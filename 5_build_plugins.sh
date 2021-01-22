@@ -64,9 +64,9 @@ if [ -d plugins ]; then
 		echo "-----------------------------------------"
 		echo "         *** release 14.04 ***           "
 		echo "-----------------------------------------"
-		export CXX=/usr/bin/g++-6
+		export CXX=/usr/bin/g++-8
 		echo ""
-		echo "                  *** used g++-6 ***"
+		echo "                  *** used g++-8 ***"
 		echo ""
 		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
@@ -77,8 +77,8 @@ if [ -d plugins ]; then
 		echo "         *** release 16.04 ***           "
 		echo "-----------------------------------------"
 		echo ""
-		export CXX=/usr/bin/g++-9
-		echo "                  *** used g++-9 ***"
+		export CXX=/usr/bin/g++-8
+		echo "                  *** used g++-8 ***"
 		echo ""
 		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
@@ -89,8 +89,8 @@ if [ -d plugins ]; then
 		echo "         *** release 18.04 ***           "
 		echo "-----------------------------------------"
 		echo ""
-		export CXX=/usr/bin/g++-7
-		echo "                  *** used g++-7 ***"
+		export CXX=/usr/bin/g++-8
+		echo "                  *** used g++-8 ***"
 		echo ""
 		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3

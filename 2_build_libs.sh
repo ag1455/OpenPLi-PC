@@ -48,7 +48,7 @@ if [[ "$release" = "14.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake gcc-6 g++-6 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev \
+	REQPKG="flake gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev \
 	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc \
 	python-yenc python-gdata python-demjson python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev swig2.0 \
 	"
@@ -62,7 +62,7 @@ elif [[ "$release" = "16.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake8 gcc-9 g++-9 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev python-subprocess32 libqt5gstreamer-dev \
+	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev python-subprocess32 libqt5gstreamer-dev \
 	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-cryptodome python-pickleshare \
 	python-service-identity python-certifi python-restructuredtext-lint python-ntplib pylint python-daap python-transmissionrpc python-yenc python-gdata python-demjson \
 	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
@@ -73,7 +73,7 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "                 *** release 18.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-7 g++-7 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma \
+	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma \
 	python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
 	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson \
 	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint libvdpau1 libvdpau-va-gl1 sphinx-rtd-theme-common \
