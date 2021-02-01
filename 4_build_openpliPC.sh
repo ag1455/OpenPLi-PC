@@ -18,6 +18,7 @@ INCLUDE="/usr/include/linux/dvb"
 #export PYTHON_VERSION=3.8
 #export PYTHON_CPPFLAGS=-I/usr/include/python3.8
 #export PYTHON_LDFLAGS="-L/usr/lib/python3.8 -lpython3.8"
+#export PYTHON_SITE_PKG=/usr/local/lib/python3.8/dist-packages
 export PYTHON_VERSION=2.7
 export PYTHON_CPPFLAGS=-I/usr/include/python2.7
 export PYTHON_LDFLAGS="-L/usr/lib/python2.7 -lpython2.7"
@@ -139,7 +140,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 84c159f9
+git reset --hard 6a31785f
 cd ..
 
 # Copy headers
@@ -162,10 +163,10 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-84c159f9-to-PC.patch $PKG
+	cp -fv patches/patch-6a31785f-to-PC.patch $PKG
 	cp -fv patches/ubuntu-14.04.patch $PKG
 	cd $PKG
-	patch -p1 < patch-84c159f9-to-PC.patch
+	patch -p1 < patch-6a31785f-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -175,9 +176,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-84c159f9-to-PC.patch $PKG
+	cp -fv patches/patch-6a31785f-to-PC.patch $PKG
 	cd $PKG
-	patch -p1 < patch-84c159f9-to-PC.patch
+	patch -p1 < patch-6a31785f-to-PC.patch
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -185,9 +186,9 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-84c159f9-to-PC-sigc2.patch $PKG
+	cp -fv patches/patch-6a31785f-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
+	patch -p1 < patch-6a31785f-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -196,10 +197,10 @@ elif [ "$release" = "20.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp -fv patches/patch-84c159f9-to-PC-sigc2.patch $PKG
+	cp -fv patches/patch-6a31785f-to-PC-sigc2.patch $PKG
 	cp -fv patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
+	patch -p1 < patch-6a31785f-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
 elif [ "$release" = "20.10" ]; then
 	echo ""
@@ -209,10 +210,10 @@ elif [ "$release" = "20.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-10
-	cp -fv patches/patch-84c159f9-to-PC-sigc2.patch $PKG
+	cp -fv patches/patch-6a31785f-to-PC-sigc2.patch $PKG
 	cp -fv patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
+	patch -p1 < patch-6a31785f-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
 fi
 
@@ -224,11 +225,11 @@ if [ "$DO_CONFIGURE" -eq "1" ]; then
 	echo "             Build $PKG, please wait..."
 	echo "********************************************************"
 	echo ""
-#	autoupdate
+	autoupdate
 #	autoreconf -v -f -i -W all
 	autoreconf -i
 	#./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=vuduo4k --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd --with-debug
-	./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-boxtype=generic --with-debug
+	./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-boxtype=generic --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-debug
 	# generate pot
 	#./configure --prefix=$INSTALL_E2DIR --with-xlib --with-debug --with-po
 fi
@@ -262,39 +263,40 @@ if [ "$DO_MAKEINSTALL" -eq "0" ]; then
 fi
 
 # Make dvbsoftwareca module
-modprobe -r dvbsoftwareca
-cd ../dvbsoftwareca-5x
-if [ -f dvbsoftwareca.ko ]; then
-	make clean
-fi
-make -j"$DO_PARALLEL"
-if [ ! $? -eq 0 ]; then
-	echo ""
-	echo "******************************************************************"
-	echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION DVBSOFTWARECA!"
-	echo "******************************************************************"
-	echo ""
-	exit
-fi
-cp -fv dvbsoftwareca.ko /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends
-/sbin/depmod -a
-cd ..
-
+if [ ! -f /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends/dvbsoftwareca.ko ]; then
+	cd ../dvbsoftwareca-5x
+	if [ -f dvbsoftwareca.ko ]; then
+		make clean
+	fi
+	make -j"$DO_PARALLEL"
+	if [ ! $? -eq 0 ]; then
+		echo ""
+		echo "******************************************************************"
+		echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION DVBSOFTWARECA!"
+		echo "******************************************************************"
+		echo ""
+		exit
+	fi
+	cp -fv dvbsoftwareca.ko /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends
+	/sbin/depmod -a
+	cd ..
 # Create symlink
-if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
-	ln -s $DVB_DEV/demux0 $DVB_DEV/demux1
-else
-	echo "Symlink demux1 already exists"
-fi
-if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
-	ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
-else
-	echo "Symlink dvr1 already exists"
-fi
-
+	if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
+		ln -s $DVB_DEV/demux0 $DVB_DEV/demux1
+	else
+		echo "Symlink demux1 already exists"
+	fi
+	if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
+		ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
+	else
+		echo "Symlink dvr1 already exists"
+	fi
 # Insert module dvbsoftwareca
-if [ $(lsmod | grep -c dvbsoftwareca) -eq 0 ]; then
-	modprobe -v dvbsoftwareca
+	if [ $(lsmod | grep -c dvbsoftwareca) -eq 0 ]; then
+		modprobe -v dvbsoftwareca
+	fi
+else
+	cd ..
 fi
 
 echo ""
@@ -465,58 +467,69 @@ echo "do the opposite as user, but not as root."
 echo "********************************************************"
 echo ""
 
-echo ""
-echo "********************************************************"
-echo "            AUTOMATIC CREATION nim_sockets."
-echo "********************************************************"
-echo ""
+if [ ! -f /usr/local/e2/etc/tuxbox/nim_sockets ]; then
+	echo ""
+	echo "********************************************************"
+	echo "            AUTOMATIC CREATION nim_sockets."
+	echo "********************************************************"
+	echo ""
 
-cd util
-./build_create_nim_sockets.sh
-./create_nim_sockets -d
-mv nim_sockets $INSTALL_E2DIR/etc/tuxbox
-cd ..
+	cd util
+	./build_create_nim_sockets.sh
+	./create_nim_sockets -d
+	mv nim_sockets $INSTALL_E2DIR/etc/tuxbox
+	cd ..
 
-echo ""
-echo "********************************************************"
-echo "      Enigma2PC and folders installed successfully."
-echo "    If you have own settings, then they are restored."
-echo ""
-echo "                    Now check please:"
-echo "           /usr/local/e2/etc/tuxbox/nim_sockets"
-echo "      according to your /dev/dvb/adapter?/frontend?"
-echo ""
-echo ""
-echo "         Example for dvb-S2 card in one slot:"
-echo "                   NIM Socket 0:"
-echo "                   Type DVB-S2"
-echo "                   Name: YOURCARDNAME"
-echo "                   Has_Outputs: no"
-echo "                   Frontend_Device: 0"
-echo ""
-echo ""
-echo "         Example for dvb-Т2 card in one slot:"
-echo "                   NIM Socket 0:"
-echo "                   Type: DVB-T2"
-echo "                   Name: YOURCARDNAME"
-echo "                   Has_Outputs: no"
-echo "                   Frontend_Device: 0"
-echo ""
-echo ""
-echo " Example for dvb-S2/T2 card in one or different slots:"
-echo "                   NIM Socket 0:"
-echo "                   Type DVB-S2"
-echo "                   Name: YOURCARDNAME"
-echo "                   Has_Outputs: no"
-echo "                   Frontend_Device: 0"
-echo ""
-echo "                   NIM Socket 1:"
-echo "                   Type: DVB-T2"
-echo "                   Name: YOURCARDNAME"
-echo "                   Has_Outputs: no"
-echo "                   Frontend_Device: 1"
-echo ""
-echo ""
-echo "      At the first start you can skip the network"
-echo "  configuration, since this is already set in Ubuntu."
-echo "********************************************************"
+	echo ""
+	echo "********************************************************"
+	echo "      Enigma2PC and folders installed successfully."
+	echo "    If you have own settings, then they are restored."
+	echo ""
+	echo "                    Now check please:"
+	echo "           /usr/local/e2/etc/tuxbox/nim_sockets"
+	echo "      according to your /dev/dvb/adapter?/frontend?"
+	echo ""
+	echo ""
+	echo "         Example for dvb-S2 card in one slot:"
+	echo "                   NIM Socket 0:"
+	echo "                   Type DVB-S2"
+	echo "                   Name: YOURCARDNAME"
+	echo "                   Has_Outputs: no"
+	echo "                   Frontend_Device: 0"
+	echo ""
+	echo ""
+	echo "         Example for dvb-Т2 card in one slot:"
+	echo "                   NIM Socket 0:"
+	echo "                   Type: DVB-T2"
+	echo "                   Name: YOURCARDNAME"
+	echo "                   Has_Outputs: no"
+	echo "                   Frontend_Device: 0"
+	echo ""
+	echo ""
+	echo " Example for dvb-S2/T2 card in one or different slots:"
+	echo "                   NIM Socket 0:"
+	echo "                   Type DVB-S2"
+	echo "                   Name: YOURCARDNAME"
+	echo "                   Has_Outputs: no"
+	echo "                   Frontend_Device: 0"
+	echo ""
+	echo "                   NIM Socket 1:"
+	echo "                   Type: DVB-T2"
+	echo "                   Name: YOURCARDNAME"
+	echo "                   Has_Outputs: no"
+	echo "                   Frontend_Device: 1"
+	echo ""
+	echo ""
+	echo "      At the first start you can skip the network"
+	echo "  configuration, since this is already set in Ubuntu."
+	echo "********************************************************"
+else
+	echo ""
+	echo "********************************************************"
+	echo "      Enigma2PC and folders installed successfully."
+	echo "    If you have own settings, then they are restored."
+	echo ""
+	echo "      At the first start you can skip the network"
+	echo "  configuration, since this is already set in Ubuntu."
+	echo "********************************************************"
+fi
