@@ -68,7 +68,7 @@ if [ -d plugins ]; then
 		echo ""
 		echo "                  *** used g++-8 ***"
 		echo ""
-		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
+		cp -fv patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3-0.patch
@@ -80,7 +80,7 @@ if [ -d plugins ]; then
 		export CXX=/usr/bin/g++-8
 		echo "                  *** used g++-8 ***"
 		echo ""
-		cp patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
+		cp -fv patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3-0.patch
@@ -92,7 +92,7 @@ if [ -d plugins ]; then
 		export CXX=/usr/bin/g++-8
 		echo "                  *** used g++-8 ***"
 		echo ""
-		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
@@ -104,7 +104,7 @@ if [ -d plugins ]; then
 		export CXX=/usr/bin/g++-9
 		echo "                  *** used g++-9 ***"
 		echo ""
-		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
@@ -116,7 +116,7 @@ if [ -d plugins ]; then
 		export CXX=/usr/bin/g++-10
 		echo "                  *** used g++-10 ***"
 		echo ""
-		cp patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
@@ -172,7 +172,7 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-SystemTools.git
 		cd ../..
-		cp patches/SystemTools.patch plugins/e2openplugin/e2openplugin-SystemTools
+		cp -fv patches/SystemTools.patch plugins/e2openplugin/e2openplugin-SystemTools
 		cd plugins/e2openplugin/e2openplugin-SystemTools
 		patch -p1 < SystemTools.patch
 		if [ "$release" = "20.04" ]; then
@@ -220,7 +220,7 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-OpenWebif.git
 		cd ../..
-		cp patches/OpenWebif.patch plugins/e2openplugin/e2openplugin-OpenWebif
+		cp -fv patches/OpenWebif.patch plugins/e2openplugin/e2openplugin-OpenWebif
 		cd plugins/e2openplugin/e2openplugin-OpenWebif
 		git checkout --detach 6c181a08
 		patch -p1 < OpenWebif.patch
@@ -242,7 +242,7 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-SetPicon.git
 		cd ../..
-		cp patches/SetPicon.patch plugins/e2openplugin/e2openplugin-SetPicon
+		cp -fv patches/SetPicon.patch plugins/e2openplugin/e2openplugin-SetPicon
 		cd plugins/e2openplugin/e2openplugin-SetPicon
 		git checkout --detach 1ec3cace
 		patch -p1 < SetPicon.patch
@@ -269,7 +269,7 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-SnmpAgent.git
 		cd ../..
-		cp patches/SnmpAgent.patch plugins/e2openplugin/e2openplugin-SnmpAgent
+		cp -fv patches/SnmpAgent.patch plugins/e2openplugin/e2openplugin-SnmpAgent
 		cd plugins/e2openplugin/e2openplugin-SnmpAgent
 		patch -p1 < SnmpAgent.patch
 		if [ "$release" = "20.04" ]; then
@@ -295,7 +295,7 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-SimpleUmount.git
 		cd ../..
-		cp patches/SimpleUmount.patch plugins/e2openplugin/e2openplugin-SimpleUmount
+		cp -fv patches/SimpleUmount.patch plugins/e2openplugin/e2openplugin-SimpleUmount
 		cd plugins/e2openplugin/e2openplugin-SimpleUmount
 		patch -p1 < SimpleUmount.patch
 		if [ "$release" = "20.04" ]; then
@@ -369,7 +369,7 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-OscamStatus.git
 		cd ../..
-		cp patches/OscamStatus.patch plugins/e2openplugin/e2openplugin-OscamStatus
+		cp -fv patches/OscamStatus.patch plugins/e2openplugin/e2openplugin-OscamStatus
 		cd plugins/e2openplugin/e2openplugin-OscamStatus
 		patch -p1 < OscamStatus.patch
 		find plugin/locale -name "*.mo" -exec rm {} \;
@@ -396,7 +396,7 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/OpenPLi/enigma2-plugin-extensions-epgimport.git
 		cd ../..
-		cp patches/EPGImport.patch plugins/e2openplugin/enigma2-plugin-extensions-epgimport
+		cp -fv patches/EPGImport.patch plugins/e2openplugin/enigma2-plugin-extensions-epgimport
 		cd plugins/e2openplugin/enigma2-plugin-extensions-epgimport
 		git checkout --detach 4af378a2
 		patch -p1 < EPGImport.patch
@@ -433,8 +433,8 @@ if [ -d plugins ]; then
 		#git clone https://gitlab.com/zadmario/e2iplayer.git
 		#git clone https://github.com/persianpros/e2iplayer.git
 		cd ../..
-		cp -r pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
-		cp patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
+		cp -rv pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
+		cp -fv patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
 		cd plugins/e2openplugin/e2iplayer
 		git checkout --detach 77679890
 		patch -p1 < E2IPlayer.patch

@@ -26,7 +26,7 @@ if [ -d "$PKG" ]; then
 	echo "-----------------------------------------"
 	echo "      head now on 14814:09aa41e45228"
 	echo "-----------------------------------------"
-	cp patches/xine-lib-1.2-14814:09aa41e45228.patch $PKG
+	cp -fv patches/xine-lib-1.2-14814:09aa41e45228.patch $PKG
 else
 	echo "-----------------------------------------"
 	echo "        CHECK INTERNET CONNECTION!"

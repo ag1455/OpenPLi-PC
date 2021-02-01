@@ -162,8 +162,8 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-84c159f9-to-PC.patch $PKG
-	cp patches/ubuntu-14.04.patch $PKG
+	cp -fv patches/patch-84c159f9-to-PC.patch $PKG
+	cp -fv patches/ubuntu-14.04.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
@@ -175,7 +175,7 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-84c159f9-to-PC.patch $PKG
+	cp -fv patches/patch-84c159f9-to-PC.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC.patch
 elif [ "$release" = "18.04" ]; then
@@ -185,7 +185,7 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-8
-	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
+	cp -fv patches/patch-84c159f9-to-PC-sigc2.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
@@ -196,8 +196,8 @@ elif [ "$release" = "20.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
-	cp patches/20_04_Makefile.am.patch $PKG
+	cp -fv patches/patch-84c159f9-to-PC-sigc2.patch $PKG
+	cp -fv patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
@@ -209,8 +209,8 @@ elif [ "$release" = "20.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-10
-	cp patches/patch-84c159f9-to-PC-sigc2.patch $PKG
-	cp patches/20_04_Makefile.am.patch $PKG
+	cp -fv patches/patch-84c159f9-to-PC-sigc2.patch $PKG
+	cp -fv patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
 	patch -p1 < patch-84c159f9-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
@@ -355,7 +355,7 @@ if [ ! -f ./e2bin ]; then
 fi
 if [ ! -d $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca ]; then
 	mkdir $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca
-	cp dvbsoftwareca/ca.h $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca
+	cp -fv dvbsoftwareca/ca.h $INSTALL_E2DIR/include/enigma2/lib/dvbsoftwareca
 fi
 if [ ! -f $INSTALL_E2DIR/share/fonts/tuxtxt.otb ]; then
 	ln -s /usr/share/fonts/tuxtxt.otb $INSTALL_E2DIR/share/fonts/tuxtxt.otb

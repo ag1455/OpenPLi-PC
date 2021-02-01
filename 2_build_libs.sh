@@ -256,8 +256,8 @@ git clone git://git.opendreambox.org/git/obi/$PKG.git
 cd $PKG
 git checkout 64efce61
 cd ../..
-cp patches/fix_section_len_check.patch libs/$PKG
-cp patches/ac3_descriptor-check-if-header-is-larger-than-descri.patch libs/$PKG
+cp -v patches/fix_section_len_check.patch libs/$PKG
+cp -v patches/ac3_descriptor-check-if-header-is-larger-than-descri.patch libs/$PKG
 cd libs/$PKG
 patch -p1 < fix_section_len_check.patch
 patch -p1 < ac3_descriptor-check-if-header-is-larger-than-descri.patch
@@ -355,7 +355,7 @@ else
 	fi
 	git clone https://github.com/OpenPLi/tuxtxt.git tuxtxt-git
 	cd ..
-	cp patches/tuxtxt.patch libs/$SOURCE
+	cp -v patches/tuxtxt.patch libs/$SOURCE
 	cd libs/$SOURCE
 	git checkout fa18f775
 	patch -p1 < tuxtxt.patch
@@ -406,7 +406,7 @@ else
 	fi
 	git clone https://github.com/OpenPLi/aio-grab.git
 	cd ..
-	cp patches/aio-grab.patch libs/$PKG
+	cp -v patches/aio-grab.patch libs/$PKG
 	cd libs/$PKG
 	git checkout c79e2641
 	patch -p1 < aio-grab.patch
@@ -440,7 +440,7 @@ else
 	if [[ "$release" = "14.04" ]]; then
 		git checkout 4ace22cf
 		cd ../..
-		cp patches/dvbmediasink-0.10.patch libs/$PKG
+		cp -v patches/dvbmediasink-0.10.patch libs/$PKG
 		cd libs/$PKG
 		patch -p1 < dvbmediasink-0.10.patch
 		echo "-----------------------------------------"
@@ -453,7 +453,7 @@ else
 	else
 		git checkout 12511897
 		cd ../..
-		cp patches/dvbmediasink-1.0.patch libs/$PKG
+		cp -v patches/dvbmediasink-1.0.patch libs/$PKG
 		cd libs/$PKG
 		patch -p1 < dvbmediasink-1.0.patch
 		echo "-----------------------------------------"
@@ -497,7 +497,7 @@ else
 		checkinstall -D --install=yes --default --pkgname=libgstreamer-plugins-subsink --pkgversion=0.10.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	else
 		cd ../..
-		cp patches/subsink_1.0.patch libs/$PKG
+		cp -v patches/subsink_1.0.patch libs/$PKG
 		cd libs/$PKG
 		patch -p1 < subsink_1.0.patch
 		echo "-----------------------------------------"
