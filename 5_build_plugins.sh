@@ -52,6 +52,7 @@ if [ -d plugins ]; then
 	fi
 
 	cd plugins/enigma2-plugins
+	make distclean
 
 	# Build enigma2 cpp plugins:
 	if [ -d servicemp3 ]; then
@@ -117,6 +118,7 @@ if [ -d plugins ]; then
 		echo "                  *** used g++-10 ***"
 		echo ""
 		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+		cp -fv pre/include/rpc/* /usr/include/rpc
 		cd plugins/enigma2-plugins/servicemp3
 		git checkout --detach a84cd6ed
 		patch -p1 < servicemp3.patch
