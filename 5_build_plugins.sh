@@ -227,7 +227,7 @@ if [ -d plugins ]; then
 		git checkout --detach b349ec74
 		patch -p1 < OpenWebif.patch
 		sh create_ipk.sh
-		ar -x *.ipk
+		ar -x enigma2-plugin-extensions-openwebif_1.4.3-latest_all.ipk
 		tar -xvf data.tar.gz
 		mv -f usr/lib/enigma2/python/Plugins/Extensions/OpenWebif /usr/local/e2/lib/enigma2/python/Plugins/Extensions
 		rm -rf debian-binary usr *.gz *.ipk
