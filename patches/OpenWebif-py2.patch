@@ -1,0 +1,296 @@
+diff -ruN a/plugin/controllers/ajax.py b/plugin/controllers/ajax.py
+--- a/plugin/controllers/ajax.py	2021-02-02 17:31:36.669257852 +0300
++++ b/plugin/controllers/ajax.py	2021-02-02 17:19:15.323203500 +0300
+@@ -183,7 +183,7 @@
+ 			box['brand'] = "iqon"
+ 		elif getMachineBrand() == 'Technomate':
+ 			box['brand'] = "techomate"
+-		elif fileExists("/proc/stb/info/azmodel"):
++		elif fileExists("/usr/local/e2/etc/stb/info/azmodel"):
+ 			box['brand'] = "azbox"
+ 		return {"box": box}
+ 
+diff -ruN a/plugin/controllers/base.py b/plugin/controllers/base.py
+--- a/plugin/controllers/base.py	2021-02-02 17:31:36.669257852 +0300
++++ b/plugin/controllers/base.py	2021-02-02 17:20:37.152209499 +0300
+@@ -108,9 +108,9 @@
+ 		request.finish()
+ 
+ 	def loadTemplate(self, path, module, args):
+-		if fileExists(getViewsPath(path + ".py")) or fileExists(getViewsPath(path + ".pyo")):
+-			if fileExists(getViewsPath(path + ".pyo")):
+-				template = imp.load_compiled(module, getViewsPath(path + ".pyo"))
++		if fileExists(getViewsPath(path + ".py")) or fileExists(getViewsPath(path + ".pyc")):
++			if fileExists(getViewsPath(path + ".pyc")):
++				template = imp.load_compiled(module, getViewsPath(path + ".pyc"))
+ 			else:
+ 				template = imp.load_source(module, getViewsPath(path + ".py"))
+ 			mod = getattr(template, module, None)
+@@ -286,9 +286,9 @@
+ 			if ip_list:
+ 				ip = "%d.%d.%d.%d" % (ip_list[0], ip_list[1], ip_list[2], ip_list[3])
+ 
+-				if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.pyo")):
++				if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.pyc")):
+ 					lcd4linux_key = "lcd4linux/config"
+-					if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.pyo")):
++					if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.pyc")):
+ 						try:
+ 							lcd4linux_port = "http://" + ip + ":" + str(config.plugins.Webinterface.http.port.value) + "/"
+ 							lcd4linux_key = lcd4linux_port + 'lcd4linux/config'
+@@ -327,7 +327,7 @@
+ 		except ImportError:
+ 			pass
+ 
+-		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/bqe.tmpl")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/bqe.pyo")):
++		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/bqe.tmpl")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/bqe.pyc")):
+ 			extras.append({'key': 'ajax/bqe', 'description': _('BouquetEditor')})
+ 
+ 		try:
+@@ -349,7 +349,7 @@
+ 		except ImportError:
+ 			pass
+ 
+-		if os.path.exists('/usr/bin/shellinaboxd') and (fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/terminal.tmpl")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/terminal.pyo"))):
++		if os.path.exists('/usr/bin/shellinaboxd') and (fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/terminal.tmpl")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/terminal.pyc"))):
+ 			extras.append({'key': 'ajax/terminal', 'description': _('Terminal')})
+ 
+ 		ret['extras'] = extras
+diff -ruN a/plugin/controllers/defaults.py b/plugin/controllers/defaults.py
+--- a/plugin/controllers/defaults.py	2021-02-02 17:31:36.669257852 +0300
++++ b/plugin/controllers/defaults.py	2021-02-02 17:23:53.134223868 +0300
+@@ -26,8 +26,8 @@
+ #: get transcoding feature
+ def getTranscoding():
+ 	transcoding = False
+-	if os.path.isfile("/proc/stb/encoder/0/bitrate"):
+-		if os.path.exists(eEnv.resolve('${libdir}/enigma2/python/Plugins/SystemPlugins/TransCodingSetup/plugin.pyo')) or os.path.exists(eEnv.resolve('${libdir}/enigma2/python/Plugins/SystemPlugins/TranscodingSetup/plugin.pyo')) or os.path.exists(eEnv.resolve('${libdir}/enigma2/python/Plugins/SystemPlugins/MultiTransCodingSetup/plugin.pyo')):
++	if os.path.isfile("/usr/local/etc/stb/encoder/0/bitrate"):
++		if os.path.exists(eEnv.resolve('${libdir}/enigma2/python/Plugins/SystemPlugins/TransCodingSetup/plugin.pyc')) or os.path.exists(eEnv.resolve('${libdir}/enigma2/python/Plugins/SystemPlugins/TranscodingSetup/plugin.pyc')) or os.path.exists(eEnv.resolve('${libdir}/enigma2/python/Plugins/SystemPlugins/MultiTransCodingSetup/plugin.pyc')):
+ 			transcoding = True
+ 
+ 	return transcoding
+diff -ruN a/plugin/controllers/models/control.py b/plugin/controllers/models/control.py
+--- a/plugin/controllers/models/control.py	2021-02-02 16:44:42.000000000 +0300
++++ b/plugin/controllers/models/control.py	2021-02-02 17:19:15.325203500 +0300
+@@ -29,7 +29,7 @@
+ import NavigationInstance
+ import os
+ 
+-ENABLE_QPIP_PROCPATH = "/proc/stb/video/decodermode"
++ENABLE_QPIP_PROCPATH = "/usr/local/e2/etc/stb/video/decodermode"
+ 
+ 
+ def checkIsQPiP():
+diff -ruN a/plugin/controllers/models/info.py b/plugin/controllers/models/info.py
+--- a/plugin/controllers/models/info.py	2021-02-02 17:31:36.670257852 +0300
++++ b/plugin/controllers/models/info.py	2021-02-02 17:19:15.327203500 +0300
+@@ -224,7 +224,7 @@
+ 		elif model in ("topf", "tf7700hdpvr"):
+ 			chipset = "SH4 @266MHz"
+ 		elif model.startswith("azbox"):
+-			f = open("/proc/stb/info/model", 'r')
++			f = open("/usr/local/e2/etc/stb/info/model", 'r')
+ 			model = f.readline().strip().lower()
+ 			f.close()
+ 			if model == "me":
+@@ -238,8 +238,8 @@
+ 				chipset = "SH4 @540MHz"
+ 			else:
+ 				chipset = "SH4 @450MHz"
+-	elif fileExists("/proc/stb/info/azmodel"):
+-		f = open("/proc/stb/info/model", 'r')
++	elif fileExists("/usr/local/e2/etc/stb/info/azmodel"):
++		f = open("/usr/local/e2/etc/stb/info/model", 'r')
+ 		model = f.readline().strip().lower()
+ 		f.close()
+ 		if model == "me":
+@@ -248,8 +248,8 @@
+ 			chipset = "SIGMA 8653"
+ 		else:
+ 			chipset = "SIGMA 8634"
+-	elif fileExists("/proc/stb/info/model"):
+-		f = open("/proc/stb/info/model", 'r')
++	elif fileExists("/usr/local/e2/etc/stb/info/model"):
++		f = open("/usr/local/e2/etc/stb/info/model", 'r')
+ 		model = f.readline().strip().lower()
+ 		f.close()
+ 		if model == "tf7700hdpvr":
+@@ -290,8 +290,8 @@
+ 		elif model == "dm920":
+ 			chipset = "bcm7252S"
+ 
+-	if fileExists("/proc/stb/info/chipset"):
+-		f = open("/proc/stb/info/chipset", 'r')
++	if fileExists("/usr/local/e2/etc/stb/info/chipset"):
++		f = open("/usr/local/e2/etc/stb/info/chipset", 'r')
+ 		chipset = f.readline().strip()
+ 		f.close()
+ 
+diff -ruN a/plugin/controllers/models/owibranding.py b/plugin/controllers/models/owibranding.py
+--- a/plugin/controllers/models/owibranding.py	2021-02-02 17:31:36.670257852 +0300
++++ b/plugin/controllers/models/owibranding.py	2021-02-02 17:25:21.651230357 +0300
+@@ -145,9 +145,9 @@
+ 	if tpmloaded:
+ 		orgdream = tpm_check()
+ 
+-	if fileExists("/proc/stb/info/hwmodel"):
++	if fileExists("/usr/local/e2/etc/stb/info/hwmodel"):
+ 		brand = "DAGS"
+-		f = open("/proc/stb/info/hwmodel", 'r')
++		f = open("/usr/local/e2/etc/stb/info/hwmodel", 'r')
+ 		procmodel = f.readline().strip()
+ 		f.close()
+ 		if (procmodel.startswith("optimuss") or procmodel.startswith("pingulux")):
+@@ -175,15 +175,15 @@
+ 				model = procmodel.replace("lunix", "Lunix")
+ 			if procmodel == "lunix4k":
+ 				model = procmodel.replace("lunix4k", "Lunix4K")
+-	elif fileExists("/proc/stb/info/azmodel"):
++	elif fileExists("/usr/local/e2/etc/stb/info/azmodel"):
+ 		brand = "AZBox"
+-		f = open("/proc/stb/info/model", 'r')  # To-Do: Check if "model" is really correct ...
++		f = open("/usr/local/e2/etc/stb/info/model", 'r')  # To-Do: Check if "model" is really correct ...
+ 		procmodel = f.readline().strip()
+ 		f.close()
+ 		model = procmodel.lower()
+-	elif fileExists("/proc/stb/info/gbmodel"):
++	elif fileExists("/usr/local/e2/etc/stb/info/gbmodel"):
+ 		brand = "GigaBlue"
+-		f = open("/proc/stb/info/gbmodel", 'r')
++		f = open("/usr/local/e2/etc/stb/info/gbmodel", 'r')
+ 		procmodel = f.readline().strip()
+ 		f.close()
+ 		if procmodel == "GBQUAD PLUS":
+@@ -198,9 +198,9 @@
+ 			model = procmodel.replace("ue4k", "UHD UE 4k")
+ 		elif procmodel == "gbtrio4k":
+ 			model = procmodel.replace("gbtrio4k", "UHD Trio 4k")
+-	elif fileExists("/proc/stb/info/vumodel") and not fileExists("/proc/stb/info/boxtype"):
++	elif fileExists("/usr/local/e2/etc/stb/info/vumodel") and not fileExists("/usr/local/e2/etc/stb/info/boxtype"):
+ 		brand = "Vu+"
+-		f = open("/proc/stb/info/vumodel", 'r')
++		f = open("/usr/local/e2/etc/stb/info/vumodel", 'r')
+ 		procmodel = f.readline().strip()
+ 		f.close()
+ 		model = procmodel.title().replace("olose", "olo SE").replace("olo2se", "olo2 SE").replace("2", "²").replace("4Kse", "4K SE")
+@@ -226,10 +226,6 @@
+ 				model = "UHD 88"
+ 			else:
+ 				model = "ESI 88"
+-	elif fileExists("/proc/stb/info/boxtype"):
+-		f = open("/proc/stb/info/boxtype", 'r')
+-		procmodel = f.readline().strip().lower()
+-		f.close()
+ 		if procmodel.startswith("et"):
+ 			if procmodel == "et7000mini":
+ 				brand = "Galaxy Innovations"
+@@ -442,7 +438,7 @@
+ 		elif procmodel.startswith("sf"):
+ 			brand = "Octagon"
+ 			if procmodel.startswith("sf8008"):
+-				sf8008type = open("/proc/stb/info/type").read()
++				sf8008type = open("/usr/local/e2/etc/stb/info/type").read()
+ 				if sf8008type.startswith("11"):
+ 					procmodel = "sf8008t"
+ 					model = "SF8008 4K Twin"
+@@ -459,8 +455,8 @@
+ 			model = "E4HD"
+ 			lcd = 1
+ 			grabpip = 1
+-	elif fileExists("/proc/stb/info/model"):
+-		f = open("/proc/stb/info/model", 'r')
++	elif fileExists("/usr/local/etc/stb/info/model"):
++		f = open("/usr/local/etc/stb/info/model", 'r')
+ 		procmodel = f.readline().strip().lower()
+ 		f.close()
+ 		if procmodel == "tf7700hdpvr":
+diff -ruN a/plugin/controllers/models/services.py b/plugin/controllers/models/services.py
+--- a/plugin/controllers/models/services.py	2021-02-02 17:31:36.670257852 +0300
++++ b/plugin/controllers/models/services.py	2021-02-02 17:19:15.329203500 +0300
+@@ -22,6 +22,9 @@
+ ##########################################################################
+ 
+ from __future__ import print_function
++import sys
++reload(sys)
++sys.setdefaultencoding('utf8')
+ import re
+ import unicodedata
+ import six
+diff -ruN a/plugin/controllers/models/stream.py b/plugin/controllers/models/stream.py
+--- a/plugin/controllers/models/stream.py	2021-02-02 17:31:36.671257852 +0300
++++ b/plugin/controllers/models/stream.py	2021-02-02 17:25:53.405232685 +0300
+@@ -84,10 +84,10 @@
+ 				portNumber = transcoder_port
+ 		if "port" in request.args:
+ 			portNumber = request.args["port"][0]
+-	elif fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
++	elif fileExists("/dev/encoder0") or fileExists("/usr/local/etc/stb/encoder/0/apply"):
+ 		transcoder_port = portNumber
+ 
+-	if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
++	if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/etc/stb/encoder/0/apply"):
+ 		if "device" in request.args:
+ 			if request.args["device"][0] == "phone":
+ 				try:
+@@ -97,7 +97,7 @@
+ 					# framerate = config.plugins.transcodingsetup.framerate.value
+ 					aspectratio = config.plugins.transcodingsetup.aspectratio.value
+ 					interlaced = config.plugins.transcodingsetup.interlaced.value
+-					if fileExists("/proc/stb/encoder/0/vcodec"):
++					if fileExists("/usr/local/etc/stb/encoder/0/vcodec"):
+ 						vcodec = config.plugins.transcodingsetup.vcodec.value
+ 						args = "?bitrate=%s__width=%s__height=%s__vcodec=%s__aspectratio=%s__interlaced=%s" % (bitrate, width, height, vcodec, aspectratio, interlaced)
+ 					else:
+@@ -171,7 +171,7 @@
+ 		if info["imagedistro"] in ('openpli', 'satdreamgr', 'openvision'):
+ 			urlparam = '&'
+ 		
+-		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
++		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/stb/encoder/0/apply"):
+ 			try:
+ 				transcoder_port = int(config.plugins.transcodingsetup.port.value)
+ 			except Exception:
+@@ -183,7 +183,7 @@
+ 			if "port" in request.args:
+ 				portNumber = request.args["port"][0]
+ 
+-		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
++		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/etc/stb/encoder/0/apply"):
+ 			if "device" in request.args:
+ 				if request.args["device"][0] == "phone":
+ 					try:
+@@ -193,7 +193,7 @@
+ 						# framerate = config.plugins.transcodingsetup.framerate.value
+ 						aspectratio = config.plugins.transcodingsetup.aspectratio.value
+ 						interlaced = config.plugins.transcodingsetup.interlaced.value
+-						if fileExists("/proc/stb/encoder/0/vcodec"):
++						if fileExists("/usr/local/etc/stb/encoder/0/vcodec"):
+ 							vcodec = config.plugins.transcodingsetup.vcodec.value
+ 							args = "?bitrate=%s__width=%s__height=%s__vcodec=%s__aspectratio=%s__interlaced=%s" % (bitrate, width, height, vcodec, aspectratio, interlaced)
+ 						else:
+diff -ruN a/testsuite/evil_eval.py b/testsuite/evil_eval.py
+--- a/testsuite/evil_eval.py	2021-02-02 16:44:43.000000000 +0300
++++ b/testsuite/evil_eval.py	2021-02-02 17:19:15.331203501 +0300
+@@ -9,7 +9,7 @@
+ 
+     root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__.__name__ == 1 or (open('you lost your mind? according to my last psych EVALuation, yes', 'wb') and config or config)"
+     root@heart-of-gold:~# ls $HOME/you*
+-    /home/root/you lost your mind? according to my last psych EVALuation, yes
++    /home/hdd/you lost your mind? according to my last psych EVALuation, yes
+ 
+     root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__ == 42 or (__import__('os').system('id > pwned') and config or config)"
+     {"result": false}
+diff -ruN a/testsuite/status_quo_file_controller.py b/testsuite/status_quo_file_controller.py
+--- a/testsuite/status_quo_file_controller.py	2021-02-02 16:44:43.000000000 +0300
++++ b/testsuite/status_quo_file_controller.py	2021-02-02 17:19:15.332203501 +0300
+@@ -71,7 +71,7 @@
+ 		}
+ 		req = requests.get(self.file_url, params=params)
+ 		print("Tried to fetch {!r}".format(req.url))
+-		self.assertEqual("File '/home/root/{:s}' not found".format(randy),
++		self.assertEqual("File '/home/hdd/{:s}' not found".format(randy),
+ 						  req.text)
+ 		self.assertEqual(200, req.status_code)
+ 

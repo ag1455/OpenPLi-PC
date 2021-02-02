@@ -222,12 +222,25 @@ if [ -d plugins ]; then
 		echo ""
 		git clone https://github.com/E2OpenPlugins/e2openplugin-OpenWebif.git
 		cd ../..
-		cp -fv patches/OpenWebif.patch plugins/e2openplugin/e2openplugin-OpenWebif
+		cp -fv patches/OpenWebif-py2.patch plugins/e2openplugin/e2openplugin-OpenWebif
+		cp -fv patches/OpenWebif-py3.patch plugins/e2openplugin/e2openplugin-OpenWebif
 		cd plugins/e2openplugin/e2openplugin-OpenWebif
-		git checkout --detach b349ec74
-		patch -p1 < OpenWebif.patch
-		sh create_ipk.sh
-		ar -x enigma2-plugin-extensions-openwebif_1.4.3-latest_all.ipk
+		if [ "$release" = "20.04" ]; then
+			git checkout --detach b349ec74
+			patch -p1 < OpenWebif-py3.patch
+			sh create_ipk.sh
+			ar -x enigma2-plugin-extensions-openwebif_1.4.3-latest_all.ipk
+		elif [ "$release" = "20.10" ]; then
+			git checkout --detach b349ec74
+			patch -p1 < OpenWebif.patch
+			sh create_ipk.sh
+			ar -x enigma2-plugin-extensions-openwebif_1.4.3-latest_all.ipk
+		else
+			git checkout --detach 7f53c0ef
+			patch -p1 < OpenWebif-py2.patch
+			sh create_ipk.sh
+			ar -x *.ipk
+		fi
 		tar -xvf data.tar.gz
 		mv -f usr/lib/enigma2/python/Plugins/Extensions/OpenWebif /usr/local/e2/lib/enigma2/python/Plugins/Extensions
 		rm -rf debian-binary usr *.gz *.ipk

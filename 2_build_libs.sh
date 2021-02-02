@@ -62,10 +62,12 @@ elif [[ "$release" = "16.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev python-subprocess32 libqt5gstreamer-dev \
-	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-cryptodome python-pickleshare \
-	python-service-identity python-certifi python-restructuredtext-lint python-ntplib pylint python-daap python-transmissionrpc python-yenc python-gdata python-demjson \
-	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev sphinx-rtd-theme-common libupnp6-dev swig2.0 yamllint \
+	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev libqt5gstreamer-dev libupnp6-dev \
+	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-cryptodome \
+	python-pickleshare python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata \
+	python-demjson python-mutagen python-ipaddr python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.httpdomain python-dev \
+	pylint python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj python-future \
+	python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -73,11 +75,12 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "                 *** release 18.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev mock python-flickrapi python-lzma \
-	python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare \
-	pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson \
-	python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev pylint libvdpau1 libvdpau-va-gl1 sphinx-rtd-theme-common \
-	libupnp6-dev swig yamllint \
+	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev libupnp6-dev libvdpau1 libvdpau-va-gl1 \
+	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome \
+	python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata \
+	python-demjson python-mutagen python-ipaddr python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.websupport python-sphinxcontrib.httpdomain python-dev \
+	pylint python-incremental python-sabyenc python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj python-future \
+	python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig yamllint \
 	"
 elif [[ "$release" = "20.04" ]]; then
 	echo ""
@@ -108,7 +111,7 @@ elif [[ "$release" = "20.04" ]]; then
 	"
 	apt-get purge -y python-twisted-bin python-incremental python-twisted-core python-twisted-web python-twisted-names python-twisted-mail python-ipaddr python-urllib3 python-configobj \
 	python-bzrlib python-lzma python-blessings python-mechanize python-flickrapi python-langdetect python-pickleshare python-sabyenc python-restructuredtext-lint python-requests \
-	python-requests-toolbelt python-jwt python-oauthlib python-requests-oauthlib python-blinker python-flickrapi python-sendfile
+	python-requests-toolbelt python-jwt python-oauthlib python-requests-oauthlib python-blinker python-sendfile
 	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-web_18.9.0-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-names_18.9.0-3_all.deb \
