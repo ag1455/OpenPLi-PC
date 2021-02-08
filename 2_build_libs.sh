@@ -105,13 +105,11 @@ elif [[ "$release" = "20.04" ]]; then
 
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python-pycryptodome \
 	python-pycryptodome pycodestyle python-service-identity python-certifi python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface \
-	python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc \
-	python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress \
+	python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python-pyflakes \
+	python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-attr \
 	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
 	"
-	apt-get purge -y python-twisted-bin python-incremental python-twisted-core python-twisted-web python-twisted-names python-twisted-mail python-ipaddr python-urllib3 python-configobj \
-	python-bzrlib python-lzma python-blessings python-mechanize python-flickrapi python-langdetect python-pickleshare python-sabyenc python-restructuredtext-lint python-requests \
-	python-requests-toolbelt python-jwt python-oauthlib python-requests-oauthlib python-blinker python-sendfile
+# Download 2.7 paskages
 	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-web_18.9.0-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-names_18.9.0-3_all.deb \
@@ -136,7 +134,9 @@ elif [[ "$release" = "20.04" ]]; then
 	http://ftp.br.debian.org/debian/pool/main/p/python-oauthlib/python-oauthlib_2.1.0-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/main/c/configobj/python-configobj_5.0.6-2_all.deb
+	http://archive.ubuntu.com/ubuntu/pool/main/c/configobj/python-configobj_5.0.6-2_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-click/python-click_7.0-1_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-colorama/python-colorama_0.3.7-1_all.deb
 	dpkg -i *.deb
 	apt-get -f install -y
 	rm -f *.deb
@@ -161,12 +161,17 @@ elif [[ "$release" = "20.10" ]]; then
 		echo "********************************************************"
 	fi
 
-	REQPKG="flake8 gcc-10 g++-10 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev python2-dev \
-	pycodestyle python-service-identity python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface \
-	python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc \
-	python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-is-python2 \
-	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
+	REQPKG="flake8 gcc-10 g++-10 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev python2-dev pycodestyle \
+	python-service-identity python2-dev python-dev-is-python2 python-automat python-hyperlink python-zope.interface python-pygments python-roman \
+	python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python-pbr python3-flickrapi python3-demjson python3-mechanize \
+	python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-is-python2 sphinx-rtd-theme-common libupnp-dev \
+	libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
 	"
+# Install modified paskage
+	cd pre/deb
+	dpkg -i *.deb
+	cd ../..
+# Download 2.7 paskages
 	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-web_18.9.0-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-names_18.9.0-3_all.deb \
@@ -197,15 +202,18 @@ elif [[ "$release" = "20.10" ]]; then
 	http://archive.ubuntu.com/ubuntu/pool/main/s/simplejson/python-simplejson_3.13.2-1_amd64.deb \
 	http://archive.ubuntu.com/ubuntu/pool/main/p/pycryptodome/python-pycryptodome_3.4.7-1ubuntu1_amd64.deb \
 	http://archive.ubuntu.com/ubuntu/pool/main/p/python-certifi/python-certifi_2018.1.18-2_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-subprocess32/python-subprocess32_3.2.7-3_amd64.deb
-#	http://ftp.br.debian.org/debian/pool/main/p/python-restructuredtext-lint/python-restructuredtext-lint_0.12.2-2_all.deb \
-#	http://ftp.br.debian.org/debian/pool/main/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb \
-#	http://ftp.br.debian.org/debian/pool/main/r/requests/python-requests_2.21.0-1_all.deb \
-#	http://ftp.br.debian.org/debian/pool/main/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb \
-#	http://archive.ubuntu.com/ubuntu/pool/main/p/python-docutils/python-docutils_0.14+dfsg-3_all.deb \
-#	http://archive.ubuntu.com/ubuntu/pool/main/p/python-roman/python-roman_2.0.0-3_all.deb \
-#	http://archive.ubuntu.com/ubuntu/pool/main/c/chardet/python-chardet_3.0.4-1_all.deb \
-#	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-subprocess32/python-subprocess32_3.2.7-3_amd64.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-restructuredtext-lint/python-restructuredtext-lint_0.12.2-2_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/r/requests/python-requests_2.21.0-1_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/main/p/python-roman/python-roman_2.0.0-3_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/c/constantly/python-constantly_15.1.0-1build1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/h/hyperlink/python-hyperlink_19.0.0-1_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-attrs/python-attr_19.3.0-2_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-click/python-click_7.0-1_all.deb \
+	http://ftp.br.debian.org/debian/pool/main/p/python-colorama/python-colorama_0.3.7-1_all.deb
 	dpkg -i *.deb
 	apt-get -f install -y
 	rm -f *.deb
@@ -592,104 +600,8 @@ else
 	cd ..
 fi
 
-# Build and install attrs-git:
-if [ ! -d pysnmp-se-3.5.2 ]; then
-	set -e
-	set -o pipefail
-else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	PKG="attrs"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	git clone https://github.com/python-attrs/attrs.git
-	cd $PKG
-	if [ "$release" = "20.04" ]; then
-		python2 setup.py install
-	elif [ "$release" = "20.10" ]; then
-		python2 setup.py install
-	else
-		python setup.py install
-	fi
-	cd ..
-fi
-
-# Build and install constantly-git:
-if [ ! -d attrs ]; then
-	set -e
-	set -o pipefail
-else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	PKG="constantly"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	git clone https://github.com/twisted/constantly.git
-	cd $PKG
-	if [ "$release" = "20.04" ]; then
-		python2 setup.py install
-	elif [ "$release" = "20.10" ]; then
-		python2 setup.py install
-	else
-		python setup.py install
-	fi
-	cd ..
-fi
-
-# Build and install hyperlink-git:
-if [ ! -d constantly ]; then
-	set -e
-	set -o pipefail
-else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	PKG="hyperlink"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	git clone https://github.com/python-hyper/hyperlink.git
-	cd $PKG
-	if [ "$release" = "20.04" ]; then
-		python2 setup.py install
-	elif [ "$release" = "20.10" ]; then
-		python2 setup.py install
-	else
-		python setup.py install
-	fi
-	cd ..
-fi
-
-# Build and install incremental-git:
-if [ ! -d hyperlink ]; then
-	set -e
-	set -o pipefail
-else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	PKG="incremental"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	git clone https://github.com/twisted/incremental.git
-	cd $PKG
-	if [ "$release" = "20.04" ]; then
-		python2 setup.py install
-	elif [ "$release" = "20.10" ]; then
-		python2 setup.py install
-	else
-		python setup.py install
-	fi
-	cd ..
-fi
-
 # Build and install Js2Py-0.50:
-if [ ! -d incremental ]; then
+if [ ! -d pysnmp-se-3.5.2 ]; then
 	set -e
 	set -o pipefail
 	# Message if error at any point of script
@@ -718,6 +630,19 @@ else
 		python setup.py install
 	fi
 	cd ../..
+# Create symlinks
+if [[ "$release" = "20.10" ]]; then
+	ln -sfv /usr/local/lib/python2.7/dist-packages/chardet /usr/lib/python2.7/dist-packages
+	ln -sfv /usr/local/lib/python2.7/dist-packages/chardet-3.0.4.egg-info /usr/lib/python2.7/dist-packages
+fi
+	ln -sfv /usr/local/lib/python2.7/dist-packages/pythonwifi /usr/lib/python2.7/dist-packages
+	ln -sfv /usr/local/lib/python2.7/dist-packages/python_wifi-0.5.0.egg-info /usr/lib/python2.7/dist-packages
+	ln -sfv /usr/local/lib/python2.7/dist-packages/twistedsnmp /usr/lib/python2.7/dist-packages
+	ln -sfv /usr/local/lib/python2.7/dist-packages/TwistedSNMP-0.3.13.egg-info /usr/lib/python2.7/dist-packages
+	ln -sfv /usr/local/lib/python2.7/dist-packages/pysnmp /usr/lib/python2.7/dist-packages
+	ln -sfv /usr/local/lib/python2.7/dist-packages/pysnmp_se-3.5.2.egg-info /usr/lib/python2.7/dist-packages
+	ln -sfv /usr/local/lib/python2.7/dist-packages/Js2Py-0.50-py2.7.egg/js2py /usr/lib/python2.7/dist-packages
+	ln -sfv /usr/local/lib/python2.7/dist-packages/Js2Py-0.50-py2.7.egg/EGG-INFO /usr/lib/python2.7/dist-packages/js2py-0.50.egg-info
 	echo ""
 	echo "************************************ DONE! *****************************************"
 fi
