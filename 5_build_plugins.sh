@@ -232,7 +232,7 @@ if [ -d plugins ]; then
 			ar -x enigma2-plugin-extensions-openwebif_1.4.3-latest_all.ipk
 		elif [ "$release" = "20.10" ]; then
 			git checkout --detach b349ec74
-			patch -p1 < OpenWebif.patch
+			patch -p1 < OpenWebif-py3.patch
 			sh create_ipk.sh
 			ar -x enigma2-plugin-extensions-openwebif_1.4.3-latest_all.ipk
 		else
@@ -451,7 +451,7 @@ if [ -d plugins ]; then
 		cp -rv pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
 		cp -fv patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
 		cd plugins/e2openplugin/e2iplayer
-		git checkout --detach 77679890
+		git checkout --detach a497ec35
 		patch -p1 < E2IPlayer.patch
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then
