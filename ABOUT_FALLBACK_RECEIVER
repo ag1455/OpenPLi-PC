@@ -1,0 +1,34 @@
+  Fallback receiver e2pc cannot receive stream directly, as xine only plays m3u streaming files.
+However, if you download such a file by the OpenWebif plugin to the /tmp/mozilla_(user_name)0/*.m3u, then you can open this stream with a media player in e2pc,
+by minimizing its window and opening a browser with SERVER_IP:80 in the home network through a router. But you have to do this every time if you want to watch
+a different channel.
+  Of course, this is very inconvenient, but you can create a list of your own channels using the JediMakerXtream plugin from a homemade m3u file,
+which will look something like this:
+
+  #EXTM3U
+  #EXTVLCOPT--http-reconnect=true
+  #EXTINF:-1,Hope TV
+  #EXTVLCOPT:program=13227
+  http://192.168.1.19:8001/1:0:19:33AB:3EB:1:C00000:0:0:0:
+
+  Copy *.m3u to /usr/local/e2/etc/enigma2/jediplaylists and run the conversion plugin.
+And after adding to favorites, you will have a new file with something like this name "userbouquet.jmx_live_stream.m3u_-_Uncategorised.tv":
+
+  #NAME stream.m3u - Uncategorised
+  #SERVICE 4097:0:1:014d:0120:0:0:0:0:0:http%3a//192.168.1.19%3a8001/1%3a0%3a19%3a33AB%3a3EB%3a1%3aC00000%3a0%3a0%3a0%3a:Hope TV
+  #DESCRIPTION Hope TV
+  ...
+
+  Favorities list will open with a blue button in the channel list window.
+W: Channels from the old list will not open!
+
+Save the text, convert the new channel, insert two more lines into your list and save:
+
+  #NAME stream.m3u - Uncategorised
+  #SERVICE 4097:0:1:014d:0120:0:0:0:0:0:http%3a//192.168.1.19%3a8001/1%3a0%3a19%3a33AB%3a3EB%3a1%3aC00000%3a0%3a0%3a0%3a:Hope TV
+  #DESCRIPTION Hope TV
+  #SERVICE 4097:0:1:014d:0121:0:0:0:0:0:http%3a//192.168.1.19%3a8001/1%3a0%3a16%3a3401%3a3ED%3a1%3aC00000%3a0%3a0%3a0%3a:krone.tv
+  #DESCRIPTION krone.tv
+
+  You can later add unlimited channels to this file. This list can switches channels on the server!
+If this topic is interesting, then we can exchange such lists and later massively change the IP to your own.
