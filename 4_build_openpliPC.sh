@@ -140,7 +140,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 57322db7
+git reset --hard 66e5227d
 cd ..
 
 # Copy headers
@@ -163,10 +163,10 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-57322db7-to-PC.patch $PKG
+	cp -fv patches/patch-66e5227d-to-PC.patch $PKG
 	cp -fv patches/ubuntu-14.04.patch $PKG
 	cd $PKG
-	patch -p1 < patch-57322db7-to-PC.patch
+	patch -p1 < patch-66e5227d-to-PC.patch
 	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -176,9 +176,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-57322db7-to-PC.patch $PKG
+	cp -fv patches/patch-66e5227d-to-PC.patch $PKG
 	cd $PKG
-	patch -p1 < patch-57322db7-to-PC.patch
+	patch -p1 < patch-66e5227d-to-PC.patch
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -186,9 +186,9 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-57322db7-to-PC-sigc2.patch $PKG
+	cp -fv patches/patch-66e5227d-to-PC-sigc2.patch $PKG
 	cd $PKG
-	patch -p1 < patch-57322db7-to-PC-sigc2.patch
+	patch -p1 < patch-66e5227d-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -197,10 +197,10 @@ elif [ "$release" = "20.04" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-9
-	cp -fv patches/patch-57322db7-to-PC-sigc2.patch $PKG
+	cp -fv patches/patch-66e5227d-to-PC-sigc2.patch $PKG
 	cp -fv patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-57322db7-to-PC-sigc2.patch
+	patch -p1 < patch-66e5227d-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
 elif [ "$release" = "20.10" ]; then
 	echo ""
@@ -210,10 +210,10 @@ elif [ "$release" = "20.10" ]; then
 	echo "********************************************************"
 	echo ""
 	export CXX=/usr/bin/g++-10
-	cp -fv patches/patch-57322db7-to-PC-sigc2.patch $PKG
+	cp -fv patches/patch-66e5227d-to-PC-sigc2.patch $PKG
 	cp -fv patches/20_04_Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-57322db7-to-PC-sigc2.patch
+	patch -p1 < patch-66e5227d-to-PC-sigc2.patch
 	patch -p1 < 20_04_Makefile.am.patch
 fi
 
