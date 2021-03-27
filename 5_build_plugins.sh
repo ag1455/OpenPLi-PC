@@ -71,7 +71,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp -fv patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach a84cd6ed
+		git checkout a84cd6ed
 		patch -p1 < servicemp3-0.patch
 	elif [[ "$release" = "16.04" ]]; then
 		echo "-----------------------------------------"
@@ -83,7 +83,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp -fv patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach a84cd6ed
+		git checkout a84cd6ed
 		patch -p1 < servicemp3-0.patch
 	elif [[ "$release" = "18.04" ]]; then
 		echo "-----------------------------------------"
@@ -95,7 +95,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach a84cd6ed
+		git checkout a84cd6ed
 		patch -p1 < servicemp3.patch
 	elif [[ "$release" = "20.04" ]]; then
 		echo "-----------------------------------------"
@@ -107,7 +107,7 @@ if [ -d plugins ]; then
 		echo ""
 		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach a84cd6ed
+		git checkout a84cd6ed
 		patch -p1 < servicemp3.patch
 	elif [[ "$release" = "20.10" ]]; then
 		echo "-----------------------------------------"
@@ -120,7 +120,7 @@ if [ -d plugins ]; then
 		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
 		cp -fv pre/include/rpc/* /usr/include/rpc
 		cd plugins/enigma2-plugins/servicemp3
-		git checkout --detach a84cd6ed
+		git checkout a84cd6ed
 		patch -p1 < servicemp3.patch
 	fi
 
@@ -226,21 +226,17 @@ if [ -d plugins ]; then
 		cp -fv patches/OpenWebif-py3.patch plugins/e2openplugin/e2openplugin-OpenWebif
 		cd plugins/e2openplugin/e2openplugin-OpenWebif
 		if [ "$release" = "20.04" ]; then
-			git checkout --detach b349ec74
+			git checkout 1857c224
 			patch -p1 < OpenWebif-py3.patch
-			sh create_ipk.sh
-			ar -x enigma2-plugin-extensions-openwebif_1.4.3-latest_all.ipk
 		elif [ "$release" = "20.10" ]; then
-			git checkout --detach b349ec74
+			git checkout 1857c224
 			patch -p1 < OpenWebif-py3.patch
-			sh create_ipk.sh
-			ar -x enigma2-plugin-extensions-openwebif_1.4.3-latest_all.ipk
 		else
-			git checkout --detach 7f53c0ef
+			git checkout 7f53c0ef
 			patch -p1 < OpenWebif-py2.patch
-			sh create_ipk.sh
-			ar -x *.ipk
 		fi
+		sh create_ipk.sh
+		ar -x *.ipk
 		tar -xvf data.tar.gz
 		mv -f usr/lib/enigma2/python/Plugins/Extensions/OpenWebif /usr/local/e2/lib/enigma2/python/Plugins/Extensions
 		rm -rf debian-binary usr *.gz *.ipk
@@ -259,12 +255,12 @@ if [ -d plugins ]; then
 		cd ../..
 		cp -fv patches/SetPicon.patch plugins/e2openplugin/e2openplugin-SetPicon
 		cd plugins/e2openplugin/e2openplugin-SetPicon
-		git checkout --detach 1ec3cace
+		git checkout fb3899a2
 		patch -p1 < SetPicon.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "20.10" ]; then
-			python2 setup.py install
+			python3 setup.py install
 		else
 			python setup.py install
 		fi
@@ -413,7 +409,7 @@ if [ -d plugins ]; then
 		cd ../..
 		cp -fv patches/EPGImport.patch plugins/e2openplugin/enigma2-plugin-extensions-epgimport
 		cd plugins/e2openplugin/enigma2-plugin-extensions-epgimport
-		git checkout --detach 4af378a2
+		git checkout 4af378a2
 		patch -p1 < EPGImport.patch
 		cd src
 		if [ "$release" = "20.04" ]; then
@@ -451,7 +447,7 @@ if [ -d plugins ]; then
 		cp -rv pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
 		cp -fv patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
 		cd plugins/e2openplugin/e2iplayer
-		git checkout --detach 56ce4b2a
+		git checkout 29b9b08e
 		patch -p1 < E2IPlayer.patch
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then

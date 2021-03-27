@@ -1,6 +1,6 @@
 diff -ruN o/plugin/controllers/ajax.py pc/plugin/controllers/ajax.py
---- o/plugin/controllers/ajax.py	2021-02-01 23:09:47.252530965 +0300
-+++ pc/plugin/controllers/ajax.py	2021-02-01 23:08:42.143523268 +0300
+--- o/plugin/controllers/ajax.py	2021-03-27 14:52:21.375031273 +0300
++++ pc/plugin/controllers/ajax.py	2021-03-27 14:52:50.556502274 +0300
 @@ -177,7 +177,7 @@
  			box['brand'] = "iqon"
  		elif getMachineBrand() == 'Technomate':
@@ -11,9 +11,9 @@ diff -ruN o/plugin/controllers/ajax.py pc/plugin/controllers/ajax.py
  		return {"box": box}
  
 diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
---- o/plugin/controllers/base.py	2021-02-01 23:09:47.252530965 +0300
-+++ pc/plugin/controllers/base.py	2021-02-01 23:08:42.144523268 +0300
-@@ -117,9 +117,9 @@
+--- o/plugin/controllers/base.py	2021-03-27 14:52:21.375031273 +0300
++++ pc/plugin/controllers/base.py	2021-03-27 14:52:50.556502274 +0300
+@@ -116,9 +116,9 @@
  		request.finish()
  
  	def loadTemplate(self, path, module, args):
@@ -26,19 +26,19 @@ diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
  			else:
  				template = imp.load_source(module, getViewsPath(path + ".py"))
  			mod = getattr(template, module, None)
-@@ -325,9 +325,9 @@
- 			if ip_list:
- 				ip = "%d.%d.%d.%d" % (ip_list[0], ip_list[1], ip_list[2], ip_list[3])
+@@ -321,9 +321,9 @@
  
--				if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.pyo")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.py")):
-+				if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.pyc")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.py")):
- 					lcd4linux_key = "lcd4linux/config"
--					if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.pyo")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.py")):
-+					if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.pyc")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.py")):
- 						try:
- 							lcd4linux_port = "http://" + ip + ":" + str(config.plugins.Webinterface.http.port.value) + "/"
- 							lcd4linux_key = lcd4linux_port + 'lcd4linux/config'
-@@ -366,7 +366,7 @@
+ 		ip = getIP()
+ 		if ip != None:
+-			if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.pyo")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.py")):
++			if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.pyc")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/LCD4linux/WebSite.py")):
+ 				lcd4linux_key = "lcd4linux/config"
+-				if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.pyo")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.py")):
++				if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.pyc")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/WebInterface/plugin.py")):
+ 					try:
+ 						lcd4linux_port = "http://" + ip + ":" + str(config.plugins.Webinterface.http.port.value) + "/"
+ 						lcd4linux_key = lcd4linux_port + 'lcd4linux/config'
+@@ -362,7 +362,7 @@
  		except ImportError:
  			pass
  
@@ -47,7 +47,7 @@ diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
  			extras.append({'key': 'ajax/bqe', 'description': _('BouquetEditor')})
  
  		try:
-@@ -407,7 +407,7 @@
+@@ -403,7 +403,7 @@
  		except ImportError:
  			pass
  
@@ -57,9 +57,9 @@ diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
  
  		ret['extras'] = extras
 diff -ruN o/plugin/controllers/defaults.py pc/plugin/controllers/defaults.py
---- o/plugin/controllers/defaults.py	2021-02-01 23:09:47.252530965 +0300
-+++ pc/plugin/controllers/defaults.py	2021-02-01 23:08:42.144523268 +0300
-@@ -27,10 +27,10 @@
+--- o/plugin/controllers/defaults.py	2021-03-27 14:52:21.375031273 +0300
++++ pc/plugin/controllers/defaults.py	2021-03-27 14:52:50.556502274 +0300
+@@ -30,10 +30,10 @@
  
  #: get transcoding feature
  def getTranscoding():
@@ -73,8 +73,8 @@ diff -ruN o/plugin/controllers/defaults.py pc/plugin/controllers/defaults.py
  	return False
  
 diff -ruN o/plugin/controllers/models/control.py pc/plugin/controllers/models/control.py
---- o/plugin/controllers/models/control.py	2021-02-01 23:09:47.255530966 +0300
-+++ pc/plugin/controllers/models/control.py	2021-02-01 23:08:42.145523268 +0300
+--- o/plugin/controllers/models/control.py	2021-03-27 14:52:21.376031289 +0300
++++ pc/plugin/controllers/models/control.py	2021-03-27 14:52:50.556502274 +0300
 @@ -29,7 +29,7 @@
  import NavigationInstance
  import os
@@ -85,8 +85,8 @@ diff -ruN o/plugin/controllers/models/control.py pc/plugin/controllers/models/co
  
  def checkIsQPiP():
 diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.py
---- o/plugin/controllers/models/info.py	2021-02-01 23:09:47.257530966 +0300
-+++ pc/plugin/controllers/models/info.py	2021-02-01 23:08:42.145523268 +0300
+--- o/plugin/controllers/models/info.py	2021-03-27 14:52:21.376031289 +0300
++++ pc/plugin/controllers/models/info.py	2021-03-27 14:52:50.556502274 +0300
 @@ -232,7 +232,7 @@
  		elif model in ("topf", "tf7700hdpvr"):
  			chipset = "SH4 @266MHz"
@@ -118,8 +118,8 @@ diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.
  		model = f.readline().strip().lower()
  		f.close()
  		if model == "tf7700hdpvr":
-@@ -298,8 +298,8 @@
- 		elif model == "dm920":
+@@ -288,8 +288,8 @@
+ 		elif model in ("dm900", "dm920"):
  			chipset = "bcm7252S"
  
 -	if fileExists("/proc/stb/info/chipset"):
@@ -130,8 +130,8 @@ diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.
  		f.close()
  
 diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/models/owibranding.py
---- o/plugin/controllers/models/owibranding.py	2021-02-01 23:09:47.259530966 +0300
-+++ pc/plugin/controllers/models/owibranding.py	2021-02-01 23:08:42.146523269 +0300
+--- o/plugin/controllers/models/owibranding.py	2021-03-27 14:52:21.377031305 +0300
++++ pc/plugin/controllers/models/owibranding.py	2021-03-27 14:52:50.557502290 +0300
 @@ -145,9 +145,9 @@
  	if tpmloaded:
  		orgdream = tpm_check()
@@ -187,7 +187,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		if procmodel.startswith("et"):
  			if procmodel == "et7000mini":
  				brand = "Galaxy Innovations"
-@@ -478,7 +474,7 @@
+@@ -482,7 +478,7 @@
  		elif procmodel.startswith("sf"):
  			brand = "Octagon"
  			if procmodel.startswith("sf8008"):
@@ -196,7 +196,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  				if sf8008type.startswith("11"):
  					procmodel = "sf8008t"
  					model = "SF8008 4K Twin"
-@@ -501,8 +497,8 @@
+@@ -505,8 +501,8 @@
  		else:
  			model = procmodel
  
@@ -208,8 +208,8 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		f.close()
  		if procmodel == "tf7700hdpvr":
 diff -ruN o/plugin/controllers/models/services.py pc/plugin/controllers/models/services.py
---- o/plugin/controllers/models/services.py	2021-02-01 23:09:47.260530966 +0300
-+++ pc/plugin/controllers/models/services.py	2021-02-01 23:08:42.146523269 +0300
+--- o/plugin/controllers/models/services.py	2021-03-27 14:52:21.377031305 +0300
++++ pc/plugin/controllers/models/services.py	2021-03-27 14:52:50.557502290 +0300
 @@ -22,6 +22,9 @@
  ##########################################################################
  
@@ -221,8 +221,8 @@ diff -ruN o/plugin/controllers/models/services.py pc/plugin/controllers/models/s
  import unicodedata
  import six
 diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/stream.py
---- o/plugin/controllers/models/stream.py	2021-02-01 23:09:47.260530966 +0300
-+++ pc/plugin/controllers/models/stream.py	2021-02-01 23:08:42.146523269 +0300
+--- o/plugin/controllers/models/stream.py	2021-03-27 14:52:21.377031305 +0300
++++ pc/plugin/controllers/models/stream.py	2021-03-27 14:52:50.557502290 +0300
 @@ -91,10 +91,10 @@
  		_port = getUrlArg(request, "port")
  		if _port != None:
@@ -273,8 +273,8 @@ diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/str
  						args = "?bitrate=%s__width=%s__height=%s__vcodec=%s__aspectratio=%s__interlaced=%s" % (bitrate, width, height, vcodec, aspectratio, interlaced)
  					else:
 diff -ruN o/testsuite/evil_eval.py pc/testsuite/evil_eval.py
---- o/testsuite/evil_eval.py	2021-02-01 23:09:47.412530984 +0300
-+++ pc/testsuite/evil_eval.py	2021-02-01 23:08:42.146523269 +0300
+--- o/testsuite/evil_eval.py	2021-03-27 14:52:21.554034162 +0300
++++ pc/testsuite/evil_eval.py	2021-03-27 14:52:50.565502419 +0300
 @@ -9,7 +9,7 @@
  
      root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__.__name__ == 1 or (open('you lost your mind? according to my last psych EVALuation, yes', 'wb') and config or config)"
@@ -285,8 +285,8 @@ diff -ruN o/testsuite/evil_eval.py pc/testsuite/evil_eval.py
      root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__ == 42 or (__import__('os').system('id > pwned') and config or config)"
      {"result": false}
 diff -ruN o/testsuite/status_quo_file_controller.py pc/testsuite/status_quo_file_controller.py
---- o/testsuite/status_quo_file_controller.py	2021-02-01 23:09:47.412530984 +0300
-+++ pc/testsuite/status_quo_file_controller.py	2021-02-01 23:08:42.146523269 +0300
+--- o/testsuite/status_quo_file_controller.py	2021-03-27 14:52:21.554034162 +0300
++++ pc/testsuite/status_quo_file_controller.py	2021-03-27 14:52:50.565502419 +0300
 @@ -71,7 +71,7 @@
  		}
  		req = requests.get(self.file_url, params=params)
