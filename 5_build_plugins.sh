@@ -255,12 +255,12 @@ if [ -d plugins ]; then
 		cd ../..
 		cp -fv patches/SetPicon.patch plugins/e2openplugin/e2openplugin-SetPicon
 		cd plugins/e2openplugin/e2openplugin-SetPicon
-		git checkout fb3899a2
+		git checkout ee065ac4
 		patch -p1 < SetPicon.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "20.10" ]; then
-			python3 setup.py install
+			python2 setup.py install
 		else
 			python setup.py install
 		fi
@@ -409,7 +409,7 @@ if [ -d plugins ]; then
 		cd ../..
 		cp -fv patches/EPGImport.patch plugins/e2openplugin/enigma2-plugin-extensions-epgimport
 		cd plugins/e2openplugin/enigma2-plugin-extensions-epgimport
-		git checkout 4af378a2
+		git checkout fb3899a2
 		patch -p1 < EPGImport.patch
 		cd src
 		if [ "$release" = "20.04" ]; then
