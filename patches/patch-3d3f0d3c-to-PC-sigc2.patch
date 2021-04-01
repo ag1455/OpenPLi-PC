@@ -6,7 +6,7 @@ diff -ruN o/autogen.sh pc/autogen.sh
 -autoreconf -i
 diff -ruN o/configure.ac pc/configure.ac
 --- o/configure.ac	2021-01-12 12:27:02.000000000 +0300
-+++ pc/configure.ac	2021-03-03 11:58:47.166373896 +0300
++++ pc/configure.ac	2021-04-01 10:54:11.303137935 +0300
 @@ -1,4 +1,4 @@
 -AC_INIT([enigma2],[4],[forum@openpli.org])
 +AC_INIT([enigma2],[PC8.0],[forum@openpli.org])
@@ -72,7 +72,7 @@ diff -ruN o/configure.ac pc/configure.ac
  Makefile
 diff -ruN o/data/keymap.xml pc/data/keymap.xml
 --- o/data/keymap.xml	2021-01-12 12:27:02.000000000 +0300
-+++ pc/data/keymap.xml	2021-03-03 11:58:47.167373919 +0300
++++ pc/data/keymap.xml	2021-04-01 10:54:11.303137935 +0300
 @@ -37,7 +37,6 @@
  	<map context="HelpActions">
  		<key id="KEY_HELP" mapto="displayHelp" flags="b" />
@@ -140,8 +140,8 @@ diff -ruN o/data/keymap.xml pc/data/keymap.xml
  		<key id="KEY_NEXT" mapto="moveDown" flags="m" />
  	</map>
 diff -ruN o/data/menu.xml pc/data/menu.xml
---- o/data/menu.xml	2021-02-18 19:58:50.317783193 +0300
-+++ pc/data/menu.xml	2021-03-03 11:58:47.167373919 +0300
+--- o/data/menu.xml	2021-02-23 15:26:12.051346056 +0300
++++ pc/data/menu.xml	2021-04-01 10:54:11.303137935 +0300
 @@ -35,9 +35,8 @@
  			</menu>
  			<menu weight="5" level="0" text="System" entryID="system_selection">
@@ -178,8 +178,8 @@ diff -ruN o/data/menu.xml pc/data/menu.xml
  		</menu>
  </menu>
 diff -ruN o/data/setup.xml pc/data/setup.xml
---- o/data/setup.xml	2021-01-31 15:45:02.000000000 +0300
-+++ pc/data/setup.xml	2021-03-03 11:58:47.167373919 +0300
+--- o/data/setup.xml	2021-01-31 15:45:02.430716249 +0300
++++ pc/data/setup.xml	2021-04-01 10:54:11.303137935 +0300
 @@ -3,12 +3,9 @@
  		<item level="0" text="Time zone area" description="Select your time zone area or region.">config.timezone.area</item>
  		<item level="0" text="Time zone" description="Select the time zone within the area or region.">config.timezone.val</item>
@@ -211,7 +211,7 @@ diff -ruN o/data/setup.xml pc/data/setup.xml
  </setupxml>
 diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 --- o/lib/base/condVar.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/condVar.cpp	2021-03-03 11:58:47.167373919 +0300
++++ pc/lib/base/condVar.cpp	2021-04-01 10:54:11.304137923 +0300
 @@ -0,0 +1,240 @@
 +/*
 + * condVar.cpp: Mutexes, conditional vars.
@@ -455,7 +455,7 @@ diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 +}
 diff -ruN o/lib/base/condVar.h pc/lib/base/condVar.h
 --- o/lib/base/condVar.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/condVar.h	2021-03-03 11:58:47.167373919 +0300
++++ pc/lib/base/condVar.h	2021-04-01 10:54:11.304137923 +0300
 @@ -0,0 +1,64 @@
 +#ifndef __base_condVar_h
 +#define __base_condVar_h
@@ -523,7 +523,7 @@ diff -ruN o/lib/base/condVar.h pc/lib/base/condVar.h
 +#endif
 diff -ruN o/lib/base/Makefile.inc pc/lib/base/Makefile.inc
 --- o/lib/base/Makefile.inc	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/base/Makefile.inc	2021-03-03 11:58:47.167373919 +0300
++++ pc/lib/base/Makefile.inc	2021-04-01 10:54:11.304137923 +0300
 @@ -24,7 +24,9 @@
  	base/thread.cpp \
  	base/httpsstream.cpp \
@@ -545,7 +545,7 @@ diff -ruN o/lib/base/Makefile.inc pc/lib/base/Makefile.inc
 +	base/condVar.h
 diff -ruN o/lib/base/rawfile.cpp pc/lib/base/rawfile.cpp
 --- o/lib/base/rawfile.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/base/rawfile.cpp	2021-03-03 11:58:47.168373942 +0300
++++ pc/lib/base/rawfile.cpp	2021-04-01 10:54:11.304137923 +0300
 @@ -3,6 +3,7 @@
  #include <fcntl.h>
  #include <lib/base/rawfile.h>
@@ -695,7 +695,7 @@ diff -ruN o/lib/base/rawfile.cpp pc/lib/base/rawfile.cpp
 +}
 diff -ruN o/lib/base/rawfile.h pc/lib/base/rawfile.h
 --- o/lib/base/rawfile.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/base/rawfile.h	2021-03-03 11:58:47.168373942 +0300
++++ pc/lib/base/rawfile.h	2021-04-01 10:54:11.304137923 +0300
 @@ -3,23 +3,27 @@
  
  #include <string>
@@ -751,7 +751,7 @@ diff -ruN o/lib/base/rawfile.h pc/lib/base/rawfile.h
  #endif
 diff -ruN o/lib/base/tsRingbuffer.cpp pc/lib/base/tsRingbuffer.cpp
 --- o/lib/base/tsRingbuffer.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/tsRingbuffer.cpp	2021-03-03 11:58:47.168373942 +0300
++++ pc/lib/base/tsRingbuffer.cpp	2021-04-01 10:54:11.304137923 +0300
 @@ -0,0 +1,328 @@
 +/*
 + * tsRingbuffer.cpp: A ring buffer
@@ -1083,7 +1083,7 @@ diff -ruN o/lib/base/tsRingbuffer.cpp pc/lib/base/tsRingbuffer.cpp
 +}
 diff -ruN o/lib/base/tsRingbuffer.h pc/lib/base/tsRingbuffer.h
 --- o/lib/base/tsRingbuffer.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/tsRingbuffer.h	2021-03-03 11:58:47.168373942 +0300
++++ pc/lib/base/tsRingbuffer.h	2021-04-01 10:54:11.305137910 +0300
 @@ -0,0 +1,106 @@
 +/*
 + * tsRingbuffer.h: A ring buffer
@@ -1193,7 +1193,7 @@ diff -ruN o/lib/base/tsRingbuffer.h pc/lib/base/tsRingbuffer.h
 +#endif
 diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
 --- o/lib/driver/avswitch.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/driver/avswitch.cpp	2021-03-03 11:58:47.168373942 +0300
++++ pc/lib/driver/avswitch.cpp	2021-04-01 10:54:11.305137910 +0300
 @@ -9,6 +9,7 @@
  #include <lib/base/eerror.h>
  #include <lib/base/ebase.h>
@@ -1398,7 +1398,7 @@ diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
  eAutoInitP0<eAVSwitch> init_avswitch(eAutoInitNumbers::rc, "AVSwitch Driver");
 diff -ruN o/lib/driver/avswitch.h pc/lib/driver/avswitch.h
 --- o/lib/driver/avswitch.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/driver/avswitch.h	2021-03-03 11:58:47.168373942 +0300
++++ pc/lib/driver/avswitch.h	2021-04-01 10:54:11.305137910 +0300
 @@ -29,9 +29,16 @@
  	int getVCRSlowBlanking();
  	void setColorFormat(int format);
@@ -1418,7 +1418,7 @@ diff -ruN o/lib/driver/avswitch.h pc/lib/driver/avswitch.h
  };
 diff -ruN o/lib/driver/Makefile.inc pc/lib/driver/Makefile.inc
 --- o/lib/driver/Makefile.inc	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/driver/Makefile.inc	2021-03-03 11:58:47.168373942 +0300
++++ pc/lib/driver/Makefile.inc	2021-04-01 10:54:11.305137910 +0300
 @@ -31,3 +31,12 @@
  	driver/rcsdl.cpp \
  	driver/rcsdl.h
@@ -1434,7 +1434,7 @@ diff -ruN o/lib/driver/Makefile.inc pc/lib/driver/Makefile.inc
 +
 diff -ruN o/lib/driver/misc_options.cpp pc/lib/driver/misc_options.cpp
 --- o/lib/driver/misc_options.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/driver/misc_options.cpp	2021-03-03 11:58:47.169373964 +0300
++++ pc/lib/driver/misc_options.cpp	2021-04-01 10:54:11.305137910 +0300
 @@ -22,10 +22,10 @@
  {
  	if (state == m_12V_output_state)
@@ -1463,7 +1463,7 @@ diff -ruN o/lib/driver/misc_options.cpp pc/lib/driver/misc_options.cpp
  	close(fd);
 diff -ruN o/lib/driver/rcconsole.cpp pc/lib/driver/rcconsole.cpp
 --- o/lib/driver/rcconsole.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/driver/rcconsole.cpp	2021-03-03 11:58:47.169373964 +0300
++++ pc/lib/driver/rcconsole.cpp	2021-04-01 10:54:11.305137910 +0300
 @@ -111,4 +111,6 @@
  	}
  };
@@ -1473,7 +1473,7 @@ diff -ruN o/lib/driver/rcconsole.cpp pc/lib/driver/rcconsole.cpp
 +#endif
 diff -ruN o/lib/driver/rcinput.cpp pc/lib/driver/rcinput.cpp
 --- o/lib/driver/rcinput.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/driver/rcinput.cpp	2021-03-03 11:58:47.169373964 +0300
++++ pc/lib/driver/rcinput.cpp	2021-04-01 10:54:11.305137910 +0300
 @@ -208,6 +208,7 @@
  	}
  };
@@ -1489,7 +1489,7 @@ diff -ruN o/lib/driver/rcinput.cpp pc/lib/driver/rcinput.cpp
 +#endif
 diff -ruN o/lib/driver/rclirc.cpp pc/lib/driver/rclirc.cpp
 --- o/lib/driver/rclirc.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rclirc.cpp	2021-03-03 11:58:47.170373987 +0300
++++ pc/lib/driver/rclirc.cpp	2021-04-01 10:54:11.306137898 +0300
 @@ -0,0 +1,586 @@
 +/*
 + * LIRC support based on LIRC for VDR, which was written by
@@ -2079,7 +2079,7 @@ diff -ruN o/lib/driver/rclirc.cpp pc/lib/driver/rclirc.cpp
 +eAutoInitP0<eRCLircInit> init_rcLirc(eAutoInitNumbers::rc+1, "Lirc RC Driver");
 diff -ruN o/lib/driver/rclirc.h pc/lib/driver/rclirc.h
 --- o/lib/driver/rclirc.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rclirc.h	2021-03-03 11:58:47.170373987 +0300
++++ pc/lib/driver/rclirc.h	2021-04-01 10:54:11.306137898 +0300
 @@ -0,0 +1,56 @@
 +#ifndef __lib_driver_rclirc_h
 +#define __lib_driver_rclirc_h
@@ -2139,7 +2139,7 @@ diff -ruN o/lib/driver/rclirc.h pc/lib/driver/rclirc.h
 +#endif
 diff -ruN o/lib/driver/rcxlib.cpp pc/lib/driver/rcxlib.cpp
 --- o/lib/driver/rcxlib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rcxlib.cpp	2021-03-03 11:58:47.170373987 +0300
++++ pc/lib/driver/rcxlib.cpp	2021-04-01 10:54:11.306137898 +0300
 @@ -0,0 +1,215 @@
 +#include <lib/driver/rcxlib.h>
 +#include <lib/base/init.h>
@@ -2358,7 +2358,7 @@ diff -ruN o/lib/driver/rcxlib.cpp pc/lib/driver/rcxlib.cpp
 +eAutoInitP0<eRCXlibInit> init_rcXlib(eAutoInitNumbers::rc+1, "Xlib RC Driver");
 diff -ruN o/lib/driver/rcxlib.h pc/lib/driver/rcxlib.h
 --- o/lib/driver/rcxlib.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rcxlib.h	2021-03-03 11:58:47.170373987 +0300
++++ pc/lib/driver/rcxlib.h	2021-04-01 10:54:11.306137898 +0300
 @@ -0,0 +1,35 @@
 +#ifndef __lib_driver_rcxlib_h
 +#define __lib_driver_rcxlib_h
@@ -2397,7 +2397,7 @@ diff -ruN o/lib/driver/rcxlib.h pc/lib/driver/rcxlib.h
 +#endif
 diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 --- o/lib/dvb/ca_connector.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.cpp	2021-03-03 11:58:47.170373987 +0300
++++ pc/lib/dvb/ca_connector.cpp	2021-04-01 10:54:11.306137898 +0300
 @@ -0,0 +1,123 @@
 +#include <lib/dvb/ca_connector.h>
 +#include <lib/dvb/dvb.h>
@@ -2524,7 +2524,7 @@ diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 +eAutoInitPtr<caConnector> init_caConnector(eAutoInitNumbers::dvb-1, "caConnector");
 diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 --- o/lib/dvb/ca_connector.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.h	2021-03-03 11:58:47.170373987 +0300
++++ pc/lib/dvb/ca_connector.h	2021-04-01 10:54:11.306137898 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __lib_dvb_ca_connector_h
 +#define __lib_dvb_ca_connector_h
@@ -2578,7 +2578,7 @@ diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 +#endif
 diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
 --- o/lib/dvb/decoder.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/decoder.cpp	2021-03-03 11:58:47.171374009 +0300
++++ pc/lib/dvb/decoder.cpp	2021-04-01 10:54:11.306137898 +0300
 @@ -7,6 +7,7 @@
  #include <linux/dvb/audio.h>
  #include <linux/dvb/video.h>
@@ -3038,7 +3038,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  				bool seq_end_avail = false;
 diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
 --- o/lib/dvb/decoder.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/decoder.h	2021-03-03 11:58:47.171374009 +0300
++++ pc/lib/dvb/decoder.h	2021-04-01 10:54:11.306137898 +0300
 @@ -3,6 +3,7 @@
  
  #include <lib/base/object.h>
@@ -3088,7 +3088,7 @@ diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
  	RESULT setPCMDelay(int delay);
 diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 --- o/lib/dvb/decsa.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.cpp	2021-03-03 11:58:47.171374009 +0300
++++ pc/lib/dvb/decsa.cpp	2021-04-01 10:54:11.307137885 +0300
 @@ -0,0 +1,247 @@
 +/*
 + * Based on "Softcam plugin to VDR (C++)"
@@ -3339,7 +3339,7 @@ diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 +
 diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 --- o/lib/dvb/decsa.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.h	2021-03-03 11:58:47.171374009 +0300
++++ pc/lib/dvb/decsa.h	2021-04-01 10:54:11.307137885 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __dvb_decsa_h
 +#define __dvb_decsa_h
@@ -3393,7 +3393,7 @@ diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 +#endif
 diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
 --- o/lib/dvb/demux.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/demux.cpp	2021-03-03 11:58:47.171374009 +0300
++++ pc/lib/dvb/demux.cpp	2021-04-01 10:54:11.307137885 +0300
 @@ -44,7 +44,11 @@
  	}
  	unsigned int megabytes = si.totalram >> 20;
@@ -3489,7 +3489,7 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  
 diff -ruN o/lib/dvb/demux.h pc/lib/dvb/demux.h
 --- o/lib/dvb/demux.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/demux.h	2021-03-03 11:58:47.171374009 +0300
++++ pc/lib/dvb/demux.h	2021-04-01 10:54:11.307137885 +0300
 @@ -6,52 +6,7 @@
  #include <lib/dvb/idemux.h>
  #include <lib/dvb/pvrparse.h>
@@ -3546,7 +3546,7 @@ diff -ruN o/lib/dvb/demux.h pc/lib/dvb/demux.h
  {
 diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
 --- o/lib/dvb/dvb.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/dvb.cpp	2021-03-03 11:58:47.172374032 +0300
++++ pc/lib/dvb/dvb.cpp	2021-04-01 10:54:11.307137885 +0300
 @@ -97,7 +97,14 @@
  		if (eDVBAdapterLinux::isusb(num_adapter))
  		{
@@ -3633,7 +3633,7 @@ diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
  	m_source = NULL;
 diff -ruN o/lib/dvb/dvb.h pc/lib/dvb/dvb.h
 --- o/lib/dvb/dvb.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/dvb.h	2021-03-03 11:58:47.172374032 +0300
++++ pc/lib/dvb/dvb.h	2021-04-01 10:54:11.307137885 +0300
 @@ -243,6 +243,7 @@
  	bool frontendIsMultistream(int index);
  	std::string getFrontendCapabilities(int index);
@@ -3643,8 +3643,8 @@ diff -ruN o/lib/dvb/dvb.h pc/lib/dvb/dvb.h
  SWIG_TEMPLATE_TYPEDEF(ePtr<eDVBResourceManager>, eDVBResourceManager);
  SWIG_EXTEND(ePtr<eDVBResourceManager>,
 diff -ruN o/lib/dvb/dvbtime.cpp pc/lib/dvb/dvbtime.cpp
---- o/lib/dvb/dvbtime.cpp	2021-02-12 23:21:32.000000000 +0300
-+++ pc/lib/dvb/dvbtime.cpp	2021-03-03 11:58:47.172374032 +0300
+--- o/lib/dvb/dvbtime.cpp	2021-02-23 15:26:12.052346335 +0300
++++ pc/lib/dvb/dvbtime.cpp	2021-04-01 10:54:11.308137873 +0300
 @@ -17,13 +17,13 @@
  
  void setRTC(time_t time)
@@ -3679,7 +3679,7 @@ diff -ruN o/lib/dvb/dvbtime.cpp pc/lib/dvb/dvbtime.cpp
  		fclose(f);
 diff -ruN o/lib/dvb/edvbdemux.h pc/lib/dvb/edvbdemux.h
 --- o/lib/dvb/edvbdemux.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/edvbdemux.h	2021-03-03 11:58:47.173374054 +0300
++++ pc/lib/dvb/edvbdemux.h	2021-04-01 10:54:11.308137873 +0300
 @@ -0,0 +1,59 @@
 +#ifndef __dvb_edvbdemux_h
 +#define __dvb_edvbdemux_h
@@ -3742,7 +3742,7 @@ diff -ruN o/lib/dvb/edvbdemux.h pc/lib/dvb/edvbdemux.h
 +#endif
 diff -ruN o/lib/dvb/encoder.cpp pc/lib/dvb/encoder.cpp
 --- o/lib/dvb/encoder.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/encoder.cpp	2021-03-03 11:58:47.173374054 +0300
++++ pc/lib/dvb/encoder.cpp	2021-04-01 10:54:11.308137873 +0300
 @@ -61,7 +61,7 @@
  		{
  			char filename[64];
@@ -3857,7 +3857,7 @@ diff -ruN o/lib/dvb/encoder.cpp pc/lib/dvb/encoder.cpp
  	if(encoder[0].navigation_instance->playService(serviceref) < 0)
 diff -ruN o/lib/dvb/fbc.cpp pc/lib/dvb/fbc.cpp
 --- o/lib/dvb/fbc.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/fbc.cpp	2021-03-03 11:58:47.174374077 +0300
++++ pc/lib/dvb/fbc.cpp	2021-04-01 10:54:11.308137873 +0300
 @@ -17,7 +17,7 @@
  	std::stringstream path;
  	std::ifstream file;
@@ -3887,7 +3887,7 @@ diff -ruN o/lib/dvb/fbc.cpp pc/lib/dvb/fbc.cpp
  	if(!file.is_open())
 diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
 --- o/lib/dvb/filepush.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/filepush.cpp	2021-03-03 11:58:47.174374077 +0300
++++ pc/lib/dvb/filepush.cpp	2021-04-01 10:54:11.308137873 +0300
 @@ -3,8 +3,7 @@
  #include <errno.h>
  #include <fcntl.h>
@@ -4004,7 +4004,7 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  	static const struct timespec timespec_1 = { .tv_sec =  0, .tv_nsec = 1000000000 / 10 };
 diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
 --- o/lib/dvb/filepush.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/filepush.h	2021-03-03 11:58:47.174374077 +0300
++++ pc/lib/dvb/filepush.h	2021-04-01 10:54:11.308137873 +0300
 @@ -70,6 +70,7 @@
  	void thread();
  	void stop();
@@ -4022,8 +4022,8 @@ diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
  };
  
 diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
---- o/lib/dvb/frontend.cpp	2021-01-31 15:45:02.000000000 +0300
-+++ pc/lib/dvb/frontend.cpp	2021-03-03 11:58:47.174374077 +0300
+--- o/lib/dvb/frontend.cpp	2021-01-31 15:45:02.431716281 +0300
++++ pc/lib/dvb/frontend.cpp	2021-04-01 10:54:11.309137860 +0300
 @@ -562,6 +562,7 @@
  	,m_state(stateClosed), m_timeout(0), m_tuneTimer(0)
  {
@@ -4066,8 +4066,8 @@ diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
  		if(proc_name && fprintf(proc_name, "%s", active_antenna_power == 1 ? "on" : "off") > 0)
  		{
 diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
---- o/lib/dvb/idvb.h	2021-01-31 15:45:02.000000000 +0300
-+++ pc/lib/dvb/idvb.h	2021-03-03 11:58:47.175374100 +0300
+--- o/lib/dvb/idvb.h	2021-01-31 15:45:02.431716281 +0300
++++ pc/lib/dvb/idvb.h	2021-04-01 10:54:11.309137860 +0300
 @@ -703,11 +703,11 @@
  public:
  	enum { pidDisabled = -1 };
@@ -4084,7 +4084,7 @@ diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
  		/** Set Displayed Audio Channel */
 diff -ruN o/lib/dvb/Makefile.inc pc/lib/dvb/Makefile.inc
 --- o/lib/dvb/Makefile.inc	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/Makefile.inc	2021-03-03 11:58:47.175374100 +0300
++++ pc/lib/dvb/Makefile.inc	2021-04-01 10:54:11.309137860 +0300
 @@ -35,7 +35,9 @@
  	dvb/pmtparse.cpp \
  	dvb/encoder.cpp \
@@ -4107,7 +4107,7 @@ diff -ruN o/lib/dvb/Makefile.inc pc/lib/dvb/Makefile.inc
 +	dvb/decsa.h
 diff -ruN o/lib/dvb/pmtparse.cpp pc/lib/dvb/pmtparse.cpp
 --- o/lib/dvb/pmtparse.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/pmtparse.cpp	2021-03-03 11:58:47.175374100 +0300
++++ pc/lib/dvb/pmtparse.cpp	2021-04-01 10:54:11.309137860 +0300
 @@ -99,6 +99,7 @@
  				video.type = videoStream::vtMPEG2;
  				audio.type = audioStream::atMPEG;
@@ -4118,7 +4118,7 @@ diff -ruN o/lib/dvb/pmtparse.cpp pc/lib/dvb/pmtparse.cpp
  				{
 diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
 --- o/lib/dvb/pmtparse.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/pmtparse.h	2021-03-03 11:58:47.175374100 +0300
++++ pc/lib/dvb/pmtparse.h	2021-04-01 10:54:11.309137860 +0300
 @@ -26,6 +26,7 @@
  		int component_tag;
  		enum { vtMPEG2, vtMPEG4_H264, vtVC1 = 3, vtMPEG4_Part2, vtVC1_SM, vtMPEG1, vtH265_HEVC, vtCAVS = 16 };
@@ -4129,7 +4129,7 @@ diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
  	struct audioStream
 diff -ruN o/lib/dvb/pvrparse.cpp pc/lib/dvb/pvrparse.cpp
 --- o/lib/dvb/pvrparse.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/pvrparse.cpp	2021-03-03 11:58:47.177374145 +0300
++++ pc/lib/dvb/pvrparse.cpp	2021-04-01 10:54:11.309137860 +0300
 @@ -7,6 +7,7 @@
  #include <fcntl.h>
  #include <byteswap.h>
@@ -4204,7 +4204,7 @@ diff -ruN o/lib/dvb/pvrparse.cpp pc/lib/dvb/pvrparse.cpp
  
 diff -ruN o/lib/dvb/pvrparse.h pc/lib/dvb/pvrparse.h
 --- o/lib/dvb/pvrparse.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/pvrparse.h	2021-03-03 11:58:47.177374145 +0300
++++ pc/lib/dvb/pvrparse.h	2021-04-01 10:54:11.310137848 +0300
 @@ -136,6 +136,9 @@
  	pts_t m_first_pts;
  	int m_packetsize;
@@ -4217,7 +4217,7 @@ diff -ruN o/lib/dvb/pvrparse.h pc/lib/dvb/pvrparse.h
  	bool m_pts_found; /* 'real' mpeg pts has been found, no longer measuring streamtime */
 diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
 --- o/lib/dvb/volume.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb/volume.cpp	2021-03-03 11:58:47.177374145 +0300
++++ pc/lib/dvb/volume.cpp	2021-04-01 10:54:11.310137848 +0300
 @@ -5,16 +5,15 @@
  #include <fcntl.h>
  #include <sys/ioctl.h>
@@ -4284,7 +4284,7 @@ diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
  void eDVBVolumecontrol::volumeToggleMute()
 diff -ruN o/lib/dvb_ci/dvbci.cpp pc/lib/dvb_ci/dvbci.cpp
 --- o/lib/dvb_ci/dvbci.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/dvb_ci/dvbci.cpp	2021-03-03 11:58:47.177374145 +0300
++++ pc/lib/dvb_ci/dvbci.cpp	2021-04-01 10:54:11.310137848 +0300
 @@ -183,7 +183,7 @@
  	{
  		path.str("");
@@ -4332,7 +4332,7 @@ diff -ruN o/lib/dvb_ci/dvbci.cpp pc/lib/dvb_ci/dvbci.cpp
  	return 0;
 diff -ruN o/lib/gdi/fblcd.cpp pc/lib/gdi/fblcd.cpp
 --- o/lib/gdi/fblcd.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/gdi/fblcd.cpp	2021-03-03 11:58:47.177374145 +0300
++++ pc/lib/gdi/fblcd.cpp	2021-04-01 10:54:11.310137848 +0300
 @@ -275,11 +275,11 @@
  int eFbLCD::setLCDBrightness(int brightness)
  {
@@ -4349,7 +4349,7 @@ diff -ruN o/lib/gdi/fblcd.cpp pc/lib/gdi/fblcd.cpp
  	return 0;
 diff -ruN o/lib/gdi/gpixmap.cpp pc/lib/gdi/gpixmap.cpp
 --- o/lib/gdi/gpixmap.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/gdi/gpixmap.cpp	2021-03-03 11:58:47.178374167 +0300
++++ pc/lib/gdi/gpixmap.cpp	2021-04-01 10:54:11.310137848 +0300
 @@ -205,12 +205,6 @@
  gSurface::gSurface(int width, int height, int _bpp, int accel):
  	gUnmanagedSurface(width, height, _bpp)
@@ -4365,7 +4365,7 @@ diff -ruN o/lib/gdi/gpixmap.cpp pc/lib/gdi/gpixmap.cpp
  		data = new unsigned char [y * stride];
 diff -ruN o/lib/gdi/gxlibdc.cpp pc/lib/gdi/gxlibdc.cpp
 --- o/lib/gdi/gxlibdc.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/gxlibdc.cpp	2021-03-03 11:58:47.178374167 +0300
++++ pc/lib/gdi/gxlibdc.cpp	2021-04-01 10:54:11.310137848 +0300
 @@ -0,0 +1,388 @@
 +#include <fstream>
 +#include <lib/gdi/gxlibdc.h>
@@ -4757,7 +4757,7 @@ diff -ruN o/lib/gdi/gxlibdc.cpp pc/lib/gdi/gxlibdc.cpp
 +eAutoInitPtr<gXlibDC> init_gXlibDC(eAutoInitNumbers::graphic-1, "gXlibDC");
 diff -ruN o/lib/gdi/gxlibdc.h pc/lib/gdi/gxlibdc.h
 --- o/lib/gdi/gxlibdc.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/gxlibdc.h	2021-03-03 11:58:47.178374167 +0300
++++ pc/lib/gdi/gxlibdc.h	2021-04-01 10:54:11.310137848 +0300
 @@ -0,0 +1,80 @@
 +#ifndef __lib_gdi_gxlibdc_h
 +#define __lib_gdi_gxlibdc_h
@@ -4841,7 +4841,7 @@ diff -ruN o/lib/gdi/gxlibdc.h pc/lib/gdi/gxlibdc.h
 +#endif
 diff -ruN o/lib/gdi/lcd.cpp pc/lib/gdi/lcd.cpp
 --- o/lib/gdi/lcd.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/gdi/lcd.cpp	2021-03-03 11:58:47.178374167 +0300
++++ pc/lib/gdi/lcd.cpp	2021-04-01 10:54:11.311137835 +0300
 @@ -82,8 +82,8 @@
  	lcdfd = open("/dev/dbox/oled0", O_RDWR);
  	if (lcdfd < 0)
@@ -4896,7 +4896,7 @@ diff -ruN o/lib/gdi/lcd.cpp pc/lib/gdi/lcd.cpp
  	else
 diff -ruN o/lib/gdi/Makefile.inc pc/lib/gdi/Makefile.inc
 --- o/lib/gdi/Makefile.inc	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/gdi/Makefile.inc	2021-03-03 11:58:47.178374167 +0300
++++ pc/lib/gdi/Makefile.inc	2021-04-01 10:54:11.311137835 +0300
 @@ -44,8 +44,17 @@
  	gdi/pixmapcache.h \
  	gdi/region.h
@@ -4922,9 +4922,9 @@ diff -ruN o/lib/gdi/Makefile.inc pc/lib/gdi/Makefile.inc
  endif
 +endif
 diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
---- o/lib/gdi/picload.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/gdi/picload.cpp	2021-03-03 11:58:47.181374235 +0300
-@@ -700,8 +700,6 @@
+--- o/lib/gdi/picload.cpp	2021-03-29 23:15:14.384597208 +0300
++++ pc/lib/gdi/picload.cpp	2021-04-01 10:54:11.311137835 +0300
+@@ -775,8 +775,6 @@
  
  void ePicLoad::decodePic()
  {
@@ -4933,7 +4933,7 @@ diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
  	getExif(m_filepara->file, m_filepara->id);
  	switch(m_filepara->id)
  	{
-@@ -1359,7 +1357,6 @@
+@@ -1440,7 +1438,6 @@
  {
  	long asp1, asp2;
  	result = 0;
@@ -4943,7 +4943,7 @@ diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
  	switch(aspect)
 diff -ruN o/lib/gdi/post.cpp pc/lib/gdi/post.cpp
 --- o/lib/gdi/post.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/post.cpp	2021-03-03 11:58:47.182374258 +0300
++++ pc/lib/gdi/post.cpp	2021-04-01 10:54:11.311137835 +0300
 @@ -0,0 +1,808 @@
 +/*
 + * Copyright (C) 2003 by Dirk Meyer
@@ -5755,7 +5755,7 @@ diff -ruN o/lib/gdi/post.cpp pc/lib/gdi/post.cpp
 +}
 diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 --- o/lib/gdi/post.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/post.h	2021-03-03 11:58:47.182374258 +0300
++++ pc/lib/gdi/post.h	2021-04-01 10:54:11.311137835 +0300
 @@ -0,0 +1,99 @@
 +/*
 + * Copyright (C) 2003 by Dirk Meyer
@@ -5858,7 +5858,7 @@ diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 +/* end of post.h */
 diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 --- o/lib/gdi/xineLib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.cpp	2021-03-03 11:58:47.182374258 +0300
++++ pc/lib/gdi/xineLib.cpp	2021-04-01 10:54:11.311137835 +0300
 @@ -0,0 +1,948 @@
 +#include <fstream>
 +#include <lib/gdi/xineLib.h>
@@ -6810,7 +6810,7 @@ diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 +}
 diff -ruN o/lib/gdi/xineLib.h pc/lib/gdi/xineLib.h
 --- o/lib/gdi/xineLib.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.h	2021-03-03 11:58:47.182374258 +0300
++++ pc/lib/gdi/xineLib.h	2021-04-01 10:54:11.312137823 +0300
 @@ -0,0 +1,117 @@
 +#ifndef __lib_gdi_xineLib_h
 +#define __lib_gdi_xineLib_h
@@ -6931,7 +6931,7 @@ diff -ruN o/lib/gdi/xineLib.h pc/lib/gdi/xineLib.h
 +#endif
 diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
 --- o/lib/gui/evideo.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/gui/evideo.cpp	2021-03-03 11:58:47.182374258 +0300
++++ pc/lib/gui/evideo.cpp	2021-04-01 10:54:11.312137823 +0300
 @@ -1,6 +1,7 @@
  #include <lib/base/cfile.h>
  #include <lib/gui/evideo.h>
@@ -6977,8 +6977,8 @@ diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
  		pendingFullsize &= ~(1 << m_decoder);
  		m_state |= 8;
 diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
---- o/lib/python/Components/About.py	2021-02-18 19:58:50.317783193 +0300
-+++ pc/lib/python/Components/About.py	2021-03-03 11:58:47.182374258 +0300
+--- o/lib/python/Components/About.py	2021-02-23 15:26:12.053346615 +0300
++++ pc/lib/python/Components/About.py	2021-04-01 10:54:11.312137823 +0300
 @@ -8,8 +8,8 @@
  
  def getImageVersionString():
@@ -7088,7 +7088,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  		return _("unknown")
 diff -ruN o/lib/python/Components/AVSwitch.py pc/lib/python/Components/AVSwitch.py
 --- o/lib/python/Components/AVSwitch.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/AVSwitch.py	2021-03-03 11:58:47.184374303 +0300
++++ pc/lib/python/Components/AVSwitch.py	2021-04-01 10:54:11.312137823 +0300
 @@ -23,7 +23,7 @@
  			return (4,3)
  		elif valstr == "16_9": # auto ... 4:3 or 16:9
@@ -7194,7 +7194,7 @@ diff -ruN o/lib/python/Components/AVSwitch.py pc/lib/python/Components/AVSwitch.
  
 diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Components/Converter/EventName.py
 --- o/lib/python/Components/Converter/EventName.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Converter/EventName.py	2021-03-03 11:58:47.184374303 +0300
++++ pc/lib/python/Components/Converter/EventName.py	2021-04-01 10:54:11.312137823 +0300
 @@ -103,10 +103,6 @@
  				return ""
  			else:
@@ -7208,7 +7208,7 @@ diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Component
  		elif self.type == self.EXTENDED_DESCRIPTION:
 diff -ruN o/lib/python/Components/Converter/PliExtraInfo.py pc/lib/python/Components/Converter/PliExtraInfo.py
 --- o/lib/python/Components/Converter/PliExtraInfo.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Converter/PliExtraInfo.py	2021-03-03 11:58:47.184374303 +0300
++++ pc/lib/python/Components/Converter/PliExtraInfo.py	2021-04-01 10:54:11.312137823 +0300
 @@ -164,7 +164,7 @@
  		fps = (info.getInfo(iServiceInformation.sFrameRate) + 500) / 1000
  		if not fps:
@@ -7219,8 +7219,8 @@ diff -ruN o/lib/python/Components/Converter/PliExtraInfo.py pc/lib/python/Compon
  				pass
  		return "%sx%s%s%s" % (xres, yres, mode, fps)
 diff -ruN o/lib/python/Components/Converter/TemplatedMultiContent.py pc/lib/python/Components/Converter/TemplatedMultiContent.py
---- o/lib/python/Components/Converter/TemplatedMultiContent.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Converter/TemplatedMultiContent.py	2021-03-03 11:58:47.184374303 +0300
+--- o/lib/python/Components/Converter/TemplatedMultiContent.py	2021-03-29 23:15:14.384597208 +0300
++++ pc/lib/python/Components/Converter/TemplatedMultiContent.py	2021-04-01 10:54:11.312137823 +0300
 @@ -6,9 +6,8 @@
  	def __init__(self, args):
  		StringList.__init__(self, args)
@@ -7234,7 +7234,7 @@ diff -ruN o/lib/python/Components/Converter/TemplatedMultiContent.py pc/lib/pyth
  		del loc["args"]
 diff -ruN o/lib/python/Components/FanControl.py pc/lib/python/Components/FanControl.py
 --- o/lib/python/Components/FanControl.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/FanControl.py	2021-03-03 11:58:47.185374325 +0300
++++ pc/lib/python/Components/FanControl.py	2021-04-01 10:54:11.312137823 +0300
 @@ -9,7 +9,7 @@
  class FanControl:
  	# ATM there's only support for one fan
@@ -7282,7 +7282,7 @@ diff -ruN o/lib/python/Components/FanControl.py pc/lib/python/Components/FanCont
  fancontrol = FanControl()
 diff -ruN o/lib/python/Components/Harddisk.py pc/lib/python/Components/Harddisk.py
 --- o/lib/python/Components/Harddisk.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Harddisk.py	2021-03-03 11:58:47.185374325 +0300
++++ pc/lib/python/Components/Harddisk.py	2021-04-01 10:54:11.313137811 +0300
 @@ -46,7 +46,7 @@
  	def __init__(self, device, removable=False):
  		self.device = device
@@ -7305,7 +7305,7 @@ diff -ruN o/lib/python/Components/Harddisk.py pc/lib/python/Components/Harddisk.
  					rdev = os.stat(disk_path).st_rdev
 diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
 --- o/lib/python/Components/HdmiCec.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/HdmiCec.py	2021-03-03 11:58:47.185374325 +0300
++++ pc/lib/python/Components/HdmiCec.py	2021-04-01 10:54:11.313137811 +0300
 @@ -6,7 +6,7 @@
  from enigma import eTimer
  from sys import maxint
@@ -7317,7 +7317,7 @@ diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
  # CEC Version's table
 diff -ruN o/lib/python/Components/ImportChannels.py pc/lib/python/Components/ImportChannels.py
 --- o/lib/python/Components/ImportChannels.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/ImportChannels.py	2021-03-03 11:58:47.185374325 +0300
++++ pc/lib/python/Components/ImportChannels.py	2021-04-01 10:54:11.313137811 +0300
 @@ -68,7 +68,7 @@
  				return
  			print "[Import Channels] Get EPG Location"
@@ -7329,7 +7329,7 @@ diff -ruN o/lib/python/Components/ImportChannels.py pc/lib/python/Components/Imp
  				except:
 diff -ruN o/lib/python/Components/InputDevice.py pc/lib/python/Components/InputDevice.py
 --- o/lib/python/Components/InputDevice.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/InputDevice.py	2021-03-03 11:58:47.186374348 +0300
++++ pc/lib/python/Components/InputDevice.py	2021-04-01 10:54:11.313137811 +0300
 @@ -40,7 +40,6 @@
  				self.name = self.name[:self.name.find("\0")]
  				os.close(self.fd)
@@ -7365,9 +7365,96 @@ diff -ruN o/lib/python/Components/InputDevice.py pc/lib/python/Components/InputD
  		return int(rc)
  
  iRcTypeControl = RcTypeControl()
+diff -ruN o/lib/python/Components/MovieList.py pc/lib/python/Components/MovieList.py
+--- o/lib/python/Components/MovieList.py	2021-04-01 10:49:28.531090511 +0300
++++ pc/lib/python/Components/MovieList.py	2021-04-01 10:54:11.313137811 +0300
+@@ -10,7 +10,7 @@
+ from Tools.Directories import SCOPE_CURRENT_SKIN, resolveFilename
+ from Screens.LocationBox import defaultInhibitDirs
+ import NavigationInstance
+-from skin import parseScale
++import skin
+ 
+ from enigma import eListboxPythonMultiContent, eListbox, gFont, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference, eServiceCenter, eTimer, RT_VALIGN_CENTER
+ 
+@@ -257,55 +257,55 @@
+ 		def fontName(value):
+ 			self.fontName = value
+ 		def fontSizesOriginal(value):
+-			self.fontSizesOriginal = map(parseScale, value.split(","))
++			self.fontSizesOriginal = map(int, value.split(","))
+ 			if len(self.fontSizesOriginal) != 3:
+ 				warningWrongSkinParameter(attrib)
+ 		def fontSizesCompact(value):
+-			self.fontSizesCompact = map(parseScale, value.split(","))
++			self.fontSizesCompact = map(int, value.split(","))
+ 			if len(self.fontSizesCompact) != 2:
+ 				warningWrongSkinParameter(attrib)
+ 		def fontSizesMinimal(value):
+-			self.fontSizesMinimal = map(parseScale, value.split(","))
++			self.fontSizesMinimal = map(int, value.split(","))
+ 			if len(self.fontSizesMinimal) != 2:
+ 				warningWrongSkinParameter(attrib)
+ 		def itemHeights(value):
+-			self.itemHeights = map(parseScale, value.split(","))
++			self.itemHeights = map(int, value.split(","))
+ 			if len(self.itemHeights) != 3:
+ 				warningWrongSkinParameter(attrib)
+ 		def pbarShift(value):
+-			self.pbarShift = parseScale(value)
++			self.pbarShift = int(value)
+ 		def pbarHeight(value):
+-			self.pbarHeight = parseScale(value)
++			self.pbarHeight = int(value)
+ 		def pbarLargeWidth(value):
+-			self.pbarLargeWidth = parseScale(value)
++			self.pbarLargeWidth = int(value)
+ 		def partIconeShiftMinimal(value):
+-			self.partIconeShiftMinimal = parseScale(value)
++			self.partIconeShiftMinimal = int(value)
+ 		def partIconeShiftCompact(value):
+-			self.partIconeShiftCompact = parseScale(value)
++			self.partIconeShiftCompact = int(value)
+ 		def partIconeShiftOriginal(value):
+-			self.partIconeShiftOriginal = parseScale(value)
++			self.partIconeShiftOriginal = int(value)
+ 		def spaceIconeText(value):
+-			self.spaceIconeText = parseScale(value)
++			self.spaceIconeText = int(value)
+ 		def iconsWidth(value):
+-			self.iconsWidth = parseScale(value)
++			self.iconsWidth = int(value)
+ 		def trashShift(value):
+-			self.trashShift = parseScale(value)
++			self.trashShift = int(value)
+ 		def dirShift(value):
+-			self.dirShift = parseScale(value)
++			self.dirShift = int(value)
+ 		def spaceRight(value):
+-			self.spaceRight = parseScale(value)
++			self.spaceRight = int(value)
+ 		def columnsOriginal(value):
+-			self.columnsOriginal = map(parseScale, value.split(","))
++			self.columnsOriginal = map(int, value.split(","))
+ 			if len(self.columnsOriginal) != 2:
+ 				warningWrongSkinParameter(attrib)
+ 		def columnsCompactDescription(value):
+-			self.columnsCompactDescription = map(parseScale, value.split(","))
++			self.columnsCompactDescription = map(int, value.split(","))
+ 			if len(self.columnsCompactDescription) != 3:
+ 				warningWrongSkinParameter(attrib)
+ 		def compactColumn(value):
+-			self.compactColumn = parseScale(value)
++			self.compactColumn = int(value)
+ 		def treeDescription(value):
+-			self.treeDescription = parseScale(value)
++			self.treeDescription = int(value)
+ 		for (attrib, value) in self.skinAttributes[:]:
+ 			try:
+ 				locals().get(attrib)(value)
 diff -ruN o/lib/python/Components/NimManager.py pc/lib/python/Components/NimManager.py
---- o/lib/python/Components/NimManager.py	2021-02-18 19:58:50.318783205 +0300
-+++ pc/lib/python/Components/NimManager.py	2021-03-03 11:58:47.187374370 +0300
+--- o/lib/python/Components/NimManager.py	2021-02-23 15:26:12.053346615 +0300
++++ pc/lib/python/Components/NimManager.py	2021-04-01 10:54:11.314137798 +0300
 @@ -540,7 +540,7 @@
  				types.remove("DVB-S")
  			if len(types) > 1:
@@ -7503,7 +7590,7 @@ diff -ruN o/lib/python/Components/NimManager.py pc/lib/python/Components/NimMana
  						if is_dvb_shutdown_timeout:
 diff -ruN o/lib/python/Components/Opkg.py pc/lib/python/Components/Opkg.py
 --- o/lib/python/Components/Opkg.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Opkg.py	2021-03-03 11:58:47.187374370 +0300
++++ pc/lib/python/Components/Opkg.py	2021-04-01 10:54:11.314137798 +0300
 @@ -147,7 +147,7 @@
  			append = ""
  			if args["test_only"]:
@@ -7515,7 +7602,7 @@ diff -ruN o/lib/python/Components/Opkg.py pc/lib/python/Components/Opkg.py
  			if args['installed_only']:
 diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Components/ParentalControlList.py
 --- o/lib/python/Components/ParentalControlList.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/python/Components/ParentalControlList.py	2021-03-03 11:58:47.187374370 +0300
++++ pc/lib/python/Components/ParentalControlList.py	2021-04-01 10:54:11.314137798 +0300
 @@ -0,0 +1,45 @@
 +from MenuList import MenuList
 +from Components.ParentalControl import IMG_WHITESERVICE, IMG_WHITEBOUQUET, IMG_BLACKSERVICE, IMG_BLACKBOUQUET
@@ -7564,7 +7651,7 @@ diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Component
 +		self.l.setList(self.list)
 diff -ruN o/lib/python/Components/PluginComponent.py pc/lib/python/Components/PluginComponent.py
 --- o/lib/python/Components/PluginComponent.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/PluginComponent.py	2021-03-03 11:58:47.187374370 +0300
++++ pc/lib/python/Components/PluginComponent.py	2021-04-01 10:54:11.314137798 +0300
 @@ -54,7 +54,7 @@
  						except Exception, exc:
  							print "Plugin ", c + "/" + pluginname, "failed to load:", exc
@@ -7576,7 +7663,7 @@ diff -ruN o/lib/python/Components/PluginComponent.py pc/lib/python/Components/Pl
  									from traceback import print_exc
 diff -ruN o/lib/python/Components/RcModel.py pc/lib/python/Components/RcModel.py
 --- o/lib/python/Components/RcModel.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/RcModel.py	2021-03-03 11:58:47.187374370 +0300
++++ pc/lib/python/Components/RcModel.py	2021-04-01 10:54:11.314137798 +0300
 @@ -20,8 +20,8 @@
  
  	def getRcFile(self, ext):
@@ -7590,7 +7677,7 @@ diff -ruN o/lib/python/Components/RcModel.py pc/lib/python/Components/RcModel.py
  			modeltype = None
 diff -ruN o/lib/python/Components/Renderer/FrontpanelLed.py pc/lib/python/Components/Renderer/FrontpanelLed.py
 --- o/lib/python/Components/Renderer/FrontpanelLed.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Renderer/FrontpanelLed.py	2021-03-03 11:58:47.188374393 +0300
++++ pc/lib/python/Components/Renderer/FrontpanelLed.py	2021-04-01 10:54:11.314137798 +0300
 @@ -17,16 +17,16 @@
  		(speed, pattern, pattern_4bit) = self.patterns[val]
  
@@ -7614,7 +7701,7 @@ diff -ruN o/lib/python/Components/Renderer/FrontpanelLed.py pc/lib/python/Compon
  				pass
 diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Components/Renderer/NextEpgInfo.py
 --- o/lib/python/Components/Renderer/NextEpgInfo.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Renderer/NextEpgInfo.py	2021-03-03 11:58:47.188374393 +0300
++++ pc/lib/python/Components/Renderer/NextEpgInfo.py	2021-04-01 10:54:11.314137798 +0300
 @@ -32,15 +32,11 @@
  					if event:
  						if self.hideLabel:
@@ -7633,7 +7720,7 @@ diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Componen
  		attribs = []
 diff -ruN o/lib/python/Components/Sensors.py pc/lib/python/Components/Sensors.py
 --- o/lib/python/Components/Sensors.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Sensors.py	2021-03-03 11:58:47.189374416 +0300
++++ pc/lib/python/Components/Sensors.py	2021-04-01 10:54:11.314137798 +0300
 @@ -51,12 +51,12 @@
  
  	def addSensors(self):
@@ -7652,9 +7739,55 @@ diff -ruN o/lib/python/Components/Sensors.py pc/lib/python/Components/Sensors.py
  		for fanid in range(fancontrol.getFanCount()):
  			if fancontrol.hasRPMSensor(fanid):
  				self.sensors_list.append((self.TYPE_FAN_RPM, _("Fan %d") % (fanid + 1), "rpm", fanid))
+diff -ruN o/lib/python/Components/ServiceList.py pc/lib/python/Components/ServiceList.py
+--- o/lib/python/Components/ServiceList.py	2021-04-01 10:49:28.531090511 +0300
++++ pc/lib/python/Components/ServiceList.py	2021-04-01 10:54:11.315137786 +0300
+@@ -1,5 +1,5 @@
+ from GUIComponent import GUIComponent
+-from skin import parseColor, parseFont, parseScale
++from skin import parseColor, parseFont
+ 
+ from enigma import eListboxServiceContent, eListbox, eServiceCenter, eServiceReference, gFont, eRect
+ from Tools.LoadPixmap import LoadPixmap
+@@ -112,7 +112,7 @@
+ 			pic = LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, value))
+ 			pic and self.l.setPixmap(self.l.picServiceEventProgressbar, pic)
+ 		def serviceItemHeight(value):
+-			self.ItemHeight = parseScale(value)
++			self.ItemHeight = int(value)
+ 		def serviceNameFont(value):
+ 			self.ServiceNameFont = parseFont(value, ((1,1),(1,1)))
+ 		def serviceInfoFont(value):
+@@ -123,19 +123,19 @@
+ 		def serviceNumberFont(value):
+ 			self.ServiceNumberFont = parseFont(value, ((1,1),(1,1)))
+ 		def progressbarHeight(value):
+-			self.l.setProgressbarHeight(parseScale(value))
++			self.l.setProgressbarHeight(int(value))
+ 		def progressbarBorderWidth(value):
+-			self.l.setProgressbarBorderWidth(parseScale(value))
++			self.l.setProgressbarBorderWidth(int(value))
+ 		def progressBarWidth(value):
+-			self.progressBarWidth = parseScale(value)
++			self.progressBarWidth = int(value)
+ 		def progressPercentWidth(value):
+-			self.progressPercentWidth = parseScale(value)
++			self.progressPercentWidth = int(value)
+ 		def fieldMargins(value):
+-			self.fieldMargins = parseScale(value)
++			self.fieldMargins = int(value)
+ 		def nonplayableMargins(value):
+-			self.l.setNonplayableMargins(parseScale(value))
++			self.l.setNonplayableMargins(int(value))
+ 		def itemsDistances(value):
+-			self.l.setItemsDistances(parseScale(value))
++			self.l.setItemsDistances(int(value))
+ 		for (attrib, value) in list(self.skinAttributes):
+ 			try:
+ 				locals().get(attrib)(value)
 diff -ruN o/lib/python/Components/Sources/List.py pc/lib/python/Components/Sources/List.py
 --- o/lib/python/Components/Sources/List.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Sources/List.py	2021-03-03 11:58:47.189374416 +0300
++++ pc/lib/python/Components/Sources/List.py	2021-04-01 10:54:11.315137786 +0300
 @@ -99,7 +99,6 @@
  
  	def updateList(self, list):
@@ -7665,7 +7798,7 @@ diff -ruN o/lib/python/Components/Sources/List.py pc/lib/python/Components/Sourc
  		self.list = list
 diff -ruN o/lib/python/Components/SystemInfo.py pc/lib/python/Components/SystemInfo.py
 --- o/lib/python/Components/SystemInfo.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/SystemInfo.py	2021-03-03 11:58:47.189374416 +0300
++++ pc/lib/python/Components/SystemInfo.py	2021-04-01 10:54:11.315137786 +0300
 @@ -21,8 +21,8 @@
  	return numVideoDecoders
  
@@ -7828,9 +7961,43 @@ diff -ruN o/lib/python/Components/SystemInfo.py pc/lib/python/Components/SystemI
 +SystemInfo["HDMIAudioSource"] = fileCheck("/usr/local/e2/etc/stb/hdmi/audio_source")
  SystemInfo["BootDevice"] = getBootdevice()
  SystemInfo["FbcTunerPowerAlwaysOn"] = model in ("vusolo4k", "vuduo4k", "vuduo4kse", "vuultimo4k", "vuuno4k", "vuuno4kse", "gbquad4k", "gbue4k")
+diff -ruN o/lib/python/Components/TimerList.py pc/lib/python/Components/TimerList.py
+--- o/lib/python/Components/TimerList.py	2021-04-01 10:49:28.532091266 +0300
++++ pc/lib/python/Components/TimerList.py	2021-04-01 10:54:11.315137786 +0300
+@@ -1,5 +1,5 @@
+ from GUIComponent import GUIComponent
+-from skin import parseFont, parseScale
++from skin import parseFont
+ 
+ from Tools.FuzzyDate import FuzzyTime
+ 
+@@ -117,7 +117,7 @@
+ 
+ 	def applySkin(self, desktop, parent):
+ 		def itemHeight(value):
+-			self.itemHeight = parseScale(value)
++			self.itemHeight = int(value)
+ 		def setServiceNameFont(value):
+ 			self.serviceNameFont = parseFont(value, ((1,1),(1,1)))
+ 		def setEventNameFont(value):
+@@ -125,11 +125,11 @@
+ 		def setFont(value):
+ 			self.font = parseFont(value, ((1,1),(1,1)))
+ 		def rowSplit(value):
+-			self.rowSplit = parseScale(value)
++			self.rowSplit = int(value)
+ 		def iconMargin(value):
+-			self.iconMargin = parseScale(value)
++			self.iconMargin = int(value)
+ 		def satPosLeft(value):
+-			self.satPosLeft = parseScale(value)
++			self.satPosLeft = int(value)
+ 		def backupColor(value):
+ 			self.backupColor = int(value)
+ 		def backupColorSel(value):
 diff -ruN o/lib/python/Components/Timezones.py pc/lib/python/Components/Timezones.py
 --- o/lib/python/Components/Timezones.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/Timezones.py	2021-03-03 11:58:47.189374416 +0300
++++ pc/lib/python/Components/Timezones.py	2021-04-01 10:54:11.315137786 +0300
 @@ -293,7 +293,7 @@
  		except Exception:
  			from enigma import e_tzset
@@ -7842,7 +8009,7 @@ diff -ruN o/lib/python/Components/Timezones.py pc/lib/python/Components/Timezone
  		timeFormat = "%a %d-%b-%Y %H:%M:%S"
 diff -ruN o/lib/python/Components/TunerInfo.py pc/lib/python/Components/TunerInfo.py
 --- o/lib/python/Components/TunerInfo.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Components/TunerInfo.py	2021-03-03 11:58:47.190374438 +0300
++++ pc/lib/python/Components/TunerInfo.py	2021-04-01 10:54:11.315137786 +0300
 @@ -43,8 +43,6 @@
  	def calc(self,val):
  		if not val:
@@ -7853,8 +8020,8 @@ diff -ruN o/lib/python/Components/TunerInfo.py pc/lib/python/Components/TunerInf
  
  	def update(self):
 diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageConfig.py
---- o/lib/python/Components/UsageConfig.py	2021-01-29 12:53:02.000000000 +0300
-+++ pc/lib/python/Components/UsageConfig.py	2021-03-03 11:58:47.190374438 +0300
+--- o/lib/python/Components/UsageConfig.py	2021-01-29 12:53:02.723759675 +0300
++++ pc/lib/python/Components/UsageConfig.py	2021-04-01 10:54:11.315137786 +0300
 @@ -85,7 +85,7 @@
  	config.usage.menu_show_numbers = ConfigSelection(default="no", choices=[("no", _("no")), ("menu&plugins", _("in menu and plugins")), ("menu", _("in menu only")), ("plugins", _("in plugins only"))])
  	config.usage.showScreenPath = ConfigSelection(default="small", choices=[("off", _("Disabled")), ("small", _("Small")), ("large", _("Large"))])
@@ -7920,7 +8087,7 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  	config.streaming.descramble = ConfigYesNo(default=True)
 diff -ruN o/lib/python/enigma_python.i pc/lib/python/enigma_python.i
 --- o/lib/python/enigma_python.i	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/enigma_python.i	2021-03-03 11:58:47.195374551 +0300
++++ pc/lib/python/enigma_python.i	2021-04-01 10:54:11.316137773 +0300
 @@ -43,7 +43,6 @@
  #include <lib/base/message.h>
  #include <lib/base/e2avahi.h>
@@ -7939,7 +8106,7 @@ diff -ruN o/lib/python/enigma_python.i pc/lib/python/enigma_python.i
  %include <lib/gdi/gpixmap.h>
 diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml
 --- o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2021-03-03 11:58:47.195374551 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2021-04-01 10:54:45.301122764 +0300
 @@ -7,7 +7,7 @@
  		titlesetmode="multi"
  		vmgm="vmgmdream.mpg"
@@ -7950,8 +8117,8 @@ diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml pc/lib/p
  	/>
  	<titles> </titles>
 diff -ruN o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py
---- o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2021-02-12 23:21:32.000000000 +0300
-+++ pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2021-03-03 11:58:47.195374551 +0300
+--- o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2021-02-23 15:26:12.053346615 +0300
++++ pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2021-04-01 10:54:45.302122774 +0300
 @@ -347,13 +347,11 @@
  		currPlay = self.session.nav.getCurrentService()
  		sTagAudioCodec = currPlay.info().getInfoString(iServiceInformation.sTagAudioCodec)
@@ -7967,8 +8134,8 @@ diff -ruN o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py pc/lib/python/Pl
  	def __evPluginError(self):
  		currPlay = self.session.nav.getCurrentService()
 diff -ruN o/lib/python/Plugins/Extensions/PicturePlayer/ui.py pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py
---- o/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2021-03-03 11:58:47.195374551 +0300
+--- o/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2021-03-29 23:15:14.385597174 +0300
++++ pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2021-04-01 10:54:45.302122774 +0300
 @@ -18,7 +18,7 @@
  	return AVSwitch().getFramebufferScale()
  
@@ -7980,7 +8147,7 @@ diff -ruN o/lib/python/Plugins/Extensions/PicturePlayer/ui.py pc/lib/python/Plug
  config.pic.cache = ConfigYesNo(default=True)
 diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py
 --- o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-03-03 11:58:47.196374574 +0300
++++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-04-01 10:54:45.302122774 +0300
 @@ -171,7 +171,7 @@
  		if self.step == 1:
  			self.step = self.yes_no.value and 5 or 2
@@ -7992,7 +8159,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py 
  			self.step = 5
 diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py	2021-03-03 11:58:47.196374574 +0300
++++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py	2021-04-01 10:54:45.302122774 +0300
 @@ -13,10 +13,10 @@
  	if dst_top + dst_height > 576:
  		dst_height = 576 - dst_top
@@ -8010,7 +8177,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py pc/lib/p
  
 diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py
 --- o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2021-03-03 11:58:47.197374596 +0300
++++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2021-04-01 10:54:45.303122784 +0300
 @@ -116,7 +116,7 @@
  
  		self.selectedFiles = config.plugins.configurationbackup.backupdirs.value
@@ -8033,7 +8200,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc
  		if self.finished_cb:
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py pc/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py	2021-03-03 11:58:47.198374619 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py	2021-04-01 10:54:45.303122784 +0300
 @@ -98,16 +98,16 @@
  	if clip_top + clip_height > 576:
  		clip_height = 576 - clip_top
@@ -8066,7 +8233,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py pc/lib
  					PluginDescriptor(name = _("Video clipping setup"), description = "", where = PluginDescriptor.WHERE_SESSIONSTART, fnc = startup)]
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py	2021-03-03 11:58:47.198374619 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py	2021-04-01 10:54:45.303122784 +0300
 @@ -392,6 +392,6 @@
  
  def Plugins(**kwargs):
@@ -8077,7 +8244,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py pc/lib/p
  	return list
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py
 --- o/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py	2021-03-03 11:58:47.198374619 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py	2021-04-01 10:54:45.303122784 +0300
 @@ -1,7 +1,7 @@
  from Components.config import config, ConfigSubsection, ConfigSlider, ConfigSelection, ConfigBoolean, ConfigNothing, NoSave
  import os
@@ -8337,7 +8504,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.p
  
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2021-03-03 11:58:47.198374619 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2021-04-01 10:54:45.303122784 +0300
 @@ -16,11 +16,13 @@
  		Screen.__init__(self, session)
  		# for the skin: first try VideoSetup, then Setup, this allows individual skinning
@@ -8560,7 +8727,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  	from VideoWizard import VideoWizard
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2021-03-03 11:58:47.199374641 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2021-04-01 10:54:45.304122794 +0300
 @@ -1,202 +1,102 @@
 +from enigma import eTimer, eAVSwitch
  from Components.config import config, ConfigSelection, ConfigSubDict, ConfigYesNo
@@ -9061,7 +9228,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/p
  video_hw.setConfiguredMode()
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py
 --- o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2021-03-03 11:58:47.199374641 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2021-04-01 10:54:45.304122794 +0300
 @@ -3,7 +3,7 @@
  from Screens.Rc import Rc
  from VideoHardware import video_hw
@@ -9156,7 +9323,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py pc/lib/pyt
  		configfile.save()
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am
 --- o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2021-03-03 11:58:47.199374641 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2021-04-01 10:54:45.304122794 +0300
 @@ -4,4 +4,4 @@
  
  install_PYTHON =	\
@@ -9165,7 +9332,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python
 +	plugin.py VideoFinetune.py
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py
 --- o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2021-03-03 11:58:47.200374664 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2021-04-01 10:54:45.304122794 +0300
 @@ -1,8 +1,6 @@
  from Screens.Screen import Screen
 -from Components.config import config
@@ -9413,8 +9580,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
 -	def keyNumber(self, key):
 -		self.close(key)
 diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
---- o/lib/python/Screens/About.py	2021-02-18 19:58:50.318783205 +0300
-+++ pc/lib/python/Screens/About.py	2021-03-03 11:58:47.200374664 +0300
+--- o/lib/python/Screens/About.py	2021-02-23 15:26:12.054346895 +0300
++++ pc/lib/python/Screens/About.py	2021-04-01 10:54:45.304122794 +0300
 @@ -48,16 +48,17 @@
  
  		AboutText += _("DVB driver version: ") + about.getDriverInstalledDate() + "\n"
@@ -9450,7 +9617,7 @@ diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
  		self.titles = ["dmesg", "ifconfig", "df", "top", "ps", "messages"]
 diff -ruN o/lib/python/Screens/AudioSelection.py pc/lib/python/Screens/AudioSelection.py
 --- o/lib/python/Screens/AudioSelection.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/AudioSelection.py	2021-03-03 11:58:47.200374664 +0300
++++ pc/lib/python/Screens/AudioSelection.py	2021-04-01 10:54:45.304122794 +0300
 @@ -392,6 +392,20 @@
  		AudioSelection.__init__(self, session, infobar, page=PAGE_SUBTITLES)
  		self.skinName = ["AudioSelection"]
@@ -9473,8 +9640,8 @@ diff -ruN o/lib/python/Screens/AudioSelection.py pc/lib/python/Screens/AudioSele
  	skin = """
  	<screen position="50,50" size="480,305" title="Subtitle settings" backgroundColor="#7f000000" flags="wfNoBorder">
 diff -ruN o/lib/python/Screens/ChannelSelection.py pc/lib/python/Screens/ChannelSelection.py
---- o/lib/python/Screens/ChannelSelection.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/ChannelSelection.py	2021-03-03 11:58:47.201374687 +0300
+--- o/lib/python/Screens/ChannelSelection.py	2021-03-29 23:15:14.386597140 +0300
++++ pc/lib/python/Screens/ChannelSelection.py	2021-04-01 10:54:45.305122804 +0300
 @@ -177,7 +177,7 @@
  								append_when_current_valid(current, menu, (_("Remove from parental protection"), boundFunction(self.removeParentalProtection, current)), level=0)
  						if self.parentalControl.blacklist and config.ParentalControl.hideBlacklist.value and not self.parentalControl.sessionPinCached and config.ParentalControl.storeservicepin.value != "never":
@@ -9486,7 +9653,7 @@ diff -ruN o/lib/python/Screens/ChannelSelection.py pc/lib/python/Screens/Channel
  						else:
 diff -ruN o/lib/python/Screens/DVD.py pc/lib/python/Screens/DVD.py
 --- o/lib/python/Screens/DVD.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/DVD.py	2021-03-03 11:58:47.213374957 +0300
++++ pc/lib/python/Screens/DVD.py	2021-04-01 10:54:45.305122804 +0300
 @@ -255,16 +255,16 @@
  		self.onFirstExecBegin.append(self.opened)
  		self.service = None
@@ -9530,7 +9697,7 @@ diff -ruN o/lib/python/Screens/DVD.py pc/lib/python/Screens/DVD.py
  		if not self.in_menu:
 diff -ruN o/lib/python/Screens/EpgSelection.py pc/lib/python/Screens/EpgSelection.py
 --- o/lib/python/Screens/EpgSelection.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/EpgSelection.py	2021-03-03 11:58:47.213374957 +0300
++++ pc/lib/python/Screens/EpgSelection.py	2021-04-01 10:54:45.305122804 +0300
 @@ -66,8 +66,8 @@
  			self.setTitle(_("Multi EPG"))
  			self.skinName = "EPGSelectionMulti"
@@ -9544,7 +9711,7 @@ diff -ruN o/lib/python/Screens/EpgSelection.py pc/lib/python/Screens/EpgSelectio
  			self["more_button"] = Pixmap()
 diff -ruN o/lib/python/Screens/Hotkey.py pc/lib/python/Screens/Hotkey.py
 --- o/lib/python/Screens/Hotkey.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/Hotkey.py	2021-03-03 11:58:47.213374957 +0300
++++ pc/lib/python/Screens/Hotkey.py	2021-04-01 10:54:45.305122804 +0300
 @@ -221,8 +221,8 @@
  	hotkey.functions.append((_("PowerMenu"), "Menu/shutdown", "Power"))
  	hotkey.functions.append((_("Standby"), "Module/Screens.Standby/Standby", "Power"))
@@ -9557,8 +9724,8 @@ diff -ruN o/lib/python/Screens/Hotkey.py pc/lib/python/Screens/Hotkey.py
  	hotkey.functions.append((_("User interface"), "Setup/userinterface", "Setup"))
  	hotkey.functions.append((_("Recording Setup"), "Setup/recording", "Setup"))
 diff -ruN o/lib/python/Screens/InfoBarGenerics.py pc/lib/python/Screens/InfoBarGenerics.py
---- o/lib/python/Screens/InfoBarGenerics.py	2021-02-19 12:38:36.006814282 +0300
-+++ pc/lib/python/Screens/InfoBarGenerics.py	2021-03-03 11:58:47.214374980 +0300
+--- o/lib/python/Screens/InfoBarGenerics.py	2021-02-23 15:26:12.054346895 +0300
++++ pc/lib/python/Screens/InfoBarGenerics.py	2021-04-01 10:54:45.306122814 +0300
 @@ -106,7 +106,7 @@
  	global resumePointCache, resumePointCacheLast
  	import cPickle
@@ -9598,7 +9765,7 @@ diff -ruN o/lib/python/Screens/InfoBarGenerics.py pc/lib/python/Screens/InfoBarG
  	def HDMIIn(self):
 diff -ruN o/lib/python/Screens/MovieSelection.py pc/lib/python/Screens/MovieSelection.py
 --- o/lib/python/Screens/MovieSelection.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/MovieSelection.py	2021-03-03 11:58:47.223375183 +0300
++++ pc/lib/python/Screens/MovieSelection.py	2021-04-01 10:54:45.306122814 +0300
 @@ -48,7 +48,7 @@
  config.movielist.last_selected_tags = ConfigSet([], default=[])
  config.movielist.play_audio_internal = ConfigYesNo(default=True)
@@ -9610,7 +9777,7 @@ diff -ruN o/lib/python/Screens/MovieSelection.py pc/lib/python/Screens/MovieSele
  config.movielist.add_bookmark = ConfigYesNo(default=True)
 diff -ruN o/lib/python/Screens/PluginBrowser.py pc/lib/python/Screens/PluginBrowser.py
 --- o/lib/python/Screens/PluginBrowser.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/PluginBrowser.py	2021-03-03 11:58:47.223375183 +0300
++++ pc/lib/python/Screens/PluginBrowser.py	2021-04-01 10:54:45.306122814 +0300
 @@ -57,7 +57,6 @@
  		self.firsttime = True
  
@@ -9628,8 +9795,8 @@ diff -ruN o/lib/python/Screens/PluginBrowser.py pc/lib/python/Screens/PluginBrow
  		self["DirectionActions"] = ActionMap(["DirectionActions"],
  		{
 diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
---- o/lib/python/Screens/Satconfig.py	2021-02-18 19:58:50.319783216 +0300
-+++ pc/lib/python/Screens/Satconfig.py	2021-03-03 11:58:47.223375183 +0300
+--- o/lib/python/Screens/Satconfig.py	2021-02-23 15:26:12.054346895 +0300
++++ pc/lib/python/Screens/Satconfig.py	2021-04-01 10:54:45.307122824 +0300
 @@ -129,7 +129,7 @@
  				self.configMode = getConfigListEntry(self.indent % _("Configuration mode"), self.nimConfig.configMode, _("Select 'FBC SCR' if this tuner will connect to a SCR (Unicable/JESS) device. For all other setups select 'FBC automatic'.") if self.nim.isFBCLink() else _("Configure this tuner using simple or advanced options, or loop it through to another tuner, or copy a configuration from another tuner, or disable it."))
  				self.list.append(self.configMode)
@@ -9658,7 +9825,7 @@ diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
  		if self.nim.isCompatible("DVB-C") or (self.nim.isCombined() and self.nim.canBeCompatible("DVB-C")):
 diff -ruN o/lib/python/Screens/Setup.py pc/lib/python/Screens/Setup.py
 --- o/lib/python/Screens/Setup.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/Setup.py	2021-03-03 11:58:47.223375183 +0300
++++ pc/lib/python/Screens/Setup.py	2021-04-01 10:54:45.307122824 +0300
 @@ -138,8 +138,8 @@
  				if not isinstance(item, ConfigNothing):
  					self.list.append((item_text, item, item_description))
@@ -9672,7 +9839,7 @@ diff -ruN o/lib/python/Screens/Setup.py pc/lib/python/Screens/Setup.py
  	def moveToItem(self, item):
 diff -ruN o/lib/python/Screens/SkinSelector.py pc/lib/python/Screens/SkinSelector.py
 --- o/lib/python/Screens/SkinSelector.py	2021-01-20 16:34:27.000000000 +0300
-+++ pc/lib/python/Screens/SkinSelector.py	2021-03-03 11:58:47.224375206 +0300
++++ pc/lib/python/Screens/SkinSelector.py	2021-04-01 10:54:45.307122824 +0300
 @@ -5,7 +5,7 @@
  from os import listdir
  from os.path import dirname, exists, isdir, join as pathjoin
@@ -9864,7 +10031,7 @@ diff -ruN o/lib/python/Screens/SkinSelector.py pc/lib/python/Screens/SkinSelecto
  		self.refreshList()
 diff -ruN o/lib/python/Screens/SoftcamSetup.py pc/lib/python/Screens/SoftcamSetup.py
 --- o/lib/python/Screens/SoftcamSetup.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/SoftcamSetup.py	2021-03-03 11:58:47.224375206 +0300
++++ pc/lib/python/Screens/SoftcamSetup.py	2021-04-01 10:54:45.307122824 +0300
 @@ -93,13 +93,13 @@
  
  	def ppanelShortcut(self):
@@ -9884,7 +10051,7 @@ diff -ruN o/lib/python/Screens/SoftcamSetup.py pc/lib/python/Screens/SoftcamSetu
  		else:
 diff -ruN o/lib/python/Screens/SoftwareUpdate.py pc/lib/python/Screens/SoftwareUpdate.py
 --- o/lib/python/Screens/SoftwareUpdate.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Screens/SoftwareUpdate.py	2021-03-03 11:58:47.224375206 +0300
++++ pc/lib/python/Screens/SoftwareUpdate.py	2021-04-01 10:54:45.307122824 +0300
 @@ -230,7 +230,7 @@
  				else:
  					message = _("No updates available")
@@ -9904,8 +10071,8 @@ diff -ruN o/lib/python/Screens/SoftwareUpdate.py pc/lib/python/Screens/SoftwareU
  		else:
  			self.opkg.startCmd(OpkgComponent.CMD_UPGRADE, args = {'test_only': False})
 diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.py
---- o/lib/python/Screens/StartWizard.py	2021-01-23 12:35:48.000000000 +0300
-+++ pc/lib/python/Screens/StartWizard.py	2021-03-03 11:58:47.224375206 +0300
+--- o/lib/python/Screens/StartWizard.py	2021-01-23 12:35:48.565356588 +0300
++++ pc/lib/python/Screens/StartWizard.py	2021-04-01 10:54:45.308122834 +0300
 @@ -113,7 +113,7 @@
  		self["AboutScrollLabel"] = ScrollLabel("", showscrollbar=False)
  		self["header"] = Label(_("Autoinstalling please wait for packages being updated"))
@@ -9924,9 +10091,783 @@ diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.
  		self.packages = [package for package in self.packages if package not in installed]
  		if self.packages:
  			self.run_console()
+diff -ruN o/lib/python/skin.py pc/lib/python/skin.py
+--- o/lib/python/skin.py	2021-04-01 10:49:28.532091266 +0300
++++ pc/lib/python/skin.py	2021-04-01 10:54:45.308122834 +0300
+@@ -1,20 +1,21 @@
++from Tools.Profile import profile
++profile("LOAD:ElementTree")
+ import errno
++import os
+ import xml.etree.cElementTree
+ 
++profile("LOAD:enigma_skin")
+ from enigma import addFont, eLabel, ePixmap, ePoint, eRect, eSize, eWindow, eWindowStyleManager, eWindowStyleSkinned, getDesktop, gFont, getFontFaces, gRGB
+-from os.path import basename, dirname, isfile
+-
+ from Components.config import ConfigSubsection, ConfigText, config
+ from Components.RcModel import rc_model
+ from Components.Sources.Source import ObsoleteSource
+ from Components.SystemInfo import SystemInfo
+-from Tools.Directories import SCOPE_CONFIG, SCOPE_CURRENT_LCDSKIN, SCOPE_CURRENT_SKIN, SCOPE_FONTS, SCOPE_SKIN, SCOPE_SKIN_IMAGE, resolveFilename
++from Tools.Directories import SCOPE_CONFIG, SCOPE_CURRENT_LCDSKIN, SCOPE_CURRENT_SKIN, SCOPE_FONTS, SCOPE_SKIN, SCOPE_SKIN_IMAGE, fileExists, resolveFilename
+ from Tools.Import import my_import
+ from Tools.LoadPixmap import LoadPixmap
+ 
+ DEFAULT_SKIN = SystemInfo["HasFullHDSkinSupport"] and "PLi-FullNightHD/skin.xml" or "PLi-HD/skin.xml"  # SD hardware is no longer supported by the default skin.
+ EMERGENCY_SKIN = "skin_default/skin.xml"
+-EMERGENCY_NAME = "Stone II"
+ DEFAULT_DISPLAY_SKIN = "skin_default/skin_display.xml"
+ USER_SKIN = "skin_user.xml"
+ USER_SKIN_TEMPLATE = "skin_user_%s.xml"
+@@ -23,8 +24,9 @@
+ GUI_SKIN_ID = 0  # Main frame-buffer.
+ DISPLAY_SKIN_ID = 1  # Front panel / display / LCD.
+ 
++domSkins = []  # List of skins to be processed into the domScreens dictionary.
+ domScreens = {}  # Dictionary of skin based screens.
+-colors = {  # Dictionary of skin color names.
++colorNames = {  # Dictionary of skin color names.
+ 	"key_back": gRGB(0x00313131),
+ 	"key_blue": gRGB(0x0018188b),
+ 	"key_green": gRGB(0x001f771f),
+@@ -40,20 +42,6 @@
+ parameters = {}  # Dictionary of skin parameters used to modify code behavior.
+ setups = {}  # Dictionary of images associated with setup menus.
+ switchPixmap = {}  # Dictionary of switch images.
+-windowStyles = {}  # Dictionary of window styles for each screen ID.
+-
+-config.skin = ConfigSubsection()
+-skin = resolveFilename(SCOPE_SKIN, DEFAULT_SKIN)
+-if not isfile(skin):
+-	print("[Skin] Error: Default skin '%s' is not readable or is not a file!  Using emergency skin." % skin)
+-	DEFAULT_SKIN = EMERGENCY_SKIN
+-config.skin.primary_skin = ConfigText(default=DEFAULT_SKIN)
+-config.skin.display_skin = ConfigText(default=DEFAULT_DISPLAY_SKIN)
+-
+-currentPrimarySkin = None
+-currentDisplaySkin = None
+-callbacks = []
+-runCallbacks = False
+ 
+ # Skins are loaded in order of priority.  Skin with highest priority is
+ # loaded last.  This is usually the user-specified skin.  In this way
+@@ -67,89 +55,33 @@
+ # SCOPE_CURRENT_LCDSKIN.  The full path is NOT saved.
+ # E.g. "MySkin/skin_display.xml"
+ #
+-def InitSkins():
+-	global currentPrimarySkin, currentDisplaySkin
+-	runCallbacks = False
+-	# Add the emergency skin.  This skin should provide enough functionality
+-	# to enable basic GUI functions to work.
+-	loadSkin(EMERGENCY_SKIN, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID)
+-	# Add the subtitle skin.
+-	loadSkin(SUBTITLE_SKIN, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID)
+-	# Add the front panel / display / lcd skin.
+-	result = []
+-	for skin, name in [(config.skin.display_skin.value, "current"), (DEFAULT_DISPLAY_SKIN, "default")]:
+-		if skin in result:  # Don't try to add a skin that has already failed.
+-			continue
+-		config.skin.display_skin.value = skin
+-		if loadSkin(config.skin.display_skin.value, scope=SCOPE_CURRENT_LCDSKIN, desktop=getDesktop(DISPLAY_SKIN_ID), screenID=DISPLAY_SKIN_ID):
+-			currentDisplaySkin = config.skin.display_skin.value
+-			break
+-		print("[Skin] Error: Adding %s display skin '%s' has failed!" % (name, config.skin.display_skin.value))
+-		result.append(skin)
+-	# Add the main GUI skin.
+-	result = []
+-	for skin, name in [(config.skin.primary_skin.value, "current"), (DEFAULT_SKIN, "default")]:
+-		if skin in result:  # Don't try to add a skin that has already failed.
+-			continue
+-		config.skin.primary_skin.value = skin
+-		if loadSkin(config.skin.primary_skin.value, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID):
+-			currentPrimarySkin = config.skin.primary_skin.value
+-			break
+-		print("[Skin] Error: Adding %s GUI skin '%s' has failed!" % (name, config.skin.primary_skin.value))
+-		result.append(skin)
+-	# Add an optional skin related user skin "user_skin_<SkinName>.xml".  If there is
+-	# not a skin related user skin then try to add am optional generic user skin.
+-	result = None
+-	if isfile(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)):
+-		name = USER_SKIN_TEMPLATE % dirname(config.skin.primary_skin.value)
+-		if isfile(resolveFilename(SCOPE_CURRENT_SKIN, name)):
+-			result = loadSkin(name, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID)
+-	if result is None:
+-		loadSkin(USER_SKIN, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID)
+-	runCallbacks = True
++config.skin = ConfigSubsection()
++skin = resolveFilename(SCOPE_SKIN, DEFAULT_SKIN)
++if not fileExists(skin) or not os.path.isfile(skin):
++	print "[Skin] Error: Default skin '%s' is not readable or is not a file!  Using emergency skin." % skin
++	DEFAULT_SKIN = EMERGENCY_SKIN
++config.skin.primary_skin = ConfigText(default=DEFAULT_SKIN)
++config.skin.display_skin = ConfigText(default=DEFAULT_DISPLAY_SKIN)
+ 
+ # Temporary entry point for older versions of mytest.py.
+ #
+-def loadSkinData(desktop):
+-	InitSkins()
++def findUserRelatedSkin():
++	if os.path.isfile(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)):
++		name = USER_SKIN_TEMPLATE % os.path.dirname(config.skin.primary_skin.value)
++		if fileExists(resolveFilename(SCOPE_CURRENT_SKIN, name)):
++			return name
++	return None
+ 
+ # Method to load a skin XML file into the skin data structures.
+ #
+-def loadSkin(filename, scope=SCOPE_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID):
+-	global windowStyles
+-	filename = resolveFilename(scope, filename)
+-	print("[Skin] Loading skin file '%s'." % filename)
++def addSkin(name, scope=SCOPE_CURRENT_SKIN):
++	global domSkins
++	filename = resolveFilename(scope, name)
+ 	try:
+ 		with open(filename, "r") as fd:  # This open gets around a possible file handle leak in Python's XML parser.
+ 			try:
+-				domSkin = xml.etree.cElementTree.parse(fd).getroot()
+-				# print("[Skin] DEBUG: Extracting non screen blocks from '%s'.  (scope='%s')" % (filename, scope))
+-				# For loadSingleSkinData colors, bordersets etc. are applied one after
+-				# the other in order of ascending priority.
+-				loadSingleSkinData(desktop, screenID, domSkin, filename, scope=scope)
+-				for element in domSkin:
+-					if element.tag == "screen":  # Process all screen elements.
+-						name = element.attrib.get("name", None)
+-						if name:  # Without a name, it's useless!
+-							scrnID = element.attrib.get("id", None)
+-							if scrnID is None or scrnID == screenID:  # If there is a screen ID is it for this display.
+-								# print("[Skin] DEBUG: Extracting screen '%s' from '%s'.  (scope='%s')" % (name, filename, scope))
+-								domScreens[name] = (element, "%s/" % dirname(filename))
+-					elif element.tag == "windowstyle":  # Process the windowstyle element.
+-						scrnID = element.attrib.get("id", None)
+-						if scrnID is not None:  # Without an scrnID, it is useless!
+-							scrnID = int(scrnID)
+-							# print("[Skin] DEBUG: Processing a windowstyle ID='%s'." % scrnID)
+-							domStyle = xml.etree.cElementTree.ElementTree(xml.etree.cElementTree.Element("skin"))
+-							domStyle.getroot().append(element)
+-							windowStyles[scrnID] = (desktop, screenID, domStyle, filename, scope)
+-					# Element is not a screen or windowstyle element so no need for it any longer.
+-				reloadWindowStyles()  # Reload the window style to ensure all skin changes are taken into account.
+-				print("[Skin] Loading skin file '%s' complete." % filename)
+-				if runCallbacks:
+-					for method in self.callbacks:
+-						if method:
+-							method()
++				domSkins.append((scope, "%s/" % os.path.dirname(filename), xml.etree.cElementTree.parse(fd).getroot()))
++				print "[Skin] Loading skin file '%s' complete." % filename
+ 				return True
+ 			except xml.etree.cElementTree.ParseError as err:
+ 				fd.seek(0)
+@@ -170,35 +102,64 @@
+ 		print("[Skin] Error: Unexpected error opening skin file '%s'! (%s)" % (filename, err))
+ 	return False
+ 
+-def reloadSkins():
+-	domScreens.clear()
+-	colors.clear()
+-	colors = {
+-		"key_back": gRGB(0x00313131),
+-		"key_blue": gRGB(0x0018188b),
+-		"key_green": gRGB(0x001f771f),
+-		"key_red": gRGB(0x009f1313),
+-		"key_text": gRGB(0x00ffffff),
+-		"key_yellow": gRGB(0x00a08500)
+-	}
+-	fonts.clear()
+-	fonts = {
+-		"Body": ("Regular", 18, 22, 16),
+-		"ChoiceList": ("Regular", 20, 24, 18)
+-	}
+-	menus.clear()
+-	parameters.clear()
+-	setups.clear()
+-	switchPixmap.clear()
+-	InitSkins()
+-
+-def addCallback(callback):
+-	if callback not in callbacks:
+-		callbacks.append(callback)
+-
+-def removeCallback(callback):
+-	if callback in self.callbacks:
+-		callbacks.remove(callback)
++
++profile("LoadSkin")
++
++# Add an optional skin related user skin "user_skin_<SkinName>.xml".  If there is
++# not a skin related user skin then try to add am optional generic user skin.
++result = None
++name = findUserRelatedSkin()
++if name:
++	result = addSkin(name, scope=SCOPE_CURRENT_SKIN)
++if not name or not result:
++	addSkin(USER_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Add the main GUI skin.
++currentPrimarySkin = None
++result = []
++for skin, name in [(config.skin.primary_skin.value, "current"), (DEFAULT_SKIN, "default"), (EMERGENCY_SKIN, "emergency")]:
++	if skin in result:  # Don't try to add a skin that has already failed.
++		continue
++	config.skin.primary_skin.value = skin
++	if addSkin(config.skin.primary_skin.value, scope=SCOPE_CURRENT_SKIN):
++		currentPrimarySkin = config.skin.primary_skin.value
++		break
++	print "[Skin] Error: Adding %s GUI skin '%s' has failed!" % (name, config.skin.primary_skin.value)
++	result.append(skin)
++
++# Add the front panel / display / lcd skin.
++currentDisplaySkin = None
++result = []
++for skin, name in [(config.skin.display_skin.value, "current"), (DEFAULT_DISPLAY_SKIN, "default")]:
++	if skin in result:  # Don't try to add a skin that has already failed.
++		continue
++	config.skin.display_skin.value = skin
++	if addSkin(config.skin.display_skin.value, scope=SCOPE_CURRENT_LCDSKIN):
++		currentDisplaySkin = config.skin.display_skin.value
++		break
++	print "[Skin] Error: Adding %s display skin '%s' has failed!" % (name, config.skin.display_skin.value)
++	result.append(skin)
++
++# Add an optional adjustment skin as some boxes lie about their dimensions.
++# addSkin(BOX_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Add an optional discrete second infobar skin.
++# addSkin(SECOND_INFOBAR_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Add the subtitle skin.
++addSkin(SUBTITLE_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Add the emergency skin.  This skin should provide enough functionality
++# to enable basic GUI functions to work.
++if config.skin.primary_skin.value != EMERGENCY_SKIN:
++	addSkin(EMERGENCY_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Remove global working variables.
++del skin
++del name
++del result
++
++profile("LoadSkinDefaultDone")
+ 
+ 
+ class SkinError(Exception):
+@@ -332,13 +293,13 @@
+ def parseColor(s):
+ 	if s[0] != "#":
+ 		try:
+-			return colors[s]
++			return colorNames[s]
+ 		except KeyError:
+ 			raise SkinError("Color '%s' must be #aarrggbb or valid named color" % s)
+ 	return gRGB(int(s[1:], 0x10))
+ 
+ def parseParameter(s):
+-	"""This function is responsible for parsing parameters in the skin, it can parse integers, floats, hex colors, hex integers, named colors, fonts and strings."""
++	"""This function is responsible for parsing parameters in the skin, it can parse integers, floats, hex colors, hex integers, named colors and strings."""
+ 	if s[0] == "*":  # String.
+ 		return s[1:]
+ 	elif s[0] == "#":  # HEX Color.
+@@ -347,37 +308,10 @@
+ 		return int(s, 16)
+ 	elif "." in s:  # Float number.
+ 		return float(s)
+-	elif s in colors:  # Named color.
+-		return colors[s].argb()
+-	elif s.find(";") != -1:  # Font.
+-		font, size = [x.strip() for x in s.split(";", 1)]
+-		return [font, parseScale(size)]
++	elif s in colorNames:
++		return colorNames[s].argb()
+ 	else:  # Integer.
+-		return parseScale(s)
+-
+-def parseScale(s):
+-	orig = s
+-	try:
+-		val = int(s)
+-	except ValueError:
+-		try:
+-			s = s.replace("f", str(getSkinFactor()))
+-			val = int(eval(s))
+-		except Exception as err:
+-			print("[Skin] %s '%s': size formula '%s', processed to '%s', cannot be evaluated!" % (type(err).__name__, err, orig, s))
+-			val = 0
+-	return val
+-
+-def loadPixmap(path, desktop, width=0, height=0):
+-	option = path.find("#")
+-	if option != -1:
+-		path = path[:option]
+-	if rc_model.rcIsDefault() is False and basename(path) in ("rc.png", "rc0.png", "rc1.png", "rc2.png", "oldrc.png"):
+-		path = rc_model.getRcImg()
+-	pixmap = LoadPixmap(path, desktop, None, width, height)
+-	if pixmap is None:
+-		raise SkinError("Pixmap file '%s' not found" % path)
+-	return pixmap
++		return int(s)
+ 
+ def collectAttributes(skinAttributes, node, context, skinPath=None, ignore=(), filenames=frozenset(("pixmap", "pointer", "seek_pointer", "backgroundPixmap", "selectionPixmap", "sliderPixmap", "scrollbarSliderPicture", "scrollbarbackgroundPixmap", "scrollbarBackgroundPicture"))):
+ 	size = None
+@@ -409,6 +343,22 @@
+ 	if size is not None:
+ 		skinAttributes.append(("size", size))
+ 
++def morphRcImagePath(value):
++	if rc_model.rcIsDefault() is False:
++		if value in ("/usr/share/enigma2/skin_default/rc.png", "/usr/share/enigma2/skin_default/rcold.png"):  # OpenPLi version.
++			value = rc_model.getRcImg()
++		# if ("rc.png" or "oldrc.png") in value:  # OpenViX version.
++		# 	value = "%src.png" % rc_model.getRcLocation()
++	return value
++
++def loadPixmap(path, desktop):
++	option = path.find("#")
++	if option != -1:
++		path = path[:option]
++	ptr = LoadPixmap(morphRcImagePath(path), desktop)
++	if ptr is None:
++		raise SkinError("Pixmap file '%s' not found" % path)
++	return ptr
+ 
+ class AttributeParser:
+ 	def __init__(self, guiObject, desktop, scale=((1, 1), (1, 1))):
+@@ -427,7 +377,6 @@
+ 			print("[Skin] Attribute '%s' with wrong (or unknown) value '%s' in object of type '%s'!" % (attrib, value, self.guiObject.__class__.__name__))
+ 
+ 	def applyAll(self, attrs):
+-		attrs.sort(key=lambda a: {"pixmap": 1}.get(a[0], 0))  # For svg pixmap scale required the size, so sort pixmap last
+ 		for attrib, value in attrs:
+ 			self.applyOne(attrib, value)
+ 
+@@ -438,10 +387,16 @@
+ 		pass
+ 
+ 	def position(self, value):
+-		self.guiObject.move(ePoint(*value) if isinstance(value, tuple) else parsePosition(value, self.scaleTuple, self.guiObject, self.desktop, self.guiObject.csize()))
++		if isinstance(value, tuple):
++			self.guiObject.move(ePoint(*value))
++		else:
++			self.guiObject.move(parsePosition(value, self.scaleTuple, self.guiObject, self.desktop, self.guiObject.csize()))
+ 
+ 	def size(self, value):
+-		self.guiObject.resize(eSize(*value) if isinstance(value, tuple) else parseSize(value, self.scaleTuple, self.guiObject, self.desktop))
++		if isinstance(value, tuple):
++			self.guiObject.resize(eSize(*value))
++		else:
++			self.guiObject.resize(parseSize(value, self.scaleTuple, self.guiObject, self.desktop))
+ 
+ 	def animationPaused(self, value):
+ 		pass
+@@ -479,28 +434,35 @@
+ 		self.guiObject.setZPosition(int(value))
+ 
+ 	def itemHeight(self, value):
+-		self.guiObject.setItemHeight(parseScale(value))
++		self.guiObject.setItemHeight(int(value))
+ 
+ 	def pixmap(self, value):
+-		self.guiObject.setPixmap(loadPixmap(value, self.desktop, self.guiObject.size().width(), self.guiObject.size().height()))
++		ptr = loadPixmap(value, self.desktop)
++		self.guiObject.setPixmap(ptr)
+ 
+ 	def backgroundPixmap(self, value):
+-		self.guiObject.setBackgroundPicture(loadPixmap(value, self.desktop))
++		ptr = loadPixmap(value, self.desktop)
++		self.guiObject.setBackgroundPicture(ptr)
+ 
+ 	def selectionPixmap(self, value):
+-		self.guiObject.setSelectionPicture(loadPixmap(value, self.desktop))
++		ptr = loadPixmap(value, self.desktop)
++		self.guiObject.setSelectionPicture(ptr)
+ 
+ 	def sliderPixmap(self, value):
+-		self.guiObject.setSliderPicture(loadPixmap(value, self.desktop))
++		ptr = loadPixmap(value, self.desktop)
++		self.guiObject.setSliderPicture(ptr)
+ 
+ 	def scrollbarbackgroundPixmap(self, value):
+-		self.guiObject.setScrollbarBackgroundPicture(loadPixmap(value, self.desktop))
++		ptr = loadPixmap(value, self.desktop)
++		self.guiObject.setScrollbarBackgroundPicture(ptr)
+ 
+ 	def scrollbarSliderPicture(self, value):  # For compatibility same as sliderPixmap.
+-		self.guiObject.setSliderPicture(loadPixmap(value, self.desktop))
++		ptr = loadPixmap(value, self.desktop)
++		self.guiObject.setSliderPicture(ptr)
+ 
+ 	def scrollbarBackgroundPicture(self, value):  # For compatibility same as scrollbarbackgroundPixmap.
+-		self.guiObject.setScrollbarBackgroundPicture(loadPixmap(value, self.desktop))
++		ptr = loadPixmap(value, self.desktop)
++		self.guiObject.setScrollbarBackgroundPicture(ptr)
+ 
+ 	def alphatest(self, value):
+ 		try:
+@@ -606,13 +568,13 @@
+ 		self.guiObject.setBorderColor(parseColor(value))
+ 
+ 	def borderWidth(self, value):
+-		self.guiObject.setBorderWidth(parseScale(value))
++		self.guiObject.setBorderWidth(int(value))
+ 
+ 	def scrollbarSliderBorderWidth(self, value):
+-		self.guiObject.setScrollbarSliderBorderWidth(parseScale(value))
++		self.guiObject.setScrollbarSliderBorderWidth(int(value))
+ 
+ 	def scrollbarWidth(self, value):
+-		self.guiObject.setScrollbarWidth(parseScale(value))
++		self.guiObject.setScrollbarWidth(int(value))
+ 
+ 	def scrollbarSliderBorderColor(self, value):
+ 		self.guiObject.setSliderBorderColor(parseColor(value))
+@@ -635,6 +597,9 @@
+ 		value = True if value.lower() in ("1", "enabled", "enablewraparound", "on", "true", "yes") else False
+ 		self.guiObject.setWrapAround(value)
+ 
++	def itemHeight(self, value):
++		self.guiObject.setItemHeight(int(value))
++
+ 	def pointer(self, value):
+ 		(name, pos) = value.split(":")
+ 		pos = parsePosition(pos, self.scaleTuple)
+@@ -671,18 +636,17 @@
+ def applyAllAttributes(guiObject, desktop, attributes, scale):
+ 	AttributeParser(guiObject, desktop, scale).applyAll(attributes)
+ 
+-def reloadWindowStyles():
+-	for screenID in windowStyles:
+-		desktop, screenID, domSkin, pathSkin, scope = windowStyles[screenID]
+-		loadSingleSkinData(desktop, screenID, domSkin, pathSkin, scope)
+-
+-def loadSingleSkinData(desktop, screenID, domSkin, pathSkin, scope=SCOPE_CURRENT_SKIN):
++def loadSingleSkinData(desktop, domSkin, pathSkin, scope=SCOPE_CURRENT_SKIN):
+ 	"""Loads skin data like colors, windowstyle etc."""
+ 	assert domSkin.tag == "skin", "root element in skin must be 'skin'!"
+-	global colors, fonts, menus, parameters, setups, switchPixmap
++	global colorNames, fonts, menus, parameters, setups, switchPixmap
+ 	for tag in domSkin.findall("output"):
+-		scrnID = int(tag.attrib.get("id", GUI_SKIN_ID))
+-		if scrnID == GUI_SKIN_ID:
++		id = tag.attrib.get("id")
++		if id:
++			id = int(id)
++		else:
++			id = GUI_SKIN_ID
++		if id == GUI_SKIN_ID:
+ 			for res in tag.findall("resolution"):
+ 				xres = res.attrib.get("xres")
+ 				xres = int(xres) if xres else 720
+@@ -758,8 +722,9 @@
+ 		filename = tag.attrib.get("filename")
+ 		if filename:
+ 			filename = resolveFilename(scope, filename, path_prefix=pathSkin)
+-			if isfile(filename):
+-				loadSkin(filename, scope=scope, desktop=desktop, screenID=screenID)
++			if fileExists(filename):
++				print("[Skin] Loading included file '%s'." % filename)
++				loadSkin(filename, desktop=desktop, scope=scope)
+ 			else:
+ 				raise SkinError("Included file '%s' not found" % filename)
+ 	for tag in domSkin.findall("switchpixmap"):
+@@ -771,7 +736,7 @@
+ 			if not filename:
+ 				raise SkinError("Pixmap needs filename attribute")
+ 			resolved = resolveFilename(scope, filename, path_prefix=pathSkin)
+-			if isfile(resolved):
++			if fileExists(resolved):
+ 				switchPixmap[name] = LoadPixmap(resolved, cached=True)
+ 			else:
+ 				raise SkinError("The switchpixmap pixmap filename='%s' (%s) not found" % (filename, resolved))
+@@ -780,7 +745,7 @@
+ 			name = color.attrib.get("name")
+ 			color = color.attrib.get("value")
+ 			if name and color:
+-				colors[name] = parseColor(color)
++				colorNames[name] = parseColor(color)
+ 				# print("[Skin] DEBUG: Color name='%s', color='%s'." % (name, color))
+ 			else:
+ 				raise SkinError("Tag 'color' needs a name and color, got name='%s' and color='%s'" % (name, color))
+@@ -797,14 +762,11 @@
+ 			else:
+ 				render = 0
+ 			filename = resolveFilename(SCOPE_FONTS, filename, path_prefix=pathSkin)
+-			if isfile(filename):
+-				addFont(filename, name, scale, isReplacement, render)
++			addFont(filename, name, scale, isReplacement, render)
+ 				# Log provided by C++ addFont code.
+ 				# print("[Skin] Add font: Font path='%s', name='%s', scale=%d, isReplacement=%s, render=%d." % (filename, name, scale, isReplacement, render))
+-			else:
+-				raise SkinError("Font file '%s' not found" % filename)
+ 		fallbackFont = resolveFilename(SCOPE_FONTS, "fallback.font", path_prefix=pathSkin)
+-		if isfile(fallbackFont):
++		if fileExists(fallbackFont):
+ 			addFont(fallbackFont, "Fallback", 100, -1, 0)
+ 		# else:  # As this is optional don't raise an error.
+ 		# 	raise SkinError("Fallback font '%s' not found" % fallbackFont)
+@@ -812,9 +774,9 @@
+ 			try:
+ 				name = alias.attrib.get("name")
+ 				font = alias.attrib.get("font")
+-				size = parseScale(alias.attrib.get("size"))
+-				height = parseScale(alias.attrib.get("height", size))  # To be calculated some day.
+-				width = parseScale(alias.attrib.get("width", size))  # To be calculated some day.
++				size = int(alias.attrib.get("size"))
++				height = int(alias.attrib.get("height", size))  # To be calculated some day.
++				width = int(alias.attrib.get("width", size))
+ 				fonts[name] = (font, size, height, width)
+ 				# print("[Skin] Add font alias: name='%s', font='%s', size=%d, height=%s, width=%d." % (name, font, size, height, width))
+ 			except Exception as err:
+@@ -824,7 +786,7 @@
+ 			try:
+ 				name = parameter.attrib.get("name")
+ 				value = parameter.attrib.get("value")
+-				parameters[name] = map(parseParameter, [x.strip() for x in value.split(",")]) if "," in value else parseParameter(value)
++				parameters[name] = "," in value and map(parseParameter, value.split(",")) or parseParameter(value)
+ 			except Exception as err:
+ 				raise SkinError("Bad parameter: '%s'" % str(err))
+ 	for tag in domSkin.findall("menus"):
+@@ -871,7 +833,11 @@
+ 			eSubtitleWidget.setFontStyle(face, font, haveColor, foregroundColor, borderColor, borderWidth)
+ 	for tag in domSkin.findall("windowstyle"):
+ 		style = eWindowStyleSkinned()
+-		scrnID = int(tag.attrib.get("id", GUI_SKIN_ID))
++		styleId = tag.attrib.get("id")
++		if styleId:
++			styleId = int(styleId)
++		else:
++			styleId = GUI_SKIN_ID
+ 		font = gFont("Regular", 20)  # Default
+ 		offset = eSize(20, 5)  # Default
+ 		for title in tag.findall("title"):
+@@ -887,10 +853,7 @@
+ 				filename = pixmap.attrib.get("filename")
+ 				if filename and bpName:
+ 					png = loadPixmap(resolveFilename(scope, filename, path_prefix=pathSkin), desktop)
+-					try:
+-						style.setPixmap(eWindowStyleSkinned.__dict__[bsName], eWindowStyleSkinned.__dict__[bpName], png)
+-					except Exception:
+-						pass
++					style.setPixmap(eWindowStyleSkinned.__dict__[bsName], eWindowStyleSkinned.__dict__[bpName], png)
+ 				# print("[Skin] DEBUG: WindowStyle borderset name, filename - '%s' '%s'." % (bpName, filename))
+ 		for color in tag.findall("color"):
+ 			colorType = color.attrib.get("name")
+@@ -901,9 +864,13 @@
+ 				raise SkinError("Unknown color type '%s'" % colorType)
+ 			# print("[Skin] DEBUG: WindowStyle color type, color -" % (colorType, str(color)))
+ 		x = eWindowStyleManager.getInstance()
+-		x.setStyle(scrnID, style)
++		x.setStyle(styleId, style)
+ 	for tag in domSkin.findall("margin"):
+-		scrnID = int(tag.attrib.get("id", GUI_SKIN_ID))
++		styleId = tag.attrib.get("id")
++		if styleId:
++			styleId = int(styleId)
++		else:
++			styleId = GUI_SKIN_ID
+ 		r = eRect(0, 0, 0, 0)
+ 		v = tag.attrib.get("left")
+ 		if v:
+@@ -919,8 +886,75 @@
+ 			r.setBottom(int(v))
+ 		# The "desktop" parameter is hard-coded to the GUI screen, so we must ask
+ 		# for the one that this actually applies to.
+-		getDesktop(scrnID).setMargins(r)
++		getDesktop(styleId).setMargins(r)
++
++# Now a utility for plugins to add skin data to the screens.
++#
++def loadSkin(filename, desktop=None, scope=SCOPE_SKIN, override=False):
++	global domScreens
++	filename = resolveFilename(scope, filename)
++	try:
++		# This open gets around a possible file handle leak in Python's XML parser.
++		with open(filename, "r") as fd:
++			try:
++				domSkin = xml.etree.cElementTree.parse(fd).getroot()
++				if desktop is not None:
++					loadSingleSkinData(desktop, domSkin, filename, scope=scope)
++				for element in domSkin:
++					name = evaluateElement(element, DISPLAY_SKIN_ID)
++					if name is None:
++						element.clear()
++					elif name not in domScreens:
++						domScreens[name] = (element, "%s/" % os.path.dirname(filename))
++						print "[Skin] Load skin screen name '%s' added to the skin." % name
++					elif override:
++						domScreens[name] = (element, "%s/" % os.path.dirname(filename))
++						print "[Skin] Load skin screen name '%s' replacing existing screen in the skin." % name
++					else:
++						print "[Skin] Load skin screen name '%s' already exists in the skin and has been skipped." % name
++			except xml.etree.cElementTree.ParseError as err:
++				fd.seek(0)
++				content = fd.readlines()
++				line, column = err.position
++				print "[Skin] XML Parse Error: '%s' in '%s'!" % (err, filename)
++				data = content[line - 1].replace("\t", " ").rstrip()
++				print "[Skin] XML Parse Error: '%s'" % data
++				print "[Skin] XML Parse Error: '%s^%s'" % ("-" * column, " " * (len(data) - column - 1))
++			except Exception as err:
++				print "[Skin] Error: Unable to parse skin data in '%s' - '%s'!" % (filename, err)
++	except (IOError, OSError) as err:
++		if err.errno == errno.ENOENT:  #  No such file or directory
++			print "[Skin] Warning: Skin file '%s' does not exist!" % filename
++		else:
++			print "[Skin] Error %d: Opening skin file '%s'! (%s)" % (err.errno, filename, err.strerror)
++	except Exception as err:
++		print "[Skin] Error: Unexpected error opening skin file '%s'! (%s)" % (filename, err)
+ 
++# Kinda hackish, but this is called once by mytest.py.
++#
++def loadSkinData(desktop):
++	global domSkins
++	skins = domSkins[:]
++	skins.reverse()
++	for (scope, pathSkin, domSkin) in skins:
++		loadSingleSkinData(desktop, domSkin, pathSkin, scope=scope)
++		for element in domSkin:
++			name = evaluateElement(element, DISPLAY_SKIN_ID)
++			if name is None:
++				element.clear()
++			else:
++				domScreens[name] = (element, pathSkin)
++	# No longer needed, we know where the screens are now.
++	del domSkins
++
++def evaluateElement(element, screenID):
++	if element.tag == "screen":  # If non-screen element, no need for it any longer.
++		name = element.attrib.get("name", None)
++		if name:  # Without a name, it's useless!
++			screenID = element.attrib.get("id", None)
++			if not screenID or (screenID == screenID):  # If for this display.
++				return name
++	return None
+ 
+ class additionalWidget:
+ 	def __init__(self):
+@@ -1026,26 +1060,14 @@
+ 	for n in names:  # Try all skins, first existing one has priority.
+ 		myScreen, path = domScreens.get(n, (None, None))
+ 		if myScreen is not None:
+-			if screen.mandatoryWidgets is None:
+-				screen.mandatoryWidgets = []
+-			else:
+-				widgets = findWidgets(n)
+-			if screen.mandatoryWidgets == [] or all(item in widgets for item in screen.mandatoryWidgets):
+-				name = n  # Use this name for debug output.
+-				break
+-			else:
+-				print("[Skin] Warning: Skin screen '%s' rejected as it does not offer all the mandatory widgets '%s'!" % (n, ", ".join(screen.mandatoryWidgets)))
+-				myScreen = None
++			name = n  # Use this name for debug output.
++			break
+ 	else:
+ 		name = "<embedded-in-%s>" % screen.__class__.__name__
+ 	if myScreen is None:  # Otherwise try embedded skin.
+ 		myScreen = getattr(screen, "parsedSkin", None)
+ 	if myScreen is None and getattr(screen, "skin", None):  # Try uncompiled embedded skin.
+-		if isinstance(screen.skin, list):
+-			print("[Skin] Resizable embedded skin template found in '%s'." % name)
+-			skin = screen.skin[0] % tuple([int(x * getSkinFactor()) for x in screen.skin[1:]])
+-		else:
+-			skin = screen.skin
++		skin = screen.skin
+ 		print("[Skin] Parsing embedded skin '%s'." % name)
+ 		if isinstance(skin, tuple):
+ 			for s in skin:
+@@ -1115,8 +1137,8 @@
+ 				source = scr.get(path[0])  # Resolve the source.
+ 				if isinstance(source, ObsoleteSource):
+ 					# If we found an "obsolete source", issue warning, and resolve the real source.
+-					print("[Skin] WARNING: SKIN '%s' USES OBSOLETE SOURCE '%s', USE '%s' INSTEAD!" % (name, wsource, source.newSource))
+-					print("[Skin] OBSOLETE SOURCE WILL BE REMOVED %s, PLEASE UPDATE!" % source.removalDate)
++					print("[Skin] WARNING: SKIN '%s' USES OBSOLETE SOURCE '%s', USE '%s' INSTEAD!" % (name, wsource, source.new_source))
++					print("[Skin] OBSOLETE SOURCE WILL BE REMOVED %s, PLEASE UPDATE!" % source.removal_date)
+ 					if source.description:
+ 						print("[Skin] Source description: '%s'." % source.description)
+ 					wsource = source.new_source
+@@ -1136,10 +1158,7 @@
+ 				except Exception:
+ 					parms = ""
+ 				# print("[Skin] DEBUG: Params='%s'." % parms)
+-				try:
+-					converterClass = my_import(".".join(("Components", "Converter", ctype))).__dict__.get(ctype)
+-				except ImportError:
+-					raise SkinError("Converter '%s' not found" % ctype)
++				converterClass = my_import(".".join(("Components", "Converter", ctype))).__dict__.get(ctype)
+ 				c = None
+ 				for i in source.downstream_elements:
+ 					if isinstance(i, converterClass) and i.converter_arguments == parms:
+@@ -1148,10 +1167,7 @@
+ 					c = converterClass(parms)
+ 					c.connect(source)
+ 				source = c
+-			try:
+-				rendererClass = my_import(".".join(("Components", "Renderer", wrender))).__dict__.get(wrender)
+-			except ImportError:
+-				raise SkinError("Renderer '%s' not found" % wrender)
++			rendererClass = my_import(".".join(("Components", "Renderer", wrender))).__dict__.get(wrender)
+ 			renderer = rendererClass()  # Instantiate renderer.
+ 			renderer.connect(source)  # Connect to source.
+ 			attributes = renderer.skinAttributes = []
+@@ -1249,41 +1265,11 @@
+ 	screen = None
+ 	usedComponents = None
+ 
+-# Return a set of all the widgets found in a screen. Panels will be expanded
+-# recursively until all referenced widgets are captured. This code only performs
+-# a simple scan of the XML and no skin processing is performed.
+-#
+-def findWidgets(name):
+-	widgetSet = set()
+-	element, path = domScreens.get(name, (None, None))
+-	if element is not None:
+-		widgets = element.findall("widget")
+-		if widgets is not None:
+-			for widget in widgets:
+-				name = widget.get("name", None)
+-				if name is not None:
+-					widgetSet.add(name)
+-				source = widget.get("source", None)
+-				if source is not None:
+-					widgetSet.add(source)
+-		panels = element.findall("panel")
+-		if panels is not None:
+-			for panel in panels:
+-				name = panel.get("name", None)
+-				if name:
+-					widgetSet.update(findWidgets(name))
+-	return widgetSet
+-
+ # Return a scaling factor (float) that can be used to rescale screen displays
+ # to suit the current resolution of the screen.  The scales are based on a
+ # default screen resolution of HD (720p).  That is the scale factor for a HD
+ # screen will be 1.
+ #
+-def getSkinFactor():
+-	skinfactor = getDesktop(GUI_SKIN_ID).size().height() / 720.0
+-	# if skinfactor not in [0.8, 1, 1.5, 3, 6]:
+-	# 	print("[Skin] Warning: Unexpected result for getSkinFactor '%0.4f'!" % skinfactor)
+-	return skinfactor
+ 
+ # Search the domScreens dictionary to see if any of the screen names provided
+ # have a skin based screen.  This will allow coders to know if the named
+diff -ruN o/lib/python/Startup.py pc/lib/python/Startup.py
+--- o/lib/python/Startup.py	2021-03-29 23:15:14.386597140 +0300
++++ pc/lib/python/Startup.py	2021-04-01 10:54:45.308122834 +0300
+@@ -63,7 +63,7 @@
+ #config.misc.prev_wakeup_time_type is only valid when wakeup_time is not 0
+ config.misc.prev_wakeup_time_type = ConfigInteger(default=0)
+ # 0 = RecordTimer, 1 = ZapTimer, 2 = Plugins, 3 = WakeupTimer
+-config.misc.epgcache_filename = ConfigText(default = "/hdd/epg.dat", fixed_size = False)
++config.misc.epgcache_filename = ConfigText(default = "/media/hdd/epg.dat", fixed_size = False)
+ 
+ def setEPGCachePath(configElement):
+ 	if os.path.isdir(configElement.value) or os.path.islink(configElement.value):
 diff -ruN o/lib/python/Tools/Directories.py pc/lib/python/Tools/Directories.py
---- o/lib/python/Tools/Directories.py	2021-02-24 13:19:57.419705809 +0300
-+++ pc/lib/python/Tools/Directories.py	2021-03-03 11:58:47.225375228 +0300
+--- o/lib/python/Tools/Directories.py	2021-03-29 23:15:14.387597106 +0300
++++ pc/lib/python/Tools/Directories.py	2021-04-01 11:01:26.529431415 +0300
 @@ -61,7 +61,7 @@
  	SCOPE_KEYMAPS: (eEnv.resolve("${datadir}/keymaps/"), PATH_CREATE),
  	SCOPE_METADIR: (eEnv.resolve("${datadir}/meta"), PATH_CREATE),
@@ -9938,7 +10879,7 @@ diff -ruN o/lib/python/Tools/Directories.py pc/lib/python/Tools/Directories.py
  	SCOPE_CURRENT_LCDSKIN: (eEnv.resolve("${datadir}/enigma2/display/"), PATH_DONTCREATE),
 diff -ruN o/lib/python/Tools/HardwareInfo.py pc/lib/python/Tools/HardwareInfo.py
 --- o/lib/python/Tools/HardwareInfo.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Tools/HardwareInfo.py	2021-03-03 11:58:47.247375725 +0300
++++ pc/lib/python/Tools/HardwareInfo.py	2021-04-01 10:54:45.309122843 +0300
 @@ -19,25 +19,25 @@
  		print "[HardwareInfo] Scanning hardware info"
  		# Version
@@ -9980,7 +10921,7 @@ diff -ruN o/lib/python/Tools/HardwareInfo.py pc/lib/python/Tools/HardwareInfo.py
  					pass
 diff -ruN o/lib/python/Tools/StbHardware.py pc/lib/python/Tools/StbHardware.py
 --- o/lib/python/Tools/StbHardware.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/python/Tools/StbHardware.py	2021-03-03 11:58:47.247375725 +0300
++++ pc/lib/python/Tools/StbHardware.py	2021-04-01 10:54:45.309122843 +0300
 @@ -6,7 +6,7 @@
  def getFPVersion():
  	ret = None
@@ -10048,7 +10989,7 @@ diff -ruN o/lib/python/Tools/StbHardware.py pc/lib/python/Tools/StbHardware.py
  			fp = open("/dev/dbox/fp0")
 diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
 --- o/lib/service/servicedvb.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/service/servicedvb.cpp	2021-03-03 11:58:47.248375748 +0300
++++ pc/lib/service/servicedvb.cpp	2021-04-01 10:54:45.310122854 +0300
 @@ -646,7 +646,6 @@
  	if (sc)
  	{
@@ -10489,7 +11430,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	}
 diff -ruN o/lib/service/servicedvb.h pc/lib/service/servicedvb.h
 --- o/lib/service/servicedvb.h	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/service/servicedvb.h	2021-03-03 11:58:47.248375748 +0300
++++ pc/lib/service/servicedvb.h	2021-04-01 10:54:45.310122854 +0300
 @@ -9,6 +9,8 @@
  #include <lib/dvb/subtitle.h>
  #include <lib/dvb/teletext.h>
@@ -10523,7 +11464,7 @@ diff -ruN o/lib/service/servicedvb.h pc/lib/service/servicedvb.h
  class eStaticServiceDVBBouquetInformation: public iStaticServiceInformation
 diff -ruN o/lib/service/servicedvd.cpp pc/lib/service/servicedvd.cpp
 --- o/lib/service/servicedvd.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/service/servicedvd.cpp	2021-03-03 11:58:47.249375770 +0300
++++ pc/lib/service/servicedvd.cpp	2021-04-01 10:54:45.310122854 +0300
 @@ -188,7 +188,7 @@
  	if (ddvd_language != "")
  		ddvd_set_language(m_ddvdconfig, (ddvd_language.substr(0, 2)).c_str());
@@ -10573,7 +11514,7 @@ diff -ruN o/lib/service/servicedvd.cpp pc/lib/service/servicedvd.cpp
  			
 diff -ruN o/lib/service/servicehdmi.cpp pc/lib/service/servicehdmi.cpp
 --- o/lib/service/servicehdmi.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/service/servicehdmi.cpp	2021-03-03 11:58:47.249375770 +0300
++++ pc/lib/service/servicehdmi.cpp	2021-04-01 10:54:45.310122854 +0300
 @@ -123,9 +123,9 @@
  RESULT eServiceHDMI::start()
  {
@@ -10588,7 +11529,7 @@ diff -ruN o/lib/service/servicehdmi.cpp pc/lib/service/servicehdmi.cpp
  	return 0;
 diff -ruN o/lib/service/servicets.cpp pc/lib/service/servicets.cpp
 --- o/lib/service/servicets.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/service/servicets.cpp	2021-03-03 11:58:47.249375770 +0300
++++ pc/lib/service/servicets.cpp	2021-04-01 10:54:45.311122863 +0300
 @@ -250,8 +250,8 @@
  			return -1;
  		}
@@ -10611,7 +11552,7 @@ diff -ruN o/lib/service/servicets.cpp pc/lib/service/servicets.cpp
  	} else {
 diff -ruN o/lib/service/servicewebts.cpp pc/lib/service/servicewebts.cpp
 --- o/lib/service/servicewebts.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/lib/service/servicewebts.cpp	2021-03-03 11:58:47.275376357 +0300
++++ pc/lib/service/servicewebts.cpp	2021-04-01 10:54:45.311122863 +0300
 @@ -375,10 +375,10 @@
  			PID_SET = 1;
  			m_decodedemux->flush();
@@ -10637,7 +11578,7 @@ diff -ruN o/lib/service/servicewebts.cpp pc/lib/service/servicewebts.cpp
  	} else {
 diff -ruN o/main/bsod.cpp pc/main/bsod.cpp
 --- o/main/bsod.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/main/bsod.cpp	2021-03-03 11:58:47.275376357 +0300
++++ pc/main/bsod.cpp	2021-04-01 10:54:45.311122863 +0300
 @@ -126,7 +126,7 @@
  		 * alone because we may be in a crash loop and writing this file
  		 * all night long may damage the flash. Also, usually the first
@@ -10664,8 +11605,8 @@ diff -ruN o/main/bsod.cpp pc/main/bsod.cpp
  		stringFromFile(f, "imageissue", "/etc/issue.net");
  
 diff -ruN o/main/enigma.cpp pc/main/enigma.cpp
---- o/main/enigma.cpp	2021-01-12 12:27:02.000000000 +0300
-+++ pc/main/enigma.cpp	2021-03-03 11:58:47.316377282 +0300
+--- o/main/enigma.cpp	2021-04-01 10:49:28.532091266 +0300
++++ pc/main/enigma.cpp	2021-04-01 10:54:45.311122863 +0300
 @@ -138,7 +138,7 @@
  
  void quitMainloop(int exitCode)
@@ -10677,7 +11618,7 @@ diff -ruN o/main/enigma.cpp pc/main/enigma.cpp
  		fprintf(f, "%d", 0);
 diff -ruN o/main/Makefile.am pc/main/Makefile.am
 --- o/main/Makefile.am	2021-01-12 12:27:02.000000000 +0300
-+++ pc/main/Makefile.am	2021-03-03 11:58:47.316377282 +0300
++++ pc/main/Makefile.am	2021-04-01 10:54:45.311122863 +0300
 @@ -45,7 +45,8 @@
  	@ALSA_LIBS@ \
  	@AVAHI_LIBS@ \
@@ -10688,31 +11629,17 @@ diff -ruN o/main/Makefile.am pc/main/Makefile.am
  
  enigma2_LDFLAGS = -Wl,--export-dynamic
  
-diff -ruN o/mytest.py pc/mytest.py
---- o/mytest.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/mytest.py	2021-03-03 11:58:47.316377282 +0300
-@@ -63,7 +63,7 @@
- #config.misc.prev_wakeup_time_type is only valid when wakeup_time is not 0
- config.misc.prev_wakeup_time_type = ConfigInteger(default=0)
- # 0 = RecordTimer, 1 = ZapTimer, 2 = Plugins, 3 = WakeupTimer
--config.misc.epgcache_filename = ConfigText(default = "/hdd/epg.dat", fixed_size = False)
-+config.misc.epgcache_filename = ConfigText(default = "/media/hdd/epg.dat", fixed_size = False)
- 
- def setEPGCachePath(configElement):
- 	if os.path.isdir(configElement.value) or os.path.islink(configElement.value):
 diff -ruN o/po/ru.po pc/po/ru.po
---- o/po/ru.po	2021-02-19 12:38:36.060814892 +0300
-+++ pc/po/ru.po	2021-03-03 11:58:47.321377395 +0300
-@@ -2,16 +2,16 @@
- msgstr ""
+--- o/po/ru.po	2021-03-29 23:15:14.397596764 +0300
++++ pc/po/ru.po	2021-04-01 10:54:45.317122922 +0300
+@@ -3,15 +3,15 @@
  "Project-Id-Version: enigma2\n"
  "Report-Msgid-Bugs-To: \n"
--"POT-Creation-Date: 2021-02-17 20:18+0100\n"
+ "POT-Creation-Date: 2021-02-17 20:18+0100\n"
 -"PO-Revision-Date: 2021-02-01 18:13+0200\n"
 -"Last-Translator: Dimitrij <Dima-73@inbox.lv>\n"
 -"Language-Team: openPLi Dimitrij\n"
-+"POT-Creation-Date: 2020-07-12 12:17+0200\n"
-+"PO-Revision-Date: 2021-02-19 12:52+0300\n"
++"PO-Revision-Date: 2021-03-27 01:25+0300\n"
 +"Last-Translator: Александр Кольцов <a.g.prosat@gmail.com>\n"
 +"Language-Team: Enthusiasts\n"
  "Language: ru\n"
@@ -11126,7 +12053,14 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Add recording (stop after current event)"
  msgstr "Добавить запись (стоп после текущего события)"
-@@ -824,7 +824,7 @@
+@@ -818,13 +818,13 @@
+ msgstr "Добавить сервис"
+ 
+ msgid "Add service to bouquet"
+-msgstr "Добавить сервис в букет"
++msgstr "Добавить сервис в буклет"
+ 
+ msgid "Add service to favourites"
  msgstr "Добавить сервис в фавориты"
  
  msgid "Add services to this bouquet?"
@@ -12955,7 +13889,8 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgstr "Вкл. автосканирование для %s"
  
  msgid "Enable bouquet edit"
- msgstr "Включить редактирование букета"
+-msgstr "Включить редактирование букета"
++msgstr "Включить редактирование буклета"
  
  msgid "Enable bouquet selection in multi-EPG"
 -msgstr "Включить выбор букетов при запуске мульти-EPG"
@@ -14360,7 +15295,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Margin after recording (minutes)"
  msgstr "Объединить после записи (в минутах)"
-@@ -5022,44 +5022,43 @@
+@@ -5022,43 +5022,43 @@
  msgstr "Объединить перед записью (в минутах)"
  
  msgid "Mark service as dedicated 3D service"
@@ -14402,13 +15337,12 @@ diff -ruN o/po/ru.po pc/po/ru.po
 -msgstr "Медиаплеер"
 +msgstr "'Media player' - Медиаплеер"
  
--#, fuzzy
  msgid "Media player: GStreamer, version "
--msgstr "Версия GStreamer: "
+-msgstr "Медиаплеер: GStreamer, версия "
 +msgstr "Медиарлеер: GStreamer, версия "
  
  msgid "Media player: ffmpeg, version "
--msgstr ""
+-msgstr "Медиаплеер: ffmpeg, версия "
 +msgstr "Медиарлеер: ffmpeg, версия "
  
  msgid "Media scanner"
@@ -14417,7 +15351,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Medium is not a writeable DVD!"
  msgstr "Носитель не записываемый DVD!"
-@@ -5071,7 +5070,7 @@
+@@ -5070,7 +5070,7 @@
  msgstr "Память"
  
  msgid "Memory Info"
@@ -14426,7 +15360,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Memory index"
  msgstr "Номер в памяти"
-@@ -5087,23 +5086,23 @@
+@@ -5086,23 +5086,23 @@
  msgstr "Сообщение"
  
  msgid "Message..."
@@ -14454,7 +15388,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Missing "
  msgstr "Отсутствует "
-@@ -5111,13 +5110,11 @@
+@@ -5110,13 +5110,11 @@
  msgid "Mode"
  msgstr "Режим"
  
@@ -14472,7 +15406,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Model"
  msgstr "Модель"
-@@ -5135,7 +5132,7 @@
+@@ -5134,7 +5132,7 @@
  msgstr "Модулятор"
  
  msgid "Moldova (Republic of)"
@@ -14481,7 +15415,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Mon"
  msgstr "Пн"
-@@ -5144,28 +5141,28 @@
+@@ -5143,28 +5141,28 @@
  msgstr "Пн-Пт"
  
  msgid "Monaco"
@@ -14516,7 +15450,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Motor running timeout"
  msgstr "Таймаут работы мотора"
-@@ -5176,7 +5173,7 @@
+@@ -5175,7 +5173,7 @@
  msgid "Move"
  msgstr "Перемещение"
  
@@ -14525,7 +15459,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgstr "Изменить PiP"
  
  msgid "Move PiP to main picture"
-@@ -5186,7 +5183,7 @@
+@@ -5185,7 +5183,7 @@
  msgstr "Переместить картинку в картинке"
  
  msgid "Move east"
@@ -14534,7 +15468,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Move the keyboard cursor down"
  msgstr "Перемещение курсора виртуальной клавиатуры вниз"
-@@ -5207,10 +5204,10 @@
+@@ -5206,10 +5204,10 @@
  msgstr "Переместить курсор текстового буфера вправо"
  
  msgid "Move the text cursor to the first character"
@@ -14547,7 +15481,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Move to position X"
  msgstr "Перемещение к позиции Х"
-@@ -5219,16 +5216,16 @@
+@@ -5218,16 +5216,16 @@
  msgstr "Перейти на следующую страницу"
  
  msgid "Move to the next skin"
@@ -14567,7 +15501,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Moved to position 0"
  msgstr "Перемещение к позиции 0"
-@@ -5237,7 +5234,7 @@
+@@ -5236,7 +5234,7 @@
  msgstr "Перемещение к позиции номера"
  
  msgid "Movement"
@@ -14576,7 +15510,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Movie list configuration"
  msgstr "Конфигурация списка видео"
-@@ -5255,19 +5252,19 @@
+@@ -5254,19 +5252,19 @@
  msgstr "Меню списка видео"
  
  msgid "Moving"
@@ -14600,7 +15534,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Multi EPG"
  msgstr "Мульти EPG"
-@@ -5276,13 +5273,13 @@
+@@ -5275,13 +5273,13 @@
  msgstr "Мультиканальное микширование"
  
  msgid "Multi-EPG bouquet selection"
@@ -14616,7 +15550,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Multichannel PCM"
  msgstr "Мультиканал PCM"
-@@ -5297,7 +5294,7 @@
+@@ -5296,7 +5294,7 @@
  msgstr "Несколько спутников"
  
  msgid "Multisat all select"
@@ -14625,7 +15559,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Multistream"
  msgstr "Мультистрим"
-@@ -5306,10 +5303,10 @@
+@@ -5305,10 +5303,10 @@
  msgstr "Музыка/Балет/Танец"
  
  msgid "Mute"
@@ -14638,7 +15572,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "N/A"
  msgstr "N/A"
-@@ -5318,7 +5315,7 @@
+@@ -5317,7 +5315,7 @@
  msgstr "ДАЛЕЕ"
  
  msgid "NIM & Type"
@@ -14647,7 +15581,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "NO"
  msgstr "НЕТ"
-@@ -5327,7 +5324,7 @@
+@@ -5326,7 +5324,7 @@
  msgstr "СЕЙЧАС"
  
  msgid "NTP Hostname"
@@ -14656,7 +15590,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "NTSC"
  msgstr "NTSC"
-@@ -5343,25 +5340,25 @@
+@@ -5342,25 +5340,25 @@
  msgstr "Сервер имен (DNS) %d"
  
  msgid "Nameserver settings"
@@ -14689,7 +15623,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Netmask"
  msgstr "Маска подсети"
-@@ -5376,10 +5373,10 @@
+@@ -5375,10 +5373,10 @@
  msgstr "Информация о сети:"
  
  msgid "Network configuration"
@@ -14702,7 +15636,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Network mount"
  msgstr "Сетевое монтирование"
-@@ -5401,7 +5398,7 @@
+@@ -5400,7 +5398,7 @@
  msgstr "Тест сети"
  
  msgid "Network test..."
@@ -14711,7 +15645,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Network test: "
  msgstr "Тест сети: "
-@@ -5416,39 +5413,34 @@
+@@ -5415,39 +5413,34 @@
  msgstr "Никогда не декодировать контент во время записи. Это отменяет индивидуальную настройку таймера на глобальном уровне. Если включено, контент не будет декодирован во время записи и Вам надо будет выполнить отложенное декодирование позже. По умолчанию: выкл."
  
  msgid "Never decrypt while recording"
@@ -14758,7 +15692,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No"
  msgstr "Нет"
-@@ -5463,10 +5455,10 @@
+@@ -5462,10 +5455,10 @@
  msgstr "Нет доступных ECMPids (FTA сервис)"
  
  msgid "No HDD found or HDD not initialized!"
@@ -14771,7 +15705,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No age block"
  msgstr "Нет возрастного ограничения"
-@@ -5491,13 +5483,13 @@
+@@ -5490,13 +5483,13 @@
  msgstr "Нет отображаемых файлов на этом носителе!"
  
  msgid "No epg.dat file found server"
@@ -14787,7 +15721,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No free index available"
  msgstr "Нет свободного номера памяти"
-@@ -5506,7 +5498,7 @@
+@@ -5505,7 +5498,7 @@
  msgstr "Нет свободного тюнера!"
  
  msgid "No images found"
@@ -14796,7 +15730,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No network connection available."
  msgstr "Нет доступного сетевого подключения."
-@@ -5524,19 +5516,19 @@
+@@ -5523,19 +5516,19 @@
  msgstr "Не найден спутниковый интрефейс!"
  
  msgid "No satellite, terrestrial or cable tuner is configured. Please check your tuner setup."
@@ -14820,7 +15754,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No tags are set on these movies."
  msgstr "Нет тегов, установленных для этого видео."
-@@ -5555,13 +5547,13 @@
+@@ -5554,13 +5547,13 @@
  "Please setup your tuner settings before you start a service scan."
  msgstr ""
  "Нет включенного тюнера!\n"
@@ -14836,7 +15770,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No wireless networks found! Searching..."
  msgstr "Не обнаружены беспроводные сети! Сканирование..."
-@@ -5571,33 +5563,33 @@
+@@ -5570,33 +5563,33 @@
  "Please verify that you have attached a network cable and your network is configured correctly."
  msgstr ""
  "Нет рабочего локального сетевого адаптера.\n"
@@ -14875,7 +15809,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No, never"
  msgstr "Нет, никогда"
-@@ -5607,10 +5599,10 @@
+@@ -5606,10 +5599,10 @@
  
  #. TRANSLATORS: (aspect ratio policy: display as fullscreen, with stretching the left/right)
  msgid "Nonlinear"
@@ -14888,7 +15822,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Normal"
  msgstr "Нормальный"
-@@ -5622,16 +5614,16 @@
+@@ -5621,16 +5614,16 @@
  msgstr "Север"
  
  msgid "Northern Mariana Islands"
@@ -14908,7 +15842,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Not associated"
  msgstr "Нет ассоциаций"
-@@ -5647,41 +5639,37 @@
+@@ -5646,41 +5639,37 @@
  msgstr "Без теста:"
  
  msgid "Note: when enabled, and you do want standby mode after wake up, set option 'Startup to Standby' as 'No, except Wakeup timer'."
@@ -14927,15 +15861,15 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgstr ""
  "Нечего сканировать!\n"
 -"Пожалуйста, настройте ваш тюнер и попробуйте еще раз."
--
--msgid "Now"
--msgstr "Сейчас"
 +"Пожалуйста, настройте Ваш тюнер и попробуйте ещё раз."
  
--msgctxt "now/next: 'now' event label"
  msgid "Now"
  msgstr "Сейчас"
  
+-msgctxt "now/next: 'now' event label"
+-msgid "Now"
+-msgstr "Сейчас"
+-
  msgid "Now playing"
 -msgstr "Сейчас воспроизвести"
 +msgstr "Воспроизводится"
@@ -14957,7 +15891,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "OK"
  msgstr "OK"
-@@ -5690,16 +5678,16 @@
+@@ -5689,16 +5678,16 @@
  msgstr "ONID"
  
  msgid "OSD 3D setup"
@@ -14978,7 +15912,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "OVR"
  msgstr "OVR"
-@@ -5711,16 +5699,16 @@
+@@ -5710,16 +5699,16 @@
  msgstr "Задержка отложенного декодирования (мс)"
  
  msgid "Oman"
@@ -14998,7 +15932,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "On valid ONIDs, ignore frequency sub network part"
  msgstr "При валидных ONID, игнорировать частотную часть подсетей"
-@@ -5738,28 +5726,28 @@
+@@ -5737,28 +5726,28 @@
  msgstr "Только дополнения."
  
  msgid "Only free scan"
@@ -15035,7 +15969,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Open setup tuner "
  msgstr "Открыть настройки тюнера "
-@@ -5768,13 +5756,13 @@
+@@ -5767,13 +5756,13 @@
  msgstr "Открыть список видео"
  
  msgid "Operating LED status in deep standby mode"
@@ -15052,7 +15986,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Opkg"
  msgstr "Opkg"
-@@ -5783,7 +5771,7 @@
+@@ -5782,7 +5771,7 @@
  msgstr "Варианты отключения таймера"
  
  msgid "Orbital position"
@@ -15061,7 +15995,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Ordinary"
  msgstr "Обычный"
-@@ -5795,16 +5783,16 @@
+@@ -5794,16 +5783,16 @@
  msgstr "Другая"
  
  msgid "Other Subtitles & lang"
@@ -15081,7 +16015,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Overwrite configuration files during software update?"
  msgstr "Переписывать файлы конфигурации во время обновления ПО?"
-@@ -5831,7 +5819,7 @@
+@@ -5830,7 +5819,7 @@
  msgstr "PGS файл"
  
  msgid "PID Filtering"
@@ -15090,7 +16024,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "PIN code needed"
  msgstr "Необходим PIN-код"
-@@ -5840,10 +5828,10 @@
+@@ -5839,10 +5828,10 @@
  msgstr "PLP ID"
  
  msgid "PLS Code"
@@ -15103,7 +16037,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "PMT PID"
  msgstr "РМТ PID"
-@@ -5864,32 +5852,32 @@
+@@ -5863,32 +5852,32 @@
  msgstr "Менеджер пакетов"
  
  msgid "Pakistan"
@@ -15143,7 +16077,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Parental control"
  msgstr "Родительский контроль"
-@@ -5901,7 +5889,7 @@
+@@ -5900,7 +5889,7 @@
  msgstr "Установки родительского контроля"
  
  msgid "Password"
@@ -15152,7 +16086,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Pause"
  msgstr "Пауза"
-@@ -5913,7 +5901,7 @@
+@@ -5912,7 +5901,7 @@
  msgstr "Пауза воспроизведения"
  
  msgid "Pause/Continue playback"
@@ -15161,7 +16095,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Pending restart"
  msgstr "Ожидание рестарта"
-@@ -5928,28 +5916,28 @@
+@@ -5927,28 +5916,28 @@
  msgstr "Окончательное удаление всех записей в корзине?"
  
  msgid "Permanently remove all deleted items"
@@ -15197,7 +16131,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #. TRANSLATORS: (aspect ratio policy: black bars on left/right) in doubt, keep english term.
  msgid "Pillarbox"
-@@ -5959,10 +5947,10 @@
+@@ -5958,10 +5947,10 @@
  msgstr "Пилот"
  
  msgid "Pitcairn"
@@ -15210,7 +16144,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Play"
  msgstr "Воспроизвести"
-@@ -5971,64 +5959,64 @@
+@@ -5970,64 +5959,64 @@
  msgstr "Воспроизвести DVD"
  
  msgid "Play DVDs"
@@ -15290,7 +16224,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "Когда будете готовы - нажмите ОК для продолжения."
  
  msgid "Please configure the fallback tuner setup?"
-@@ -6038,17 +6026,17 @@
+@@ -6037,17 +6026,17 @@
  "Please configure your internet connection by filling out the required values.\n"
  "When you are ready press OK to continue."
  msgstr ""
@@ -15312,7 +16246,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Please enter a name for the new marker"
  msgstr "Пожалуйста, введите имя для нового маркера"
-@@ -6057,10 +6045,10 @@
+@@ -6056,10 +6045,10 @@
  msgstr "Пожалуйста, введите новое имя файла"
  
  msgid "Please enter filename (empty = use current date)"
@@ -15325,7 +16259,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Please enter new description:"
  msgstr "Пожалуйста, введите новое описание:"
-@@ -6081,47 +6069,47 @@
+@@ -6080,47 +6069,47 @@
  msgstr "Пожалуйста, следуйте инструкциям на ТВ"
  
  msgid "Please note that the previously selected media could not be accessed and therefore the default directory is being used instead."
@@ -15385,7 +16319,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Нажмите ОК для продолжения."
  
-@@ -6135,43 +6123,43 @@
+@@ -6134,43 +6123,43 @@
  "Нажмите ОК для продолжения."
  
  msgid "Please set up tuner A"
@@ -15442,7 +16376,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Please setup the following basic configs!"
  msgstr "Пожалуйста, настройте следующие основные конфигурации!"
-@@ -6198,28 +6186,28 @@
+@@ -6197,28 +6186,28 @@
  msgstr "Пожалуйста, подождите (обновление пакетов)"
  
  msgid "Please wait for activation of your network configuration..."
@@ -15479,7 +16413,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Please wait, restarting softcam."
  msgstr "Пожалуйста, подождите, выполняется рестарт эмулятора."
-@@ -6228,10 +6216,10 @@
+@@ -6227,10 +6216,10 @@
  msgstr "Пожалуйста, подождите..."
  
  msgid "Please wait... Loading list..."
@@ -15492,7 +16426,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Plugin browser"
  msgstr "Браузер плагинов"
-@@ -6246,7 +6234,7 @@
+@@ -6245,7 +6234,7 @@
  msgstr "Плагины"
  
  msgid "Poland"
@@ -15501,7 +16435,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Polarisation"
  msgstr "Поляризация"
-@@ -6273,10 +6261,10 @@
+@@ -6272,10 +6261,10 @@
  msgstr "Порт D"
  
  msgid "Port of fallback remote receiver"
@@ -15514,7 +16448,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Portuguese"
  msgstr "Португальский"
-@@ -6303,7 +6291,7 @@
+@@ -6302,7 +6291,7 @@
  msgstr "Лог настроек позиционера"
  
  msgid "Power LED"
@@ -15523,7 +16457,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Power management. Consult your receiver's manual for more information."
  msgstr "Управление питанием. Для получения дополнительной информации обратитесь к инструкции."
-@@ -6312,7 +6300,7 @@
+@@ -6311,7 +6300,7 @@
  msgstr "Питание на дисплее"
  
  msgid "Power threshold in mA"
@@ -15532,7 +16466,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Power threshold. Consult your receiver's manual for more information."
  msgstr "Порог мощности. Для получения дополнительной информации обратитесь к инструкции."
-@@ -6321,7 +6309,7 @@
+@@ -6320,7 +6309,7 @@
  msgstr "Меню выключения"
  
  msgid "Predefined transponder"
@@ -15541,7 +16475,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Prefer AC3 track"
  msgstr "Приоритет аудио дорожки AC3"
-@@ -6330,7 +6318,7 @@
+@@ -6329,7 +6318,7 @@
  msgstr "Приоритет аудио дорожки AC3+"
  
  msgid "Prefer audio track stored by service"
@@ -15550,7 +16484,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Prefer graphical DVB subtitles"
  msgstr "Приоритет графических DVB субтитров"
-@@ -6375,13 +6363,13 @@
+@@ -6374,13 +6363,13 @@
  msgstr "Подготовка... Пожалуйста, подождите"
  
  msgid "Press '0' to toggle PiP mode"
@@ -15566,7 +16500,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Press 'OK' for remove item or 'CH+/-' for toggle to list of features."
  msgstr "Нажмите 'OK' для удаления записи или 'CH+/-' для переключения к списку функций."
-@@ -6390,23 +6378,23 @@
+@@ -6389,23 +6378,23 @@
  msgstr "Нажмите 'OK'  для удаления записи или  < > для изменения порядка или 'CH+/-' для переключения к списку функций."
  
  msgid "Press INFO on your remote control for additional information."
@@ -15595,7 +16529,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid "Press OK to get further details for %s"
-@@ -6432,7 +6420,7 @@
+@@ -6431,7 +6420,7 @@
  msgstr "Нажмите OK для выбора спутников"
  
  msgid "Press OK to select the save location of the log file."
@@ -15604,7 +16538,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Press OK to select/deselect a CAId."
  msgstr "Нажмите OK, чтобы выбрать/отменить CAId."
-@@ -6444,7 +6432,7 @@
+@@ -6443,7 +6432,7 @@
  msgstr "Нажмите ОК для подтверждения или отмены."
  
  msgid "Press OK, save and exit..."
@@ -15613,7 +16547,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Press or select button and then press 'OK' for attach function."
  msgstr "Нажмите или выберите кнопку, а затем нажмите 'OK' для назначения функции."
-@@ -6453,9 +6441,8 @@
+@@ -6452,9 +6441,8 @@
  msgstr "Нажмите или выберите кнопку, а затем нажмите 'OK' для назначения функции или редактирования назначенного."
  
  msgid "Press yellow to set this interface as default interface."
@@ -15624,7 +16558,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgid "Prev"
  msgstr "Предыдущий"
  
-@@ -6484,10 +6471,10 @@
+@@ -6483,10 +6471,10 @@
  msgstr "Прогресс"
  
  msgid "Progress bar left"
@@ -15637,7 +16571,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Progress:"
  msgstr "Прогресс:"
-@@ -6508,7 +6495,7 @@
+@@ -6507,7 +6495,7 @@
  msgstr "Защита главного меню"
  
  msgid "Protect manufacturer reset screen"
@@ -15646,7 +16580,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Protect menu sort"
  msgstr "Защита меню сортировки"
-@@ -6517,13 +6504,13 @@
+@@ -6516,13 +6504,13 @@
  msgstr "Защита видео списка"
  
  msgid "Protect on epg age"
@@ -15662,7 +16596,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Protect software update screen"
  msgstr "Защита меню обновления ПО"
-@@ -6541,10 +6528,10 @@
+@@ -6540,10 +6528,10 @@
  msgstr "Провайдеры"
  
  msgid "Puerto Rico"
@@ -15675,7 +16609,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Put A/V receiver to standby too."
  msgstr "Перевод аудио/видео системы в режим ожидания"
-@@ -6553,28 +6540,28 @@
+@@ -6552,28 +6540,28 @@
  msgstr "Перевести ТВ в режим ожидания"
  
  msgid "Put receiver in standby"
@@ -15710,7 +16644,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "RF output"
  msgstr "RF выход"
-@@ -6608,13 +6595,13 @@
+@@ -6607,13 +6595,13 @@
  msgstr "Действительно выйти из меню субсервисов?"
  
  msgid "Really perform a manufacturer reset now?"
@@ -15726,7 +16660,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Really restart now?"
  msgstr "Действительно выполнить рестарт сейчас?"
-@@ -6627,7 +6614,7 @@
+@@ -6626,7 +6614,7 @@
  msgstr "Действительно сохранить номер %2d для текущей позиции?"
  
  msgid "Really update the frontprocessor and reboot now?"
@@ -15735,7 +16669,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Really update your settop box and reboot now?"
  msgstr "Действительно обновить Ваш ресивер и выполнить перезагрузку сейчас?"
-@@ -6636,7 +6623,7 @@
+@@ -6635,7 +6623,7 @@
  msgstr "Перезагрузка"
  
  msgid "Rec"
@@ -15744,7 +16678,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Recall to previous service"
  msgstr "Возврат на предыдущий сервис"
-@@ -6652,7 +6639,7 @@
+@@ -6651,7 +6639,7 @@
  msgstr "Время записи ограничено из-за конфликтного таймера %s"
  
  msgid "Recorded files..."
@@ -15753,7 +16687,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Recording"
  msgstr "Запись"
-@@ -6661,7 +6648,7 @@
+@@ -6660,7 +6648,7 @@
  msgstr "Настройка записей"
  
  msgid "Recording in progress"
@@ -15762,7 +16696,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Recording paths"
  msgstr "Место записей, таймшифта"
-@@ -6682,7 +6669,7 @@
+@@ -6681,7 +6669,7 @@
  msgstr "Красная"
  
  msgid "Red button..."
@@ -15771,7 +16705,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Red colored"
  msgstr "Название сервиса красного цвета"
-@@ -6706,13 +6693,13 @@
+@@ -6705,13 +6693,13 @@
  msgstr "Отказаться от перехода в тот же каталог"
  
  msgid "Regard deep standby as standby"
@@ -15787,7 +16721,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Reload"
  msgstr "Обновить"
-@@ -6721,7 +6708,7 @@
+@@ -6720,7 +6708,7 @@
  msgstr "Обновить черный список"
  
  msgid "Reloading bouquets and services..."
@@ -15796,7 +16730,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Remember last service in PiP"
  msgstr "Помнить последний сервис PiP"
-@@ -6730,13 +6717,13 @@
+@@ -6729,13 +6717,13 @@
  msgstr "Запоминать PIN-код сервиса"
  
  msgid "Reminder, you have chosen to save timeshift file."
@@ -15813,7 +16747,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Removal has completed."
  msgstr "Удаление завершено."
-@@ -6751,19 +6738,19 @@
+@@ -6750,19 +6738,19 @@
  msgstr "Удалить запись сервера имен"
  
  msgid "Remove all alternatives"
@@ -15837,7 +16771,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Remove cable services"
  msgstr "Удалить кабельные сервисы"
-@@ -6787,7 +6774,7 @@
+@@ -6786,7 +6774,7 @@
  msgstr "Удалять файлы из корзины через (в днях)"
  
  msgid "Remove new found flag"
@@ -15846,7 +16780,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Remove plugins"
  msgstr "Удаление плагинов"
-@@ -6809,13 +6796,13 @@
+@@ -6808,13 +6796,13 @@
  
  #, python-format
  msgid "Removing directory %s failed. (Maybe not empty.)"
@@ -15862,7 +16796,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Rename entry"
  msgstr "Переименовать выбранное"
-@@ -6840,12 +6827,12 @@
+@@ -6839,12 +6827,12 @@
  "What do you want to do?"
  msgstr ""
  "Текущее событие повторного таймера сейчас записывается.\n"
@@ -15877,7 +16811,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Repeats"
  msgstr "Повторы"
-@@ -6860,7 +6847,7 @@
+@@ -6859,7 +6847,7 @@
  msgstr "Запрос для вендора оповещения"
  
  msgid "Require authentication for http streams"
@@ -15886,7 +16820,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Required medium type:"
  msgstr "Требуемый тип носителя:"
-@@ -6878,7 +6865,7 @@
+@@ -6877,7 +6865,7 @@
  msgstr "Сбросить и перенумеровать имена названий"
  
  msgid "Reset order (All)"
@@ -15895,7 +16829,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Reset persistent PIN code"
  msgstr "Сброс постоянного PIN-кода"
-@@ -6899,19 +6886,19 @@
+@@ -6898,19 +6886,19 @@
  msgstr "Перезагрузка"
  
  msgid "Restart GUI now?"
@@ -15919,7 +16853,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Restart enigma in standard mode"
  msgstr "Рестарт GUI в стандартный режим"
-@@ -6932,16 +6919,16 @@
+@@ -6931,16 +6919,16 @@
  msgstr "Восстановить"
  
  msgid "Restore backups"
@@ -15940,7 +16874,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Restore system settings"
  msgstr "Восстановить системные настройки"
-@@ -6953,7 +6940,7 @@
+@@ -6952,7 +6940,7 @@
  msgstr "Восстановить настройки Вашего ресивера."
  
  msgid "Restoring..."
@@ -15949,7 +16883,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Resume from last position"
  msgstr "Возобновить с последней позиции"
-@@ -6973,19 +6960,19 @@
+@@ -6972,19 +6960,19 @@
  msgstr "Возобновление воспроизведения"
  
  msgid "Retrieving image list - Please wait..."
@@ -15974,7 +16908,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Reverse list"
  msgstr "Обратный список"
-@@ -6997,16 +6984,16 @@
+@@ -6996,16 +6984,16 @@
  msgstr "Перепаковывать субтитры"
  
  msgid "Right"
@@ -15994,7 +16928,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Romanian"
  msgstr "Румынский"
-@@ -7018,7 +7005,7 @@
+@@ -7017,7 +7005,7 @@
  msgstr "Корневой каталог"
  
  msgid "Rotor step position:"
@@ -16003,7 +16937,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Rotor turning speed"
  msgstr "Скорость вращения мотора"
-@@ -7033,19 +7020,19 @@
+@@ -7032,19 +7020,19 @@
  msgstr "Русский"
  
  msgid "Russian Federation"
@@ -16027,7 +16961,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "SCR JESS"
  msgstr "SCR JESS"
-@@ -7057,7 +7044,7 @@
+@@ -7056,7 +7044,7 @@
  msgstr "SDR"
  
  msgid "SINGLE LAYER DVD"
@@ -16036,7 +16970,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "SNR"
  msgstr "SNR"
-@@ -7084,40 +7071,40 @@
+@@ -7083,40 +7071,40 @@
  msgstr "SSID:"
  
  msgid "Saint Barthelemy"
@@ -16089,7 +17023,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sat"
  msgstr "Сб"
-@@ -7132,7 +7119,7 @@
+@@ -7131,7 +7119,7 @@
  msgstr "Спутниковое оборудование"
  
  msgid "Satellite equipment setup"
@@ -16098,7 +17032,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Satellite longitude:"
  msgstr "Долгота спутника:"
-@@ -7144,34 +7131,34 @@
+@@ -7143,34 +7131,34 @@
  msgstr "Спутники"
  
  msgid "Saturation"
@@ -16139,7 +17073,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Save last directory on exit"
  msgstr "Сохранить последний каталог при выходе"
-@@ -7210,7 +7197,7 @@
+@@ -7209,7 +7197,7 @@
  msgstr "Режим вычисления"
  
  msgid "Scan"
@@ -16148,7 +17082,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Scan "
  msgstr "Сканировать "
-@@ -7239,16 +7226,16 @@
+@@ -7238,16 +7226,16 @@
  msgstr "Ошибка сканирования!"
  
  msgid "Scan files..."
@@ -16168,7 +17102,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Scan wireless networks"
  msgstr "Сканирование беспроводных сетей"
-@@ -7258,7 +7245,7 @@
+@@ -7257,7 +7245,7 @@
  
  #, python-format
  msgid "Scanning %s..."
@@ -16177,7 +17111,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #. TRANSLATORS: The stb is performing a channel scan, progress percentage is printed in '%d' (and '%%' will show a single '%' symbol)
  #, python-format
-@@ -7279,13 +7266,13 @@
+@@ -7278,13 +7266,13 @@
  msgstr "Ошибка сканирования!"
  
  msgid "Scanning..."
@@ -16193,7 +17127,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Scroll repeats"
  msgstr "Количество повторов"
-@@ -7294,28 +7281,28 @@
+@@ -7293,28 +7281,28 @@
  msgstr "Поиск"
  
  msgid "Search east"
@@ -16229,7 +17163,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Secondary DNS"
  msgstr "Вторичный DNS"
-@@ -7339,55 +7326,55 @@
+@@ -7338,55 +7326,55 @@
  msgstr "Выбор"
  
  msgid "Select '1.0' for standard committed switches, '1.1' for uncommitted switches, and '1.2' for systems using a positioner."
@@ -16299,7 +17233,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select 'yes' to only send the DiSEqC command when changing from one satellite to another, or select 'no' for the DiSEqC command to be resent on every zap."
  msgstr "Выберите 'да', чтобы отправлять команду DiSEqC только при переходе с одного спутника на другой или выберите 'нет', чтобы команда DiSEqC посылалась при каждом переключении."
-@@ -7396,7 +7383,7 @@
+@@ -7395,7 +7383,7 @@
  msgstr "Выбор CAId"
  
  msgid "Select Card Server"
@@ -16308,7 +17242,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select Channel"
  msgstr "Выбор канала"
-@@ -7411,10 +7398,10 @@
+@@ -7410,10 +7398,10 @@
  msgstr "Выбор эмулятора"
  
  msgid "Select a bouquet"
@@ -16321,7 +17255,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select a network adapter"
  msgstr "Выбор сетевого адаптера"
-@@ -7423,26 +7410,26 @@
+@@ -7422,26 +7410,26 @@
  msgstr "Выбор тюнера"
  
  msgid "Select a wireless network"
@@ -16353,7 +17287,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select channel"
  msgstr "Выбор канала"
-@@ -7451,19 +7438,19 @@
+@@ -7450,19 +7438,19 @@
  msgstr "Выбрать канал для записи из"
  
  msgid "Select copy destination for:"
@@ -16378,7 +17312,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select function"
  msgstr "Выбор функции"
-@@ -7475,16 +7462,16 @@
+@@ -7474,16 +7462,16 @@
  msgstr "Выбор горизонтального разрешения:"
  
  msgid "Select how quickly the dish should move between satellites."
@@ -16399,7 +17333,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select input device."
  msgstr "Выбор устройства ввода"
-@@ -7499,19 +7486,19 @@
+@@ -7498,19 +7486,19 @@
  msgstr "Выбор видео"
  
  msgid "Select path for logfile"
@@ -16423,7 +17357,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select slot"
  msgstr "Выбор слота"
-@@ -7520,7 +7507,7 @@
+@@ -7519,7 +7507,7 @@
  msgstr "Выбор способа сортировки:"
  
  msgid "Select target folder"
@@ -16432,7 +17366,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the User Band channel to be assigned to this tuner. This is an index into the table of frequencies the SCR switch or SCR LNB uses to pass the requested transponder to the tuner."
  msgstr "Выберите канал User Band для назначения этому тюнеру. Это индекс в таблице частот, который коммутатор SCR или LNB SCR использует для передачи запрошенного транспондера тюнеру."
-@@ -7531,11 +7518,11 @@
+@@ -7530,11 +7518,11 @@
  msgid "Select the User Band to be assigned to this tuner. This is an index into the table of frequencies the SCR switch or SCR LNB uses to pass the requested transponder to the tuner."
  msgstr "Выберите пользовательский диапазон, который будет назначен данному тюнеру. Это индекс в таблице частот, который коммутатор SCR или LNB SCR использует для передачи запрошенного транспондера тюнеру."
  
@@ -16446,7 +17380,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the manufacturer of your SCR device. If the manufacturer is not listed, set 'SCR' to 'user defined' and enter the device parameters manually according to its spec sheet."
  msgstr "Выберите производителя Вашего SCR устройства."
-@@ -7544,22 +7531,22 @@
+@@ -7543,22 +7531,22 @@
  msgstr "Выберите номер модели Вашего SCR устройства."
  
  msgid "Select the movie path"
@@ -16474,7 +17408,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the satellite you want to configure. Once that satellite is configured you can select and configure other satellites that will be accessed using this same tuner."
  msgstr "Выберите спутник, который Вы хотите настроить. Как только этот спутник настроен, Вы можете выбирать и настраивать другие спутники, к которым будет осуществляться доступ, используя тот же самый тюнер."
-@@ -7568,7 +7555,7 @@
+@@ -7567,7 +7555,7 @@
  msgstr "Выберите спутник, к которому подключена Ваша тарелка. Если вы не уверены, выберите 'автоматически', и ресивер попытается определить это для Вас."
  
  msgid "Select the shifted character set"
@@ -16483,7 +17417,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the shifted character set for the next character only"
  msgstr "Выберите набор символов со сдвигом виртуальной клавиатуры только для следующего символа"
-@@ -7577,7 +7564,7 @@
+@@ -7576,7 +7564,7 @@
  msgstr "Выберите часовой пояс в пределах области или региона."
  
  msgid "Select the tuner that controls the motorised dish."
@@ -16492,7 +17426,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the tuner that this loopthrough depends on."
  msgstr "Выберите тюнер для петлевого входа."
-@@ -7586,7 +7573,7 @@
+@@ -7585,7 +7573,7 @@
  msgstr "Выберите тюнер, к которому подключен кабель SCR устройства."
  
  msgid "Select the type of LNB/device being used (normally 'Universal'). If your LNB type is not available select 'user defined'."
@@ -16501,7 +17435,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the type of Single Cable Reception device you are using."
  msgstr "Выберите тип используемого устройства."
-@@ -7598,19 +7585,19 @@
+@@ -7597,19 +7585,19 @@
  msgstr "Выбор источника обновления для редактирования"
  
  msgid "Select video input with up/down buttons"
@@ -16526,7 +17460,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Select your backup device.\n"
-@@ -7620,7 +7607,7 @@
+@@ -7619,7 +7607,7 @@
  "Текущее устройство: "
  
  msgid "Select your country. If not available select 'all'."
@@ -16535,7 +17469,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select your provider and region. If not present in this list you will need to select one of the other 'service scan types'."
  msgstr "Выбор провайдера  и региона. Если их в этом списке нет, Вам нужно выбрать один из других 'типов сканирования сервисов'."
-@@ -7632,7 +7619,7 @@
+@@ -7631,7 +7619,7 @@
  msgstr "Выбор Вашего региона. Если Ваша страна не доступна, то измените на 'все' и выберите одну из альтернатив по умолчанию."
  
  msgid "Select your time zone area or region."
@@ -16544,7 +17478,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Selecting satellites 1 (USALS)"
  msgstr "Выбор спутников 1 (USALS)"
-@@ -7647,7 +7634,7 @@
+@@ -7646,7 +7634,7 @@
  msgstr "Выбор режима показа live ТВ на LCD дисплее."
  
  msgid "Selects video source displayed on the LCD."
@@ -16553,7 +17487,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Send 'sourceactive' before zap timers"
  msgstr "Послать 'sourceactive' перед таймерами переключения"
-@@ -7659,16 +7646,16 @@
+@@ -7658,16 +7646,16 @@
  msgstr "Отправить DiSEqC только при смене спутника"
  
  msgid "Senegal"
@@ -16574,7 +17508,16 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Serbian"
  msgstr "Сербский"
-@@ -7695,22 +7682,22 @@
+@@ -7682,7 +7670,7 @@
+ msgstr "ID сервиса"
+ 
+ msgid "Service belongs to a parental protected bouquet"
+-msgstr "Сервис находится в букете родительского контроля"
++msgstr "Сервис находится в буклете родительского контроля"
+ 
+ msgid "Service has been added to the favourites."
+ msgstr "Сервис был успешно добавлен в фавориты."
+@@ -7694,22 +7682,22 @@
  msgstr "Информация о сервисе"
  
  msgid "Service info - ECM Info"
@@ -16603,7 +17546,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Service invalid!\n"
-@@ -7733,7 +7720,7 @@
+@@ -7732,7 +7720,7 @@
  msgstr "Референс сервиса"
  
  msgid "Service scan"
@@ -16612,7 +17555,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Service title mode"
  msgstr "Режим названия сервиса"
-@@ -7746,7 +7733,7 @@
+@@ -7745,7 +7733,7 @@
  "Проверьте настройки тюнера!"
  
  msgid "Servicename"
@@ -16621,7 +17564,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Services"
  msgstr "Сервисы"
-@@ -7758,22 +7745,22 @@
+@@ -7757,22 +7745,22 @@
  msgstr "Установить PIN-код"
  
  msgid "Set action when movie playback is finished."
@@ -16648,7 +17591,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Set end time"
  msgstr "Установить время окончания"
-@@ -7782,37 +7769,37 @@
+@@ -7781,37 +7769,37 @@
  msgstr "Зафиксировать"
  
  msgid "Set fps for external subtitles"
@@ -16695,7 +17638,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Set the type of the progress indication in the channel selection screen."
  msgstr "Установите тип индикации прогресса текущего события в списке выбора каналов."
-@@ -7836,13 +7823,13 @@
+@@ -7835,13 +7823,13 @@
  msgstr "Установка времени окна на 6 часов"
  
  msgid "Set voltage and 22KHz"
@@ -16711,7 +17654,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Setup"
  msgstr "Настройки"
-@@ -7863,7 +7850,7 @@
+@@ -7862,7 +7850,7 @@
  msgstr "Настройки спутникового оборудования"
  
  msgid "Seychelles"
@@ -16720,7 +17663,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sharpness"
  msgstr "Резкость"
-@@ -7872,7 +7859,7 @@
+@@ -7871,7 +7859,7 @@
  msgstr "Shell-скрипт"
  
  msgid "Shift"
@@ -16729,7 +17672,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Short filenames"
  msgstr "Короткое название"
-@@ -7881,121 +7868,121 @@
+@@ -7880,121 +7868,121 @@
  msgstr "Показать"
  
  msgid "Show Audioselection"
@@ -16886,7 +17829,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Show latest update log"
  msgstr "Показать последний лог обновления"
-@@ -8007,22 +7994,22 @@
+@@ -8006,22 +7994,22 @@
  msgstr "Показать номера меню или плагинов"
  
  msgid "Show message when recording starts"
@@ -16915,7 +17858,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Show notification when import channels was not successful"
  msgstr "Показывать уведомление, когда импорт каналов не удался"
-@@ -8031,103 +8018,103 @@
+@@ -8030,103 +8018,103 @@
  msgstr "Показывать уведомление, когда импорт каналов удался"
  
  msgid "Show packages to be updated"
@@ -17050,7 +17993,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Shows the state of your wireless LAN connection.\n"
  msgstr "Показывает состояние Вашего беспроводного соединения WLAN.\n"
-@@ -8142,10 +8129,10 @@
+@@ -8141,10 +8129,10 @@
  msgstr "Выключение из режима ожидания"
  
  msgid "Side by side"
@@ -17063,7 +18006,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Signal OK, proceeding"
  msgstr "Сигнал ОК, продолжаем процесс"
-@@ -8178,7 +8165,7 @@
+@@ -8177,7 +8165,7 @@
  msgstr "Простой заголовок (совместимость с устаревшими плеерами)"
  
  msgid "Singapore"
@@ -17072,7 +18015,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Single"
  msgstr "Одиночный"
-@@ -8190,13 +8177,13 @@
+@@ -8189,13 +8177,13 @@
  msgstr "Однострочный режим"
  
  msgid "Single satellite"
@@ -17089,7 +18032,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Site latitude"
  msgstr "Широта по сайту"
-@@ -8206,13 +8193,13 @@
+@@ -8205,13 +8193,13 @@
  
  #, python-format
  msgid "Skin & Resolution: %s (%sx%s)\n"
@@ -17106,7 +18049,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Skins"
  msgstr "Скины"
-@@ -8221,7 +8208,7 @@
+@@ -8220,7 +8208,7 @@
  msgstr "Пропускать пустые сервисы"
  
  msgid "Skip internet connection check (disables automatic package installation)"
@@ -17115,7 +18058,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sleep timer"
  msgstr "Таймер сна"
-@@ -8249,10 +8236,10 @@
+@@ -8248,10 +8236,10 @@
  msgstr "Словацкий"
  
  msgid "Slovakia"
@@ -17128,7 +18071,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Slovenian"
  msgstr "Словенский"
-@@ -8261,7 +8248,7 @@
+@@ -8260,7 +8248,7 @@
  msgstr "Медленно"
  
  msgid "Slow motion speeds"
@@ -17137,7 +18080,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Small"
  msgstr "Маленький"
-@@ -8279,10 +8266,10 @@
+@@ -8278,10 +8266,10 @@
  msgstr "Социальное/Политика/Экономика"
  
  msgid "SocketMMI"
@@ -17150,7 +18093,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Softcam Setup"
  msgstr "Настройки эмулятора"
-@@ -8294,7 +8281,7 @@
+@@ -8293,7 +8281,7 @@
  msgstr "ПО"
  
  msgid "Software management"
@@ -17159,7 +18102,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Software manager setup"
  msgstr "Настройки менеджера ПО"
-@@ -8306,13 +8293,13 @@
+@@ -8305,13 +8293,13 @@
  msgstr "Информация менеджера ПО"
  
  msgid "Solomon Islands"
@@ -17176,7 +18119,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Some plugins are not available:\n"
  msgstr "Некоторые плагины недоступны:\n"
-@@ -8322,10 +8309,10 @@
+@@ -8321,10 +8309,10 @@
  msgstr "Извините, %s не установлен!"
  
  msgid "Sorry, deleting directories can (for now) only be done through the trash can."
@@ -17189,7 +18132,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sorry, no details available!"
  msgstr "Извините, нет доступного описания!"
-@@ -8385,16 +8372,16 @@
+@@ -8384,16 +8372,16 @@
  msgstr "Юг"
  
  msgid "South Africa"
@@ -17210,7 +18153,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Spanish"
  msgstr "Испанский"
-@@ -8406,37 +8393,37 @@
+@@ -8405,37 +8393,37 @@
  msgstr "Специальное 2"
  
  msgid "Specify extra timeframe to ignore inactivity sleeptimer"
@@ -17259,7 +18202,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Splitscreen"
  msgstr "Разделённый экран"
-@@ -8445,10 +8432,10 @@
+@@ -8444,10 +8432,10 @@
  msgstr "Спорт"
  
  msgid "Sri Lanka"
@@ -17272,7 +18215,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Standart list"
  msgstr "Стандартный список"
-@@ -8460,18 +8447,18 @@
+@@ -8459,18 +8447,18 @@
  msgstr "Меню выключения"
  
  msgid "Standby LED"
@@ -17294,7 +18237,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Standby in "
  msgstr "Режим ожидания через "
-@@ -8480,7 +8467,7 @@
+@@ -8479,7 +8467,7 @@
  msgstr "Начальный каталог"
  
  msgid "Start from the beginning"
@@ -17303,7 +18246,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Start instant recording"
  msgstr "Старт немедленной записи"
-@@ -8516,22 +8503,22 @@
+@@ -8515,22 +8503,22 @@
  msgstr "Начиная с"
  
  msgid "Startup the set top box in standby"
@@ -17331,7 +18274,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Stop"
  msgstr "Стоп"
-@@ -8543,7 +8530,7 @@
+@@ -8542,7 +8530,7 @@
  msgstr "Остановить все текущие записи"
  
  msgid "Stop all streams"
@@ -17340,7 +18283,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Stop and delete all current recordings"
  msgstr "Остановить и удалить все текущие записи"
-@@ -8564,13 +8551,13 @@
+@@ -8563,13 +8551,13 @@
  msgstr "Остановить текущее событие, но не отключать таймер"
  
  msgid "Stop current stream"
@@ -17356,7 +18299,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Stop playing this movie?"
  msgstr "Остановить воспроизведение этого видео?"
-@@ -8609,7 +8596,7 @@
+@@ -8608,7 +8596,7 @@
  msgstr "Остановить таймшифт?"
  
  msgid "Stop using as startup service"
@@ -17365,7 +18308,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Stopped"
  msgstr "Остановлено"
-@@ -8618,16 +8605,16 @@
+@@ -8617,16 +8605,16 @@
  msgstr "Сохранить номер"
  
  msgid "Store position"
@@ -17385,7 +18328,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Streaming clients info"
  msgstr "Информация о клиентах стриминга"
-@@ -8636,7 +8623,7 @@
+@@ -8635,7 +8623,7 @@
  msgstr "Лучшая позиция"
  
  msgid "Subservice list..."
@@ -17394,7 +18337,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Subservices"
  msgstr "Субсервисы"
-@@ -8678,13 +8665,13 @@
+@@ -8677,13 +8665,13 @@
  msgstr "Выбор субтитров"
  
  msgid "Subtitle selection..."
@@ -17410,7 +18353,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Subtitles"
  msgstr "Субтитры"
-@@ -8702,7 +8689,7 @@
+@@ -8701,7 +8689,7 @@
  msgstr "Успешных:"
  
  msgid "Sudan"
@@ -17419,7 +18362,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sun"
  msgstr "Вс"
-@@ -8715,15 +8702,15 @@
+@@ -8714,15 +8702,15 @@
  "Please wait(3-20 min) for the scan to finish."
  msgstr ""
  "Sundtek - аппаратное слепое сканирование в процессе.\n"
@@ -17439,7 +18382,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgstr "Поменять PiP"
  
  msgid "Swap PiP and main picture"
-@@ -8733,16 +8720,16 @@
+@@ -8732,16 +8720,16 @@
  msgstr "Поменять местами сервисы"
  
  msgid "Swaziland"
@@ -17459,7 +18402,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Switch TV to correct input"
  msgstr "Переключать ТВ на правильный вход"
-@@ -8775,61 +8762,61 @@
+@@ -8774,61 +8762,61 @@
  msgstr "Перейти на закладки"
  
  msgid "Switch to filelist"
@@ -17534,7 +18477,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "T2MI PID"
  msgstr "РМТ PID"
-@@ -8841,14 +8828,14 @@
+@@ -8840,14 +8828,14 @@
  msgstr "T2MI PLP ID"
  
  msgid "T2MI RAW Mode"
@@ -17547,12 +18490,12 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #. TRANSLATORS: Add here whatever should be shown in the "translator" about screen, up to 6 lines (use \n for newline)
  msgid "TRANSLATOR_INFO"
--msgstr "Dimitrij - 01.02.2021"
+-msgstr "Dimitrij - 24.03.2021"
 +msgstr "1455 <a.g.prosat@gmail.com>"
  
  msgid "TS file is too large for ISO9660 level 1!"
  msgstr "TS файл слишком большой для ISO9660 level 1!"
-@@ -8869,7 +8856,7 @@
+@@ -8868,7 +8856,7 @@
  msgstr "TXT PID"
  
  msgid "TXT Subtitles page & lang"
@@ -17561,7 +18504,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Table of contents for collection"
  msgstr "Содержание коллекции"
-@@ -8878,13 +8865,13 @@
+@@ -8877,13 +8865,13 @@
  msgstr "Теги"
  
  msgid "Taiwan"
@@ -17578,7 +18521,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Teletext subtitle color"
  msgstr "Цвет телетекста субтитров"
-@@ -8908,10 +8895,10 @@
+@@ -8907,10 +8895,10 @@
  msgstr "Тип теста"
  
  msgid "Testscreens"
@@ -17591,7 +18534,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Text View On"
  msgstr "<Text View On>"
-@@ -8923,7 +8910,7 @@
+@@ -8922,7 +8910,7 @@
  msgstr "Тайский"
  
  msgid "Thailand"
@@ -17600,7 +18543,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Thank you for using the wizard.\n"
-@@ -8975,10 +8962,10 @@
+@@ -8974,10 +8962,10 @@
  "Убедитесь, что Вы выбрали нужную перезаписываемую директорию."
  
  msgid "The following files were found..."
@@ -17613,7 +18556,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "The network wizard extension is not installed!\n"
-@@ -8998,7 +8985,7 @@
+@@ -8997,7 +8985,7 @@
  "\n"
  "Примечание: Вы всегда можете запустить мастера переразвертки позже, с помощью\n"
  "\n"
@@ -17622,7 +18565,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "The overscan wizard helps you to setup your TV in the correct way.\n"
-@@ -9018,8 +9005,8 @@
+@@ -9017,8 +9005,8 @@
  "\n"
  "Во многих ТВ переразвертка включена по дефолту. Это означает, что Вы всегда просматриваете увеличенное изображение, а не реальное HD и часть скина не видна.\n"
  "\n"
@@ -17633,7 +18576,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Если Вы видите все наконечники стрелок, то overscan ТВ отключен.\n"
  "\n"
-@@ -9063,7 +9050,7 @@
+@@ -9062,7 +9050,7 @@
  msgstr "Рестарт GUI для применения выбраного скина"
  
  msgid "The user interface of your receiver is restarting"
@@ -17642,7 +18585,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "The user interface of your receiver is restarting\n"
-@@ -9073,7 +9060,7 @@
+@@ -9072,7 +9060,7 @@
  "из-за ошибки в mytest.py"
  
  msgid "The user interface of your receiver is restarting in debug mode"
@@ -17651,7 +18594,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "The wireless LAN plugin is not installed!\n"
-@@ -9090,11 +9077,11 @@
+@@ -9089,11 +9077,11 @@
  "Пожалуйста, установите его."
  
  msgid "There are at least "
@@ -17665,7 +18608,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "There are currently no outstanding actions."
  msgstr "В текущий момент нет выдающихся действий."
-@@ -9119,20 +9106,20 @@
+@@ -9118,20 +9106,20 @@
  "Вы действительно хотите продолжить?"
  
  msgid "This DVD RW medium is already formatted - reformatting will erase all content on the disc."
@@ -17691,7 +18634,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "This info is for developers only.\n"
-@@ -9144,13 +9131,13 @@
+@@ -9143,13 +9131,13 @@
  "Без паники, если здесь будет отображаться любая подозрительная информация!"
  
  msgid "This is a multitype tuner. Available options depend on the hardware."
@@ -17708,7 +18651,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows to set the level of dynamic contrast of the picture."
  msgstr "Эта опция позволяет установить уровень динамической контрастности изображения."
-@@ -9168,13 +9155,13 @@
+@@ -9167,13 +9155,13 @@
  msgstr "Эта опция позволяет добавить 'Настройки эмулятора' в меню дополнений."
  
  msgid "This option allows you to alphabetically sort setup menu entries."
@@ -17724,7 +18667,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows you to change the virtuell loadspeaker position."
  msgstr "Эта опция позволяет Вам изменить позицию виртуального динамика."
-@@ -9186,7 +9173,7 @@
+@@ -9185,7 +9173,7 @@
  msgstr "Эта опция позволяет вам настроить колориметрию для HDR."
  
  msgid "This option allows you to configure the Colorspace from Auto to RGB"
@@ -17733,7 +18676,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows you to configure the HDR type."
  msgstr "Эта опция позволяет вам настроить тип HDR."
-@@ -9195,16 +9182,16 @@
+@@ -9194,16 +9182,16 @@
  msgstr "Эта опция позволяет Вам отключить или изменить позицию виртуального динамика."
  
  msgid "This option allows you to enable 3D surround softlimiter."
@@ -17753,7 +18696,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows you to force the HDR10 modes for UHD"
  msgstr "Этот параметр позволяет принудительно использовать режим HDR10 для UHD"
-@@ -9213,7 +9200,7 @@
+@@ -9212,7 +9200,7 @@
  msgstr "Этот параметр позволяет принудительно использовать режим HLG для UHD"
  
  msgid "This option allows you to hide and sort menu entries. When selecting user you can change order and hide menu items via the blue button. With the user defined hidden the blue button is not shown in the menus"
@@ -17762,7 +18705,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows you to power off the display."
  msgstr "Эта опция позволяет отключить дисплей."
-@@ -9222,34 +9209,34 @@
+@@ -9221,34 +9209,34 @@
  msgstr "Эта опция позволяет Вам показывать все символы на дисплее."
  
  msgid "This option allows you to show menu and/or plugin number quick links."
@@ -17806,7 +18749,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option sets the scaler sharpness, used when stretching picture from 4:3 to 16:9."
  msgstr "Эта опция устанавливает четкость, которая используется при растяжении изображения с 4:3 до 16:9."
-@@ -9280,7 +9267,7 @@
+@@ -9279,7 +9267,7 @@
  msgstr "Эта настройка тюнера позволяет дублировать настройку другого тюнера."
  
  msgid "This setting depends on your cable provider and location. If you don't know the correct setting refer to the menu in the official cable receiver, or get it from your cable provider, or seek help via internet forum."
@@ -17815,7 +18758,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This setting is for special setups only. It gives this LNB higher priority over other LNBs with lower values. The free LNB with the highest priority will be the first LNB selected for tuning services."
  msgstr "Эта настройка предназначена только для специальных параметров. Это дает выбранному LNB более высокий приоритет, по сравнению с другими LNB с более низкими значениями. Свободным LNB с наивысшим приоритетом будет первый LNB, выбранный для подключения сервиса."
-@@ -9293,7 +9280,7 @@
+@@ -9292,7 +9280,7 @@
  msgstr ""
  "Этот тест проверяет конфигурацию серверов имен(DNS).\n"
  "При появлении сообщения \"неподтверждено\":\n"
@@ -17824,7 +18767,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "- Если Вы настроили вручную сервера имен, то проверьте конфигурацию записи в \"Сервер имен(DNS)\""
  
  msgid ""
-@@ -9326,7 +9313,7 @@
+@@ -9325,7 +9313,7 @@
  "If you get an \"enabeld\" message:\n"
  "-verify that you have a configured and working DHCP server in your network."
  msgstr ""
@@ -17833,7 +18776,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "При появлении сообщения \" отключено\":\n"
  "- Ваш LAN адаптер сконфигурирован для ручной настройки IP.\n"
  "- проверьте, что Вы ввели корректную информацию в меню настройки сети.\n"
-@@ -9334,13 +9321,13 @@
+@@ -9333,13 +9321,13 @@
  "- убедитесь, что у вас есть сконфигурированный и работающий DHCP сервер в Вашей сети."
  
  msgid "This test detects your configured LAN adapter."
@@ -17849,7 +18792,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "Вы уверены в продолжении?"
  
  msgid "Three"
-@@ -9371,7 +9358,7 @@
+@@ -9370,7 +9358,7 @@
  msgstr "Часовой пояс"
  
  msgid "Time zone area"
@@ -17858,7 +18801,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Timer"
  msgstr "Таймер"
-@@ -9408,7 +9395,7 @@
+@@ -9407,7 +9395,7 @@
  msgstr "Выбор таймера"
  
  msgid "Timer selection..."
@@ -17867,7 +18810,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Timer type"
  msgstr "Тип таймера"
-@@ -9435,7 +9422,7 @@
+@@ -9434,7 +9422,7 @@
  msgstr "Часовой пояс"
  
  msgid "Timor-Leste"
@@ -17876,7 +18819,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Title"
  msgstr "Название"
-@@ -9448,14 +9435,14 @@
+@@ -9447,14 +9435,14 @@
  
  #, python-format
  msgid "To apply the selected '%s' skin the GUI needs to restart. Would you like to restart the GUI now?"
@@ -17893,7 +18836,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "To subtitle selection"
  msgstr "К выбору субтитров"
-@@ -9470,10 +9457,10 @@
+@@ -9469,10 +9457,10 @@
  msgstr "Смена LCD LiveTV"
  
  msgid "Toggle PiPzap"
@@ -17906,7 +18849,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Toggle a cut mark at the current position"
  msgstr "Добавить/удалить метку в текущей позиции"
-@@ -9485,25 +9472,25 @@
+@@ -9484,25 +9472,25 @@
  msgstr "Смена инфобаров"
  
  msgid "Toggle new text inserts before or overwrites existing text"
@@ -17938,7 +18881,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Tone amplitude"
  msgstr "Тоновая амплитуда"
-@@ -9512,13 +9499,13 @@
+@@ -9511,13 +9499,13 @@
  msgstr "Тоновый режим"
  
  msgid "Toneburst"
@@ -17955,7 +18898,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Top and bottom"
  msgstr "Сверху и снизу"
-@@ -9549,7 +9536,7 @@
+@@ -9548,7 +9536,7 @@
  msgstr "Транспондер"
  
  msgid "Transponder Time"
@@ -17964,7 +18907,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Transport Stream Type"
  msgstr "Тип транспортного потока"
-@@ -9561,19 +9548,19 @@
+@@ -9560,19 +9548,19 @@
  msgstr "Осталось попыток:"
  
  msgid "Trinidad and Tobago"
@@ -17989,7 +18932,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Trying to download a new packetlist. Please wait..."
  msgstr "Пытаемся загрузить новый список пакетов. Пожалуйста, подождите..."
-@@ -9606,13 +9593,13 @@
+@@ -9605,13 +9593,13 @@
  msgstr "Тюнер не поддерживается"
  
  msgid "Tuner live values"
@@ -18005,7 +18948,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Tuner slot"
  msgstr "Слот тюнера"
-@@ -9624,37 +9611,37 @@
+@@ -9623,37 +9611,37 @@
  msgstr "Тип тюнера"
  
  msgid "Tuners & scanning"
@@ -18052,7 +18995,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Two"
  msgstr "Два"
-@@ -9681,31 +9668,31 @@
+@@ -9680,31 +9668,31 @@
  msgstr "URL"
  
  msgid "URL of fallback remote receiver"
@@ -18090,7 +19033,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Unable to create the required directories on the media (e.g. USB stick or Harddisk) - Please verify media and try again!"
  msgstr "Невозможно создать необходимые каталоги на носителе (например, USB-накопитель или жесткий диск). Пожалуйста, проверьте носитель и попробуйте снова!"
-@@ -9717,13 +9704,13 @@
+@@ -9716,13 +9704,13 @@
  msgstr ""
  "Автоматическое обновление в процессе.\n"
  "Пожалуйста, дождитесь перезагрузки Вашего ресивера.\n"
@@ -18107,7 +19050,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Undo install"
  msgstr "Отмена установки"
-@@ -9732,55 +9719,55 @@
+@@ -9731,55 +9719,55 @@
  msgstr "Отмена удаления"
  
  msgid "Unencrypted"
@@ -18178,7 +19121,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Unsupported"
  msgstr "Не поддерживается"
-@@ -9817,13 +9804,13 @@
+@@ -9816,13 +9804,13 @@
  msgstr "Обновление завершено. Вы хотите перезагрузить ресивер?"
  
  msgid "Update failed. Your receiver does not have a working internet connection."
@@ -18194,7 +19137,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Updating"
  msgstr "Обновление"
-@@ -9838,7 +9825,7 @@
+@@ -9837,7 +9825,7 @@
  msgstr "Время работы"
  
  msgid "Uruguay"
@@ -18203,7 +19146,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Usage Setup"
  msgstr "Индивидуальные настройки"
-@@ -9868,7 +9855,7 @@
+@@ -9867,7 +9855,7 @@
  msgstr "Использовать информацию Netmed EPG (провайдеры 13E), если она доступна."
  
  msgid "Use OpenTV EPG information when it is available."
@@ -18212,7 +19155,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Use TV remote control"
  msgstr "Использовать пульт ТВ для управления"
-@@ -9886,7 +9873,7 @@
+@@ -9885,7 +9873,7 @@
  msgstr "Использовать шлюз"
  
  msgid "Use as PiP if possible"
@@ -18221,7 +19164,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Use circular LNB"
  msgstr "Использовать круговой LNB"
-@@ -9910,16 +9897,16 @@
+@@ -9909,16 +9897,16 @@
  msgstr "Официальная нумерация каналов"
  
  msgid "Use original DVB subtitle position"
@@ -18241,7 +19184,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Use the network wizard to configure your network\n"
  msgstr "Использовать мастер настройки сети для конфигурации Вашей сети.\n"
-@@ -9928,7 +9915,7 @@
+@@ -9927,7 +9915,7 @@
  msgstr "Используйте кнопки вверх/вниз на Вашем пульте для выбора опций. После этого нажмите OK."
  
  msgid "Use the wizard to set up basic features"
@@ -18250,7 +19193,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Use these input device settings?"
  msgstr "Использовать эти параметры устройства ввода?"
-@@ -9946,19 +9933,19 @@
+@@ -9945,19 +9933,19 @@
  msgstr "Использовать тип сканирования сервиса"
  
  msgid "User - bouquets"
@@ -18274,7 +19217,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "User interface"
  msgstr "Интерфейс пользователя"
-@@ -9975,10 +9962,10 @@
+@@ -9974,10 +9962,10 @@
  msgstr "Используемый тюнер %s"
  
  msgid "Usually when the subtitle language is the same as the audio language, the subtitles will not be used. Enable this option to allow these subtitles to be used."
@@ -18287,7 +19230,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "VCR scart"
  msgstr "Видеомагнитофон (VCR скарт)"
-@@ -9999,16 +9986,16 @@
+@@ -9998,16 +9986,16 @@
  msgstr "VU+"
  
  msgid "Vanuatu"
@@ -18307,7 +19250,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Vertical turning speed"
  msgstr "Поляризация (V) - скорость поворота"
-@@ -10017,7 +10004,7 @@
+@@ -10016,7 +10004,7 @@
  msgstr "Видео PID"
  
  msgid "Video clipping setup"
@@ -18316,7 +19259,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Video enhancement preview"
  msgstr "Превью улучшения настроек видео"
-@@ -10058,25 +10045,25 @@
+@@ -10057,25 +10045,25 @@
  msgstr "Видео: %s fps"
  
  msgid "VideoMode"
@@ -18348,7 +19291,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "View list of available EPG extensions."
  msgstr "Просмотр списка доступных дополнений EPG."
-@@ -10109,25 +10096,25 @@
+@@ -10108,25 +10096,25 @@
  msgstr "Просмотр списка доступных дополнений ПО"
  
  msgid "View list of available system extensions"
@@ -18380,7 +19323,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Virtual KeyBoard Functions"
  msgstr "Функции виртуальной клавиатуры"
-@@ -10145,13 +10132,13 @@
+@@ -10144,13 +10132,13 @@
  msgstr "Громкость"
  
  msgid "Volume down"
@@ -18397,7 +19340,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "W"
  msgstr "W"
-@@ -10187,19 +10174,19 @@
+@@ -10186,19 +10174,19 @@
  msgstr "Wake On LAN (включение по сети)"
  
  msgid "Wake the receiver from standby when selected wake command is sent from the TV."
@@ -18420,7 +19363,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Wakeup receiver for start timer"
  msgstr "Включить ресивер для старта таймера"
-@@ -10217,7 +10204,7 @@
+@@ -10216,7 +10204,7 @@
  msgstr "Тип пробуждения"
  
  msgid "Wallis and Futuna"
@@ -18429,7 +19372,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Warning"
  msgstr "Внимание"
-@@ -10228,17 +10215,17 @@
+@@ -10227,17 +10215,17 @@
  "Really disable timer conflict detection?"
  msgstr ""
  "Внимание!\n"
@@ -18450,7 +19393,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Wed"
  msgstr "Ср"
-@@ -10274,7 +10261,7 @@
+@@ -10273,7 +10261,7 @@
  msgstr ""
  "Добро пожаловать.\n"
  "\n"
@@ -18459,7 +19402,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Нажмите ОК для начала настройки сети."
  
-@@ -10299,22 +10286,22 @@
+@@ -10298,22 +10286,22 @@
  msgstr "Включить ограничение на запад"
  
  msgid "Western Sahara"
@@ -18487,7 +19430,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled the receiver will automatically return to standby when the TV is turned off."
  msgstr "Если включено, то ресивер автоматически вернется в режим ожидания при выключении ТВ."
-@@ -10326,16 +10313,16 @@
+@@ -10325,16 +10313,16 @@
  msgstr "Если включено и если спецификация ресивера позволяет, то можно разбудить ресивер из глубокого ожидания по LAN подключению удаленно."
  
  msgid "When enabled the timer from the fallback tuner is imported"
@@ -18507,7 +19450,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled you can specify a timeframe to ignore the shutdown timer when the receiver is in standby mode"
  msgstr "Если включено, то установите период времени игнорирования действия выключения ресивера в режиме ожидания."
-@@ -10350,16 +10337,16 @@
+@@ -10349,16 +10337,16 @@
  msgstr "Если включено, то каналы будут переключатся с помощью CH+/-, B+/-, P+/- кнопок, вместо списка выбора каналов."
  
  msgid "When enabled you get the channel selection list via the OK button, the infobar toggle is then transfered to exit button"
@@ -18528,7 +19471,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, HDMI-CEC is enabled with standard configuration"
  msgstr "Если включено, HDMI-CEC будет включен в стандартной конфигурации."
-@@ -10371,7 +10358,7 @@
+@@ -10370,7 +10358,7 @@
  msgstr "Если включено, то появится уведомление при начале записи."
  
  msgid "When enabled, a radio background image will be visible while listening to a radio channel."
@@ -18537,7 +19480,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, a recording is allowed to interrupt live tv, when there are no free tuners."
  msgstr "Если включено, то при старте таймера записи, передача в прямом эфире будет прервана, если нет свободных тюнеров."
-@@ -10380,13 +10367,13 @@
+@@ -10379,13 +10367,13 @@
  msgstr "Если включено, будет показано предупреждение и пользователь получит возможность остановить или продолжить таймшифт."
  
  msgid "When enabled, always descramble receiving http streams. This takes up more resources (descrambling demuxers), only enable if necessary. Individual streams are always descrambled if 0x100 is added to the service type, regardless of this setting. Default off."
@@ -18553,7 +19496,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, content with an aspect ratio of 4:3 will be stretched to fit the screen."
  msgstr "Когда изображение на канале имеет соотношение сторон 4:3, выберите, будет ли растянута картинка на весь экран."
-@@ -10395,7 +10382,7 @@
+@@ -10394,7 +10382,7 @@
  msgstr "Если включено, при переключении каналов будет переход к следующему фавориту, когда последний канал текущего фаворита будет достигнут."
  
  msgid "When enabled, deleted recordings are moved to the trash can, instead of being deleted immediately."
@@ -18562,7 +19505,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, display the EIT now/next eventdata in infobar. When disabled, display now/next eventdata from the EPG cache instead."
  msgstr "Если включено, события сейчас/далее из DVB EPG будут показаны в инфобаре. При отключении, данные события будут показываться из файла кеша EPG."
-@@ -10410,19 +10397,19 @@
+@@ -10409,19 +10397,19 @@
  msgstr "Если это активировано, то внешние субтитры будут всегда включены для воспроизведения видео."
  
  msgid "When enabled, graphical DVB subtitles are preferred over teletext subtitles, when both types are available."
@@ -18587,7 +19530,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, it is possible to leave the movieplayer with exit."
  msgstr "Если включено, то можно закрыть видеоплеер с помощью кнопки выход."
-@@ -10440,7 +10427,7 @@
+@@ -10439,7 +10427,7 @@
  msgstr "Если включено, переформатировать субтитры в соответствии с шириной экрана."
  
  msgid "When enabled, services may be grouped in multiple bouquets."
@@ -18596,7 +19539,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, show channel numbers in the channel selection screen."
  msgstr "Если включено, показывается номер канала в окне выбора каналов."
-@@ -10470,13 +10457,13 @@
+@@ -10469,13 +10457,13 @@
  msgstr "Если включено, инфобар будет появлятся при переключении каналов."
  
  msgid "When enabled, the infobar will be displayed when skipping forwards/backwards during media playback."
@@ -18612,7 +19555,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, the receiver will automatically use the subtitles which you selected before."
  msgstr "Если включено, ресивер будет использовать субтитры, которые были выбраны ранее."
-@@ -10491,16 +10478,16 @@
+@@ -10490,16 +10478,16 @@
  msgstr "Если включено, то ресивер будет использовать аудио дорожку AC3+ (если доступно)."
  
  msgid "When enabled, this setting has more weight than 'Preferred tuner for recordings'."
@@ -18632,7 +19575,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, your receiver will detect activity on the VCR SCART input."
  msgstr "Если включено, Ваш ресивер будет определять активность на входе VCR SCART."
-@@ -10515,7 +10502,7 @@
+@@ -10514,7 +10502,7 @@
  msgstr "Когда ресивер выходит из режима ожидания, он дает команду телевизору переключиться на вход HDMI, к которому подключен ресивер."
  
  msgid "When selected this allows video modes to be selected even if they are not reported as supported."
@@ -18641,7 +19584,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When the content has an aspect ratio of 16:9, choose whether to scale/stretch the picture."
  msgstr "Когда изображение на канале имеет соотношение сторон 16:9, выберите, следует ли масштабировать/растянуть картинку."
-@@ -10548,7 +10535,7 @@
+@@ -10547,7 +10535,7 @@
  msgstr "Статистика беспроводной сети"
  
  msgid "With T2MI RAW mode disabled (default) we can use single T2MI PLP de-encapsulation. With T2MI RAW mode enabled we can use astra-sm to analyze T2MI"
@@ -18650,7 +19593,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "With errors:"
  msgstr "С ошибками:"
-@@ -10566,7 +10553,7 @@
+@@ -10565,7 +10553,7 @@
  msgstr "С помощью этой опции вы можете включить дисплей в режиме ожидания."
  
  msgid "With this option you can switch the LED color or deactivate the LED."
@@ -18659,7 +19602,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Without popup"
  msgstr "Без сообщения"
-@@ -10579,7 +10566,7 @@
+@@ -10578,7 +10566,7 @@
  
  #, python-format
  msgid "Would you save the entered PIN %s persistent?"
@@ -18668,7 +19611,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Write error while recording. Disk full?\n"
  msgstr "Ошибка во время записи. Диск переполнен?\n"
-@@ -10609,13 +10596,13 @@
+@@ -10608,13 +10596,13 @@
  msgstr "Год"
  
  msgid "Yellow"
@@ -18685,7 +19628,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Yes"
  msgstr "Да"
-@@ -10627,7 +10614,7 @@
+@@ -10626,7 +10614,7 @@
  msgstr "Да, и сохранить"
  
  msgid "Yes and save in movie dir"
@@ -18694,7 +19637,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Yes to all"
  msgstr "Да, для всех"
-@@ -10700,7 +10687,7 @@
+@@ -10699,7 +10687,7 @@
  msgstr "Вы можете установить, как будет настроен выход из видеоплеера по кнопке 'Exit'."
  
  msgid "You can set selected directory as 'root' directory for movie player."
@@ -18703,7 +19646,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "You can set sorting type for items in movielist."
  msgstr "Вы можете установить тип сортировки для элементов в списке видео."
-@@ -10723,11 +10710,11 @@
+@@ -10722,11 +10710,11 @@
  "\n"
  "К сожалению, Ваша модель ресивера не способна регулировать размеры пользовательского интерфейса. Если не все видно, Вы должны изменить установленный скин на другой, который поддерживает переразвертку Вашего ТВ.\n"
  "\n"
@@ -18717,7 +19660,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "You did not see all eight arrow heads. This means your TV has overscan enabled and presents you with a zoomed-in picture, causing you to loose part of a full HD screen. In addition to this you may also miss parts of the user interface, for example volume bars and more.\n"
-@@ -10756,10 +10743,10 @@
+@@ -10755,10 +10743,10 @@
  msgstr "Вам необходимо переключить на сервис %s (%s - '%s')!\n"
  
  msgid "You seem to be in timeshift!"
@@ -18730,7 +19673,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Your current collection will get lost!"
  msgstr "Ваша текущая коллекция будет утеряна!"
-@@ -10769,32 +10756,32 @@
+@@ -10768,32 +10756,32 @@
  "Please wait until your receiver reboots\n"
  "This may take a few minutes"
  msgstr ""
@@ -18770,7 +19713,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Your receiver is now ready to be used.\n"
-@@ -10802,9 +10789,9 @@
+@@ -10801,9 +10789,9 @@
  "Your internet connection is working.\n"
  "\n"
  msgstr ""
@@ -18782,7 +19725,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Your receiver is now ready to use.\n"
-@@ -10813,9 +10800,9 @@
+@@ -10812,9 +10800,9 @@
  "\n"
  "Please press OK to continue."
  msgstr ""
@@ -18794,7 +19737,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Пожалуйста, нажмите ОК для продолжения."
  
-@@ -10826,7 +10813,7 @@
+@@ -10825,7 +10813,7 @@
  msgstr "Ваш ресивер переходит в глубокий режим ожидания"
  
  msgid "Your receiver might be unusable now. Please consult the manual for further assistance before rebooting your receiver."
@@ -18803,7 +19746,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Your receiver will got to stand by due to the sleeptimer."
  msgstr "Ваш ресивер будет переведен в режим ожидания по таймеру сна."
-@@ -10843,13 +10830,13 @@
+@@ -10842,13 +10830,13 @@
  "\n"
  "Please choose what you want to do next."
  msgstr ""
@@ -18819,7 +19762,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Zap"
  msgstr "Переключение"
-@@ -10861,7 +10848,7 @@
+@@ -10860,7 +10848,7 @@
  msgstr "Вернутся на предыдущий сервис до начала настроек позиционера?"
  
  msgid "Zap bouquets blindly on zap buttons"
@@ -18828,7 +19771,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Zap down"
  msgstr "Переключить канал вниз"
-@@ -10879,10 +10866,10 @@
+@@ -10878,10 +10866,10 @@
  msgstr "Переключить на"
  
  msgid "Zap to selected channel"
@@ -18841,7 +19784,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Zap to selected channel, or show detailed event info (depends on configuration)"
  msgstr "Переключить на выбранный канал или показать детали события (зависит от конфигурации)"
-@@ -10892,11 +10879,11 @@
+@@ -10891,11 +10879,11 @@
  
  #, python-format
  msgid "Zapped to timer service %s as Picture in Picture!"
@@ -18855,7 +19798,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Zgemma H.S/H.2S/H.2H/H5/H7(old model)"
  msgstr "Zgemma H.S/H.2S/H.2H/H5/H7(старая модель)"
-@@ -10905,40 +10892,40 @@
+@@ -10904,40 +10892,40 @@
  msgstr "Zgemma H7(новая модель)/H9(новая модель)/H9COMBO/H9TWIN/H10"
  
  msgid "Zgemma H9(old model)/I55Plus"
@@ -18904,7 +19847,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "active"
  msgstr "активно"
-@@ -10950,43 +10937,43 @@
+@@ -10949,43 +10937,43 @@
  msgstr "дополнительный кабель от мотора"
  
  msgid "adult movie/drama"
@@ -18959,7 +19902,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "and select next channel"
  msgstr "и выбрать следующий канал"
-@@ -10998,197 +10985,197 @@
+@@ -10997,197 +10985,197 @@
  msgstr "Вы уверены, что хотите отменить все изменения?"
  
  msgid "arts/culture (without music, general)"
@@ -19219,7 +20162,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "et4000"
  msgstr "et4000"
-@@ -11206,70 +11193,70 @@
+@@ -11205,70 +11193,70 @@
  msgstr "et9200/et9500/et6500"
  
  msgid "execute cuts (requires MovieCut plugin)"
@@ -19312,7 +20255,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "free"
  msgstr "свободно"
-@@ -11278,100 +11265,100 @@
+@@ -11277,100 +11265,100 @@
  msgstr "из"
  
  msgid "further education"
@@ -19445,7 +20388,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "list style default"
  msgstr "Список по умолчанию"
-@@ -11380,34 +11367,34 @@
+@@ -11379,34 +11367,34 @@
  msgstr "Список в одну строку"
  
  msgid "listens to hotplug events"
@@ -19490,7 +20433,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "mins"
  msgstr "мин"
-@@ -11419,353 +11406,353 @@
+@@ -11418,353 +11406,353 @@
  msgstr "месяц"
  
  msgid "motor sport"
@@ -19955,7 +20898,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "stereo"
  msgstr "стерео"
-@@ -11774,136 +11761,136 @@
+@@ -11773,136 +11761,136 @@
  msgstr "успешно"
  
  msgid "switch to the next angle"
@@ -20136,7 +21079,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid "with %d error"
-@@ -11913,40 +11900,328 @@
+@@ -11912,47 +11900,334 @@
  msgstr[2] "с %d ошибками"
  
  msgid "with errors"
@@ -20188,6 +21131,14 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "®"
  msgstr "®"
+ 
+ msgid "Blindscan"
+-msgstr "Слепое сканирование"
++msgstr "Слепой поиск"
+ 
+ msgid "Blindscan terrestrial (if possible)"
+-msgstr "Наземное слепое сканирование (по возможности)"
++msgstr "Наземный слепой поиск (по возможности)"
 +
 +# # Added for e2pc
 +msgid "GStreamer version: "
@@ -20472,710 +21423,13 @@ diff -ruN o/po/ru.po pc/po/ru.po
 +
 +msgid "Bitrate viewer"
 +msgstr "Просмотр битрейта"
-+
+ 
 +# # Plugin BouquetHotkeys
 +msgid "Bouquet Hotkeys Setup"
 +msgstr "Установка 'горячих клавиш'"
-diff -ruN o/skin.py pc/skin.py
---- o/skin.py	2021-01-12 12:27:02.000000000 +0300
-+++ pc/skin.py	2021-03-03 11:58:47.322377418 +0300
-@@ -1,20 +1,21 @@
-+from Tools.Profile import profile
-+profile("LOAD:ElementTree")
- import errno
-+import os
- import xml.etree.cElementTree
- 
-+profile("LOAD:enigma_skin")
- from enigma import addFont, eLabel, ePixmap, ePoint, eRect, eSize, eWindow, eWindowStyleManager, eWindowStyleSkinned, getDesktop, gFont, getFontFaces, gRGB
--from os.path import basename, dirname, isfile
--
- from Components.config import ConfigSubsection, ConfigText, config
- from Components.RcModel import rc_model
- from Components.Sources.Source import ObsoleteSource
- from Components.SystemInfo import SystemInfo
--from Tools.Directories import SCOPE_CONFIG, SCOPE_CURRENT_LCDSKIN, SCOPE_CURRENT_SKIN, SCOPE_FONTS, SCOPE_SKIN, SCOPE_SKIN_IMAGE, resolveFilename
-+from Tools.Directories import SCOPE_CONFIG, SCOPE_CURRENT_LCDSKIN, SCOPE_CURRENT_SKIN, SCOPE_FONTS, SCOPE_SKIN, SCOPE_SKIN_IMAGE, fileExists, resolveFilename
- from Tools.Import import my_import
- from Tools.LoadPixmap import LoadPixmap
- 
- DEFAULT_SKIN = SystemInfo["HasFullHDSkinSupport"] and "PLi-FullNightHD/skin.xml" or "PLi-HD/skin.xml"  # SD hardware is no longer supported by the default skin.
- EMERGENCY_SKIN = "skin_default/skin.xml"
--EMERGENCY_NAME = "Stone II"
- DEFAULT_DISPLAY_SKIN = "skin_default/skin_display.xml"
- USER_SKIN = "skin_user.xml"
- USER_SKIN_TEMPLATE = "skin_user_%s.xml"
-@@ -23,8 +24,9 @@
- GUI_SKIN_ID = 0  # Main frame-buffer.
- DISPLAY_SKIN_ID = 1  # Front panel / display / LCD.
- 
-+domSkins = []  # List of skins to be processed into the domScreens dictionary.
- domScreens = {}  # Dictionary of skin based screens.
--colors = {  # Dictionary of skin color names.
-+colorNames = {  # Dictionary of skin color names.
- 	"key_back": gRGB(0x00313131),
- 	"key_blue": gRGB(0x0018188b),
- 	"key_green": gRGB(0x001f771f),
-@@ -40,20 +42,6 @@
- parameters = {}  # Dictionary of skin parameters used to modify code behavior.
- setups = {}  # Dictionary of images associated with setup menus.
- switchPixmap = {}  # Dictionary of switch images.
--windowStyles = {}  # Dictionary of window styles for each screen ID.
--
--config.skin = ConfigSubsection()
--skin = resolveFilename(SCOPE_SKIN, DEFAULT_SKIN)
--if not isfile(skin):
--	print("[Skin] Error: Default skin '%s' is not readable or is not a file!  Using emergency skin." % skin)
--	DEFAULT_SKIN = EMERGENCY_SKIN
--config.skin.primary_skin = ConfigText(default=DEFAULT_SKIN)
--config.skin.display_skin = ConfigText(default=DEFAULT_DISPLAY_SKIN)
--
--currentPrimarySkin = None
--currentDisplaySkin = None
--callbacks = []
--runCallbacks = False
- 
- # Skins are loaded in order of priority.  Skin with highest priority is
- # loaded last.  This is usually the user-specified skin.  In this way
-@@ -67,89 +55,33 @@
- # SCOPE_CURRENT_LCDSKIN.  The full path is NOT saved.
- # E.g. "MySkin/skin_display.xml"
- #
--def InitSkins():
--	global currentPrimarySkin, currentDisplaySkin
--	runCallbacks = False
--	# Add the emergency skin.  This skin should provide enough functionality
--	# to enable basic GUI functions to work.
--	loadSkin(EMERGENCY_SKIN, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID)
--	# Add the subtitle skin.
--	loadSkin(SUBTITLE_SKIN, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID)
--	# Add the front panel / display / lcd skin.
--	result = []
--	for skin, name in [(config.skin.display_skin.value, "current"), (DEFAULT_DISPLAY_SKIN, "default")]:
--		if skin in result:  # Don't try to add a skin that has already failed.
--			continue
--		config.skin.display_skin.value = skin
--		if loadSkin(config.skin.display_skin.value, scope=SCOPE_CURRENT_LCDSKIN, desktop=getDesktop(DISPLAY_SKIN_ID), screenID=DISPLAY_SKIN_ID):
--			currentDisplaySkin = config.skin.display_skin.value
--			break
--		print("[Skin] Error: Adding %s display skin '%s' has failed!" % (name, config.skin.display_skin.value))
--		result.append(skin)
--	# Add the main GUI skin.
--	result = []
--	for skin, name in [(config.skin.primary_skin.value, "current"), (DEFAULT_SKIN, "default")]:
--		if skin in result:  # Don't try to add a skin that has already failed.
--			continue
--		config.skin.primary_skin.value = skin
--		if loadSkin(config.skin.primary_skin.value, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID):
--			currentPrimarySkin = config.skin.primary_skin.value
--			break
--		print("[Skin] Error: Adding %s GUI skin '%s' has failed!" % (name, config.skin.primary_skin.value))
--		result.append(skin)
--	# Add an optional skin related user skin "user_skin_<SkinName>.xml".  If there is
--	# not a skin related user skin then try to add am optional generic user skin.
--	result = None
--	if isfile(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)):
--		name = USER_SKIN_TEMPLATE % dirname(config.skin.primary_skin.value)
--		if isfile(resolveFilename(SCOPE_CURRENT_SKIN, name)):
--			result = loadSkin(name, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID)
--	if result is None:
--		loadSkin(USER_SKIN, scope=SCOPE_CURRENT_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID)
--	runCallbacks = True
-+config.skin = ConfigSubsection()
-+skin = resolveFilename(SCOPE_SKIN, DEFAULT_SKIN)
-+if not fileExists(skin) or not os.path.isfile(skin):
-+	print "[Skin] Error: Default skin '%s' is not readable or is not a file!  Using emergency skin." % skin
-+	DEFAULT_SKIN = EMERGENCY_SKIN
-+config.skin.primary_skin = ConfigText(default=DEFAULT_SKIN)
-+config.skin.display_skin = ConfigText(default=DEFAULT_DISPLAY_SKIN)
- 
- # Temporary entry point for older versions of mytest.py.
- #
--def loadSkinData(desktop):
--	InitSkins()
-+def findUserRelatedSkin():
-+	if os.path.isfile(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)):
-+		name = USER_SKIN_TEMPLATE % os.path.dirname(config.skin.primary_skin.value)
-+		if fileExists(resolveFilename(SCOPE_CURRENT_SKIN, name)):
-+			return name
-+	return None
- 
- # Method to load a skin XML file into the skin data structures.
- #
--def loadSkin(filename, scope=SCOPE_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID):
--	global windowStyles
--	filename = resolveFilename(scope, filename)
--	print("[Skin] Loading skin file '%s'." % filename)
-+def addSkin(name, scope=SCOPE_CURRENT_SKIN):
-+	global domSkins
-+	filename = resolveFilename(scope, name)
- 	try:
- 		with open(filename, "r") as fd:  # This open gets around a possible file handle leak in Python's XML parser.
- 			try:
--				domSkin = xml.etree.cElementTree.parse(fd).getroot()
--				# print("[Skin] DEBUG: Extracting non screen blocks from '%s'.  (scope='%s')" % (filename, scope))
--				# For loadSingleSkinData colors, bordersets etc. are applied one after
--				# the other in order of ascending priority.
--				loadSingleSkinData(desktop, screenID, domSkin, filename, scope=scope)
--				for element in domSkin:
--					if element.tag == "screen":  # Process all screen elements.
--						name = element.attrib.get("name", None)
--						if name:  # Without a name, it's useless!
--							scrnID = element.attrib.get("id", None)
--							if scrnID is None or scrnID == screenID:  # If there is a screen ID is it for this display.
--								# print("[Skin] DEBUG: Extracting screen '%s' from '%s'.  (scope='%s')" % (name, filename, scope))
--								domScreens[name] = (element, "%s/" % dirname(filename))
--					elif element.tag == "windowstyle":  # Process the windowstyle element.
--						scrnID = element.attrib.get("id", None)
--						if scrnID is not None:  # Without an scrnID, it is useless!
--							scrnID = int(scrnID)
--							# print("[Skin] DEBUG: Processing a windowstyle ID='%s'." % scrnID)
--							domStyle = xml.etree.cElementTree.ElementTree(xml.etree.cElementTree.Element("skin"))
--							domStyle.getroot().append(element)
--							windowStyles[scrnID] = (desktop, screenID, domStyle, filename, scope)
--					# Element is not a screen or windowstyle element so no need for it any longer.
--				reloadWindowStyles()  # Reload the window style to ensure all skin changes are taken into account.
--				print("[Skin] Loading skin file '%s' complete." % filename)
--				if runCallbacks:
--					for method in self.callbacks:
--						if method:
--							method()
-+				domSkins.append((scope, "%s/" % os.path.dirname(filename), xml.etree.cElementTree.parse(fd).getroot()))
-+				print "[Skin] Loading skin file '%s' complete." % filename
- 				return True
- 			except xml.etree.cElementTree.ParseError as err:
- 				fd.seek(0)
-@@ -170,35 +102,64 @@
- 		print("[Skin] Error: Unexpected error opening skin file '%s'! (%s)" % (filename, err))
- 	return False
- 
--def reloadSkins():
--	domScreens.clear()
--	colors.clear()
--	colors = {
--		"key_back": gRGB(0x00313131),
--		"key_blue": gRGB(0x0018188b),
--		"key_green": gRGB(0x001f771f),
--		"key_red": gRGB(0x009f1313),
--		"key_text": gRGB(0x00ffffff),
--		"key_yellow": gRGB(0x00a08500)
--	}
--	fonts.clear()
--	fonts = {
--		"Body": ("Regular", 18, 22, 16),
--		"ChoiceList": ("Regular", 20, 24, 18)
--	}
--	menus.clear()
--	parameters.clear()
--	setups.clear()
--	switchPixmap.clear()
--	InitSkins()
--
--def addCallback(callback):
--	if callback not in callbacks:
--		callbacks.append(callback)
--
--def removeCallback(callback):
--	if callback in self.callbacks:
--		callbacks.remove(callback)
-+
-+profile("LoadSkin")
-+
-+# Add an optional skin related user skin "user_skin_<SkinName>.xml".  If there is
-+# not a skin related user skin then try to add am optional generic user skin.
-+result = None
-+name = findUserRelatedSkin()
-+if name:
-+	result = addSkin(name, scope=SCOPE_CURRENT_SKIN)
-+if not name or not result:
-+	addSkin(USER_SKIN, scope=SCOPE_CURRENT_SKIN)
-+
-+# Add the main GUI skin.
-+currentPrimarySkin = None
-+result = []
-+for skin, name in [(config.skin.primary_skin.value, "current"), (DEFAULT_SKIN, "default"), (EMERGENCY_SKIN, "emergency")]:
-+	if skin in result:  # Don't try to add a skin that has already failed.
-+		continue
-+	config.skin.primary_skin.value = skin
-+	if addSkin(config.skin.primary_skin.value, scope=SCOPE_CURRENT_SKIN):
-+		currentPrimarySkin = config.skin.primary_skin.value
-+		break
-+	print "[Skin] Error: Adding %s GUI skin '%s' has failed!" % (name, config.skin.primary_skin.value)
-+	result.append(skin)
-+
-+# Add the front panel / display / lcd skin.
-+currentDisplaySkin = None
-+result = []
-+for skin, name in [(config.skin.display_skin.value, "current"), (DEFAULT_DISPLAY_SKIN, "default")]:
-+	if skin in result:  # Don't try to add a skin that has already failed.
-+		continue
-+	config.skin.display_skin.value = skin
-+	if addSkin(config.skin.display_skin.value, scope=SCOPE_CURRENT_LCDSKIN):
-+		currentDisplaySkin = config.skin.display_skin.value
-+		break
-+	print "[Skin] Error: Adding %s display skin '%s' has failed!" % (name, config.skin.display_skin.value)
-+	result.append(skin)
-+
-+# Add an optional adjustment skin as some boxes lie about their dimensions.
-+# addSkin(BOX_SKIN, scope=SCOPE_CURRENT_SKIN)
-+
-+# Add an optional discrete second infobar skin.
-+# addSkin(SECOND_INFOBAR_SKIN, scope=SCOPE_CURRENT_SKIN)
-+
-+# Add the subtitle skin.
-+addSkin(SUBTITLE_SKIN, scope=SCOPE_CURRENT_SKIN)
-+
-+# Add the emergency skin.  This skin should provide enough functionality
-+# to enable basic GUI functions to work.
-+if config.skin.primary_skin.value != EMERGENCY_SKIN:
-+	addSkin(EMERGENCY_SKIN, scope=SCOPE_CURRENT_SKIN)
-+
-+# Remove global working variables.
-+del skin
-+del name
-+del result
-+
-+profile("LoadSkinDefaultDone")
- 
- 
- class SkinError(Exception):
-@@ -332,13 +293,13 @@
- def parseColor(s):
- 	if s[0] != "#":
- 		try:
--			return colors[s]
-+			return colorNames[s]
- 		except KeyError:
- 			raise SkinError("Color '%s' must be #aarrggbb or valid named color" % s)
- 	return gRGB(int(s[1:], 0x10))
- 
- def parseParameter(s):
--	"""This function is responsible for parsing parameters in the skin, it can parse integers, floats, hex colors, hex integers, named colors, fonts and strings."""
-+	"""This function is responsible for parsing parameters in the skin, it can parse integers, floats, hex colors, hex integers, named colors and strings."""
- 	if s[0] == "*":  # String.
- 		return s[1:]
- 	elif s[0] == "#":  # HEX Color.
-@@ -347,25 +308,11 @@
- 		return int(s, 16)
- 	elif "." in s:  # Float number.
- 		return float(s)
--	elif s in colors:  # Named color.
--		return colors[s].argb()
--	elif s.find(";") != -1:  # Font.
--		font, size = [x.strip() for x in s.split(";", 1)]
--		return [font, int(size)]
-+	elif s in colorNames:
-+		return colorNames[s].argb()
- 	else:  # Integer.
- 		return int(s)
- 
--def loadPixmap(path, desktop):
--	option = path.find("#")
--	if option != -1:
--		path = path[:option]
--	if rc_model.rcIsDefault() is False and basename(path) in ("rc.png", "rc0.png", "rc1.png", "rc2.png", "oldrc.png"):
--		path = rc_model.getRcImg()
--	pixmap = LoadPixmap(path, desktop)
--	if pixmap is None:
--		raise SkinError("Pixmap file '%s' not found" % path)
--	return pixmap
--
- def collectAttributes(skinAttributes, node, context, skinPath=None, ignore=(), filenames=frozenset(("pixmap", "pointer", "seek_pointer", "backgroundPixmap", "selectionPixmap", "sliderPixmap", "scrollbarSliderPicture", "scrollbarbackgroundPixmap", "scrollbarBackgroundPicture"))):
- 	size = None
- 	pos = None
-@@ -396,6 +343,22 @@
- 	if size is not None:
- 		skinAttributes.append(("size", size))
- 
-+def morphRcImagePath(value):
-+	if rc_model.rcIsDefault() is False:
-+		if value in ("/usr/share/enigma2/skin_default/rc.png", "/usr/share/enigma2/skin_default/rcold.png"):  # OpenPLi version.
-+			value = rc_model.getRcImg()
-+		# if ("rc.png" or "oldrc.png") in value:  # OpenViX version.
-+		# 	value = "%src.png" % rc_model.getRcLocation()
-+	return value
-+
-+def loadPixmap(path, desktop):
-+	option = path.find("#")
-+	if option != -1:
-+		path = path[:option]
-+	ptr = LoadPixmap(morphRcImagePath(path), desktop)
-+	if ptr is None:
-+		raise SkinError("Pixmap file '%s' not found" % path)
-+	return ptr
- 
- class AttributeParser:
- 	def __init__(self, guiObject, desktop, scale=((1, 1), (1, 1))):
-@@ -424,10 +387,16 @@
- 		pass
- 
- 	def position(self, value):
--		self.guiObject.move(ePoint(*value) if isinstance(value, tuple) else parsePosition(value, self.scaleTuple, self.guiObject, self.desktop, self.guiObject.csize()))
-+		if isinstance(value, tuple):
-+			self.guiObject.move(ePoint(*value))
-+		else:
-+			self.guiObject.move(parsePosition(value, self.scaleTuple, self.guiObject, self.desktop, self.guiObject.csize()))
- 
- 	def size(self, value):
--		self.guiObject.resize(eSize(*value) if isinstance(value, tuple) else parseSize(value, self.scaleTuple, self.guiObject, self.desktop))
-+		if isinstance(value, tuple):
-+			self.guiObject.resize(eSize(*value))
-+		else:
-+			self.guiObject.resize(parseSize(value, self.scaleTuple, self.guiObject, self.desktop))
- 
- 	def animationPaused(self, value):
- 		pass
-@@ -468,25 +437,32 @@
- 		self.guiObject.setItemHeight(int(value))
- 
- 	def pixmap(self, value):
--		self.guiObject.setPixmap(loadPixmap(value, self.desktop))
-+		ptr = loadPixmap(value, self.desktop)
-+		self.guiObject.setPixmap(ptr)
- 
- 	def backgroundPixmap(self, value):
--		self.guiObject.setBackgroundPicture(loadPixmap(value, self.desktop))
-+		ptr = loadPixmap(value, self.desktop)
-+		self.guiObject.setBackgroundPicture(ptr)
- 
- 	def selectionPixmap(self, value):
--		self.guiObject.setSelectionPicture(loadPixmap(value, self.desktop))
-+		ptr = loadPixmap(value, self.desktop)
-+		self.guiObject.setSelectionPicture(ptr)
- 
- 	def sliderPixmap(self, value):
--		self.guiObject.setSliderPicture(loadPixmap(value, self.desktop))
-+		ptr = loadPixmap(value, self.desktop)
-+		self.guiObject.setSliderPicture(ptr)
- 
- 	def scrollbarbackgroundPixmap(self, value):
--		self.guiObject.setScrollbarBackgroundPicture(loadPixmap(value, self.desktop))
-+		ptr = loadPixmap(value, self.desktop)
-+		self.guiObject.setScrollbarBackgroundPicture(ptr)
- 
- 	def scrollbarSliderPicture(self, value):  # For compatibility same as sliderPixmap.
--		self.guiObject.setSliderPicture(loadPixmap(value, self.desktop))
-+		ptr = loadPixmap(value, self.desktop)
-+		self.guiObject.setSliderPicture(ptr)
- 
- 	def scrollbarBackgroundPicture(self, value):  # For compatibility same as scrollbarbackgroundPixmap.
--		self.guiObject.setScrollbarBackgroundPicture(loadPixmap(value, self.desktop))
-+		ptr = loadPixmap(value, self.desktop)
-+		self.guiObject.setScrollbarBackgroundPicture(ptr)
- 
- 	def alphatest(self, value):
- 		try:
-@@ -660,18 +636,17 @@
- def applyAllAttributes(guiObject, desktop, attributes, scale):
- 	AttributeParser(guiObject, desktop, scale).applyAll(attributes)
- 
--def reloadWindowStyles():
--	for screenID in windowStyles:
--		desktop, screenID, domSkin, pathSkin, scope = windowStyles[screenID]
--		loadSingleSkinData(desktop, screenID, domSkin, pathSkin, scope)
--
--def loadSingleSkinData(desktop, screenID, domSkin, pathSkin, scope=SCOPE_CURRENT_SKIN):
-+def loadSingleSkinData(desktop, domSkin, pathSkin, scope=SCOPE_CURRENT_SKIN):
- 	"""Loads skin data like colors, windowstyle etc."""
- 	assert domSkin.tag == "skin", "root element in skin must be 'skin'!"
--	global colors, fonts, menus, parameters, setups, switchPixmap
-+	global colorNames, fonts, menus, parameters, setups, switchPixmap
- 	for tag in domSkin.findall("output"):
--		scrnID = int(tag.attrib.get("id", GUI_SKIN_ID))
--		if scrnID == GUI_SKIN_ID:
-+		id = tag.attrib.get("id")
-+		if id:
-+			id = int(id)
-+		else:
-+			id = GUI_SKIN_ID
-+		if id == GUI_SKIN_ID:
- 			for res in tag.findall("resolution"):
- 				xres = res.attrib.get("xres")
- 				xres = int(xres) if xres else 720
-@@ -747,8 +722,9 @@
- 		filename = tag.attrib.get("filename")
- 		if filename:
- 			filename = resolveFilename(scope, filename, path_prefix=pathSkin)
--			if isfile(filename):
--				loadSkin(filename, scope=scope, desktop=desktop, screenID=screenID)
-+			if fileExists(filename):
-+				print("[Skin] Loading included file '%s'." % filename)
-+				loadSkin(filename, desktop=desktop, scope=scope)
- 			else:
- 				raise SkinError("Included file '%s' not found" % filename)
- 	for tag in domSkin.findall("switchpixmap"):
-@@ -760,7 +736,7 @@
- 			if not filename:
- 				raise SkinError("Pixmap needs filename attribute")
- 			resolved = resolveFilename(scope, filename, path_prefix=pathSkin)
--			if isfile(resolved):
-+			if fileExists(resolved):
- 				switchPixmap[name] = LoadPixmap(resolved, cached=True)
- 			else:
- 				raise SkinError("The switchpixmap pixmap filename='%s' (%s) not found" % (filename, resolved))
-@@ -769,7 +745,7 @@
- 			name = color.attrib.get("name")
- 			color = color.attrib.get("value")
- 			if name and color:
--				colors[name] = parseColor(color)
-+				colorNames[name] = parseColor(color)
- 				# print("[Skin] DEBUG: Color name='%s', color='%s'." % (name, color))
- 			else:
- 				raise SkinError("Tag 'color' needs a name and color, got name='%s' and color='%s'" % (name, color))
-@@ -786,14 +762,11 @@
- 			else:
- 				render = 0
- 			filename = resolveFilename(SCOPE_FONTS, filename, path_prefix=pathSkin)
--			if isfile(filename):
--				addFont(filename, name, scale, isReplacement, render)
-+			addFont(filename, name, scale, isReplacement, render)
- 				# Log provided by C++ addFont code.
- 				# print("[Skin] Add font: Font path='%s', name='%s', scale=%d, isReplacement=%s, render=%d." % (filename, name, scale, isReplacement, render))
--			else:
--				raise SkinError("Font file '%s' not found" % filename)
- 		fallbackFont = resolveFilename(SCOPE_FONTS, "fallback.font", path_prefix=pathSkin)
--		if isfile(fallbackFont):
-+		if fileExists(fallbackFont):
- 			addFont(fallbackFont, "Fallback", 100, -1, 0)
- 		# else:  # As this is optional don't raise an error.
- 		# 	raise SkinError("Fallback font '%s' not found" % fallbackFont)
-@@ -813,7 +786,7 @@
- 			try:
- 				name = parameter.attrib.get("name")
- 				value = parameter.attrib.get("value")
--				parameters[name] = map(parseParameter, [x.strip() for x in value.split(",")]) if "," in value else parseParameter(value)
-+				parameters[name] = "," in value and map(parseParameter, value.split(",")) or parseParameter(value)
- 			except Exception as err:
- 				raise SkinError("Bad parameter: '%s'" % str(err))
- 	for tag in domSkin.findall("menus"):
-@@ -860,7 +833,11 @@
- 			eSubtitleWidget.setFontStyle(face, font, haveColor, foregroundColor, borderColor, borderWidth)
- 	for tag in domSkin.findall("windowstyle"):
- 		style = eWindowStyleSkinned()
--		scrnID = int(tag.attrib.get("id", GUI_SKIN_ID))
-+		styleId = tag.attrib.get("id")
-+		if styleId:
-+			styleId = int(styleId)
-+		else:
-+			styleId = GUI_SKIN_ID
- 		font = gFont("Regular", 20)  # Default
- 		offset = eSize(20, 5)  # Default
- 		for title in tag.findall("title"):
-@@ -876,10 +853,7 @@
- 				filename = pixmap.attrib.get("filename")
- 				if filename and bpName:
- 					png = loadPixmap(resolveFilename(scope, filename, path_prefix=pathSkin), desktop)
--					try:
--						style.setPixmap(eWindowStyleSkinned.__dict__[bsName], eWindowStyleSkinned.__dict__[bpName], png)
--					except Exception:
--						pass
-+					style.setPixmap(eWindowStyleSkinned.__dict__[bsName], eWindowStyleSkinned.__dict__[bpName], png)
- 				# print("[Skin] DEBUG: WindowStyle borderset name, filename - '%s' '%s'." % (bpName, filename))
- 		for color in tag.findall("color"):
- 			colorType = color.attrib.get("name")
-@@ -890,9 +864,13 @@
- 				raise SkinError("Unknown color type '%s'" % colorType)
- 			# print("[Skin] DEBUG: WindowStyle color type, color -" % (colorType, str(color)))
- 		x = eWindowStyleManager.getInstance()
--		x.setStyle(scrnID, style)
-+		x.setStyle(styleId, style)
- 	for tag in domSkin.findall("margin"):
--		scrnID = int(tag.attrib.get("id", GUI_SKIN_ID))
-+		styleId = tag.attrib.get("id")
-+		if styleId:
-+			styleId = int(styleId)
-+		else:
-+			styleId = GUI_SKIN_ID
- 		r = eRect(0, 0, 0, 0)
- 		v = tag.attrib.get("left")
- 		if v:
-@@ -908,8 +886,75 @@
- 			r.setBottom(int(v))
- 		# The "desktop" parameter is hard-coded to the GUI screen, so we must ask
- 		# for the one that this actually applies to.
--		getDesktop(scrnID).setMargins(r)
-+		getDesktop(styleId).setMargins(r)
-+
-+# Now a utility for plugins to add skin data to the screens.
-+#
-+def loadSkin(filename, desktop=None, scope=SCOPE_SKIN, override=False):
-+	global domScreens
-+	filename = resolveFilename(scope, filename)
-+	try:
-+		# This open gets around a possible file handle leak in Python's XML parser.
-+		with open(filename, "r") as fd:
-+			try:
-+				domSkin = xml.etree.cElementTree.parse(fd).getroot()
-+				if desktop is not None:
-+					loadSingleSkinData(desktop, domSkin, filename, scope=scope)
-+				for element in domSkin:
-+					name = evaluateElement(element, DISPLAY_SKIN_ID)
-+					if name is None:
-+						element.clear()
-+					elif name not in domScreens:
-+						domScreens[name] = (element, "%s/" % os.path.dirname(filename))
-+						print "[Skin] Load skin screen name '%s' added to the skin." % name
-+					elif override:
-+						domScreens[name] = (element, "%s/" % os.path.dirname(filename))
-+						print "[Skin] Load skin screen name '%s' replacing existing screen in the skin." % name
-+					else:
-+						print "[Skin] Load skin screen name '%s' already exists in the skin and has been skipped." % name
-+			except xml.etree.cElementTree.ParseError as err:
-+				fd.seek(0)
-+				content = fd.readlines()
-+				line, column = err.position
-+				print "[Skin] XML Parse Error: '%s' in '%s'!" % (err, filename)
-+				data = content[line - 1].replace("\t", " ").rstrip()
-+				print "[Skin] XML Parse Error: '%s'" % data
-+				print "[Skin] XML Parse Error: '%s^%s'" % ("-" * column, " " * (len(data) - column - 1))
-+			except Exception as err:
-+				print "[Skin] Error: Unable to parse skin data in '%s' - '%s'!" % (filename, err)
-+	except (IOError, OSError) as err:
-+		if err.errno == errno.ENOENT:  #  No such file or directory
-+			print "[Skin] Warning: Skin file '%s' does not exist!" % filename
-+		else:
-+			print "[Skin] Error %d: Opening skin file '%s'! (%s)" % (err.errno, filename, err.strerror)
-+	except Exception as err:
-+		print "[Skin] Error: Unexpected error opening skin file '%s'! (%s)" % (filename, err)
- 
-+# Kinda hackish, but this is called once by mytest.py.
-+#
-+def loadSkinData(desktop):
-+	global domSkins
-+	skins = domSkins[:]
-+	skins.reverse()
-+	for (scope, pathSkin, domSkin) in skins:
-+		loadSingleSkinData(desktop, domSkin, pathSkin, scope=scope)
-+		for element in domSkin:
-+			name = evaluateElement(element, DISPLAY_SKIN_ID)
-+			if name is None:
-+				element.clear()
-+			else:
-+				domScreens[name] = (element, pathSkin)
-+	# No longer needed, we know where the screens are now.
-+	del domSkins
-+
-+def evaluateElement(element, screenID):
-+	if element.tag == "screen":  # If non-screen element, no need for it any longer.
-+		name = element.attrib.get("name", None)
-+		if name:  # Without a name, it's useless!
-+			screenID = element.attrib.get("id", None)
-+			if not screenID or (screenID == screenID):  # If for this display.
-+				return name
-+	return None
- 
- class additionalWidget:
- 	def __init__(self):
-@@ -1015,26 +1060,14 @@
- 	for n in names:  # Try all skins, first existing one has priority.
- 		myScreen, path = domScreens.get(n, (None, None))
- 		if myScreen is not None:
--			if screen.mandatoryWidgets is None:
--				screen.mandatoryWidgets = []
--			else:
--				widgets = findWidgets(n)
--			if screen.mandatoryWidgets == [] or all(item in widgets for item in screen.mandatoryWidgets):
--				name = n  # Use this name for debug output.
--				break
--			else:
--				print("[Skin] Warning: Skin screen '%s' rejected as it does not offer all the mandatory widgets '%s'!" % (n, ", ".join(screen.mandatoryWidgets)))
--				myScreen = None
-+			name = n  # Use this name for debug output.
-+			break
- 	else:
- 		name = "<embedded-in-%s>" % screen.__class__.__name__
- 	if myScreen is None:  # Otherwise try embedded skin.
- 		myScreen = getattr(screen, "parsedSkin", None)
- 	if myScreen is None and getattr(screen, "skin", None):  # Try uncompiled embedded skin.
--		if isinstance(screen.skin, list):
--			print("[Skin] Resizable embedded skin template found in '%s'." % name)
--			skin = screen.skin[0] % tuple([int(x * getSkinFactor()) for x in screen.skin[1:]])
--		else:
--			skin = screen.skin
-+		skin = screen.skin
- 		print("[Skin] Parsing embedded skin '%s'." % name)
- 		if isinstance(skin, tuple):
- 			for s in skin:
-@@ -1104,8 +1137,8 @@
- 				source = scr.get(path[0])  # Resolve the source.
- 				if isinstance(source, ObsoleteSource):
- 					# If we found an "obsolete source", issue warning, and resolve the real source.
--					print("[Skin] WARNING: SKIN '%s' USES OBSOLETE SOURCE '%s', USE '%s' INSTEAD!" % (name, wsource, source.newSource))
--					print("[Skin] OBSOLETE SOURCE WILL BE REMOVED %s, PLEASE UPDATE!" % source.removalDate)
-+					print("[Skin] WARNING: SKIN '%s' USES OBSOLETE SOURCE '%s', USE '%s' INSTEAD!" % (name, wsource, source.new_source))
-+					print("[Skin] OBSOLETE SOURCE WILL BE REMOVED %s, PLEASE UPDATE!" % source.removal_date)
- 					if source.description:
- 						print("[Skin] Source description: '%s'." % source.description)
- 					wsource = source.new_source
-@@ -1125,10 +1158,7 @@
- 				except Exception:
- 					parms = ""
- 				# print("[Skin] DEBUG: Params='%s'." % parms)
--				try:
--					converterClass = my_import(".".join(("Components", "Converter", ctype))).__dict__.get(ctype)
--				except ImportError:
--					raise SkinError("Converter '%s' not found" % ctype)
-+				converterClass = my_import(".".join(("Components", "Converter", ctype))).__dict__.get(ctype)
- 				c = None
- 				for i in source.downstream_elements:
- 					if isinstance(i, converterClass) and i.converter_arguments == parms:
-@@ -1137,10 +1167,7 @@
- 					c = converterClass(parms)
- 					c.connect(source)
- 				source = c
--			try:
--				rendererClass = my_import(".".join(("Components", "Renderer", wrender))).__dict__.get(wrender)
--			except ImportError:
--				raise SkinError("Renderer '%s' not found" % wrender)
-+			rendererClass = my_import(".".join(("Components", "Renderer", wrender))).__dict__.get(wrender)
- 			renderer = rendererClass()  # Instantiate renderer.
- 			renderer.connect(source)  # Connect to source.
- 			attributes = renderer.skinAttributes = []
-@@ -1238,41 +1265,11 @@
- 	screen = None
- 	usedComponents = None
- 
--# Return a set of all the widgets found in a screen. Panels will be expanded
--# recursively until all referenced widgets are captured. This code only performs
--# a simple scan of the XML and no skin processing is performed.
--#
--def findWidgets(name):
--	widgetSet = set()
--	element, path = domScreens.get(name, (None, None))
--	if element is not None:
--		widgets = element.findall("widget")
--		if widgets is not None:
--			for widget in widgets:
--				name = widget.get("name", None)
--				if name is not None:
--					widgetSet.add(name)
--				source = widget.get("source", None)
--				if source is not None:
--					widgetSet.add(source)
--		panels = element.findall("panel")
--		if panels is not None:
--			for panel in panels:
--				name = panel.get("name", None)
--				if name:
--					widgetSet.update(findWidgets(name))
--	return widgetSet
--
- # Return a scaling factor (float) that can be used to rescale screen displays
- # to suit the current resolution of the screen.  The scales are based on a
- # default screen resolution of HD (720p).  That is the scale factor for a HD
- # screen will be 1.
- #
--def getSkinFactor():
--	skinfactor = getDesktop(GUI_SKIN_ID).size().height() / 720.0
--	# if skinfactor not in [0.8, 1, 1.5, 3, 6]:
--	# 	print("[Skin] Warning: Unexpected result for getSkinFactor '%0.4f'!" % skinfactor)
--	return skinfactor
- 
- # Search the domScreens dictionary to see if any of the screen names provided
- # have a skin based screen.  This will allow coders to know if the named
 diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 --- o/tools/enigma2.sh.in	2021-01-12 12:27:02.000000000 +0300
-+++ pc/tools/enigma2.sh.in	2021-03-03 11:58:47.323377440 +0300
++++ pc/tools/enigma2.sh.in	2021-04-01 10:54:45.317122922 +0300
 @@ -1,144 +1,37 @@
  #!/bin/sh
  
