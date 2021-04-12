@@ -52,6 +52,17 @@ if [[ "$release" = "14.04" ]]; then
 	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc \
 	python-yenc python-gdata python-demjson python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev swig2.0 \
 	"
+	if [[ $(uname -m) = "i686" ]]; then
+		echo "Your system is 32-bit"
+		wget https://ftp.fau.de/ubuntu/ubuntu/pool/main/g/giflib/libgif7_5.1.9-2_i386.deb
+		wget https://ftp.fau.de/ubuntu/ubuntu/pool/main/g/giflib/libgif-dev_5.1.9-2_i386.deb
+	else
+		echo "Your system is 64-bit"
+		wget http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif7_5.1.4-2_amd64.deb
+		wget http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif-dev_5.1.4-2_amd64.deb
+	fi
+	dpkg -i *.deb
+	rm -f *.deb
 elif [[ "$release" = "16.04" ]]; then
 	echo ""
 	echo "********************************************************"

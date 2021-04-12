@@ -164,10 +164,8 @@ if [ "$release" = "14.04" ]; then
 	echo ""
 	export CXX=/usr/bin/g++-8
 	cp -fv patches/patch-3d3f0d3c-to-PC.patch $PKG
-	cp -fv patches/ubuntu-14.04.patch $PKG
 	cd $PKG
 	patch -p1 < patch-3d3f0d3c-to-PC.patch
-	patch -p1 < ubuntu-14.04.patch
 elif [ "$release" = "16.04" ]; then
 	echo ""
 	echo "********************************************************"
