@@ -5858,8 +5858,8 @@ diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 +/* end of post.h */
 diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 --- o/lib/gdi/xineLib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.cpp	2021-04-01 10:54:11.311137835 +0300
-@@ -0,0 +1,948 @@
++++ pc/lib/gdi/xineLib.cpp	2021-04-15 22:58:58.903506209 +0300
+@@ -0,0 +1,947 @@
 +#include <fstream>
 +#include <lib/gdi/xineLib.h>
 +#include <lib/base/eenv.h>
@@ -6135,10 +6135,9 @@ diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 +cXineLib::~cXineLib() {
 +	instance = 0;
 +
-+	if (m_state == stRunning)
++	if (stream) {
 +		xine_stop(stream);
 +
-+	if (stream) {
 +		if (this->postplugins)
 +			rewire_posts_unload();
 +
