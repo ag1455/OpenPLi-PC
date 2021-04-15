@@ -176,6 +176,7 @@ if [ -d plugins ]; then
 		cd ../..
 		cp -fv patches/SystemTools.patch plugins/e2openplugin/e2openplugin-SystemTools
 		cd plugins/e2openplugin/e2openplugin-SystemTools
+		git checkout 7b12408f
 		patch -p1 < SystemTools.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
@@ -282,6 +283,7 @@ if [ -d plugins ]; then
 		cd ../..
 		cp -fv patches/SnmpAgent.patch plugins/e2openplugin/e2openplugin-SnmpAgent
 		cd plugins/e2openplugin/e2openplugin-SnmpAgent
+		git checkout 31dd52b4
 		patch -p1 < SnmpAgent.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install

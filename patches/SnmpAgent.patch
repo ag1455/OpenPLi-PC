@@ -1,6 +1,6 @@
-diff -ruN b/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po a/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po
---- b/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po	1970-01-01 03:00:00.000000000 +0300
-+++ a/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po	2018-08-19 15:52:50.294372554 +0300
+diff -ruN o/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po pc/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po
+--- o/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po	1970-01-01 03:00:00.000000000 +0300
++++ pc/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po	2021-04-15 19:12:19.731583882 +0300
 @@ -0,0 +1,114 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -116,10 +116,10 @@ diff -ruN b/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po a/plugin/locale/ru/LC_MESS
 +#: plugin.py:1030
 +msgid "SNMP Agent for Enigma2"
 +msgstr "Агент SNMP для Enigma2"
-diff -ruN b/plugin/plugin.py a/plugin/plugin.py
---- b/plugin/plugin.py	2018-08-19 15:52:03.195369375 +0300
-+++ a/plugin/plugin.py	2018-08-19 15:53:11.385373978 +0300
-@@ -355,7 +355,7 @@
+diff -ruN o/plugin/plugin.py pc/plugin/plugin.py
+--- o/plugin/plugin.py	2021-04-15 19:11:38.469580740 +0300
++++ pc/plugin/plugin.py	2021-04-15 19:12:19.732583882 +0300
+@@ -357,7 +357,7 @@
  	def timerPoll(self):
  		data = ''
  		try:
