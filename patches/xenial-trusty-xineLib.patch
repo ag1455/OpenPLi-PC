@@ -1,0 +1,17 @@
+--- o/lib/gdi/xineLib.cpp	2021-01-22 20:09:26.871352900 +0300
++++ pc/lib/gdi/xineLib.cpp	2021-01-22 20:13:51.935656021 +0300
+@@ -734,13 +734,9 @@
+ 
+ RESULT cXineLib::getPTS(pts_t &pts) {
+ 	pts_t* last_pts_l = (pts_t*)(intptr_t)vo_port->get_property(vo_port, VO_PROP_LAST_PTS);
+-
+-/*	pts = *last_pts_l; // segfault
++	pts = *last_pts_l;
+ 	if (pts != 0)
+ 		return 0;
+-	return -1;*/
+-	if (last_pts_l != 0) // gag!
+-		return 0;
+ 	return -1;
+ }
+ 

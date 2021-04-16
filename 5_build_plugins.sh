@@ -52,79 +52,64 @@ if [ -d plugins ]; then
 	fi
 
 	cd plugins/enigma2-plugins
-	make distclean
 
 	# Build enigma2 cpp plugins:
 	if [ -d servicemp3 ]; then
 		rm -rf servicemp3
 	fi
+
 	git clone https://github.com/OpenPLi/servicemp3.git
 	cd ../..
+	cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+	cd plugins/enigma2-plugins/servicemp3
+	git checkout a84cd6ed
+	patch -p1 < servicemp3.patch
+	cd ..
 
 	if [[ "$release" = "14.04" ]]; then
-		echo "-----------------------------------------"
-		echo "         *** release 14.04 ***           "
-		echo "-----------------------------------------"
+		echo ""
+		echo "**************************************"
+		echo "         *** release 14.04 ***"
+		echo "          *** used g++-8 ***"
+		echo "**************************************"
+		echo ""
 		export CXX=/usr/bin/g++-8
-		echo ""
-		echo "                  *** used g++-8 ***"
-		echo ""
-		cp -fv patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
-		cd plugins/enigma2-plugins/servicemp3
-		git checkout a84cd6ed
-		patch -p1 < servicemp3-0.patch
 	elif [[ "$release" = "16.04" ]]; then
-		echo "-----------------------------------------"
-		echo "         *** release 16.04 ***           "
-		echo "-----------------------------------------"
+		echo ""
+		echo "**************************************"
+		echo "         *** release 16.04 ***"
+		echo "          *** used g++-8 ***"
+		echo "**************************************"
 		echo ""
 		export CXX=/usr/bin/g++-8
-		echo "                  *** used g++-8 ***"
-		echo ""
-		cp -fv patches/servicemp3-0.patch plugins/enigma2-plugins/servicemp3
-		cd plugins/enigma2-plugins/servicemp3
-		git checkout a84cd6ed
-		patch -p1 < servicemp3-0.patch
 	elif [[ "$release" = "18.04" ]]; then
-		echo "-----------------------------------------"
-		echo "         *** release 18.04 ***           "
-		echo "-----------------------------------------"
+		echo ""
+		echo "**************************************"
+		echo "         *** release 18.04 ***"
+		echo "          *** used g++-8 ***"
+		echo "**************************************"
 		echo ""
 		export CXX=/usr/bin/g++-8
-		echo "                  *** used g++-8 ***"
-		echo ""
-		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
-		cd plugins/enigma2-plugins/servicemp3
-		git checkout a84cd6ed
-		patch -p1 < servicemp3.patch
 	elif [[ "$release" = "20.04" ]]; then
-		echo "-----------------------------------------"
-		echo "         *** release 20.04 ***           "
-		echo "-----------------------------------------"
+		echo ""
+		echo "**************************************"
+		echo "         *** release 20.04 ***"
+		echo "          *** used g++-9 ***"
+		echo "**************************************"
 		echo ""
 		export CXX=/usr/bin/g++-9
-		echo "                  *** used g++-9 ***"
-		echo ""
-		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
-		cd plugins/enigma2-plugins/servicemp3
-		git checkout a84cd6ed
-		patch -p1 < servicemp3.patch
 	elif [[ "$release" = "20.10" ]]; then
-		echo "-----------------------------------------"
-		echo "         *** release 20.10 ***           "
-		echo "-----------------------------------------"
 		echo ""
-		export CXX=/usr/bin/g++-10
-		echo "                  *** used g++-10 ***"
+		echo "**************************************"
+		echo "         *** release 20.10 ***"
+		echo "          *** used g++-10 ***"
+		echo "**************************************"
 		echo ""
-		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
+		cd ../..
 		cp -fv pre/include/rpc/* /usr/include/rpc
-		cd plugins/enigma2-plugins/servicemp3
-		git checkout a84cd6ed
-		patch -p1 < servicemp3.patch
+		cd plugins/enigma2-plugins
+		export CXX=/usr/bin/g++-10
 	fi
-
-	cd ..
 
 	#autoupdate
 	autoreconf -i

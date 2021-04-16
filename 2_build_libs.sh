@@ -10,9 +10,9 @@ echo "********************************************************"
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
 REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-essential checkinstall chrpath cmake coreutils cvs debhelper desktop-file-utils docbook-utils \
-	diffstat dvb-apps dvdbackup ethtool fakeroot flex ffmpeg gawk gettext git help2man linux-headers-`uname -r` libdvdnav-dev libfreetype6-dev libfribidi-dev \
+	diffstat dvb-apps dvdbackup ethtool fakeroot flex ffmpeg gawk gettext git help2man linux-headers-`uname -r` libdvdnav-dev libfreetype6-dev libfribidi-dev libsigc++-2.0-dev \
 	libpcsclite-dev libjpeg8-dev libgif-dev libjpeg-turbo8-dev libgiftiio0 libaio-dev libxinerama-dev libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev \
-	libgtk2.0-dev libtool libtool-bin libxml2-dev libxml2-utils libxslt1-dev libssl-dev libvdpau-dev libcdio-dev libcrypto++-dev libudf-dev libvcdinfo-dev libusb-1.0-0-dev \
+	libgtk2.0-dev libtool libxml2-dev libxml2-utils libxslt1-dev libssl-dev libvdpau-dev libcdio-dev libcrypto++-dev libudf-dev libvcdinfo-dev libusb-1.0-0-dev \
 	libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev \
 	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libdirectfb-dev libmagickwand-dev \
 	libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 libglib2.0-dev \
@@ -48,9 +48,9 @@ if [[ "$release" = "14.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libsigc++-1.2-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev \
-	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc \
-	python-yenc python-gdata python-demjson python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev swig2.0 \
+	REQPKG="flake gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev mock python-flickrapi python-lzma \
+	python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen \
+	python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev swig2.0 \
 	"
 	if [[ $(uname -m) = "i686" ]]; then
 		echo "Your system is 32-bit"
@@ -73,12 +73,11 @@ elif [[ "$release" = "16.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libesd0-dev libpng12-dev libsigc++-1.2-dev libva-glx1 libva-dev libqt5gstreamer-dev libupnp6-dev \
-	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-cryptodome \
-	python-pickleshare python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata \
-	python-demjson python-mutagen python-ipaddr python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.httpdomain python-dev \
-	pylint python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj python-future \
-	python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig2.0 yamllint \
+	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libtool-bin libesd0-dev libpng12-dev libva-glx1 libva-dev libqt5gstreamer-dev libupnp6-dev mock python-flickrapi \
+	python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-cryptodome python-pickleshare python-service-identity python-certifi \
+	python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen python-ipaddr python-urllib3 python-sphinx-rtd-theme \
+	python-sphinx python-sphinxcontrib.httpdomain python-dev pylint python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj \
+	python-future python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -86,12 +85,12 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "                 *** release 18.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev libupnp6-dev libvdpau1 libvdpau-va-gl1 \
-	mock python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome \
-	python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata \
-	python-demjson python-mutagen python-ipaddr python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.websupport python-sphinxcontrib.httpdomain python-dev \
-	pylint python-incremental python-sabyenc python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj python-future \
-	python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig yamllint \
+	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev libupnp6-dev libvdpau1 libvdpau-va-gl1 mock python-flickrapi \
+	python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
+	python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen python-ipaddr \
+	python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.websupport python-sphinxcontrib.httpdomain python-dev pylint python-incremental python-sabyenc python-requests \
+	python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj python-future python-openssl python-twisted python-twisted-core python-twisted-bin \
+	python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig yamllint \
 	"
 elif [[ "$release" = "20.04" ]]; then
 	echo ""
@@ -99,7 +98,6 @@ elif [[ "$release" = "20.04" ]]; then
 	echo "                 *** release 20.04 ***                  "
 	echo "********************************************************"
 	echo ""
-
 	# Add new repositories
 	if [ ! -f /etc/apt/sources.list.d/oibaf-ubuntu-graphics-drivers-focal.list ]; then
 		add-apt-repository -y ppa:oibaf/graphics-drivers
@@ -113,12 +111,11 @@ elif [[ "$release" = "20.04" ]]; then
 		echo "            *** Packages already updated. ***"
 		echo "********************************************************"
 	fi
-
-	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python-pycryptodome \
-	python-pycryptodome pycodestyle python-service-identity python-certifi python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface \
-	python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python-pyflakes \
-	python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-attr \
-	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
+	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python-pycryptodome python-pycryptodome \
+	pycodestyle python-service-identity python-certifi python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface python-chardet python-docutils \
+	python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python-pyflakes python3-flickrapi python3-demjson \
+	python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-attr sphinx-rtd-theme-common libupnp-dev libvdpau1 \
+	libvdpau-va-gl1 swig swig3.0 yamllint \
 	"
 # Download 2.7 paskages
 	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
@@ -157,7 +154,6 @@ elif [[ "$release" = "20.10" ]]; then
 	echo "                 *** release 20.10 ***                  "
 	echo "********************************************************"
 	echo ""
-
 	# Add new repositories
 #	if [ ! -f /etc/apt/sources.list.d/oibaf-ubuntu-graphics-drivers-groovy.list ]; then
 #		add-apt-repository -y ppa:oibaf/graphics-drivers
@@ -171,12 +167,10 @@ elif [[ "$release" = "20.10" ]]; then
 		echo "            *** Packages already updated. ***"
 		echo "********************************************************"
 	fi
-
-	REQPKG="flake8 gcc-10 g++-10 libssl1.1 libsdl2-dev libpng-dev libsigc++-2.0-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev python2-dev pycodestyle \
-	python-service-identity python2-dev python-dev-is-python2 python-automat python-hyperlink python-zope.interface python-pygments python-roman \
-	python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python-pbr python3-flickrapi python3-demjson python3-mechanize \
-	python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-is-python2 sphinx-rtd-theme-common libupnp-dev \
-	libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
+	REQPKG="flake8 gcc-10 g++-10 libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev python2-dev pycodestyle python-service-identity \
+	python2-dev python-dev-is-python2 python-automat python-hyperlink python-zope.interface python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib \
+	python3-transmissionrpc python3-sabyenc python-pbr python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 \
+	pylint python-ipaddress python-is-python2 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
 	"
 # Install modified paskage
 	cd pre/deb
@@ -459,33 +453,18 @@ else
 	fi
 	git clone https://github.com/openpli/gst-plugin-dvbmediasink.git
 	cd $PKG
-	if [[ "$release" = "14.04" ]]; then
-		git checkout 4ace22cf
-		cd ../..
-		cp -v patches/dvbmediasink-0.10.patch libs/$PKG
-		cd libs/$PKG
-		patch -p1 < dvbmediasink-0.10.patch
-		echo "-----------------------------------------"
-		echo "      Patch for dvbmediasink applied     "
-		echo "-----------------------------------------"
-#		autoupdate
-		autoreconf -i
-		./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
-		checkinstall -D --install=yes --default --pkgname=libgstreamer-plugins-dvbmediasink --pkgversion=0.10.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
-	else
-		git checkout 12511897
-		cd ../..
-		cp -v patches/dvbmediasink-1.0.patch libs/$PKG
-		cd libs/$PKG
-		patch -p1 < dvbmediasink-1.0.patch
-		echo "-----------------------------------------"
-		echo "      Patch for dvbmediasink applied     "
-		echo "-----------------------------------------"
-#		autoupdate
-		autoreconf -i
-		./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
-		checkinstall -D --install=yes --default --pkgname=libgstreamer-plugins-dvbmediasink --pkgversion=0.10.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
-	fi
+	git checkout 12511897
+	cd ../..
+	cp -v patches/dvbmediasink-1.0.patch libs/$PKG
+	cd libs/$PKG
+	patch -p1 < dvbmediasink-1.0.patch
+	echo "-----------------------------------------"
+	echo "      Patch for dvbmediasink applied     "
+	echo "-----------------------------------------"
+#	autoupdate
+	autoreconf -i
+	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
+	checkinstall -D --install=yes --default --pkgname=libgstreamer-plugins-dvbmediasink --pkgversion=0.10.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	cd ..
 fi
 

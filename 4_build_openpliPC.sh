@@ -140,7 +140,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 3d3f0d3c
+git reset --hard cd336e56
 cd ..
 
 # Copy headers
@@ -154,18 +154,22 @@ fi
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
+cp -fv patches/patch-cd336e56-to-PC.patch $PKG
+cd $PKG
+patch -p1 < patch-cd336e56-to-PC.patch
+
 if [ "$release" = "14.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 14.04 ***"
 	echo "                  *** USED g++-8 ***"
-	echo "        *** PICLOAD PATCH FOR 14.04 APPLIED.  ***"
 	echo "********************************************************"
 	echo ""
-	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-3d3f0d3c-to-PC.patch $PKG
+	cd ..
+	cp -fv patches/xenial-trusty-xineLib.patch $PKG
 	cd $PKG
-	patch -p1 < patch-3d3f0d3c-to-PC.patch
+	patch -p1 < xenial-trusty-xineLib.patch
+	export CXX=/usr/bin/g++-8
 elif [ "$release" = "16.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -173,10 +177,11 @@ elif [ "$release" = "16.04" ]; then
 	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
 	echo ""
-	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-3d3f0d3c-to-PC.patch $PKG
+	cd ..
+	cp -fv patches/xenial-trusty-xineLib.patch $PKG
 	cd $PKG
-	patch -p1 < patch-3d3f0d3c-to-PC.patch
+	patch -p1 < xenial-trusty-xineLib.patch
+	export CXX=/usr/bin/g++-8
 elif [ "$release" = "18.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -184,9 +189,6 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-8
-	cp -fv patches/patch-3d3f0d3c-to-PC-sigc2.patch $PKG
-	cd $PKG
-	patch -p1 < patch-3d3f0d3c-to-PC-sigc2.patch
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -194,12 +196,11 @@ elif [ "$release" = "20.04" ]; then
 	echo "                  *** USED g++-9 ***"
 	echo "********************************************************"
 	echo ""
-	export CXX=/usr/bin/g++-9
-	cp -fv patches/patch-3d3f0d3c-to-PC-sigc2.patch $PKG
-	cp -fv patches/20_04_Makefile.am.patch $PKG
+	cd ..
+	cp -fv patches/Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-3d3f0d3c-to-PC-sigc2.patch
-	patch -p1 < 20_04_Makefile.am.patch
+	patch -p1 < Makefile.am.patch
+	export CXX=/usr/bin/g++-9
 elif [ "$release" = "20.10" ]; then
 	echo ""
 	echo "********************************************************"
@@ -207,12 +208,11 @@ elif [ "$release" = "20.10" ]; then
 	echo "                  *** USED g++-10 ***"
 	echo "********************************************************"
 	echo ""
-	export CXX=/usr/bin/g++-10
-	cp -fv patches/patch-3d3f0d3c-to-PC-sigc2.patch $PKG
-	cp -fv patches/20_04_Makefile.am.patch $PKG
+	cd ..
+	cp -fv patches/Makefile.am.patch $PKG
 	cd $PKG
-	patch -p1 < patch-3d3f0d3c-to-PC-sigc2.patch
-	patch -p1 < 20_04_Makefile.am.patch
+	patch -p1 < Makefile.am.patch
+	export CXX=/usr/bin/g++-10
 fi
 
 # Configure
