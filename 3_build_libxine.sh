@@ -20,13 +20,13 @@ else
 fi
 
 # This is hg 1.2.10
-hg clone -r14848 http://hg.code.sf.net/p/xine/xine-lib-1.2 $PKG
+hg clone -r14856 http://hg.code.sf.net/p/xine/xine-lib-1.2 $PKG
 
 if [ -d "$PKG" ]; then
 	echo "-----------------------------------------"
-	echo "      head now on 14848:25ae0846e9a6"
+	echo "      head now on 14856:4018526ffe14"
 	echo "-----------------------------------------"
-	cp -fv patches/xine-lib-1.2-14848:25ae0846e9a6.patch $PKG
+	cp -fv patches/xine-lib-1.2-14856:4018526ffe14.patch $PKG
 else
 	echo "-----------------------------------------"
 	echo "        CHECK INTERNET CONNECTION!"
@@ -34,7 +34,7 @@ else
 fi
 
 cd $PKG
-patch -p1 < xine-lib-1.2-14848:25ae0846e9a6.patch
+patch -p1 < xine-lib-1.2-14856:4018526ffe14.patch
 echo "-----------------------------------------"
 echo "       patch for xine-lib applied"
 echo "-----------------------------------------"
