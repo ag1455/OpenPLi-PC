@@ -398,7 +398,7 @@ else
 	autoreconf -i
 	./configure --prefix=$INSTALL_LIB --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
 	checkinstall -D --install=yes --default --pkgname=tuxtxt --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
-	find $INSTALL_E2DIR/lib/enigma2/python2/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
+	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
 	cd ../..
 fi
 
