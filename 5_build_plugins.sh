@@ -98,10 +98,10 @@ if [ -d plugins ]; then
 		echo "**************************************"
 		echo ""
 		export CXX=/usr/bin/g++-9
-	elif [[ "$release" = "20.10" ]]; then
+	elif [[ "$release" = "21.04" ]]; then
 		echo ""
 		echo "**************************************"
-		echo "         *** release 20.10 ***"
+		echo "         *** release 21.04 ***"
 		echo "          *** used g++-10 ***"
 		echo "**************************************"
 		echo ""
@@ -138,7 +138,7 @@ if [ -d plugins ]; then
 		cd e2openplugin-StreamInterface
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -165,7 +165,7 @@ if [ -d plugins ]; then
 		patch -p1 < SystemTools.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -188,7 +188,7 @@ if [ -d plugins ]; then
 		cd e2openplugin-AddStreamUrl
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -214,7 +214,7 @@ if [ -d plugins ]; then
 		if [ "$release" = "20.04" ]; then
 			git checkout 1857c224
 			patch -p1 < OpenWebif-py3.patch
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			git checkout 1857c224
 			patch -p1 < OpenWebif-py3.patch
 		else
@@ -245,7 +245,7 @@ if [ -d plugins ]; then
 		patch -p1 < SetPicon.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -272,7 +272,7 @@ if [ -d plugins ]; then
 		patch -p1 < SnmpAgent.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -298,7 +298,7 @@ if [ -d plugins ]; then
 		patch -p1 < SimpleUmount.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -323,7 +323,7 @@ if [ -d plugins ]; then
 		cd e2openplugin-Foreca
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -346,7 +346,7 @@ if [ -d plugins ]; then
 		cd enigma2-plugin-youtube
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -373,7 +373,7 @@ if [ -d plugins ]; then
 		find plugin/locale -name "*.mo" -exec rm {} \;
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -401,7 +401,7 @@ if [ -d plugins ]; then
 		cd src
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -440,7 +440,7 @@ if [ -d plugins ]; then
 		if [ "$release" = "20.04" ]; then
 			python2 setup_translate.py
 			python2 setup.py install
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 setup_translate.py
 			python2 setup.py install
 		else
@@ -513,7 +513,7 @@ if [ -d plugins ]; then
 		echo ""
 		echo "******************************** Copy  plugins E2PC ********************************"
 		cp -rfv plugins/third-party-plugins/Plugins $INSTALL_E2DIR/lib/enigma2/python
-		cp -fv pre/urllib.py /usr/lib/python2.7
+		cp -fv pre/python/urllib.py /usr/lib/python2.7
 		cp -rfv pre/epgimport $INSTALL_E2DIR/etc
 		cp -rfv pre/xmltvimport $INSTALL_E2DIR/etc
 		cp -rfv skins/* $INSTALL_E2DIR
@@ -536,7 +536,7 @@ if [ -d plugins ]; then
 		# Compile other pyc files
 		if [ "$release" = "20.04" ]; then
 			python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
-		elif [ "$release" = "20.10" ]; then
+		elif [ "$release" = "21.04" ]; then
 			python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
 		else
 			python -m compileall $INSTALL_E2DIR/lib/enigma2/python
@@ -545,7 +545,7 @@ if [ -d plugins ]; then
 		# Force recompile new pyc files
 		#if [ "$release" = "20.04" ]; then
 		#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
-		#elif [ "$release" = "20.10" ]; then
+		#elif [ "$release" = "21.04" ]; then
 		#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
 		#else
 		#	python -m compileall -f $INSTALL_E2DIR/lib/enigma2/python

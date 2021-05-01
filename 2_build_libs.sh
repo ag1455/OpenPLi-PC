@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and test 20.10 (64-bit).
+# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and test 21.04 (64-bit).
 # Install these packages:
 
 echo "********************************************************"
@@ -14,13 +14,11 @@ REQPKG_ALL="ant aptitude autoconf automake autopoint avahi-daemon bash build-ess
 	libpcsclite-dev libjpeg8-dev libgif-dev libjpeg-turbo8-dev libgiftiio0 libaio-dev libxinerama-dev libxt-dev libasound2-dev libcaca-dev libpulse-dev libvorbis-dev \
 	libgtk2.0-dev libtool libxml2-dev libxml2-utils libxslt1-dev libssl-dev libvdpau-dev libcdio-dev libcrypto++-dev libudf-dev libvcdinfo-dev libusb-1.0-0-dev \
 	libavcodec-dev libavformat-dev libpostproc-dev libavutil-dev libnl-3-dev libbluray-dev libmpcdec-dev libvpx-dev libnl-genl-3-dev libavahi-client3 libavahi-client-dev \
-	libflac-dev libogg-dev libdts-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libdirectfb-dev libmagickwand-dev \
+	libflac-dev libogg-dev libxcb-xv0-dev libxcb-shape0-dev libxv-dev libxvmc-dev libaa1-dev libmodplug-dev libjack-jackd2-dev libdirectfb-dev libmagickwand-dev \
 	libwavpack-dev libspeex-dev libmng-dev libmad0-dev librsvg2-bin libtheora-dev libsmbclient-dev liblircclient-dev librtmp1 libmng2 libx11-6 libxext6 libglib2.0-dev \
 	libelf-dev libmysqlclient-dev libupnp-dev libgiftiio-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev gstreamer1.0-libav mawk mercurial mingetty mjpegtools \
-	net-tools ntpdate openssh-sftp-server pmccabe python-setuptools python-ipaddress python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules \
-	python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah patch pyflakes pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools \
-	software-properties-common sphinx-common streamripper subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm ubuntu-restricted-extras \
-	wavpack \
+	net-tools ntpdate openssh-sftp-server pmccabe patch pkg-config rpl rsyslog rtmpdump sdparm setserial smartmontools software-properties-common sphinx-common streamripper \
+	subversion texi2html texinfo unclutter unzip uchardet youtube-dl w3m vsftpd xmlto xterm ubuntu-restricted-extras wavpack \
 	"
 
 for p in $REQPKG_ALL; do
@@ -48,9 +46,10 @@ if [[ "$release" = "14.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev mock python-flickrapi python-lzma \
-	python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen \
-	python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev swig2.0 \
+	REQPKG="flake gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev libdts-dev mock python-ipaddress \
+	pyflakes python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah \
+	python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc python-yenc python-gdata \
+	python-demjson python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev python-setuptools swig2.0 \
 	"
 	if [[ $(uname -m) = "i686" ]]; then
 		echo "Your system is 32-bit"
@@ -73,11 +72,13 @@ elif [[ "$release" = "16.04" ]]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	apt-get update
 	fi
-	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libtool-bin libesd0-dev libpng12-dev libva-glx1 libva-dev libqt5gstreamer-dev libupnp6-dev mock python-flickrapi \
-	python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-cryptodome python-pickleshare python-service-identity python-certifi \
-	python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen python-ipaddr python-urllib3 python-sphinx-rtd-theme \
-	python-sphinx python-sphinxcontrib.httpdomain python-dev pylint python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj \
-	python-future python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig2.0 yamllint \
+	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libtool-bin libesd0-dev libpng12-dev libva-glx1 libva-dev libqt5gstreamer-dev libupnp6-dev libdts-dev mock python-ipaddress \
+	pyflakes python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah \
+	python-setuptools python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-cryptodome python-pickleshare \
+	python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen python-ipaddr \
+	python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.httpdomain python-dev pylint python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib \
+	python-requests-oauthlib python-configobj python-future python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail \
+	sphinx-rtd-theme-common swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -85,12 +86,13 @@ elif [[ "$release" = "18.04" ]]; then
 	echo "                 *** release 18.04 ***                  "
 	echo "********************************************************"
 	echo ""
-	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev libupnp6-dev libvdpau1 libvdpau-va-gl1 mock python-flickrapi \
-	python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect python-pycryptodome python-pickleshare pycodestyle \
-	python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen python-ipaddr \
-	python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.websupport python-sphinxcontrib.httpdomain python-dev pylint python-incremental python-sabyenc python-requests \
-	python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj python-future python-openssl python-twisted python-twisted-core python-twisted-bin \
-	python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig yamllint \
+	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev libupnp6-dev libvdpau1 libvdpau-va-gl1 libdts-dev mock \
+	python-ipaddress pyflakes python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl \
+	python-cheetah python-setuptools python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect \
+	python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata \
+	python-demjson python-mutagen python-ipaddr python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.websupport python-sphinxcontrib.httpdomain python-dev pylint \
+	python-incremental python-sabyenc python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj python-future python-openssl \
+	python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig yamllint \
 	"
 elif [[ "$release" = "20.04" ]]; then
 	echo ""
@@ -111,11 +113,12 @@ elif [[ "$release" = "20.04" ]]; then
 		echo "            *** Packages already updated. ***"
 		echo "********************************************************"
 	fi
-	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev python2-dev python-subprocess32 python-pycryptodome python-pycryptodome \
-	pycodestyle python-service-identity python-certifi python2-dev python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface python-chardet python-docutils \
-	python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python-pyflakes python3-flickrapi python3-demjson \
-	python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-attr sphinx-rtd-theme-common libupnp-dev libvdpau1 \
-	libvdpau-va-gl1 swig swig3.0 yamllint \
+	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev libdts-dev libupnp-dev libvdpau1 libvdpau-va-gl1 python-ipaddress pyflakes \
+	python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah python-setuptools \
+	python2-dev python-subprocess32 python-pycryptodome python-pycryptodome pycodestyle python-service-identity python-certifi python-dev-is-python2 python-automat python-constantly \
+	python-hyperlink python-zope.interface python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc \
+	python3-sabyenc python-pyflakes python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress \
+	python-attr sphinx-rtd-theme-common swig swig3.0 yamllint \
 	"
 # Download 2.7 paskages
 	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
@@ -148,80 +151,17 @@ elif [[ "$release" = "20.04" ]]; then
 	dpkg -i *.deb
 	apt-get -f install -y
 	rm -f *.deb
-elif [[ "$release" = "20.10" ]]; then
+elif [[ "$release" = "21.04" ]]; then
 	echo ""
 	echo "********************************************************"
-	echo "                 *** release 20.10 ***                  "
+	echo "                 *** release 21.04 ***"
 	echo "********************************************************"
 	echo ""
-	# Add new repositories
-#	if [ ! -f /etc/apt/sources.list.d/oibaf-ubuntu-graphics-drivers-groovy.list ]; then
-#		add-apt-repository -y ppa:oibaf/graphics-drivers
-#	fi
-	if [ ! -f /etc/apt/sources.list.d/mamarley-ubuntu-updates-groovy.list ]; then
-		add-apt-repository -y ppa:mamarley/updates
-		apt-get update
-		apt-get -y upgrade
-	else
-		echo "********************************************************"
-		echo "            *** Packages already updated. ***"
-		echo "********************************************************"
-	fi
-	REQPKG="flake8 gcc-10 g++-10 libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev python2-dev pycodestyle python-service-identity \
-	python2-dev python-dev-is-python2 python-automat python-hyperlink python-zope.interface python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib \
-	python3-transmissionrpc python3-sabyenc python-pbr python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 \
-	pylint python-ipaddress python-is-python2 sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
+	REQPKG="flake8 gcc-10 g++-10 libdca-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libpython2-dev python2-dev libffi7 \
+	pycodestyle python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile \
+	python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
 	"
-# Install modified paskage
-	cd pre/deb
-	dpkg -i *.deb
-	cd ../..
-# Download 2.7 paskages
-	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-web_18.9.0-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-names_18.9.0-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-mail_18.9.0-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-bin_18.9.0-3_amd64.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-core_18.9.0-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-ipaddr/python-ipaddr_2.2.0-2_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-urllib3/python-urllib3_1.24.1-1_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/b/bzr/python-bzrlib_2.7.0+bzr6622-15_amd64.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/pysendfile/python-sendfile_2.0.1-2_amd64.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-lzma/python-lzma_0.5.3-4_amd64.deb \
-	http://ftp.br.debian.org/debian/pool/main/b/blessings/python-blessings_1.6-2_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-mechanize/python-mechanize_0.2.5-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-langdetect/python-langdetect_1.0.7-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/pickleshare/python-pickleshare_0.7.5-1_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-sabyenc/python-sabyenc_3.3.5-1_amd64.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/pyjwt/python-jwt_1.7.0-2_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-oauthlib/python-oauthlib_2.1.0-1_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/b/blinker/python-blinker_1.4+dfsg1-0.3ubuntu1_all.deb\
-	http://archive.ubuntu.com/ubuntu/pool/main/c/configobj/python-configobj_5.0.6-2_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/main/p/pycurl/python-pycurl_7.43.0.1-0.2_amd64.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/c/cheetah/python-cheetah_3.2.4-1ubuntu1_amd64.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/pyflakes/pyflakes_1.6.0-1_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/pyflakes/python-pyflakes_1.6.0-1_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-pysqlite2/python-pysqlite2_2.7.0-1_amd64.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-cryptography-vectors/python-cryptography-vectors_2.1.4-1_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/pycryptopp/python-pycryptopp_0.7.1-3_amd64.deb \
-	http://archive.ubuntu.com/ubuntu/pool/main/s/simplejson/python-simplejson_3.13.2-1_amd64.deb \
-	http://archive.ubuntu.com/ubuntu/pool/main/p/pycryptodome/python-pycryptodome_3.4.7-1ubuntu1_amd64.deb \
-	http://archive.ubuntu.com/ubuntu/pool/main/p/python-certifi/python-certifi_2018.1.18-2_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-subprocess32/python-subprocess32_3.2.7-3_amd64.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-restructuredtext-lint/python-restructuredtext-lint_0.12.2-2_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/r/requests/python-requests_2.21.0-1_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/main/p/python-roman/python-roman_2.0.0-3_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/c/constantly/python-constantly_15.1.0-1build1_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/h/hyperlink/python-hyperlink_19.0.0-1_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-attrs/python-attr_19.3.0-2_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-click/python-click_7.0-1_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-colorama/python-colorama_0.3.7-1_all.deb
-	dpkg -i *.deb
-	apt-get -f install -y
-	rm -f *.deb
+	cp -rfv pre/python/* /usr/lib/python2.7 # hack!
 fi
 
 for p in $REQPKG; do
@@ -238,9 +178,9 @@ done
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 
+rm -rfv /usr/local/lib/python2.7
 cp -fv pre/dvb/* $INCLUDE
 cp -fv pre/dvb/* $HEADERS
-cp -fv pre/sitecustomize.py /usr/local/lib/python2.7/site-packages
 
 # Download dvb-firmwares
 wget https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
@@ -286,7 +226,7 @@ cd ..
 mv libdvbsi++*.* $PKG
 cd $PKG
 dpkg -i *.deb
-	cd ..
+cd ..
 
 # Build and install libxmlccwrap-git:
 if [ ! -f libdvbsi++/*.deb ]; then
@@ -309,7 +249,8 @@ else
 	git clone https://github.com/OpenDMM/$PKG.git
 #	git clone git://git.opendreambox.org/git/obi/$PKG.git
 	cd $PKG
-	rpl '(= ${Source-Version})' '(= ${binary:Version})' debian/control
+	rpl '5' '10' debian/compat
+	rpl 'Source-Version' 'binary:Version' debian/control
 #	autoupdate
 	dpkg-buildpackage -uc -us
 	cd ..
@@ -346,7 +287,7 @@ else
 	cd ..
 fi
 
-# Build and install libtuxtxt and tuxtxt:
+# Build and install libtuxtxt:
 if [ ! -f libdvbcsa/*.deb ]; then
 	set -e
 	set -o pipefail
@@ -355,10 +296,8 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	INSTALL_E2DIR="/usr/local/e2"
-	INSTALL_LIB="/usr"
 	SOURCE="tuxtxt-git"
-	PKG1="libtuxtxt"
-	PKG2="tuxtxt"
+	PKG="libtuxtxt"
 	if [ ! -d $INSTALL_E2DIR ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 	fi
@@ -367,7 +306,7 @@ else
 		rm -rf $SOURCE
 	fi
 	if [ ! -d $INSTALL_LIB/lib/enigma2 ]; then
-	ln -s $INSTALL_E2DIR/lib/enigma2 $INSTALL_LIB/lib/enigma2
+		ln -s $INSTALL_E2DIR/lib/enigma2 $INSTALL_LIB/lib/enigma2
 	fi
 	git clone https://github.com/OpenPLi/tuxtxt.git tuxtxt-git
 	cd ..
@@ -378,14 +317,15 @@ else
 	echo "-----------------------------------------"
 	echo " patches for tuxtxt and libtuxtxt applied"
 	echo "-----------------------------------------"
-	cd $PKG1
+	cd $PKG
 #	autoupdate
 	autoreconf -i
-	./configure --prefix=$INSTALL_LIB --with-boxtype=generic DVB_API_VERSION=5
+	./configure --prefix=/usr --with-boxtype=generic DVB_API_VERSION=5
 	checkinstall -D --install=yes --default --pkgname=libtuxtxt --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	cd ..
 fi
 
+# Build and install tuxtxt:
 if [ ! -f libtuxtxt/*.deb ]; then
 	set -e
 	set -o pipefail
@@ -393,10 +333,11 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
-	cd $PKG2
+	PKG="tuxtxt"
+	cd $PKG
 #	autoupdate
 	autoreconf -i
-	./configure --prefix=$INSTALL_LIB --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
+	./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
 	checkinstall -D --install=yes --default --pkgname=tuxtxt --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
 	cd ../..
@@ -512,86 +453,8 @@ else
 	cd ..
 fi
 
-# Build and install pythonwifi-git:
+# Copying python2.7 files:
 if [ ! -f gst-plugin-subsink/*.deb ]; then
-	set -e
-	set -o pipefail
-else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	PKG="pythonwifi"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	git clone git://github.com/pingflood/$PKG
-	cd $PKG
-	if [ "$release" = "20.04" ]; then
-		python2 setup.py install
-	elif [ "$release" = "20.10" ]; then
-		python2 setup.py install
-	else
-		python setup.py install
-	fi
-	cd ..
-	rm -f /usr/local/INSTALL
-	rm -f /usr/local/README
-fi
-
-# Build and install TwistedSNMP-0.3.13:
-if [ ! -d pythonwifi ]; then
-	set -e
-	set -o pipefail
-else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	PKG="TwistedSNMP-0.3.13"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	wget https://sourceforge.net/projects/twistedsnmp/files/twistedsnmp/0.3.13/TwistedSNMP-0.3.13.tar.gz
-	tar -xvf TwistedSNMP-0.3.13.tar.gz
-	rm -f TwistedSNMP-0.3.13.tar.gz
-	cd $PKG
-	if [ "$release" = "20.04" ]; then
-		python2 setup.py install
-	elif [ "$release" = "20.10" ]; then
-		python2 setup.py install
-	else
-		python setup.py install
-	fi
-	cd ..
-fi
-
-# Build and install pysnmp-se-3.5.2:
-if [ ! -d TwistedSNMP-0.3.13 ]; then
-	set -e
-	set -o pipefail
-else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	PKG="pysnmp-se-3.5.2"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	wget https://sourceforge.net/projects/twistedsnmp/files/pysnmp-se/3.5.2/pysnmp-se-3.5.2.tar.gz
-	tar -xvf pysnmp-se-3.5.2.tar.gz
-	rm -f pysnmp-se-3.5.2.tar.gz
-	cd $PKG
-	if [ "$release" = "20.04" ]; then
-		python2 setup.py install
-	elif [ "$release" = "20.10" ]; then
-		python2 setup.py install
-	else
-		python setup.py install
-	fi
-	cd ..
-fi
-
-# Build and install Js2Py-0.50:
-if [ ! -d pysnmp-se-3.5.2 ]; then
 	set -e
 	set -o pipefail
 	# Message if error at any point of script
@@ -604,35 +467,15 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
-	PKG="Js2Py-0.50"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
-	wget https://pypi.python.org/packages/69/73/9c05be6a463f01178749e551253994c1d938827c8c35b0e18c937761030d/Js2Py-0.50.tar.gz
-	tar -xvf Js2Py-0.50.tar.gz
-	rm -f Js2Py-0.50.tar.gz
-	cd $PKG
-	if [ "$release" = "20.04" ]; then
-		python2 setup.py install
-	elif [ "$release" = "20.10" ]; then
-		python2 setup.py install
-	else
-		python setup.py install
-	fi
-	cd ../..
-# Create symlinks
-if [[ "$release" = "20.10" ]]; then
-	ln -sfv /usr/local/lib/python2.7/dist-packages/chardet /usr/lib/python2.7/dist-packages
-	ln -sfv /usr/local/lib/python2.7/dist-packages/chardet-3.0.4.egg-info /usr/lib/python2.7/dist-packages
-fi
-	ln -sfv /usr/local/lib/python2.7/dist-packages/pythonwifi /usr/lib/python2.7/dist-packages
-	ln -sfv /usr/local/lib/python2.7/dist-packages/python_wifi-0.5.0.egg-info /usr/lib/python2.7/dist-packages
-	ln -sfv /usr/local/lib/python2.7/dist-packages/twistedsnmp /usr/lib/python2.7/dist-packages
-	ln -sfv /usr/local/lib/python2.7/dist-packages/TwistedSNMP-0.3.13.egg-info /usr/lib/python2.7/dist-packages
-	ln -sfv /usr/local/lib/python2.7/dist-packages/pysnmp /usr/lib/python2.7/dist-packages
-	ln -sfv /usr/local/lib/python2.7/dist-packages/pysnmp_se-3.5.2.egg-info /usr/lib/python2.7/dist-packages
-	ln -sfv /usr/local/lib/python2.7/dist-packages/Js2Py-0.50-py2.7.egg/js2py /usr/lib/python2.7/dist-packages
-	ln -sfv /usr/local/lib/python2.7/dist-packages/Js2Py-0.50-py2.7.egg/EGG-INFO /usr/lib/python2.7/dist-packages/js2py-0.50.egg-info
+	cd ..
+	cp -rfv pre/python/dist-packages/pythonwifi /lib/python2.7/dist-packages
+	cp -fv pre/python/dist-packages/python_wifi-0.5.0.egg-info /lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/twistedsnmp /lib/python2.7/dist-packages
+	cp -fv pre/python/dist-packages/TwistedSNMP-0.3.13.egg-info /lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/pysnmp /lib/python2.7/dist-packages
+	cp -fv pre/python/dist-packages/pysnmp_se-3.5.2.egg-info /lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/js2py /lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/Js2Py-0.50.egg-info /lib/python2.7/dist-packages
 	echo ""
 	echo "************************************ DONE! *****************************************"
 fi

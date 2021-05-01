@@ -1,0 +1,34 @@
+Metadata-Version: 1.1
+Name: TwistedSNMP
+Version: 0.3.13
+Summary: SNMP Protocol for the Twisted Networking Framework
+Home-page: http://twistedsnmp.sourceforge.net/
+Author: Mike C. Fletcher & Patrick K. O'Brien
+Author-email: mcfletch@users.sourceforge.net
+License: BSD
+Download-URL: https://sourceforge.net/project/showfiles.php?group_id=102250
+Description: SNMP Protocol for the Twisted Networking Framework
+        
+        TwistedSNMP is a set of SNMP protocol implementations
+        for Python's Twisted Matrix networking framework using
+        the PySNMP project.  It provides the following:
+        
+            * get, set, getnext and getbulk Manager-side queries
+            * get, set, getnext and getbulk Agent-side services
+        
+        Eventual goals of the system (the project is just beginning):
+        
+            * provide access to all v1 and v2 SNMP functionality
+              for writing Agent and Manager services
+            * provide convenient testing mechanisms for SNMP
+              Agent/Manager development (e.g. mirroring an SNMP
+              Agent's OID tree for local query testing)
+        
+Keywords: snmp,twisted,manager,agent,protocol,oid,oidstore
+Platform: Any
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: System :: Networking :: Monitoring
+Classifier: Topic :: System :: Networking

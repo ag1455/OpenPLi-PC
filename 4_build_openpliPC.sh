@@ -15,14 +15,9 @@ DVB_DEV="/dev/dvb/adapter0"
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 
-#export PYTHON_VERSION=3.8
-#export PYTHON_CPPFLAGS=-I/usr/include/python3.8
-#export PYTHON_LDFLAGS="-L/usr/lib/python3.8 -lpython3.8"
-#export PYTHON_SITE_PKG=/usr/local/lib/python3.8/dist-packages
 export PYTHON_VERSION=2.7
 export PYTHON_CPPFLAGS=-I/usr/include/python2.7
 export PYTHON_LDFLAGS="-L/usr/lib/python2.7 -lpython2.7"
-export PYTHON_SITE_PKG=/usr/local/lib/python2.7/dist-packages
 export PYTHON_EXTRA_LIBS="-lpthread -ldl -lutil -lm"
 export PYTHON_EXTRA_LDFLAGS="-Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions"
 
@@ -140,7 +135,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard cd336e56
+git reset --hard 31118311
 cd ..
 
 # Copy headers
@@ -154,9 +149,9 @@ fi
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-cp -fv patches/patch-cd336e56-to-PC.patch $PKG
+cp -fv patches/patch-31118311-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-cd336e56-to-PC.patch
+patch -p1 < patch-31118311-to-PC.patch
 
 if [ "$release" = "14.04" ]; then
 	echo ""
@@ -201,10 +196,10 @@ elif [ "$release" = "20.04" ]; then
 	cd $PKG
 	patch -p1 < Makefile.am.patch
 	export CXX=/usr/bin/g++-9
-elif [ "$release" = "20.10" ]; then
+elif [ "$release" = "21.04" ]; then
 	echo ""
 	echo "********************************************************"
-	echo "                 *** RELEASE 20.10 ***"
+	echo "                 *** RELEASE 21.04 ***"
 	echo "                  *** USED g++-10 ***"
 	echo "********************************************************"
 	echo ""
@@ -226,7 +221,6 @@ if [ "$DO_CONFIGURE" -eq "1" ]; then
 	autoupdate
 #	autoreconf -v -f -i -W all
 	autoreconf -i
-	#./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-libsdl=no --with-boxtype=vuduo4k --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-textlcd --with-debug
 	./configure LIBS="-L/usr/lib/python2.7" --prefix=$INSTALL_E2DIR --with-xlib --with-boxtype=generic --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-debug
 	# generate pot
 	#./configure --prefix=$INSTALL_E2DIR --with-xlib --with-debug --with-po

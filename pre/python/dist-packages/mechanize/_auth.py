@@ -1,0 +1,1 @@
+../../../../share/pyshared/mechanize/_auth.py
