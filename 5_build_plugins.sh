@@ -6,104 +6,69 @@ release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 INSTALL_E2DIR="/usr/local/e2"
 MAKE_J="9"
 
-### This is the lock from the unpredictable script actions in the root directory in the absence of the plugins folder.
+# This is the lock from the unpredictable script actions in the root directory in the absence of the plugins folder.
 if [ -d plugins ]; then
-
-	# Remove old folders from e2 dir
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/StreamInterface ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/StreamInterface
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/AddStreamUrl ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/AddStreamUrl
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Foreca ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Foreca
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/YouTube ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/YouTube
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
-	fi
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
-	fi
-	# Temporarily
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi
-	fi
-
 	cd plugins/enigma2-plugins
 
 	# Build enigma2 cpp plugins:
-	if [ -d servicemp3 ]; then
-		rm -rf servicemp3
+	PKG="servicemp3"
+	if [ "$(cat servicemp3/.git/refs/heads/master 2>/dev/null)" = "a84cd6edc5f5c5350672c4279d3e325c127ccfe8" ]; then
+		echo ""
+		echo "*********************** You have actual version $PKG. ************************"
+	else
+		echo ""
+		echo "************************** OK. Let's build the plugins. ****************************"
+		echo ""
+		if [ -d $PKG ]; then
+			rm -rf $PKG
+		fi
+		git clone https://github.com/OpenPLi/$PKG.git
+		cd ../..
+		cp -fv patches/servicemp3.patch plugins/enigma2-plugins/$PKG
+		cd plugins/enigma2-plugins/$PKG
+		git reset --hard a84cd6ed
+		patch -p1 < servicemp3.patch
+		cd ..
 	fi
-
-	git clone https://github.com/OpenPLi/servicemp3.git
-	cd ../..
-	cp -fv patches/servicemp3.patch plugins/enigma2-plugins/servicemp3
-	cd plugins/enigma2-plugins/servicemp3
-	git checkout a84cd6ed
-	patch -p1 < servicemp3.patch
-	cd ..
 
 	if [[ "$release" = "14.04" ]]; then
 		echo ""
-		echo "**************************************"
-		echo "         *** release 14.04 ***"
-		echo "          *** used g++-8 ***"
-		echo "**************************************"
+		echo "************************************************************************************"
+		echo "                              *** release 14.04 ***"
+		echo "                               *** used g++-8 ***"
+		echo "************************************************************************************"
 		echo ""
 		export CXX=/usr/bin/g++-8
 	elif [[ "$release" = "16.04" ]]; then
 		echo ""
-		echo "**************************************"
-		echo "         *** release 16.04 ***"
-		echo "          *** used g++-8 ***"
-		echo "**************************************"
+		echo "************************************************************************************"
+		echo "                             *** release 16.04 ***"
+		echo "                              *** used g++-8 ***"
+		echo "************************************************************************************"
 		echo ""
 		export CXX=/usr/bin/g++-8
 	elif [[ "$release" = "18.04" ]]; then
 		echo ""
-		echo "**************************************"
-		echo "         *** release 18.04 ***"
-		echo "          *** used g++-8 ***"
-		echo "**************************************"
+		echo "************************************************************************************"
+		echo "                             *** release 18.04 ***"
+		echo "                              *** used g++-8 ***"
+		echo "************************************************************************************"
 		echo ""
 		export CXX=/usr/bin/g++-8
 	elif [[ "$release" = "20.04" ]]; then
 		echo ""
-		echo "**************************************"
-		echo "         *** release 20.04 ***"
-		echo "          *** used g++-9 ***"
-		echo "**************************************"
+		echo "************************************************************************************"
+		echo "                             *** release 20.04 ***"
+		echo "                              *** used g++-9 ***"
+		echo "************************************************************************************"
 		echo ""
 		export CXX=/usr/bin/g++-9
 	elif [[ "$release" = "21.04" ]]; then
 		echo ""
-		echo "**************************************"
-		echo "         *** release 21.04 ***"
-		echo "          *** used g++-10 ***"
-		echo "**************************************"
+		echo "************************************************************************************"
+		echo "                             *** release 21.04 ***"
+		echo "                              *** used g++-10 ***"
+		echo "************************************************************************************"
 		echo ""
 		cd ../..
 		cp -fv pre/include/rpc/* /usr/include/rpc
@@ -117,15 +82,14 @@ if [ -d plugins ]; then
 	make -j"$MAKE_J"
 	make install
 	cd ..
-
 	tar -cvzf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/VirtualZap.tar.gz $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/VirtualZap
 	rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/VirtualZap
-	if [ -d e2openplugin ]; then
-		rm -rf e2openplugin
-	fi
-	mkdir e2openplugin
 
-	# Build python e2openplugin StreamInterface:
+	if [ ! -d e2openplugin ]; then
+		mkdir e2openplugin
+	fi
+
+	# Build e2openplugin-StreamInterface:
 	if [ ! -d enigma2-plugins/servicemp3 ]; then
 		set -e
 		set -o pipefail
@@ -134,8 +98,15 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		cd e2openplugin
-		git clone https://github.com/E2OpenPlugins/e2openplugin-StreamInterface.git
-		cd e2openplugin-StreamInterface
+		PKG="e2openplugin-StreamInterface"
+		if [ -d $PKG ]; then
+			rm -rf $PKG
+		fi
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/StreamInterface ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/StreamInterface
+		fi
+		git clone https://github.com/E2OpenPlugins/$PKG.git
+		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "21.04" ]; then
@@ -149,7 +120,7 @@ if [ -d plugins ]; then
 		cd ..
 	fi
 
-	# Build python e2openplugin SystemTools
+	# Build e2openplugin-SystemTools
 	if [ ! -d e2openplugin-StreamInterface ]; then
 		set -e
 		set -o pipefail
@@ -157,11 +128,17 @@ if [ -d plugins ]; then
 		echo ""
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
-		git clone https://github.com/E2OpenPlugins/e2openplugin-SystemTools.git
+		PKG="e2openplugin-SystemTools"
+		if [ -d $PKG ]; then
+			rm -rf $PKG
+		fi
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools
+		fi
+		git clone https://github.com/E2OpenPlugins/$PKG.git
 		cd ../..
-		cp -fv patches/SystemTools.patch plugins/e2openplugin/e2openplugin-SystemTools
-		cd plugins/e2openplugin/e2openplugin-SystemTools
-		git checkout 7b12408f
+		cp -fv patches/SystemTools.patch plugins/e2openplugin/$PKG
+		cd plugins/e2openplugin/$PKG
 		patch -p1 < SystemTools.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
@@ -176,7 +153,7 @@ if [ -d plugins ]; then
 		cd ..
 	fi
 
-	# Build python e2openplugin AddStreamUrl
+	# Build e2openplugin-AddStreamUrl
 	if [ ! -d e2openplugin-SystemTools ]; then
 		set -e
 		set -o pipefail
@@ -184,8 +161,15 @@ if [ -d plugins ]; then
 		echo ""
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
-		git clone https://github.com/E2OpenPlugins/e2openplugin-AddStreamUrl.git
-		cd e2openplugin-AddStreamUrl
+		PKG="e2openplugin-AddStreamUrl"
+		if [ -d $PKG ]; then
+			rm -rf $PKG
+		fi
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/AddStreamUrl ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/AddStreamUrl
+		fi
+		git clone https://github.com/E2OpenPlugins/$PKG.git
+		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "21.04" ]; then
@@ -198,118 +182,168 @@ if [ -d plugins ]; then
 		cd ..
 	fi
 
-	# Build python e2openplugin OpenWebif
+	# Build e2openplugin-OpenWebif
 	if [ ! -d e2openplugin-AddStreamUrl ]; then
 		set -e
 		set -o pipefail
 	else
-		echo ""
-		echo "**************************** OK. Go to the next step. ******************************"
-		echo ""
-		git clone https://github.com/E2OpenPlugins/e2openplugin-OpenWebif.git
-		cd ../..
-		cp -fv patches/OpenWebif-py2.patch plugins/e2openplugin/e2openplugin-OpenWebif
-		cp -fv patches/OpenWebif-py3.patch plugins/e2openplugin/e2openplugin-OpenWebif
-		cd plugins/e2openplugin/e2openplugin-OpenWebif
-		if [ "$release" = "20.04" ]; then
-			git checkout 1857c224
-			patch -p1 < OpenWebif-py3.patch
-		elif [ "$release" = "21.04" ]; then
-			git checkout 1857c224
-			patch -p1 < OpenWebif-py3.patch
+		PKG="e2openplugin-OpenWebif"
+		if [ "$(cat e2openplugin-OpenWebif/.git/refs/heads/master 2>/dev/null)" = "8b1ccaa696378ad37e7802b46568154d1b15747f" ]; then
+			echo ""
+			echo "***************** You have actual version $PKG. ******************"
 		else
-			git checkout 7f53c0ef
-			patch -p1 < OpenWebif-py2.patch
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			if [ -d $PKG ]; then
+				rm -rf $PKG
+			fi
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif
+			fi
+			git clone https://github.com/E2OpenPlugins/$PKG.git
+			cd ../..
+			cp -fv patches/OpenWebif-py2.patch plugins/e2openplugin/$PKG
+			cp -fv patches/OpenWebif-py3.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			if [ "$release" = "20.04" ]; then
+				git reset --hard 8b1ccaa6
+				patch -p1 < OpenWebif-py3.patch
+			elif [ "$release" = "21.04" ]; then
+				git reset --hard 8b1ccaa6
+				patch -p1 < OpenWebif-py3.patch
+			else
+				git reset --hard 7f53c0ef
+				patch -p1 < OpenWebif-py2.patch
+			fi
+			mv CI/create_ipk.sh create_ipk.sh
+			./create_ipk.sh
+			ar -x *.ipk
+			tar -xvf data.tar.gz
+			mv -f usr/lib/enigma2/python/Plugins/Extensions/OpenWebif /usr/local/e2/lib/enigma2/python/Plugins/Extensions
+			rm -rf debian-binary usr *.gz *.ipk
+			cd ..
 		fi
-		sh create_ipk.sh
-		ar -x *.ipk
-		tar -xvf data.tar.gz
-		mv -f usr/lib/enigma2/python/Plugins/Extensions/OpenWebif /usr/local/e2/lib/enigma2/python/Plugins/Extensions
-		rm -rf debian-binary usr *.gz *.ipk
-		cd ..
 	fi
 
-	# Build python e2openplugin SetPicon
+	# Build e2openplugin-SetPicon
 	if [ ! -d e2openplugin-OpenWebif ]; then
 		set -e
 		set -o pipefail
 	else
-		echo ""
-		echo "**************************** OK. Go to the next step. ******************************"
-		echo ""
-		git clone https://github.com/E2OpenPlugins/e2openplugin-SetPicon.git
-		cd ../..
-		cp -fv patches/SetPicon.patch plugins/e2openplugin/e2openplugin-SetPicon
-		cd plugins/e2openplugin/e2openplugin-SetPicon
-		git checkout ee065ac4
-		patch -p1 < SetPicon.patch
-		if [ "$release" = "20.04" ]; then
-			python2 setup.py install
-		elif [ "$release" = "21.04" ]; then
-			python2 setup.py install
+		PKG="e2openplugin-SetPicon"
+		if [ "$(cat e2openplugin-SetPicon/.git/refs/heads/master 2>/dev/null)" = "ef33e2657203fcb8039afbc2a49b9b059db0c5ee" ]; then
+			echo ""
+			echo "****************** You have actual version $PKG. ******************"
 		else
-			python setup.py install
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			if [ -d $PKG ]; then
+				rm -rf $PKG
+			fi
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon
+			fi
+			git clone https://github.com/E2OpenPlugins/$PKG.git
+			cd ../..
+			cp -fv patches/SetPicon.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			git reset --hard ee065ac4
+			patch -p1 < SetPicon.patch
+			if [ "$release" = "20.04" ]; then
+				python2 setup.py install
+			elif [ "$release" = "21.04" ]; then
+				python2 setup.py install
+			else
+				python setup.py install
+			fi
+			mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SetPicon $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_setpicon* $INSTALL_E2DIR/lib/enigma2/python/Plugins
+			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon
+			cd ..
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SetPicon $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_setpicon* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon
-		cd ..
 	fi
 
-	# Build python e2openplugin SnmpAgent
+	# Build e2openplugin-SnmpAgent
 	if [ ! -d e2openplugin-SetPicon ]; then
 		set -e
 		set -o pipefail
 	else
-		echo ""
-		echo "**************************** OK. Go to the next step. ******************************"
-		echo ""
-		git clone https://github.com/E2OpenPlugins/e2openplugin-SnmpAgent.git
-		cd ../..
-		cp -fv patches/SnmpAgent.patch plugins/e2openplugin/e2openplugin-SnmpAgent
-		cd plugins/e2openplugin/e2openplugin-SnmpAgent
-		git checkout 31dd52b4
-		patch -p1 < SnmpAgent.patch
-		if [ "$release" = "20.04" ]; then
-			python2 setup.py install
-		elif [ "$release" = "21.04" ]; then
-			python2 setup.py install
+		PKG="e2openplugin-SnmpAgent"
+		if [ "$(cat e2openplugin-SnmpAgent/.git/refs/heads/master 2>/dev/null)" = "31dd52b4277f273524622a8bf3678dff8e1ecf8e" ]; then
+			echo ""
+			echo "***************** You have actual version $PKG. ******************"
 		else
-			python setup.py install
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			if [ -d $PKG ]; then
+				rm -rf $PKG
+			fi
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent
+			fi
+			git clone https://github.com/E2OpenPlugins/$PKG.git
+			cd ../..
+			cp -fv patches/SnmpAgent.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			git reset --hard 31dd52b4
+			patch -p1 < SnmpAgent.patch
+			if [ "$release" = "20.04" ]; then
+				python2 setup.py install
+			elif [ "$release" = "21.04" ]; then
+				python2 setup.py install
+			else
+				python setup.py install
+			fi
+			mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SnmpAgent $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_snmpagent* $INSTALL_E2DIR/lib/enigma2/python/Plugins
+			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent
+			cd ..
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SnmpAgent $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_snmpagent* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent
-		cd ..
 	fi
 
-	# Build python e2openplugin SimpleUmount
+	# Build e2openplugin-SimpleUmount
 	if [ ! -d e2openplugin-SnmpAgent ]; then
 		set -e
 		set -o pipefail
 	else
-		echo ""
-		echo "**************************** OK. Go to the next step. ******************************"
-		echo ""
-		git clone https://github.com/E2OpenPlugins/e2openplugin-SimpleUmount.git
-		cd ../..
-		cp -fv patches/SimpleUmount.patch plugins/e2openplugin/e2openplugin-SimpleUmount
-		cd plugins/e2openplugin/e2openplugin-SimpleUmount
-		patch -p1 < SimpleUmount.patch
-		if [ "$release" = "20.04" ]; then
-			python2 setup.py install
-		elif [ "$release" = "21.04" ]; then
-			python2 setup.py install
+		PKG="e2openplugin-SimpleUmount"
+		if [ "$(cat e2openplugin-SimpleUmount/.git/refs/heads/master 2>/dev/null)" = "3126dcdcaf1b0a81739b52d48078d3f4bcc10564" ]; then
+			echo ""
+			echo "**************** You have actual version $PKG. ****************"
 		else
-			python setup.py install
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			if [ -d $PKG ]; then
+				rm -rf $PKG
+			fi
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount
+			fi
+			git clone https://github.com/E2OpenPlugins/$PKG.git
+			cd ../..
+			cp -fv patches/SimpleUmount.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			git reset --hard 3126dcdc
+			patch -p1 < SimpleUmount.patch
+			if [ "$release" = "20.04" ]; then
+				python2 setup.py install
+			elif [ "$release" = "21.04" ]; then
+				python2 setup.py install
+			else
+				python setup.py install
+			fi
+			mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SimpleUmount $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_simpleumount* $INSTALL_E2DIR/lib/enigma2/python/Plugins
+			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount
+			cd ..
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SimpleUmount $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_simpleumount* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount
-		cd ..
 	fi
 
-	# Build python e2openplugin Foreca
+	# Build e2openplugin-Foreca
 	if [ ! -d e2openplugin-SimpleUmount ]; then
 		set -e
 		set -o pipefail
@@ -317,10 +351,17 @@ if [ -d plugins ]; then
 		echo ""
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
-		git clone https://github.com/E2OpenPlugins/e2openplugin-Foreca.git
+		PKG="e2openplugin-Foreca"
+		if [ -d $PKG ]; then
+			rm -rf $PKG
+		fi
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Foreca ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Foreca
+		fi
+		git clone https://github.com/E2OpenPlugins/$PKG.git
 		rpl "Foreca - прогноз погоды" "'Foreca' - Прогноз погоды" e2openplugin-Foreca/plugin/locale/ru/LC_MESSAGES/Foreca.po
 		rpl '\x1b' 'KEY_ESC' e2openplugin-Foreca/plugin/keymap.xml
-		cd e2openplugin-Foreca
+		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "21.04" ]; then
@@ -334,7 +375,7 @@ if [ -d plugins ]; then
 		cd ..
 	fi
 
-	# Build python plugin YouTube
+	# Build enigma-plugin-youtube
 	if [ ! -d e2openplugin-SimpleUmount ]; then
 		set -e
 		set -o pipefail
@@ -342,8 +383,15 @@ if [ -d plugins ]; then
 		echo ""
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
-		git clone https://github.com/Taapat/enigma2-plugin-youtube.git
-		cd enigma2-plugin-youtube
+		PKG="enigma2-plugin-youtube"
+		if [ -d $PKG ]; then
+			rm -rf $PKG
+		fi
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/YouTube ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/YouTube
+		fi
+		git clone https://github.com/Taapat/$PKG.git
+		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "21.04" ]; then
@@ -357,62 +405,87 @@ if [ -d plugins ]; then
 		cd ..
 	fi
 
-	# Build python plugin OscamStatus
+	# Build e2openplugin-OscamStatus
 	if [ ! -d enigma2-plugin-youtube ]; then
 		set -e
 		set -o pipefail
 	else
-		echo ""
-		echo "**************************** OK. Go to the next step. ******************************"
-		echo ""
-		git clone https://github.com/E2OpenPlugins/e2openplugin-OscamStatus.git
-		cd ../..
-		cp -fv patches/OscamStatus.patch plugins/e2openplugin/e2openplugin-OscamStatus
-		cd plugins/e2openplugin/e2openplugin-OscamStatus
-		patch -p1 < OscamStatus.patch
-		find plugin/locale -name "*.mo" -exec rm {} \;
-		if [ "$release" = "20.04" ]; then
-			python2 setup.py install
-		elif [ "$release" = "21.04" ]; then
-			python2 setup.py install
+		PKG="e2openplugin-OscamStatus"
+		if [ "$(cat e2openplugin-OscamStatus/.git/refs/heads/master 2>/dev/null)" = "4854dc5f3060b4040c5f1f62cff0a644487ac39e" ]; then
+			echo ""
+			echo "**************** You have actual version $PKG. *****************"
 		else
-			python setup.py install
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			if [ -d $PKG ]; then
+				rm -rf $PKG
+			fi
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
+			fi
+			git clone https://github.com/E2OpenPlugins/$PKG.git
+			cd ../..
+			cp -fv patches/OscamStatus.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			git reset --hard 4854dc5f
+			patch -p1 < OscamStatus.patch
+			find plugin/locale -name "*.mo" -exec rm {} \;
+			if [ "$release" = "20.04" ]; then
+				python2 setup.py install
+			elif [ "$release" = "21.04" ]; then
+				python2 setup.py install
+			else
+				python setup.py install
+			fi
+			mv -f /usr/local/lib/python2.7/dist-packages/Extensions/OscamStatus $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_oscamstatus* $INSTALL_E2DIR/lib/enigma2/python/Plugins
+			cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
+			cd ..
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/OscamStatus $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_oscamstatus* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
-		cd ..
 	fi
 
-	# Build python plugin EPGImport for IPTV
+	# Build enigma2-plugin-extensions-epgimport
 	if [ ! -d e2openplugin-OscamStatus ]; then
 		set -e
 		set -o pipefail
 	else
-		echo ""
-		echo "**************************** OK. Go to the next step. ******************************"
-		echo ""
-		git clone https://github.com/OpenPLi/enigma2-plugin-extensions-epgimport.git
-		cd ../..
-		cp -fv patches/EPGImport.patch plugins/e2openplugin/enigma2-plugin-extensions-epgimport
-		cd plugins/e2openplugin/enigma2-plugin-extensions-epgimport
-		git checkout fb3899a2
-		patch -p1 < EPGImport.patch
-		cd src
-		if [ "$release" = "20.04" ]; then
-			python2 setup.py install
-		elif [ "$release" = "21.04" ]; then
-			python2 setup.py install
+		PKG="enigma2-plugin-extensions-epgimport"
+		if [ "$(cat enigma2-plugin-extensions-epgimport/.git/refs/heads/master 2>/dev/null)" = "1582afa4ef19fbf65a01a6745a8970427905dc06" ]; then
+			echo ""
+			echo "*********** You have actual version $PKG. ***********"
 		else
-			python setup.py install
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			if [ -d $PKG ]; then
+				rm -rf $PKG
+			fi
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
+			fi
+			git clone https://github.com/OpenPLi/$PKG.git
+			cd ../..
+			cp -fv patches/EPGImport.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			git reset --hard fb3899a2
+			patch -p1 < EPGImport.patch
+			cd src
+			if [ "$release" = "20.04" ]; then
+				python2 setup.py install
+			elif [ "$release" = "21.04" ]; then
+				python2 setup.py install
+			else
+				python setup.py install
+			fi
+			mv -f /usr/local/lib/python2.7/dist-packages/Extensions/EPGImport $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_xmltvimport* $INSTALL_E2DIR/lib/enigma2/python/Plugins
+			cp -rfv EPGImport/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
+			cd ../..
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/EPGImport $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_xmltvimport* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv EPGImport/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
-		cd ../..
 	fi
 
-	# Build python plugin IPTVPlayer
+	# Build e2iplayer
 	if [ ! -d enigma2-plugin-extensions-epgimport ]; then
 		set -e
 		set -o pipefail
@@ -423,138 +496,156 @@ if [ -d plugins ]; then
 		echo "*********************** Check the log for more information. ************************"
 		echo ""
 	else
-		echo ""
-		echo "**************************** OK. Go to the next step. ******************************"
-		echo ""
-		rm -f /usr/lib/librtmp.so.1
-		git clone https://gitlab.com/maxbambi/e2iplayer.git
-		#git clone https://gitlab.com/zadmario/e2iplayer.git
-		#git clone https://github.com/persianpros/e2iplayer.git
-		cd ../..
-		cp -rv pre/icons plugins/e2openplugin/e2iplayer/IPTVPlayer
-		cp -fv patches/E2IPlayer.patch plugins/e2openplugin/e2iplayer
-		cd plugins/e2openplugin/e2iplayer
-		git checkout 97f6d41e
-		patch -p1 < E2IPlayer.patch
-		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
-		if [ "$release" = "20.04" ]; then
-			python2 setup_translate.py
-			python2 setup.py install
-		elif [ "$release" = "21.04" ]; then
-			python2 setup_translate.py
-			python2 setup.py install
+		PKG="e2iplayer"
+		if [ "$(cat e2iplayer/.git/refs/heads/master 2>/dev/null)" = "1e9fb5646b31a85b878b0460670cce21461877fe" ]; then
+			echo ""
+			echo "*********************** You have actual version $PKG. *************************"
 		else
-			python setup_translate.py
-			python setup.py install
-		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/IPTVPlayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
-		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_iptvplayer* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
-		wget http://iptvplayer.vline.pl/resources/bin/i686/_subparser.so
-		chmod 755 _subparser.so
-		mv -f _subparser.so $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/libs/iptvsubparser
-		wget http://iptvplayer.vline.pl/resources/bin/i686/duk
-		chmod 755 duk
-		mv -f duk $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
-		rm -f /usr/bin/duk
-		wget http://iptvplayer.vline.pl/resources/bin/i686/hlsdl_static_curl_openssl.1.0.2
-		chmod 755 hlsdl_static_curl_openssl.1.0.2
-		mv -f hlsdl_static_curl_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/hlsdl
-		rm -f /usr/bin/hlsdl
-		wget http://iptvplayer.vline.pl/resources/bin/i686/f4mdump_openssl.1.0.2
-		chmod 755 f4mdump_openssl.1.0.2
-		mv -f f4mdump_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/f4mdump
-		rm -f /usr/bin/f4mdump
-		wget http://iptvplayer.vline.pl/resources/bin/i686/uchardet
-		chmod 755 uchardet
-		mv -f uchardet $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
-		wget http://iptvplayer.vline.pl/resources/bin/i686/wget_openssl.1.0.2
-		chmod 755 wget_openssl.1.0.2
-		mv -f wget_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/fullwget
-		cd ..
-
-		if [ -d e2iplayer ]; then
-			if [[ "$release" = "14.04" ]]; then
-				echo "         *** release 14.04 ***           "
-				wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer0.10
-				mv -f gstplayer_gstreamer0.10 gstplayer
-				chmod 755 gstplayer
-				mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
-				rm -f /usr/bin/gstplayer
+			echo ""
+			echo "**************************** OK. Go to the next step. ******************************"
+			echo ""
+			if [ -d $PKG ]; then
+				rm -rf $PKG
 			fi
-		else
+			if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer ]; then
+				rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
+			fi
+			rm -f /usr/lib/librtmp.so.1
+			git clone https://gitlab.com/maxbambi/$PKG.git
+			#git clone https://gitlab.com/zadmario/$PKG.git
+			#git clone https://github.com/persianpros/$PKG.git
+			cd ../..
+			cp -rv pre/icons plugins/e2openplugin/$PKG/IPTVPlayer
+			cp -fv patches/E2IPlayer.patch plugins/e2openplugin/$PKG
+			cd plugins/e2openplugin/$PKG
+			git reset --hard 97f6d41e
+			patch -p1 < E2IPlayer.patch
+			rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
+			if [ "$release" = "20.04" ]; then
+				python2 setup_translate.py
+				python2 setup.py install
+			elif [ "$release" = "21.04" ]; then
+				python2 setup_translate.py
+				python2 setup.py install
+			else
+				python setup_translate.py
+				python setup.py install
+			fi
+			mv -f /usr/local/lib/python2.7/dist-packages/Extensions/IPTVPlayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+			mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_iptvplayer* $INSTALL_E2DIR/lib/enigma2/python/Plugins
+			cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
+			wget http://iptvplayer.vline.pl/resources/bin/i686/_subparser.so
+			chmod 755 _subparser.so
+			mv -f _subparser.so $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/libs/iptvsubparser
+			wget http://iptvplayer.vline.pl/resources/bin/i686/duk
+			chmod 755 duk
+			mv -f duk $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
+			rm -f /usr/bin/duk
+			wget http://iptvplayer.vline.pl/resources/bin/i686/hlsdl_static_curl_openssl.1.0.2
+			chmod 755 hlsdl_static_curl_openssl.1.0.2
+			mv -f hlsdl_static_curl_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/hlsdl
+			rm -f /usr/bin/hlsdl
+			wget http://iptvplayer.vline.pl/resources/bin/i686/f4mdump_openssl.1.0.2
+			chmod 755 f4mdump_openssl.1.0.2
+			mv -f f4mdump_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/f4mdump
+			rm -f /usr/bin/f4mdump
+			wget http://iptvplayer.vline.pl/resources/bin/i686/uchardet
+			chmod 755 uchardet
+			mv -f uchardet $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
+			wget http://iptvplayer.vline.pl/resources/bin/i686/wget_openssl.1.0.2
+			chmod 755 wget_openssl.1.0.2
+			mv -f wget_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/fullwget
+			cd ..
+			if [ -d e2iplayer ]; then
+				if [[ "$release" = "14.04" ]]; then
+					echo "         *** release 14.04 ***"
+					wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer0.10
+					mv -f gstplayer_gstreamer0.10 gstplayer
+					chmod 755 gstplayer
+					mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
+					rm -f /usr/bin/gstplayer
+				fi
+			else
 				wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer1.0
 				mv -f gstplayer_gstreamer1.0 gstplayer
 				chmod 755 gstplayer
 				mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
-			rm -f /usr/bin/gstplayer
+				rm -f /usr/bin/gstplayer
+			fi
+			if grep "config.plugins.iptvplayer.wgetpath=/usr/bin/wget" $INSTALL_E2DIR/etc/enigma2/settings; then
+				echo ""
+				echo ""
+				echo "*************************** Detected IPTVPlayer settings.***************************"
+			else
+				echo ""
+				echo "******************* There are no iptvplayer settings. Adding...*********************"
+				echo "config.plugins.iptvplayer.autoCheckForUpdate=false" >> $INSTALL_E2DIR/etc/enigma2/settings
+				echo "config.plugins.iptvplayer.deleteIcons=0" >> $INSTALL_E2DIR/etc/enigma2/settings
+				echo "config.plugins.iptvplayer.downgradePossible=true" >> $INSTALL_E2DIR/etc/enigma2/settings
+				echo "config.plugins.iptvplayer.dukpath=/usr/local/e2/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/duk" >> $INSTALL_E2DIR/etc/enigma2/settings
+				echo "config.plugins.iptvplayer.possibleUpdateType=sourcecode" >> $INSTALL_E2DIR/etc/enigma2/settings
+				echo "config.plugins.iptvplayer.showinMainMenu=true" >> $INSTALL_E2DIR/etc/enigma2/settings
+				echo "config.plugins.iptvplayer.uchardetpath=/usr/bin/uchardet" >> $INSTALL_E2DIR/etc/enigma2/settings
+				echo "config.plugins.iptvplayer.wgetpath=/usr/bin/wget" >> $INSTALL_E2DIR/etc/enigma2/settings
+			fi
 		fi
-
-		if grep "config.plugins.iptvplayer.wgetpath=/usr/bin/wget" $INSTALL_E2DIR/etc/enigma2/settings; then
-			echo ""
-			echo ""
-			echo "*************************** Detected IPTVPlayer settings.***************************"
-		else
-			echo ""
-			echo "******************* There are no iptvplayer settings. Adding...*********************"
-			echo "config.plugins.iptvplayer.autoCheckForUpdate=false" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.deleteIcons=0" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.downgradePossible=true" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.dukpath=/usr/local/e2/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/duk" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.possibleUpdateType=sourcecode" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.showinMainMenu=true" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.uchardetpath=/usr/bin/uchardet" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.wgetpath=/usr/bin/wget" >> $INSTALL_E2DIR/etc/enigma2/settings
-		fi
-
-		cd ../..
-
-		# Copy files to $INSTALL_E2DIR
-		echo ""
-		echo "******************************** Copy  plugins E2PC ********************************"
-		cp -rfv plugins/third-party-plugins/Plugins $INSTALL_E2DIR/lib/enigma2/python
-		cp -fv pre/python/urllib.py /usr/lib/python2.7
-		cp -rfv pre/epgimport $INSTALL_E2DIR/etc
-		cp -rfv pre/xmltvimport $INSTALL_E2DIR/etc
-		cp -rfv skins/* $INSTALL_E2DIR
-
-		if [ ! -f /usr/local/bin/bitrate ]; then
-			ln -sf /usr/local/e2/bin/bitrate /usr/local/bin
-		fi
-
-		# Create folder for softam keys and symlink for plugin 'navibar'
-		if [ ! -d /var/keys ]; then
-			mkdir -p /var/keys
-		fi
-		if [ ! -d /home/hdd/icons ]; then
-			ln -s $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/navibar/icons /home/hdd
-		fi
-
-		# Removing old compiled pyc files
-		find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[o]" -exec rm {} \;
-
-		# Compile other pyc files
-		if [ "$release" = "20.04" ]; then
-			python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
-		elif [ "$release" = "21.04" ]; then
-			python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
-		else
-			python -m compileall $INSTALL_E2DIR/lib/enigma2/python
-		fi
-
-		# Force recompile new pyc files
-		#if [ "$release" = "20.04" ]; then
-		#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
-		#elif [ "$release" = "21.04" ]; then
-		#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
-		#else
-		#	python -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
-		#fi
-		echo ""
-		echo "************* Plugins, skins, E2PC python files installed successfully.*************"
 	fi
+
+	cd ../..
+
+	# Temporarily
+	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi ]; then
+		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi
+	fi
+
+	# For use *.m3u8 in the /tmp folder
+	chown $(who | awk '{print $1}'):$(who | awk '{print $1}') /tmp
+
+	# Copy files to $INSTALL_E2DIR
+	echo ""
+	echo "******************************** Copy  plugins E2PC ********************************"
+	cp -rfv plugins/third-party-plugins/Plugins $INSTALL_E2DIR/lib/enigma2/python
+	cp -fv pre/python/urllib.py /usr/lib/python2.7
+	cp -rfv pre/epgimport $INSTALL_E2DIR/etc
+	cp -rfv pre/xmltvimport $INSTALL_E2DIR/etc
+	cp -rfv skins/* $INSTALL_E2DIR
+
+	if [ ! -f /usr/local/bin/bitrate ]; then
+		ln -sf /usr/local/e2/bin/bitrate /usr/local/bin
+	fi
+
+	# Create folder for softam keys and symlink for plugin 'navibar'
+	if [ ! -d /var/keys ]; then
+		mkdir -p /var/keys
+	fi
+	if [ ! -d /home/hdd/icons ]; then
+		ln -s $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/navibar/icons /home/hdd
+	fi
+
+	# Removing old compiled pyc files
+	find $INSTALL_E2DIR/lib/enigma2/python/ -name "*.py[o]" -exec rm {} \;
+
+	# Compile other pyc files
+	if [ "$release" = "20.04" ]; then
+		python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
+	elif [ "$release" = "21.04" ]; then
+		python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
+	else
+		python -m compileall $INSTALL_E2DIR/lib/enigma2/python
+	fi
+
+	# Force recompile new pyc files
+	#if [ "$release" = "20.04" ]; then
+	#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
+	#elif [ "$release" = "21.04" ]; then
+	#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
+	#else
+	#	python -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
+	#fi
+	echo ""
+	echo "************* Plugins, skins, E2PC python files installed successfully.*************"
 else
-	# End lock
 	echo ""
 	echo "************ Plugins folder is missing! Please run scripts step by step! ************"
+# End lock
 fi

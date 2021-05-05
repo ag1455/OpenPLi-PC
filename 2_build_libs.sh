@@ -158,8 +158,9 @@ elif [[ "$release" = "21.04" ]]; then
 	echo "********************************************************"
 	echo ""
 	REQPKG="flake8 gcc-10 g++-10 libdca-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libpython2-dev python2-dev libffi7 \
-	pycodestyle python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile \
-	python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
+	libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib \
+	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint \
+	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
 	"
 	cp -rfv pre/python/* /usr/lib/python2.7 # hack!
 fi
