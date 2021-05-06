@@ -309,11 +309,13 @@ else
 	if [ ! -d $INSTALL_LIB/lib/enigma2 ]; then
 		ln -s $INSTALL_E2DIR/lib/enigma2 $INSTALL_LIB/lib/enigma2
 	fi
-	git clone https://github.com/OpenPLi/tuxtxt.git tuxtxt-git
+	wget https://github.com/OpenPLi/tuxtxt/archive/c62f3cd1c877b0218249908c01bb30a8cd5de742.zip
+	unzip c62f3cd1c877b0218249908c01bb30a8cd5de742.zip
+	rm c62f3cd1c877b0218249908c01bb30a8cd5de742.zip
+	mv tuxtxt-c62f3cd1c877b0218249908c01bb30a8cd5de742 $SOURCE
 	cd ..
 	cp -v patches/tuxtxt.patch libs/$SOURCE
 	cd libs/$SOURCE
-	git checkout fa18f775
 	patch -p1 < tuxtxt.patch
 	echo "-----------------------------------------"
 	echo " patches for tuxtxt and libtuxtxt applied"

@@ -128,11 +128,6 @@ systemtime/src/images/Makefile
 systemtime/meta/Makefile
 systemtime/po/Makefile
 
-virtualzap/Makefile
-virtualzap/meta/Makefile
-virtualzap/po/Makefile
-virtualzap/src/Makefile
-
 networkbrowser/Makefile
 networkbrowser/meta/Makefile
 networkbrowser/po/Makefile

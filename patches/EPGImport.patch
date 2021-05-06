@@ -1,18 +1,60 @@
 diff -ruN o/src/EPGImport/EPGConfig.py pc/src/EPGImport/EPGConfig.py
---- o/src/EPGImport/EPGConfig.py	2020-04-12 13:39:06.645411006 +0300
-+++ pc/src/EPGImport/EPGConfig.py	2020-07-30 15:54:58.925071903 +0300
-@@ -81,7 +81,7 @@
- 			print>>log, "[EPGImport] failed to parse", downloadedFile, "Error:", e
+--- o/src/EPGImport/EPGConfig.py	2021-05-02 15:16:54.000000000 +0300
++++ pc/src/EPGImport/EPGConfig.py	2021-05-06 14:22:32.746207137 +0300
+@@ -8,7 +8,7 @@
+ import re
+ 
+ # User selection stored here, so it goes into a user settings backup
+-SETTINGS_FILE = '/etc/enigma2/epgimport.conf'
++SETTINGS_FILE = '/usr/local/e2/etc/enigma2/epgimport.conf'
+ 
+ channelCache = {}
+ global filterCustomChannel
+@@ -43,7 +43,7 @@
+ def set_channel_id_filter():
+ 	full_filter = ""
+ 	try:
+-		with open('/etc/epgimport/channel_id_filter.conf', 'r') as channel_id_file:
++		with open('/usr/local/e2/etc/epgimport/channel_id_filter.conf', 'r') as channel_id_file:
+ 			for channel_id_line in channel_id_file:
+ 				# Skipping comments in channel_id_filter.conf
+ 				if not channel_id_line.startswith("#"):
+@@ -153,7 +153,7 @@
  			pass
+ 
  	def update(self, filterCallback, downloadedFile=None):
--		customFile='/etc/epgimport/custom.channels.xml'
-+		customFile='/usr/local/e2/etc/epgimport/custom.channels.xml'
+-		customFile = '/etc/epgimport/custom.channels.xml'
++		customFile = '/usr/local/e2/etc/epgimport/custom.channels.xml'
  		# Always read custom file since we don't know when it was last updated
  		# and we don't have multiple download from server problem since it is always a local file.
  		if os.path.exists(customFile):
+diff -ruN o/src/EPGImport/epgdat_importer.py pc/src/EPGImport/epgdat_importer.py
+--- o/src/EPGImport/epgdat_importer.py	2021-05-02 15:16:54.000000000 +0300
++++ pc/src/EPGImport/epgdat_importer.py	2021-05-06 14:23:45.799196196 +0300
+@@ -9,7 +9,7 @@
+ 	settingspath = '.'
+ else:
+ 	tmppath = '/tmp'
+-	settingspath = '/etc/enigma2'
++	settingspath = '/usr/local/e2/etc/enigma2'
+ 
+ 
+ class epgdatclass:
+diff -ruN o/src/EPGImport/epgdat.py pc/src/EPGImport/epgdat.py
+--- o/src/EPGImport/epgdat.py	2021-05-02 15:16:54.000000000 +0300
++++ pc/src/EPGImport/epgdat.py	2021-05-06 14:24:00.775401933 +0300
+@@ -116,7 +116,7 @@
+ class epgdat_class:
+ 	# temp files used for EPG.DAT creation
+ 
+-	LAMEDB = '/etc/enigma2/lamedb'
++	LAMEDB = '/usr/local/e2/etc/enigma2/lamedb'
+ 
+ 	EPGDAT_FILENAME = 'epgtest.dat'
+ 	EPGDAT_TMP_FILENAME = 'epgdat.tmp'
 diff -ruN o/src/EPGImport/EPGImport.py pc/src/EPGImport/EPGImport.py
---- o/src/EPGImport/EPGImport.py	2020-04-12 13:39:06.645411006 +0300
-+++ pc/src/EPGImport/EPGImport.py	2020-07-30 09:52:10.000000000 +0300
+--- o/src/EPGImport/EPGImport.py	2021-05-02 15:16:54.000000000 +0300
++++ pc/src/EPGImport/EPGImport.py	2021-05-06 14:18:22.799740284 +0300
 @@ -10,7 +10,7 @@
  import log
  import random
@@ -20,12 +62,12 @@ diff -ruN o/src/EPGImport/EPGImport.py pc/src/EPGImport/EPGImport.py
 -HDD_EPG_DAT = "/hdd/epg.dat"
 +HDD_EPG_DAT = "/media/hdd/epg.dat"
  
- from twisted.internet import reactor, threads
+ from twisted.internet import reactor, threads, ssl
  from twisted.web.client import downloadPage
 diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
---- o/src/EPGImport/filtersServices.py	2020-04-12 13:39:06.645411006 +0300
-+++ pc/src/EPGImport/filtersServices.py	2020-07-30 15:56:01.382010084 +0300
-@@ -58,8 +58,8 @@
+--- o/src/EPGImport/filtersServices.py	2021-05-02 15:16:54.000000000 +0300
++++ pc/src/EPGImport/filtersServices.py	2021-05-06 14:18:22.799740284 +0300
+@@ -64,8 +64,8 @@
  
  	def saveTo(self, filename):
  		try:
@@ -36,7 +78,7 @@ diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
  			cfg = open(filename, 'w')
  		except:
  			return
-@@ -68,7 +68,7 @@
+@@ -74,7 +74,7 @@
  		cfg.close()
  
  	def load(self):
@@ -45,7 +87,7 @@ diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
  
  	def reload(self):
  		self.services = []
-@@ -78,7 +78,7 @@
+@@ -84,7 +84,7 @@
  		return self.services
  
  	def save(self):
@@ -55,21 +97,21 @@ diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
  	def addService(self, ref):
  		if isinstance(ref, str):
 diff -ruN o/src/EPGImport/locale/ru.po pc/src/EPGImport/locale/ru.po
---- o/src/EPGImport/locale/ru.po	2020-07-29 11:03:45.728171771 +0300
-+++ pc/src/EPGImport/locale/ru.po	2020-07-30 16:04:08.406992202 +0300
-@@ -199,7 +199,7 @@
+--- o/src/EPGImport/locale/ru.po	2021-05-02 15:16:54.000000000 +0300
++++ pc/src/EPGImport/locale/ru.po	2021-05-06 14:18:22.799740284 +0300
+@@ -219,7 +219,7 @@
  
- #: ../plugin.py:287
+ #: ../plugin.py:294
  msgid "Manual"
 -msgstr "В ручную"
 +msgstr "Вручную"
  
- #: ../plugin.py:80
+ #: ../plugin.py:81
  msgid "Monday"
 diff -ruN o/src/EPGImport/plugin.py pc/src/EPGImport/plugin.py
---- o/src/EPGImport/plugin.py	2020-06-07 23:04:36.225164857 +0300
-+++ pc/src/EPGImport/plugin.py	2020-07-30 15:56:37.787682597 +0300
-@@ -94,7 +94,7 @@
+--- o/src/EPGImport/plugin.py	2021-05-02 15:16:54.000000000 +0300
++++ pc/src/EPGImport/plugin.py	2021-05-06 14:18:22.799740284 +0300
+@@ -98,7 +98,7 @@
  from Plugins.Plugin import PluginDescriptor
  
  # historically located (not a problem, we want to update it)

@@ -13,7 +13,6 @@ SUBDIRS = \
 	recordinfobar \
 	servicemp3 \
 	systemtime \
-	virtualzap \
 	pluginhider \
 	networkbrowser
 
