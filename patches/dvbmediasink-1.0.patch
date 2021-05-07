@@ -1,6 +1,6 @@
-diff -ruN a/gstdtsdownmix.c b/gstdtsdownmix.c
---- a/gstdtsdownmix.c	2020-02-02 15:30:35.671393225 +0300
-+++ b/gstdtsdownmix.c	2020-02-02 15:28:57.923390745 +0300
+diff -ruN o/gstdtsdownmix.c pc/gstdtsdownmix.c
+--- o/gstdtsdownmix.c	2020-10-01 18:46:01.000000000 +0300
++++ pc/gstdtsdownmix.c	2021-05-07 15:59:09.082521171 +0300
 @@ -388,13 +388,13 @@
  static void set_stcmode(GstDtsDownmix *dts)
  {
@@ -35,9 +35,9 @@ diff -ruN a/gstdtsdownmix.c b/gstdtsdownmix.c
  	if (f)
  	{
  		fread(buffer, sizeof(buffer), 1, f);
-diff -ruN a/gstdvbaudiosink.c b/gstdvbaudiosink.c
---- a/gstdvbaudiosink.c	2020-02-02 15:30:35.672393225 +0300
-+++ b/gstdvbaudiosink.c	2020-02-02 15:28:57.924390745 +0300
+diff -ruN o/gstdvbaudiosink.c pc/gstdvbaudiosink.c
+--- o/gstdvbaudiosink.c	2020-10-01 18:46:01.000000000 +0300
++++ pc/gstdvbaudiosink.c	2021-05-07 15:59:09.083521187 +0300
 @@ -349,7 +349,7 @@
  {
  	FILE *f;
@@ -47,10 +47,10 @@ diff -ruN a/gstdvbaudiosink.c b/gstdvbaudiosink.c
  	if (f)
  	{
  		fread(buffer, sizeof(buffer), 1, f);
-diff -ruN a/gstdvbvideosink.c b/gstdvbvideosink.c
---- a/gstdvbvideosink.c	2020-02-02 15:30:35.673393225 +0300
-+++ b/gstdvbvideosink.c	2020-02-02 15:28:57.925390745 +0300
-@@ -1717,7 +1717,7 @@
+diff -ruN o/gstdvbvideosink.c pc/gstdvbvideosink.c
+--- o/gstdvbvideosink.c	2020-10-01 18:46:01.000000000 +0300
++++ pc/gstdvbvideosink.c	2021-05-07 15:59:09.083521187 +0300
+@@ -1723,7 +1723,7 @@
  		gint numerator, denominator;
  		if (gst_structure_get_fraction (structure, "framerate", &numerator, &denominator))
  		{
@@ -59,7 +59,7 @@ diff -ruN a/gstdvbvideosink.c b/gstdvbvideosink.c
  			if (f)
  			{
  				int valid_framerates[] = { 23976, 24000, 25000, 29970, 30000, 50000, 59940, 60000 };
-@@ -1836,7 +1836,7 @@
+@@ -1842,7 +1842,7 @@
  
  	self->pesheader_buffer = gst_buffer_new_and_alloc(2048);
  
@@ -68,7 +68,7 @@ diff -ruN a/gstdvbvideosink.c b/gstdvbvideosink.c
  	if (f)
  	{
  		fgets(self->saved_fallback_framerate, sizeof(self->saved_fallback_framerate), f);
-@@ -1906,7 +1906,7 @@
+@@ -1912,7 +1912,7 @@
  		queue_pop(&self->queue);
  	}
  

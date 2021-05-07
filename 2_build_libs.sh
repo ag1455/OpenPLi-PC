@@ -3,9 +3,9 @@
 # To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and test 21.04 (64-bit).
 # Install these packages:
 
-echo "********************************************************"
-echo "            *** INSTALL REQUIRED PACKAGES ***"
-echo "********************************************************"
+echo ""
+echo "                       *** INSTALL REQUIRED PACKAGES ***"
+echo ""
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
@@ -34,9 +34,9 @@ done
 
 if [[ "$release" = "14.04" ]]; then
 	echo ""
-	echo "********************************************************"
-	echo "                 *** release 14.04 ***                  "
-	echo "********************************************************"
+	echo "************************************************************************************"
+	echo "                             *** release 14.04 ***"
+	echo "************************************************************************************"
 	echo ""
 	if [ ! -f /etc/apt/sources.list.d/ubuntu-cloud-archive-liberty-staging-trusty.list ]; then
 	add-apt-repository -y ppa:ubuntu-cloud-archive/liberty-staging
@@ -64,9 +64,9 @@ if [[ "$release" = "14.04" ]]; then
 	rm -f *.deb
 elif [[ "$release" = "16.04" ]]; then
 	echo ""
-	echo "********************************************************"
-	echo "                 *** release 16.04 ***                  "
-	echo "********************************************************"
+	echo "************************************************************************************"
+	echo "                             *** release 16.04 ***"
+	echo "************************************************************************************"
 	echo ""
 	if [ ! -f /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-xenial.list ]; then
 	add-apt-repository -y ppa:ubuntu-toolchain-r/test
@@ -82,9 +82,9 @@ elif [[ "$release" = "16.04" ]]; then
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
-	echo "********************************************************"
-	echo "                 *** release 18.04 ***                  "
-	echo "********************************************************"
+	echo "************************************************************************************"
+	echo "                             *** release 18.04 ***"
+	echo "************************************************************************************"
 	echo ""
 	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev libupnp6-dev libvdpau1 libvdpau-va-gl1 libdts-dev mock \
 	python-ipaddress pyflakes python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl \
@@ -96,9 +96,9 @@ elif [[ "$release" = "18.04" ]]; then
 	"
 elif [[ "$release" = "20.04" ]]; then
 	echo ""
-	echo "********************************************************"
-	echo "                 *** release 20.04 ***                  "
-	echo "********************************************************"
+	echo "************************************************************************************"
+	echo "                             *** release 20.04 ***"
+	echo "************************************************************************************"
 	echo ""
 	# Add new repositories
 	if [ ! -f /etc/apt/sources.list.d/oibaf-ubuntu-graphics-drivers-focal.list ]; then
@@ -109,9 +109,9 @@ elif [[ "$release" = "20.04" ]]; then
 		apt-get update
 		apt-get -y upgrade
 	else
-		echo "********************************************************"
-		echo "            *** Packages already updated. ***"
-		echo "********************************************************"
+		echo ""
+		echo "                         *** Packages already updated. ***"
+		echo ""
 	fi
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev libdts-dev libupnp-dev libvdpau1 libvdpau-va-gl1 python-ipaddress pyflakes \
 	python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah python-setuptools \
@@ -153,9 +153,9 @@ elif [[ "$release" = "20.04" ]]; then
 	rm -f *.deb
 elif [[ "$release" = "21.04" ]]; then
 	echo ""
-	echo "********************************************************"
-	echo "                 *** release 21.04 ***"
-	echo "********************************************************"
+	echo "************************************************************************************"
+	echo "                             *** release 21.04 ***"
+	echo "************************************************************************************"
 	echo ""
 	REQPKG="flake8 gcc-10 g++-10 libdca-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libpython2-dev python2-dev libffi7 \
 	libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib \
@@ -199,9 +199,9 @@ cd $BUILD_DIR
 LIB="libdvbsi++1"
 #PKG="libdvbsi-"
 PKG="libdvbsi++"
-echo "-----------------------------------------"
-echo "Build and install $LIB"
-echo "-----------------------------------------"
+echo ""
+echo "                    *** Build and install $PKG ***"
+echo ""
 I=`dpkg -s $LIB | grep "Status"`
 if [ -n "$I" ]; then
 	dpkg -r libdvbsi++1 libdvbsi++-dev
@@ -218,9 +218,9 @@ cp -v patches/ac3_descriptor-check-if-header-is-larger-than-descri.patch libs/$P
 cd libs/$PKG
 patch -p1 < fix_section_len_check.patch
 patch -p1 < ac3_descriptor-check-if-header-is-larger-than-descri.patch
-echo "-----------------------------------------"
-echo "      Patch for libdvbsi++ applied       "
-echo "-----------------------------------------"
+echo ""
+echo "                      *** Patch for $PKG applied ***"
+echo ""
 #autoupdate
 dpkg-buildpackage -uc -us
 cd ..
@@ -238,9 +238,9 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	PKG="libxmlccwrap"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
+	echo ""
+	echo "                     *** Build and install $PKG ***"
+	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r libxmlccwrap libxmlccwrap-dev
@@ -270,18 +270,20 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	PKG="libdvbcsa"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
+	echo ""
+	echo "                       *** Build and install $PKG ***"
+	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r libdvbcsa libdvbcsa-dev tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
-	git clone https://code.videolan.org/videolan/$PKG.git
+	wget https://code.videolan.org/videolan/$PKG/-/archive/bc6c0b164a87ce05e9925785cc6fb3f54c02b026/libdvbcsa-bc6c0b164a87ce05e9925785cc6fb3f54c02b026.zip
+	unzip $PKG-bc6c0b164a87ce05e9925785cc6fb3f54c02b026.zip
+	rm $PKG-bc6c0b164a87ce05e9925785cc6fb3f54c02b026.zip
+	mv $PKG-bc6c0b164a87ce05e9925785cc6fb3f54c02b026 $PKG
 	cd $PKG
-	git checkout bc6c0b16
 	./bootstrap
 	./configure --prefix=/usr --enable-sse2
 	checkinstall -D --install=yes --default --pkgname=libdvbcsa --pkgversion=1.1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
@@ -299,6 +301,9 @@ else
 	INSTALL_E2DIR="/usr/local/e2"
 	SOURCE="tuxtxt-git"
 	PKG="libtuxtxt"
+	echo ""
+	echo "                       *** Build and install $PKG ***"
+	echo ""
 	if [ ! -d $INSTALL_E2DIR ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 	fi
@@ -317,9 +322,9 @@ else
 	cp -v patches/tuxtxt.patch libs/$SOURCE
 	cd libs/$SOURCE
 	patch -p1 < tuxtxt.patch
-	echo "-----------------------------------------"
-	echo " patches for tuxtxt and libtuxtxt applied"
-	echo "-----------------------------------------"
+	echo ""
+	echo "                       *** patches for $PKG applied ***"
+	echo ""
 	cd $PKG
 #	autoupdate
 	autoreconf -i
@@ -337,6 +342,9 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	PKG="tuxtxt"
+	echo ""
+	echo "                        *** Build and install $PKG ***"
+	echo ""
 	cd $PKG
 #	autoupdate
 	autoreconf -i
@@ -355,20 +363,22 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	PKG="aio-grab"
-	echo "-----------------------------------------"
-	echo "Build and install $PKG"
-	echo "-----------------------------------------"
+	echo ""
+	echo "                       *** Build and install $PKG ***"
+	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r aio-grab
 	else
 		echo "$PKG not installed"
 	fi
-	git clone https://github.com/OpenPLi/aio-grab.git
+	wget https://github.com/OpenPLi/$PKG/archive/cf62da47eedb6afe4c44949253ef0b876deb2105.zip
+	unzip cf62da47eedb6afe4c44949253ef0b876deb2105.zip
+	rm cf62da47eedb6afe4c44949253ef0b876deb2105.zip
+	mv $PKG-cf62da47eedb6afe4c44949253ef0b876deb2105 $PKG
 	cd ..
 	cp -v patches/aio-grab.patch libs/$PKG
 	cd libs/$PKG
-	git checkout c79e2641
 	patch -p1 < aio-grab.patch
 	autoreconf -i
 	./configure --prefix=/usr
@@ -386,29 +396,31 @@ else
 	echo ""
 	LIB="libgstreamer-plugins-dvbmediasink"
 	PKG="gst-plugin-dvbmediasink"
-	echo "-----------------------------------------"
-	echo "Build and install $LIB"
-	echo "-----------------------------------------"
+	echo ""
+	echo "                 *** Build and install $PKG ***"
+	echo ""
 	I=`dpkg -s $LIB | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r $LIB
 	else
 		echo "$LIB not installed"
 	fi
-	git clone https://github.com/openpli/gst-plugin-dvbmediasink.git
+	wget https://github.com/OpenPLi/$PKG/archive/1d197313832d39fdaf430634f62ad95a33029db0.zip
+	unzip 1d197313832d39fdaf430634f62ad95a33029db0.zip
+	rm 1d197313832d39fdaf430634f62ad95a33029db0.zip
+	mv $PKG-1d197313832d39fdaf430634f62ad95a33029db0 $PKG
 	cd $PKG
-	git checkout 12511897
 	cd ../..
 	cp -v patches/dvbmediasink-1.0.patch libs/$PKG
 	cd libs/$PKG
 	patch -p1 < dvbmediasink-1.0.patch
-	echo "-----------------------------------------"
-	echo "      Patch for dvbmediasink applied     "
-	echo "-----------------------------------------"
+	echo ""
+	echo "                 *** Patch for $PKG applied ***"
+	echo ""
 #	autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
-	checkinstall -D --install=yes --default --pkgname=libgstreamer-plugins-dvbmediasink --pkgversion=0.10.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	cd ..
 fi
 
@@ -422,32 +434,34 @@ else
 	echo ""
 	LIB="libgstreamer-plugins-subsink"
 	PKG="gst-plugin-subsink"
-	echo "-----------------------------------------"
-	echo "Build and install $LIB"
-	echo "-----------------------------------------"
+	echo ""
+	echo "                    *** Build and install $PKG ***"
+	echo ""
 	I=`dpkg -s $LIB | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r $LIB
 	else
 		echo "$LIB not installed"
 	fi
-		git clone https://github.com/OpenPLi/gst-plugin-subsink.git
+		wget https://github.com/OpenPLi/$PKG/archive/2c4288bb29e0781f27aecc25c941b6e441630f8d.zip
+		unzip 2c4288bb29e0781f27aecc25c941b6e441630f8d.zip
+		rm 2c4288bb29e0781f27aecc25c941b6e441630f8d.zip
+		mv $PKG-2c4288bb29e0781f27aecc25c941b6e441630f8d $PKG
 		cd $PKG
-		git checkout 2c4288bb
 		echo "AC_CONFIG_MACRO_DIR([m4])" >> configure.ac
 	if [[ "$release" = "14.04" ]]; then
 #		autoupdate
 		autoreconf -i
 		./configure --prefix=/usr
-		checkinstall -D --install=yes --default --pkgname=libgstreamer-plugins-subsink --pkgversion=0.10.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	else
 		cd ../..
 		cp -v patches/subsink_1.0.patch libs/$PKG
 		cd libs/$PKG
 		patch -p1 < subsink_1.0.patch
-		echo "-----------------------------------------"
-		echo "    Patch for subsink_1.0.patch applied  "
-		echo "-----------------------------------------"
+		echo ""
+		echo "                  *** Patch for $PKG applied ***"
+		echo ""
 #		autoupdate
 		autoreconf -i
 		./configure --prefix=/usr
@@ -462,14 +476,11 @@ if [ ! -f gst-plugin-subsink/*.deb ]; then
 	set -o pipefail
 	# Message if error at any point of script
 	echo ""
-	echo "************* Forced stop script execution. It maybe сompilation error, ************"
-	echo "************** lost Internet connection or the server not responding. **************"
-	echo "*********************** Check the log for more information. ************************"
+	echo "          *** Forced stop script execution. It maybe сompilation error, ***"
+	echo "           *** lost Internet connection or the server not responding. ***"
+	echo "                    *** Check the log for more information. ***"
 	echo ""
 else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
 	cd ..
 	cp -rfv pre/python/dist-packages/pythonwifi /lib/python2.7/dist-packages
 	cp -fv pre/python/dist-packages/python_wifi-0.5.0.egg-info /lib/python2.7/dist-packages

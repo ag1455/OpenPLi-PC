@@ -1,6 +1,6 @@
-diff -ruN b/main.c a/main.c
---- b/main.c	2019-01-24 14:25:34.002622872 +0300
-+++ a/main.c	2019-01-24 14:27:51.551913925 +0300
+diff -ruN o/main.c pc/main.c
+--- o/main.c	2020-08-17 23:42:27.000000000 +0300
++++ pc/main.c	2021-05-07 15:07:57.542852246 +0300
 @@ -133,7 +133,7 @@
  
  	if (stb_type == UNKNOWN)
@@ -10,7 +10,7 @@ diff -ruN b/main.c a/main.c
  		if (file)
  		{
  			char buf[32];
-@@ -301,7 +301,7 @@
+@@ -306,7 +306,7 @@
  
  	if (stb_type == UNKNOWN)
  	{
@@ -19,7 +19,7 @@ diff -ruN b/main.c a/main.c
  		if (file)
  		{
  			char buf[32];
-@@ -541,35 +541,35 @@
+@@ -546,35 +546,35 @@
  	}
  	else
  	{
@@ -60,7 +60,7 @@ diff -ruN b/main.c a/main.c
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf), fp))
-@@ -920,7 +920,7 @@
+@@ -925,7 +925,7 @@
  
  		munmap((void*)data, 100);
  
@@ -69,7 +69,7 @@ diff -ruN b/main.c a/main.c
  		while (fgets(buf,sizeof(buf),fp))
  			sscanf(buf,"%x",&res);
  		fclose(fp);
-@@ -1068,7 +1068,7 @@
+@@ -1073,7 +1073,7 @@
  	else if (stb_type == XILLEON)
  	{
  		// grab xilleon pic from decoder memory
@@ -78,7 +78,7 @@ diff -ruN b/main.c a/main.c
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf),fp))
-@@ -1077,7 +1077,7 @@
+@@ -1082,7 +1082,7 @@
  			}
  			fclose(fp);
  		}
@@ -87,7 +87,7 @@ diff -ruN b/main.c a/main.c
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf),fp))
-@@ -1271,7 +1271,7 @@
+@@ -1276,7 +1276,7 @@
  		*xres=0;
  		*yres=0;
  
@@ -96,7 +96,7 @@ diff -ruN b/main.c a/main.c
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf),fp))
-@@ -1281,7 +1281,7 @@
+@@ -1286,7 +1286,7 @@
  			fclose(fp);
  		}
  
