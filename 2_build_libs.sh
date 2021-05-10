@@ -270,6 +270,7 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	PKG="libdvbcsa"
+	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
@@ -279,10 +280,10 @@ else
 	else
 		echo "$PKG not installed"
 	fi
-	wget https://code.videolan.org/videolan/$PKG/-/archive/bc6c0b164a87ce05e9925785cc6fb3f54c02b026/libdvbcsa-bc6c0b164a87ce05e9925785cc6fb3f54c02b026.zip
-	unzip $PKG-bc6c0b164a87ce05e9925785cc6fb3f54c02b026.zip
-	rm $PKG-bc6c0b164a87ce05e9925785cc6fb3f54c02b026.zip
-	mv $PKG-bc6c0b164a87ce05e9925785cc6fb3f54c02b026 $PKG
+	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/libdvbcsa-$VER.zip
+	unzip $PKG-$VER.zip
+	rm $PKG-$VER.zip
+	mv $PKG-$VER $PKG
 	cd $PKG
 	./bootstrap
 	./configure --prefix=/usr --enable-sse2
@@ -301,6 +302,7 @@ else
 	INSTALL_E2DIR="/usr/local/e2"
 	SOURCE="tuxtxt-git"
 	PKG="libtuxtxt"
+	VER="c62f3cd1c877b0218249908c01bb30a8cd5de742"
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
@@ -314,10 +316,10 @@ else
 	if [ ! -d $INSTALL_LIB/lib/enigma2 ]; then
 		ln -s $INSTALL_E2DIR/lib/enigma2 $INSTALL_LIB/lib/enigma2
 	fi
-	wget https://github.com/OpenPLi/tuxtxt/archive/c62f3cd1c877b0218249908c01bb30a8cd5de742.zip
-	unzip c62f3cd1c877b0218249908c01bb30a8cd5de742.zip
-	rm c62f3cd1c877b0218249908c01bb30a8cd5de742.zip
-	mv tuxtxt-c62f3cd1c877b0218249908c01bb30a8cd5de742 $SOURCE
+	wget https://github.com/OpenPLi/tuxtxt/archive/$VER.zip
+	unzip $VER.zip
+	rm $VER.zip
+	mv tuxtxt-$VER $SOURCE
 	cd ..
 	cp -v patches/tuxtxt.patch libs/$SOURCE
 	cd libs/$SOURCE
@@ -363,6 +365,7 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	PKG="aio-grab"
+	VER="cf62da47eedb6afe4c44949253ef0b876deb2105"
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
@@ -372,10 +375,10 @@ else
 	else
 		echo "$PKG not installed"
 	fi
-	wget https://github.com/OpenPLi/$PKG/archive/cf62da47eedb6afe4c44949253ef0b876deb2105.zip
-	unzip cf62da47eedb6afe4c44949253ef0b876deb2105.zip
-	rm cf62da47eedb6afe4c44949253ef0b876deb2105.zip
-	mv $PKG-cf62da47eedb6afe4c44949253ef0b876deb2105 $PKG
+	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+	unzip $VER.zip
+	rm $VER.zip
+	mv $PKG-$VER $PKG
 	cd ..
 	cp -v patches/aio-grab.patch libs/$PKG
 	cd libs/$PKG
@@ -396,6 +399,7 @@ else
 	echo ""
 	LIB="libgstreamer-plugins-dvbmediasink"
 	PKG="gst-plugin-dvbmediasink"
+	VER="1d197313832d39fdaf430634f62ad95a33029db0"
 	echo ""
 	echo "                 *** Build and install $PKG ***"
 	echo ""
@@ -405,10 +409,10 @@ else
 	else
 		echo "$LIB not installed"
 	fi
-	wget https://github.com/OpenPLi/$PKG/archive/1d197313832d39fdaf430634f62ad95a33029db0.zip
-	unzip 1d197313832d39fdaf430634f62ad95a33029db0.zip
-	rm 1d197313832d39fdaf430634f62ad95a33029db0.zip
-	mv $PKG-1d197313832d39fdaf430634f62ad95a33029db0 $PKG
+	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+	unzip $VER.zip
+	rm $VER.zip
+	mv $PKG-$VER $PKG
 	cd $PKG
 	cd ../..
 	cp -v patches/dvbmediasink-1.0.patch libs/$PKG
@@ -434,6 +438,7 @@ else
 	echo ""
 	LIB="libgstreamer-plugins-subsink"
 	PKG="gst-plugin-subsink"
+	VER="2c4288bb29e0781f27aecc25c941b6e441630f8d"
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
@@ -443,10 +448,10 @@ else
 	else
 		echo "$LIB not installed"
 	fi
-		wget https://github.com/OpenPLi/$PKG/archive/2c4288bb29e0781f27aecc25c941b6e441630f8d.zip
-		unzip 2c4288bb29e0781f27aecc25c941b6e441630f8d.zip
-		rm 2c4288bb29e0781f27aecc25c941b6e441630f8d.zip
-		mv $PKG-2c4288bb29e0781f27aecc25c941b6e441630f8d $PKG
+		wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
 		cd $PKG
 		echo "AC_CONFIG_MACRO_DIR([m4])" >> configure.ac
 	if [[ "$release" = "14.04" ]]; then

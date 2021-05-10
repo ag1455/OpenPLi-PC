@@ -15,13 +15,14 @@ if [ -d plugins ]; then
 	echo "************************** OK. Let's build the plugins. ****************************"
 	echo ""
 	PKG="servicemp3"
+	VER="245271cc9081576c29797cb14486f025f8121940"
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/OpenPLi/servicemp3/archive/245271cc9081576c29797cb14486f025f8121940.zip
-	unzip 245271cc9081576c29797cb14486f025f8121940.zip
-	rm 245271cc9081576c29797cb14486f025f8121940.zip
-	mv $PKG-245271cc9081576c29797cb14486f025f8121940 $PKG
+	wget https://github.com/OpenPLi/servicemp3/archive/$VER.zip
+	unzip $VER.zip
+	rm $VER.zip
+	mv $PKG-$VER $PKG
 	cd ../..
 	cp -fv patches/servicemp3.patch plugins/enigma2-plugins/$PKG
 	cd plugins/enigma2-plugins/$PKG
@@ -127,16 +128,17 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SystemTools"
+		VER="7b12408f5f3542aa87de1efad21aac644b48d430"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-SystemTools/archive/7b12408f5f3542aa87de1efad21aac644b48d430.zip
-		unzip 7b12408f5f3542aa87de1efad21aac644b48d430.zip
-		rm 7b12408f5f3542aa87de1efad21aac644b48d430.zip
-		mv $PKG-7b12408f5f3542aa87de1efad21aac644b48d430 $PKG
+		wget https://github.com/E2OpenPlugins/e2openplugin-SystemTools/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
 		cd ../..
 		cp -fv patches/SystemTools.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
@@ -195,6 +197,8 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OpenWebif"
+		VER="8b1ccaa696378ad37e7802b46568154d1b15747f"
+		VER1="7f53c0efcc7ebf5c79efa34d525721d9d195b597"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -202,24 +206,24 @@ if [ -d plugins ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif
 		fi
 		if [ "$release" = "20.04" ]; then
-			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/8b1ccaa696378ad37e7802b46568154d1b15747f.zip
-			unzip 8b1ccaa696378ad37e7802b46568154d1b15747f.zip
-			rm 8b1ccaa696378ad37e7802b46568154d1b15747f.zip
-			mv $PKG-8b1ccaa696378ad37e7802b46568154d1b15747f $PKG
+			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/$VER.zip
+			unzip $VER.zip
+			rm $VER.zip
+			mv $PKG-$VER $PKG
 			cd ../..
 			cp -fv patches/OpenWebif-py3.patch plugins/e2openplugin/$PKG
 		elif [ "$release" = "21.04" ]; then
-			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/8b1ccaa696378ad37e7802b46568154d1b15747f.zip
-			unzip 8b1ccaa696378ad37e7802b46568154d1b15747f.zip
-			rm 8b1ccaa696378ad37e7802b46568154d1b15747f.zip
-			mv $PKG-8b1ccaa696378ad37e7802b46568154d1b15747f $PKG
+			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/$VER.zip
+			unzip $VER.zip
+			rm $VER.zip
+			mv $PKG-$VER $PKG
 			cd ../..
 			cp -fv patches/OpenWebif-py3.patch plugins/e2openplugin/$PKG
 		else
-			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/7f53c0efcc7ebf5c79efa34d525721d9d195b597.zip
-			unzip 7f53c0efcc7ebf5c79efa34d525721d9d195b597.zip
-			rm 7f53c0efcc7ebf5c79efa34d525721d9d195b597.zip
-			mv $PKG-7f53c0efcc7ebf5c79efa34d525721d9d195b597 $PKG
+			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/$VER1.zip
+			unzip $VER1.zip
+			rm $VER1.zip
+			mv $PKG-$VER1 $PKG
 			cd ../..
 			cp -fv patches/OpenWebif-py2.patch plugins/e2openplugin/$PKG
 		fi
@@ -243,16 +247,17 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SetPicon"
+		VER="ef33e2657203fcb8039afbc2a49b9b059db0c5ee"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-SetPicon/archive/ef33e2657203fcb8039afbc2a49b9b059db0c5ee.zip
-		unzip ef33e2657203fcb8039afbc2a49b9b059db0c5ee.zip
-		rm ef33e2657203fcb8039afbc2a49b9b059db0c5ee.zip
-		mv $PKG-ef33e2657203fcb8039afbc2a49b9b059db0c5ee $PKG
+		wget https://github.com/E2OpenPlugins/e2openplugin-SetPicon/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
 		cd ../..
 		cp -fv patches/SetPicon.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
@@ -279,16 +284,17 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SnmpAgent"
+		VER="31dd52b4277f273524622a8bf3678dff8e1ecf8e"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-SnmpAgent/archive/31dd52b4277f273524622a8bf3678dff8e1ecf8e.zip
-		unzip 31dd52b4277f273524622a8bf3678dff8e1ecf8e.zip
-		rm 31dd52b4277f273524622a8bf3678dff8e1ecf8e.zip
-		mv $PKG-31dd52b4277f273524622a8bf3678dff8e1ecf8e $PKG
+		wget https://github.com/E2OpenPlugins/e2openplugin-SnmpAgent/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
 		cd ../..
 		cp -fv patches/SnmpAgent.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
@@ -315,16 +321,17 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SimpleUmount"
+		VER="3126dcdcaf1b0a81739b52d48078d3f4bcc10564"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-SimpleUmount/archive/3126dcdcaf1b0a81739b52d48078d3f4bcc10564.zip
-		unzip 3126dcdcaf1b0a81739b52d48078d3f4bcc10564.zip
-		rm 3126dcdcaf1b0a81739b52d48078d3f4bcc10564.zip
-		mv $PKG-3126dcdcaf1b0a81739b52d48078d3f4bcc10564 $PKG
+		wget https://github.com/E2OpenPlugins/e2openplugin-SimpleUmount/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
 		cd ../..
 		cp -fv patches/SimpleUmount.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
@@ -419,16 +426,17 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OscamStatus"
+		VER="4854dc5f3060b4040c5f1f62cff0a644487ac39e"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-OscamStatus/archive/4854dc5f3060b4040c5f1f62cff0a644487ac39e.zip
-		unzip 4854dc5f3060b4040c5f1f62cff0a644487ac39e.zip
-		rm 4854dc5f3060b4040c5f1f62cff0a644487ac39e.zip
-		mv $PKG-4854dc5f3060b4040c5f1f62cff0a644487ac39e $PKG
+		wget https://github.com/E2OpenPlugins/e2openplugin-OscamStatus/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
 		cd ../..
 		cp -fv patches/OscamStatus.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
@@ -456,16 +464,17 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="enigma2-plugin-extensions-epgimport"
+		VER="1582afa4ef19fbf65a01a6745a8970427905dc06"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
 		fi
-		wget https://github.com/OpenPLi/$PKG/archive/1582afa4ef19fbf65a01a6745a8970427905dc06.zip
-		unzip 1582afa4ef19fbf65a01a6745a8970427905dc06.zip
-		rm 1582afa4ef19fbf65a01a6745a8970427905dc06.zip
-		mv $PKG-1582afa4ef19fbf65a01a6745a8970427905dc06 $PKG
+		wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+		unzip $VER.zip
+		rm $VER.zip
+		mv $PKG-$VER $PKG
 		cd ../..
 		cp -fv patches/EPGImport.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
@@ -499,6 +508,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2iplayer"
+		VER="788451c08c73d0cef92850dcce0003b0eae52ccb"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -506,10 +516,10 @@ if [ -d plugins ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
 		fi
 		rm -f /usr/lib/librtmp.so.1
-		wget https://gitlab.com/maxbambi/e2iplayer/-/archive/1e9fb5646b31a85b878b0460670cce21461877fe/e2iplayer-1e9fb5646b31a85b878b0460670cce21461877fe.zip
-		unzip $PKG-1e9fb5646b31a85b878b0460670cce21461877fe.zip
-		rm $PKG-1e9fb5646b31a85b878b0460670cce21461877fe.zip
-		mv $PKG-1e9fb5646b31a85b878b0460670cce21461877fe $PKG
+		wget https://gitlab.com/maxbambi/e2iplayer/-/archive/$VER/e2iplayer-$VER.zip
+		unzip $PKG-$VER.zip
+		rm $PKG-$VER.zip
+		mv $PKG-$VER $PKG
 		cd ../..
 		cp -rv pre/icons plugins/e2openplugin/$PKG/IPTVPlayer
 		cp -fv patches/E2IPlayer.patch plugins/e2openplugin/$PKG

@@ -1,6 +1,6 @@
 diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconmenager.py
---- o/IPTVPlayer/components/iconmenager.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/components/iconmenager.py	2021-05-06 14:43:16.026813465 +0300
+--- o/IPTVPlayer/components/iconmenager.py	2021-05-10 11:28:24.944360252 +0300
++++ pc/IPTVPlayer/components/iconmenager.py	2021-05-10 11:47:03.821841296 +0300
 @@ -28,7 +28,7 @@
  
  
@@ -10,39 +10,39 @@ diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconme
  
  class IconMenager:
      HEADER = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36', 'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate'}
-@@ -271,7 +271,7 @@
+@@ -273,7 +273,7 @@
              domain = urlparser.getDomain(img_url, onlyDomain=True)
              if domain.startswith("www."):
                  domain = domain[4:]
--            params_cfad['cookiefile']= '/hdd/IPTVCache//cookies/{0}.cookie'.format(domain)
-+            params_cfad['cookiefile']= '/media/hdd/IPTVCache//cookies/{0}.cookie'.format(domain)
+-            params_cfad['cookiefile'] = '/hdd/IPTVCache//cookies/{0}.cookie'.format(domain)
++            params_cfad['cookiefile'] = '/media/hdd/IPTVCache//cookies/{0}.cookie'.format(domain)
  
          else:
-             params_cfad={}
+             params_cfad = {}
 diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/iptvconfigmenu.py
---- o/IPTVPlayer/components/iptvconfigmenu.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/components/iptvconfigmenu.py	2021-05-06 14:43:16.026813465 +0300
+--- o/IPTVPlayer/components/iptvconfigmenu.py	2021-05-10 11:28:24.944360252 +0300
++++ pc/IPTVPlayer/components/iptvconfigmenu.py	2021-05-10 11:45:40.408111495 +0300
 @@ -61,7 +61,7 @@
- config.plugins.iptvplayer.showinMainMenu     = ConfigYesNo(default = False)
- config.plugins.iptvplayer.ListaGraficzna     = ConfigYesNo(default = True)
- config.plugins.iptvplayer.group_hosts        = ConfigYesNo(default = True)
--config.plugins.iptvplayer.NaszaSciezka       = ConfigDirectory(default = "/hdd/movie/") #, fixed_size = False)
-+config.plugins.iptvplayer.NaszaSciezka       = ConfigDirectory(default = "/media/hdd/movies/") #, fixed_size = False)
- config.plugins.iptvplayer.bufferingPath      = ConfigDirectory(default = config.plugins.iptvplayer.NaszaSciezka.value) #, fixed_size = False)
- config.plugins.iptvplayer.buforowanie        = ConfigYesNo(default = False)
- config.plugins.iptvplayer.buforowanie_m3u8   = ConfigYesNo(default = True)
-@@ -141,7 +141,7 @@
+ config.plugins.iptvplayer.showinMainMenu = ConfigYesNo(default=False)
+ config.plugins.iptvplayer.ListaGraficzna = ConfigYesNo(default=True)
+ config.plugins.iptvplayer.group_hosts = ConfigYesNo(default=True)
+-config.plugins.iptvplayer.NaszaSciezka = ConfigDirectory(default="/hdd/movie/") #, fixed_size = False)
++config.plugins.iptvplayer.NaszaSciezka = ConfigDirectory(default="/media/hdd/movie/") #, fixed_size = False)
+ config.plugins.iptvplayer.bufferingPath = ConfigDirectory(default=config.plugins.iptvplayer.NaszaSciezka.value) #, fixed_size = False)
+ config.plugins.iptvplayer.buforowanie = ConfigYesNo(default=False)
+ config.plugins.iptvplayer.buforowanie_m3u8 = ConfigYesNo(default=True)
+@@ -144,7 +144,7 @@
  
  # end with buffering mode players
  
--config.plugins.iptvplayer.SciezkaCache = ConfigDirectory(default = "/hdd/IPTVCache/") #, fixed_size = False)
-+config.plugins.iptvplayer.SciezkaCache = ConfigDirectory(default = "/media/hdd/IPTVCache/") #, fixed_size = False)
- config.plugins.iptvplayer.NaszaTMP = ConfigDirectory(default = "/tmp/") #, fixed_size = False)
- config.plugins.iptvplayer.ZablokujWMV = ConfigYesNo(default = True)
+-config.plugins.iptvplayer.SciezkaCache = ConfigDirectory(default="/hdd/IPTVCache/") #, fixed_size = False)
++config.plugins.iptvplayer.SciezkaCache = ConfigDirectory(default="/media/hdd/IPTVCache/") #, fixed_size = False)
+ config.plugins.iptvplayer.NaszaTMP = ConfigDirectory(default="/tmp/") #, fixed_size = False)
+ config.plugins.iptvplayer.ZablokujWMV = ConfigYesNo(default=True)
  
 diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/iptvplayerwidget.py
---- o/IPTVPlayer/components/iptvplayerwidget.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/components/iptvplayerwidget.py	2021-05-06 14:43:16.026813465 +0300
+--- o/IPTVPlayer/components/iptvplayerwidget.py	2021-05-10 11:28:24.946360058 +0300
++++ pc/IPTVPlayer/components/iptvplayerwidget.py	2021-05-10 11:51:58.850563220 +0300
 @@ -61,7 +61,6 @@
  
  from Plugins.Extensions.IPTVPlayer.components.iptvplayerinit import TranslateTXT as _, IPTVPlayerNeedInit, GetIPTVPlayerLastHostError, GetIPTVNotify, GetIPTVSleep
@@ -51,30 +51,27 @@ diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/i
  from Plugins.Extensions.IPTVPlayer.components.iptvplayer import IPTVStandardMoviePlayer, IPTVMiniMoviePlayer
  from Plugins.Extensions.IPTVPlayer.components.iptvextmovieplayer import IPTVExtMoviePlayer
  from Plugins.Extensions.IPTVPlayer.components.iptvpictureplayer import IPTVPicturePlayerWidget
-@@ -1172,10 +1171,6 @@
+@@ -1213,10 +1212,6 @@
              self.displayGroupsList.append((item.title, item.name))
          self.displayGroupsList.append((_('All'), 'all'))
          self.displayGroupsList.append((_("Configuration"), "config"))
--        
+-
 -        if config.plugins.iptvplayer.AktualizacjaWmenu.value == True:
 -            self.displayGroupsList.append((_("Update"), "update"))
--        
+-
          self.newDisplayGroupsList = []
-         self.session.openWithCallback(self.selectGroupCallback, PlayerSelectorWidget, inList = self.displayGroupsList, outList = self.newDisplayGroupsList, numOfLockedItems = self.getNumOfSpecialItems(self.displayGroupsList) , groupName='selectgroup')
-         
-@@ -1974,10 +1969,8 @@
+         self.session.openWithCallback(self.selectGroupCallback, PlayerSelectorWidget, inList=self.displayGroupsList, outList=self.newDisplayGroupsList, numOfLockedItems=self.getNumOfSpecialItems(self.displayGroupsList), groupName='selectgroup')
+ 
+@@ -2047,8 +2042,6 @@
  
      def configCallback(self):
          if IPTVPlayerNeedInit():
 -            self.session.openWithCallback(self.selectHost, IPTVSetupMainWidget, True)
 -        else:
              self.askUpdateAvailable(self.selectHost)
--            
-+
+ 
      def randomizePlayableItems(self, randomize=True):
-         printDBG("randomizePlayableItems")
-         self.stopAutoPlaySequencer()
-@@ -2227,7 +2220,7 @@
+@@ -2308,7 +2301,7 @@
          if self.checkWrongImage:
              self.checkWrongImage = False
              try:
@@ -84,20 +81,20 @@ diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/i
                      message.append("Because of blocking part of functionality of the IPTVPlayer by http://ipab.tv/ developer your image was blacklisted.")
                      message.append("Please be also informed that users of http://ipab.tv/ will NOT get support, due to same reason.")
 diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
---- o/IPTVPlayer/hosts/hosturllist.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hosturllist.py	2021-05-06 14:43:16.026813465 +0300
+--- o/IPTVPlayer/hosts/hosturllist.py	2021-05-10 11:28:24.972357531 +0300
++++ pc/IPTVPlayer/hosts/hosturllist.py	2021-05-10 11:41:11.249849491 +0300
 @@ -22,7 +22,7 @@
  ###################################################
  # Config options for HOST
  ###################################################
--config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/hdd/")
-+config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/media/hdd/")
- config.plugins.iptvplayer.grupujurllist  = ConfigYesNo(default = True)
- config.plugins.iptvplayer.sortuj         = ConfigYesNo(default = True)
+-config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default="/hdd/")
++config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default="/media/hdd/")
+ config.plugins.iptvplayer.grupujurllist = ConfigYesNo(default=True)
+ config.plugins.iptvplayer.sortuj = ConfigYesNo(default=True)
  
 diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 --- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostXXX.py	2021-05-06 14:43:16.032813559 +0300
++++ pc/IPTVPlayer/hosts/hostXXX.py	2021-05-10 11:38:33.127795296 +0300
 @@ -0,0 +1,11752 @@
 +# -*- coding: utf-8 -*-
 + 
@@ -11852,30 +11849,30 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +            m = m + str(n)
 +    return m
 diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
---- o/IPTVPlayer/hosts/hostyoutube.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostyoutube.py	2021-05-06 14:43:16.032813559 +0300
-@@ -24,7 +24,7 @@
+--- o/IPTVPlayer/hosts/hostyoutube.py	2021-05-10 11:28:24.975357239 +0300
++++ pc/IPTVPlayer/hosts/hostyoutube.py	2021-05-10 11:40:13.304282020 +0300
+@@ -27,7 +27,7 @@
  ###################################################
  # Config options for HOST
  ###################################################
--config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/hdd/")
-+config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default = "/media/hdd/")
+-config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default="/hdd/")
++config.plugins.iptvplayer.Sciezkaurllist = ConfigDirectory(default="/media/hdd/")
+ 
  
  def GetConfigList():
-     optionList = []
 diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
---- o/IPTVPlayer/hosts/list.txt	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/hosts/list.txt	2021-05-06 14:43:16.033813575 +0300
+--- o/IPTVPlayer/hosts/list.txt	2021-05-10 11:28:24.975357239 +0300
++++ pc/IPTVPlayer/hosts/list.txt	2021-05-10 11:38:33.128795369 +0300
 @@ -199,3 +199,4 @@
  hostyoutube
  hostzaluknijcc
  hostzdfmediathek
 +hostXXX
 diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
---- o/IPTVPlayer/iptvdm/iptvdh.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/iptvdm/iptvdh.py	2021-05-06 14:43:16.033813575 +0300
-@@ -101,7 +101,7 @@
-         
+--- o/IPTVPlayer/iptvdm/iptvdh.py	2021-05-10 11:28:24.977357044 +0300
++++ pc/IPTVPlayer/iptvdm/iptvdh.py	2021-05-10 11:38:33.128795369 +0300
+@@ -104,7 +104,7 @@
+ 
      @staticmethod
      def GET_FFMPEG_PATH():
 -        altFFMPEGPath = '/iptvplayer_rootfs/usr/bin/ffmpeg'
@@ -11885,7 +11882,7 @@ diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
          return "ffmpeg"
 diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/xxx.sh
 --- o/IPTVPlayer/iptvupdate/custom/xxx.sh	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2021-05-06 14:43:16.033813575 +0300
++++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2021-05-10 11:38:33.128795369 +0300
 @@ -0,0 +1,40 @@
 +#!/bin/sh
 +cp $1/iptvupdate/custom/xxx.sh $2/iptvupdate/custom/xxx.sh
@@ -11928,9 +11925,9 @@ diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/
 +echo "Wykonywanie $0 zakończone sukcesem."
 +exit 0
 diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/updatemainwindow.py
---- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2021-05-06 14:43:16.033813575 +0300
-@@ -295,7 +295,7 @@
+--- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2021-05-10 11:28:24.978356947 +0300
++++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2021-05-10 11:38:33.128795369 +0300
+@@ -311,7 +311,7 @@
          if os_path.isfile(newVerFile):
              verPattern = self.VERSION_PATTERN
          else:
@@ -11940,8 +11937,8 @@ diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/u
  
          try:
 diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po
---- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2021-05-06 14:43:16.037813637 +0300
+--- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2020-12-14 13:33:36.457903761 +0300
++++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2021-05-10 11:38:33.131795587 +0300
 @@ -4,13 +4,13 @@
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2020-12-13 13:16+0100\n"
@@ -22106,8 +22103,8 @@ diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +msgid "Trending Feeds"
 +msgstr "Каналы в тренде"
 diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
---- o/IPTVPlayer/plugin.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/plugin.py	2021-05-06 14:43:16.037813637 +0300
+--- o/IPTVPlayer/plugin.py	2021-05-10 11:28:24.991355683 +0300
++++ pc/IPTVPlayer/plugin.py	2021-05-10 11:38:33.132795659 +0300
 @@ -6,7 +6,6 @@
  from Plugins.Extensions.IPTVPlayer.components.iptvconfigmenu import ConfigMenu
  from Plugins.Extensions.IPTVPlayer.components.iptvpin import IPTVPinWidget
@@ -22116,43 +22113,43 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
  from Plugins.Extensions.IPTVPlayer.tools.iptvtools import IsExecutable, IsWebInterfaceModuleAvailable
  ###################################################
  
-@@ -124,10 +123,6 @@
-     f4mdumppath  = IsExecutable(config.plugins.iptvplayer.f4mdumppath.value)
-     platform     = config.plugins.iptvplayer.plarform.value
+@@ -140,10 +139,6 @@
+     f4mdumppath = IsExecutable(config.plugins.iptvplayer.f4mdumppath.value)
+     platform = config.plugins.iptvplayer.plarform.value
      if platform in ["auto", "unknown"] or not wgetpath or not rtmpdumppath or not f4mdumppath:
 -        session.openWithCallback(boundFunction(nextFunction, session), IPTVSetupMainWidget)
 -    elif IPTVPlayerNeedInit():
 -        session.openWithCallback(boundFunction(nextFunction, session), IPTVSetupMainWidget, True)
 -    else:
          nextFunction(session)
-         
- def pinCallback(session, callbackFun, pin=None):
+ 
+ 
 diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.py
---- o/IPTVPlayer/setup/iptvsetupimpl.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2021-05-06 14:43:16.038813653 +0300
-@@ -467,7 +467,7 @@
-         def _verValidator(code, data):
-             if 0 == code: return True,False
-             else: return False,True
+--- o/IPTVPlayer/setup/iptvsetupimpl.py	2021-05-10 11:28:24.992355586 +0300
++++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2021-05-10 11:43:52.202557880 +0300
+@@ -487,7 +487,7 @@
+                 return True, False
+             else:
+                 return False, True
 -        self.workingObj = CCmdValidator(self.getFFmpegVerFinished, _verValidator, ['/iptvplayer_rootfs/usr/bin/ffmpeg -version', 'ffmpeg -version'])
 +        self.workingObj = CCmdValidator(self.getFFmpegVerFinished, _verValidator, ['/usr/bin/ffmpeg -version', 'ffmpeg -version'])
          self.workingObj.start()
-         
+ 
      def getFFmpegVerFinished(self, stsTab, dataTab):
 diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.py
---- o/IPTVPlayer/tools/iptvsubtitles.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/tools/iptvsubtitles.py	2021-05-06 14:43:16.038813653 +0300
-@@ -364,5 +364,5 @@
-         
+--- o/IPTVPlayer/tools/iptvsubtitles.py	2021-05-10 11:28:24.994355392 +0300
++++ pc/IPTVPlayer/tools/iptvsubtitles.py	2021-05-10 11:38:33.132795659 +0300
+@@ -373,5 +373,5 @@
+ 
  if __name__ == "__main__":
      obj = IPTVSubtitlesHandler()
 -    obj.loadSubtitles('/hdd/_Back.To.The.Future[1985]DvDrip-aXXo.pl.srt')
 +    obj.loadSubtitles('/media/hdd/_Back.To.The.Future[1985]DvDrip-aXXo.pl.srt')
      obj.getSubtitles(10000)
 diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
---- o/IPTVPlayer/tools/iptvtools.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/tools/iptvtools.py	2021-05-06 14:43:16.038813653 +0300
-@@ -303,8 +303,8 @@
+--- o/IPTVPlayer/tools/iptvtools.py	2021-05-10 11:28:24.994355392 +0300
++++ pc/IPTVPlayer/tools/iptvtools.py	2021-05-10 11:54:06.889021782 +0300
+@@ -342,8 +342,8 @@
      baseName = resolveFilename(SCOPE_PLUGINS, 'Extensions/IPTVPlayer/scripts/') + name
      if fileExists(baseName + '.py'):
          baseName += '.py'
@@ -22163,16 +22160,17 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
      if baseName != '':
          for item in ['python', 'python2.7', 'python2.6']:
              pyPath = Which(item)
-@@ -401,7 +401,7 @@
-     return path + '/' + file
+@@ -464,8 +464,7 @@
  
- def GetE2iPlayerRootfsDir(file = ''):
+ 
+ def GetE2iPlayerRootfsDir(file=''):
 -    return '/iptvplayer_rootfs/' + file
+-
 +    return '/' + file
  
- def GetE2iPlayerVKLayoutDir(file = ''):
+ def GetE2iPlayerVKLayoutDir(file=''):
      return GetE2iPlayerRootfsDir('etc/vk/' + file)
-@@ -467,7 +467,7 @@
+@@ -558,7 +557,7 @@
              if is_exe(program):
                  return program
          else:
@@ -22181,7 +22179,7 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
              pathTab.extend(os.environ["PATH"].split(os.pathsep))
              for path in pathTab:
                  path = path.strip('"')
-@@ -584,7 +584,7 @@
+@@ -684,7 +683,7 @@
          print(DBGtxt)
      elif DBG == 'debugfile':
          try:
@@ -22190,8 +22188,8 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
              f.write(DBGtxt + '\n')
              f.close
          except Exception:
-@@ -1340,10 +1340,10 @@
-     
+@@ -1510,10 +1509,10 @@
+ 
  def IsBrokenDriver(filePath):
      # workaround for broken DVB driver mbtwinplus:
 -    # root@mbtwinplus:~# cat /proc/stb/video/policy2
@@ -22203,8 +22201,8 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
              with open('/etc/hostname', 'r') as f:
                  data = f.read().strip()
              if 'mbtwinplus' in data:
-@@ -1382,7 +1382,7 @@
-     return sts
+@@ -1557,7 +1556,7 @@
+ 
  
  def GetE2VideoAspectChoices():
 -    tab = GetE2OptionsFromFile('/proc/stb/video/aspect_choices')
@@ -22212,87 +22210,102 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
      # workaround for some STB
      # reported here: https://gitlab.com/iptvplayer-for-e2/iptvplayer-for-e2/issues/30
      staticTab = ["4:3", "16:9", "any"]
-@@ -1391,48 +1391,48 @@
-     return tab
+@@ -1567,63 +1566,63 @@
+ 
  
  def GetE2VideoAspect():
 -    options = GetE2OptionsFromFile('/proc/stb/video/aspect')
 +    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/aspect')
-     if 1 == len(options): return options[0]
+     if 1 == len(options):
+         return options[0]
      return None
-     
+ 
+ 
  def SetE2VideoAspect(value):
 -    return SetE2OptionByFile('/proc/stb/video/aspect', value)
 +    return SetE2OptionByFile('/usr/local/e2/etc/stb/video/aspect', value)
-     
+ 
+ 
  def GetE2VideoPolicyChoices(num=''):
 -    return GetE2OptionsFromFile('/proc/stb/video/policy%s_choices' % num)
 +    return GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/policy%s_choices' % num)
-     
+ 
+ 
  def GetE2VideoPolicy(num=''):
--    options = GetE2OptionsFromFile('/proc/stb/video/policy'+num)
-+    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/policy'+num)
-     if 1 == len(options): return options[0]
+-    options = GetE2OptionsFromFile('/proc/stb/video/policy' + num)
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/policy' + num)
+     if 1 == len(options):
+         return options[0]
      return None
-     
+ 
+ 
  def SetE2VideoPolicy(value, num=''):
--    return SetE2OptionByFile('/proc/stb/video/policy'+num, value)
-+    return SetE2OptionByFile('/usr/local/e2/etc/stb/video/policy'+num, value)
-     
+-    return SetE2OptionByFile('/proc/stb/video/policy' + num, value)
++    return SetE2OptionByFile('/usr/local/e2/etc/stb/video/policy' + num, value)
+ 
+ 
  def GetE2AudioCodecMixChoices(codec):
 -    return GetE2OptionsFromFile('/proc/stb/audio/%s_choices' % codec)
 +    return GetE2OptionsFromFile('/usr/local/e2/etc/stb/audio/%s_choices' % codec)
-     
+ 
+ 
  def GetE2AudioCodecMixOption(codec):
 -    options = GetE2OptionsFromFile('/proc/stb/audio/%s' % codec)
 +    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/audio/%s' % codec)
-     if 1 == len(options): return options[0]
+     if 1 == len(options):
+         return options[0]
      return None
-     
+ 
+ 
  def SetE2AudioCodecMixOption(codec, value):
 -    return SetE2OptionByFile('/proc/stb/audio/%s' % codec, value)
 +    return SetE2OptionByFile('/usr/local/e2/etc/stb/audio/%s' % codec, value)
  
  # videomode
+ 
+ 
  def GetE2VideoModeChoices():
      # return 'pal ntsc 480i 576i 480p 576p 720p50 720p 1080i50 1080i 1080p24 1080p25 1080p30 720p24 720p25 720p30 1080p50 1080p'.split(' ')
 -    return GetE2OptionsFromFile('/proc/stb/video/videomode_choices')
 +    return GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/videomode_choices')
-     
+ 
+ 
  def GetE2VideoMode():
      # return '1080p50'
 -    options = GetE2OptionsFromFile('/proc/stb/video/videomode')
 +    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/videomode')
-     if 1 == len(options): return options[0]
+     if 1 == len(options):
+         return options[0]
      return None
-     
+ 
+ 
  def SetE2VideoMode(value):
 -    return SetE2OptionByFile('/proc/stb/video/videomode', value)
 +    return SetE2OptionByFile('/usr/local/e2/etc/stb/video/videomode', value)
  
+ 
  def ReadUint16(tmp, le=True):
-     if le: return ord(tmp[1]) << 8 | ord(tmp[0])
 diff -ruN o/IPTVPlayer/Web/initiator.py pc/IPTVPlayer/Web/initiator.py
---- o/IPTVPlayer/Web/initiator.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/Web/initiator.py	2021-05-06 14:43:16.038813653 +0300
-@@ -53,7 +53,7 @@
+--- o/IPTVPlayer/Web/initiator.py	2021-05-10 11:28:24.942360446 +0300
++++ pc/IPTVPlayer/Web/initiator.py	2021-05-10 11:57:01.615351310 +0300
+@@ -55,7 +55,7 @@
  	# Old openwebif version (prior July the 14th 2017) has a bug and does not populate links to all properly registered web addons except fancontrol
  	# see: https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/pull/629
  	#  A HACK: we will canibalize fancontrol entry point (if not installed) to present IPTVplayer option on the web
--	if checkForFC() == True and not os.path.exists(resolveFilename(SCOPE_PLUGINS,'Extensions/FanControl2/FC2webSite.pyo')):
-+	if checkForFC() == True and not os.path.exists(resolveFilename(SCOPE_PLUGINS,'Extensions/FanControl2/FC2webSite.pyc')):
+-	if checkForFC() == True and not os.path.exists(resolveFilename(SCOPE_PLUGINS, 'Extensions/FanControl2/FC2webSite.pyo')):
++	if checkForFC() == True and not os.path.exists(resolveFilename(SCOPE_PLUGINS, 'Extensions/FanControl2/FC2webSite.pyc')):
  		fcRoot = static.File(GetPluginDir('Web/'))
  		fcRoot.putChild("", redirectionPage())
  		try:
 diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
---- o/IPTVPlayer/Web/webSite.py	2021-04-29 18:43:46.000000000 +0300
-+++ pc/IPTVPlayer/Web/webSite.py	2021-05-06 14:43:16.038813653 +0300
-@@ -26,15 +26,15 @@
+--- o/IPTVPlayer/Web/webSite.py	2021-05-10 11:28:24.942360446 +0300
++++ pc/IPTVPlayer/Web/webSite.py	2021-05-10 11:56:12.286662525 +0300
+@@ -28,15 +28,15 @@
      #### Reload scripts if new version of source exists ####
-     webPath = GetPluginDir(file = '/Web/')
+     webPath = GetPluginDir(file='/Web/')
      if os.path.exists(os.path.join(webPath, "webParts.py")):
 -        if os.path.exists(os.path.join(webPath, "webParts.pyo")):
--            if (int(os.path.getmtime(os.path.join(webPath, "webParts.pyo"))) < 
+-            if (int(os.path.getmtime(os.path.join(webPath, "webParts.pyo"))) <
 +        if os.path.exists(os.path.join(webPath, "webParts.pyc")):
 +            if (int(os.path.getmtime(os.path.join(webPath, "webParts.pyc"))) <
                  int(os.path.getmtime(os.path.join(webPath, "webParts.py")))):
@@ -22301,16 +22314,16 @@ diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
              reload(webParts)
      if os.path.exists(os.path.join(webPath, "webThreads.py")):
 -        if os.path.exists(os.path.join(webPath, "webThreads.pyo")):
--            if (int(os.path.getmtime(os.path.join(webPath, "webThreads.pyo"))) < 
+-            if (int(os.path.getmtime(os.path.join(webPath, "webThreads.pyo"))) <
 +        if os.path.exists(os.path.join(webPath, "webThreads.pyc")):
 +            if (int(os.path.getmtime(os.path.join(webPath, "webThreads.pyc"))) <
                  int(os.path.getmtime(os.path.join(webPath, "webThreads.py")))):
                  reload(webThreads)
          else:
-@@ -246,8 +246,8 @@
+@@ -254,8 +254,8 @@
          MenuStatusMSG = ''
          extraMeta = ''
-         
+ 
 -        if os.path.exists('/hdd/iptv.dbg'):
 -            DBGFileName = '/hdd/iptv.dbg'
 +        if os.path.exists('/media/hdd/iptv.dbg'):

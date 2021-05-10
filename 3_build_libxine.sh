@@ -3,6 +3,7 @@
 # Build and install xine-lib:
 LIB="libxine2"
 PKG="xine-lib-1.2-1.2.10+hg-e2pc"
+VER="bcb4821da480"
 I=`dpkg -s $LIB | grep "Status"`
 
 # Remove old package libxine2.
@@ -20,16 +21,16 @@ else
 fi
 
 # This is hg 1.2.10
-wget http://hg.code.sf.net/p/xine/xine-lib-1.2/archive/17acda05716e.tar.bz2
-tar -xvjf 17acda05716e.tar.bz2
-rm 17acda05716e.tar.bz2
-mv xine-lib-1-2-17acda05716e $PKG
+wget http://hg.code.sf.net/p/xine/xine-lib-1.2/archive/$VER.tar.bz2
+tar -xvjf $VER.tar.bz2
+rm $VER.tar.bz2
+mv xine-lib-1-2-$VER $PKG
 
 if [ -d "$PKG" ]; then
 	echo "-----------------------------------------"
-	echo "      head now on 14886:17acda05716e"
+	echo "         head now on $VER"
 	echo "-----------------------------------------"
-	cp -fv patches/xine-lib-1.2-14886:17acda05716e.patch $PKG
+	cp -fv patches/xine-lib-1.2-$VER.patch $PKG
 else
 	echo "-----------------------------------------"
 	echo "        CHECK INTERNET CONNECTION!"
@@ -37,7 +38,7 @@ else
 fi
 
 cd $PKG
-patch -p1 < xine-lib-1.2-14886:17acda05716e.patch
+patch -p1 < xine-lib-1.2-$VER.patch
 echo "-----------------------------------------"
 echo "       patch for xine-lib applied"
 echo "-----------------------------------------"
