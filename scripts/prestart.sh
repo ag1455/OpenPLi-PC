@@ -7,13 +7,13 @@ DVB_DEV0="/dev/dvb/adapter0"
 DVB_DEV1="/dev/dvb/adapter1"
 LOG="/var/log/oscam/wait.log"
 
-# Single with 2 frontends
+# Single with 1 frontend but named "1"
 if [ -d /sys/class/dvb/dvb0.frontend0 ]; then
-	ln -s $DVB_DEV0/frontend0 $DVB_DEV1/frontend1
-	ln -s $DVB_DEV0/demux0 $DVB_DEV1/demux1
-	ln -s $DVB_DEV0/dvr0 $DVB_DEV1/dvr1
-	ln -s $DVB_DEV0/net0 $DVB_DEV1/net1
-	ln -s $DVB_DEV0/ca0 $DVB_DEV1/ca1
+	ln -s $DVB_DEV0/frontend0 $DVB_DEV0/frontend1
+	ln -s $DVB_DEV0/demux0 $DVB_DEV0/demux1
+	ln -s $DVB_DEV0/dvr0 $DVB_DEV0/dvr1
+	ln -s $DVB_DEV0/net0 $DVB_DEV0/net1
+	ln -s $DVB_DEV0/ca0 $DVB_DEV0/ca1
 fi
 
 # Dual or 2 single with 1 frontend
