@@ -53,60 +53,56 @@ int main(int argc, char **argv) {
 
 	while((c = getopt(argc, argv, "a:f:o:dh")) != -1) {
 		switch(c) {
-		case 'd': // enable debug
-		Debug = 1;
-
-		break;
-
-		case 'h': // help
-			PrintHelp();
-			return -1;
+			case 'd': // enable debug
+			Debug = 1;
 			break;
 
-		case 'a':
-			if ( atoi(optarg) )
-				Adaptor_Max = atoi(optarg);
-			else {
-				fprintf (stderr, "Error: Invalid parameter for -a should be a number.\n");
+			case 'h': // help
+				PrintHelp();
 				return -1;
-			}
+				break;
 
-		break;
+			case 'a':
+				if ( atoi(optarg) )
+					Adaptor_Max = atoi(optarg);
+				else {
+					fprintf (stderr, "Error: Invalid parameter for -a should be a number.\n");
+					return -1;
+				}
+				break;
 
-		case 'f':
-			if ( atoi(optarg) )
-				FE_Max = atoi(optarg);
-			else {
-				fprintf (stderr, "Error: Invalid parameter for -f should be a number.\n");
-			return -1;
-			}
+			case 'f':
+				if ( atoi(optarg) )
+					FE_Max = atoi(optarg);
+				else {
+					fprintf (stderr, "Error: Invalid parameter for -f should be a number.\n");
+					return -1;
+				}
+				break;
 
-		break;
+			case 'o':
+				strcpy(NIM_File, optarg);
+				break;
 
-		case 'o':
-			strcpy(NIM_File, optarg);
-		break;
-
-		default:
-			PrintHelp();
-			return -1;
-		break;
+			default:
+				PrintHelp();
+				return -1;
+				break;
 		}
 	}
 
-if (optind != argc ) {
-	fprintf (stderr, "Error: unknow parameter detected [%s].\n", argv[argc-1]);
-	PrintHelp();
-	return -1;
+	if (optind != argc ) {
+		fprintf (stderr, "Error: unknow parameter detected [%s].\n", argv[argc-1]);
+		PrintHelp();
+		return -1;
 	}
 
-if (outfile = fopen(NIM_File, "w")) {
-	OutfileOK = 1;
+	if (outfile = fopen(NIM_File, "w"))
+		OutfileOK = 1;
+	else {
+		printf("\nError creating nim_sockets file [%s]\n", NIM_File);
+		return -1;
 	}
-	else	{
-			printf("\nError creating nim_sockets file [%s]\n", NIM_File);
-			return -1;
-		}
 
 	DVBTunerType = ArrayDVBTunerType;
 	int TunerType_S = 0;
@@ -122,91 +118,95 @@ if (outfile = fopen(NIM_File, "w")) {
 	int Return_ioctl=0;
 
 	for(A=0; A<Adaptor_Max; ++A) {
-
 		for (B=0; B<FE_Max; ++B) {
 			char devstr[80];
 			sprintf( devstr, "/dev/dvb/adapter%d/frontend%d", A, B);
 
-	if( access( devstr, F_OK ) != -1 ) {
-		//file exists
-		int fe_fd = open( devstr, O_RDONLY);
+			if( access( devstr, F_OK ) != -1 ) {
+				//file exists
+				int fe_fd = open( devstr, O_RDONLY);
+				if(fe_fd>0) {
+					struct dvb_frontend_info fe_info;
+					Return_ioctl = ioctl(fe_fd, FE_GET_INFO, &fe_info);
+					if(Return_ioctl == 0) {
+						TunerFound=1;
+						printf("Tuner found: %s: %s\n", devstr, fe_info.name);
 
-	if(fe_fd>0) {
-		struct dvb_frontend_info fe_info;
-		Return_ioctl = ioctl(fe_fd, FE_GET_INFO, &fe_info);
-	if(Return_ioctl == 0) {
-		TunerFound=1;
-		printf("Tuner found: %s: %s\n", devstr, fe_info.name);
+						if (Debug) {
+							printf("// dvb_frontend_info for %s\n", devstr);
+							printf("struct dvb_frontend_info FETYPE = {\n");
+							printf("  .name                  = \"%s\",\n", fe_info.name);
+							printf("  .type                  = %d,\n", fe_info.type);
+							printf("  .frequency_min         = %d,\n", fe_info.frequency_min);
+							printf("  .frequency_max         = %d,\n", fe_info.frequency_max);
+							printf("  .frequency_stepsize    = %d,\n", fe_info.frequency_stepsize);
+							printf("  .frequency_tolerance   = %d,\n", fe_info.frequency_tolerance);
+							printf("  .symbol_rate_min       = %d,\n", fe_info.symbol_rate_min);
+							printf("  .symbol_rate_max       = %d,\n", fe_info.symbol_rate_max);
+							printf("  .symbol_rate_tolerance = %d,\n", fe_info.symbol_rate_tolerance);
+							printf("  .notifier_delay        = %d,\n", fe_info.notifier_delay);
+							printf("  .caps                  = 0x%x\n", fe_info.caps);
+							printf("};\n\n");
+						}
 
-		if (Debug) {
-			printf("// dvb_frontend_info for %s\n", devstr);
-			printf("struct dvb_frontend_info FETYPE = {\n");
-			printf("  .name                  = \"%s\",\n", fe_info.name);
-			printf("  .type                  = %d,\n", fe_info.type);
-			printf("  .frequency_min         = %d,\n", fe_info.frequency_min);
-			printf("  .frequency_max         = %d,\n", fe_info.frequency_max);
-			printf("  .frequency_stepsize    = %d,\n", fe_info.frequency_stepsize);
-			printf("  .frequency_tolerance   = %d,\n", fe_info.frequency_tolerance);
-			printf("  .symbol_rate_min       = %d,\n", fe_info.symbol_rate_min);
-			printf("  .symbol_rate_max       = %d,\n", fe_info.symbol_rate_max);
-			printf("  .symbol_rate_tolerance = %d,\n", fe_info.symbol_rate_tolerance);
-			printf("  .notifier_delay        = %d,\n", fe_info.notifier_delay);
-			printf("  .caps                  = 0x%x\n", fe_info.caps);
-			printf("};\n\n");
-		}
+						/* Nim socket outpout start */
+						if (Debug) 
+							printf("NIM Socket %d:\n", B);
+						if (OutfileOK)
+							fprintf(outfile, "NIM Socket %d:\n", B);
 
-/* Nim socket outpout start */
-		if (Debug) printf("NIM Socket %d:\n", B);
-		if (OutfileOK) {
-			fprintf(outfile, "NIM Socket %d:\n", B); }
-/* 2nd generation DVB Tuner detected adding 2 to the TunerType */
-		if ( (fe_info.caps & FE_CAN_2G_MODULATION ) == FE_CAN_2G_MODULATION ) {
-			if (Debug) printf("      Type: %s2\n", DVBTunerType[fe_info.type]);
-			if (OutfileOK) {
-				fprintf(outfile,"      Type: %s2\n", DVBTunerType[fe_info.type]); }
-			}
-/* 1st generation DVB Tuner */
-		else {
-			if (Debug) printf("      Type: %s\n", DVBTunerType[fe_info.type]);
-			if (OutfileOK) {
-				fprintf(outfile,"      Type: %s\n", DVBTunerType[fe_info.type]);}
+						/* 2nd generation DVB Tuner detected adding 2 to the TunerType */
+						if ( (fe_info.caps & FE_CAN_2G_MODULATION ) == FE_CAN_2G_MODULATION ) {
+							if (Debug)
+								printf("      Type: %s2\n", DVBTunerType[fe_info.type]);
+							if (OutfileOK)
+								fprintf(outfile,"      Type: %s2\n", DVBTunerType[fe_info.type]);
+						}
+
+						/* 1st generation DVB Tuner */
+						else {
+							if (Debug)
+								printf("      Type: %s\n", DVBTunerType[fe_info.type]);
+							if (OutfileOK)
+								fprintf(outfile,"      Type: %s\n", DVBTunerType[fe_info.type]);
+						}
+
+						if (Debug) {
+							printf("      Name: %s\n", fe_info.name);
+							printf("      Has_Outputs: no\n");
+							printf("      Frontend_Device: %d\n", B);
+							printf("\n");
+						}
+						if (OutfileOK) {
+							fprintf(outfile,"      Name: %s\n", fe_info.name);
+							fprintf(outfile,"      Has_Outputs: no\n");
+							fprintf(outfile,"      Frontend_Device: %d\n", B);
+							fprintf(outfile,"\n");
+						}
+						/* Nim socket output end */
+					}
+					else
+						fprintf (stderr, "Error: ioctl error [%d] for [%s] : ", Return_ioctl, devstr);
 				}
-		if (Debug) {
-			printf("      Name: %s\n", fe_info.name);
-			printf("      Has_Outputs: no\n");
-			printf("      Frontend_Device: %d\n", B);
-			printf("\n");
+				close( fe_fd );
 			}
-		if (OutfileOK) {
-			fprintf(outfile,"      Name: %s\n", fe_info.name);
-			fprintf(outfile,"      Has_Outputs: no\n");
-			fprintf(outfile,"      Frontend_Device: %d\n", B);
-			fprintf(outfile,"\n");}
-/* Nim socket output end */
-		}
-
-		else	{
-			fprintf (stderr, "Error: ioctl error [%d] for [%s] : ", Return_ioctl, devstr);
-			}
-		}
-
-	close( fe_fd );
-	}
-
-	else {
-	// file doesn't exist
-	if (Debug) printf("/dev/dvb/adapter%d/frontend%d doesn\'t exist\n", A, B);
+			else {
+				/* file doesn't exist */
+				if (Debug) 
+					printf("/dev/dvb/adapter%d/frontend%d doesn\'t exist\n", A, B);
 			}
 		}
 	}
 
-	if (!TunerFound) { printf("\n\nError: Unable to find a valid DVB card or vtuner on your system.\n\
-		Please fix this problem and run it again.\n"); }
-		if (OutfileOK) {
-			fclose(outfile);
-			if (TunerFound) { printf("\nInfo: File [%s] created please check it.\n", NIM_File);
-			}
-		}
+	if (!TunerFound) {
+		printf("\n\nError: Unable to find a valid DVB card or vtuner on your system.\n\
+		Please fix this problem and run it again.\n");
+	}
+	if (OutfileOK) {
+		fclose(outfile);
+		if (TunerFound)
+			printf("\nInfo: File [%s] created please check it.\n", NIM_File);
+	}
 
 	printf("\nInfo: create_nim_sockets done\n");
 }
