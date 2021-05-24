@@ -1,0 +1,8 @@
+# /etc/modprobe.d/dvb.conf
+# You can find out the names of your dvb modules with the command:
+#
+# lsmod | grep dvb_core
+#
+# For example force order /dev/dvb/adapterN:
+options cx23885 adapter_nr=0
+options dvb_usb_technisat_usb2 adapter_nr=1
