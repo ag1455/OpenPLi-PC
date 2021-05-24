@@ -4,7 +4,6 @@
 # ln -s /dev/fb0 /dev/fb1
 
 DVB_DEV0="/dev/dvb/adapter0"
-DVB_DEV1="/dev/dvb/adapter1"
 LOG="/var/log/oscam/wait.log"
 
 # Case single with 1 frontend but named "1"
@@ -14,19 +13,11 @@ LOG="/var/log/oscam/wait.log"
 #	ln -s $DVB_DEV0/dvr0 $DVB_DEV0/dvr1
 #fi
 
-# Case dual or 2 single with 1 frontend
-if [ -d /sys/class/dvb/dvb1.frontend0 ]; then
-#	rm -f $DVB_DEV0/frontend1 $DVB_DEV0/demux1 $DVB_DEV0/dvr1
-	ln -s $DVB_DEV1/frontend0 $DVB_DEV1/frontend1
-	ln -s $DVB_DEV1/demux0 $DVB_DEV1/demux1
-	ln -s $DVB_DEV1/dvr0 $DVB_DEV1/dvr1
-fi
-
 if [ ! -f $LOG ]; then
 	touch "$LOG"
 fi
 
-while [ 1 != 0 ]; do # The script will run in a loop until frontend0 appears.
+while [ 1 != 0 ]; do # The script will run in a loop until appears frontend0.
 	if [ $(ls $DVB_DEV0 | grep -w frontend0) ]; then
 		modprobe -v dvbsoftwareca
 		chmod 660 $DVB_DEV0/ca0

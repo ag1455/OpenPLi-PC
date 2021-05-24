@@ -33,7 +33,7 @@ int PrintHelp () {
 }
 
 int main(int argc, char **argv) {
-	char *ArrayDVBTunerType[] =  { "UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN"};
+	char *ArrayDVBTunerType[] = { "UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN","UNKNOWN"};
 	char **DVBTunerType;
 	char NIM_File[254];
 	short TunerFound = 0;
@@ -54,40 +54,36 @@ int main(int argc, char **argv) {
 	while((c = getopt(argc, argv, "a:f:o:dh")) != -1) {
 		switch(c) {
 			case 'd': // enable debug
-			Debug = 1;
+				Debug = 1;
 			break;
-
 			case 'h': // help
 				PrintHelp();
 				return -1;
-				break;
-
+			break;
 			case 'a':
-				if ( atoi(optarg) )
+				if (atoi(optarg))
 					Adaptor_Max = atoi(optarg);
 				else {
-					fprintf (stderr, "Error: Invalid parameter for -a should be a number.\n");
+					fprintf(stderr, "Error: Invalid parameter for -a should be a number.\n");
 					return -1;
 				}
-				break;
-
+			break;
 			case 'f':
-				if ( atoi(optarg) )
+				if (atoi(optarg))
 					FE_Max = atoi(optarg);
 				else {
-					fprintf (stderr, "Error: Invalid parameter for -f should be a number.\n");
+					fprintf(stderr, "Error: Invalid parameter for -f should be a number.\n");
 					return -1;
 				}
-				break;
-
+			break;
 			case 'o':
 				strcpy(NIM_File, optarg);
-				break;
+			break;
 
 			default:
 				PrintHelp();
 				return -1;
-				break;
+			break;
 		}
 	}
 
@@ -113,14 +109,14 @@ int main(int argc, char **argv) {
 	DVBTunerType[TunerType_T]="DVB-T";
 	/* DVB-S2 is a special case of DVB-S and is tested from frontend capabilities */
 
-	int A=0;
-	int B=0;
+	int i=0;
+	int j=0;
 	int Return_ioctl=0;
 
-	for(A=0; A<Adaptor_Max; ++A) {
-		for (B=0; B<FE_Max; ++B) {
+	for(i=0; i<Adaptor_Max; ++i) {
+		for (j=0; j<FE_Max; ++j) {
 			char devstr[80];
-			sprintf( devstr, "/dev/dvb/adapter%d/frontend%d", A, B);
+			sprintf( devstr, "/dev/dvb/adapter%d/frontend%d", i, j);
 
 			if( access( devstr, F_OK ) != -1 ) {
 				//file exists
@@ -150,13 +146,13 @@ int main(int argc, char **argv) {
 						}
 
 						/* Nim socket outpout start */
-						if (Debug) 
-							printf("NIM Socket %d:\n", B);
+						if (Debug)
+							printf("NIM Socket %d:\n", i);
 						if (OutfileOK)
-							fprintf(outfile, "NIM Socket %d:\n", B);
+							fprintf(outfile, "NIM Socket %d:\n", i);
 
 						/* 2nd generation DVB Tuner detected adding 2 to the TunerType */
-						if ( (fe_info.caps & FE_CAN_2G_MODULATION ) == FE_CAN_2G_MODULATION ) {
+						if ((fe_info.caps & FE_CAN_2G_MODULATION) == FE_CAN_2G_MODULATION) {
 							if (Debug)
 								printf("      Type: %s2\n", DVBTunerType[fe_info.type]);
 							if (OutfileOK)
@@ -174,26 +170,26 @@ int main(int argc, char **argv) {
 						if (Debug) {
 							printf("      Name: %s\n", fe_info.name);
 							printf("      Has_Outputs: no\n");
-							printf("      Frontend_Device: %d\n", B);
+							printf("      Frontend_Device: %d\n", j);
 							printf("\n");
 						}
 						if (OutfileOK) {
 							fprintf(outfile,"      Name: %s\n", fe_info.name);
 							fprintf(outfile,"      Has_Outputs: no\n");
-							fprintf(outfile,"      Frontend_Device: %d\n", B);
+							fprintf(outfile,"      Frontend_Device: %d\n", j);
 							fprintf(outfile,"\n");
 						}
 						/* Nim socket output end */
 					}
 					else
-						fprintf (stderr, "Error: ioctl error [%d] for [%s] : ", Return_ioctl, devstr);
+						fprintf(stderr, "Error: ioctl error [%d] for [%s] : ", Return_ioctl, devstr);
 				}
 				close( fe_fd );
 			}
 			else {
 				/* file doesn't exist */
-				if (Debug) 
-					printf("/dev/dvb/adapter%d/frontend%d doesn\'t exist\n", A, B);
+				if (Debug)
+					printf("/dev/dvb/adapter%d/frontend%d doesn\'t exist\n", i, j);
 			}
 		}
 	}
