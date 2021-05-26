@@ -6869,7 +6869,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 -		gst = [x.split("Version: ") for x in open(glob("/var/lib/opkg/info/gstreamer[0-9].[0-9].control")[0], "r") if x.startswith("Version:")][0]
 -		return "%s" % gst[1].split("+")[0].replace("\n", "")
 +		gst = [x.split("Source: gstreamer") for x in open(glob("/var/lib/dpkg/status")[0], "r") if x.startswith("Source: gstreamer")][0]
-+		return "%s" % gst[1].split(" ")[0].replace("\n","")
++		return "%s" % gst[1].split(" ")[0].replace("\n", "")
  	except:
  		return _("Not Installed")
  
@@ -6880,7 +6880,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 -		ffmpeg = [x.split("Version: ") for x in open(glob("/var/lib/opkg/info/ffmpeg.control")[0], "r") if x.startswith("Version:")][0]
 -		return "%s" % ffmpeg[1].split("-")[0].replace("\n", "")
 +		ffmpeg = [x.split("Version: 7:") for x in open(glob("/var/lib/dpkg/status")[0], "r") if x.startswith("Version: 7:")][0]
-+		return "%s" % ffmpeg[1].split(" ")[0].replace("\n","")
++		return "%s" % ffmpeg[1].split(" ")[0].replace("\n", "")
 +	except:
 +		return _("Not Installed")
 +
@@ -6888,7 +6888,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 +	try:
 +		from glob import glob
 +		libxine = [x.split("Version: 1.2.10+") for x in open(glob("/var/lib/dpkg/status")[0], "r") if x.startswith("Version: 1.2.10+")][0]
-+		return "%s" % libxine[1].split("+")[0].replace("\n","")
++		return "%s" % libxine[1].split("+")[0].replace("\n", "")
  	except:
  		return _("Not Installed")
  
@@ -6903,7 +6903,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  
  		if not cpu_speed:
  			try:
-@@ -122,13 +130,18 @@
+@@ -122,15 +130,15 @@
  					cpu_speed = "-"
  
  		temperature = None
@@ -6915,21 +6915,19 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 -			temperature = open("/proc/stb/fp/temp_sensor").readline().replace('\n', '')
 -		elif os.path.isfile("/sys/devices/virtual/thermal/thermal_zone0/temp"):
 +		if os.path.isfile('/usr/local/e2/etc/stb/fp/temp_sensor_avs'):
-+			temperature = open("/usr/local/e2/etc/stb/fp/temp_sensor_avs").readline().replace('\n','')
++			temperature = open("/usr/local/e2/etc/stb/fp/temp_sensor_avs").readline().replace('\n', '')
 +		elif os.path.isfile('/usr/local/e2/etc/stb/power/avs'):
-+			temperature = open("/usr/local/e2/etc/stb/power/avs").readline().replace('\n','')
++			temperature = open("/usr/local/e2/etc/stb/power/avs").readline().replace('\n', '')
 +		elif os.path.isfile('/usr/local/e2/etc/stb/fp/temp_sensor'):
-+			temperature = open("/usr/local/e2/etc/stb/fp/temp_sensor").readline().replace('\n','')
-+		elif os.path.isfile("/sys/devices/virtual/thermal/thermal_zone2/temp"):
-+			try:
-+				temperature = int(open("/sys/devices/virtual/thermal/thermal_zone1/temp").read().strip())/1000
-+			except:
-+				pass
++			temperature = open("/usr/local/e2/etc/stb/fp/temp_sensor").readline().replace('\n', '')
 +		elif os.path.isfile("/sys/devices/virtual/thermal/thermal_zone1/temp"):
  			try:
- 				temperature = int(open("/sys/devices/virtual/thermal/thermal_zone0/temp").read().strip()) / 1000
+-				temperature = int(open("/sys/devices/virtual/thermal/thermal_zone0/temp").read().strip()) / 1000
++				temperature = int(open("/sys/devices/virtual/thermal/thermal_zone1/temp").read().strip()) / 1000
  			except:
-@@ -149,14 +162,14 @@
+ 				pass
+ 		elif os.path.isfile("/proc/hisi/msp/pm_cpu"):
+@@ -149,14 +157,14 @@
  	try:
  		from glob import glob
  		try:
