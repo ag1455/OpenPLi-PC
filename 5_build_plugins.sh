@@ -508,7 +508,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2iplayer"
-		VER="788451c08c73d0cef92850dcce0003b0eae52ccb"
+		VER="b21f11703141ca6e1231e80bdedfe9ae40914854"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
