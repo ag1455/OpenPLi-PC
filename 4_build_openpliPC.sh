@@ -135,7 +135,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 7d9ba735
+git reset --hard e22f34b2
 cd ..
 
 # Copy headers
@@ -149,9 +149,9 @@ fi
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-cp -fv patches/patch-7d9ba735-to-PC.patch $PKG
+cp -fv patches/patch-e22f34b2-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-7d9ba735-to-PC.patch
+patch -p1 < patch-e22f34b2-to-PC.patch
 
 if [ "$release" = "14.04" ]; then
 	echo ""
@@ -380,7 +380,7 @@ cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
 cp -fv scripts/* $INSTALL_E2DIR/bin
 cp -fv enigma2/lib/gdi/*.h $INSTALL_E2DIR/include/enigma2/lib/gdi
 cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
-#cp -fv /etc/network/interfaces /etc/network/interfaces~
+cp -fv /etc/network/interfaces /etc/network/interfaces~
 if [ -d $DVB_DEV ]; then
 	cp -fv pre/rc.local /etc
 else
