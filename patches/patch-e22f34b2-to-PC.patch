@@ -9517,7 +9517,15 @@ diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
  
  		AboutText += _("Python version: ") + about.getPythonVersionString() + "\n"
  
-@@ -458,7 +459,7 @@
+@@ -111,6 +112,7 @@
+ 		AboutText += hddinfo + "\n\n" + _("Network Info:")
+ 		for x in about.GetIPsFromNetworkInterfaces():
+ 			AboutText += "\n" + x[0] + ": " + x[1]
++		AboutText += '\n\n' + _("Uptime") + ": " + about.getBoxUptime()
+ 
+ 		self["AboutScrollLabel"] = ScrollLabel(AboutText)
+ 		self["key_green"] = Button(_("Translations"))
+@@ -458,7 +460,7 @@
  		import glob
  		home_root = "/home/root/enigma2_crash.log"
  		tmp = "/tmp/enigma2_crash.log"
