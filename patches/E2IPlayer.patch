@@ -11936,6 +11936,18 @@ diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/u
              verPattern = '([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)'
  
          try:
+diff -ruN o/IPTVPlayer/libs/youtube_dl/extractor/youtube.py pc/IPTVPlayer/libs/youtube_dl/extractor/youtube.py
+--- o/IPTVPlayer/libs/youtube_dl/extractor/youtube.py	2021-05-28 11:35:20.635559142 +0300
++++ pc/IPTVPlayer/libs/youtube_dl/extractor/youtube.py	2021-06-26 23:07:09.534602046 +0300
+@@ -525,7 +525,7 @@
+             url = 'http://www.youtube.com/watch?v=%s&' % video_id
+             isGoogleDoc = False
+             videoKey = 'video_id'
+-            videoInfoBase = 'https://www.youtube.com/get_video_info?html5=1&video_id=%s&' % video_id
++            videoInfoBase = 'https://www.youtube.com/get_video_info?html5=1&c=TVHTML5&cver=6.20180913&video_id=%s&' % video_id
+             #videoInfoparams = {}
+             videoInfoparams = {'header': {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36'}}
+ 
 diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po
 --- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2021-05-10 13:17:39.109882386 +0300
 +++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2021-05-10 13:18:04.164336908 +0300
