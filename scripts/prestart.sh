@@ -15,6 +15,9 @@ LOG="/var/log/oscam/wait.log"
 
 if [ ! -f $LOG ]; then
 	touch "$LOG"
+else
+	rm -f "$LOG"
+	touch "$LOG"
 fi
 
 while [ 1 != 0 ]; do # The script will run in a loop until appears frontend0.
@@ -22,12 +25,10 @@ while [ 1 != 0 ]; do # The script will run in a loop until appears frontend0.
 		modprobe -v dvbsoftwareca
 		chmod 660 $DVB_DEV0/ca0
 		chown root:video $DVB_DEV0/ca0
-		sleep 10
-		softcam start
-#		echo " * Oscam started" >> $LOG
+		echo " * Started ca0" >> $LOG
 		exit 0
 	else
-#		echo " * Waiting ca0" >> $LOG
+		echo " * Waiting ca0" >> $LOG
 		sleep 1
 	fi
 done
