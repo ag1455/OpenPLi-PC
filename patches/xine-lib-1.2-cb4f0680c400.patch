@@ -15,7 +15,7 @@ diff -ruN o/debian/changelog pc/debian/changelog
 --- o/debian/changelog	2020-12-07 12:53:44.502983377 +0300
 +++ pc/debian/changelog	2021-04-14 11:49:41.696305452 +0300
 @@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.10+hg-509eb11af7f4-14905-e2pc) experimental; urgency=low
++xine-lib-1.2 (1.2.10+hg-cb4f0680c400-14909-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
 +  * Patched version for e2pc.
@@ -212,7 +212,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * mrl reference data is sent by demuxers when a reference stream is found.
   * this stream just contains pointers (urls) to the real data, which are
-@@ -2346,6 +2367,7 @@
+@@ -2347,6 +2368,7 @@
  void        xine_osd_set_position  (xine_osd_t *self, int x, int y) XINE_PROTECTED;
  void        xine_osd_show          (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
  void        xine_osd_show_unscaled (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
