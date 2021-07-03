@@ -3871,35 +3871,28 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  
  //#define SHOW_WRITE_TIME
  
-@@ -359,10 +357,10 @@
+@@ -359,9 +357,9 @@
  
  void eFilePushThreadRecorder::thread()
  {
 -	ssize_t bytes;
 +/*	ssize_t bytes;
  	int rv;
- 	struct pollfd pfd;
--	sigset_t sigmask;
-+	sigset_t sigmask;*/
+-	struct pollfd pfd;
++	struct pollfd pfd;*/
+ 	sigset_t sigmask;
  
  	eDebug("[eFilePushThreadRecorder] THREAD START");
- 
-@@ -371,16 +369,22 @@
- 	/* Only allow SIGUSR1 to be delivered to our thread, don't let any
- 	 * other signals (like SIGHCHLD) interrupt our system calls.
- 	 * NOTE: signal block masks are per thread, so set it in the thread itself. */
--	sigfillset(&sigmask);
-+/*	sigfillset(&sigmask);
+@@ -375,12 +373,18 @@
  	sigdelset(&sigmask, SIGUSR1);
--	pthread_sigmask(SIG_SETMASK, &sigmask, nullptr);
-+	pthread_sigmask(SIG_SETMASK, &sigmask, nullptr);*/
-+
+ 	pthread_sigmask(SIG_SETMASK, &sigmask, nullptr);
+ 
 +	/* we set the signal to not restart syscalls, so we can detect our signal. */
 +	struct sigaction act;
 +	act.sa_handler = signal_handler; // no, SIG_IGN doesn't do it. we want to receive the -EINTR
 +	act.sa_flags = 0;
 +	sigaction(SIGUSR1, &act, 0);
- 
++
  	hasStarted();
  
  	/* m_stop must be evaluated after each syscall. */
@@ -3928,7 +3921,7 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  
  				continue;
  			}
-@@ -497,11 +501,23 @@
+@@ -497,14 +501,26 @@
  	 * NOTE: signal options and handlers (except for a block mask) are
  	 * global for the process, so install the handler here and not
  	 * in the thread. */
@@ -3938,9 +3931,9 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  	act.sa_flags = 0;
 -	sigaction(SIGUSR1, &act, nullptr);
 +	sigaction(SIGUSR1, &act, nullptr);*/
-+
-+	run();
-+}
+ 
+ 	run();
+ }
  
 +void eFilePushThreadRecorder::start(int fd, ePtr<eDVBDemux> &demux)
 +{
@@ -3951,9 +3944,12 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
 +	m_fd_source = 0;
 +	m_stop = 0;
 +	m_stopped = false;
- 	run();
- }
- 
++	run();
++}
++
+ void eFilePushThreadRecorder::stop()
+ {
+ 	static const struct timespec timespec_1 = { .tv_sec =  0, .tv_nsec = 1000000000 / 10 };
 diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
 --- o/lib/dvb/filepush.h	2021-04-21 11:53:22.561894748 +0300
 +++ pc/lib/dvb/filepush.h	2021-05-03 22:12:47.857504136 +0300

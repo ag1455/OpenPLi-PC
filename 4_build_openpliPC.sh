@@ -161,9 +161,9 @@ if [ "$release" = "14.04" ]; then
 	echo "********************************************************"
 	echo ""
 	cd ..
-	cp -fv patches/xenial-trusty-xineLib.patch $PKG
+	cp -fv patches/xenial_trusty.patch $PKG
 	cd $PKG
-	patch -p1 < xenial-trusty-xineLib.patch
+	patch -p1 < xenial_trusty.patch
 	export CXX=/usr/bin/g++-8
 elif [ "$release" = "16.04" ]; then
 	echo ""
@@ -173,9 +173,9 @@ elif [ "$release" = "16.04" ]; then
 	echo "********************************************************"
 	echo ""
 	cd ..
-	cp -fv patches/xenial-trusty-xineLib.patch $PKG
+	cp -fv patches/xenial_trusty.patch $PKG
 	cd $PKG
-	patch -p1 < xenial-trusty-xineLib.patch
+	patch -p1 < xenial_trusty.patch
 	export CXX=/usr/bin/g++-8
 elif [ "$release" = "18.04" ]; then
 	echo ""

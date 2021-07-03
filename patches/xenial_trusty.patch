@@ -1,0 +1,3858 @@
+diff -ruN a/lib/dvb_ci/aes_xcbc_mac.cpp b/lib/dvb_ci/aes_xcbc_mac.cpp
+--- a/lib/dvb_ci/aes_xcbc_mac.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/aes_xcbc_mac.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,62 +0,0 @@
+-#include <stdint.h>
+-#include <string.h>
+-#include <openssl/aes.h>
+-
+-#include "aes_xcbc_mac.h"
+-
+-int aes_xcbc_mac_init(struct aes_xcbc_mac_ctx *ctx, const uint8_t *key)
+-{
+-	AES_KEY aes_key;
+-	int y, x;
+-
+-	AES_set_encrypt_key(key, 128, &aes_key);
+-
+-	for (y = 0; y < 3; y++) {
+-		for (x = 0; x < 16; x++)
+-			ctx->K[y][x] = y + 1;
+-		AES_ecb_encrypt(ctx->K[y], ctx->K[y], &aes_key, 1);
+-	}
+-
+-	/* setup K1 */
+-	AES_set_encrypt_key(ctx->K[0], 128, &ctx->key);
+-
+-	memset(ctx->IV, 0, 16);
+-	ctx->buflen = 0;
+-
+-	return 0;
+-}
+-
+-int aes_xcbc_mac_process(struct aes_xcbc_mac_ctx *ctx, const uint8_t *in, unsigned int len)
+-{
+-	while (len) {
+-		if (ctx->buflen == 16) {
+-			AES_ecb_encrypt(ctx->IV, ctx->IV, &ctx->key, 1);
+-			ctx->buflen = 0;
+-		}
+-		ctx->IV[ctx->buflen++] ^= *in++;
+-		--len;
+-	}
+-
+-	return 0;
+-}
+-
+-int aes_xcbc_mac_done(struct aes_xcbc_mac_ctx *ctx, uint8_t *out)
+-{
+-	int i;
+-
+-	if (ctx->buflen == 16) {
+-		/* K2 */
+-		for (i = 0; i < 16; i++)
+-			ctx->IV[i] ^= ctx->K[1][i];
+-	} else {
+-		ctx->IV[ctx->buflen] ^= 0x80;
+-		/* K3 */
+-		for (i = 0; i < 16; i++)
+-			ctx->IV[i] ^= ctx->K[2][i];
+-	}
+-
+-	AES_ecb_encrypt(ctx->IV, ctx->IV, &ctx->key, 1);
+-	memcpy(out, ctx->IV, 16);
+-
+-	return 0;
+-}
+diff -ruN a/lib/dvb_ci/aes_xcbc_mac.h b/lib/dvb_ci/aes_xcbc_mac.h
+--- a/lib/dvb_ci/aes_xcbc_mac.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/aes_xcbc_mac.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,17 +0,0 @@
+-#ifndef __AES_XCBC_H_
+-#define __AES_XCBC_H_
+-
+-#include <openssl/aes.h>
+-
+-struct aes_xcbc_mac_ctx {
+-	uint8_t K[3][16];
+-	uint8_t IV[16];
+-	AES_KEY key;
+-	int buflen;
+-};
+-
+-int aes_xcbc_mac_init(struct aes_xcbc_mac_ctx *ctx, const uint8_t *key);
+-int aes_xcbc_mac_process(struct aes_xcbc_mac_ctx *ctx, const uint8_t *in, unsigned int len);
+-int aes_xcbc_mac_done(struct aes_xcbc_mac_ctx *ctx, uint8_t *out);
+-
+-#endif
+diff -ruN a/lib/dvb_ci/descrambler.cpp b/lib/dvb_ci/descrambler.cpp
+--- a/lib/dvb_ci/descrambler.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/descrambler.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,111 +0,0 @@
+-#include <stdio.h>
+-#include <string.h>
+-#include <unistd.h>
+-#include <fcntl.h>
+-#include <stdlib.h>
+-#include <sys/ioctl.h>
+-#include <linux/dvb/ca.h>
+-
+-#include <lib/base/eerror.h>
+-
+-#ifndef CA_SET_PID
+-/**
+- * CA_SET_PID and ca_pid struct removed on 4.14 kernel
+- * Check commit         833ff5e7feda1a042b83e82208cef3d212ca0ef1
+-**/
+-struct ca_pid {
+-	unsigned int pid;
+-	int index;              /* -1 == disable*/
+-};
+-#define CA_SET_PID _IOW('o', 135, struct ca_pid)
+-#endif
+-
+-enum ca_descr_data_type {
+-	CA_DATA_IV,
+-	CA_DATA_KEY,
+-};
+-
+-enum ca_descr_parity {
+-	CA_PARITY_EVEN,
+-	CA_PARITY_ODD,
+-};
+-
+-struct ca_descr_data {
+-	unsigned int index;
+-	enum ca_descr_parity parity;
+-	enum ca_descr_data_type data_type;
+-	unsigned int length;
+-	unsigned char *data;
+-};
+-
+-
+-#define CA_SET_DESCR_DATA _IOW('o', 137, struct ca_descr_data)
+-
+-int descrambler_set_key(int desc_fd, int index, int parity, unsigned char *data)
+-{
+-	struct ca_descr_data d;
+-
+-	d.index = index;
+-	d.parity = (enum ca_descr_parity)parity;
+-	d.data_type = CA_DATA_KEY;
+-	d.length = 16;
+-	d.data = data;
+-
+-	if (ioctl(desc_fd, CA_SET_DESCR_DATA, &d) == -1) {
+-		eWarning("[CI descrambler] set key failed");
+-		return -1;
+-	}
+-
+-	d.index = index;
+-	d.parity = (enum ca_descr_parity)parity;
+-	d.data_type = CA_DATA_IV;
+-	d.length = 16;
+-	d.data = data + 16;
+-
+-	if (ioctl(desc_fd, CA_SET_DESCR_DATA, &d) == -1) {
+-		eWarning("[CI descrambler] set iv failed");
+-		return -1;
+-	}
+-
+-	return 0;
+-}
+-
+-int descrambler_set_pid(int desc_fd, int index, int enable, int pid)
+-{
+-	struct ca_pid p;
+-	unsigned int flags = 0x80;
+-
+-	if (index)
+-		flags |= 0x40;
+-
+-	if (enable)
+-		flags |= 0x20;
+-
+-	p.pid = pid;
+-	p.index = flags;
+-
+-	if (ioctl(desc_fd, CA_SET_PID, &p) == -1) {
+-		eWarning("[CI descrambler] set pid failed");
+-		return -1;
+-	}
+-
+-	return 0;
+-}
+-
+-int descrambler_init(void)
+-{
+-	int desc_fd;
+-	const char *filename = "/dev/dvb/adapter0/ca0";
+-
+-	desc_fd = open(filename, O_RDWR);
+-	if (desc_fd == -1) {
+-		eWarning("[CI descrambler] can not open %s", filename);
+-	}
+-
+-	return desc_fd;
+-}
+-
+-void descrambler_deinit(int desc_fd)
+-{
+-	close(desc_fd);
+-}
+diff -ruN a/lib/dvb_ci/descrambler.h b/lib/dvb_ci/descrambler.h
+--- a/lib/dvb_ci/descrambler.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/descrambler.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,9 +0,0 @@
+-#ifndef __DESCR_H_
+-#define __DESCR_H_
+-
+-int descrambler_init(void);
+-void descrambler_deinit(int desc_fd);
+-int descrambler_set_key(int desc_fd, int index, int parity, unsigned char *data);
+-int descrambler_set_pid(int desc_fd, int index, int enable, int pid);
+-
+-#endif
+diff -ruN a/lib/dvb_ci/dvbci_appmgr.cpp b/lib/dvb_ci/dvbci_appmgr.cpp
+--- a/lib/dvb_ci/dvbci_appmgr.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_appmgr.cpp	2021-07-03 23:37:28.000000000 +0300
+@@ -8,7 +8,6 @@
+ {
+ 	slot = tslot;
+ 	slot->setAppManager(this);
+-	m_app_name = "";
+ }
+ 
+ eDVBCIApplicationManagerSession::~eDVBCIApplicationManagerSession()
+@@ -18,10 +17,10 @@
+ 
+ int eDVBCIApplicationManagerSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
+ {
+-	eTraceNoNewLine("[CI AM] SESSION(%d)/APP %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
++	eDebugNoNewLine("[CI AM] SESSION(%d)/APP %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
+ 	for (int i=0; i<len; i++)
+-		eTraceNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLine("\n");
++		eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
++	eDebugNoNewLine("\n");
+ 
+ 	if ((tag[0]==0x9f) && (tag[1]==0x80))
+ 	{
+@@ -49,14 +48,13 @@
+ 				eDebugNoNewLine("%c", ((unsigned char*)data)[i+6]);
+ 			eDebugNoNewLine("\n");
+ 
+-			m_app_name = str;
+-			/* emit */ eDVBCI_UI::getInstance()->m_messagepump.send(eDVBCIInterfaces::Message(eDVBCIInterfaces::Message::appNameChanged, slot->getSlotID(), str));
++			eDVBCI_UI::getInstance()->setAppName(slot->getSlotID(), str);
+ 
+-			/* emit */ eDVBCI_UI::getInstance()->m_messagepump.send(eDVBCIInterfaces::Message(eDVBCIInterfaces::Message::slotStateChanged, slot->getSlotID(), 2));
++			eDVBCI_UI::getInstance()->setState(slot->getSlotID(), 2);
+ 			break;
+ 		}
+ 		default:
+-			eWarning("[CI AM] unknown APDU tag 9F 80 %02x", tag[2]);
++			eDebug("[CI AM] unknown APDU tag 9F 80 %02x", tag[2]);
+ 			break;
+ 		}
+ 	}
+diff -ruN a/lib/dvb_ci/dvbci_appmgr.h b/lib/dvb_ci/dvbci_appmgr.h
+--- a/lib/dvb_ci/dvbci_appmgr.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_appmgr.h	2021-07-03 23:37:28.000000000 +0300
+@@ -11,8 +11,6 @@
+ 
+ 	eDVBCISlot *slot;
+ 
+-	std::string m_app_name;
+-
+ 	int wantmenu;
+ 	int receivedAPDU(const unsigned char *tag, const void *data, int len);
+ 	int doAction();
+@@ -21,7 +19,6 @@
+ 	~eDVBCIApplicationManagerSession();
+ 	int enterMenu();
+ 	int startMMI();
+-	std::string getAppName() { return m_app_name; };
+ };
+ 
+ #endif
+diff -ruN a/lib/dvb_ci/dvbci_app_mmi.cpp b/lib/dvb_ci/dvbci_app_mmi.cpp
+--- a/lib/dvb_ci/dvbci_app_mmi.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_app_mmi.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,35 +0,0 @@
+-/* DVB CI Application MMI Manager */
+-
+-#include <lib/base/eerror.h>
+-#include <lib/dvb_ci/dvbci_app_mmi.h>
+-
+-int eDVBCIApplicationMMISession::receivedAPDU(const unsigned char *tag,const void *data, int len)
+-{
+-	eTraceNoNewLine("[CI AMMI] SESSION(%d)/AMMI %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
+-	for (int i=0; i<len; i++)
+-		eTraceNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLine("\n");
+-	if ((tag[0]==0x9f) && (tag[1]==0x80))
+-	{
+-		switch (tag[2])
+-		{
+-		default:
+-			eWarning("[CI AMMI] unknown APDU tag 9F 80 %02x", tag[2]);
+-			break;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-int eDVBCIApplicationMMISession::doAction()
+-{
+-	switch (state)
+-	{
+-	default:
+-		eWarning("[CI AMMI] unknown state");
+-		break;
+-	}
+-
+-	return 0;
+-}
+diff -ruN a/lib/dvb_ci/dvbci_app_mmi.h b/lib/dvb_ci/dvbci_app_mmi.h
+--- a/lib/dvb_ci/dvbci_app_mmi.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_app_mmi.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,13 +0,0 @@
+-#ifndef __dvbci_dvbci_app_mmi_h
+-#define __dvbci_dvbci_app_mmi_h
+-
+-#include <lib/dvb_ci/dvbci_session.h>
+-
+-class eDVBCIApplicationMMISession: public eDVBCISession
+-{
+-	int receivedAPDU(const unsigned char *tag, const void *data, int len);
+-	int doAction();
+-public:
+-};
+-
+-#endif
+diff -ruN a/lib/dvb_ci/dvbci_camgr.cpp b/lib/dvb_ci/dvbci_camgr.cpp
+--- a/lib/dvb_ci/dvbci_camgr.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_camgr.cpp	2021-07-03 23:37:28.000000000 +0300
+@@ -16,10 +16,10 @@
+ 
+ int eDVBCICAManagerSession::receivedAPDU(const unsigned char *tag, const void *data, int len)
+ {
+-	eTraceNoNewLine("[CI CA] SESSION(%d)/CA %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
++	eDebugNoNewLine("[CI CA] SESSION(%d)/CA %02x %02x %02x: ", session_nb, tag[0], tag[1],tag[2]);
+ 	for (int i=0; i<len; i++)
+-		eTraceNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLine("\n");
++		eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
++	eDebugNoNewLine("\n");
+ 
+ 	if ((tag[0]==0x9f) && (tag[1]==0x80))
+ 	{
+@@ -34,10 +34,10 @@
+ 			}
+ 			std::sort(caids.begin(), caids.end());
+ 			eDebugNoNewLine("\n");
+-			eDVBCIInterfaces::getInstance()->executeRecheckPMTHandlersInMainloop();
++			eDVBCIInterfaces::getInstance()->recheckPMTHandlers();
+ 			break;
+ 		default:
+-			eWarning("[CI CA] unknown APDU tag 9F 80 %02x", tag[2]);
++			eDebug("[CI CA] unknown APDU tag 9F 80 %02x", tag[2]);
+ 			break;
+ 		}
+ 	}
+@@ -56,7 +56,7 @@
+ 		return 0;
+ 	}
+ 	case stateFinal:
+-		eWarning("[CI CA] stateFinal and action should not happen");
++		eDebug("[CI CA] stateFinal and action should not happen");
+ 		[[fallthrough]];
+ 	default:
+ 		return 0;
+diff -ruN a/lib/dvb_ci/dvbci_cam_upgrade.cpp b/lib/dvb_ci/dvbci_cam_upgrade.cpp
+--- a/lib/dvb_ci/dvbci_cam_upgrade.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_cam_upgrade.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,35 +0,0 @@
+-/* DVB CI CAM Firmware Upgrade Manager */
+-
+-#include <lib/base/eerror.h>
+-#include <lib/dvb_ci/dvbci_cam_upgrade.h>
+-
+-int eDVBCICAMUpgradeSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
+-{
+-	eTraceNoNewLine("[CI CAMUP] SESSION(%d)/CAMUP %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
+-	for (int i=0; i<len; i++)
+-		eTraceNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLine("\n");
+-	if ((tag[0]==0x9f) && (tag[1]==0x9d))
+-	{
+-		switch (tag[2])
+-		{
+-		default:
+-			eWarning("[CI CAMUP] unknown APDU tag 9F 9D %02x", tag[2]);
+-			break;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-int eDVBCICAMUpgradeSession::doAction()
+-{
+-	switch (state)
+-	{
+-	default:
+-		eWarning("[CI CAMUP] unknown state");
+-		break;
+-	}
+-
+-	return 0;
+-}
+diff -ruN a/lib/dvb_ci/dvbci_cam_upgrade.h b/lib/dvb_ci/dvbci_cam_upgrade.h
+--- a/lib/dvb_ci/dvbci_cam_upgrade.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_cam_upgrade.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,13 +0,0 @@
+-#ifndef __dvbci_dvbci_cam_upgrade_h
+-#define __dvbci_dvbci_cam_upgrade_h
+-
+-#include <lib/dvb_ci/dvbci_session.h>
+-
+-class eDVBCICAMUpgradeSession: public eDVBCISession
+-{
+-	int receivedAPDU(const unsigned char *tag, const void *data, int len);
+-	int doAction();
+-public:
+-};
+-
+-#endif
+diff -ruN a/lib/dvb_ci/dvbci_ccmgr.cpp b/lib/dvb_ci/dvbci_ccmgr.cpp
+--- a/lib/dvb_ci/dvbci_ccmgr.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_ccmgr.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,951 +0,0 @@
+-/* DVB CI Content Control Manager */
+-
+-#include <lib/dvb_ci/dvbci_ccmgr.h>
+-
+-#include <lib/dvb_ci/aes_xcbc_mac.h>
+-#include <lib/dvb_ci/descrambler.h>
+-#include <lib/dvb_ci/dvbci_ccmgr_helper.h>
+-
+-#include <openssl/aes.h>
+-
+-
+-eDVBCICcSession::eDVBCICcSession(eDVBCISlot *slot):
+-	m_slot(slot), m_akh_index(0),
+-	m_root_ca_store(nullptr), m_cust_cert(nullptr), m_device_cert(nullptr),
+-	m_ci_cust_cert(nullptr), m_ci_device_cert(nullptr),
+-	m_rsa_device_key(nullptr), m_dh(nullptr)
+-{
+-	uint8_t buf[32], host_id[8];
+-
+-	m_slot->setCCManager(this);
+-	m_descrambler_fd = descrambler_init();
+-	parameter_init(m_dh_p, m_dh_g, m_dh_q, m_s_key, m_key_data, m_iv);
+-
+-	m_ci_elements.init();
+-
+-	memset(buf, 0, 1);
+-	if (!m_ci_elements.set(STATUS_FIELD, buf, 1))
+-		eWarning("[CI RCC] can not set status");
+-
+-	memset(buf, 0, 32);
+-	buf[31] = 0x01; // URI_PROTOCOL_V1
+-	if (m_slot->getVersion() == 2)
+-		buf[31] |= 0x02; // URI_PROTOCOL_V2
+-
+-	if (!m_ci_elements.set(URI_VERSIONS, buf, 32))
+-		eWarning("[CI RCC] can not set uri_versions");
+-
+-	if (!get_authdata(host_id, m_dhsk, buf, m_slot->getSlotID(), m_akh_index))
+-	{
+-		memset(buf, 0, sizeof(buf));
+-		m_akh_index = 5;
+-	}
+-
+-	if (!m_ci_elements.set(AKH, buf, 32))
+-		eWarning("[CI RCC] can not set AKH");
+-
+-	if (!m_ci_elements.set(HOST_ID, host_id, 8))
+-		eWarning("[CI RCC] can not set host_id");
+-}
+-
+-eDVBCICcSession::~eDVBCICcSession()
+-{
+-	m_slot->setCCManager(0);
+-	descrambler_deinit(m_descrambler_fd);
+-
+-	if (m_root_ca_store)
+-		X509_STORE_free(m_root_ca_store);
+-	if (m_cust_cert)
+-		X509_free(m_cust_cert);
+-	if (m_device_cert)
+-		X509_free(m_device_cert);
+-	if (m_ci_cust_cert)
+-		X509_free(m_ci_cust_cert);
+-	if (m_ci_device_cert)
+-		X509_free(m_ci_device_cert);
+-	if (m_rsa_device_key)
+-		RSA_free(m_rsa_device_key);
+-	if (m_dh)
+-		DH_free(m_dh);
+-
+-	m_ci_elements.init();
+-}
+-
+-int eDVBCICcSession::receivedAPDU(const unsigned char *tag, const void *data, int len)
+-{
+-	eTraceNoNewLineStart("[CI CC] SESSION(%d)/CC %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
+-	for (int i=0; i<len; i++)
+-		eTraceNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLine("\n");
+-
+-	if ((tag[0] == 0x9f) && (tag[1] == 0x90))
+-	{
+-		switch (tag[2])
+-		{
+-			case 0x01: cc_open_req(); break;
+-			case 0x03: cc_data_req((const uint8_t *)data, len); break;
+-			case 0x05: cc_sync_req((const uint8_t *)data, len); break;
+-			case 0x07: cc_sac_data_req((const uint8_t *)data, len); break;
+-			case 0x09: cc_sac_sync_req((const uint8_t *)data, len); break;
+-			default:
+-				eWarning("[CI RCC] unknown APDU tag %02x", tag[2]); break;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-int eDVBCICcSession::doAction()
+-{
+-	switch (state) {
+-	case stateStarted:
+-		break;
+-	default:
+-		eWarning("[CI CC] unknown state");
+-		break;
+-	}
+-	return 0;
+-}
+-
+-void eDVBCICcSession::send(const unsigned char *tag, const void *data, int len)
+-{
+-	sendAPDU(tag, data, len);
+-}
+-
+-void eDVBCICcSession::addProgram(uint16_t program_number, std::vector<uint16_t>& pids)
+-{
+-	eDebugNoNewLineStart("[CI CC] SESSION(%d)/ADD PROGRAM %04x: ", session_nb, program_number);
+-	for (std::vector<uint16_t>::iterator it = pids.begin(); it != pids.end(); ++it)
+-		eDebugNoNewLine("%02x ", *it);
+-	eDebugNoNewLine("\n");
+-
+-	for (std::vector<uint16_t>::iterator it = pids.begin(); it != pids.end(); ++it)
+-		descrambler_set_pid(m_descrambler_fd, m_slot->getSlotID(), 1, *it);
+-}
+-
+-void eDVBCICcSession::removeProgram(uint16_t program_number, std::vector<uint16_t>& pids)
+-{
+-	eDebugNoNewLineStart("[CI CC] SESSION(%d)/REMOVE PROGRAM %04x: ", session_nb, program_number);
+-	for (std::vector<uint16_t>::iterator it = pids.begin(); it != pids.end(); ++it)
+-		eDebugNoNewLine("%02x ", *it);
+-	eDebugNoNewLine("\n");
+-
+-	for (std::vector<uint16_t>::iterator it = pids.begin(); it != pids.end(); ++it)
+-		descrambler_set_pid(m_descrambler_fd, m_slot->getSlotID(), 0, *it);
+-}
+-
+-void eDVBCICcSession::cc_open_req()
+-{
+-	const uint8_t tag[3] = { 0x9f, 0x90, 0x02 };
+-	const uint8_t bitmap = 0x01;
+-	send(tag, &bitmap, 1);
+-}
+-
+-void eDVBCICcSession::cc_data_req(const uint8_t *data, unsigned int len)
+-{
+-	uint8_t cc_data_cnf_tag[3] = { 0x9f, 0x90, 0x04 };
+-	uint8_t dest[BUFSIZ];
+-	int dt_nr;
+-	int id_bitmask;
+-	int answ_len;
+-	unsigned int rp = 0;
+-
+-	if (len < 2)
+-	{
+-		eWarning("[CI RCC] too short data");
+-		return;
+-	}
+-
+-	id_bitmask = data[rp++];
+-
+-	dt_nr = data[rp++];
+-	rp += data_get_loop(&data[rp], len - rp, dt_nr);
+-
+-	if (len < rp + 1)
+-		return;
+-
+-	dt_nr = data[rp++];
+-
+-	unsigned int dest_len = sizeof(dest);
+-	if (dest_len < 2)
+-	{
+-		eWarning("[CI RCC] not enough space");
+-		return;
+-	}
+-
+-	dest[0] = id_bitmask;
+-	dest[1] = dt_nr;
+-
+-	answ_len = data_req_loop(&dest[2], dest_len - 2, &data[rp], len - rp, dt_nr);
+-	if (answ_len <= 0)
+-	{
+-		eWarning("[CI RCC] can not get data");
+-		return;
+-	}
+-
+-	answ_len += 2;
+-
+-	send(cc_data_cnf_tag, dest, answ_len);
+-}
+-
+-void eDVBCICcSession::cc_sync_req(const uint8_t *data, unsigned int len)
+-{
+-	const uint8_t tag[3] = { 0x9f, 0x90, 0x06 };
+-	const uint8_t status = 0x00;    /* OK */
+-
+-	send(tag, &status, 1);
+-}
+-
+-void eDVBCICcSession::cc_sac_data_req(const uint8_t *data, unsigned int len)
+-{
+-	const uint8_t data_cnf_tag[3] = { 0x9f, 0x90, 0x08 };
+-	uint8_t dest[BUFSIZ];
+-	uint8_t tmp[len];
+-	int id_bitmask, dt_nr;
+-	unsigned int serial;
+-	int answ_len;
+-	int pos = 0;
+-	unsigned int rp = 0;
+-
+-	if (len < 10)
+-		return;
+-
+-	eTraceNoNewLineStart("[CI RCC] cc_sac_data_req: ");
+-	traceHexdump(data, len);
+-
+-	memcpy(tmp, data, 8);
+-	sac_crypt(&tmp[8], &data[8], len - 8, AES_DECRYPT);
+-	data = tmp;
+-
+-	if (!sac_check_auth(data, len))
+-	{
+-		eWarning("[CI RCC] check_auth of message failed");
+-		return;
+-	}
+-
+-	serial = UINT32(&data[rp], 4);
+-	//eDebug("%u\n", serial);
+-
+-	/* skip serial & header */
+-	rp += 8;
+-
+-	id_bitmask = data[rp++];
+-
+-	/* handle data loop */
+-	dt_nr = data[rp++];
+-	rp += data_get_loop(&data[rp], len - rp, dt_nr);
+-
+-	if (len < rp + 1)
+-	{
+-		eWarning("[CI RCC] check_auth of message too short");
+-		return;
+-	}
+-
+-	dt_nr = data[rp++];
+-
+-	/* create answer */
+-	unsigned int dest_len = sizeof(dest);
+-
+-	if (dest_len < 10)
+-	{
+-		eWarning("[CI RCC] not enough space");
+-		return;
+-	}
+-
+-	pos += BYTE32(&dest[pos], serial);
+-	pos += BYTE32(&dest[pos], 0x01000000);
+-
+-	dest[pos++] = id_bitmask;
+-	dest[pos++] = dt_nr;    /* dt_nbr */
+-
+-	answ_len = data_req_loop(&dest[pos], dest_len - 10, &data[rp], len - rp, dt_nr);
+-	if (answ_len <= 0)
+-	{
+-		eWarning("[CI RCC] can not get data");
+-		return;
+-	}
+-	pos += answ_len;
+-
+-	cc_sac_send(data_cnf_tag, dest, pos);
+-}
+-
+-void eDVBCICcSession::cc_sac_sync_req(const uint8_t *data, unsigned int len)
+-{
+-	const uint8_t sync_cnf_tag[3] = { 0x9f, 0x90, 0x10 };
+-	uint8_t dest[64];
+-	unsigned int serial;
+-	int pos = 0;
+-
+-	eTraceNoNewLineStart("[CI RCC] cc_sac_sync_req: ");
+-	traceHexdump(data, len);
+-
+-	serial = UINT32(data, 4);
+-	eTrace("[CI RCC] serial %u\n", serial);
+-
+-	pos += BYTE32(&dest[pos], serial);
+-	pos += BYTE32(&dest[pos], 0x01000000);
+-
+-	/* status OK */
+-	dest[pos++] = 0;
+-
+-	cc_sac_send(sync_cnf_tag, dest, pos);
+-}
+-
+-void eDVBCICcSession::cc_sac_send(const uint8_t *tag, uint8_t *data, unsigned int pos)
+-{
+-	if (pos < 8)
+-	{
+-		eWarning("[CI RCC] too short data");
+-		return;
+-	}
+-
+-	pos += add_padding(&data[pos], pos - 8, 16);
+-	BYTE16(&data[6], pos - 8);      /* len in header */
+-
+-	pos += sac_gen_auth(&data[pos], data, pos);
+-	sac_crypt(&data[8], &data[8], pos - 8, AES_ENCRYPT);
+-
+-	send(tag, data, pos);
+-
+-	return;
+-}
+-
+-int eDVBCICcSession::data_get_loop(const uint8_t *data, unsigned int datalen, unsigned int items)
+-{
+-	unsigned int i;
+-	int dt_id, dt_len;
+-	unsigned int pos = 0;
+-
+-	for (i = 0; i < items; i++)
+-	{
+-		if (pos + 3 > datalen)
+-			return 0;
+-
+-		dt_id = data[pos++];
+-		dt_len = data[pos++] << 8;
+-		dt_len |= data[pos++];
+-
+-		if (pos + dt_len > datalen)
+-			return 0;
+-
+-		eTraceNoNewLineStart("[CI RCC] set element %d: ", dt_id);
+-		traceHexdump(&data[pos], dt_len);
+-
+-		m_ci_elements.set(dt_id, &data[pos], dt_len);
+-
+-		data_get_handle_new(dt_id);
+-
+-		pos += dt_len;
+-	}
+-
+-	return pos;
+-}
+-
+-int eDVBCICcSession::data_req_loop(uint8_t *dest, unsigned int dest_len, const uint8_t *data, unsigned int data_len, unsigned int items)
+-{
+-	int dt_id;
+-	unsigned int i;
+-	int pos = 0;
+-	unsigned int len;
+-
+-	if (items > data_len)
+-		return -1;
+-
+-	for (i = 0; i < items; i++)
+-	{
+-		dt_id = data[i];
+-		data_req_handle_new(dt_id);    /* check if there is any action needed before we answer */
+-
+-		len = m_ci_elements.get_buf(NULL, dt_id);
+-		if ((len + 3) > dest_len)
+-		{
+-			eWarning("[CI RCC] req element %d: not enough space", dt_id);
+-			return -1;
+-		}
+-
+-		len = m_ci_elements.get_req(dest, dt_id);
+-		if (len > 0)
+-		{
+-			eTraceNoNewLineStart("[CI RCC] req element %d: ", dt_id);
+-			traceHexdump(&dest[3], len - 3);
+-		}
+-
+-		pos += len;
+-		dest += len;
+-		dest_len -= len;
+-	}
+-
+-	return pos;
+-}
+-
+-int eDVBCICcSession::data_get_handle_new(unsigned int id)
+-{
+-	switch (id)
+-	{
+-		case CICAM_BRAND_CERT:
+-		case DHPM:
+-		case CICAM_DEV_CERT:
+-//		case CICAM_ID:
+-		case SIGNATURE_B:
+-			if (check_ci_certificates())
+-				break;
+-
+-			check_dh_challenge();
+-			break;
+-
+-		case AUTH_NONCE:
+-			restart_dh_challenge();
+-			break;
+-
+-		case NS_MODULE:
+-			generate_ns_host();
+-			generate_key_seed();
+-			generate_SAK_SEK();
+-			break;
+-
+-		case CICAM_ID:
+-		case KP:
+-		case KEY_REGISTER:
+-			check_new_key();
+-			break;
+-
+-		case PROGRAM_NUMBER:
+-		case URI_MESSAGE:
+-			generate_uri_confirm();
+-			break;
+-
+-		default:
+-			eWarning("[CI RCC] unhandled id %u", id);
+-			break;
+-	}
+-
+-	return 0;
+-}
+-
+-int eDVBCICcSession::data_req_handle_new(unsigned int id)
+-{
+-	switch (id)
+-	{
+-		case 22:
+-		{
+-			uint8_t akh[32], host_id[8];
+-
+-			memset(akh, 0, sizeof(akh));
+-
+-			if (m_akh_index != 5)
+-			{
+-				if (!get_authdata(host_id, m_dhsk, akh, m_slot->getSlotID(), m_akh_index++))
+-					m_akh_index = 5;
+-
+-				if (!m_ci_elements.set(AKH, akh, 32))
+-					eWarning("[CI RCC] can not set AKH in elements");
+-
+-				if (!m_ci_elements.set(HOST_ID, host_id, 8))
+-					eWarning("[CI RCC] can not set host_id in elements");
+-			}
+-			break;
+-		}
+-		default:
+-			break;
+-	}
+-
+-	return 0;
+-}
+-
+-int eDVBCICcSession::generate_akh()
+-{
+-	uint8_t akh[32];
+-	SHA256_CTX sha;
+-
+-	SHA256_Init(&sha);
+-	SHA256_Update(&sha, m_ci_elements.get_ptr(CICAM_ID), m_ci_elements.get_buf(NULL, CICAM_ID));
+-	SHA256_Update(&sha, m_ci_elements.get_ptr(HOST_ID), m_ci_elements.get_buf(NULL, HOST_ID));
+-	SHA256_Update(&sha, m_dhsk, 256);
+-	SHA256_Final(akh, &sha);
+-
+-	m_ci_elements.set(AKH, akh, sizeof(akh));
+-
+-	return 0;
+-}
+-
+-int eDVBCICcSession::compute_dh_key()
+-{
+-	int len = DH_size(m_dh);
+-	if (len > 256)
+-	{
+-		eWarning("[CI RCC] too long shared key");
+-		return -1;
+-	}
+-
+-	BIGNUM *bn_in = BN_bin2bn(m_ci_elements.get_ptr(DHPM), 256, NULL);
+-
+-#if 0
+-	// verify DHPM
+-	BN_CTX *ctx = BN_CTX_new();
+-	BIGNUM *out = BN_new();
+-
+-	if (BN_cmp(BN_value_one(), bn_in) >= 0)
+-		eWarning("[CI RCC] DHPM <= 1!!!");
+-
+-	if (BN_cmp(bn_in, m_dh->p) >= 0)
+-		eWarning("[CI RCC] DHPM >= dh_p!!!");
+-
+-	BN_mod_exp(out, bn_in, m_dh->q, m_dh->p, ctx);
+-	if (BN_cmp(out, BN_value_one()) != 0)
+-		eWarning("[CI RCC] DHPM ^ dh_q mod dh_p != 1!!!");
+-
+-	BN_free(out);
+-	BN_CTX_free(ctx);
+-#endif
+-
+-	int codes = 0;
+-	int ok = DH_check_pub_key(m_dh, bn_in, &codes);
+-	if (ok == 0)
+-		eDebug("[CI RCC] check_pub_key failed");
+-	if (codes & DH_CHECK_PUBKEY_TOO_SMALL)
+-		eDebug("[CI RCC] too small public key");
+-	if (codes & DH_CHECK_PUBKEY_TOO_LARGE)
+-		eDebug("[CI RCC] too large public key");
+-
+-	int gap = 256 - len;
+-	memset(m_dhsk, 0, gap);
+-	DH_compute_key(m_dhsk + gap, bn_in, m_dh);
+-
+-	BN_free(bn_in);
+-
+-	return 0;
+-}
+-
+-bool eDVBCICcSession::check_dh_challenge()
+-{
+-	if (!m_ci_elements.valid(AUTH_NONCE))
+-		return false;
+-
+-	if (!m_ci_elements.valid(CICAM_ID))
+-		return false;
+-
+-	if (!m_ci_elements.valid(DHPM))
+-		return false;
+-
+-	if (!m_ci_elements.valid(SIGNATURE_B))
+-		return false;
+-
+-	compute_dh_key();
+-	generate_akh();
+-
+-	m_akh_index = 5;
+-
+-	eDebug("[CI RCC] writing...");
+-	write_authdata(m_slot->getSlotID(), m_ci_elements.get_ptr(HOST_ID), m_dhsk, m_ci_elements.get_ptr(AKH));
+-
+-	return true;
+-}
+-
+-int eDVBCICcSession::generate_dh_key()
+-{
+-	uint8_t dhph[256];
+-	int len;
+-	unsigned int gap;
+-	BIGNUM *p, *g , *q;
+-	const BIGNUM *pub_key;
+-
+-	m_dh = DH_new();
+-
+-	p = BN_bin2bn(m_dh_p, sizeof(m_dh_p), 0);
+-	g = BN_bin2bn(m_dh_g, sizeof(m_dh_g), 0);
+-	q = BN_bin2bn(m_dh_q, sizeof(m_dh_q), 0);
+-	DH_set0_pqg(m_dh, p, q, g);
+-	DH_set_flags(m_dh, DH_FLAG_NO_EXP_CONSTTIME);
+-
+-	DH_generate_key(m_dh);
+-
+-	DH_get0_key(m_dh, &pub_key, NULL);
+-	len = BN_num_bytes(pub_key);
+-	if (len > 256)
+-	{
+-		eWarning("[CI RCC] too long public key");
+-		return -1;
+-	}
+-
+-#if 0
+-	// verify DHPH
+-	BN_CTX *ctx = BN_CTX_new();
+-	BIGNUM *out = BN_new();
+-
+-	if (BN_cmp(BN_value_one(), m_dh->pub_key) >= 0)
+-		eWarning("[CI RCC] DHPH <= 1!!!");
+-	if (BN_cmp(m_dh->pub_key, m_dh->p) >= 0)
+-		eWarning("[CI RCC] DHPH >= dh_p!!!");
+-	BN_mod_exp(out, m_dh->pub_key, m_dh->q, m_dh->p, ctx);
+-	if (BN_cmp(out, BN_value_one()) != 0)
+-		eWarning("[CI RCC] DHPH ^ dh_q mod dh_p != 1!!!");
+-
+-	BN_free(out);
+-	BN_CTX_free(ctx);
+-#endif
+-
+-	gap = 256 - len;
+-	memset(dhph, 0, gap);
+-	BN_bn2bin(pub_key, &dhph[gap]);
+-
+-	m_ci_elements.set(DHPH, dhph, sizeof(dhph));
+-
+-	return 0;
+-}
+-
+-int eDVBCICcSession::generate_sign_A()
+-{
+-	unsigned char dest[302];
+-	uint8_t hash[20];
+-	unsigned char dbuf[256];
+-	unsigned char sign_A[256];
+-
+-	if (!m_ci_elements.valid(AUTH_NONCE))
+-		return -1;
+-
+-	if (!m_ci_elements.valid(DHPH))
+-		return -1;
+-
+-	dest[0x00] = 0x00; /* version */
+-	dest[0x01] = 0x00;
+-	dest[0x02] = 0x08; /* len (bits) */
+-	dest[0x03] = 0x01; /* version data */
+-
+-	dest[0x04] = 0x01; /* msg_label */
+-	dest[0x05] = 0x00;
+-	dest[0x06] = 0x08; /* len (bits) */
+-	dest[0x07] = 0x02; /* message data */
+-
+-	dest[0x08] = 0x02; /* auth_nonce */
+-	dest[0x09] = 0x01;
+-	dest[0x0a] = 0x00; /* len (bits) */
+-	memcpy(&dest[0x0b], m_ci_elements.get_ptr(AUTH_NONCE), 32);
+-
+-	dest[0x2b] = 0x04; /* DHPH */
+-	dest[0x2c] = 0x08;
+-	dest[0x2d] = 0x00; /* len (bits) */
+-	memcpy(&dest[0x2e], m_ci_elements.get_ptr(DHPH), 256);
+-
+-	SHA1(dest, 0x12e, hash);
+-
+-	m_rsa_device_key = rsa_privatekey_open("/etc/ciplus/device.pem");
+-	if (!m_rsa_device_key)
+-	{
+-		eWarning("[CI RCC] can not read private key");
+-		return -1;
+-	}
+-
+-	RSA_padding_add_PKCS1_PSS(m_rsa_device_key, dbuf, hash, EVP_sha1(), 20);
+-	RSA_private_encrypt(sizeof(dbuf), dbuf, sign_A, m_rsa_device_key, RSA_NO_PADDING);
+-
+-	m_ci_elements.set(SIGNATURE_A, sign_A, sizeof(sign_A));
+-
+-	return 0;
+-}
+-
+-int eDVBCICcSession::restart_dh_challenge()
+-{
+-	if (!m_ci_elements.valid(AUTH_NONCE))
+-		return -1;
+-
+-	//eDebug("[CI RCC] rechecking...");
+-
+-	m_root_ca_store = X509_STORE_new();
+-	if (!m_root_ca_store)
+-	{
+-		eWarning("[CI RCC] can not create root_ca");
+-		return -1;
+-	}
+-
+-	if (X509_STORE_load_locations(m_root_ca_store, "/etc/ciplus/root.pem", NULL) != 1)
+-	{
+-		eWarning("[CI RCC] can not load root_ca");
+-		return -1;
+-	}
+-
+-	m_cust_cert = certificate_load_and_check(m_root_ca_store, "/etc/ciplus/customer.pem");
+-	m_device_cert = certificate_load_and_check(m_root_ca_store, "/etc/ciplus/device.pem");
+-
+-	if (!m_cust_cert || !m_device_cert)
+-	{
+-		eWarning("[CI RCC] can not check loader certificates");
+-		return -1;
+-	}
+-
+-	if (!ci_element_set_certificate(HOST_BRAND_CERT, m_cust_cert))
+-		eWarning("[CI RCC] can not store brand certificate");
+-
+-	if (!ci_element_set_certificate(HOST_DEV_CERT, m_device_cert))
+-		eWarning("[CI RCC] can not store device certificate");
+-
+-	if (!ci_element_set_hostid_from_certificate(HOST_ID, m_device_cert))
+-		eWarning("[CI RCC] can not store HOST_ID");
+-
+-	m_ci_elements.invalidate(CICAM_ID);
+-	m_ci_elements.invalidate(DHPM);
+-	m_ci_elements.invalidate(SIGNATURE_B);
+-	m_ci_elements.invalidate(AKH);
+-
+-	generate_dh_key();
+-	generate_sign_A();
+-
+-	return 0;
+-}
+-
+-int eDVBCICcSession::generate_uri_confirm()
+-{
+-	SHA256_CTX sha;
+-	uint8_t uck[32];
+-	uint8_t uri_confirm[32];
+-
+-	//eDebug("[CI RCC] uri_confirm...");
+-
+-	// UCK
+-	SHA256_Init(&sha);
+-	SHA256_Update(&sha, m_sak, 16);
+-	SHA256_Final(uck, &sha);
+-
+-	// uri_confirm
+-	SHA256_Init(&sha);
+-	SHA256_Update(&sha, m_ci_elements.get_ptr(URI_MESSAGE), m_ci_elements.get_buf(NULL, URI_MESSAGE));
+-	SHA256_Update(&sha, uck, 32);
+-	SHA256_Final(uri_confirm, &sha);
+-
+-	m_ci_elements.set(URI_CONFIRM, uri_confirm, 32);
+-
+-	return 0;
+-}
+-
+-void eDVBCICcSession::check_new_key()
+-{
+-	AES_KEY aes_ctx;
+-	uint8_t dec[32];
+-	uint8_t *kp;
+-	uint8_t slot;
+-	unsigned int i;
+-
+-	if (!m_ci_elements.valid(KP))
+-		return;
+-
+-	if (!m_ci_elements.valid(KEY_REGISTER))
+-		return;
+-
+-	//eDebug("[CI RCC] key checking...");
+-
+-	kp = m_ci_elements.get_ptr(KP);
+-	m_ci_elements.get_buf(&slot, KEY_REGISTER);
+-
+-	AES_set_encrypt_key(m_s_key, 128, &aes_ctx);
+-	for (i = 0; i < 32; i += 16)
+-		AES_ecb_encrypt(&kp[i], &dec[i], &aes_ctx, 1);
+-
+-	for (i = 0; i < 32; i++)
+-		dec[i] ^= kp[i];
+-
+-	if (slot != 0 && slot != 1)
+-		slot = 1;
+-
+-	descrambler_set_key(m_descrambler_fd, m_slot->getSlotID(), slot, dec);
+-
+-	m_ci_elements.invalidate(KP);
+-	m_ci_elements.invalidate(KEY_REGISTER);
+-}
+-
+-void eDVBCICcSession::generate_key_seed()
+-{
+-	SHA256_CTX sha;
+-
+-	SHA256_Init(&sha);
+-	SHA256_Update(&sha, &m_dhsk[240], 16);
+-	SHA256_Update(&sha, m_ci_elements.get_ptr(AKH), m_ci_elements.get_buf(NULL, AKH));
+-	SHA256_Update(&sha, m_ci_elements.get_ptr(NS_HOST), m_ci_elements.get_buf(NULL, NS_HOST));
+-	SHA256_Update(&sha, m_ci_elements.get_ptr(NS_MODULE), m_ci_elements.get_buf(NULL, NS_MODULE));
+-	SHA256_Final(m_ks_host, &sha);
+-}
+-
+-void eDVBCICcSession::generate_ns_host()
+-{
+-	uint8_t buf[8];
+-	get_random(buf, sizeof(buf));
+-	m_ci_elements.set(NS_HOST, buf, sizeof(buf));
+-}
+-
+-int eDVBCICcSession::generate_SAK_SEK()
+-{
+-	AES_KEY key;
+-	uint8_t dec[32];
+-	int i;
+-
+-	AES_set_encrypt_key(m_key_data, 128, &key);
+-
+-	for (i = 0; i < 2; i++)
+-		AES_ecb_encrypt(&m_ks_host[16 * i], &dec[16 * i], &key, 1);
+-
+-	for (i = 0; i < 16; i++)
+-		m_sek[i] = m_ks_host[i] ^ dec[i];
+-
+-	for (i = 0; i < 16; i++)
+-		m_sak[i] = m_ks_host[16 + i] ^ dec[16 + i];
+-
+-	return 0;
+-}
+-
+-bool eDVBCICcSession::sac_check_auth(const uint8_t *data, unsigned int len)
+-{
+-	struct aes_xcbc_mac_ctx ctx;
+-	uint8_t calced_signature[16];
+-
+-	if (len < 16)
+-	{
+-		eWarning("[CI RCC] signature too short");
+-		return false;
+-	}
+-
+-	aes_xcbc_mac_init(&ctx, m_sak);
+-	aes_xcbc_mac_process(&ctx, (uint8_t *)"\x04", 1); /* header len */
+-	aes_xcbc_mac_process(&ctx, data, len - 16);
+-	aes_xcbc_mac_done(&ctx, calced_signature);
+-
+-	if (memcmp(&data[len - 16], calced_signature, 16))
+-	{
+-		eWarning("[CI RCC] signature wrong");
+-		return false;
+-	}
+-
+-	//eDebug("[CI RCC] auth ok!");
+-
+-	return true;
+-}
+-
+-int eDVBCICcSession::sac_gen_auth(uint8_t *out, uint8_t *in, unsigned int len)
+-{
+-	struct aes_xcbc_mac_ctx ctx;
+-
+-	aes_xcbc_mac_init(&ctx, m_sak);
+-	aes_xcbc_mac_process(&ctx, (uint8_t *)"\x04", 1); /* header len */
+-	aes_xcbc_mac_process(&ctx, in, len);
+-	aes_xcbc_mac_done(&ctx, out);
+-
+-	return 16;
+-}
+-
+-int eDVBCICcSession::sac_crypt(uint8_t *dst, const uint8_t *src, unsigned int len, int encrypt)
+-{
+-	AES_KEY key;
+-	uint8_t iv[16];
+-	memcpy(iv, m_iv, 16); // use copy as iv is changed by AES_cbc_encrypt
+-
+-	if (encrypt)
+-		AES_set_encrypt_key(m_sek, 128, &key);
+-	else
+-		AES_set_decrypt_key(m_sek, 128, &key);
+-
+-	AES_cbc_encrypt(src, dst, len, &key, iv, encrypt);
+-
+-	return 0;
+-}
+-
+-X509 *eDVBCICcSession::import_ci_certificates(unsigned int id)
+-{
+-	X509 *cert;
+-
+-	if (!m_ci_elements.valid(id))
+-	{
+-		eWarning("[CI RCC] %u not valid", id);
+-		return NULL;
+-	}
+-
+-	cert = certificate_import_and_check(m_root_ca_store, m_ci_elements.get_ptr(id), m_ci_elements.get_buf(NULL, id));
+-	if (!cert)
+-	{
+-		eWarning("[CI RCC] can not verify certificate %u", id);
+-		return NULL;
+-	}
+-
+-	return cert;
+-}
+-
+-int eDVBCICcSession::check_ci_certificates()
+-{
+-	if (!m_ci_elements.valid(CICAM_BRAND_CERT))
+-		return -1;
+-
+-	if (!m_ci_elements.valid(CICAM_DEV_CERT))
+-		return -1;
+-
+-	if ((m_ci_cust_cert = import_ci_certificates(CICAM_BRAND_CERT)) == NULL)
+-	{
+-		eWarning("[CI RCC] can not import CICAM brand certificate");
+-		return -1;
+-	}
+-
+-	if ((m_ci_device_cert = import_ci_certificates(CICAM_DEV_CERT)) == NULL)
+-	{
+-		eWarning("[CI RCC] can not import CICAM device certificate");
+-		return -1;
+-	}
+-
+-	if (!ci_element_set_hostid_from_certificate(CICAM_ID, m_ci_device_cert))
+-	{
+-		eWarning("[CI RCC] can not store CICAM_ID");
+-		return -1;
+-	}
+-
+-	return 0;
+-}
+-
+-bool eDVBCICcSession::ci_element_set_certificate(unsigned int id, X509 *cert)
+-{
+-	unsigned char *cert_der = NULL;
+-	int cert_len;
+-
+-	cert_len = i2d_X509(cert, &cert_der);
+-	if (cert_len <= 0)
+-	{
+-		eWarning("[CI RCC] can not encode certificate");
+-		return false;
+-	}
+-
+-	if (!m_ci_elements.set(id, cert_der, cert_len)) {
+-		eWarning("[CI RCC] can not store certificate id %u", id);
+-		return false;
+-	}
+-
+-	OPENSSL_free(cert_der);
+-
+-	return true;
+-}
+-
+-bool eDVBCICcSession::ci_element_set_hostid_from_certificate(unsigned int id, X509 *cert)
+-{
+-	X509_NAME *subject;
+-	char hostid[16 + 1];
+-	uint8_t bin_hostid[8];
+-
+-	if ((id != 5) && (id != 6))
+-	{
+-		eWarning("[CI RCC] wrong datatype_id %u for device id", id);
+-		return false;
+-	}
+-
+-	subject = X509_get_subject_name(cert);
+-	X509_NAME_get_text_by_NID(subject, NID_commonName, hostid, sizeof(hostid));
+-
+-	if (strlen(hostid) != 16)
+-	{
+-		eWarning("[CI RCC] bad device id");
+-		return false;
+-	}
+-
+-	//eDebug("[CI RCC] DEVICE_ID: %s", hostid);
+-
+-	str2bin(bin_hostid, hostid, 16);
+-
+-	if (!m_ci_elements.set(id, bin_hostid, sizeof(bin_hostid)))
+-	{
+-		eWarning("[CI RCC] can not store device id %u", id);
+-		return false;
+-	}
+-
+-	return true;
+-}
+diff -ruN a/lib/dvb_ci/dvbci_ccmgr.h b/lib/dvb_ci/dvbci_ccmgr.h
+--- a/lib/dvb_ci/dvbci_ccmgr.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_ccmgr.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,285 +0,0 @@
+-#ifndef __dvbci_dvbci_ccmgr_h
+-#define __dvbci_dvbci_ccmgr_h
+-
+-#include <memory>
+-#include <openssl/x509.h>
+-#include <lib/dvb_ci/dvbci_session.h>
+-
+-class eDVBCICcSessionImpl;
+-
+-class eDVBCICcSession: public eDVBCISession
+-{
+-	eDVBCISlot *m_slot;
+-	int m_descrambler_fd;
+-
+-	// CI+ credentials
+-	enum
+-	{
+-		BRAND_ID = 1,
+-
+-		HOST_ID = 5,
+-		CICAM_ID = 6,
+-		HOST_BRAND_CERT = 7,
+-		CICAM_BRAND_CERT = 8,
+-
+-		KP = 12,
+-		DHPH = 13,
+-		DHPM = 14,
+-		HOST_DEV_CERT = 15,
+-		CICAM_DEV_CERT = 16,
+-		SIGNATURE_A = 17,
+-		SIGNATURE_B = 18,
+-		AUTH_NONCE = 19,
+-		NS_HOST = 20,
+-		NS_MODULE = 21,
+-		AKH = 22,
+-		AKM = 23,
+-
+-		URI_MESSAGE = 25,
+-		PROGRAM_NUMBER = 26,
+-		URI_CONFIRM = 27,
+-		KEY_REGISTER = 28,
+-		URI_VERSIONS = 29,
+-		STATUS_FIELD = 30,
+-		SRM_DATA = 31,
+-		SRM_CONFIRM = 32,
+-
+-		MAX_ELEMENTS = 33
+-	};
+-
+-	struct ciplus_element
+-	{
+-		uint8_t *m_data = NULL;
+-		uint32_t m_size;
+-		bool m_valid;
+-		void init()
+-		{
+-			invalidate();
+-		};
+-		void invalidate()
+-		{
+-			if (m_data)
+-				free(m_data);
+-			m_data = NULL;
+-			m_size = 0;
+-			m_valid = false;
+-		};
+-		void set(const uint8_t *data, uint32_t size)
+-		{
+-			if (m_data)
+-				free(m_data);
+-			m_data = (uint8_t *)malloc(size);
+-			if (m_data)
+-			{
+-				memcpy(m_data, data, size);
+-				m_size = size;
+-				m_valid = true;
+-			}
+-			else
+-			{
+-				m_size = 0;
+-				m_valid = false;
+-			}
+-		};
+-	};
+-
+-	struct ciplus_elements
+-	{
+-		ciplus_element m_elements[MAX_ELEMENTS];
+-		const uint32_t m_datatype_sizes[MAX_ELEMENTS] = {
+-			0, 50, 0, 0, 0, 8, 8, 0,
+-			0, 0, 0, 0, 32, 256, 256, 0,
+-			0, 256, 256, 32, 8, 8, 32, 32,
+-			0, 8, 2, 32, 1, 32, 1, 0,
+-			32
+-		};
+-		void init()
+-		{
+-			unsigned int i;
+-
+-			for (i = 1; i < MAX_ELEMENTS; i++)
+-				m_elements[i].invalidate();
+-		};
+-		struct ciplus_element* get(unsigned int id)
+-		{
+-			if ((id < 1) || (id >= MAX_ELEMENTS))
+-			{
+-				eWarning("[CI RCC] invalid id %u", id);
+-				return NULL;
+-			}
+-			return &m_elements[id];
+-		};
+-		uint8_t* get_ptr(unsigned int id)
+-		{
+-			struct ciplus_element *e = get(id);
+-			if (e == NULL)
+-				return NULL;
+-
+-			if (!e->m_valid)
+-			{
+-				eWarning("[CI RCC] %u not valid", id);
+-				return NULL;
+-			}
+-
+-			if (!e->m_data)
+-			{
+-				eWarning("[CI RCC] %u doesn't exist", id);
+-				return NULL;
+-			}
+-
+-			return e->m_data;
+-		};
+-		unsigned int get_buf(uint8_t *dest, unsigned int id)
+-		{
+-			struct ciplus_element *e = get(id);
+-			if (e == NULL)
+-				return 0;
+-
+-			if (!e->m_valid)
+-			{
+-				eWarning("[CI RCC] %u not valid", id);
+-				return 0;
+-			}
+-
+-			if (!e->m_data)
+-			{
+-				eWarning("[CI RCC] %d doesn't exist", id);
+-				return 0;
+-			}
+-
+-			if (dest)
+-				memcpy(dest, e->m_data, e->m_size);
+-
+-			return e->m_size;
+-		};
+-		unsigned int get_req(uint8_t *dest, unsigned int id)
+-		{
+-			unsigned int len = get_buf(&dest[3], id);
+-
+-			if (len == 0)
+-			{
+-				eWarning("[CI RCC] can not get %u", id);
+-				return 0;
+-			}
+-
+-			dest[0] = id;
+-			dest[1] = len >> 8;
+-			dest[2] = len;
+-
+-			return 3 + len;
+-		};
+-		bool set(unsigned int id, const uint8_t *data, uint32_t size)
+-		{
+-			struct ciplus_element *e = get(id);
+-			if (!e)
+-				return false;
+-
+-			if ((m_datatype_sizes[id] != 0) && (m_datatype_sizes[id] != size))
+-			{
+-				eWarning("[CI RCC] size %u of id %u doesn't match", size, id);
+-				return false;
+-			}
+-
+-			e->set(data, size);
+-
+-			return e->m_valid;
+-		};
+-		void invalidate(unsigned int id)
+-		{
+-			struct ciplus_element *e = get(id);
+-			if (e)
+-				e->invalidate();
+-		};
+-		bool valid(unsigned int id)
+-		{
+-			struct ciplus_element *e = get(id);
+-			return e && e->m_valid;
+-		};
+-	} m_ci_elements;
+-
+-	/* DHSK */
+-	uint8_t m_dhsk[256];
+-
+-	/* KS_host */
+-	uint8_t m_ks_host[32];
+-
+-	/* derived keys */
+-	uint8_t m_sek[16];
+-	uint8_t m_sak[16];
+-
+-	/* AKH checks - module performs 5 tries to get correct AKH */
+-	unsigned int m_akh_index;
+-
+-	/* Root CA */
+-	X509_STORE *m_root_ca_store;
+-
+-	/* Host certificates */
+-	X509 *m_cust_cert;
+-	X509 *m_device_cert;
+-
+-	/* Module certificates */
+-	X509 *m_ci_cust_cert;
+-	X509 *m_ci_device_cert;
+-
+-	/* private key of device-cert */
+-	RSA *m_rsa_device_key;
+-
+-	/* DH parameters */
+-	DH *m_dh;
+-	uint8_t m_dh_p[256];
+-	uint8_t m_dh_g[256];
+-	uint8_t m_dh_q[32];
+-
+-	/* AES parameters */
+-	uint8_t m_s_key[16];
+-	uint8_t m_key_data[16];
+-	uint8_t m_iv[16];
+-
+-	int receivedAPDU(const unsigned char *tag, const void *data, int len);
+-	int doAction();
+-
+-	void cc_open_req();
+-	void cc_data_req(const uint8_t *data, unsigned int len);
+-	void cc_sync_req(const uint8_t *data, unsigned int len);
+-	void cc_sac_data_req(const uint8_t *data, unsigned int len);
+-	void cc_sac_sync_req(const uint8_t *data, unsigned int len);
+-	void cc_sac_send(const uint8_t *tag, uint8_t *data, unsigned int pos);
+-
+-	int data_get_loop(const uint8_t *data, unsigned int datalen, unsigned int items);
+-	int data_req_loop(uint8_t *dest, unsigned int dest_len, const uint8_t *data, unsigned int data_len, unsigned int items);
+-
+-	int data_req_handle_new(unsigned int id);
+-	int data_get_handle_new(unsigned int id);
+-
+-	void generate_key_seed();
+-	void generate_ns_host();
+-	int generate_SAK_SEK();
+-	int generate_akh();
+-	bool check_dh_challenge();
+-	int compute_dh_key();
+-	int generate_dh_key();
+-	int generate_sign_A();
+-	int restart_dh_challenge();
+-	int generate_uri_confirm();
+-	void check_new_key();
+-
+-	bool sac_check_auth(const uint8_t *data, unsigned int len);
+-	int sac_gen_auth(uint8_t *out, uint8_t *in, unsigned int len);
+-	int sac_crypt(uint8_t *dst, const uint8_t *src, unsigned int len, int encrypt);
+-
+-	X509 *import_ci_certificates(unsigned int id);
+-	int check_ci_certificates();
+-
+-	bool ci_element_set_certificate(unsigned int id, X509 *cert);
+-	bool ci_element_set_hostid_from_certificate(unsigned int id, X509 *cert);
+-
+-public:
+-	eDVBCICcSession(eDVBCISlot *tslot);
+-	~eDVBCICcSession();
+-
+-	void send(const unsigned char *tag, const void *data, int len);
+-	void addProgram(uint16_t program_number, std::vector<uint16_t>& pids);
+-	void removeProgram(uint16_t program_number, std::vector<uint16_t>& pids);
+-};
+-
+-#endif
+diff -ruN a/lib/dvb_ci/dvbci_ccmgr_helper.cpp b/lib/dvb_ci/dvbci_ccmgr_helper.cpp
+--- a/lib/dvb_ci/dvbci_ccmgr_helper.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_ccmgr_helper.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,434 +0,0 @@
+-#include <fcntl.h>
+-#include <openssl/pem.h>
+-#include <openssl/aes.h>
+-
+-#include <lib/dvb_ci/dvbci_ccmgr_helper.h>
+-
+-#include <lib/base/eerror.h>
+-
+-
+-// misc helper functions
+-
+-void traceHexdump(const uint8_t *data, unsigned int len)
+-{
+-	while (len--)
+-		eTraceNoNewLine("%02x ", *data++);
+-	eTraceNoNewLine("\n");
+-}
+-
+-int get_random(uint8_t *dest, int len)
+-{
+-	int fd;
+-	const char *urnd = "/dev/urandom";
+-
+-	fd = open(urnd, O_RDONLY);
+-	if (fd <= 0)
+-	{
+-		eWarning("[CI RCC] cannot open %s", urnd);
+-		return -1;
+-	}
+-
+-	if (read(fd, dest, len) != len)
+-	{
+-		eWarning("[CI RCC] cannot read from %s", urnd);
+-		close(fd);
+-		return -2;
+-	}
+-
+-	close(fd);
+-
+-	return len;
+-}
+-
+-int add_padding(uint8_t *dest, unsigned int len, unsigned int blocklen)
+-{
+-	uint8_t padding = 0x80;
+-	int count = 0;
+-
+-	while (len & (blocklen - 1))
+-	{
+-		*dest++ = padding;
+-		++len;
+-		++count;
+-		padding = 0;
+-	}
+-
+-	return count;
+-}
+-
+-int get_bin_from_nibble(int in)
+-{
+-	if ((in >= '0') && (in <= '9'))
+-		return in - 0x30;
+-
+-	if ((in >= 'A') && (in <= 'Z'))
+-		return in - 0x41 + 10;
+-
+-	if ((in >= 'a') && (in <= 'z'))
+-		return in - 0x61 + 10;
+-
+-	eWarning("[CI RCC] unsupported chars in device id");
+-
+-	return 0;
+-}
+-
+-void str2bin(uint8_t *dst, char *data, int len)
+-{
+-	int i;
+-
+-	for (i = 0; i < len; i += 2)
+-		*dst++ = (get_bin_from_nibble(data[i]) << 4) | get_bin_from_nibble(data[i + 1]);
+-}
+-
+-uint32_t UINT32(const uint8_t *in, unsigned int len)
+-{
+-	uint32_t val = 0;
+-	unsigned int i;
+-
+-	for (i = 0; i < len; i++)
+-	{
+-		val <<= 8;
+-		val |= *in++;
+-	}
+-
+-	return val;
+-}
+-
+-int BYTE32(uint8_t *dest, uint32_t val)
+-{
+-	*dest++ = val >> 24;
+-	*dest++ = val >> 16;
+-	*dest++ = val >> 8;
+-	*dest++ = val;
+-
+-	return 4;
+-}
+-
+-int BYTE16(uint8_t *dest, uint16_t val)
+-{
+-	*dest++ = val >> 8;
+-	*dest++ = val;
+-	return 2;
+-}
+-
+-// storage & load of authenticated data (HostID & DHSK & AKH)
+-
+-#ifndef FILENAME_MAX
+-#define FILENAME_MAX 256
+-#endif
+-#define MAX_PAIRS 10
+-#define PAIR_SIZE (8 + 256 + 32)
+-
+-void get_authdata_filename(char *dest, size_t len, unsigned int slot)
+-{
+-	snprintf(dest, len, "/etc/ciplus/ci_auth_slot_%u.bin", slot);
+-}
+-
+-bool get_authdata(uint8_t *host_id, uint8_t *dhsk, uint8_t *akh, unsigned int slot, unsigned int index)
+-{
+-	char filename[FILENAME_MAX];
+-	int fd;
+-	uint8_t chunk[PAIR_SIZE];
+-	unsigned int i;
+-
+-	if (index >= MAX_PAIRS)
+-		return false;
+-
+-	get_authdata_filename(filename, sizeof(filename), slot);
+-
+-	fd = open(filename, O_RDONLY);
+-	if (fd <= 0)
+-	{
+-		eDebug("[CI RCC] can not open %s", filename);
+-		return false;
+-	}
+-
+-	for (i = 0; i <= index; i++)
+-	{
+-		if (read(fd, chunk, sizeof(chunk)) != sizeof(chunk))
+-		{
+-			eDebug("[CI RCC] can not read auth_data");
+-			close(fd);
+-			return false;
+-		}
+-	}
+-
+-	close(fd);
+-
+-	memcpy(host_id, chunk, 8);
+-	memcpy(dhsk, &chunk[8], 256);
+-	memcpy(akh, &chunk[8 + 256], 32);
+-
+-	return true;
+-}
+-
+-bool write_authdata(unsigned int slot, const uint8_t *host_id, const uint8_t *dhsk, const uint8_t *akh)
+-{
+-	char filename[FILENAME_MAX];
+-	int fd;
+-	uint8_t buf[PAIR_SIZE * MAX_PAIRS];
+-	int entries;
+-
+-	for (entries = 0; entries < MAX_PAIRS; entries++)
+-	{
+-		int offset = PAIR_SIZE * entries;
+-		if (!get_authdata(&buf[offset], &buf[offset + 8], &buf[offset + 8 + 256], slot, entries))
+-			break;
+-
+-		/* check if we got this pair already */
+-		if (!memcmp(&buf[offset + 8 + 256], akh, 32))
+-		{
+-			eDebug("[CI RCC] data already stored");
+-			return true;
+-		}
+-	}
+-
+-	if (entries > 0)
+-	{
+-		if (entries == MAX_PAIRS)
+-			entries--;
+-
+-		memmove(buf + PAIR_SIZE, buf, PAIR_SIZE * entries);
+-	}
+-
+-	memcpy(buf, host_id, 8);
+-	memcpy(buf + 8, dhsk, 256);
+-	memcpy(buf + 8 + 256, akh, 32);
+-	entries++;
+-
+-	eDebug("[CI RCC] %d entries for writing", entries);
+-
+-	get_authdata_filename(filename, sizeof(filename), slot);
+-	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR);
+-	if (fd < 0)
+-	{
+-		eWarning("[CI RCC] can not open %s", filename);
+-		return false;
+-	}
+-
+-	if (write(fd, buf, PAIR_SIZE * entries) != PAIR_SIZE * entries)
+-		eWarning("[CI RCC] error in write");
+-
+-	close(fd);
+-
+-	return true;
+-}
+-
+-bool parameter_init(uint8_t* dh_p, uint8_t* dh_g, uint8_t* dh_q, uint8_t* s_key, uint8_t* key_data, uint8_t* iv)
+-{
+-	int fd;
+-	unsigned char buf[592];
+-
+-	fd = open("/etc/ciplus/param", O_RDONLY);
+-	if (fd <= 0)
+-	{
+-		eDebug("[CI RCC] can not param file");
+-		return false;
+-	}
+-
+-	if (read(fd, buf, sizeof(buf)) != sizeof(buf))
+-	{
+-		eDebug("[CI RCC] can not read parameters");
+-		close(fd);
+-		return false;
+-	}
+-
+-	close(fd);
+-
+-	memcpy(dh_p, buf, 256);
+-	memcpy(dh_g, &buf[256], 256);
+-	memcpy(dh_q, &buf[512], 32);
+-	memcpy(s_key, &buf[544], 16);
+-	memcpy(key_data, &buf[560], 16);
+-	memcpy(iv, &buf[576], 16);
+-
+-	return true;
+-}
+-
+-// CI+ certificates
+-
+-RSA *rsa_privatekey_open(const char *filename)
+-{
+-	FILE *fp;
+-	RSA *r = NULL;
+-
+-	fp = fopen(filename, "r");
+-	if (!fp)
+-	{
+-		eWarning("[CI RCC] can not open %s", filename);
+-		return NULL;
+-	}
+-
+-	PEM_read_RSAPrivateKey(fp, &r, NULL, NULL);
+-	if (!r)
+-		eWarning("[CI RCC] can not read %s", filename);
+-
+-	fclose(fp);
+-
+-	return r;
+-}
+-
+-X509 *certificate_open(const char *filename)
+-{
+-	FILE *fp;
+-	X509 *cert;
+-
+-	fp = fopen(filename, "r");
+-	if (!fp)
+-	{
+-		eWarning("[CI RCC] can not open %s", filename);
+-		return NULL;
+-	}
+-
+-	cert = PEM_read_X509(fp, NULL, NULL, NULL);
+-	if (!cert)
+-		eWarning("[CI RCC] can not read %s", filename);
+-
+-	fclose(fp);
+-
+-	return cert;
+-}
+-
+-#if OPENSSL_VERSION_NUMBER < 0x10100000L
+-int DH_set0_pqg(DH *dh, BIGNUM *p, BIGNUM *q, BIGNUM *g)
+-{
+-	/* If the fields p and g in d are NULL, the corresponding input
+-	* parameters MUST be non-NULL.  q may remain NULL.
+-	*/
+-	if ((dh->p == NULL && p == NULL) || (dh->g == NULL && g == NULL))
+-		return 0;
+-
+-	if (p != NULL)
+-	{
+-		BN_free(dh->p);
+-		dh->p = p;
+-	}
+-	if (q != NULL)
+-	{
+-		BN_free(dh->q);
+-		dh->q = q;
+-	}
+-	if (g != NULL)
+-	{
+-		BN_free(dh->g);
+-		dh->g = g;
+-	}
+-
+-	if (q != NULL)
+-	{
+-		dh->length = BN_num_bits(q);
+-	}
+-
+-	return 1;
+-}
+-
+-void DH_get0_key(const DH *dh, const BIGNUM **pub_key, const BIGNUM **priv_key)
+-{
+-	if (pub_key != NULL)
+-		*pub_key = dh->pub_key;
+-	if (priv_key != NULL)
+-		*priv_key = dh->priv_key;
+-}
+-
+-void DH_set_flags(DH *dh, int flags)
+-{
+-	dh->flags |= flags;
+-}
+-#endif
+-
+-int verify_cb(int ok, X509_STORE_CTX *ctx)
+-{
+-	if (X509_STORE_CTX_get_error(ctx) == X509_V_ERR_CERT_NOT_YET_VALID)
+-	{
+-		time_t now = time(NULL);
+-		struct tm *t = localtime(&now);
+-		if (t->tm_year < 2015)
+-		{
+-			eDebug("[CI RCC] seems our system clock is wrong - ignore!");
+-			return 1;
+-		}
+-	}
+-
+-	if (X509_STORE_CTX_get_error(ctx) == X509_V_ERR_CERT_HAS_EXPIRED)
+-		return 1;
+-
+-	return 0;
+-}
+-
+-bool certificate_validate(X509_STORE *store, X509 *cert)
+-{
+-	X509_STORE_CTX *store_ctx;
+-	int ret;
+-
+-	store_ctx = X509_STORE_CTX_new();
+-
+-	X509_STORE_CTX_init(store_ctx, store, cert, NULL);
+-	X509_STORE_CTX_set_verify_cb(store_ctx, verify_cb);
+-	X509_STORE_CTX_set_flags(store_ctx, X509_V_FLAG_IGNORE_CRITICAL);
+-
+-	ret = X509_verify_cert(store_ctx);
+-
+-	if (ret != 1)
+-		eWarning("[CI RCC] %s", X509_verify_cert_error_string(X509_STORE_CTX_get_error(store_ctx)));
+-
+-	X509_STORE_CTX_free(store_ctx);
+-
+-	return ret == 1;
+-}
+-
+-X509 *certificate_load_and_check(X509_STORE *store, const char *filename)
+-{
+-	X509 *cert;
+-
+-	cert = certificate_open(filename);
+-	if (!cert)
+-	{
+-		eWarning("[CI RCC] can not open %s", filename);
+-		return NULL;
+-	}
+-
+-	if (!certificate_validate(store, cert))
+-	{
+-		eWarning("[CI RCC] can not validate %s", filename);
+-		X509_free(cert);
+-		return NULL;
+-	}
+-
+-	X509_STORE_add_cert(store, cert);
+-
+-	return cert;
+-}
+-
+-X509 *certificate_import_and_check(X509_STORE *store, const uint8_t *data, int len)
+-{
+-	X509 *cert;
+-
+-	cert = d2i_X509(NULL, &data, len);
+-	if (!cert)
+-	{
+-		eWarning("[CI RCC] can not read certificate");
+-		return NULL;
+-	}
+-
+-	if (!certificate_validate(store, cert))
+-	{
+-		eWarning("[CI RCC] can not vaildate certificate\n");
+-		X509_free(cert);
+-		return NULL;
+-	}
+-
+-	X509_STORE_add_cert(store, cert);
+-
+-	return cert;
+-}
+-
+-bool ciplus_cert_param_files_exists()
+-{
+-	if (access("/etc/ciplus/param", R_OK ) != -1 &&
+-		access("/etc/ciplus/root.pem", R_OK ) != -1 &&
+-		access("/etc/ciplus/device.pem", R_OK ) != -1 &&
+-		access("/etc/ciplus/customer.pem", R_OK ) != -1)
+-		return true;
+-
+-	return false;
+-}
+diff -ruN a/lib/dvb_ci/dvbci_ccmgr_helper.h b/lib/dvb_ci/dvbci_ccmgr_helper.h
+--- a/lib/dvb_ci/dvbci_ccmgr_helper.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_ccmgr_helper.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,23 +0,0 @@
+-#ifndef __RES_CONTENT_CTRL_HELPER_H
+-#define __RES_CONTENT_CTRL_HELPER_H
+-
+-#include <openssl/x509.h>
+-#include <openssl/x509v3.h>
+-
+-void traceHexdump(const uint8_t *data, unsigned int len);
+-int get_random(uint8_t *dest, int len);
+-int add_padding(uint8_t *dest, unsigned int len, unsigned int blocklen);
+-void str2bin(uint8_t *dst, char *data, int len);
+-uint32_t UINT32(const uint8_t *in, unsigned int len);
+-int BYTE32(uint8_t *dest, uint32_t val);
+-int BYTE16(uint8_t *dest, uint16_t val);
+-bool get_authdata(uint8_t *host_id, uint8_t *dhsk, uint8_t *akh, unsigned int slot, unsigned int index);
+-bool write_authdata(unsigned int slot, const uint8_t *host_id, const uint8_t *dhsk, const uint8_t *akh);
+-bool parameter_init(uint8_t* dh_p, uint8_t* dh_g, uint8_t* dh_q, uint8_t* s_key, uint8_t* key_data, uint8_t* iv);
+-RSA *rsa_privatekey_open(const char *filename);
+-int verify_cb(int ok, X509_STORE_CTX *ctx);
+-X509 *certificate_load_and_check(X509_STORE *store, const char *filename);
+-X509 *certificate_import_and_check(X509_STORE *store, const uint8_t *data, int len);
+-bool ciplus_cert_param_files_exists();
+-
+-#endif
+diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
+--- a/lib/dvb_ci/dvbci.cpp	2021-07-03 19:39:41.000000000 +0300
++++ b/lib/dvb_ci/dvbci.cpp	2021-07-03 23:37:29.000000000 +0300
+@@ -22,34 +22,143 @@
+ #include <lib/dvb_ci/dvbci_ui.h>
+ #include <lib/dvb_ci/dvbci_appmgr.h>
+ #include <lib/dvb_ci/dvbci_mmi.h>
+-#include <lib/dvb_ci/dvbci_ccmgr.h>
+ 
+ #include <dvbsi++/ca_program_map_section.h>
+ 
++//#define CIDEBUG 1
++
++#ifdef CIDEBUG
++	#define eDebugCI(x...) eDebug(x)
++#else
++	#define eDebugCI(x...)
++#endif
+ 
+ eDVBCIInterfaces *eDVBCIInterfaces::instance = 0;
+ 
+-pthread_mutex_t eDVBCIInterfaces::m_pmt_handler_lock = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
+-pthread_mutex_t eDVBCIInterfaces::m_slot_lock = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
++
++eCIClient::eCIClient(eDVBCIInterfaces *handler, int socket) : eUnixDomainSocket(socket, 1, eApp), parent(handler)
++{
++	receivedData = NULL;
++	receivedCmd = 0;
++	CONNECT(connectionClosed_, eCIClient::connectionLost);
++	CONNECT(readyRead_, eCIClient::dataAvailable);
++}
++
++void eCIClient::connectionLost()
++{
++	if (parent) parent->connectionLost();
++}
++
++void eCIClient::dataAvailable()
++{
++	if (!receivedCmd)
++	{
++		if ((unsigned int)bytesAvailable() < sizeof(ciplus_header)) return;
++		if ((unsigned int)readBlock((char*)&header, sizeof(ciplus_header)) < sizeof(ciplus_header)) return;
++		header.magic = ntohl(header.magic);
++		header.cmd = ntohl(header.cmd);
++		header.size = ntohl(header.size);
++		if (header.magic != CIPLUSHELPER_MAGIC)
++		{
++			if (parent) parent->connectionLost();
++			return;
++		}
++		receivedCmd = header.cmd;
++		receivedCmdSize = header.size;
++	}
++	if (receivedCmdSize)
++	{
++		if ((unsigned int)bytesAvailable() < receivedCmdSize) return;
++		if (receivedCmdSize) delete [] receivedData;
++		receivedData = new unsigned char[receivedCmdSize];
++		if ((unsigned int)readBlock((char*)receivedData, receivedCmdSize) < receivedCmdSize) return;
++
++		ciplus_message *message = (ciplus_message *)receivedData;
++		switch (header.cmd)
++		{
++		default:
++			{
++				unsigned char *data = &receivedData[sizeof(ciplus_message)];
++				parent->getSlot(ntohl(message->slot))->send(data, ntohl(message->size));
++			}
++			break;
++		case eCIClient::CIPLUSHELPER_STATE_CHANGED:
++			{
++				eDVBCISession::setAction(ntohl(message->session), receivedData[sizeof(ciplus_message)]);
++			}
++			break;
++		}
++		receivedCmdSize = 0;
++		receivedCmd = 0;
++	}
++}
++
++void eCIClient::sendData(int cmd, int slot, int session, unsigned long idtag, unsigned char *tag, unsigned char *data, int len)
++{
++	ciplus_message message;
++	message.slot = ntohl(slot);
++	message.idtag = ntohl(idtag);
++	memcpy(&message.tag, tag, 4);
++	message.session = ntohl(session);
++	message.size = ntohl(len);
++
++	ciplus_header header;
++	header.magic = htonl(CIPLUSHELPER_MAGIC);
++	header.size = htonl(sizeof(message) + len);
++	header.cmd = htonl(cmd);
++
++	writeBlock((const char*)&header, sizeof(header));
++	writeBlock((const char*)&message, sizeof(message));
++	if (len)
++	{
++		writeBlock((const char*)data, len);
++	}
++}
++
++void eDVBCIInterfaces::newConnection(int socket)
++{
++	if (client)
++	{
++		delete client;
++	}
++	client = new eCIClient(this, socket);
++}
++
++void eDVBCIInterfaces::connectionLost()
++{
++	if (client)
++	{
++		delete client;
++		client = NULL;
++	}
++}
++
++void eDVBCIInterfaces::sendDataToHelper(int cmd, int slot, int session, unsigned long idtag, unsigned char *tag, unsigned char *data, int len)
++{
++	if (client)	client->sendData(cmd, slot, session, idtag, tag, data, len);
++}
++
++bool eDVBCIInterfaces::isClientConnected()
++{
++	if (client) return true;
++	return false;
++}
++
++#define CIPLUS_SERVER_SOCKET "/tmp/.listen.ciplus.socket"
+ 
+ eDVBCIInterfaces::eDVBCIInterfaces()
+- : m_messagepump_thread(this,1), m_messagepump_main(eApp,1), m_runTimer(eTimer::create(this))
++ : eServerSocket(CIPLUS_SERVER_SOCKET, eApp)
+ {
+ 	int num_ci = 0;
+ 	std::stringstream path;
+ 
+ 	instance = this;
++	client = NULL;
+ 	m_stream_interface = interface_none;
+ 	m_stream_finish_mode = finish_none;
+ 
+-	CONNECT(m_messagepump_thread.recv_msg, eDVBCIInterfaces::gotMessageThread);
+-	CONNECT(m_messagepump_main.recv_msg, eDVBCIInterfaces::gotMessageMain);
+-	m_runTimer->start(750, false);
+-
+ 	eDebug("[CI] scanning for common interfaces..");
+ 
+-	singleLock s(m_slot_lock);
+-
+ 	for (;;)
+ 	{
+ 		path.str("");
+@@ -61,7 +170,7 @@
+ 
+ 		ePtr<eDVBCISlot> cislot;
+ 
+-		cislot = new eDVBCISlot(this, num_ci);
++		cislot = new eDVBCISlot(eApp, num_ci);
+ 		m_slots.push_back(cislot);
+ 
+ 		++num_ci;
+@@ -115,13 +224,10 @@
+ 			eDebug("[CI] Streaming CI finish interface not advertised, assuming \"tuner\" method");
+ 		}
+ 	}
+-	run();
+ }
+ 
+ eDVBCIInterfaces::~eDVBCIInterfaces()
+ {
+-	m_messagepump_thread.send(1); // stop thread
+-	kill(); // join
+ }
+ 
+ eDVBCIInterfaces *eDVBCIInterfaces::getInstance()
+@@ -129,36 +235,13 @@
+ 	return instance;
+ }
+ 
+-void eDVBCIInterfaces::thread()
+-{
+-	hasStarted();
+-	if (nice(4) == -1)
+-	{
+-		eDebug("[CI] thread failed to modify scheduling priority (%m)");
+-	}
+-	runLoop();
+-}
+-
+-// runs in the thread
+-void eDVBCIInterfaces::gotMessageThread(const int &message)
+-{
+-	quit(0); // quit thread
+-}
+-
+-// runs in the e2 mainloop
+-void eDVBCIInterfaces::gotMessageMain(const int &message)
+-{
+-	recheckPMTHandlers();
+-}
+-
+ eDVBCISlot *eDVBCIInterfaces::getSlot(int slotid)
+ {
+-	singleLock s(m_slot_lock);
+ 	for(eSmartPtrList<eDVBCISlot>::iterator i(m_slots.begin()); i != m_slots.end(); ++i)
+ 		if(i->getSlotID() == slotid)
+ 			return i;
+ 
+-	eWarning("[CI] FIXME: request for unknown slot");
++	eDebug("[CI] FIXME: request for unknown slot");
+ 
+ 	return 0;
+ }
+@@ -167,7 +250,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return eDVBCISlot::stateInvalid;
+ 
+@@ -178,7 +260,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+@@ -189,7 +270,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+@@ -202,11 +282,9 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s1(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+-	singleLock s2(m_pmt_handler_lock);
+ 	PMTHandlerList::iterator it = m_pmt_handlers.begin();
+ 	while (it != m_pmt_handlers.end())
+ 	{
+@@ -228,7 +306,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+@@ -239,7 +316,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+@@ -250,7 +326,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+@@ -261,7 +336,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+@@ -272,7 +346,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+@@ -283,8 +356,6 @@
+ {
+ 	if (slot->use_count)
+ 	{
+-		singleLock s1(m_pmt_handler_lock);
+-		singleLock s2(m_slot_lock);
+ 		eDebug("[CI] Slot %d: removed... usecount %d", slot->getSlotID(), slot->use_count);
+ 		for (PMTHandlerList::iterator it(m_pmt_handlers.begin());
+ 			it != m_pmt_handlers.end(); ++it)
+@@ -314,42 +385,29 @@
+ 		slot->plugged=true;
+ 		slot->user_mapped=false;
+ 		slot->removeService(0xFFFF);
+-		executeRecheckPMTHandlersInMainloop(); // calls recheckPMTHandlers in the e2 mainloop
++		recheckPMTHandlers();
+ 	}
+ }
+ 
+-bool eDVBCIInterfaces::canDescrambleMultipleServices(eDVBCISlot* slot)
++static bool canDescrambleMultipleServices(int slotid)
+ {
+-	singleLock s(m_slot_lock);
+ 	char configStr[255];
+-	snprintf(configStr, 255, "config.ci.%d.canDescrambleMultipleServices", slot->getSlotID());
++	snprintf(configStr, 255, "config.ci.%d.canDescrambleMultipleServices", slotid);
+ 	std::string str = eConfigManager::getConfigValue(configStr);
+ 	if ( str == "auto" )
+ 	{
+-		if (slot->getAppManager())
+-		{
+-			std::string appname = slot->getAppManager()->getAppName();
+-			if (appname.find("AlphaCrypt") != std::string::npos || appname.find("Multi") != std::string::npos)
+-				return true;
+-		}
++		std::string appname = eDVBCI_UI::getInstance()->getAppName(slotid);
++		if (appname.find("AlphaCrypt") != std::string::npos || appname.find("Multi") != std::string::npos)
++			return true;
+ 	}
+ 	else if (str == "yes")
+ 		return true;
+ 	return false;
+ }
+ 
+-// executes recheckPMTHandlers in the e2 mainloop
+-void eDVBCIInterfaces::executeRecheckPMTHandlersInMainloop()
+-{
+-	m_messagepump_main.send(1);
+-}
+-
+-// has to run in the e2 mainloop to be able to access the pmt handler
+ void eDVBCIInterfaces::recheckPMTHandlers()
+ {
+-	singleLock s1(m_pmt_handler_lock);
+-	singleLock s2(m_slot_lock);
+-	eTrace("[CI] recheckPMTHAndlers()");
++	eDebugCI("[CI] recheckPMTHAndlers()");
+ 	for (PMTHandlerList::iterator it(m_pmt_handlers.begin());
+ 		it != m_pmt_handlers.end(); ++it)
+ 	{
+@@ -364,7 +422,7 @@
+ 		pmthandler->getServiceReference(ref);
+ 		pmthandler->getService(service);
+ 
+-		eTrace("[CI] recheck %p %s", pmthandler, ref.toString().c_str());
++		eDebugCI("[CI] recheck %p %s", pmthandler, ref.toString().c_str());
+ 		for (eSmartPtrList<eDVBCISlot>::iterator ci_it(m_slots.begin()); ci_it != m_slots.end(); ++ci_it)
+ 			if (ci_it->plugged && ci_it->getCAManager())
+ 			{
+@@ -384,7 +442,7 @@
+ 			}
+ 			if (tmp) // we dont like to change tsmux for running services
+ 			{
+-				eTrace("[CI] already assigned and running CI!\n");
++				eDebugCI("[CI] already assigned and running CI!\n");
+ 				continue;
+ 			}
+ 		}
+@@ -407,7 +465,7 @@
+ 
+ 		for (eSmartPtrList<eDVBCISlot>::iterator ci_it(m_slots.begin()); ci_it != m_slots.end(); ++ci_it)
+ 		{
+-			eTrace("[CI] check Slot %d", ci_it->getSlotID());
++			eDebugCI("[CI] check Slot %d", ci_it->getSlotID());
+ 			bool useThis=false;
+ 			bool user_mapped=true;
+ 			eDVBCICAManagerSession *ca_manager = ci_it->getCAManager();
+@@ -502,10 +560,10 @@
+ 				}
+ 				if (tmp) // ignore already assigned cislots...
+ 				{
+-					eTrace("[CI] already assigned!");
++					eDebugCI("[CI] already assigned!");
+ 					continue;
+ 				}
+-				eTrace("[CI] current slot %d usecount %d", ci_it->getSlotID(), ci_it->use_count);
++				eDebugCI("[CI] current slot %d usecount %d", ci_it->getSlotID(), ci_it->use_count);
+ 				if (ci_it->use_count)  // check if this CI can descramble more than one service
+ 				{
+ 					bool found = false;
+@@ -513,39 +571,39 @@
+ 					PMTHandlerList::iterator tmp = m_pmt_handlers.begin();
+ 					while (!found && tmp != m_pmt_handlers.end())
+ 					{
+-						eTrace("[CI] .");
++						eDebugCI("[CI] .");
+ 						eDVBCISlot *tmp_cislot = tmp->cislot;
+ 						while (!found && tmp_cislot)
+ 						{
+-							eTrace("[CI] ..");
++							eDebugCI("[CI] ..");
+ 							eServiceReferenceDVB ref2;
+ 							tmp->pmthandler->getServiceReference(ref2);
+ 							if ( tmp_cislot == ci_it && it->pmthandler != tmp->pmthandler )
+ 							{
+-								eTrace("[CI] check pmthandler %s for same service/tp", ref2.toString().c_str());
++								eDebugCI("[CI] check pmthandler %s for same service/tp", ref2.toString().c_str());
+ 								eDVBChannelID s1, s2;
+ 								if (ref != ref2)
+ 								{
+-									eTrace("[CI] different services!");
++									eDebugCI("[CI] different services!");
+ 									ref.getChannelID(s1);
+ 									ref2.getChannelID(s2);
+ 								}
+-								if (ref == ref2 || (s1 == s2 && canDescrambleMultipleServices(tmp_cislot)))
++								if (ref == ref2 || (s1 == s2 && canDescrambleMultipleServices(tmp_cislot->getSlotID())))
+ 								{
+ 									found = true;
+-									eTrace("[CI] found!");
++									eDebugCI("[CI] found!");
+ 									eDVBCISlot *tmpci = it->cislot = tmp->cislot;
+ 									while(tmpci)
+ 									{
+ 										++tmpci->use_count;
+-										eTrace("[CI] (2)CISlot %d, usecount now %d", tmpci->getSlotID(), tmpci->use_count);
++										eDebug("[CI] (2)CISlot %d, usecount now %d", tmpci->getSlotID(), tmpci->use_count);
+ 										tmpci=tmpci->linked_next;
+ 									}
+ 								}
+ 							}
+ 							tmp_cislot=tmp_cislot->linked_next;
+ 						}
+-						eTrace("[CI] ...");
++						eDebugCI("[CI] ...");
+ 						++tmp;
+ 					}
+ 				}
+@@ -554,7 +612,7 @@
+ 				{
+ 					if (ci_it->user_mapped)  // we dont like to link user mapped CIs
+ 					{
+-						eTrace("[CI] user mapped CI already in use... dont link!");
++						eDebugCI("[CI] user mapped CI already in use... dont link!");
+ 						continue;
+ 					}
+ 
+@@ -623,13 +681,13 @@
+ 						ci_it->linked_next->setSource(ci_source.str());
+ 					}
+ 					it->cislot = ci_it;
+-					eTrace("[CI] assigned!");
++					eDebugCI("[CI] assigned!");
+ 					gotPMT(pmthandler);
+ 				}
+ 
+ 				if (it->cislot && user_mapped) // CI assigned to this pmthandler in this run.. and user mapped? then we break here.. we dont like to link other CIs to user mapped CIs
+ 				{
+-					eTrace("[CI] user mapped CI assigned... dont link CIs!");
++					eDebugCI("[CI] user mapped CI assigned... dont link CIs!");
+ 					break;
+ 				}
+ 			}
+@@ -639,7 +697,6 @@
+ 
+ void eDVBCIInterfaces::addPMTHandler(eDVBServicePMTHandler *pmthandler)
+ {
+-	singleLock s(m_pmt_handler_lock);
+ 	// check if this pmthandler is already registered
+ 	PMTHandlerList::iterator it = m_pmt_handlers.begin();
+ 	while (it != m_pmt_handlers.end())
+@@ -658,8 +715,6 @@
+ 
+ void eDVBCIInterfaces::removePMTHandler(eDVBServicePMTHandler *pmthandler)
+ {
+-	singleLock s1(m_pmt_handler_lock);
+-	singleLock s2(m_slot_lock);
+ 	PMTHandlerList::iterator it=std::find(m_pmt_handlers.begin(),m_pmt_handlers.end(),pmthandler);
+ 	if (it != m_pmt_handlers.end())
+ 	{
+@@ -771,12 +826,6 @@
+ 
+ void eDVBCIInterfaces::gotPMT(eDVBServicePMTHandler *pmthandler)
+ {
+-	// language config can only be accessed by e2 mainloop
+-	if (m_language == "")
+-		m_language = eConfigManager::getConfigValue("config.osd.language");
+-
+-	singleLock s1(m_pmt_handler_lock);
+-	singleLock s2(m_slot_lock);
+ 	eDebug("[eDVBCIInterfaces] gotPMT");
+ 	PMTHandlerList::iterator it=std::find(m_pmt_handlers.begin(), m_pmt_handlers.end(), pmthandler);
+ 	if (it != m_pmt_handlers.end() && it->cislot)
+@@ -784,8 +833,8 @@
+ 		eDVBCISlot *tmp = it->cislot;
+ 		while(tmp)
+ 		{
+-			eTrace("[CI] check slot %d %d %d", tmp->getSlotID(), tmp->running_services.empty(), canDescrambleMultipleServices(tmp));
+-			if (tmp->running_services.empty() || canDescrambleMultipleServices(tmp))
++			eDebugCI("[CI] check slot %d %d %d", tmp->getSlotID(), tmp->running_services.empty(), canDescrambleMultipleServices(tmp->getSlotID()));
++			if (tmp->running_services.empty() || canDescrambleMultipleServices(tmp->getSlotID()))
+ 				tmp->sendCAPMT(pmthandler);
+ 			tmp = tmp->linked_next;
+ 		}
+@@ -796,7 +845,6 @@
+ {
+ 	eDVBCISlot *slot;
+ 
+-	singleLock s(m_slot_lock);
+ 	if( (slot = getSlot(slotid)) == 0 )
+ 		return -1;
+ 
+@@ -823,7 +871,6 @@
+ 
+ PyObject *eDVBCIInterfaces::getDescrambleRules(int slotid)
+ {
+-	singleLock s(m_slot_lock);
+ 	eDVBCISlot *slot = getSlot(slotid);
+ 	if (!slot)
+ 	{
+@@ -876,7 +923,6 @@
+ 
+ RESULT eDVBCIInterfaces::setDescrambleRules(int slotid, SWIG_PYOBJECT(ePyObject) obj )
+ {
+-	singleLock s(m_slot_lock);
+ 	eDVBCISlot *slot = getSlot(slotid);
+ 	if (!slot)
+ 	{
+@@ -1000,7 +1046,6 @@
+ 
+ PyObject *eDVBCIInterfaces::readCICaIds(int slotid)
+ {
+-	singleLock s(m_slot_lock);
+ 	eDVBCISlot *slot = getSlot(slotid);
+ 	if (!slot)
+ 	{
+@@ -1026,7 +1071,6 @@
+ 
+ int eDVBCIInterfaces::setCIClockRate(int slotid, int rate)
+ {
+-	singleLock s(m_slot_lock);
+ 	eDVBCISlot *slot = getSlot(slotid);
+ 	if (slot)
+ 		return slot->setClockRate(rate);
+@@ -1035,13 +1079,12 @@
+ 
+ int eDVBCISlot::send(const unsigned char *data, size_t len)
+ {
+-	singleLock s(eDVBCIInterfaces::m_slot_lock);
+ 	int res=0;
+-	unsigned int i;
+-	eTraceNoNewLineStart("< ");
+-	for(i = 0; i < len; i++)
+-		eTraceNoNewLine("%02x ",data[i]);
+-	eTraceNoNewLine("\n");
++	//int i;
++	//eDebugNoNewLineStart("< ");
++	//for(i=0;i<len;i++)
++	//	eDebugNoNewLine("%02x ",data[i]);
++	//eDebugNoNewLine("\n");
+ 
+ 	if (sendqueue.empty())
+ 		res = ::write(fd, data, len);
+@@ -1059,8 +1102,7 @@
+ 
+ void eDVBCISlot::data(int what)
+ {
+-	singleLock s(eDVBCIInterfaces::m_slot_lock);
+-	eTrace("[CI] Slot %d what %d\n", getSlotID(), what);
++	eDebugCI("[CI] Slot %d what %d\n", getSlotID(), what);
+ 	if(what == eSocketNotifier::Priority) {
+ 		if(state != stateRemoved) {
+ 			state = stateRemoved;
+@@ -1072,7 +1114,7 @@
+ 			eDVBCISession::deleteSessions(this);
+ 			eDVBCIInterfaces::getInstance()->ciRemoved(this);
+ 			notifier->setRequested(eSocketNotifier::Read);
+-			/* emit */ eDVBCI_UI::getInstance()->m_messagepump.send(eDVBCIInterfaces::Message(eDVBCIInterfaces::Message::slotStateChanged, getSlotID(), 0));
++			eDVBCI_UI::getInstance()->setState(getSlotID(),0);
+ 		}
+ 		return;
+ 	}
+@@ -1083,8 +1125,7 @@
+ 	if(state != stateInserted) {
+ 		eDebug("[CI] ci inserted in slot %d", getSlotID());
+ 		state = stateInserted;
+-		determineCIVersion();
+-		/* emit */ eDVBCI_UI::getInstance()->m_messagepump.send(eDVBCIInterfaces::Message(eDVBCIInterfaces::Message::slotStateChanged, getSlotID(), 1));
++		eDVBCI_UI::getInstance()->setState(getSlotID(),1);
+ 		notifier->setRequested(eSocketNotifier::Read|eSocketNotifier::Priority);
+ 		/* enable PRI to detect removal or errors */
+ 	}
+@@ -1094,11 +1135,11 @@
+ 		int r;
+ 		r = ::read(fd, data, 4096);
+ 		if(r > 0) {
+-			int i;
+-			eTraceNoNewLineStart("> ");
+-			for(i=0;i<r;i++)
+-				eTraceNoNewLine("%02x ",data[i]);
+-			eTraceNoNewLine("\n");
++//			int i;
++//			eDebugNoNewLineStart("> ");
++//			for(i=0;i<r;i++)
++//				eDebugNoNewLine("%02x ",data[i]);
++//			eDebugNoNewLine("\n");
+ 			eDVBCISession::receiveData(this, data, r);
+ 			eDVBCISession::pollAll();
+ 			return;
+@@ -1128,12 +1169,10 @@
+ 	application_manager = 0;
+ 	mmi_session = 0;
+ 	ca_manager = 0;
+-	cc_manager = 0;
+ 	use_count = 0;
+ 	linked_next = 0;
+ 	user_mapped = false;
+ 	plugged = true;
+-	m_ci_version = versionUnknown;
+ 
+ 	slotid = nr;
+ 
+@@ -1145,7 +1184,7 @@
+ 
+ 	fd = ::open(filename, O_RDWR | O_NONBLOCK | O_CLOEXEC);
+ 
+-	eTrace("[CI] Slot %d has fd %d", getSlotID(), fd);
++	eDebugCI("[CI] Slot %d has fd %d", getSlotID(), fd);
+ 	state = stateInvalid;
+ 
+ 	if (fd >= 0)
+@@ -1161,115 +1200,28 @@
+ eDVBCISlot::~eDVBCISlot()
+ {
+ 	eDVBCISession::deleteSessions(this);
+-	close(fd);
+ }
+ 
+ void eDVBCISlot::setAppManager( eDVBCIApplicationManagerSession *session )
+ {
+-	singleLock s(eDVBCIInterfaces::m_slot_lock);
+ 	application_manager=session;
+ }
+ 
+ void eDVBCISlot::setMMIManager( eDVBCIMMISession *session )
+ {
+-	singleLock s(eDVBCIInterfaces::m_slot_lock);
+ 	mmi_session = session;
+ }
+ 
+ void eDVBCISlot::setCAManager( eDVBCICAManagerSession *session )
+ {
+-	singleLock s(eDVBCIInterfaces::m_slot_lock);
+ 	ca_manager = session;
+ }
+ 
+-void eDVBCISlot::setCCManager( eDVBCICcSession *session )
+-{
+-	singleLock s(eDVBCIInterfaces::m_slot_lock);
+-	cc_manager = session;
+-}
+-
+ int eDVBCISlot::getSlotID()
+ {
+-	singleLock s(eDVBCIInterfaces::m_slot_lock);
+ 	return slotid;
+ }
+ 
+-int eDVBCISlot::getVersion()
+-{
+-	return m_ci_version;
+-}
+-
+-void eDVBCISlot::determineCIVersion()
+-{
+-	char lv1Info[256] = { 0 };
+-
+-	if (ioctl(fd, 1, lv1Info) < 0) {
+-		eTrace("[CI] Slot %d ioctl not supported: assume CI+ version 1", getSlotID());
+-		m_ci_version = versionCIPlus1;
+-		return;
+-	}
+-
+-	if (strlen(lv1Info) == 0) {
+-		eTrace("[CI] Slot %d no LV1 info: assume CI+ version 1", getSlotID());
+-		m_ci_version = versionCIPlus1;
+-		return;
+-	}
+-
+-	const char *str1 = "$compatible[";
+-	int len1 = strlen(str1);
+-	char *compatId = 0;
+-
+-	for(unsigned int i=0;i<=(sizeof(lv1Info)-len1);i++) {
+-		if(strncasecmp(&lv1Info[i], str1, len1) == 0) {
+-			i += len1;
+-			for(unsigned int j=i;j<=(sizeof(lv1Info)-2);j++) {
+-				if(strncmp(&lv1Info[j], "]$", 2) == 0) {
+-					lv1Info[j] = '\0';
+-					compatId = &lv1Info[i];
+-					break;
+-				}
+-			}
+-		}
+-	}
+-
+-	if(!compatId) {
+-		eTrace("[CI] Slot %d CI CAM detected", getSlotID());
+-		m_ci_version = versionCI;
+-		return;
+-	}
+-
+-	eTrace("[CI] Slot %d CI+ compatibility ID: %s", getSlotID(), compatId);
+-
+-	char *label, *id, flag = '+';
+-	int version = versionCI;
+-
+-	while((label = strsep(&compatId, " ")) != 0) {
+-		if (*label == '\0')
+-			continue;
+-
+-		if(strncasecmp(label, "ciplus", 6) == 0) {
+-			id = strchr(label, '=');
+-			if(id) {
+-				*id++ = '\0';
+-				if(*id == '-' || *id == '+' || *id == '*')
+-					flag = *id++;
+-
+-				version = strtol(id, 0, 0);
+-				eDebug("[CI] Slot %d CI+ %c%d CAM detected", getSlotID(), flag, version);
+-				break;
+-			}
+-		}
+-	}
+-
+-	m_ci_version = version;
+-}
+-
+-int eDVBCISlot::getNumOfServices()
+-{
+-	singleLock s(eDVBCIInterfaces::m_slot_lock);
+-	return running_services.size();
+-}
+-
+ int eDVBCISlot::reset()
+ {
+ 	eDebug("[CI] Slot %d: reset requested", getSlotID());
+@@ -1442,24 +1394,6 @@
+ 			//dont need tag and lenfield
+ 			ca_manager->sendCAPMT(raw_data + hlen, wp - hlen);
+ 			running_services[program_number] = pmt_version;
+-
+-			std::vector<uint16_t> pids;
+-			int prg_info_len = ((raw_data[hlen + 4] << 8) | raw_data[hlen + 5]) & 0xfff;
+-			int es_info_len = 0;
+-			for (int jj = hlen + prg_info_len + 6; jj < wp; jj += es_info_len + 5)
+-			{
+-				uint16_t es_pid = ((raw_data[jj + 1] << 8) | raw_data[jj + 2]) & 0x1fff;
+-				pids.push_back( es_pid );
+-				es_info_len = ((raw_data[jj + 3] << 8) | raw_data[jj + 4]) & 0xfff;
+-			}
+-
+-			if (cc_manager)
+-			{
+-				if (!sendEmpty)
+-					cc_manager->addProgram(program_number, pids);
+-				else
+-					cc_manager->removeProgram(program_number, pids);
+-			}
+ 		}
+ 	}
+ 	return 0;
+diff -ruN a/lib/dvb_ci/dvbci_datetimemgr.cpp b/lib/dvb_ci/dvbci_datetimemgr.cpp
+--- a/lib/dvb_ci/dvbci_datetimemgr.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_datetimemgr.cpp	2021-07-03 23:37:28.000000000 +0300
+@@ -12,10 +12,10 @@
+ 
+ int eDVBCIDateTimeSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
+ {
+-	eTraceNoNewLine("[CI DT] SESSION(%d)/DATETIME %02x %02x %02x: ", session_nb, tag[0],tag[1], tag[2]);
++	eDebugNoNewLine("[CI DT] SESSION(%d)/DATETIME %02x %02x %02x: ", session_nb, tag[0],tag[1], tag[2]);
+ 	for (int i=0; i<len; i++)
+-		eTraceNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLine("\n");
++		eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
++	eDebugNoNewLine("\n");
+ 
+ 	if ((tag[0]==0x9f) && (tag[1]==0x84))
+ 	{
+@@ -28,7 +28,7 @@
+ 			return 1;
+ 			break;
+ 		default:
+-			eWarning("[CI DT] unknown APDU tag 9F 84 %02x", tag[2]);
++			eDebug("[CI DT] unknown APDU tag 9F 84 %02x", tag[2]);
+ 			break;
+ 		}
+ 	}
+@@ -45,7 +45,7 @@
+ 		sendDateTime();
+ 		return 0;
+ 	case stateFinal:
+-		eWarning("[CI DT] stateFinal and action should not happen");
++		eDebug("[CI DT] stateFinal and action should not happen");
+ 		[[fallthrough]];
+ 	default:
+ 		return 0;
+diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
+--- a/lib/dvb_ci/dvbci.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci.h	2021-07-03 23:37:28.000000000 +0300
+@@ -4,17 +4,16 @@
+ #ifndef SWIG
+ 
+ #include <lib/base/ebase.h>
+-#include <lib/base/message.h>
+-#include <lib/base/thread.h>
+ #include <lib/service/iservice.h>
+ #include <lib/python/python.h>
+ #include <set>
+ #include <queue>
+ 
++#include <lib/network/serversocket.h>
++
+ class eDVBCISession;
+ class eDVBCIApplicationManagerSession;
+ class eDVBCICAManagerSession;
+-class eDVBCICcSession;
+ class eDVBCIMMISession;
+ class eDVBServicePMTHandler;
+ class eDVBCISlot;
+@@ -49,11 +48,9 @@
+ 	int fd;
+ 	ePtr<eSocketNotifier> notifier;
+ 	int state;
+-	int m_ci_version;
+ 	std::map<uint16_t, uint8_t> running_services;
+ 	eDVBCIApplicationManagerSession *application_manager;
+ 	eDVBCICAManagerSession *ca_manager;
+-	eDVBCICcSession *cc_manager;
+ 	eDVBCIMMISession *mmi_session;
+ 	std::priority_queue<queueData> sendqueue;
+ 	caidSet possible_caids;
+@@ -66,13 +63,23 @@
+ 	bool user_mapped;
+ 	void data(int);
+ 	bool plugged;
++public:
++	enum {stateRemoved, stateInserted, stateInvalid, stateResetted};
++	eDVBCISlot(eMainloop *context, int nr);
++	~eDVBCISlot();
++
++	int send(const unsigned char *data, size_t len);
++
++	void setAppManager( eDVBCIApplicationManagerSession *session );
++	void setMMIManager( eDVBCIMMISession *session );
++	void setCAManager( eDVBCICAManagerSession *session );
+ 
+ 	eDVBCIApplicationManagerSession *getAppManager() { return application_manager; }
+ 	eDVBCIMMISession *getMMIManager() { return mmi_session; }
+ 	eDVBCICAManagerSession *getCAManager() { return ca_manager; }
+-	eDVBCICcSession *getCCManager() { return cc_manager; }
+ 
+ 	int getState() { return state; }
++	int getSlotID();
+ 	int reset();
+ 	int startMMI();
+ 	int stopMMI();
+@@ -82,26 +89,10 @@
+ 	int getMMIState();
+ 	int sendCAPMT(eDVBServicePMTHandler *ptr, const std::vector<uint16_t> &caids=std::vector<uint16_t>());
+ 	void removeService(uint16_t program_number=0xFFFF);
++	int getNumOfServices() { return running_services.size(); }
+ 	int setSource(const std::string &source);
+ 	int setClockRate(int);
+-	void determineCIVersion();
+ 	static std::string getTunerLetter(int tuner_no) { return std::string(1, char(65 + tuner_no)); }
+-public:
+-	enum {stateRemoved, stateInserted, stateInvalid, stateResetted};
+-	enum {versionUnknown = -1, versionCI = 0, versionCIPlus1 = 1, versionCIPlus2 = 2};
+-	eDVBCISlot(eMainloop *context, int nr);
+-	~eDVBCISlot();
+-
+-	int send(const unsigned char *data, size_t len);
+-
+-	void setAppManager( eDVBCIApplicationManagerSession *session );
+-	void setMMIManager( eDVBCIMMISession *session );
+-	void setCAManager( eDVBCICAManagerSession *session );
+-	void setCCManager( eDVBCICcSession *session );
+-
+-	int getSlotID();
+-	int getNumOfServices();
+-	int getVersion();
+ };
+ 
+ struct CIPmtHandler
+@@ -124,7 +115,55 @@
+ 
+ #endif // SWIG
+ 
+-class eDVBCIInterfaces: public eMainloop, private eThread
++#ifndef SWIG
++class eCIClient : public eUnixDomainSocket
++{
++	struct ciplus_header
++	{
++		unsigned int magic;
++		unsigned int cmd;
++		unsigned int size;
++	}__attribute__((packed));
++
++	struct ciplus_message
++	{
++		unsigned int slot;
++		unsigned long idtag;
++		unsigned char tag[4];
++		unsigned int session;
++		unsigned int size;
++	}__attribute__((packed));
++
++	unsigned int receivedLength;
++	unsigned int receivedCmd;
++	unsigned int receivedCmdSize;
++	unsigned char *receivedData;
++
++	ciplus_header header;
++protected:
++	eDVBCIInterfaces *parent;
++	void connectionLost();
++	void dataAvailable();
++public:
++	eCIClient(eDVBCIInterfaces *handler, int socket);
++	void sendData(int cmd, int slot, int session, unsigned long idtag, unsigned char *tag, unsigned char *data, int len);
++
++	enum
++	{
++		CIPLUSHELPER_SESSION_CREATE = 1000,
++		CIPLUSHELPER_SESSION_CLOSE = 1001,
++		CIPLUSHELPER_RECV_APDU = 1002,
++		CIPLUSHELPER_DOACTION = 1003,
++		CIPLUSHELPER_STATE_CHANGED = 1004,
++		CIPLUSHELPER_DATA = 1005,
++		CIPLUSHELPER_MAGIC = 987654321,
++	};
++};
++
++class eDVBCIInterfaces: public eServerSocket
++#else
++class eDVBCIInterfaces
++#endif
+ {
+ private:
+ 	typedef enum
+@@ -149,32 +188,20 @@
+ 
+ 	static eDVBCIInterfaces *instance;
+ 	eSmartPtrList<eDVBCISlot> m_slots;
+-	eDVBCISlot *getSlot(int slotid);
+-	PMTHandlerList m_pmt_handlers;
+-	std::string m_language;
+-	eFixedMessagePump<int> m_messagepump_thread; // message handling in the thread
+-	eFixedMessagePump<int> m_messagepump_main; // message handling in the e2 mainloop
+-	ePtr<eTimer> m_runTimer; // workaround to interrupt thread mainloop as some ci drivers don't implement poll properly
+-	static pthread_mutex_t m_pmt_handler_lock;
+-
+-	int sendCAPMT(int slot);
+-
+-	void thread();
+-	void gotMessageThread(const int &message);
+-	void gotMessageMain(const int &message);
++	PMTHandlerList m_pmt_handlers; 
+ 
++	eCIClient *client;
+ #ifndef SWIG
+ public:
+ #endif
+ 	eDVBCIInterfaces();
+ 	~eDVBCIInterfaces();
+ 
+-	static pthread_mutex_t m_slot_lock;
++	eDVBCISlot *getSlot(int slotid);
+ 
+ 	void addPMTHandler(eDVBServicePMTHandler *pmthandler);
+ 	void removePMTHandler(eDVBServicePMTHandler *pmthandler);
+ 	void recheckPMTHandlers();
+-	void executeRecheckPMTHandlersInMainloop();
+ 	void gotPMT(eDVBServicePMTHandler *pmthandler);
+ 	void ciRemoved(eDVBCISlot *slot);
+ 	int getSlotState(int slot);
+@@ -187,10 +214,13 @@
+ 	int answerEnq(int slot, char *value);
+ 	int cancelEnq(int slot);
+ 	int getMMIState(int slot);
++	int sendCAPMT(int slot);
+ 	int setInputSource(int tunerno, const std::string &source);
+ 	int setCIClockRate(int slot, int rate);
+-	bool canDescrambleMultipleServices(eDVBCISlot* slot);
+-	std::string getLanguage() { return m_language; };
++
++	void newConnection(int socket);
++	void connectionLost();
++
+ #ifdef SWIG
+ public:
+ #endif
+@@ -199,32 +229,9 @@
+ 	PyObject *getDescrambleRules(int slotid);
+ 	RESULT setDescrambleRules(int slotid, SWIG_PYOBJECT(ePyObject) );
+ 	PyObject *readCICaIds(int slotid);
+-	struct Message
+-	{
+-		enum
+-		{
+-			slotStateChanged,
+-			mmiSessionDestroyed,
+-			mmiDataReceived,
+-			appNameChanged
+-		};
+-		int m_type;
+-		int m_slotid;
+-		int m_state;
+-		unsigned char m_tag[3];
+-		unsigned char m_data[4096];
+-		int m_len;
+-		std::string m_appName;
+-		Message(int type, int slotid): m_type(type), m_slotid(slotid) {};
+-		Message(int type, int slotid, int state): m_type(type), m_slotid(slotid), m_state(state) {};
+-		Message(int type, int slotid, std::string appName): m_type(type), m_slotid(slotid), m_appName(appName) {};
+-		Message(int type, int slotid, const unsigned char* tag, unsigned char* data, int len): m_type(type), m_slotid(slotid), m_len(len)
+-		{
+-			memcpy(m_tag, tag, 3);
+-			memcpy(m_data, data, len);
+-		};
+-	};
+ 
++	void sendDataToHelper(int cmd, int slot, int session, unsigned long idtag, unsigned char *tag, unsigned char *data, int len);
++	bool isClientConnected();
+ };
+ 
+ #endif
+diff -ruN a/lib/dvb_ci/dvbci_hlcmgr.cpp b/lib/dvb_ci/dvbci_hlcmgr.cpp
+--- a/lib/dvb_ci/dvbci_hlcmgr.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_hlcmgr.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,118 +0,0 @@
+-/* DVB CI Host Language and Country Manager */
+-
+-#include <lib/base/eerror.h>
+-#include <lib/base/nconfig.h>
+-#include <lib/dvb_ci/dvbci_hlcmgr.h>
+-
+-int eDVBCIHostLanguageAndCountrySession::receivedAPDU(const unsigned char *tag,const void *data, int len)
+-{
+-	int ret = 0;
+-
+-	eTraceNoNewLine("[CI HLC] SESSION(%d)/HLC %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
+-	for (int i=0; i<len; i++)
+-		eTraceNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLine("\n");
+-
+-	if ((tag[0]==0x9f) && (tag[1]==0x81))
+-	{
+-		switch (tag[2])
+-		{
+-		case 0x00:  // country enquiry
+-			eDebug("[CI HLC] Host country enquiry:");
+-			state=stateCountryEnquiry;
+-			ret = 1;
+-			break;
+-		case 0x10:  // language enquiry
+-			eDebug("[CI HLC] Host language enquiry:");
+-			state=stateLanguageEnquiry;
+-			ret = 1;
+-			break;
+-		default:
+-			eWarning("[CI HLC] unknown APDU tag 9F 80 %02x", tag[2]);
+-			state = stateFinal;
+-			break;
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+-std::map<std::string, std::string> eDVBCIHostLanguageAndCountrySession::createLanguageMap()
+-{
+-	std::map<std::string, std::string> m;
+-	m["ar_AE"] = "ara";
+-	m["bg_BG"] = "bul";
+-	m["ca_AD"] = "cat";
+-	m["cs_CZ"] = "ces";
+-	m["da_DK"] = "dan";
+-	m["de_DE"] = "deu";
+-	m["el_GR"] = "ell";
+-	m["en_GB"] = "eng";
+-	m["en_US"] = "eng";
+-	m["es_ES"] = "spa";
+-	m["et_EE"] = "est";
+-	m["fa_IR"] = "fas";
+-	m["fi_FI"] = "fin";
+-	m["fr_FR"] = "fra";
+-	m["fy_NL"] = "fry";
+-	m["gl_ES"] = "glg";
+-	m["he_IL"] = "heb";
+-	m["hr_HR"] = "hrv";
+-	m["hu_HU"] = "hun";
+-	m["id_ID"] = "ind";
+-	m["is_IS"] = "isl";
+-	m["it_IT"] = "ita";
+-	m["ku_KU"] = "kur";
+-	m["lt_LT"] = "lit";
+-	m["lv_LV"] = "lav";
+-	m["nb_NO"] = "nob";
+-	m["nl_NL"] = "nld";
+-	m["no_NO"] = "nor";
+-	m["pl_PL"] = "pol";
+-	m["pt_BR"] = "por";
+-	m["pt_PT"] = "por";
+-	m["ro_RO"] = "ron";
+-	m["ru_RU"] = "rus";
+-	m["sk_SK"] = "slk";
+-	m["sl_SI"] = "slv";
+-	m["sr_YU"] = "srp";
+-	m["sv_SE"] = "swe";
+-	m["th_TH"] = "tha";
+-	m["tr_TR"] = "tur";
+-	m["uk_UA"] = "ukr";
+-	m["vi_VN"] = "vie";
+-	m["zh_CN"] = "zho";
+-	m["zh_HK"] = "zho";
+-	return m;
+-}
+-
+-const std::map<std::string, std::string> eDVBCIHostLanguageAndCountrySession::m_languageMap = eDVBCIHostLanguageAndCountrySession::createLanguageMap();
+-
+-int eDVBCIHostLanguageAndCountrySession::doAction()
+-{
+-	switch (state)
+-	{
+-	case stateCountryEnquiry:
+-	{
+-		const unsigned char tag[] = {0x9F, 0x81, 0x01};
+-		sendAPDU(tag, "GBR", 3);
+-		break;
+-	}
+-	case stateLanguageEnquiry:
+-	{
+-		const unsigned char tag[] = {0x9F, 0x81, 0x11};
+-		std::string language = eDVBCIInterfaces::getInstance()->getLanguage();
+-		std::map<std::string, std::string>::const_iterator it = m_languageMap.find(language);
+-		if (it != m_languageMap.end())
+-			sendAPDU(tag, it->second.c_str(), 3);
+-		else
+-			sendAPDU(tag, "eng", 3);
+-		break;
+-	}
+-	default:
+-		eWarning("[CI HLC] unknown state");
+-		break;
+-	}
+-
+-	return 0;
+-}
+diff -ruN a/lib/dvb_ci/dvbci_hlcmgr.h b/lib/dvb_ci/dvbci_hlcmgr.h
+--- a/lib/dvb_ci/dvbci_hlcmgr.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_hlcmgr.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,21 +0,0 @@
+-#ifndef __dvbci_dvbci_hlcmgr_h
+-#define __dvbci_dvbci_hlcmgr_h
+-
+-#include <lib/dvb_ci/dvbci_session.h>
+-
+-class eDVBCIHostLanguageAndCountrySession: public eDVBCISession
+-{
+-	enum {
+-		stateCountryEnquiry=statePrivate,
+-		stateLanguageEnquiry,
+-		stateFinal
+-	};
+-
+-	static const std::map<std::string, std::string> m_languageMap;
+-	static std::map<std::string, std::string> createLanguageMap();
+-
+-	int receivedAPDU(const unsigned char *tag, const void *data, int len);
+-	int doAction();
+-};
+-
+-#endif
+diff -ruN a/lib/dvb_ci/dvbci_host_ctrl.cpp b/lib/dvb_ci/dvbci_host_ctrl.cpp
+--- a/lib/dvb_ci/dvbci_host_ctrl.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_host_ctrl.cpp	1970-01-01 03:00:00.000000000 +0300
+@@ -1,35 +0,0 @@
+-/* DVB CI Host Control Manager */
+-
+-#include <lib/base/eerror.h>
+-#include <lib/dvb_ci/dvbci_host_ctrl.h>
+-
+-int eDVBCIHostControlSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
+-{
+-	eTraceNoNewLine("[CI HCTRL] SESSION(%d)/HCTRL %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
+-	for (int i=0; i<len; i++)
+-		eTraceNoNewLine("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLine("\n");
+-	if ((tag[0]==0x9f) && (tag[1]==0x84))
+-	{
+-		switch (tag[2])
+-		{
+-		default:
+-			eWarning("[CI HCTRL] unknown APDU tag 9F 84 %02x", tag[2]);
+-			break;
+-		}
+-	}
+-
+-	return 0;
+-}
+-
+-int eDVBCIHostControlSession::doAction()
+-{
+-	switch (state)
+-	{
+-	default:
+-		eWarning("[CI HCTRL] unknown state");
+-		break;
+-	}
+-
+-	return 0;
+-}
+diff -ruN a/lib/dvb_ci/dvbci_host_ctrl.h b/lib/dvb_ci/dvbci_host_ctrl.h
+--- a/lib/dvb_ci/dvbci_host_ctrl.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_host_ctrl.h	1970-01-01 03:00:00.000000000 +0300
+@@ -1,13 +0,0 @@
+-#ifndef __dvbci_dvbci_host_ctrl_h
+-#define __dvbci_dvbci_host_ctrl_h
+-
+-#include <lib/dvb_ci/dvbci_session.h>
+-
+-class eDVBCIHostControlSession: public eDVBCISession
+-{
+-	int receivedAPDU(const unsigned char *tag, const void *data, int len);
+-	int doAction();
+-public:
+-};
+-
+-#endif
+diff -ruN a/lib/dvb_ci/dvbci_mmi.cpp b/lib/dvb_ci/dvbci_mmi.cpp
+--- a/lib/dvb_ci/dvbci_mmi.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_mmi.cpp	2021-07-03 23:37:28.000000000 +0300
+@@ -28,20 +28,19 @@
+ {
+ 	slot->setMMIManager(NULL);
+ 	if (is_mmi_active)
+-		/* emit */ eDVBCI_UI::getInstance()->m_messagepump.send(eDVBCIInterfaces::Message(eDVBCIInterfaces::Message::mmiSessionDestroyed, slot->getSlotID()));
++		eDVBCI_UI::getInstance()->mmiSessionDestroyed(slot->getSlotID());
+ }
+ 
+ int eDVBCIMMISession::receivedAPDU(const unsigned char *tag, const void *data, int len)
+ {
+-	eTraceNoNewLineStart("[CI MMI] SESSION(%d)/MMI %02x %02x %02x: ", session_nb, tag[0], tag[1],tag[2]);
++	eDebugNoNewLineStart("[CI MMI] SESSION(%d)/MMI %02x %02x %02x: ", session_nb, tag[0], tag[1],tag[2]);
+ 	for (int i=0; i<len; i++)
+-		eTraceNoNewLineStart("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLineStart("\n");
++		eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
++	eDebugNoNewLine("\n");
+ 
+ 	if ((tag[0]==0x9f) && (tag[1]==0x88))
+ 	{
+-		/* emit */ eDVBCI_UI::getInstance()->m_messagepump.send(eDVBCIInterfaces::Message(eDVBCIInterfaces::Message::mmiDataReceived, slot->getSlotID(), tag, (unsigned char*) data, len));
+-		if (tag[2] == 0x01)
++		if (eDVBCI_UI::getInstance()->processMMIData(slot->getSlotID(), tag, data, len) == 1)
+ 		{
+ 			state=stateDisplayReply;
+ 			return 1;
+diff -ruN a/lib/dvb_ci/dvbci_resmgr.cpp b/lib/dvb_ci/dvbci_resmgr.cpp
+--- a/lib/dvb_ci/dvbci_resmgr.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_resmgr.cpp	2021-07-03 23:37:28.000000000 +0300
+@@ -2,14 +2,13 @@
+ 
+ #include <lib/base/eerror.h>
+ #include <lib/dvb_ci/dvbci_resmgr.h>
+-#include <lib/dvb_ci/dvbci_ccmgr_helper.h>
+ 
+ int eDVBCIResourceManagerSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
+ {
+-	eTraceNoNewLineStart("[CI RM] SESSION(%d) %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
++	eDebugNoNewLineStart("[CI RM] SESSION(%d) %02x %02x %02x: ", session_nb, tag[0], tag[1], tag[2]);
+ 	for (int i=0; i<len; i++)
+-		eTraceNoNewLineStart("%02x ", ((const unsigned char*)data)[i]);
+-	eTraceNoNewLineStart("\n");
++		eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
++	eDebugNoNewLine("\n");
+ 	if ((tag[0]==0x9f) && (tag[1]==0x80))
+ 	{
+ 		switch (tag[2])
+@@ -36,7 +35,7 @@
+ 			state=stateFinal;
+ 			break;
+ 		default:
+-			eWarning("[CI RM] unknown APDU tag 9F 80 %02x", tag[2]);
++			eDebug("[CI RM] unknown APDU tag 9F 80 %02x", tag[2]);
+ 		}
+ 	}
+ 
+@@ -63,13 +62,16 @@
+ 	}
+ 	case stateProfileChange:
+ 	{
+-		eWarning("[CI RM] cannot deal with statProfileChange");
++		eDebug("[CI RM] cannot deal with statProfileChange");
+ 		break;
+ 	}
+ 	case stateProfileEnquiry:
+ 	{
+ 		const unsigned char tag[3]={0x9F, 0x80, 0x11};
+-		const unsigned char data[][4]=
++
++		if (!eDVBCIInterfaces::getInstance()->isClientConnected())
++		{
++			const unsigned char data[][4]=
+ 			{
+ 				{0x00, 0x01, 0x00, 0x41},
+ 				{0x00, 0x02, 0x00, 0x41},
+@@ -79,40 +81,33 @@
+ 				{0x00, 0x40, 0x00, 0x41},
+ //				{0x00, 0x10, 0x00, 0x41}, // auth.
+ 			};
+-		const unsigned char data_v2[][4]=
++			sendAPDU(tag, data, sizeof(data));
++		}
++		else
++		{
++			const unsigned char data[][4]=
+ 			{
+ 				{0x00, 0x01, 0x00, 0x41},
+-				{0x00, 0x01, 0x00, 0x42},
+ 				{0x00, 0x02, 0x00, 0x41},
+-//				{0x00, 0x02, 0x00, 0x42},
+-				{0x00, 0x02, 0x00, 0x43},
++				{0x00, 0x02, 0x00, 0x42},
+ 				{0x00, 0x03, 0x00, 0x41},
+ 				{0x00, 0x20, 0x00, 0x41},
+-//				{0x00, 0x20, 0x00, 0x42},
+ 				{0x00, 0x24, 0x00, 0x41},
+ 				{0x00, 0x40, 0x00, 0x41},
+-//				{0x00, 0x10, 0x00, 0x41},
++				{0x00, 0x02, 0x00, 0x43},
++				{0x00, 0x8C, 0x10, 0x01},
++				{0x00, 0x8D, 0x10, 0x01},
++				{0x00, 0x8E, 0x10, 0x01},
++				{0x00, 0x97, 0x10, 0x01},
+ 				{0x00, 0x41, 0x00, 0x41},
+-//				{0x00, 0x41, 0x00, 0x42},
+-				{0x00, 0x8c, 0x10, 0x01},
+-//				{0x00, 0x8c, 0x10, 0x02},
+-				{0x00, 0x8d, 0x10, 0x01},
+-				{0x00, 0x8e, 0x10, 0x01},
+-//				{0x00, 0x8f, 0x10, 0x01},
+-//				{0x00, 0x97, 0x10, 0x01},
+-//				{0x00, 0x60, 0x60, 0x03},
+-//				{0x00, 0x04, 0x10, 0x01},
+ 			};
+-
+-		bool ciplus = (m_version == 1 || m_version == 2) and ciplus_cert_param_files_exists();
+-		const void *p = ciplus ? data_v2 : data;
+-		int len = ciplus ? sizeof(data_v2) : sizeof(data);
+-		sendAPDU(tag, p, len);
++			sendAPDU(tag, data, sizeof(data));
++		}
+ 		state=stateFinal;
+ 		return 0;
+ 	}
+ 	case stateFinal:
+-		eWarning("[CI RM] Should not happen: action on stateFinal");
++		eDebug("[CI RM] Should not happen: action on stateFinal");
+ 	default:
+ 		break;
+ 	}
+diff -ruN a/lib/dvb_ci/dvbci_resmgr.h b/lib/dvb_ci/dvbci_resmgr.h
+--- a/lib/dvb_ci/dvbci_resmgr.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_resmgr.h	2021-07-03 23:37:28.000000000 +0300
+@@ -13,9 +13,7 @@
+ 		stateFinal };
+ 	int receivedAPDU(const unsigned char *tag, const void *data, int len);
+ 	int doAction();
+-	int m_version;
+ public:
+-	eDVBCIResourceManagerSession(int version) : m_version(version) {};
+ };
+ 
+ #endif
+diff -ruN a/lib/dvb_ci/dvbci_session.cpp b/lib/dvb_ci/dvbci_session.cpp
+--- a/lib/dvb_ci/dvbci_session.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_session.cpp	2021-07-03 23:37:28.000000000 +0300
+@@ -7,11 +7,33 @@
+ #include <lib/dvb_ci/dvbci_camgr.h>
+ #include <lib/dvb_ci/dvbci_datetimemgr.h>
+ #include <lib/dvb_ci/dvbci_mmi.h>
+-#include <lib/dvb_ci/dvbci_ccmgr.h>
+-#include <lib/dvb_ci/dvbci_hlcmgr.h>
+-#include <lib/dvb_ci/dvbci_host_ctrl.h>
+-#include <lib/dvb_ci/dvbci_cam_upgrade.h>
+-#include <lib/dvb_ci/dvbci_app_mmi.h>
++#include <lib/dvb_ci/dvbci.h>
++#include <lib/dvb_ci/dvbci_ui.h>
++
++eDVBCIPlusHelper::eDVBCIPlusHelper(eDVBCISlot *tslot, unsigned long tag, int session)
++{
++	m_tslot = tslot;
++	m_tag = tag;
++	m_session = session;
++	eDVBCIInterfaces::getInstance()->sendDataToHelper(eCIClient::CIPLUSHELPER_SESSION_CREATE, m_tslot->getSlotID(), m_session, m_tag, (unsigned char *)"\x00\x00\x00\x00", NULL, 0);
++}
++
++eDVBCIPlusHelper::~eDVBCIPlusHelper()
++{
++	eDVBCIInterfaces::getInstance()->sendDataToHelper(eCIClient::CIPLUSHELPER_SESSION_CLOSE, m_tslot->getSlotID(), m_session, m_tag, (unsigned char *)"\x00\x00\x00\x00", NULL, 0);
++}
++
++int eDVBCIPlusHelper::receivedAPDU(const unsigned char *tag, const void *data, int len)
++{
++	eDVBCIInterfaces::getInstance()->sendDataToHelper(eCIClient::CIPLUSHELPER_RECV_APDU, m_tslot->getSlotID(), m_session, m_tag, (unsigned char *)tag, (unsigned char *)data, len);
++	return 0;
++}
++
++int eDVBCIPlusHelper::doAction()
++{
++	eDVBCIInterfaces::getInstance()->sendDataToHelper(eCIClient::CIPLUSHELPER_DOACTION, m_tslot->getSlotID(), m_session, m_tag, (unsigned char *)"\x00\x00\x00\x00", NULL, 0);
++	return 0;
++}
+ 
+ DEFINE_REF(eDVBCISession);
+ 
+@@ -36,7 +58,7 @@
+ 		return 3;
+ 	} else
+ 	{
+-		eWarning("[CI SESS] too big length");
++		eDebug("[CI SESS] too big length");
+ 		exit(0);
+ 	}
+ }
+@@ -149,8 +171,7 @@
+ 	switch (tag)
+ 	{
+ 	case 0x00010041:
+-	case 0x00010042:
+-		session=new eDVBCIResourceManagerSession(slot->getVersion());
++		session=new eDVBCIResourceManagerSession;
+ 		eDebug("[CI SESS] RESOURCE MANAGER");
+ 		break;
+ 	case 0x00020041:
+@@ -162,38 +183,31 @@
+ 		session = new eDVBCICAManagerSession(slot);
+ 		eDebug("[CI SESS] CA MANAGER");
+ 		break;
+-	case 0x00200041:
+-		session = new eDVBCIHostControlSession;
+-		eDebug("[CI SESS] Host Control");
+-		break;
+-	case 0x00240041:
+-		session=new eDVBCIDateTimeSession;
+-		eDebug("[CI SESS] DATE-TIME");
+-		break;
+ 	case 0x00400041:
+ 		session = new eDVBCIMMISession(slot);
+ 		eDebug("[CI SESS] MMI - create session");
+ 		break;
+-	case 0x00410041:
+-		session = new eDVBCIApplicationMMISession;
+-		eDebug("[CI SESS] Application MMI");
+-		break;
+-	case 0x008C1001:
+-		session = new eDVBCICcSession(slot);
+-		eDebug("[CI SESS] Content Control");
+-		break;
+-	case 0x008D1001:
+-		session = new eDVBCIHostLanguageAndCountrySession;
+-		eDebug("[CI SESS] Host Language & Country");
+-		break;
+-	case 0x008E1001:
+-		session = new eDVBCICAMUpgradeSession;
+-		eDebug("[CI SESS] CAM Upgrade");
+-		break;
+ 	case 0x00100041:
+ //		session=new eDVBCIAuthSession;
+ 		eDebug("[CI SESS] AuthSession");
+ 		[[fallthrough]];
++	case 0x00240041:
++		if (!eDVBCIInterfaces::getInstance()->isClientConnected())
++		{
++			session=new eDVBCIDateTimeSession;
++			eDebug("[CI SESS] DATE-TIME");
++			break;
++		}
++		[[fallthrough]];
++	case 0x008C1001:
++	case 0x008D1001:
++	case 0x008E1001:
++	case 0x00200041:
++		if (eDVBCIInterfaces::getInstance()->isClientConnected())
++		{
++			session = new eDVBCIPlusHelper(slot, tag, session_nb);
++		}
++		break;
+ 	default:
+ 		eDebug("[CI SESS] unknown resource type %02x %02x %02x %02x", resource_identifier[0], resource_identifier[1], resource_identifier[2],resource_identifier[3]);
+ 		session=0;
+@@ -202,7 +216,7 @@
+ 
+ 	if (!session)
+ 	{
+-		eWarning("[CI SESS] unknown session.. expect crash");
++		eDebug("[CI SESS] unknown session.. expect crash");
+ 		return;
+ 	}
+ 
+@@ -253,10 +267,10 @@
+ 
+ 	eDebug("[CI SESS] slot: %p",slot);
+ 
+-	eTraceNoNewLineStart("[CI SESS]: ");
++	eDebugNoNewLineStart("[CI SESS]: ");
+ 	for(unsigned int i=0;i<len;i++)
+-		eTraceNoNewLineStart("%02x ",ptr[i]);
+-	eTraceNoNewLineStart("\n");
++		eDebugNoNewLine("%02x ",ptr[i]);
++	eDebugNoNewLine("\n");
+ 
+ 	llen = parseLengthField(pkt, hlen);
+ 	pkt += llen;
+@@ -283,14 +297,14 @@
+ 
+ 		if ((!session_nb) || (session_nb >= SLMS))
+ 		{
+-			eWarning("[CI SESS] PROTOCOL: illegal session number %x", session_nb);
++			eDebug("[CI SESS] PROTOCOL: illegal session number %x", session_nb);
+ 			return;
+ 		}
+ 
+ 		session=sessions[session_nb-1];
+ 		if (!session)
+ 		{
+-			eWarning("[CI SESS] PROTOCOL: data on closed session %x", session_nb);
++			eDebug("[CI SESS] PROTOCOL: data on closed session %x", session_nb);
+ 			return;
+ 		}
+ 
+@@ -342,7 +356,7 @@
+ 		}
+ 
+ 	if (len)
+-		eWarning("[CI SESS] PROTOCOL: warning, TL-Data has invalid length");
++		eDebug("[CI SESS] PROTOCOL: warning, TL-Data has invalid length");
+ }
+ 
+ eDVBCISession::~eDVBCISession()
+@@ -350,3 +364,14 @@
+ //	eDebug("[CI SESS] destroy %p", this);
+ }
+ 
++void eDVBCISession::setAction(unsigned int session, int val)
++{
++	if (val)
++	{
++		if (sessions[session - 1])
++		{
++			sessions[session - 1]->action = val;
++			sessions[session - 1]->poll();
++		}
++	}
++}
+diff -ruN a/lib/dvb_ci/dvbci_session.h b/lib/dvb_ci/dvbci_session.h
+--- a/lib/dvb_ci/dvbci_session.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_session.h	2021-07-03 23:37:28.000000000 +0300
+@@ -45,6 +45,20 @@
+ 
+ 	static int pollAll();
+ 
++	static void setAction(unsigned int session, int val);
++};
++
++class eDVBCIPlusHelper: public eDVBCISession
++{
++	eDVBCISlot *m_tslot;
++	unsigned long m_tag;
++	int m_session;
++
++	int receivedAPDU(const unsigned char *tag, const void *data, int len);
++	int doAction();
++public:
++	eDVBCIPlusHelper(eDVBCISlot *tslot, unsigned long tag, int session);
++	~eDVBCIPlusHelper();
+ };
+ 
+ #endif
+diff -ruN a/lib/dvb_ci/dvbci_ui.cpp b/lib/dvb_ci/dvbci_ui.cpp
+--- a/lib/dvb_ci/dvbci_ui.cpp	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_ui.cpp	2021-07-03 23:37:28.000000000 +0300
+@@ -15,11 +15,10 @@
+ eDVBCI_UI *eDVBCI_UI::instance;
+ 
+ eDVBCI_UI::eDVBCI_UI()
+-	:eMMI_UI(MAX_SLOTS), m_messagepump(eApp,1)
++	:eMMI_UI(MAX_SLOTS)
+ {
+ 	ASSERT(!instance);
+ 	instance = this;
+-	CONNECT(m_messagepump.recv_msg, eDVBCI_UI::gotMessage);
+ }
+ 
+ eDVBCI_UI *eDVBCI_UI::getInstance()
+@@ -27,25 +26,6 @@
+ 	return instance;
+ }
+ 
+-void eDVBCI_UI::gotMessage(const eDVBCIInterfaces::Message &message)
+-{
+-	switch (message.m_type)
+-	{
+-		case eDVBCIInterfaces::Message::slotStateChanged:
+-			setState(message.m_slotid, message.m_state);
+-			break;
+-		case eDVBCIInterfaces::Message::mmiSessionDestroyed:
+-			mmiSessionDestroyed(message.m_slotid);
+-			break;
+-		case eDVBCIInterfaces::Message::mmiDataReceived:
+-			processMMIData(message.m_slotid, message.m_tag, message.m_data, message.m_len);
+-			break;
+-		case eDVBCIInterfaces::Message::appNameChanged:
+-			setAppName(message.m_slotid, message.m_appName.c_str());
+-			break;
+-	}
+-}
+-
+ void eDVBCI_UI::setInit(int slot)
+ {
+ 	eDVBCIInterfaces::getInstance()->initialize(slot);
+diff -ruN a/lib/dvb_ci/dvbci_ui.h b/lib/dvb_ci/dvbci_ui.h
+--- a/lib/dvb_ci/dvbci_ui.h	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_ui.h	2021-07-03 23:37:28.000000000 +0300
+@@ -2,17 +2,12 @@
+ #define __dvbci_ui_h
+ 
+ #include <string>
+-#include <lib/base/message.h>
+-#include <lib/dvb_ci/dvbci.h>
+ #include <lib/mmi/mmi_ui.h>
+ #include <lib/python/connections.h>
+ 
+ class eDVBCI_UI: public eMMI_UI
+ {
+ 	static eDVBCI_UI *instance;
+-#ifndef SWIG
+-	void gotMessage(const eDVBCIInterfaces::Message &message);
+-#endif
+ #ifdef SWIG
+ 	eDVBCI_UI();
+ #endif
+@@ -21,7 +16,6 @@
+ 	enum { rateNormal, rateHigh };
+ 	PSignal1<void,int> ciStateChanged;
+ #ifndef SWIG
+-	eFixedMessagePump<eDVBCIInterfaces::Message> m_messagepump;
+ 	eDVBCI_UI();
+ #endif
+ 	static eDVBCI_UI *getInstance();
+diff -ruN a/lib/dvb_ci/Makefile.inc b/lib/dvb_ci/Makefile.inc
+--- a/lib/dvb_ci/Makefile.inc	2021-07-03 19:38:40.000000000 +0300
++++ b/lib/dvb_ci/Makefile.inc	2021-07-03 23:37:28.000000000 +0300
+@@ -8,16 +8,7 @@
+ 	dvb_ci/dvbci_mmi.cpp \
+ 	dvb_ci/dvbci_resmgr.cpp \
+ 	dvb_ci/dvbci_session.cpp \
+-	dvb_ci/dvbci_ui.cpp \
+-	dvb_ci/dvbci_ccmgr.cpp \
+-	dvb_ci/dvbci_ccmgr_helper.cpp \
+-	dvb_ci/dvbci_hlcmgr.cpp \
+-	dvb_ci/dvbci_host_ctrl.cpp \
+-	dvb_ci/dvbci_cam_upgrade.cpp \
+-	dvb_ci/dvbci_app_mmi.cpp \
+-	dvb_ci/aes_xcbc_mac.cpp \
+-	dvb_ci/descrambler.cpp
+-
++	dvb_ci/dvbci_ui.cpp
+ 
+ dvbciincludedir = $(pkgincludedir)/lib/dvb_ci
+ dvbciinclude_HEADERS = \
+@@ -28,12 +19,4 @@
+ 	dvb_ci/dvbci_mmi.h \
+ 	dvb_ci/dvbci_resmgr.h \
+ 	dvb_ci/dvbci_session.h \
+-	dvb_ci/dvbci_ui.h \
+-	dvb_ci/dvbci_ccmgr.h \
+-	dvb_ci/dvbci_ccmgr_helper.h \
+-	dvb_ci/dvbci_hlcmgr.h \
+-	dvb_ci/dvbci_host_ctrl.h \
+-	dvb_ci/dvbci_cam_upgrade.h \
+-	dvb_ci/dvbci_app_mmi.h \
+-	dvb_ci/aes_xcbc_mac.h \
+-	dvb_ci/descrambler.h
++	dvb_ci/dvbci_ui.h
+diff -ruN a/lib/gdi/xineLib.cpp b/lib/gdi/xineLib.cpp
+--- a/lib/gdi/xineLib.cpp	2021-07-03 19:39:41.000000000 +0300
++++ b/lib/gdi/xineLib.cpp	2021-07-03 23:12:56.193243677 +0300
+@@ -732,13 +732,9 @@
+ 
+ RESULT cXineLib::getPTS(pts_t &pts) {
+ 	pts_t* last_pts_l = (pts_t*)(intptr_t)vo_port->get_property(vo_port, VO_PROP_LAST_PTS);
+-
+-/*	pts = *last_pts_l; // segfault
++	pts = *last_pts_l;
+ 	if (pts != 0)
+ 		return 0;
+-	return -1;*/
+-	if (last_pts_l != 0) // gag!
+-		return 0;
+ 	return -1;
+ }
+ 
