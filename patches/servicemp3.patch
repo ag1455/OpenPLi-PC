@@ -1,9 +1,3 @@
-diff -ruN o/autogen.sh pc/autogen.sh
---- o/autogen.sh	2020-08-13 19:06:48.005906587 +0300
-+++ pc/autogen.sh	1970-01-01 03:00:00.000000000 +0300
-@@ -1,2 +0,0 @@
--#!/bin/sh
--autoreconf -i
 diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
 --- o/servicemp3/servicemp3.cpp	2020-08-13 19:06:48.006906588 +0300
 +++ pc/servicemp3/servicemp3.cpp	2020-08-13 22:16:19.621972433 +0300
@@ -22,23 +16,10 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  		m_sourceinfo.is_video = TRUE;
  	}
 -	else if (strcasecmp(ext, ".ts") == 0)
-+	else if ((strcasecmp(ext, ".ts") && strcasecmp(ext, ".mts") && strcasecmp(ext, ".m2ts")) == 0)
++	else if ((strcasecmp(ext, ".ts") || strcasecmp(ext, ".mts") || strcasecmp(ext, ".m2ts")) == 0)
  	{
  		m_sourceinfo.containertype = ctMPEGTS;
  		m_sourceinfo.is_video = TRUE;
-@@ -598,10 +601,10 @@
- 			if ( m_ref.getData(7) & PROGRESSIVE_DOWNLOAD )
- 			{
- 				/* progressive download buffering */
--				if (::access("/hdd/movie", X_OK) >= 0)
-+				if (::access("/media/hdd/movies", X_OK) >= 0)
- 				{
- 					/* It looks like /hdd points to a valid mount, so we can store a download buffer on it */
--					m_download_buffer_path = "/hdd/gstreamer_XXXXXXXXXX";
-+					m_download_buffer_path = "/media/hdd/gstreamer_XXXXXXXXXX";
- 				}
- 			}
- 		}
 @@ -718,6 +721,16 @@
  	g_free(uri);
  	if (suburi != NULL)
