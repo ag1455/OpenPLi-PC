@@ -16,7 +16,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  		m_sourceinfo.is_video = TRUE;
  	}
 -	else if (strcasecmp(ext, ".ts") == 0)
-+	else if ((strcasecmp(ext, ".ts") || strcasecmp(ext, ".mts") || strcasecmp(ext, ".m2ts")) == 0)
++	else if (strcasecmp(ext, ".ts") == 0 || strcasecmp(ext, ".mts") == 0  || strcasecmp(ext, ".m2ts") == 0)
  	{
  		m_sourceinfo.containertype = ctMPEGTS;
  		m_sourceinfo.is_video = TRUE;
