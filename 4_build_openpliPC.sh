@@ -305,11 +305,11 @@ rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/SoftwareManager
 if [ ! -d $INSTALL_E2DIR/etc ]; then
 	mkdir -p $INSTALL_E2DIR/etc
 fi
+if [ ! -d /home/hdd/timeshift ]; then
+	mkdir -p /home/hdd/timeshift
+fi
 if [ ! -d /home/hdd/movies ]; then
 	mkdir -p /home/hdd/movies
-fi
-if [ ! -d /usr/local/etc ]; then
-	mkdir -p /usr/local/etc
 fi
 if [ ! -d /home/hdd/movie ]; then
 	ln -s /home/hdd/movies /home/hdd/movie
