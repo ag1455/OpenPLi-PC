@@ -15,16 +15,14 @@ mv -f $HDD/enigma2_crash_*.log /tmp # Case hangs up.
 rm -f /tmp/ENIGMA_FIFO.sc
 
 if [ $(ls $DVB_DEV0 | grep -w ca0) ]; then
-	if [ $(! ps -A | grep -c oscam) ]; then
-		sleep 5 # If you want to autostart from boot.
-		softcam start
-		echo " * Oscam started" >> $LOG
-	fi
+	softcam start
+	echo " * Oscam started" >> $LOG
 fi
 
 while [ 1 != 0 ]; do
 	# Start  enigma2.
 	if [ $(ps -A | grep -c enigma2) -eq 0 ]; then
+		sleep 5 # If you want to autostart from boot.
 		# Case screensaver is enabled.
 		xterm +ah -bg black -geometry 1x1 -e $PREFIX/enigma2.sh &
 		xset -dpms
