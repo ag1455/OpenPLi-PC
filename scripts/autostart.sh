@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 HDD="/media/hdd"
 PREFIX="/usr/local/e2/bin"
@@ -15,8 +15,12 @@ mv -f $HDD/enigma2_crash_*.log /tmp # Case hangs up.
 rm -f /tmp/ENIGMA_FIFO.sc
 
 if [ $(ls $DVB_DEV0 | grep -w ca0) ]; then
-	softcam start
-	echo " * Oscam started" >> $LOG
+	if [[ -n `pgrep oscam` ]]; then
+		echo " * Oscam already started!"
+	else
+		softcam start
+		echo " * Oscam started" >> $LOG
+	fi
 fi
 
 while [ 1 != 0 ]; do
