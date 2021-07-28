@@ -487,14 +487,14 @@ if [ ! -f gst-plugin-subsink/*.deb ]; then
 	echo ""
 else
 	cd ..
-	cp -rfv pre/python/dist-packages/pythonwifi /lib/python2.7/dist-packages
-	cp -fv pre/python/dist-packages/python_wifi-0.5.0.egg-info /lib/python2.7/dist-packages
-	cp -rfv pre/python/dist-packages/twistedsnmp /lib/python2.7/dist-packages
-	cp -fv pre/python/dist-packages/TwistedSNMP-0.3.13.egg-info /lib/python2.7/dist-packages
-	cp -rfv pre/python/dist-packages/pysnmp /lib/python2.7/dist-packages
-	cp -fv pre/python/dist-packages/pysnmp_se-3.5.2.egg-info /lib/python2.7/dist-packages
-	cp -rfv pre/python/dist-packages/js2py /lib/python2.7/dist-packages
-	cp -rfv pre/python/dist-packages/Js2Py-0.50.egg-info /lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/pythonwifi /usr/lib/python2.7/dist-packages
+	cp -fv pre/python/dist-packages/python_wifi-0.5.0.egg-info /usr/lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/twistedsnmp /usr/lib/python2.7/dist-packages
+	cp -fv pre/python/dist-packages/TwistedSNMP-0.3.13.egg-info /usr/lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/pysnmp /usr/lib/python2.7/dist-packages
+	cp -fv pre/python/dist-packages/pysnmp_se-3.5.2.egg-info /usr/lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/js2py /usr/lib/python2.7/dist-packages
+	cp -rfv pre/python/dist-packages/Js2Py-0.50.egg-info /usr/lib/python2.7/dist-packages
 	echo ""
 	echo "************************************ DONE! *****************************************"
 fi
