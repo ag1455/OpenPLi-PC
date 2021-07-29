@@ -115,10 +115,9 @@ elif [[ "$release" = "20.04" ]]; then
 	fi
 	REQPKG="flake8 gcc-9 g++-9 libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev libdts-dev libupnp-dev libvdpau1 libvdpau-va-gl1 python-ipaddress pyflakes \
 	python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah python-setuptools \
-	python2-dev python-subprocess32 python-pycryptodome python-pycryptodome pycodestyle python-service-identity python-certifi python-dev-is-python2 python-automat python-constantly \
-	python-hyperlink python-zope.interface python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc \
-	python3-sabyenc python-pyflakes python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress \
-	python-attr sphinx-rtd-theme-common swig swig3.0 yamllint \
+	python2-dev python-subprocess32 python-pycryptodome pycodestyle python-service-identity python-certifi python-dev-is-python2 python-automat python-constantly python-hyperlink python-zope.interface \
+	python-chardet python-docutils python-pygments python-roman python3-langdetect python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python-pyflakes python3-flickrapi \
+	python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-attr sphinx-rtd-theme-common swig swig3.0 yamllint \
 	"
 # Download 2.7 paskages
 	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
