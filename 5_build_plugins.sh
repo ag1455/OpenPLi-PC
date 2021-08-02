@@ -197,7 +197,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OpenWebif"
-		VER="8b1ccaa696378ad37e7802b46568154d1b15747f"
+		VER="d276fd64a4ed0600c4e812f047888f8ded24476c"
 		VER1="7f53c0efcc7ebf5c79efa34d525721d9d195b597"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
@@ -426,7 +426,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OscamStatus"
-		VER="4854dc5f3060b4040c5f1f62cff0a644487ac39e"
+		VER="cc5a93da8330731ce7d3f4e42dd680a186291a79"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -464,7 +464,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="enigma2-plugin-extensions-epgimport"
-		VER="1582afa4ef19fbf65a01a6745a8970427905dc06"
+		VER="f8be073f7891955cab36675a4a67f897c8abd7f4"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -508,7 +508,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2iplayer"
-		VER="b21f11703141ca6e1231e80bdedfe9ae40914854"
+		VER="7977fec225441ac7951fd4207e8b67ebe28676b6"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi

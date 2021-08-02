@@ -1,6 +1,6 @@
 diff -ruN o/libtuxtxt/acinclude.m4 pc/libtuxtxt/acinclude.m4
---- o/libtuxtxt/acinclude.m4	2019-12-18 19:49:22.000000000 +0300
-+++ pc/libtuxtxt/acinclude.m4	2019-12-18 22:00:21.047300243 +0300
+--- o/libtuxtxt/acinclude.m4	2021-06-20 20:03:04.000000000 +0300
++++ pc/libtuxtxt/acinclude.m4	2021-08-02 16:47:20.385638489 +0300
 @@ -189,7 +189,7 @@
  #include <linux/dvb/version.h>
  version DVB_API_VERSION
@@ -11,9 +11,9 @@ diff -ruN o/libtuxtxt/acinclude.m4 pc/libtuxtxt/acinclude.m4
  
  	AC_MSG_NOTICE([found dvb version $DVB_API_VERSION])
 diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
---- o/libtuxtxt/tuxtxt_common.h	2019-12-18 19:49:22.000000000 +0300
-+++ pc/libtuxtxt/tuxtxt_common.h	2019-12-18 22:03:46.883376285 +0300
-@@ -4059,14 +4059,6 @@
+--- o/libtuxtxt/tuxtxt_common.h	2021-06-20 20:03:04.000000000 +0300
++++ pc/libtuxtxt/tuxtxt_common.h	2021-08-02 16:47:20.387638398 +0300
+@@ -4061,14 +4061,6 @@
  *************************************************************************/
  
  /* devices */
@@ -28,7 +28,7 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  #define TOPMENUSTARTX TV43STARTX+2
  #define TOPMENUENDX TVENDX
  #define TOPMENUSTARTY renderinfo->StartY
-@@ -4573,7 +4565,7 @@
+@@ -4575,7 +4567,7 @@
  		{
  			char *targets[]={"left", "top", "width", "height", "apply"};
  			char filename[128];
@@ -37,7 +37,7 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  			FILE *f = fopen(filename, "w");
  			if (!f)
  				break;
-@@ -4590,8 +4582,8 @@
+@@ -4592,8 +4584,8 @@
  			fclose(f);
  		}
  
@@ -48,7 +48,7 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  	}
  	else /* not split */
  	{
-@@ -4601,7 +4593,7 @@
+@@ -4603,7 +4595,7 @@
  		{
  			char *targets[]={"left", "top", "width", "height", "apply"};
  			char filename[128];
@@ -57,7 +57,7 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  			FILE *f = fopen(filename, "w");
  			if (!f)
  				break;
-@@ -4612,8 +4604,8 @@
+@@ -4614,8 +4606,8 @@
  		tuxtxt_setfontwidth(renderinfo,renderinfo->fontwidth_normal);
  		renderinfo->displaywidth= (renderinfo->ex-renderinfo->sx);
  		renderinfo->StartX = renderinfo->sx; //+ (ex-sx - 40*fontwidth) / 2; /* center screen */
@@ -69,8 +69,8 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  }
  
 diff -ruN o/tuxtxt/acinclude.m4 pc/tuxtxt/acinclude.m4
---- o/tuxtxt/acinclude.m4	2019-12-18 19:49:22.000000000 +0300
-+++ pc/tuxtxt/acinclude.m4	2019-12-18 22:00:21.050300304 +0300
+--- o/tuxtxt/acinclude.m4	2021-06-20 20:03:04.000000000 +0300
++++ pc/tuxtxt/acinclude.m4	2021-08-02 16:47:20.387638398 +0300
 @@ -189,7 +189,7 @@
  #include <linux/dvb/version.h>
  version DVB_API_VERSION
@@ -81,8 +81,8 @@ diff -ruN o/tuxtxt/acinclude.m4 pc/tuxtxt/acinclude.m4
  
  	AC_MSG_NOTICE([found dvb version $DVB_API_VERSION])
 diff -ruN o/tuxtxt/data/Makefile.am pc/tuxtxt/data/Makefile.am
---- o/tuxtxt/data/Makefile.am	2019-12-18 19:49:22.000000000 +0300
-+++ pc/tuxtxt/data/Makefile.am	2019-12-18 22:00:21.051300324 +0300
+--- o/tuxtxt/data/Makefile.am	2021-06-20 20:03:04.000000000 +0300
++++ pc/tuxtxt/data/Makefile.am	2021-08-02 16:47:20.387638398 +0300
 @@ -1,4 +1,4 @@
 -installdir = $(sysconfdir)/tuxtxt/
 +installdir = /usr/local/e2/tuxtxt/
@@ -90,8 +90,8 @@ diff -ruN o/tuxtxt/data/Makefile.am pc/tuxtxt/data/Makefile.am
  install_DATA = \
  	tuxtxt2.conf
 diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
---- o/tuxtxt/tuxtxt.c	2019-12-18 19:49:22.000000000 +0300
-+++ pc/tuxtxt/tuxtxt.c	2019-12-18 22:04:00.288639160 +0300
+--- o/tuxtxt/tuxtxt.c	2021-06-20 20:03:04.000000000 +0300
++++ pc/tuxtxt/tuxtxt.c	2021-08-02 16:47:20.387638398 +0300
 @@ -594,11 +594,11 @@
  #endif
  
@@ -152,9 +152,9 @@ diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
  		renderinfo.clearbbcolor = tuxtxt_cache.FullScrColor;
  	}
 diff -ruN o/tuxtxt/tuxtxt.h pc/tuxtxt/tuxtxt.h
---- o/tuxtxt/tuxtxt.h	2019-12-18 19:49:22.000000000 +0300
-+++ pc/tuxtxt/tuxtxt.h	2019-12-18 22:00:21.051300324 +0300
-@@ -93,17 +93,13 @@
+--- o/tuxtxt/tuxtxt.h	2021-06-20 20:03:04.000000000 +0300
++++ pc/tuxtxt/tuxtxt.h	2021-08-02 16:47:20.387638398 +0300
+@@ -94,17 +94,13 @@
  #endif
  
  #ifndef FB_DEV

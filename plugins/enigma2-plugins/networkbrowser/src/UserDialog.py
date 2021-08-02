@@ -15,6 +15,7 @@ import enigma
 import os
 import cPickle
 
+
 def write_cache(cache_file, cache_data):
 	path = os.path.dirname(cache_file)
 	if not os.path.isdir(path):
@@ -25,9 +26,11 @@ def write_cache(cache_file, cache_data):
 	with open(cache_file, 'w') as fd:
 		cPickle.dump(cache_data, fd, -1)
 
+
 def load_cache(cache_file):
 	with open(cache_file) as fd:
 		return cPickle.load(fd)
+
 
 class UserDialog(Screen, ConfigListScreen):
 	skin = """
@@ -38,10 +41,10 @@ class UserDialog(Screen, ConfigListScreen):
 			<ePixmap pixmap="skin_default/div-h.png" position="0,270" zPosition="1" size="560,2" />
 			<widget source="introduction" render="Label" position="10,280" size="540,21" zPosition="10" font="Regular;21" halign="center" valign="center" backgroundColor="#25062748" transparent="1"/>
 			<widget name="VKeyIcon" pixmap="skin_default/buttons/key_text.png" position="10,280" zPosition="10" size="35,25" transparent="1" alphatest="on" />
-			<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="160,250" zPosition="1" size="1,1" transparent="1" alphatest="on" />	
+			<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="160,250" zPosition="1" size="1,1" transparent="1" alphatest="on" />
 		</screen>"""
 
-	def __init__(self, session, plugin_path, hostinfo = None ):
+	def __init__(self, session, plugin_path, hostinfo=None):
 		self.skin_path = plugin_path
 		self.session = session
 		Screen.__init__(self, self.session)
@@ -63,7 +66,7 @@ class UserDialog(Screen, ConfigListScreen):
 		}, -2)
 
 		self.list = []
-		ConfigListScreen.__init__(self, self.list,session = self.session)
+		ConfigListScreen.__init__(self, self.list, session=self.session)
 		self.createSetup()
 		self.onLayoutFinish.append(self.layoutFinished)
 		# Initialize Buttons
@@ -73,7 +76,7 @@ class UserDialog(Screen, ConfigListScreen):
 		self["key_red"] = StaticText(_("Close"))
 
 	def layoutFinished(self):
-		self.setTitle(_("Enter user and password for host: ")+ self.hostinfo)
+		self.setTitle(_("Enter user and password for host: ") + self.hostinfo)
 
 	def createConfig(self):
 		username = 'guest'
@@ -85,8 +88,8 @@ class UserDialog(Screen, ConfigListScreen):
 			password = hostdata['password']
 		except:
 			pass
-		self.username = NoSave(ConfigText(default = username, visible_width = 50, fixed_size = False))
-		self.password = NoSave(ConfigPassword(default = password, visible_width = 50, fixed_size = False))
+		self.username = NoSave(ConfigText(default=username, visible_width=50, fixed_size=False))
+		self.password = NoSave(ConfigPassword(default=password, visible_width=50, fixed_size=False))
 
 	def createSetup(self):
 		self.list = []
@@ -100,11 +103,11 @@ class UserDialog(Screen, ConfigListScreen):
 
 	def KeyText(self):
 		if self["config"].getCurrent() == self.usernameEntry:
-			self.session.openWithCallback(lambda x : self.VirtualKeyBoardCallback(x, 'username'), VirtualKeyBoard, title = (_("Enter username:")), text = self.username.value)
+			self.session.openWithCallback(lambda x: self.VirtualKeyBoardCallback(x, 'username'), VirtualKeyBoard, title=(_("Enter username:")), text=self.username.value)
 		if self["config"].getCurrent() == self.passwordEntry:
-			self.session.openWithCallback(lambda x : self.VirtualKeyBoardCallback(x, 'password'), VirtualKeyBoard, title = (_("Enter password:")), text = self.password.value)
+			self.session.openWithCallback(lambda x: self.VirtualKeyBoardCallback(x, 'password'), VirtualKeyBoard, title=(_("Enter password:")), text=self.password.value)
 
-	def VirtualKeyBoardCallback(self, callback = None, entry = None):
+	def VirtualKeyBoardCallback(self, callback=None, entry=None):
 		if callback is not None and len(callback) and entry is not None and len(entry):
 			if entry == 'username':
 				self.username.setValue(callback)
@@ -131,6 +134,6 @@ class UserDialog(Screen, ConfigListScreen):
 
 	def ok(self):
 		current = self["config"].getCurrent()
-		hostdata = { 'username': self.username.value, 'password': self.password.value }
+		hostdata = {'username': self.username.value, 'password': self.password.value}
 		write_cache(self.cache_file, hostdata)
 		self.close(True)

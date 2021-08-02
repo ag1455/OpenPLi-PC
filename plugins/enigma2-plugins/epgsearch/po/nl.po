@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2 - epgsearch\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-11 10:58+0200\n"
-"PO-Revision-Date: 2018-05-02 20:06+0100\n"
+"POT-Creation-Date: 2021-07-10 15:41+0200\n"
+"PO-Revision-Date: 2021-07-10 10:32+0200\n"
 "Last-Translator: Frenske <voorzitter@openpli.org>\n"
-"Language-Team:  <Benny.DeTandt@gmail.com>\n"
+"Language-Team: <Benny.DeTandt@gmail.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 3.0\n"
 
 #, python-format
 msgid " (%d min)"
@@ -33,7 +33,7 @@ msgid "Add \"Search event in EPG\" to event menu"
 msgstr "Voeg 'zoek een event in de EPG' toe aan het programmamenu"
 
 msgid "Add \"Search\" Button to EPG"
-msgstr "Voeg de toets 'zoeken' aan de EPG toe"
+msgstr "Voeg de toets 'zoeken aan de EPG' toe"
 
 msgid "Add timer"
 msgstr "Voeg timer toe"
@@ -81,8 +81,16 @@ msgstr "EPG doorzoeken"
 msgid "EPGSearch"
 msgstr "EPGSearch"
 
+#, fuzzy
+msgid "EPGSearch - History"
+msgstr "Stel de EPGSearch in."
+
 msgid "EPGSearch Setup"
 msgstr "Stel de EPGSearch in."
+
+#, fuzzy
+msgid "Edit & search"
+msgstr "Vrij zoeken"
 
 msgid "Encoding Search to EPG"
 msgstr "Encoding om de EPG te doorzoeken"
@@ -97,7 +105,9 @@ msgid "History"
 msgstr "Historiek"
 
 msgid "How many entries to keep in the search history at most. 0 disables history entirely!"
-msgstr "Met deze optie geeft u aan hoeveel regels u maximaal wilt bewaren in de zoekhistorie. De invoer 0 déactiveert de historie volledig !"
+msgstr ""
+"Met deze optie geeft u aan hoeveel items u maximaal wilt bewaren in de zoekhistorie.\n"
+"De invoer 0 deactiveert de historie volledig!"
 
 msgid "If 'Search only bouquets' is enabled, show service name as in bouquets for renamed services."
 msgstr "Indien geactiveerd, en de optie hiervoor 'zoek alléén in de bouquetten' geactiveerd zijn, toon dan de zendernaam zoals in het bouquet als hernoemd."
@@ -106,7 +116,7 @@ msgid "If this setting is enabled, searching EPG in only services in user bouque
 msgstr "Indien geactiveerd, dan zal de EPG enkel doorzocht worden in gebruikersbouquetten."
 
 msgid "If this setting is enabled, the plugin adds a \"Search\" Button to the regular EPG."
-msgstr "Indien geactiveerd, dan voegt de plugin een toets 'zoeken' toe aan de gewone EPG."
+msgstr "Indien geactiveerd, dan voegt deze plug-in een toets 'zoeken' aan de EPG toe."
 
 msgid "If this setting is enabled, the plugin adds picons."
 msgstr "Indien geactiveerd, dan voegt de plugin picons toe."
@@ -118,16 +128,19 @@ msgid "Import from EPG"
 msgstr "Importeren vanuit de EPG"
 
 msgid "Import from Timer"
-msgstr "Importeren uit de timer"
+msgstr "Importeren vanuit de timer"
 
 msgid "Length of History"
-msgstr "Lengte van de historie"
+msgstr "Het max. aantal items in de historie"
 
 msgid "List of history is cleared !"
 msgstr "Historie overzicht is gewist !"
 
 msgid "Lookup in TMBD"
 msgstr "Zoek in TMBD"
+
+msgid "Modify searched text"
+msgstr "Wijzig gezochte tekst"
 
 msgid "New Search"
 msgstr "Nieuw"
@@ -180,17 +193,22 @@ msgstr "Kies de actie:"
 msgid "Select channel"
 msgstr "Kies de zender"
 
+msgid "Select item for search and press 'OK' or edit item with yellow button."
+msgstr ""
+
 msgid "Select text to search for"
-msgstr "Selecteer de te zoeken tekst ..."
+msgstr "Binnen de historiek kunt u de tekst van een eerder gezochte item bewerken door het bijbehorende nummer in te toetsen of door op het betreffende item te gaan staan en te drukken op Enter en vervolgens dit item aan te passen. Druk daarna op 'groen' en het item wordt gezocht en toegevoegd aan de historie."
 
 msgid "Select type for filter search. Press button P +/- for show/hide filter in description after search."
 msgstr "Met deze optie kunt u het zoektype kiezen om op filter te zoeken. Druk P +/- om het filter te tonen/verbergen na het zoeken."
 
-msgid "Select type for search, \"partial match\" for the most extensive search."
+msgid "Select type for search, \"partial match\" for the most extensive search, \"partial description\" for the most description search."
 msgstr "Met deze optie kunt u aangeven hoe u wilt zoeken. U kunt kiezen uit 'gedeeltelijke overeenkomst', 'exacte overeenkomst' en 'de titel begint met'. De eerste optie zoekt het intensiefst."
 
 msgid "Select type: 'Search and Select channel' or 'Search'."
-msgstr "Met deze optie kunt u aangeven op welke manier u wenst te zoeken.U kunt kiezen uit 'zoek en kies de zender' of 'enkel zoeken'."
+msgstr ""
+"Met deze optie kunt u aangeven op welke manier u wenst te zoeken.\n"
+"U kunt kiezen uit 'zoek en kies de zender' of 'enkel zoeken'."
 
 msgid "Select whether or not you want to enforce case correctness."
 msgstr "Kies of u de hoofdlettergevoeligheid wel of niet wilt forceren."
@@ -224,6 +242,9 @@ msgstr "Exacte overeenkomst"
 
 msgid "only Search"
 msgstr "Alleen zoeken"
+
+msgid "partial description"
+msgstr "Gedeeltelijke omschrijving"
 
 msgid "partial match"
 msgstr "Gedeeltelijke overeenkomst"

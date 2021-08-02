@@ -49,7 +49,7 @@ if [[ "$release" = "14.04" ]]; then
 	REQPKG="flake gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev libdts-dev mock python-ipaddress \
 	pyflakes python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah \
 	python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc python-yenc python-gdata \
-	python-demjson python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev python-setuptools swig2.0 \
+	python-cffi python-demjson python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev python-setuptools swig2.0 \
 	"
 	if [[ $(uname -m) = "i686" ]]; then
 		echo "Your system is 32-bit"
@@ -78,7 +78,7 @@ elif [[ "$release" = "16.04" ]]; then
 	python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen python-ipaddr \
 	python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.httpdomain python-dev pylint python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib \
 	python-requests-oauthlib python-configobj python-future python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail \
-	sphinx-rtd-theme-common swig2.0 yamllint \
+	python-cffi sphinx-rtd-theme-common swig2.0 yamllint \
 	"
 elif [[ "$release" = "18.04" ]]; then
 	echo ""
@@ -208,18 +208,8 @@ else
 	echo "$LIB not installed"
 fi
 #git clone https://github.com/OpenDMM/$PKG.git
-git clone git://git.opendreambox.org/git/obi/$PKG.git
+git clone --depth 1 git://git.opendreambox.org/git/obi/$PKG.git
 cd $PKG
-git checkout 64efce61
-cd ../..
-cp -v patches/fix_section_len_check.patch libs/$PKG
-cp -v patches/ac3_descriptor-check-if-header-is-larger-than-descri.patch libs/$PKG
-cd libs/$PKG
-patch -p1 < fix_section_len_check.patch
-patch -p1 < ac3_descriptor-check-if-header-is-larger-than-descri.patch
-echo ""
-echo "                      *** Patch for $PKG applied ***"
-echo ""
 #autoupdate
 dpkg-buildpackage -uc -us
 cd ..
@@ -301,7 +291,7 @@ else
 	INSTALL_E2DIR="/usr/local/e2"
 	SOURCE="tuxtxt-git"
 	PKG="libtuxtxt"
-	VER="c62f3cd1c877b0218249908c01bb30a8cd5de742"
+	VER="1402795d660955757d87967b8ff1e3790625f9c1"
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""

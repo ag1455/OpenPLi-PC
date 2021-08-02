@@ -1,4 +1,4 @@
-# for localized messages  
+# for localized messages
 from . import _
 from enigma import eServiceCenter
 from Screens.EpgSelection import EPGSelection
@@ -12,6 +12,8 @@ from Components.config import config
 
 # Overwrite EPGSelection.__init__ with our modified one
 baseEPGSelection__init__ = None
+
+
 def EPGSelectionInit():
 	global baseEPGSelection__init__
 	if baseEPGSelection__init__ is None:
@@ -21,8 +23,10 @@ def EPGSelectionInit():
 	EPGSelection.VKaction = VKaction
 
 # Modified EPGSelection __init__
+
+
 def EPGSearchSelection__init__(self, session, service, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None, parent=None):
-	baseEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB)
+	baseEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, parent)
 	if self.type != EPG_TYPE_MULTI and config.plugins.epgsearch.add_search_to_epg.value:
 		def bluePressed():
 			if config.plugins.epgsearch.type_button_blue.value == "0":
@@ -38,7 +42,7 @@ def EPGSearchSelection__init__(self, session, service, zapFunc=None, eventid=Non
 				(_("Select channel"), "standard"),
 				(_("Custom search"), "custom"),
 				]
-				dlg = self.session.openWithCallback(self.CallbackChoiceAction, ChoiceBox, title= _("Select action:"), list = list)
+				dlg = self.session.openWithCallback(self.CallbackChoiceAction, ChoiceBox, title=_("Select action:"), list=list)
 				dlg.setTitle(_("Choice list EPGSearch"))
 		self["epgsearch_actions"] = ActionMap(["EPGSelectActions"],
 				{
@@ -48,6 +52,7 @@ def EPGSearchSelection__init__(self, session, service, zapFunc=None, eventid=Non
 			self["key_blue"].text = _("Search")
 		elif config.plugins.epgsearch.type_button_blue.value == "1":
 			self["key_blue"].text = _("Choice list")
+
 
 def CallbackChoiceAction(self, ret):
 	ret = ret and ret[1]
@@ -71,11 +76,14 @@ def CallbackChoiceAction(self, ret):
 			except:
 				pass
 
+
 def VKaction(self, answer):
 	if answer:
 		self.session.open(EPGSearch, answer, False)
 
 # Autostart
+
+
 def autostart(reason, **kwargs):
 	try:
 		# for blue key activating in EPGSelection
@@ -84,6 +92,8 @@ def autostart(reason, **kwargs):
 		pass
 
 # Mainfunction
+
+
 def main(session, *args, **kwargs):
 	s = session.nav.getCurrentService()
 	if s:
@@ -95,6 +105,8 @@ def main(session, *args, **kwargs):
 		session.open(EPGSearch)
 
 # Channel context menu
+
+
 def channelscontext(session, service=None, **kwargs):
 	serviceHandler = eServiceCenter.getInstance()
 	info = serviceHandler.info(service)
@@ -104,6 +116,8 @@ def channelscontext(session, service=None, **kwargs):
 		session.open(EPGSearch, name)
 
 # Event Info
+
+
 def eventinfo(session, eventName="", **kwargs):
 	if eventName != "":
 		session.open(EPGSearch, eventName, False)
@@ -113,10 +127,14 @@ def eventinfo(session, eventName="", **kwargs):
 			session.open(EPGSearchEPGSelection, ref, True)
 
 # EPG Further Options
+
+
 def epgfurther(session, selectedevent, **kwargs):
 	session.open(EPGSearch, selectedevent[0].getEventName())
 
 # Movielist
+
+
 def movielist(session, service, **kwargs):
 	serviceHandler = eServiceCenter.getInstance()
 	info = serviceHandler.info(service)
@@ -124,35 +142,36 @@ def movielist(session, service, **kwargs):
 	name = name.split(".")[0].strip()
 	session.open(EPGSearch, name)
 
+
 def Plugins(**kwargs):
 	path = [
 		PluginDescriptor(
-			where = [PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART],
-			fnc = autostart,
+			where=[PluginDescriptor.WHERE_AUTOSTART, PluginDescriptor.WHERE_SESSIONSTART],
+			fnc=autostart,
 		),
 		PluginDescriptor(
-			name = _("EPGSearch"),
-			description = _("Search EPG by title event"),
-			where = PluginDescriptor.WHERE_PLUGINMENU,
-			fnc = main,
-			icon = "epg.png",
-			needsRestart = False,
+			name=_("EPGSearch"),
+			description=_("Search EPG by title event"),
+			where=PluginDescriptor.WHERE_PLUGINMENU,
+			fnc=main,
+			icon="epg.png",
+			needsRestart=False,
 		),
 		PluginDescriptor(
-			name = _("search EPG..."),
-			where = PluginDescriptor.WHERE_EVENTINFO,
-			fnc = eventinfo,
-			needsRestart = False,
+			name=_("search EPG..."),
+			where=PluginDescriptor.WHERE_EVENTINFO,
+			fnc=eventinfo,
+			needsRestart=False,
 		),
 		PluginDescriptor(
-			description = _("search EPG"),
-			where = PluginDescriptor.WHERE_MOVIELIST,
-			fnc = movielist,
-			needsRestart = False,
+			description=_("search EPG"),
+			where=PluginDescriptor.WHERE_MOVIELIST,
+			fnc=movielist,
+			needsRestart=False,
 		),
 	]
 	if config.plugins.epgsearch.search_in_channelmenu.value:
-		path.append(PluginDescriptor(name = _("Search event in EPG"), where=PluginDescriptor.WHERE_CHANNEL_CONTEXT_MENU, needsRestart = False, fnc=channelscontext))
+		path.append(PluginDescriptor(name=_("Search event in EPG"), where=PluginDescriptor.WHERE_CHANNEL_CONTEXT_MENU, needsRestart=False, fnc=channelscontext))
 	if config.plugins.epgsearch.show_in_furtheroptionsmenu.value:
-		path.append(PluginDescriptor(name = _("Search event in EPG"), where = PluginDescriptor.WHERE_EVENTINFO, fnc = epgfurther, needsRestart = False))
+		path.append(PluginDescriptor(name=_("Search event in EPG"), where=PluginDescriptor.WHERE_EVENTINFO, fnc=epgfurther, needsRestart=False))
 	return path

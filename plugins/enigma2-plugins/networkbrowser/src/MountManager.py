@@ -18,6 +18,7 @@ from UserManager import UserManager
 import os
 from Components.config import config
 
+
 class AutoMountManager(Screen):
 	skin = """
 		<screen name="AutoMountManager" position="center,center" size="560,400" title="AutoMountManager">
@@ -38,7 +39,8 @@ class AutoMountManager(Screen):
 			<ePixmap pixmap="skin_default/div-h.png" position="0,360" zPosition="1" size="560,2" />
 			<widget source="introduction" render="Label" position="10,370" size="540,21" zPosition="10" font="Regular;21" halign="center" valign="center" backgroundColor="#25062748" transparent="1"/>
 		</screen>"""
-	def __init__(self, session, iface ,plugin_path):
+
+	def __init__(self, session, iface, plugin_path):
 		self.skin_path = plugin_path
 		self.session = session
 		self.restartLanRef = None
@@ -69,23 +71,23 @@ class AutoMountManager(Screen):
 	def updateList(self):
 		self.list = []
 		okpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, "SystemPlugins/NetworkBrowser/icons/ok.png"))
-		self.list.append((_("Add new network mount point"),"add", _("Add a new NFS or CIFS mount point to your Receiver."), okpng ))
-		self.list.append((_("Mountpoints management"),"view", _("View, edit or delete mountpoints on your Receiver."), okpng ))
+		self.list.append((_("Add new network mount point"), "add", _("Add a new NFS or CIFS mount point to your Receiver."), okpng))
+		self.list.append((_("Mountpoints management"), "view", _("View, edit or delete mountpoints on your Receiver."), okpng))
 		for file in os.listdir('/etc/enigma2'):
 			if file.endswith('.cache'):
 				if file == 'networkbrowser.cache':
 					continue
 				else:
-					self.list.append((_("User management"),"user", _("View, edit or delete usernames and passwords for your network."), okpng))
+					self.list.append((_("User management"), "user", _("View, edit or delete usernames and passwords for your network."), okpng))
 					break
-		self.list.append((_("Change hostname"),"hostname", _("Change the hostname of your Receiver."), okpng))
+		self.list.append((_("Change hostname"), "hostname", _("Change the hostname of your Receiver."), okpng))
 		self["config"].setList(self.list)
 
 	def exit(self):
 		config.movielist.videodirs.load()
 		self.close()
 
-	def keyOK(self, returnValue = None):
+	def keyOK(self, returnValue=None):
 		if returnValue is None:
 			returnValue = self["config"].getCurrent()[1]
 			if returnValue is "add":
@@ -112,9 +114,9 @@ class AutoMountManager(Screen):
 				hostname = fp.read()
 		except:
 			return
-		self.session.openWithCallback(self.hostnameCallback, VirtualKeyBoard, title = (_("Enter new hostname for your Receiver")), text = hostname)
+		self.session.openWithCallback(self.hostnameCallback, VirtualKeyBoard, title=(_("Enter new hostname for your Receiver")), text=hostname)
 
-	def hostnameCallback(self, callback = None):
+	def hostnameCallback(self, callback=None):
 		if callback:
 			with open('/etc/hostname', 'w+') as fp:
 				fp.write(callback)
@@ -122,7 +124,7 @@ class AutoMountManager(Screen):
 
 	def restartLan(self):
 		iNetwork.restartNetwork(self.restartLanDataAvail)
-		self.restartLanRef = self.session.openWithCallback(self.restartfinishedCB, MessageBox, _("Please wait while your network is restarting..."), type = MessageBox.TYPE_INFO, enable_input = False)
+		self.restartLanRef = self.session.openWithCallback(self.restartfinishedCB, MessageBox, _("Please wait while your network is restarting..."), type=MessageBox.TYPE_INFO, enable_input=False)
 
 	def restartLanDataAvail(self, data):
 		if data is True:
@@ -135,5 +137,4 @@ class AutoMountManager(Screen):
 
 	def restartfinishedCB(self, data):
 		if data is True:
-			self.session.open(MessageBox, _("Finished restarting your network"), type = MessageBox.TYPE_INFO, timeout = 10, default = False)
-
+			self.session.open(MessageBox, _("Finished restarting your network"), type=MessageBox.TYPE_INFO, timeout=10, default=False)
