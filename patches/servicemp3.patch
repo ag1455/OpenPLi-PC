@@ -129,11 +129,10 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
 -		/* len is in nanoseconds. we have 90 000 pts per second. */
 -
 -	pts = len / 11111LL;
--	return 0;
 +	cXineLib *xineLib = cXineLib::getInstance();
 +	xineLib->VideoPosition();
 +	pts = xineLib->Vlength*90;
-+		return 0;
+ 	return 0;
  }
  
  RESULT eServiceMP3::seekToImpl(pts_t to)
@@ -382,7 +381,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	case sProgressive: return m_progressive;
  	case sGamma: return m_gamma;
  	case sAspect: return m_aspect;
-@@ -1593,14 +1420,20 @@
+@@ -1593,14 +1420,18 @@
  
  int eServiceMP3::getNumberOfTracks()
  {
@@ -390,9 +389,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
 +	cXineLib *xineLib = cXineLib::getInstance();
 +	int ret = xineLib->getNumberOfTracksAudio();
 +	if (ret)
-+	{
 +		return ret;
-+	}
 +	return 0;
  }
  
@@ -407,7 +404,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  RESULT eServiceMP3::selectTrack(unsigned int i)
-@@ -1624,16 +1457,9 @@
+@@ -1624,16 +1455,9 @@
  
  int eServiceMP3::selectAudioStream(int i)
  {
@@ -427,7 +424,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  int eServiceMP3::getCurrentChannel()
-@@ -1649,16 +1475,12 @@
+@@ -1649,16 +1473,12 @@
  
  RESULT eServiceMP3::getTrackInfo(struct iAudioTrackInfo &info, unsigned int i)
  {

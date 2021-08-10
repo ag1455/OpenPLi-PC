@@ -317,8 +317,8 @@ fi
 if [ ! -d /media/hdd ]; then
 	ln -s /home/hdd /media
 fi
-if [ ! -d  /usr/local/etc/stb ]; then
-	ln -s $INSTALL_E2DIR/etc/stb /usr/local/etc/stb
+if [ -d  /usr/local/etc/stb ]; then
+	rm -f /usr/local/etc/stb
 fi
 if [ ! -d /etc/enigma2 ]; then
 	ln -s $INSTALL_E2DIR/etc/enigma2 /etc

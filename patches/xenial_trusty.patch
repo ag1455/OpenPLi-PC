@@ -2730,7 +2730,7 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
 -		char tmp[8];
 -		int rd;
 -
--		snprintf(file_name, 64, "/usr/local/etc/stb/tsmux/input%d", tunernum);
+-		snprintf(file_name, 64, "/proc/stb/tsmux/input%d", tunernum);
 -		int fd = open(file_name, O_RDONLY);
 -		if (fd > -1)
 -		{
@@ -2747,7 +2747,7 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
 -		else
 -			continue;
 -
--		snprintf(file_name, 64, "/usr/local/etc/stb/tsmux/ci%d_input", slotid);
+-		snprintf(file_name, 64, "/proc/stb/tsmux/ci%d_input", slotid);
 -		fd = open(file_name, O_RDONLY);
 -		if (fd > -1)
 -		{
