@@ -20,7 +20,20 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	{
  		m_sourceinfo.containertype = ctMPEGTS;
  		m_sourceinfo.is_video = TRUE;
-@@ -718,6 +721,16 @@
+@@ -598,10 +601,10 @@
+ 			if ( m_ref.getData(7) & PROGRESSIVE_DOWNLOAD )
+ 			{
+ 				/* progressive download buffering */
+-				if (::access("/hdd/movie", X_OK) >= 0)
++				if (::access("/media/hdd/movie", X_OK) >= 0)
+ 				{
+ 					/* It looks like /hdd points to a valid mount, so we can store a download buffer on it */
+-					m_download_buffer_path = "/hdd/gstreamer_XXXXXXXXXX";
++					m_download_buffer_path = "/media/hdd/gstreamer_XXXXXXXXXX";
+ 				}
+ 			}
+ 		}
+@@ -720,6 +723,16 @@
  	g_free(uri);
  	if (suburi != NULL)
  		g_free(suburi);
@@ -37,7 +50,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  eServiceMP3::~eServiceMP3()
-@@ -832,29 +845,6 @@
+@@ -834,29 +847,6 @@
  {
  	ASSERT(m_state == stIdle);
  
@@ -67,7 +80,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	if (m_ref.path.find("://") == std::string::npos)
  	{
  		/* read event from .eit file */
-@@ -874,6 +864,8 @@
+@@ -876,6 +866,8 @@
  		}
  	}
  
@@ -76,7 +89,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -901,6 +893,9 @@
+@@ -903,6 +895,9 @@
  	saveCuesheet();
  	m_nownext_timer->stop();
  
@@ -86,7 +99,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -933,6 +928,8 @@
+@@ -935,6 +930,8 @@
  	eDebug("[eServiceMP3] pause");
  	trickSeek(0.0);
  
@@ -95,7 +108,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -941,16 +938,11 @@
+@@ -943,16 +940,11 @@
  	if (!m_gst_playbin || m_state != stRunning)
  		return -1;
  
@@ -114,7 +127,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -966,188 +958,41 @@
+@@ -968,188 +960,41 @@
  	if (!m_gst_playbin || m_state != stRunning)
  		return -1;
  
@@ -316,7 +329,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  #if GST_VERSION_MAJOR < 1
-@@ -1165,37 +1010,12 @@
+@@ -1167,37 +1012,12 @@
  
  RESULT eServiceMP3::getPlayPosition(pts_t &pts)
  {
@@ -357,7 +370,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	return 0;
  }
  
-@@ -1247,13 +1067,20 @@
+@@ -1249,13 +1069,20 @@
  int eServiceMP3::getInfo(int w)
  {
  	const gchar *tag = 0;
@@ -381,7 +394,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  	case sProgressive: return m_progressive;
  	case sGamma: return m_gamma;
  	case sAspect: return m_aspect;
-@@ -1593,14 +1420,18 @@
+@@ -1595,14 +1422,18 @@
  
  int eServiceMP3::getNumberOfTracks()
  {
@@ -404,7 +417,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  RESULT eServiceMP3::selectTrack(unsigned int i)
-@@ -1624,16 +1455,9 @@
+@@ -1626,16 +1457,9 @@
  
  int eServiceMP3::selectAudioStream(int i)
  {
@@ -424,7 +437,7 @@ diff -ruN o/servicemp3/servicemp3.cpp pc/servicemp3/servicemp3.cpp
  }
  
  int eServiceMP3::getCurrentChannel()
-@@ -1649,16 +1473,12 @@
+@@ -1651,16 +1475,12 @@
  
  RESULT eServiceMP3::getTrackInfo(struct iAudioTrackInfo &info, unsigned int i)
  {

@@ -15,7 +15,7 @@ if [ -d plugins ]; then
 	echo "************************** OK. Let's build the plugins. ****************************"
 	echo ""
 	PKG="servicemp3"
-	VER="245271cc9081576c29797cb14486f025f8121940"
+	VER="ef97659cabe2b07bb447da5ebc06e79431a21fd2"
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
@@ -197,7 +197,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OpenWebif"
-		VER="d276fd64a4ed0600c4e812f047888f8ded24476c"
+		VER="f5ed124dce0810d791717eab536af16fa3d91bb6"
 		VER1="7f53c0efcc7ebf5c79efa34d525721d9d195b597"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
@@ -321,7 +321,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SimpleUmount"
-		VER="3126dcdcaf1b0a81739b52d48078d3f4bcc10564"
+		VER="18a326bd9d4998a626969cd518b3da8f2643520c"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -464,7 +464,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="enigma2-plugin-extensions-epgimport"
-		VER="f8be073f7891955cab36675a4a67f897c8abd7f4"
+		VER="d4015ef10c200d6b86c0ac43c470f7ba627fd1c9"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi

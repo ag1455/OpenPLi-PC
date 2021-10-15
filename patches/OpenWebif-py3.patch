@@ -1,7 +1,7 @@
 diff -ruN o/plugin/controllers/ajax.py pc/plugin/controllers/ajax.py
 --- o/plugin/controllers/ajax.py	2021-05-05 13:51:59.175468663 +0300
 +++ pc/plugin/controllers/ajax.py	2021-05-05 13:48:53.048025029 +0300
-@@ -177,7 +177,7 @@
+@@ -167,7 +167,7 @@
  			box['brand'] = "iqon"
  		elif getMachineBrand() == 'Technomate':
  			box['brand'] = "techomate"
@@ -38,16 +38,16 @@ diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
  					try:
  						lcd4linux_port = "http://" + ip + ":" + str(config.plugins.Webinterface.http.port.value) + "/"
  						lcd4linux_key = lcd4linux_port + 'lcd4linux/config'
-@@ -363,7 +363,7 @@
- 		except ImportError:
- 			pass
+@@ -360,7 +360,7 @@
+ 		if HASAUTOTIMER:
+ 			extras.append({'key': 'ajax/at', 'description': _('AutoTimers')})
  
 -		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/bqe.tmpl")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/bqe.pyo")):
 +		if fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/bqe.tmpl")) or fileExists(resolveFilename(SCOPE_PLUGINS, "Extensions/OpenWebif/controllers/views/ajax/bqe.pyc")):
  			extras.append({'key': 'ajax/bqe', 'description': _('BouquetEditor')})
  
  		try:
-@@ -409,7 +409,7 @@
+@@ -401,7 +401,7 @@
  		except ImportError:
  			pass
  
@@ -59,7 +59,7 @@ diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
 diff -ruN o/plugin/controllers/defaults.py pc/plugin/controllers/defaults.py
 --- o/plugin/controllers/defaults.py	2021-05-05 13:51:59.175468663 +0300
 +++ pc/plugin/controllers/defaults.py	2021-05-05 13:48:53.065025258 +0300
-@@ -32,10 +32,10 @@
+@@ -34,10 +34,10 @@
  
  
  def getTranscoding():
@@ -144,10 +144,10 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		procmodel = f.readline().strip()
  		f.close()
  		if (procmodel.startswith("optimuss") or procmodel.startswith("pingulux")):
-@@ -175,15 +175,15 @@
- 				model = procmodel.replace("lunix", "Lunix")
- 			if procmodel == "lunix4k":
+@@ -177,15 +177,15 @@
  				model = procmodel.replace("lunix4k", "Lunix4K")
+ 			elif procmodel == "dual":
+ 				model = procmodel.replace("dual", "Dual")
 -	elif fileExists("/proc/stb/info/azmodel"):
 +	elif fileExists("/usr/local/e2/etc/stb/info/azmodel"):
  		brand = "AZBox"
@@ -164,7 +164,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		procmodel = f.readline().strip()
  		f.close()
  		if procmodel == "GBQUAD PLUS":
-@@ -198,9 +198,9 @@
+@@ -200,9 +200,9 @@
  			model = procmodel.replace("ue4k", "UHD UE 4k")
  		elif procmodel == "gbtrio4k":
  			model = procmodel.replace("gbtrio4k", "UHD Trio 4k")
@@ -176,7 +176,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		procmodel = f.readline().strip()
  		f.close()
  		model = procmodel.title().replace("olose", "olo SE").replace("olo2se", "olo2 SE").replace("2", "²").replace("4Kse", "4K SE")
-@@ -226,10 +226,6 @@
+@@ -228,10 +228,6 @@
  				model = "UHD 88"
  			else:
  				model = "ESI 88"
@@ -187,7 +187,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		if procmodel.startswith("et"):
  			if procmodel == "et7000mini":
  				brand = "Galaxy Innovations"
-@@ -486,7 +482,7 @@
+@@ -522,7 +518,7 @@
  		elif procmodel.startswith("sf"):
  			brand = "Octagon"
  			if procmodel.startswith("sf8008"):
@@ -196,7 +196,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  				if sf8008type.startswith("11"):
  					procmodel = "sf8008t"
  					model = "SF8008 4K Twin"
-@@ -509,8 +505,8 @@
+@@ -551,8 +547,8 @@
  		else:
  			model = procmodel
  
