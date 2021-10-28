@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and test 21.04 (64-bit).
+# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and test 21.10 (64-bit) with startup option "Ubuntu on Xorg".
 # Install these packages:
 
 echo ""
@@ -150,13 +150,13 @@ elif [[ "$release" = "20.04" ]]; then
 	dpkg -i *.deb
 	apt-get -f install -y
 	rm -f *.deb
-elif [[ "$release" = "21.04" ]]; then
+elif [[ "$release" = "21.10" ]]; then
 	echo ""
 	echo "************************************************************************************"
-	echo "                             *** release 21.04 ***"
+	echo "                             *** release 21.10 ***"
 	echo "************************************************************************************"
 	echo ""
-	REQPKG="flake8 gcc-10 g++-10 libdca-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libpython2-dev python2-dev libffi7 \
+	REQPKG="flake8 gcc-11 g++-11 libdca-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libpython2-dev python2-dev libffi7 \
 	libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib \
 	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint \
 	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \

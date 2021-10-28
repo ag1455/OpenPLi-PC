@@ -12,6 +12,7 @@
 
 PKG="lirc-0.10.1"
 DIR="lirc_build"
+CONF="/etc/lirc"
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
 if [[ "$release" = "14.04" ]]; then
@@ -35,7 +36,7 @@ else
 	patch -p1 < lirc_0.10.1-6.patch
 	if [[ "$release" = "20.04" ]]; then
 		patch -p1 < python38_client_py.patch
-	elif [[ "$release" = "20.10" ]]; then
+	elif [[ "$release" = "21.10" ]]; then
 		patch -p1 < python38_client_py.patch
 	fi
 	rm -f lirc_0.10.1-6.patch
@@ -63,9 +64,16 @@ else
 	cd ..
 	cp -rfv pre/lirc /etc
 	cp -fv pre/99-lirc-symlinks.rules /etc/udev/rules.d
-	mv /etc/lirc/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
-	mv /etc/lirc/irexec.lircrc /etc/lirc/irexec.lircrc.dist
-	rm -f /etc/lirc/irexec.lircrc
+
+	if [ -f $CONF/lircd.conf.d/devinput.lircd.conf ]; then
+		mv $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
+	fi
+	if [ -f $CONF/irexec.lircrc ]; then
+		mv $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
+	fi
+	if [ -f $CONF/irexec.lircrc ];then
+		rm -f $CONF/irexec.lircrc
+	fi
 	#reboot
 fi
 

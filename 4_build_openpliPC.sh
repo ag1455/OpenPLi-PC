@@ -196,18 +196,21 @@ elif [ "$release" = "20.04" ]; then
 	cd $PKG
 	patch -p1 < Makefile.am.patch
 	export CXX=/usr/bin/g++-9
-elif [ "$release" = "21.04" ]; then
+elif [ "$release" = "21.10" ]; then
 	echo ""
 	echo "********************************************************"
-	echo "                 *** RELEASE 21.04 ***"
-	echo "                  *** USED g++-10 ***"
+	echo "                 *** RELEASE 21.10 ***"
+	echo "                  *** USED g++-11 ***"
 	echo "********************************************************"
 	echo ""
 	cd ..
+	if [ ! -f /lib/libc.so.6 ]; then
+		ln -s /lib/x86_64-linux-gnu/libc.so.6 /lib
+	fi
 	cp -fv patches/Makefile.am.patch $PKG
 	cd $PKG
 	patch -p1 < Makefile.am.patch
-	export CXX=/usr/bin/g++-10
+	export CXX=/usr/bin/g++-11
 fi
 
 # Configure
