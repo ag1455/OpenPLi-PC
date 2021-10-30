@@ -3,7 +3,8 @@
 # Build and install xine-lib:
 LIB="libxine2"
 PKG="xine-lib-1.2-1.2.10+hg-e2pc"
-VER="fe5b7e1d52bd"
+VER="3f383e140270"
+
 I=`dpkg -s $LIB | grep "Status"`
 
 # Remove old package libxine2.
