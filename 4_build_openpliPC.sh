@@ -208,8 +208,10 @@ elif [ "$release" = "21.10" ]; then
 		ln -s /lib/x86_64-linux-gnu/libc.so.6 /lib
 	fi
 	cp -fv patches/Makefile.am.patch $PKG
+	cp -fv patches/compile_py2.patch $PKG
 	cd $PKG
 	patch -p1 < Makefile.am.patch
+	patch -p1 < compile_py2.patch
 	export CXX=/usr/bin/g++-11
 fi
 

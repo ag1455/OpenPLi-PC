@@ -1,0 +1,23 @@
+diff -ruN a/po/updateallpo.sh b/po/updateallpo.sh
+--- a/po/updateallpo.sh	2021-07-07 13:18:31.629205551 +0300
++++ b/po/updateallpo.sh	2021-11-01 12:25:11.085756446 +0300
+@@ -63,7 +63,7 @@
+ find $findoptions .. -name "*.py" -exec xgettext --no-wrap -L Python --from-code=UTF-8 -kpgettext:1c,2 --add-comments="TRANSLATORS:" -d enigma2 -s -o enigma2-py.pot {} \+
+ $localgsed --in-place enigma2-py.pot --expression=s/CHARSET/UTF-8/
+ printf "Creating temporary file enigma2-xml.pot\n"
+-find $findoptions .. -name "*.xml" -exec python xml2po.py {} \+ > enigma2-xml.pot
++find $findoptions .. -name "*.xml" -exec python2 xml2po.py {} \+ > enigma2-xml.pot
+ printf "Merging pot files to create: enigma2.pot\n"
+ cat enigma2-py.pot enigma2-xml.pot | msguniq --no-wrap --no-location -o enigma2.pot -
+ OLDIFS=$IFS
+diff -ruN a/.travis.yml b/.travis.yml
+--- a/.travis.yml	2021-07-07 13:18:31.378198988 +0300
++++ b/.travis.yml	2021-11-01 12:27:10.497544861 +0300
+@@ -119,6 +119,6 @@
+ - autoreconf -i
+ - ./configure --with-libsdl=no --with-boxtype=nobox --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-gstversion=1.0 --with-textlcd
+ - make
+-- python -m compileall .
++- python2 -m compileall .
+ - echo done!
+ 
