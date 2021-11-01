@@ -7534,12 +7534,25 @@ diff -ruN o/lib/python/Components/NimManager.py pc/lib/python/Components/NimMana
 diff -ruN o/lib/python/Components/Opkg.py pc/lib/python/Components/Opkg.py
 --- o/lib/python/Components/Opkg.py	2021-07-07 17:49:35.846471865 +0300
 +++ pc/lib/python/Components/Opkg.py	2021-10-01 13:49:05.619220948 +0300
-@@ -155,7 +155,7 @@
+@@ -152,17 +152,17 @@
+ 		if cmd == self.CMD_UPDATE:
+ 			self.runCmdEx("update")
+ 		elif cmd == self.CMD_UPGRADE:
+-			if os.path.exists("/home/root/opkgupgrade.log"):
+-				os.unlink("/home/root/opkgupgrade.log")
++			if os.path.exists("/media/hdd/opkgupgrade.log"):
++				os.unlink("/media/hdd/opkgupgrade.log")
  			append = ""
  			if args["test_only"]:
  				append = " -test"
--			self.runCmdEx("upgrade %s | tee /home/root/opkgupgrade.log" % append)
-+			self.runCmdEx("upgrade %s | tee /home/hdd/opkgupgrade.log" % append)
+ 			else:
+ 				for pkg in self.fetchedList:
+ 					if pkg[0] == "busybox":
+-						self.runCmdEx("upgrade busybox | tee -a /home/root/opkgupgrade.log")
++						self.runCmdEx("upgrade busybox | tee -a /media/hdd/opkgupgrade.log")
+ 						break
+-			self.runCmdEx("upgrade %s | tee -a /home/root/opkgupgrade.log" % append)
++			self.runCmdEx("upgrade %s | tee -a /media/hdd/opkgupgrade.log" % append)
  		elif cmd == self.CMD_LIST:
  			self.fetchedList = []
  			if args['installed_only']:
@@ -7907,7 +7920,7 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  		config.usage.fan = ConfigSelection(choicelist)
  
  		def fanChanged(configElement):
-@@ -581,24 +581,24 @@
+@@ -584,24 +584,24 @@
  
  	if SystemInfo["HDRSupport"]:
  		def setHlgSupport(configElement):
@@ -7936,7 +7949,7 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  		config.av.allow_10bit = ConfigYesNo(default=False)
  		config.av.allow_10bit.addNotifier(setDisable10Bit)
  
-@@ -765,6 +765,13 @@
+@@ -768,6 +768,13 @@
  	config.autolanguage.subtitle_defaultdvb = ConfigYesNo(default=False)
  	config.autolanguage.subtitle_usecache = ConfigYesNo(default=True)
  
@@ -9437,7 +9450,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
 diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
 --- o/lib/python/Screens/About.py	2021-10-01 13:48:13.421652261 +0300
 +++ pc/lib/python/Screens/About.py	2021-10-01 15:38:33.920796990 +0300
-@@ -51,16 +51,17 @@
+@@ -52,16 +52,17 @@
  
  		AboutText += _("DVB driver version: ") + about.getDriverInstalledDate() + "\n"
  
@@ -9461,17 +9474,15 @@ diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
  
  		AboutText += _("Python version: ") + about.getPythonVersionString() + "\n"
  
-@@ -111,8 +112,7 @@
+@@ -112,6 +113,7 @@
  		AboutText += hddinfo + "\n\n" + _("Network Info:")
  		for x in about.GetIPsFromNetworkInterfaces():
  			AboutText += "\n" + x[0] + ": " + x[1]
--		if config.hdmicec.enabled.value:
--			AboutText += "\n\n" + _("HDMI-CEC address") + ": " + config.hdmicec.fixed_physical_address.value
 +		AboutText += '\n\n' + _("Uptime") + ": " + about.getBoxUptime()
+ 		if SystemInfo["HasHDMI-CEC"] and config.hdmicec.enabled.value:
+ 			AboutText += "\n\n" + _("HDMI-CEC address") + ": " + config.hdmicec.fixed_physical_address.value
  
- 		self["AboutScrollLabel"] = ScrollLabel(AboutText)
- 		self["key_green"] = Button(_("Translations"))
-@@ -454,18 +454,18 @@
+@@ -455,18 +457,18 @@
  
  	def getDebugFilesList(self):
  		import glob
@@ -9732,7 +9743,7 @@ diff -ruN o/lib/python/Screens/SoftwareUpdate.py pc/lib/python/Screens/SoftwareU
  					message = _("No updates available")
  					choices = []
 -				if fileExists("/home/root/opkgupgrade.log"):
-+				if fileExists("/home/hdd/opkgupgrade.log"):
++				if fileExists("/media/hdd/opkgupgrade.log"):
  					choices.append((_("Show latest update log"), "log"))
  				choices.append((_("Show latest commits"), "commits"))
  				choices.append((_("Cancel"), ""))
@@ -9741,7 +9752,7 @@ diff -ruN o/lib/python/Screens/SoftwareUpdate.py pc/lib/python/Screens/SoftwareU
  			self.session.openWithCallback(boundFunction(self.opkgCallback, OpkgComponent.EVENT_DONE, None), TextBox, text, _("Packages to update"), True)
  		elif answer[1] == "log":
 -			text = open("/home/root/opkgupgrade.log", "r").read()
-+			text = open("/home/hdd/opkgupgrade.log", "r").read()
++			text = open("/media/hdd/opkgupgrade.log", "r").read()
  			self.session.openWithCallback(boundFunction(self.opkgCallback, OpkgComponent.EVENT_DONE, None), TextBox, text, _("Latest update log"), True)
  		else:
  			self.opkg.startCmd(OpkgComponent.CMD_UPGRADE, args={'test_only': False})
@@ -9777,7 +9788,7 @@ diff -ruN o/lib/python/skin.py pc/lib/python/skin.py
  import xml.etree.cElementTree
  
 +profile("LOAD:enigma_skin")
- from enigma import addFont, eLabel, ePixmap, ePoint, eRect, eSize, eWindow, eWindowStyleManager, eWindowStyleSkinned, getDesktop, gFont, getFontFaces, gRGB
+ from enigma import addFont, eLabel, ePixmap, ePoint, eRect, eSize, eWindow, eWindowStyleManager, eWindowStyleSkinned, getDesktop, gFont, getFontFaces, gRGB, BT_ALPHATEST, BT_ALPHABLEND
  from os.path import basename, dirname, isfile
  
 @@ -23,6 +27,7 @@
@@ -20433,7 +20444,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
 diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 --- o/tools/enigma2.sh.in	2021-07-07 17:49:35.958471472 +0300
 +++ pc/tools/enigma2.sh.in	2021-10-01 13:49:05.633218749 +0300
-@@ -1,144 +1,37 @@
+@@ -1,149 +1,37 @@
  #!/bin/sh
  
 -prefix=@prefix@
@@ -20549,6 +20560,11 @@ diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 -			prevupd=0
 -			currupd=999
 -			opkg update 2>&1 | tee /home/root/opkgupgrade.log
+-			# check if we need to upgrade busybox first
+-			if [ "$(opkg list-upgradable busybox)" != "" ]; then
+-				opkg update busybox 2>&1 | tee -a /home/root/opkgupgrade.log
+-			fi
+-			# update all other packages
 -			while [ $currupd -gt 0 -a $currupd -ne $prevupd ]; do
 -				opkg upgrade $DESTS 2>&1 | tee -a /home/root/opkgupgrade.log
 -				prevupd=$currupd
