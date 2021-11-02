@@ -508,7 +508,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2iplayer"
-		VER="7977fec225441ac7951fd4207e8b67ebe28676b6"
+		VER="6f7e1f5dc4872965a47d84a7d235e86ae061fef6"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -516,7 +516,7 @@ if [ -d plugins ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
 		fi
 		rm -f /usr/lib/librtmp.so.1
-		wget https://gitlab.com/maxbambi/e2iplayer/-/archive/$VER/e2iplayer-$VER.zip
+		wget https://gitlab.com/zadmario/e2iplayer/-/archive/$VER/e2iplayer-$VER.zip
 		unzip $PKG-$VER.zip
 		rm $PKG-$VER.zip
 		mv $PKG-$VER $PKG
