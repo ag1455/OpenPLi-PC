@@ -12,7 +12,7 @@
 echo "=================================================="
 echo "PLEASE WAIT"
 
-URL="https://raw.githubusercontent.com/audi06/SoftCam.Key_Serjoga/master"
+URL="https://raw.githubusercontent.com/popking159/softcam/master"
 
 TMP=`mktemp -d`
 cd ${TMP}

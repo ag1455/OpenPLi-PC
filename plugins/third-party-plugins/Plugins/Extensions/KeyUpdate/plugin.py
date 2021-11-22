@@ -44,7 +44,7 @@ def menu(menuid, **kwargs):
     return []
 def runbackup(session, result):
     if result:
-	session.open(Console, title=_('KeyUpdate'), cmdlist=["sh /usr/local/e2/lib/enigma2/python/Plugins/Extensions/KeyUpdate/KeyUpdate.sh"])
+        session.open(Console, title=_('KeyUpdate'), cmdlist=["sh /usr/local/e2/lib/enigma2/python/Plugins/Extensions/KeyUpdate/KeyUpdate.sh"])
 
 def main(session, **kwargs):
     session.openWithCallback(lambda r: runbackup(session, r), MessageBox, _('KeyUpdate \nKeyUpdate Do you want to update?'), MessageBox.TYPE_YESNO, timeout=20, default=True)
