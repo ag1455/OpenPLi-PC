@@ -2,8 +2,8 @@
 
 # Build and install xine-lib:
 LIB="libxine2"
-PKG="xine-lib-1.2-1.2.10+hg-e2pc"
-VER="3f383e140270"
+PKG="xine-lib-1.2-1.2.11+hg-e2pc"
+VER="14733f2eb68e"
 
 I=`dpkg -s $LIB | grep "Status"`
 
@@ -15,10 +15,12 @@ else
 fi
 
 # Remove old source libxine2.
-if [ -d $PKG ]; then
-	rm -rf $PKG
-else
-	rm -f $PKG
+if [ -d xine-lib-* ]; then
+	rm -rf xine-lib-*
+fi
+# Case of failure.
+if [ -f xine-lib-* ]; then
+	rm -f xine-lib-*
 fi
 
 # This is hg 1.2.10

@@ -1,3 +1,15 @@
+diff -ruN a/lib/python/Components/About.py b/lib/python/Components/About.py
+--- a/lib/python/Components/About.py	2021-12-02 13:48:58.103580125 +0300
++++ b/lib/python/Components/About.py	2021-12-02 14:15:18.447542372 +0300
+@@ -174,7 +174,7 @@
+ def getPythonVersionString():
+ 	try:
+ 		import commands
+-		status, output = commands.getstatusoutput("python -V")
++		status, output = commands.getstatusoutput("python2 -V")
+ 		return output.split(' ')[1]
+ 	except:
+ 		return _("unknown")
 diff -ruN a/po/updateallpo.sh b/po/updateallpo.sh
 --- a/po/updateallpo.sh	2021-07-07 13:18:31.629205551 +0300
 +++ b/po/updateallpo.sh	2021-11-01 12:25:11.085756446 +0300
