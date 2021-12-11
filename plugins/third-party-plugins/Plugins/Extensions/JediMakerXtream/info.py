@@ -72,7 +72,7 @@ class JediMakerXtream_UserInfo(Screen):
                     # remove unicode prefix in json list.
                     output_formats_list = []
                     for output_formats in jglob.current_playlist['user_info'][value]:
-                        output_formats_list.append(output_formats.encode('ascii'))
+                        output_formats_list.append(str(output_formats))
                     self.usertext += str(value) + ':\t' + str(output_formats_list) + '\n'
 
                 # convert unix date to normal date

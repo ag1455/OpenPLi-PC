@@ -31,7 +31,7 @@
     <widget source="key_info" render="Label" position="1084,686" size="90,25" font="jediregular;20" foregroundColor="#ffffff" backgroundColor="#232323" valign="center" transparent="1" zPosition="2" />
     <widget name="description" position="358,20" size="902,140" font="jediregular;20" foregroundColor="#ffffff" backgroundColor="#000000" halign="left" valign="top" transparent="1" />
     <widget name="lab1" position="346,206" size="914,411" font="jediregular;20" foregroundColor="#ffffff" backgroundColor="#232323" halign="center" valign="center" transparent="1" />
-    <widget source="playlists" render="Listbox" position="346,206" size="914,411" foregroundColor="#ffffff" backgroundColor="#232323" foregroundColorSelected="#ffffff" backgroundColorSelected="#0e6382" itemHeight="37" scrollbarMode="showOnDemand" transparent="1" zPosition="2">
+    <widget source="playlists" render="Listbox" position="346,206" size="914,411" foregroundColor="#ffffff" backgroundColor="#232323" foregroundColorSelected="#ffffff" backgroundColorSelected="#0e6382" itemHeight="37" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" zPosition="2">
         <convert type="TemplatedMultiContent">{"template": [
             MultiContentEntryPixmapAlphaBlend(pos = (12, 8), size = (20, 20), png = 0),
             MultiContentEntryText(pos = (46, 3), size = (554, 30), font=0,  color = 0x00ffffff, color_sel = 0x00ffffff, backcolor_sel = None, flags = RT_HALIGN_LEFT, text = 1),

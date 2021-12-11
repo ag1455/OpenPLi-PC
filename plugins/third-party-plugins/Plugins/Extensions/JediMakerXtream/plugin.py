@@ -6,7 +6,7 @@ from . import _
 from . import jediglobals as jglob
 
 from Components.ActionMap import HelpableActionMap
-from Components.config import config, ConfigSelection, ConfigNumber, ConfigClock, ConfigDirectory, ConfigSubsection, ConfigYesNo
+from Components.config import config, ConfigSelection, ConfigNumber, ConfigClock, ConfigDirectory, ConfigSubsection, ConfigYesNo, ConfigSelectionNumber
 from enigma import eTimer, eServiceReference, getDesktop, addFont
 from Plugins.Plugin import PluginDescriptor
 from Screens.EpgSelection import EPGSelection
@@ -55,6 +55,8 @@ cfg.bouquet_id = ConfigNumber()
 cfg.timeout = ConfigNumber(default=3)
 cfg.catchup = ConfigYesNo(default=False)
 cfg.catchupprefix = ConfigSelection(default='~', choices=[('~', '~'), ('!', '!'), ('#', '#'), ('-', '-'), ('<', '<'), ('^', '^')])
+cfg.catchupstart = ConfigSelectionNumber(0, 30, 1, default=0)
+cfg.catchupend = ConfigSelectionNumber(0, 30, 1, default=0)
 cfg.groups = ConfigYesNo(default=False)
 
 skin_path = skin_directory + cfg.skin.value + '/'
@@ -67,10 +69,7 @@ alias_file = '/etc/enigma2/jediplaylists/alias.txt'
 sat28_file = '/etc/enigma2/jediplaylists/28.2e.txt'
 
 
-hdr = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
-       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-       'Accept-Encoding': 'deflate'}
-
+hdr = {'User-Agent': 'Enigma2 - JediMakerXtream Plugin'}
 
 if not os.path.exists('/etc/enigma2/jediplaylists/'):
     os.makedirs('/etc/enigma2/jediplaylists/')

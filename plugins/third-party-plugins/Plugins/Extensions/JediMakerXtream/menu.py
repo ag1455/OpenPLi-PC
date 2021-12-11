@@ -55,7 +55,7 @@ class JediMakerXtream_Menu(Screen):
 
     def check_dependencies(self):
         dependencies = True
-        
+
         try:
             import lzma
         except:
@@ -63,14 +63,13 @@ class JediMakerXtream_Menu(Screen):
                 from backports import lzma
             except:
                 dependencies = False
-            
+
         if dependencies is False:
             os.chmod("/usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/dependencies.sh", 0o0755)
             cmd1 = ". /usr/lib/enigma2/python/Plugins/Extensions/JediMakerXtream/dependencies.sh"
             self.session.openWithCallback(self.createSetup, Console, title="Checking Python Dependencies", cmdlist=[cmd1], closeOnSuccess=False)
         else:
             self.createSetup()
-            
 
     def createSetup(self):
         self.list = []

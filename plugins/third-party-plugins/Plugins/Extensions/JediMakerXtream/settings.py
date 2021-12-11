@@ -49,7 +49,7 @@ class JediMakerXtream_Settings(ConfigListScreen, Screen):
         self['key_green'] = StaticText(_('Save'))
         self['information'] = Label('')
 
-        self['VirtualKB'].setEnabled(False)
+        # self['VirtualKB'].setEnabled(False)
         self['VKeyIcon'] = Pixmap()
         self['VKeyIcon'].hide()
         self['HelpWindow'] = Pixmap()
@@ -84,8 +84,12 @@ class JediMakerXtream_Settings(ConfigListScreen, Screen):
         self.cfg_extensions = getConfigListEntry(_('Show in extensions'), cfg.extensions)
         self.cfg_skin = getConfigListEntry(_('Select skin'), cfg.skin)
         self.cfg_timeout = getConfigListEntry(_('Server timeout (seconds)'), cfg.timeout)
+
         self.cfg_catchup = getConfigListEntry(_('Prefix Catchup channels'), cfg.catchup)
         self.cfg_catchupprefix = getConfigListEntry(_('Select Catchup prefix symbol'), cfg.catchupprefix)
+        self.cfg_catchupstart = getConfigListEntry(_('Margin before catchup (mins)'), cfg.catchupstart)
+        self.cfg_catchupend = getConfigListEntry(_('Margin after catchup (mins)'), cfg.catchupend)
+
         self.cfg_groups = getConfigListEntry(_('Group bouquets into its own folder'), cfg.groups)
 
     def createSetup(self):
@@ -101,6 +105,10 @@ class JediMakerXtream_Settings(ConfigListScreen, Screen):
         self.list.append(self.cfg_catchup)
         if cfg.catchup.value is True:
             self.list.append(self.cfg_catchupprefix)
+
+        self.list.append(self.cfg_catchupstart)
+        self.list.append(self.cfg_catchupend)
+
         self.list.append(self.cfg_timeout)
         self.list.append(self.cfg_main)
         self.list.append(self.cfg_extensions)
@@ -169,18 +177,39 @@ class JediMakerXtream_Settings(ConfigListScreen, Screen):
             if isinstance(currConfig[1], ConfigText):
                 if 'VKeyIcon' in self:
                     if isinstance(currConfig[1], ConfigNumber):
-                        self['VirtualKB'].setEnabled(False)
+                        try:
+                            self['VirtualKB'].setEnabled(False)
+                        except:
+                            pass
+
+                        try:
+                            self["virtualKeyBoardActions"].setEnabled(False)
+                        except:
+                            pass
+
                         self['VKeyIcon'].hide()
                     else:
-                        self['VirtualKB'].setEnabled(True)
+                        try:
+                            self['VirtualKB'].setEnabled(True)
+                        except:
+                            pass
+
+                        try:
+                            self["virtualKeyBoardActions"].setEnabled(True)
+                        except:
+                            pass
                         self['VKeyIcon'].show()
 
                 if "HelpWindow" in self and currConfig[1].help_window and currConfig[1].help_window.instance is not None:
                     helpwindowpos = self["HelpWindow"].getPosition()
                     currConfig[1].help_window.instance.move(ePoint(helpwindowpos[0], helpwindowpos[1]))
+
             else:
                 if 'VKeyIcon' in self:
-                    self['VirtualKB'].setEnabled(False)
+                    try:
+                        self['VirtualKB'].setEnabled(False)
+                    except:
+                        pass
                     self['VKeyIcon'].hide()
 
     def changedEntry(self):

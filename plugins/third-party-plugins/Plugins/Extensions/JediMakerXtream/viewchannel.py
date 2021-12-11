@@ -79,7 +79,6 @@ class JediMakerXtream_ViewChannels(Screen):
 
         response = downloads.checkGZIP(url)
 
-        print("** 5 **")
         if response:
             try:
                 streamlist = json.loads(response)

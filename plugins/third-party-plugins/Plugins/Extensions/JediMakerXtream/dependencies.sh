@@ -26,7 +26,7 @@ else
         echo
     else
         echo "checking python2-lzma"
-        apt-get -y install python-backports-lzma
+        apt-get -y install python-lzma
         echo
     fi
 fi

@@ -15,8 +15,8 @@ from collections import OrderedDict
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.Sources.List import List
+from datetime import datetime
 from enigma import getDesktop, eTimer
-
 
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
@@ -34,6 +34,11 @@ if pythonVer == 3:
     from urllib.request import urlopen, Request
 else:
     from urllib2 import urlopen, Request
+
+try:
+    from urlparse import urlparse, parse_qs
+except:
+    from urllib.parse import urlparse, parse_qs
 
 screenwidth = getDesktop(0).size()
 
@@ -135,7 +140,6 @@ class JediMakerXtream_Playlist(Screen):
         return(pixmap, str(name), extra)
 
     def loadPlaylist(self):
-
         if jglob.firstrun == 0:
             self.playlists_all = jfunc.getPlaylistJson()
             self.getPlaylistUserFile()
@@ -163,65 +167,79 @@ class JediMakerXtream_Playlist(Screen):
             f.truncate()
 
     def getPlaylistUserFile(self):
-
         self.playlists_all_new = []
 
-        with open(playlist_path) as f:
+        with open(playlist_path, 'r+') as f:
             lines = f.readlines()
             f.seek(0)
-            self.index = 0
-
+            f.writelines((line.strip(' ') for line in lines if line.strip()))
+            f.seek(0)
             for line in lines:
+                if not line.startswith('http://') and not line.startswith('https://') and not line.startswith('#'):
+                    line = '# ' + line
+                if "=mpegts" in line:
+                    line = line.replace("=mpegts", "=ts")
+                if "=hls" in line:
+                    line = line.replace("=hls", "=m3u8")
+                if line.strip() == "#":
+                    line = ""
+                f.write(line)
+            f.seek(0)
 
-                response = ""
-                player = False
-                panel = False
-                valid = False
-                self.playlist_data = {}
+        self.index = 0
 
-                self.protocol = 'http://'
-                self.domain = ''
-                self.port = 80
-                self.username = ''
-                self.password = ''
-                self.type = 'm3u'
-                self.output = 'ts'
-                self.host = ''
-                player_api = ''
-                filename = ''
+        for line in lines:
+            self.protocol = 'http://'
+            self.domain = ''
+            self.port = 80
+            self.username = ''
+            self.password = ''
+            self.type = 'm3u'
+            self.output = 'ts'
+            self.host = ''
+            self.name = ''
+            player_api = ''
+            player = False
+            valid = False
+            response = ""
+            self.playlist_data = {}
 
-                urlsplit1 = line.split("/")
-                urlsplit2 = line.split("?")
+            if not line.startswith("#") and line.startswith('http'):
+                line = line.strip()
 
-                self.protocol = urlsplit1[0] + "//"
+                parsed_uri = urlparse(line)
 
-                if not (self.protocol == "http://" or self.protocol == "https://"):
+                self.protocol = parsed_uri.scheme + "://"
+
+                if not self.protocol == "http://" and not self.protocol == "https://":
                     continue
 
-                if len(urlsplit1) > 2:
-                    self.domain = urlsplit1[2].split(':')[0]
-                    if len(urlsplit1[2].split(':')) > 1:
-                        self.port = urlsplit1[2].split(':')[1]
+                self.domain = parsed_uri.hostname
+                self.name = self.domain
+                if line.partition(" #")[-1]:
+                    self.name = line.partition(" #")[-1]
 
-                self.host = str(self.protocol) + str(self.domain) + ':' + str(self.port) + '/'
+                if parsed_uri.port:
+                    self.port = parsed_uri.port
 
-                if len(urlsplit2) > 1:
-                    for param in urlsplit2[1].split("&"):
-                        if param.startswith("username"):
-                            self.username = param.split('=')[1]
-                        if param.startswith("password"):
-                            self.password = param.split('=')[1]
-                        if param.startswith("type"):
-                            self.type = param.split('=')[1]
-                        if param.startswith("output"):
-                            self.output = param.split('=')[1].strip()
+                self.host = "%s%s:%s" % (self.protocol, self.domain, self.port)
 
-                player_api = str(self.host) + 'player_api.php?username=' + str(self.username) + '&password=' + str(self.password)
-                panel_api = str(self.host) + 'panel_api.php?username=' + str(self.username) + '&password=' + str(self.password)
-                # full_url = line
+                query = parse_qs(parsed_uri.query, keep_blank_values=True)
 
+                if "username" in query:
+                    self.username = query['username'][0].strip()
+
+                if "password" in query:
+                    self.password = query['password'][0].strip()
+
+                if "type" in query:
+                    self.type = query['type'][0].strip()
+
+                if "output" in query:
+                    self.output = query['output'][0].strip()
+
+                player_api = "%s/player_api.php?username=%s&password=%s" % (self.host, self.username, self.password)
                 player_req = Request(player_api, headers=hdr)
-                panel_req = Request(panel_api, headers=hdr)
 
                 # check if iptv playlist
                 if 'get.php' in line and self.domain != '' and self.username != '' and self.password != '':
@@ -238,26 +256,10 @@ class JediMakerXtream_Playlist(Screen):
                         pass
 
                     if not valid or response == "":
-                        player = False
-                        try:
-
-                            response = urlopen(panel_req, timeout=cfg.timeout.value + 5)
-                            panel = True
-                            valid = self.checkPanel(response)
-
-                        except Exception as e:
-                            print(e)
-                            pass
-
-                        except:
-                            pass
-
-                    if not valid or response == "":
                         try:
                             req = Request(line, headers=hdr)
                             response = urlopen(req, None, cfg.timeout.value + 5)
                             if 'EXTINF' in response.read():
-                                # extinf = True
                                 valid = True
 
                         except Exception as e:
@@ -271,10 +273,14 @@ class JediMakerXtream_Playlist(Screen):
                     if 'http' in line:
                         try:
                             req = Request(line, headers=hdr)
+
                             response = urlopen(req, None, cfg.timeout.value + 5)
-                            if 'EXTINF' in response.read():
-                                # extinf = True
-                                valid = True
+                            if pythonVer == 3:
+                                if 'EXTINF' in response.read().decode('utf-8'):
+                                    valid = True
+                            else:
+                                if 'EXTINF' in response.read():
+                                    valid = True
 
                         except Exception as e:
                             print(e)
@@ -285,12 +291,11 @@ class JediMakerXtream_Playlist(Screen):
 
                 if player:
                     self.buildPlaylist(line, valid, "xtream")
-                elif panel:
-                    self.buildPlaylist(line, valid, "panel")
                 else:
                     self.buildPlaylist(line, valid, "extinf")
 
         # add local M3Us
+        filename = ''
         for filename in os.listdir(cfg.m3ulocation.value):
 
             self.playlist_data = {}
@@ -329,6 +334,7 @@ class JediMakerXtream_Playlist(Screen):
             pass
 
     def buildPlaylist(self, line, valid, paneltype):
+        serveroffset = 0
         if 'user_info' in self.playlist_data:
             if 'message' in self.playlist_data['user_info']:
                 del self.playlist_data['user_info']['message']
@@ -343,11 +349,17 @@ class JediMakerXtream_Playlist(Screen):
                 if 'timestamp_now' in self.playlist_data['server_info']:
                     del self.playlist_data['server_info']['timestamp_now']
 
-            # if user entered output type not valid, get output type from provider.
+                if 'time_now' in self.playlist_data['server_info']:
+                    time_now_datestamp = datetime.strptime(str(self.playlist_data['server_info']['time_now']), "%Y-%m-%d %H:%M:%S")
+                    serveroffset = datetime.now().hour - time_now_datestamp.hour
 
+            # if user entered output type not valid, get output type from provider.
             if 'allowed_output_formats' in self.playlist_data['user_info']:
                 if self.output not in self.playlist_data['user_info']['allowed_output_formats']:
-                    self.output = str(self.playlist_data['user_info']['allowed_output_formats'][0])
+                    try:
+                        self.output = str(self.playlist_data['user_info']['allowed_output_formats'][0])
+                    except:
+                        self.output = "ts"
 
         if paneltype == "xtream":
             self.playlist_data['playlist_info'] = OrderedDict([
@@ -362,21 +374,8 @@ class JediMakerXtream_Playlist(Screen):
                 ("address", line),
                 ("valid", valid),
                 ("playlisttype", "xtream"),
-            ])
-
-        elif paneltype == "panel":
-            self.playlist_data['playlist_info'] = OrderedDict([
-                ("index", self.index),
-                ("protocol", self.protocol),
-                ("domain", self.domain),
-                ("port", self.port),
-                ("username", self.username),
-                ("password", self.password),
-                ("type", self.type),
-                ("output", self.output),
-                ("address", line),
-                ("valid", valid),
-                ("playlisttype", "panel"),
+                ("name", self.name),
+                ("serveroffset", serveroffset),
             ])
 
         else:
@@ -388,6 +387,7 @@ class JediMakerXtream_Playlist(Screen):
                 ("address", line),
                 ("valid", valid),
                 ("playlisttype", 'external'),
+                ("name", self.name),
             ])
 
         if self.playlists_all != []:
@@ -411,11 +411,8 @@ class JediMakerXtream_Playlist(Screen):
             validstate = 'Invalid'
 
             if playlist != {}:
-                if playlist['playlist_info']['playlisttype'] == 'xtream' or playlist['playlist_info']['playlisttype'] == 'panel' or 'get.php' in playlist['playlist_info']['address']:
-                    if 'bouquet_info' in playlist and 'name' in playlist['bouquet_info']:
-                        alias = playlist['bouquet_info']['name']
-                    else:
-                        alias = playlist['playlist_info']['domain']
+                if playlist['playlist_info']['playlisttype'] == 'xtream' or 'get.php' in playlist['playlist_info']['address']:
+                    alias = playlist['playlist_info']['name']
                 else:
                     alias = playlist['playlist_info']['address']
 
@@ -484,7 +481,7 @@ class JediMakerXtream_Playlist(Screen):
                 else:
                     self.session.open(MessageBox, _('Server down or user no longer authorised!'), MessageBox.TYPE_ERROR, timeout=5)
         else:
-            if (jglob.current_playlist['playlist_info']['playlisttype'] == 'xtream' or jglob.current_playlist['playlist_info']['playlisttype'] == 'panel') and jglob.current_playlist['playlist_info']['valid'] is False:
+            if jglob.current_playlist['playlist_info']['playlisttype'] == 'xtream' and jglob.current_playlist['playlist_info']['valid'] is False:
                 self.session.open(MessageBox, _('Url is invalid or playlist/user no longer authorised!'), MessageBox.TYPE_ERROR, timeout=5)
 
             if jglob.current_playlist['playlist_info']['playlisttype'] == 'external':
@@ -510,7 +507,6 @@ class JediMakerXtream_Playlist(Screen):
             self.session.open(MessageBox, _('Edit unavailable for local M3Us.\nManually Delete/Amend M3U files in folder.\n') + cfg.m3ulocation.value, MessageBox.TYPE_ERROR, timeout=5)
 
     def deletePlaylist(self, answer=None):
-
         if jglob.current_playlist['playlist_info']['playlisttype'] != 'local':
             if answer is None:
                 self.session.openWithCallback(self.deletePlaylist, MessageBox, _('Permanently delete selected playlist?'))

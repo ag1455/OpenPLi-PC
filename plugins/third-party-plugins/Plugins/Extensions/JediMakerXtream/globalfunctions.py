@@ -142,6 +142,10 @@ def readbouquetdata():
     jglob.livebuffer = jglob.current_playlist['bouquet_info']['buffer_live']
     jglob.vodbuffer = jglob.current_playlist['bouquet_info']['buffer_vod']
     jglob.fixepg = jglob.current_playlist['bouquet_info']['fixepg']
+    try:
+        jglob.catchupshift = jglob.current_playlist['bouquet_info']['catchupshift']
+    except:
+        jglob.catchupshift = 0
 
     if jglob.selected_live_categories != []:
         jglob.live = True
@@ -459,15 +463,14 @@ def process_category(category_name, category_type, category_id, domain, port, us
             bouquet_id_sid = int(jglob.bouquet_id + calc_remainder)
             stream_id_sid = int(stream_id) - int(calc_remainder * 65535)
 
+            custom_sid = ':0:' + str(service_type) + ':' + str(format(bouquet_id_sid, '04x')) + ':' + str(format(stream_id_sid, '04x')) + ':0:0:0:0:' + str(jglob.livebuffer) + str(':')
+
             if 'custom_sid' in streamvaluesgroup[i]:
                 if re.match(r':\d+:\d+:[a-zA-Z0-9]+:[a-zA-Z0-9]+:[a-zA-Z0-9]+:[a-zA-Z0-9]+:0:0:0:', str(streamvaluesgroup[i]['custom_sid'])):
                     custom_sid = streamvaluesgroup[i]['custom_sid'][:-2] + str(jglob.livebuffer) + str(':')
                 elif re.match(r':\d+:\d+:[a-zA-Z0-9]+:[a-zA-Z0-9]+:[a-zA-Z0-9]+:[a-zA-Z0-9]+:0:0:', str(streamvaluesgroup[i]['custom_sid'])):
                     custom_sid = str(streamvaluesgroup[i]['custom_sid']) + str(jglob.livebuffer) + str(':')
-                else:
-                    custom_sid = ':0:' + str(service_type) + ':' + str(format(bouquet_id_sid, '04x')) + ':' + str(format(stream_id_sid, '04x')) + ':0:0:0:0:' + str(jglob.livebuffer) + str(':')
-            else:
-                custom_sid = ':0:' + str(service_type) + ':' + str(format(bouquet_id_sid, '04x')) + ':' + str(format(stream_id_sid, '04x')) + ':0:0:0:0:' + str(jglob.livebuffer) + str(':')
+
             if epgid:
                 custom_sid = serviceref[:-2] + str(jglob.livebuffer) + str(':')
 
@@ -531,7 +534,6 @@ def process_category(category_name, category_type, category_id, domain, port, us
         streamvalues = [stream for stream in jglob.seriesstreams if str(category_id) == str(stream['category_id'])]
         streamvalues = sorted(streamvalues, key=lambda s: s['name'])
         streamvaluesgroup += streamvalues
-
         stream_type = 'series'
         custom_sid = ':0:1:0:0:0:0:0:0:' + str(jglob.vodbuffer) + str(':')
 

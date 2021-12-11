@@ -26,10 +26,11 @@ else:
 
 def checkGZIP(url):
     response = None
+
     request = Request(url, headers=hdr)
 
     try:
-        response = urlopen(request)
+        response = urlopen(request, timeout=20)
 
         if response.info().get('Content-Encoding') == 'gzip':
             buffer = StringIO(response.read())
@@ -43,7 +44,8 @@ def checkGZIP(url):
                 return response.read().decode('utf-8')
             else:
                 return response.read()
-    except:
+    except Exception as e:
+        print(e)
         return None
 
 
@@ -224,68 +226,8 @@ def downloadseriesstreams(url):
             jglob.series = False
 
 
-def getpanellive(playlist):
-    jglob.livestreams = []
-    if 'available_channels' in playlist:
-        for channel in playlist['available_channels']:
-            if 'stream_type' in playlist['available_channels'][channel]:
-                if playlist['available_channels'][channel]['stream_type'] == "live":
-                    jglob.livestreams.append(playlist['available_channels'][channel])
-                    jglob.haslive = True
-                    jglob.live = True
-
-            elif 'live' in playlist['available_channels'][channel]:
-                if playlist['available_channels'][channel]['live'] == "1":
-                    jglob.haslive = True
-                    jglob.live = True
-                    if playlist['available_channels'][channel]['category_name'] is None:
-                        playlist['available_channels'][channel]['category_name'] = "Live Streams"
-                    if playlist['available_channels'][channel]['category_id'] is None:
-                        playlist['available_channels'][channel]['category_id'] = "1"
-
-                    categoryValues = [str(playlist['available_channels'][channel]['category_name']), 'Live', int(playlist['available_channels'][channel]['category_id']), True]
-                    if categoryValues not in jglob.categories:
-                        jglob.categories.append(categoryValues)
-                    jglob.livestreams.append(playlist['available_channels'][channel])
-
-
-def getpanelvod(playlist):
-    jglob.vodstreams = []
-    if 'available_channels' in playlist:
-        for channel in playlist['available_channels']:
-            if 'stream_type' in playlist['available_channels'][channel]:
-                if playlist['available_channels'][channel]['stream_type'] == "movie":
-                    jglob.vodstreams.append(playlist['available_channels'][channel])
-                    jglob.hasvod = True
-                    jglob.vod = True
-
-            elif 'live' in playlist['available_channels'][channel]:
-                if playlist['available_channels'][channel]['live'] == "0":
-                    jglob.hasvod = True
-                    jglob.vod = True
-
-                    if playlist['available_channels'][channel]['category_name'] is None:
-                        playlist['available_channels'][channel]['category_name'] = "Movies"
-                    if playlist['available_channels'][channel]['category_id'] is None:
-                        playlist['available_channels'][channel]['category_id'] = "2"
-
-                    categoryValues = [str(playlist['available_channels'][channel]['category_name']), 'VOD', int(playlist['available_channels'][channel]['category_id']), True]
-                    if categoryValues not in jglob.categories:
-                        jglob.categories.append(categoryValues)
-                    jglob.vodstreams.append(playlist['available_channels'][channel])
-
-
-def getpanelseries(playlist):
-    if 'available_channels' in playlist:
-        for channel in playlist['available_channels']:
-            if 'stream_type' in playlist['available_channels'][channel]:
-                if playlist['available_channels'][channel]['stream_type'] == "series":
-                    jglob.seriesstreams.append(playlist['available_channels'][channel])
-                    jglob.hasvod = True
-                    jglob.vod = True
-
-
 def getM3uCategories(live, vod):
+    # print("**** getM3uCategories ***")
     lines = []
     channelnum = 0
     jglob.getm3ustreams = []
@@ -323,6 +265,10 @@ def getM3uCategories(live, vod):
             lines = f.readlines()
 
     for line in lines:
+
+        if pythonVer == 3 and jglob.current_playlist['playlist_info']['playlisttype'] == 'external':
+            line = line.decode('utf-8')
+
         if not line.startswith('#EXTINF') and not line.startswith('http'):
             continue
 
@@ -345,10 +291,6 @@ def getM3uCategories(live, vod):
             if name == '':
                 channelnum += 1
                 name = 'Channel ' + str(channelnum)
-
-                if line.startswith('https'):
-                    line.replace('https', 'http')
-                series_url = line.strip()
 
         elif line.startswith('http'):
             source = line.strip()
@@ -422,11 +364,9 @@ def downloadrytec():
         pass
 
     if os.path.isfile(rytec_file) and os.stat(rytec_file).st_size > 0 and haslzma:
-        with lzma.open(rytec_file, 'rb') as fd:
-
+        with lzma.open(rytec_file, 'rt', encoding="UTF-8") as fd:
             with open(sat28_file, 'w') as outfile:
                 for line in fd:
-
                     if "<!-- 28.2E -->" in line and "0000FFFF" not in line:
                         jglob.rytecnames.append(line)
                     # get all 28.2e but ignore bad epg importer refs
@@ -479,6 +419,7 @@ def downloadrytec():
 
 def downloadgetfile(url):
     response = checkGZIP(url)
+
     channelnum = 0
     m3uValues = {}
     series_group_title = 'Uncategorised'
@@ -486,8 +427,6 @@ def downloadgetfile(url):
 
     if response is not None:
         for line in response.splitlines():
-
-            # line = line.decode('utf-8')
 
             if not line.startswith('#EXTINF') and not line.startswith('http'):
                 continue
@@ -499,11 +438,11 @@ def downloadgetfile(url):
                 else:
                     series_group_title = 'Uncategorised'
 
-                if re.search('(?<=,).*$', line) is not None:
-                    series_name = re.search('(?<=,).*$', line).group().strip()
-
-                elif re.search('tvg-name=\"(.*?)\"', line) is not None:
+                if re.search('tvg-name=\"(.*?)\"', line) is not None:
                     series_name = re.search('tvg-name=\"(.*?)\"', line).group(1).strip()
+
+                elif re.search('(?<=",).*$', line) is not None:
+                    series_name = re.search('(?<=",).*$', line).group().strip()
 
                 else:
                     series_name = ''
@@ -516,7 +455,6 @@ def downloadgetfile(url):
                 series_url = line.strip()
 
                 if '/series/' in series_url:
-
                     if series_group_title not in m3uValues:
                         m3uValues[series_group_title] = [{'name': series_name, 'url': series_url}]
                     else:

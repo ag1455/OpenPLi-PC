@@ -14,14 +14,15 @@ from Components.Sources.StaticText import StaticText
 from enigma import eServiceReference
 from Screens.InfoBar import MoviePlayer
 from Screens.Screen import Screen
+from datetime import datetime
 
 import base64
 import calendar
-import datetime
 import json
 import re
 import socket
 import sys
+import time
 
 pythonVer = 2
 if sys.version_info.major == 3:
@@ -140,7 +141,7 @@ def downloadSimpleData():
                 if hasarchive:
                     jglob.dates = []
                     for listing in jglob.archive:
-                        date = datetime.datetime.strptime(listing['start'], '%Y-%m-%d %H:%M:%S')
+                        date = datetime.strptime(listing['start'], '%Y-%m-%d %H:%M:%S')
                         day = calendar.day_abbr[date.weekday()]
                         start = ["%s\t%s" % (day, date.strftime("%d/%m/%Y")), date.strftime("%Y-%m-%d")]
 
@@ -156,7 +157,7 @@ def downloadSimpleData():
                     jglob.archive = []
 
                     numberofdays = 7
-                    currentDate = datetime.datetime.combine(datetime.date.today(), datetime.datetime.min.time())
+                    currentDate = datetime.combine(datetime.date.today(), datetime.min.time())
 
                     manualArchiveStartDate = currentDate + datetime.timedelta(days=-numberofdays)
                     jglob.dates = []
@@ -270,7 +271,8 @@ class JediMakerXtream_Catchup(Screen):
         for date in jglob.dates:
             self.list.append((str(date[0]), str(date[1])))
 
-        self['newlist'].list = self.list
+        # self['newlist'].list = self.list.reverse()
+        self.list.reverse()
         self['newlist'].setList(self.list)
 
     def getSelectedDateData(self):
@@ -327,40 +329,75 @@ class JediMakerXtream_Catchup_Listings(Screen):
 
     def getlistings(self):
 
-        cu_date_all = ""
-        cu_time_all = ""
-        cu_title = ""
-        cu_description = ""
-        cu_play_start = ""
-        cu_duration = ""
+        epg_title = ""
+        epg_description = ""
+
+        shift = 0
+
+        start = ""
+        start_timestamp_o = ""
+
+        end = ""
+        stop_timestamp_o = ""
+
+        start_timestamp = ""
+        start_timestamp_datestamp = ""
+
+        stop_timestamp = ""
+        stop_timestamp_datestamp = ""
+
+        epg_date_all = ""
+        epg_time_all = ""
+
+        catchupstart = ""
+        catchupend = ""
+
+        epg_duration = ""
 
         self.index = 0
         for listing in self.archive:
-            if 'start' in listing:
-
-                cu_start = datetime.datetime.strptime(listing['start'], '%Y-%m-%d %H:%M:%S')
-                cu_start_time = cu_start.strftime("%H:%M")
-                cu_day = calendar.day_abbr[cu_start.weekday()]
-                cu_start_date = cu_start.strftime("%d/%m")
-                cu_play_start = cu_start.strftime('%Y-%m-%d:%H-%M')
-
-                cu_date_all = "%s %s" % (cu_day, cu_start_date)
-
-            if 'end' in listing:
-                cu_end = datetime.datetime.strptime(listing['end'], '%Y-%m-%d %H:%M:%S')
-                cu_end_time = cu_end.strftime("%H:%M")
-                cu_time_all = "%s - %s" % (cu_start_time, cu_end_time)
-
-            if 'start_timestamp' in listing and 'stop_timestamp' in listing:
-                cu_duration = (int(listing['stop_timestamp']) - int(listing['start_timestamp'])) // 60
 
             if 'title' in listing:
-                cu_title = base64.b64decode(listing['title']).decode("utf-8")
+                epg_title = base64.b64decode(listing['title']).decode('utf-8')
 
             if 'description' in listing:
-                cu_description = base64.b64decode(listing['description']).decode("utf-8")
+                epg_description = base64.b64decode(listing['description']).decode('utf-8')
 
-            self.catchup_all.append([self.index, str(cu_date_all), str(cu_time_all), str(cu_title), str(cu_description), str(cu_play_start), str(cu_duration)])
+            shift = int(jglob.catchupshift)
+
+            if 'start' in listing:
+                start = listing['start']
+                start_timestamp_o = int(time.mktime(time.strptime(start, "%Y-%m-%d %H:%M:%S")))
+
+            if 'end' in listing:
+                end = listing['end']
+                stop_timestamp_o = int(time.mktime(time.strptime(end, "%Y-%m-%d %H:%M:%S")))
+
+            if 'start_timestamp' in listing:
+                start_timestamp = int(listing['start_timestamp'])
+                start_timestamp_datestamp = datetime.fromtimestamp(start_timestamp)
+
+            if 'stop_timestamp' in listing:
+                stop_timestamp = int(listing['stop_timestamp'])
+                stop_timestamp_datestamp = datetime.fromtimestamp(stop_timestamp)
+
+            epg_date_all = "%s %s" % (start_timestamp_datestamp.strftime("%a"), start_timestamp_datestamp.strftime("%d/%m"))
+
+            epg_time_all = "%s - %s" % (start_timestamp_datestamp.strftime("%H:%M"), stop_timestamp_datestamp.strftime("%H:%M"))
+
+            catchupstart = int(cfg.catchupstart.getValue())
+            catchupend = int(cfg.catchupend.getValue())
+
+            start_timestamp_o -= (catchupstart * 60)
+            stop_timestamp_o += (catchupend * 60)
+
+            epg_duration = int(stop_timestamp_o - start_timestamp_o) / 60
+
+            start_timestamp_o += (shift * 60 * 60)
+
+            url_datestring = str((datetime.fromtimestamp(start_timestamp_o).strftime("%Y-%m-%d %H:%M:%S")).replace(":", "-").replace(" ", ":"))[0:16]
+
+            self.catchup_all.append([self.index, str(epg_date_all), str(epg_time_all), str(epg_title), str(epg_description), str(url_datestring), str(epg_duration)])
 
             self.index += 1
 
@@ -369,10 +406,10 @@ class JediMakerXtream_Catchup_Listings(Screen):
     def createSetup(self):
         self.list = []
 
+        self.catchup_all.reverse()
         for listing in self.catchup_all:
             self.list.append((str(listing[0]), str(listing[1]), str(listing[2]), str(listing[3]), str(listing[4]), str(listing[5]), str(listing[6])))
 
-        self['list'].list = self.list
         self['list'].setList(self.list)
 
         if self.list != []:
@@ -380,9 +417,7 @@ class JediMakerXtream_Catchup_Listings(Screen):
 
     def play(self):
         playurl = "%s/streaming/timeshift.php?username=%s&password=%s&stream=%s&start=%s&duration=%s" % (jglob.domain, jglob.username, jglob.password, jglob.refstreamnum, self.catchup_all[self.currentSelection][5], self.catchup_all[self.currentSelection][6])
-        streamtype = jglob.currentref.type
-        if streamtype == 1:
-            streamtype = 4097
+        streamtype = 4097
         sref = eServiceReference(streamtype, 0, playurl)
         sref.setName(self.catchup_all[self.currentSelection][3])
         self.session.open(MoviePlayer, sref)

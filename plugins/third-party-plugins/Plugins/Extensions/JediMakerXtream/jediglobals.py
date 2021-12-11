@@ -80,3 +80,4 @@ refstreamnum = ""
 rytecnames = []
 
 fixepg = False
+catchupshift = 0

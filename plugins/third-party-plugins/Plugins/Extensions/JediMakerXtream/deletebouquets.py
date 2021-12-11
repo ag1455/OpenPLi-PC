@@ -75,6 +75,7 @@ class JediMakerXtream_DeleteBouquets(Screen):
                 self.startList.append([str(playlist['bouquet_info']['oldname']), playlist['playlist_info']['index'], False])
 
         self.drawList = [self.buildListEntry(x[0], x[1], x[2]) for x in self.startList]
+        self['list'].setList(self.drawList)
 
     def refresh(self):
         self.drawList = []
