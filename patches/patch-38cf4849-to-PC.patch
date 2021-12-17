@@ -9704,7 +9704,16 @@ diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
 diff -ruN o/lib/python/Screens/Setup.py pc/lib/python/Screens/Setup.py
 --- o/lib/python/Screens/Setup.py	2021-07-07 17:49:35.880471746 +0300
 +++ pc/lib/python/Screens/Setup.py	2021-10-01 13:49:05.625220006 +0300
-@@ -143,8 +143,8 @@
+@@ -62,6 +62,8 @@
+ 	def selectionChanged(self):
+ 		self["SetupEntry"].text = self.parent.getCurrentEntry()
+ 		self["SetupValue"].text = self.parent.getCurrentValue()
++		if hasattr(self.parent, "getCurrentDescription") and "description" in self.parent:
++			self.parent["description"].text = self.parent.getCurrentDescription()
+ 
+ 
+ class Setup(ConfigListScreen, Screen):
+@@ -143,8 +145,8 @@
  				if not isinstance(item, ConfigNothing):
  					self.list.append((item_text, item, item_description))
  		self["config"].setList(self.list)
