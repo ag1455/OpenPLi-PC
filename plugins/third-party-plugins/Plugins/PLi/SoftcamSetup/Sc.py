@@ -254,10 +254,10 @@ class ScNewSelection(Screen):
 		del self.activityTimer 
 		if "c" in self.what:
 			self.cardserver.select(self.cardservers.value)
-			self.cardserver.command('start')
+			self.cardserver.command('force-reload')
 		if "s" in self.what:
 			self.softcam.select(self.softcams.value)
-			self.softcam.command('start')
+			self.softcam.command('force-reload')
 		if self.mbox:
 			self.mbox.close()
 		if config.plugins.SoftcamMenu.CloseOnRestart.value:
