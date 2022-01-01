@@ -15,7 +15,7 @@ diff -ruN o/debian/changelog pc/debian/changelog
 --- o/debian/changelog	2021-05-07 16:11:29.885121541 +0300
 +++ pc/debian/changelog	2021-10-07 10:33:46.513779009 +0300
 @@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.11+hg-5b2d0476062a-14932-e2pc) experimental; urgency=low
++xine-lib-1.2 (1.2.11+hg-66e22d94a140-14947-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
 +  * Patched version for e2pc.
@@ -135,15 +135,13 @@ diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
 diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
 --- o/include/xine/video_out.h	2021-05-07 16:11:03.713716107 +0300
 +++ pc/include/xine/video_out.h	2021-10-07 10:32:29.604653281 +0300
-@@ -272,7 +272,10 @@
- #define VO_PROP_BUFS_FREE             27 /* read-only */
- #define VO_PROP_MAX_VIDEO_WIDTH       28 /* read-only */
- #define VO_PROP_MAX_VIDEO_HEIGHT      29 /* read-only */
--#define VO_NUM_PROPERTIES             30
-+#define VO_PROP_LAST_PTS              30
-+#define VO_PROP_DEINTERLACE_SD        31
-+#define VO_PROP_DEINTERLACE_HD        32
-+#define VO_NUM_PROPERTIES             33
+@@ -276,6 +276,9 @@
+ #define VO_PROP_CAPS2                 30 /* read-only. second capability flags, see below. */
+ #define VO_PROP_TRANSFORM             31 /* XINE_VO_TRANSFORM_* */
+ #define VO_NUM_PROPERTIES             32
++#define VO_PROP_LAST_PTS              33
++#define VO_PROP_DEINTERLACE_SD        34
++#define VO_PROP_DEINTERLACE_HD        35
  
  /* number of colors in the overlay palette. Currently limited to 256
     at most, because some alphablend functions use an 8-bit index into
@@ -163,7 +161,7 @@ diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
 diff -ruN o/include/xine.h pc/include/xine.h
 --- o/include/xine.h	2021-10-07 10:30:31.070010114 +0300
 +++ pc/include/xine.h	2021-10-07 10:32:29.605653298 +0300
-@@ -1840,6 +1840,7 @@
+@@ -1845,6 +1845,7 @@
  #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
  #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
  #define XINE_EVENT_NBC_STATS             15 /* nbc buffer status */
@@ -171,7 +169,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  
  
  /* input events coming from frontend */
-@@ -1931,6 +1932,17 @@
+@@ -1936,6 +1937,17 @@
  /* events generated from post plugins */
  #define XINE_EVENT_POST_TVTIME_FILMMODE_CHANGE   400
  
@@ -189,7 +187,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * xine event struct
   */
-@@ -1964,6 +1976,11 @@
+@@ -1969,6 +1981,11 @@
    char                str[256]; /* might be longer */
  } xine_ui_data_t;
  
@@ -201,7 +199,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * Send messages to UI. used mostly to report errors.
   */
-@@ -2042,6 +2059,10 @@
+@@ -2047,6 +2064,10 @@
    int                 type;         /* 0=buffer put, 1=buffer get */
  } xine_nbc_stats_data_t;
  
@@ -212,7 +210,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * mrl reference data is sent by demuxers when a reference stream is found.
   * this stream just contains pointers (urls) to the real data, which are
-@@ -2347,6 +2368,7 @@
+@@ -2352,6 +2373,7 @@
  void        xine_osd_set_position  (xine_osd_t *self, int x, int y) XINE_PROTECTED;
  void        xine_osd_show          (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
  void        xine_osd_show_unscaled (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
@@ -345,7 +343,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
  #ifdef DUMP_VIDEO_HEADS
    FILE *vhdfile;
-@@ -2865,6 +2866,7 @@
+@@ -2868,6 +2869,7 @@
  
  static void demux_ts_event_handler (demux_ts_t *this) {
    xine_event_t *event = NULL;
@@ -353,7 +351,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
    while ((event = xine_event_next (this->event_queue, event))) {
  
-@@ -2874,6 +2876,7 @@
+@@ -2877,6 +2879,7 @@
        /* flush all streams */
        demux_ts_flush(this);
        /* fall thru */
@@ -361,7 +359,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
      case XINE_EVENT_PIDS_CHANGE:
  
-@@ -2882,6 +2885,36 @@
+@@ -2885,6 +2888,36 @@
        _x_demux_control_start (this->stream);
        break;
  
@@ -398,7 +396,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
      }
    }
  }
-@@ -3439,6 +3472,9 @@
+@@ -3442,6 +3475,9 @@
    this->pkt_size   = PKT_SIZE + this->pkt_offset;
  #endif
  
@@ -457,7 +455,7 @@ diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 +  { PLUGIN_POST ,  10, "enigma"      , XINE_VERSION_CODE, &enigma_video_special_info, &enigma_video_init_plugin },
 +  { PLUGIN_POST ,  10, "enigma_video", XINE_VERSION_CODE, &enigma_video_special_info, &enigma_video_init_plugin },
 +  { PLUGIN_POST ,  10, "enigma_audio", XINE_VERSION_CODE, &enigma_audio_special_info, &enigma_audio_init_plugin },
-+  { PLUGIN_NONE ,   0, NULL       , 0                , NULL                   , NULL }
++  { PLUGIN_NONE ,   0, NULL          , 0                , NULL                      , NULL }
 +};
 +
 diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
@@ -2935,7 +2933,7 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
 diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
 --- o/src/xine-engine/xine_interface.c	2021-07-02 12:06:30.246655660 +0300
 +++ pc/src/xine-engine/xine_interface.c	2021-10-07 10:32:29.611653399 +0300
-@@ -878,6 +878,10 @@
+@@ -880,6 +880,10 @@
    this->osd.renderer->show_unscaled(&this->osd, vpts);
  }
  

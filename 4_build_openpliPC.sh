@@ -135,7 +135,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 38cf4849
+git reset --hard 341b8486
 cd ..
 
 # Copy headers
@@ -149,9 +149,9 @@ fi
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-cp -fv patches/patch-38cf4849-to-PC.patch $PKG
+cp -fv patches/patch-341b8486-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-38cf4849-to-PC.patch
+patch -p1 < patch-341b8486-to-PC.patch
 
 if [ "$release" = "14.04" ]; then
 	echo ""
