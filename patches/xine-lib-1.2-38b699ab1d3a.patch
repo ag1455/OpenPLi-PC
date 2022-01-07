@@ -343,7 +343,36 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
  #ifdef DUMP_VIDEO_HEADS
    FILE *vhdfile;
-@@ -2868,6 +2869,7 @@
+@@ -2865,6 +2866,7 @@
+ /* 0 (go on), 1 (recheck), 2 (stop) */
+ static int demux_ts_parse_pat_pmt_packet (demux_ts_t*this) {
+ 
++ if (this->pvr_mode == 1) {
+   const uint8_t *originalPkt;
+   uint32_t       tsp_head;
+   uint32_t       pid;
+@@ -2941,10 +2943,12 @@
+     return 1;
+   }
+ 
++ }
+   return 0;
+ }
+ 
+ static void demux_ts_scan_pat_pmt (demux_ts_t *this) {
++ if (this->pvr_mode == 1) {
+   unsigned int max;
+ 
+   if ((this->videoPid != INVALID_PID) || (this->audio_tracks_count > 0))
+@@ -2976,6 +2980,7 @@
+     this->buf_size = 0;
+ #endif
+   }
++ }
+ }
+ 
+ 
+@@ -2985,6 +2990,7 @@
  
  static void demux_ts_event_handler (demux_ts_t *this) {
    xine_event_t *event = NULL;
@@ -351,7 +380,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
    while ((event = xine_event_next (this->event_queue, event))) {
  
-@@ -2877,6 +2879,7 @@
+@@ -2994,6 +3000,7 @@
        /* flush all streams */
        demux_ts_flush(this);
        /* fall thru */
@@ -359,7 +388,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  
      case XINE_EVENT_PIDS_CHANGE:
  
-@@ -2885,6 +2888,36 @@
+@@ -3002,6 +3009,36 @@
        _x_demux_control_start (this->stream);
        break;
  
@@ -396,7 +425,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
      }
    }
  }
-@@ -3442,6 +3475,9 @@
+@@ -3560,6 +3597,9 @@
    this->pkt_size   = PKT_SIZE + this->pkt_offset;
  #endif
  
@@ -2621,7 +2650,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    uint32_t            overlay_output_width;
    uint32_t            overlay_output_height;
-@@ -2637,6 +2639,16 @@
+@@ -2596,6 +2598,16 @@
        else
          this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
  
@@ -2638,7 +2667,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      } else if (need_init) {
  
        if(this->vdr_osd_width) 
-@@ -2649,6 +2661,15 @@
+@@ -2608,6 +2620,15 @@
        else
          this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
  
@@ -2654,7 +2683,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      }
    }
  
-@@ -3890,6 +3911,21 @@
+@@ -3845,6 +3866,21 @@
    this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
  }
  
@@ -2676,7 +2705,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
  {
    vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
-@@ -4089,6 +4125,8 @@
+@@ -4044,6 +4080,8 @@
    this->deinterlace                    = 0;
    this->vdr_osd_width                  = 0;
    this->vdr_osd_height                 = 0;
@@ -2685,7 +2714,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
          _("vaapi: VDR osd width workaround."),
-@@ -4102,6 +4140,18 @@
+@@ -4057,6 +4095,18 @@
          10, vaapi_vdr_osd_height_flag, this );
    this->vdr_osd_height = i < 0 ? 0 : i;
  
