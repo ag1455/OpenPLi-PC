@@ -1,18 +1,25 @@
 #!/bin/bash
 
-HDD="/media/hdd"
+TH="/media/hdd/timeshift"
 PREFIX="/usr/local/e2/bin"
 DVB_DEV0="/dev/dvb/adapter0"
 LOG="/var/log/oscam/wait.log"
+FIFO="/tmp/ENIGMA_FIFO.sc"
 
 # Uncomment this line in case of failure after a system upgrade or if ca0 doesn't appear.
 #systemctl restart rc-local.service
 
 #export DISPLAY=:0.0
 
-rm -f $HDD/timeshift/* # Case broken pause.
-mv -f $HDD/enigma2_crash_*.log /tmp # Case hangs up.
-rm -f /tmp/ENIGMA_FIFO.sc
+if [ -f $TH/timeshift.* ]; then
+	rm -f $TH/* # Case broken pause.
+fi
+if [ -f $TH/enigma2_crash_*.log ]; then
+	mv -f $TH/enigma2_crash_*.log /tmp # Case hangs up.
+fi
+if [ -f $FIFO ]; then
+	rm -f $FIFO
+fi
 sleep 2
 
 if [ $(ls $DVB_DEV0 | grep -w ca0) ]; then
@@ -20,7 +27,6 @@ if [ $(ls $DVB_DEV0 | grep -w ca0) ]; then
 		echo " * Oscam already started!"
 	else
 		softcam start
-#		softcam force-reload
 		echo " * Oscam started" >> $LOG
 	fi
 fi
