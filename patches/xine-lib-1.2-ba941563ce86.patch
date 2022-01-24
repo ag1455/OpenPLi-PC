@@ -15,7 +15,7 @@ diff -ruN o/debian/changelog pc/debian/changelog
 --- o/debian/changelog	2021-05-07 16:11:29.885121541 +0300
 +++ pc/debian/changelog	2021-10-07 10:33:46.513779009 +0300
 @@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.11+hg-38b699ab1d3a-14965-e2pc) experimental; urgency=low
++xine-lib-1.2 (1.2.11+hg-ba941563ce86-14986-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
 +  * Patched version for e2pc.
@@ -2641,7 +2641,7 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
 diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
 --- o/src/video_out/video_out_vaapi.c	2021-05-07 16:11:32.920168546 +0300
 +++ pc/src/video_out/video_out_vaapi.c	2021-10-07 10:32:29.609653365 +0300
-@@ -201,6 +201,8 @@
+@@ -185,6 +185,8 @@
  
    uint32_t            vdr_osd_width;
    uint32_t            vdr_osd_height;
@@ -2650,7 +2650,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    uint32_t            overlay_output_width;
    uint32_t            overlay_output_height;
-@@ -2596,6 +2598,16 @@
+@@ -2016,6 +2018,16 @@
        else
          this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
  
@@ -2667,7 +2667,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      } else if (need_init) {
  
        if(this->vdr_osd_width) 
-@@ -2608,6 +2620,15 @@
+@@ -2028,6 +2040,15 @@
        else
          this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
  
@@ -2683,7 +2683,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      }
    }
  
-@@ -3845,6 +3866,21 @@
+@@ -3259,6 +3280,21 @@
    this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
  }
  
@@ -2705,7 +2705,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
  {
    vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
-@@ -4044,6 +4080,8 @@
+@@ -3513,6 +3549,8 @@
    this->deinterlace                    = 0;
    this->vdr_osd_width                  = 0;
    this->vdr_osd_height                 = 0;
@@ -2714,7 +2714,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
          _("vaapi: VDR osd width workaround."),
-@@ -4057,6 +4095,18 @@
+@@ -3526,6 +3564,18 @@
          10, vaapi_vdr_osd_height_flag, this );
    this->vdr_osd_height = i < 0 ? 0 : i;
  
@@ -2916,7 +2916,7 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
    int                       frame_drop_limit_max;
    int                       frame_drop_limit;
    int                       frame_drop_cpt;
-@@ -1469,6 +1471,23 @@
+@@ -1475,6 +1477,23 @@
        }
      }
      img->stream = &stream->s;
@@ -2940,7 +2940,7 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
      _x_extra_info_merge( img->extra_info, stream->video_decoder_extra_info );
      stream->s.metronom->got_video_frame (stream->s.metronom, img);
  #ifdef ADD_KEYFRAME_INDEX
-@@ -2407,6 +2426,7 @@
+@@ -2413,6 +2432,7 @@
            if (img) {
              vo_reref (this, img);
              img->vpts = vpts;
@@ -2948,7 +2948,7 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
              overlay_and_display_frame (this, img, vpts);
            }
          } else {
-@@ -2705,6 +2725,10 @@
+@@ -2711,6 +2731,10 @@
      xine_rwlock_unlock (&this->streams_lock);
      break;
  
