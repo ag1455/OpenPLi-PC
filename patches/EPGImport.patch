@@ -1,8 +1,8 @@
-diff -ruN o/src/EPGImport/EPGConfig.py pc/src/EPGImport/EPGConfig.py
+diff -ruN a/src/EPGImport/EPGConfig.py b/src/EPGImport/EPGConfig.py
 --- o/src/EPGImport/EPGConfig.py	2021-05-02 15:16:54.000000000 +0300
 +++ pc/src/EPGImport/EPGConfig.py	2021-05-06 14:22:32.746207137 +0300
-@@ -8,7 +8,7 @@
- import re
+@@ -14,7 +14,7 @@
+ from . import log
  
  # User selection stored here, so it goes into a user settings backup
 -SETTINGS_FILE = '/etc/enigma2/epgimport.conf'
@@ -10,7 +10,7 @@ diff -ruN o/src/EPGImport/EPGConfig.py pc/src/EPGImport/EPGConfig.py
  
  channelCache = {}
  global filterCustomChannel
-@@ -43,7 +43,7 @@
+@@ -49,7 +49,7 @@
  def set_channel_id_filter():
  	full_filter = ""
  	try:
@@ -19,7 +19,7 @@ diff -ruN o/src/EPGImport/EPGConfig.py pc/src/EPGImport/EPGConfig.py
  			for channel_id_line in channel_id_file:
  				# Skipping comments in channel_id_filter.conf
  				if not channel_id_line.startswith("#"):
-@@ -153,7 +153,7 @@
+@@ -157,7 +157,7 @@
  			pass
  
  	def update(self, filterCallback, downloadedFile=None):
@@ -31,7 +31,7 @@ diff -ruN o/src/EPGImport/EPGConfig.py pc/src/EPGImport/EPGConfig.py
 diff -ruN o/src/EPGImport/epgdat_importer.py pc/src/EPGImport/epgdat_importer.py
 --- o/src/EPGImport/epgdat_importer.py	2021-05-02 15:16:54.000000000 +0300
 +++ pc/src/EPGImport/epgdat_importer.py	2021-05-06 14:23:45.799196196 +0300
-@@ -9,7 +9,7 @@
+@@ -11,7 +11,7 @@
  	settingspath = '.'
  else:
  	tmppath = '/tmp'
@@ -43,7 +43,7 @@ diff -ruN o/src/EPGImport/epgdat_importer.py pc/src/EPGImport/epgdat_importer.py
 diff -ruN o/src/EPGImport/epgdat.py pc/src/EPGImport/epgdat.py
 --- o/src/EPGImport/epgdat.py	2021-05-02 15:16:54.000000000 +0300
 +++ pc/src/EPGImport/epgdat.py	2021-05-06 14:24:00.775401933 +0300
-@@ -116,7 +116,7 @@
+@@ -115,7 +115,7 @@
  class epgdat_class:
  	# temp files used for EPG.DAT creation
  
@@ -55,19 +55,19 @@ diff -ruN o/src/EPGImport/epgdat.py pc/src/EPGImport/epgdat.py
 diff -ruN o/src/EPGImport/EPGImport.py pc/src/EPGImport/EPGImport.py
 --- o/src/EPGImport/EPGImport.py	2021-05-02 15:16:54.000000000 +0300
 +++ pc/src/EPGImport/EPGImport.py	2021-05-06 14:18:22.799740284 +0300
-@@ -10,7 +10,7 @@
- import log
- import random
+@@ -27,7 +27,7 @@
+ 
+ from . import log
  
 -HDD_EPG_DAT = "/hdd/epg.dat"
 +HDD_EPG_DAT = "/media/hdd/epg.dat"
  
- from twisted.internet import reactor, threads, ssl
- from twisted.web.client import downloadPage
+ 
+ class SNIFactory(ssl.ClientContextFactory):
 diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
 --- o/src/EPGImport/filtersServices.py	2021-05-02 15:16:54.000000000 +0300
 +++ pc/src/EPGImport/filtersServices.py	2021-05-06 14:18:22.799740284 +0300
-@@ -64,8 +64,8 @@
+@@ -67,8 +67,8 @@
  
  	def saveTo(self, filename):
  		try:
@@ -78,7 +78,7 @@ diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
  			cfg = open(filename, 'w')
  		except:
  			return
-@@ -74,7 +74,7 @@
+@@ -77,7 +77,7 @@
  		cfg.close()
  
  	def load(self):
@@ -87,7 +87,7 @@ diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
  
  	def reload(self):
  		self.services = []
-@@ -84,7 +84,7 @@
+@@ -87,7 +87,7 @@
  		return self.services
  
  	def save(self):
@@ -99,20 +99,20 @@ diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
 diff -ruN o/src/EPGImport/locale/ru.po pc/src/EPGImport/locale/ru.po
 --- o/src/EPGImport/locale/ru.po	2021-05-02 15:16:54.000000000 +0300
 +++ pc/src/EPGImport/locale/ru.po	2021-05-06 14:18:22.799740284 +0300
-@@ -219,7 +219,7 @@
+@@ -223,7 +223,7 @@
  
- #: ../plugin.py:294
+ #: ../plugin.py:318
  msgid "Manual"
 -msgstr "В ручную"
 +msgstr "Вручную"
  
- #: ../plugin.py:81
+ #: ../plugin.py:89
  msgid "Monday"
 diff -ruN o/src/EPGImport/plugin.py pc/src/EPGImport/plugin.py
 --- o/src/EPGImport/plugin.py	2021-05-02 15:16:54.000000000 +0300
 +++ pc/src/EPGImport/plugin.py	2021-05-06 14:18:22.799740284 +0300
-@@ -103,7 +103,7 @@
- from Plugins.Plugin import PluginDescriptor
+@@ -94,7 +94,7 @@
+ 	]
  
  # historically located (not a problem, we want to update it)
 -CONFIG_PATH = '/etc/epgimport'

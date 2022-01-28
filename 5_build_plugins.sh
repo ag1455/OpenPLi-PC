@@ -15,7 +15,7 @@ if [ -d plugins ]; then
 	echo "************************** OK. Let's build the plugins. ****************************"
 	echo ""
 	PKG="servicemp3"
-	VER="ef97659cabe2b07bb447da5ebc06e79431a21fd2"
+	VER="aa60f9a1d0113eaccf6926c559b8202368fde857"
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
@@ -197,7 +197,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OpenWebif"
-		VER="f5ed124dce0810d791717eab536af16fa3d91bb6"
+		VER="b238b3770b90f49ba076987f66a4f042eb4b318e"
 		VER1="7f53c0efcc7ebf5c79efa34d525721d9d195b597"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
@@ -321,7 +321,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SimpleUmount"
-		VER="18a326bd9d4998a626969cd518b3da8f2643520c"
+		VER="8c82986a90d77295d3c5bf70983667e2508f17d1"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -426,21 +426,17 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OscamStatus"
-		VER="cc5a93da8330731ce7d3f4e42dd680a186291a79"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-OscamStatus/archive/$VER.zip
-		unzip $VER.zip
-		rm $VER.zip
-		mv $PKG-$VER $PKG
-		cd ../..
-		cp -fv patches/OscamStatus.patch plugins/e2openplugin/$PKG
-		cd plugins/e2openplugin/$PKG
-		patch -p1 < OscamStatus.patch
+		wget https://github.com/E2OpenPlugins/e2openplugin-OscamStatus/archive/refs/heads/master.zip
+		unzip master.zip
+		rm master.zip
+		mv $PKG-master $PKG
+		cd $PKG
 		find plugin/locale -name "*.mo" -exec rm {} \;
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
@@ -464,7 +460,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="enigma2-plugin-extensions-epgimport"
-		VER="d4015ef10c200d6b86c0ac43c470f7ba627fd1c9"
+		VER="0f638f2b8d6a0c59895a4f5f772aebd81a8376f3"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -508,7 +504,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2iplayer"
-		VER="1f0425af649b7b8e7ab43dc18bb51f7867ac82ff"
+		VER="8de52879b072b946f699d820bd2061268a90bc3f"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi

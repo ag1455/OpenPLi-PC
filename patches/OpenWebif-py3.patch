@@ -1,6 +1,6 @@
 diff -ruN o/plugin/controllers/ajax.py pc/plugin/controllers/ajax.py
---- o/plugin/controllers/ajax.py	2021-05-05 13:51:59.175468663 +0300
-+++ pc/plugin/controllers/ajax.py	2021-05-05 13:48:53.048025029 +0300
+--- o/plugin/controllers/ajax.py	2022-01-28 21:13:33.934220582 +0300
++++ pc/plugin/controllers/ajax.py	2022-01-28 21:14:49.441267508 +0300
 @@ -167,7 +167,7 @@
  			box['brand'] = "iqon"
  		elif getMachineBrand() == 'Technomate':
@@ -11,22 +11,9 @@ diff -ruN o/plugin/controllers/ajax.py pc/plugin/controllers/ajax.py
  		return {"box": box}
  
 diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
---- o/plugin/controllers/base.py	2021-05-05 13:51:59.175468663 +0300
-+++ pc/plugin/controllers/base.py	2021-05-05 13:48:53.050025056 +0300
-@@ -117,9 +117,9 @@
- 		request.finish()
- 
- 	def loadTemplate(self, path, module, args):
--		if fileExists(getViewsPath(path + ".py")) or fileExists(getViewsPath(path + ".pyo")):
--			if fileExists(getViewsPath(path + ".pyo")):
--				template = imp.load_compiled(module, getViewsPath(path + ".pyo"))
-+		if fileExists(getViewsPath(path + ".py")) or fileExists(getViewsPath(path + ".pyc")):
-+			if fileExists(getViewsPath(path + ".pyc")):
-+				template = imp.load_compiled(module, getViewsPath(path + ".pyc"))
- 			else:
- 				template = imp.load_source(module, getViewsPath(path + ".py"))
- 			mod = getattr(template, module, None)
-@@ -322,9 +322,9 @@
+--- o/plugin/controllers/base.py	2022-01-28 21:13:33.934220582 +0300
++++ pc/plugin/controllers/base.py	2022-01-28 21:14:49.442267522 +0300
+@@ -324,9 +324,9 @@
  
  		ip = getIP()
  		if ip != None:
@@ -38,7 +25,7 @@ diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
  					try:
  						lcd4linux_port = "http://" + ip + ":" + str(config.plugins.Webinterface.http.port.value) + "/"
  						lcd4linux_key = lcd4linux_port + 'lcd4linux/config'
-@@ -360,7 +360,7 @@
+@@ -362,7 +362,7 @@
  		if HASAUTOTIMER:
  			extras.append({'key': 'ajax/at', 'description': _('AutoTimers')})
  
@@ -47,7 +34,7 @@ diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
  			extras.append({'key': 'ajax/bqe', 'description': _('BouquetEditor')})
  
  		try:
-@@ -401,7 +401,7 @@
+@@ -403,7 +403,7 @@
  		except ImportError:
  			pass
  
@@ -57,8 +44,8 @@ diff -ruN o/plugin/controllers/base.py pc/plugin/controllers/base.py
  
  		ret['extras'] = extras
 diff -ruN o/plugin/controllers/defaults.py pc/plugin/controllers/defaults.py
---- o/plugin/controllers/defaults.py	2021-05-05 13:51:59.175468663 +0300
-+++ pc/plugin/controllers/defaults.py	2021-05-05 13:48:53.065025258 +0300
+--- o/plugin/controllers/defaults.py	2022-01-28 21:13:33.934220582 +0300
++++ pc/plugin/controllers/defaults.py	2022-01-28 21:14:49.442267522 +0300
 @@ -34,10 +34,10 @@
  
  
@@ -73,20 +60,20 @@ diff -ruN o/plugin/controllers/defaults.py pc/plugin/controllers/defaults.py
  	return False
  
 diff -ruN o/plugin/controllers/models/control.py pc/plugin/controllers/models/control.py
---- o/plugin/controllers/models/control.py	2021-05-05 13:51:59.176468676 +0300
-+++ pc/plugin/controllers/models/control.py	2021-05-05 13:48:53.072025353 +0300
-@@ -29,7 +29,7 @@
- import NavigationInstance
+--- o/plugin/controllers/models/control.py	2022-01-28 21:13:33.935220596 +0300
++++ pc/plugin/controllers/models/control.py	2022-01-28 21:14:49.442267522 +0300
+@@ -30,7 +30,7 @@
  import os
+ from six.moves.urllib.parse import unquote
  
 -ENABLE_QPIP_PROCPATH = "/proc/stb/video/decodermode"
 +ENABLE_QPIP_PROCPATH = "/usr/local/e2/etc/stb/video/decodermode"
  
- 
- def checkIsQPiP():
+ try:
+ 	from enigma import setPrevAsciiCode
 diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.py
---- o/plugin/controllers/models/info.py	2021-05-05 13:51:59.176468676 +0300
-+++ pc/plugin/controllers/models/info.py	2021-05-05 13:48:53.073025366 +0300
+--- o/plugin/controllers/models/info.py	2022-01-28 21:13:33.935220596 +0300
++++ pc/plugin/controllers/models/info.py	2022-01-28 21:14:49.442267522 +0300
 @@ -231,7 +231,7 @@
  		elif model in ("topf", "tf7700hdpvr"):
  			chipset = "SH4 @266MHz"
@@ -130,8 +117,8 @@ diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.
  		f.close()
  
 diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/models/owibranding.py
---- o/plugin/controllers/models/owibranding.py	2021-05-05 13:51:59.177468689 +0300
-+++ pc/plugin/controllers/models/owibranding.py	2021-05-05 13:48:53.074025380 +0300
+--- o/plugin/controllers/models/owibranding.py	2022-01-28 21:13:33.936220610 +0300
++++ pc/plugin/controllers/models/owibranding.py	2022-01-28 21:14:49.443267536 +0300
 @@ -145,9 +145,9 @@
  	if tpmloaded:
  		orgdream = tpm_check()
@@ -187,7 +174,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		if procmodel.startswith("et"):
  			if procmodel == "et7000mini":
  				brand = "Galaxy Innovations"
-@@ -522,7 +518,7 @@
+@@ -526,7 +522,7 @@
  		elif procmodel.startswith("sf"):
  			brand = "Octagon"
  			if procmodel.startswith("sf8008"):
@@ -196,7 +183,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  				if sf8008type.startswith("11"):
  					procmodel = "sf8008t"
  					model = "SF8008 4K Twin"
-@@ -551,8 +547,8 @@
+@@ -555,8 +551,8 @@
  		else:
  			model = procmodel
  
@@ -208,8 +195,8 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		f.close()
  		if procmodel == "tf7700hdpvr":
 diff -ruN o/plugin/controllers/models/services.py pc/plugin/controllers/models/services.py
---- o/plugin/controllers/models/services.py	2021-05-05 13:51:59.177468689 +0300
-+++ pc/plugin/controllers/models/services.py	2021-05-05 13:48:53.090025596 +0300
+--- o/plugin/controllers/models/services.py	2022-01-28 21:13:33.936220610 +0300
++++ pc/plugin/controllers/models/services.py	2022-01-28 21:14:49.443267536 +0300
 @@ -22,6 +22,9 @@
  ##########################################################################
  
@@ -221,8 +208,8 @@ diff -ruN o/plugin/controllers/models/services.py pc/plugin/controllers/models/s
  import unicodedata
  import six
 diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/stream.py
---- o/plugin/controllers/models/stream.py	2021-05-05 13:51:59.177468689 +0300
-+++ pc/plugin/controllers/models/stream.py	2021-05-05 13:54:58.925714377 +0300
+--- o/plugin/controllers/models/stream.py	2022-01-28 21:13:33.936220610 +0300
++++ pc/plugin/controllers/models/stream.py	2022-01-28 21:14:49.443267536 +0300
 @@ -91,10 +91,10 @@
  		_port = getUrlArg(request, "port")
  		if _port != None:
@@ -273,8 +260,8 @@ diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/str
  						args = "?bitrate=%s__width=%s__height=%s__vcodec=%s__aspectratio=%s__interlaced=%s" % (bitrate, width, height, vcodec, aspectratio, interlaced)
  					else:
 diff -ruN o/testsuite/evil_eval.py pc/testsuite/evil_eval.py
---- o/testsuite/evil_eval.py	2021-05-05 13:51:59.362471052 +0300
-+++ pc/testsuite/evil_eval.py	2021-05-05 13:48:53.106025813 +0300
+--- o/testsuite/evil_eval.py	2022-01-28 21:13:34.129223254 +0300
++++ pc/testsuite/evil_eval.py	2022-01-28 21:14:49.443267536 +0300
 @@ -9,7 +9,7 @@
  
      root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__.__name__ == 1 or (open('you lost your mind? according to my last psych EVALuation, yes', 'wb') and config or config)"
@@ -285,8 +272,8 @@ diff -ruN o/testsuite/evil_eval.py pc/testsuite/evil_eval.py
      root@heart-of-gold:~# curl --noproxy localhost http://localhost/api/saveconfig --data "value=1&key=config.__class__ == 42 or (__import__('os').system('id > pwned') and config or config)"
      {"result": false}
 diff -ruN o/testsuite/status_quo_file_controller.py pc/testsuite/status_quo_file_controller.py
---- o/testsuite/status_quo_file_controller.py	2021-05-05 13:51:59.362471052 +0300
-+++ pc/testsuite/status_quo_file_controller.py	2021-05-05 13:48:53.106025813 +0300
+--- o/testsuite/status_quo_file_controller.py	2022-01-28 21:13:34.129223254 +0300
++++ pc/testsuite/status_quo_file_controller.py	2022-01-28 21:14:49.443267536 +0300
 @@ -71,7 +71,7 @@
  		}
  		req = requests.get(self.file_url, params=params)

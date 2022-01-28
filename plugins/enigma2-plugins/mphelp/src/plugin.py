@@ -1,9 +1,9 @@
-#from Plugins.Plugin import PluginDescriptor
-from MPHelp import MPHelp
+from .MPHelp import MPHelp
 
 from collections import Callable
 
 helpList = []
+
 
 class PluginHelp(object):
 	def __init__(self, getNameFunc, getPagesFunc, additionalSkin=""):
@@ -18,8 +18,10 @@ class PluginHelp(object):
 		self.additionalSkin = additionalSkin
 
 	def __getattr__(self, attr):
-		if attr == "name": return self.getNameFunc()
-		elif attr == "pages": return self.getPagesFunc()
+		if attr == "name":
+			return self.getNameFunc()
+		elif attr == "pages":
+			return self.getPagesFunc()
 		return object.__getattr__(self, attr)
 
 	def open(self, session):
@@ -29,6 +31,7 @@ class PluginHelp(object):
 		assert isinstance(callback, Callable), "callback has to be callable!"
 		session.openWithCallback(callback, MPHelp, self.pages, title=self.name, additionalSkin=self.additionalSkin)
 
+
 def registerHelp(getNameFunc, getPagesFunc, additionalSkin=""):
 	curName = getNameFunc()
 	for x in helpList:
@@ -37,6 +40,7 @@ def registerHelp(getNameFunc, getPagesFunc, additionalSkin=""):
 	x = PluginHelp(getNameFunc, getPagesFunc, additionalSkin=additionalSkin)
 	helpList.append(x)
 	return x
+
 
 def showHelp(session, curName, callback=None):
 	for x in helpList:
@@ -48,8 +52,10 @@ def showHelp(session, curName, callback=None):
 			return True
 	return False
 
+
 def Plugins(**kwargs):
 	return [
 	]
+
 
 __all__ = ['Plugins', 'registerHelp', 'showHelp', 'PluginHelp']
