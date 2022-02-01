@@ -2756,12 +2756,12 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  #define VIDEO_STREAMTYPE_MPEG2 0
  #define VIDEO_STREAMTYPE_MPEG4_H264 1
  #define VIDEO_STREAMTYPE_VC1 3
-@@ -317,11 +306,20 @@
- #define VIDEO_STREAMTYPE_VC1_SM 5
+@@ -318,11 +307,21 @@
  #define VIDEO_STREAMTYPE_MPEG1 6
  #define VIDEO_STREAMTYPE_H265_HEVC 7
--#define VIDEO_STREAMTYPE_AVS 16
-+#define VIDEO_STREAMTYPE_AVS 16*/
+ #define VIDEO_STREAMTYPE_AVS 16
+-#define VIDEO_STREAMTYPE_AVS2 40
++#define VIDEO_STREAMTYPE_AVS2 40*/
 +
 +#define VIDEO_STREAMTYPE_MPEG2       0x02
 +#define VIDEO_STREAMTYPE_MPEG4_H264  0x1B
@@ -2771,6 +2771,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
 +#define VIDEO_STREAMTYPE_MPEG1       0x01
 +#define VIDEO_STREAMTYPE_H265_HEVC   0x24
 +#define VIDEO_STREAMTYPE_AVS         0x42
++#define VIDEO_STREAMTYPE_AVS2        0xD2
  
 -int eDVBVideo::startPid(int pid, int type)
 +int eDVBVideo::startPid(int pid, int type, bool is_pvr)
@@ -2780,7 +2781,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  	{
  		int streamtype = VIDEO_STREAMTYPE_MPEG2;
  		switch (type)
-@@ -352,11 +350,7 @@
+@@ -356,11 +355,7 @@
  			break;
  		}
  
@@ -2793,7 +2794,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  	}
  
  	if (m_fd_demux >= 0)
-@@ -385,38 +379,35 @@
+@@ -389,38 +384,35 @@
  		if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
  		{
  			eDebugNoNewLine("failed: %m\n");
@@ -2843,7 +2844,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  			eDebugNoNewLine("ok\n");
  	}
  
-@@ -444,6 +435,10 @@
+@@ -448,6 +440,10 @@
  
  void eDVBVideo::freeze()
  {
@@ -2854,7 +2855,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  	if (m_fd >= 0)
  	{
  		eDebugNoNewLineStart("[eDVBVideo%d] VIDEO_FREEZE ", m_dev);
-@@ -456,6 +451,10 @@
+@@ -460,6 +456,10 @@
  
  void eDVBVideo::unfreeze()
  {
@@ -2865,7 +2866,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  	if (m_fd >= 0)
  	{
  		eDebugNoNewLineStart("[eDVBVideo%d] VIDEO_CONTINUE ", m_dev);
-@@ -498,11 +497,10 @@
+@@ -502,11 +502,10 @@
  
  int eDVBVideo::getPTS(pts_t &now)
  {
@@ -2881,7 +2882,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  		return ret;
  	}
  	return 0;
-@@ -514,7 +512,6 @@
+@@ -518,7 +517,6 @@
  		::close(m_fd);
  	if (m_fd_demux >= 0)
  		::close(m_fd_demux);
@@ -2889,7 +2890,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  }
  
  void eDVBVideo::video_event(int)
-@@ -644,7 +641,7 @@
+@@ -648,7 +646,7 @@
  		if (m_progressive == -1)
  		{
  			char tmp[64];
@@ -2898,7 +2899,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  			CFile::parseIntHex(&m_progressive, tmp);
  		}
  	}
-@@ -675,7 +672,7 @@
+@@ -679,7 +677,7 @@
  		if (m_gamma == -1)
  		{
  			char tmp[64];
@@ -2907,7 +2908,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  			CFile::parseIntHex(&m_gamma, tmp);
  		}
  	}
-@@ -887,7 +884,7 @@
+@@ -891,7 +889,7 @@
  		if ((m_apid >= 0) && (m_apid < 0x1FFF) && !noaudio)
  		{
  			m_audio = new eDVBAudio(m_demux, m_decoder);
@@ -2916,7 +2917,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  				res = -1;
  		}
  		m_changed &= ~changeAudio;
-@@ -898,8 +895,16 @@
+@@ -902,8 +900,16 @@
  		{
  			m_video = new eDVBVideo(m_demux, m_decoder);
  			m_video->connectEvent(sigc::mem_fun(*this, &eTSMPEGDecoder::video_event), m_video_event_conn);
@@ -2935,7 +2936,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  		}
  		m_changed &= ~changeVideo;
  	}
-@@ -969,7 +974,7 @@
+@@ -973,7 +979,7 @@
  {
  	if (delay != m_pcm_delay )
  	{
@@ -2944,7 +2945,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  		{
  			m_pcm_delay = delay;
  			return 0;
-@@ -982,7 +987,7 @@
+@@ -986,7 +992,7 @@
  {
  	if ( delay != m_ac3_delay )
  	{
@@ -2953,7 +2954,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  		{
  			m_ac3_delay = delay;
  			return 0;
-@@ -1004,7 +1009,7 @@
+@@ -1008,7 +1014,7 @@
  
  eTSMPEGDecoder::eTSMPEGDecoder(eDVBDemux *demux, int decoder)
  	: m_demux(demux),
@@ -2962,7 +2963,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  		m_changed(0), m_decoder(decoder), m_video_clip_fd(-1), m_showSinglePicTimer(eTimer::create(eApp))
  {
  	if (m_demux)
-@@ -1015,7 +1020,6 @@
+@@ -1019,7 +1025,6 @@
  	m_state = stateStop;
  
  	char filename[128];
@@ -2970,7 +2971,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  	m_has_audio = !access(filename, W_OK);
  
  	if (m_demux && m_decoder == 0)	// Tuxtxt caching actions only on primary decoder
-@@ -1033,27 +1037,33 @@
+@@ -1037,27 +1042,33 @@
  		eTuxtxtApp::getInstance()->freeCache();
  }
  
@@ -3010,7 +3011,7 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  	}
  	return 0;
  }
-@@ -1245,8 +1255,6 @@
+@@ -1249,8 +1260,6 @@
  		{
  			struct stat s;
  			fstat(f, &s);
@@ -3040,7 +3041,7 @@ diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
  	void freeze();
  	void unfreeze();
 @@ -43,7 +44,7 @@
- 	enum { UNKNOWN = -1, MPEG2, MPEG4_H264, VC1 = 3, MPEG4_Part2, VC1_SM, MPEG1, H265_HEVC, AVS = 16 };
+ 	enum { UNKNOWN = -1, MPEG2, MPEG4_H264, VC1 = 3, MPEG4_Part2, VC1_SM, MPEG1, H265_HEVC, AVS = 16, AVS2 = 40 };
  	eDVBVideo(eDVBDemux *demux, int dev);
  	void stop();
 -	int startPid(int pid, int type=MPEG2);
@@ -3978,7 +3979,7 @@ diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
  
  	m_timeout = eTimer::create(eApp);
  	CONNECT(m_timeout->timeout, eDVBFrontend::timeout);
-@@ -1619,12 +1620,12 @@
+@@ -1628,12 +1629,12 @@
  		return 0;
  	int power=m_slotid;  // this is needed for read inputpower from the correct tuner !
  	char proc_name[64];
@@ -3993,7 +3994,7 @@ diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
  	if (CFile::parseInt(&power, proc_name) == 0)
  		return power;
  
-@@ -2012,7 +2013,7 @@
+@@ -2021,7 +2022,7 @@
  				if (!m_simulate)
  				{
  					char proc_name[64];
@@ -4002,7 +4003,7 @@ diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
  					CFile f(proc_name, "w");
  					if (f) // new interface exist?
  					{
-@@ -2722,7 +2723,7 @@
+@@ -2731,7 +2732,7 @@
  	if (active_antenna_power != -1 && (m_type == feTerrestrial || m_type == feCable))
  	{
  		char filename[256];
@@ -4067,7 +4068,7 @@ diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
 +++ pc/lib/dvb/pmtparse.h	2021-10-01 13:49:05.615221576 +0300
 @@ -26,6 +26,7 @@
  		int component_tag;
- 		enum { vtMPEG2, vtMPEG4_H264, vtVC1 = 3, vtMPEG4_Part2, vtVC1_SM, vtMPEG1, vtH265_HEVC, vtCAVS = 16 };
+ 		enum { vtMPEG2, vtMPEG4_H264, vtVC1 = 3, vtMPEG4_Part2, vtVC1_SM, vtMPEG1, vtH265_HEVC, vtCAVS = 16, vtAVS2 = 40 };
  		int type;
 +		int orig_streamtype;
  	};
@@ -7012,9 +7013,9 @@ diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Component
 diff -ruN o/lib/python/Components/Converter/PliExtraInfo.py pc/lib/python/Components/Converter/PliExtraInfo.py
 --- o/lib/python/Components/Converter/PliExtraInfo.py	2021-10-01 13:48:13.416652433 +0300
 +++ pc/lib/python/Components/Converter/PliExtraInfo.py	2021-10-01 13:49:05.618221105 +0300
-@@ -166,7 +166,7 @@
+@@ -167,7 +167,7 @@
  		fps = (info.getInfo(iServiceInformation.sFrameRate) + 500) / 1000
- 		if not fps:
+ 		if not fps or fps == -1:
  			try:
 -				fps = (int(open("/proc/stb/vmpeg/0/framerate", "r").read()) + 500) / 1000
 +				fps = (int(open("/usr/local/e2/etc/stb/vmpeg/0/framerate", "r").read()) + 500) / 1000
@@ -7108,7 +7109,7 @@ diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
 diff -ruN o/lib/python/Components/ImportChannels.py pc/lib/python/Components/ImportChannels.py
 --- o/lib/python/Components/ImportChannels.py	2021-07-07 17:49:35.845471869 +0300
 +++ pc/lib/python/Components/ImportChannels.py	2021-10-01 13:49:05.618221105 +0300
-@@ -74,7 +74,7 @@
+@@ -85,7 +85,7 @@
  				return
  			print "[Import Channels] Get EPG Location"
  			try:
@@ -7373,8 +7374,8 @@ diff -ruN o/lib/python/Components/RcModel.py pc/lib/python/Components/RcModel.py
 diff -ruN o/lib/python/Components/Renderer/FrontpanelLed.py pc/lib/python/Components/Renderer/FrontpanelLed.py
 --- o/lib/python/Components/Renderer/FrontpanelLed.py	2021-07-07 17:49:35.847471861 +0300
 +++ pc/lib/python/Components/Renderer/FrontpanelLed.py	2021-10-01 13:49:05.620220791 +0300
-@@ -19,16 +19,16 @@
- 		(speed, pattern, pattern_4bit) = self.patterns[val]
+@@ -49,16 +49,16 @@
+ 		(speed, pattern, pattern_4bit) = self.patterns[val] if self.patterns != True else ledPatterns.getLedPatterns(self.which)[val]
  
  		try:
 -			open("/proc/stb/fp/led%d_pattern" % self.which, "w").write("%08x" % pattern)
@@ -7462,7 +7463,7 @@ diff -ruN o/lib/python/Components/SystemInfo.py pc/lib/python/Components/SystemI
 @@ -44,82 +44,82 @@
  model = HardwareInfo().get_device_model()
  SystemInfo["InDebugMode"] = eGetEnigmaDebugLvl() >= 4
- SystemInfo["CommonInterface"] = eDVBCIInterfaces.getInstance().getNumOfSlots()
+ SystemInfo["CommonInterface"] = model in ("h9combo", "h9combose", "h10","pulse4kmini") and 1 or eDVBCIInterfaces.getInstance().getNumOfSlots()
 -SystemInfo["CommonInterfaceCIDelay"] = fileCheck("/proc/stb/tsmux/rmx_delay")
 +SystemInfo["CommonInterfaceCIDelay"] = fileCheck("/usr/local/e2/etc/stb/tsmux/rmx_delay")
  for cislot in range(0, SystemInfo["CommonInterface"]):
@@ -7491,14 +7492,14 @@ diff -ruN o/lib/python/Components/SystemInfo.py pc/lib/python/Components/SystemI
  SystemInfo["DeepstandbySupport"] = HardwareInfo().get_device_name() != "dm800"
 -SystemInfo["Fan"] = fileCheck("/proc/stb/fp/fan")
 -SystemInfo["FanPWM"] = SystemInfo["Fan"] and fileCheck("/proc/stb/fp/fan_pwm")
--SystemInfo["PowerLED"] = fileCheck("/proc/stb/power/powerled")
--SystemInfo["StandbyLED"] = fileCheck("/proc/stb/power/standbyled")
--SystemInfo["SuspendLED"] = fileCheck("/proc/stb/power/suspendled")
+-SystemInfo["PowerLED"] = fileCheck("/proc/stb/power/powerled") or model in ("gbue4k", "gbquad4k") and fileCheck("/proc/stb/fp/led1_pattern")
+-SystemInfo["StandbyLED"] = fileCheck("/proc/stb/power/standbyled") or model in ("gbue4k", "gbquad4k") and fileCheck("/proc/stb/fp/led0_pattern")
+-SystemInfo["SuspendLED"] = fileCheck("/proc/stb/power/suspendled") or fileCheck("/proc/stb/fp/enable_led")
 +SystemInfo["Fan"] = fileCheck("/usr/local/e2/etc/stb/fp/fan")
 +SystemInfo["FanPWM"] = SystemInfo["Fan"] and fileCheck("/usr/local/e2/etc/stb/fp/fan_pwm")
-+SystemInfo["PowerLED"] = fileCheck("/usr/local/e2/etc/stb/power/powerled")
-+SystemInfo["StandbyLED"] = fileCheck("/usr/local/e2/etc/stb/power/standbyled")
-+SystemInfo["SuspendLED"] = fileCheck("/usr/local/e2/etc/stb/power/suspendled")
++SystemInfo["PowerLED"] = fileCheck("/usr/local/e2/etc/stb/power/powerled") or model in ("gbue4k", "gbquad4k") and fileCheck("/usr/local/e2/etc/stb/fp/led1_pattern")
++SystemInfo["StandbyLED"] = fileCheck("/usr/local/e2/etc/stb/power/standbyled") or model in ("gbue4k", "gbquad4k") and fileCheck("/usr/local/e2/etc/stb/fp/led0_pattern")
++SystemInfo["SuspendLED"] = fileCheck("/usr/local/e2/etc/stb/power/suspendled") or fileCheck("/usr/local/e2/etc/stb/fp/enable_led")
  SystemInfo["Display"] = SystemInfo["FrontpanelDisplay"] or SystemInfo["StandbyLED"]
 -SystemInfo["LedPowerColor"] = fileCheck("/proc/stb/fp/ledpowercolor")
 -SystemInfo["LedStandbyColor"] = fileCheck("/proc/stb/fp/ledstandbycolor")
@@ -7562,7 +7563,7 @@ diff -ruN o/lib/python/Components/SystemInfo.py pc/lib/python/Components/SystemI
  SystemInfo["CanNotDoSimultaneousTranscodeAndPIP"] = model in ("vusolo4k", "gbquad4k", "gbue4k")
 -SystemInfo["HasColordepth"] = fileCheck("/proc/stb/video/hdmi_colordepth")
 +SystemInfo["HasColordepth"] = fileCheck("/usr/local/e2/etc/stb/video/hdmi_colordepth")
- SystemInfo["HasFrontDisplayPicon"] = model in ("et8500", "vusolo4k", "vuuno4kse", "vuduo4k", "vuduo4kse", "vuultimo4k")
+ SystemInfo["HasFrontDisplayPicon"] = model in ("et8500", "vusolo4k", "vuuno4kse", "vuduo4k", "vuduo4kse", "vuultimo4k", "gbquad4k", "gbue4k")
 -SystemInfo["Has24hz"] = fileCheck("/proc/stb/video/videomode_24hz")
 -SystemInfo["Has2160p"] = fileHas("/proc/stb/video/videomode_preferred", "2160p50")
 -SystemInfo["HasHDMIpreemphasis"] = fileCheck("/proc/stb/hdmi/preemphasis")
@@ -7627,7 +7628,7 @@ diff -ruN o/lib/python/Components/Timezones.py pc/lib/python/Components/Timezone
 diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageConfig.py
 --- o/lib/python/Components/UsageConfig.py	2021-10-01 13:48:13.418652364 +0300
 +++ pc/lib/python/Components/UsageConfig.py	2021-10-01 13:49:05.621220634 +0300
-@@ -315,8 +315,8 @@
+@@ -317,8 +317,8 @@
  
  	if SystemInfo["Fan"]:
  		choicelist = [('off', _("Off")), ('on', _("On")), ('auto', _("Auto"))]
@@ -7638,7 +7639,7 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  		config.usage.fan = ConfigSelection(choicelist)
  
  		def fanChanged(configElement):
-@@ -587,24 +587,24 @@
+@@ -601,24 +601,24 @@
  
  	if SystemInfo["HDRSupport"]:
  		def setHlgSupport(configElement):
@@ -7667,7 +7668,7 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  		config.av.allow_10bit = ConfigYesNo(default=False)
  		config.av.allow_10bit.addNotifier(setDisable10Bit)
  
-@@ -772,6 +772,13 @@
+@@ -786,6 +786,13 @@
  	config.autolanguage.subtitle_defaultdvb = ConfigYesNo(default=False)
  	config.autolanguage.subtitle_usecache = ConfigYesNo(default=True)
  
@@ -8269,7 +8270,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  			from Screens.MessageBox import MessageBox
  			self.session.openWithCallback(self.confirm, MessageBox, _("Is this video mode ok?"), MessageBox.TYPE_YESNO, timeout=20, default=False)
  		else:
-@@ -212,20 +180,18 @@
+@@ -207,20 +175,18 @@
  
  	def hotplug(self, what):
  		print "hotplug detected on port '%s'" % (what)
@@ -8297,7 +8298,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  
  
  hotplug = None
-@@ -259,11 +225,10 @@
+@@ -254,11 +220,10 @@
  
  
  def startSetup(menuid):
