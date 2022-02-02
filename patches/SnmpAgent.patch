@@ -124,7 +124,7 @@ diff -ruN o/plugin/plugin.py pc/plugin/plugin.py
  		data = ''
  		try:
 -			file = open('/proc/stb/vmpeg/0/stat_picture_displayed', 'r')
-+			file = open('/usr/local/e2/etc/stb/vmpeg/0/stat_picture_displayed', 'r')
++			file = open('/usr/local/e2/etc/vmpeg/0/stat_picture_displayed', 'r')
  			data = file.readline()
  			file.close()
  		except:

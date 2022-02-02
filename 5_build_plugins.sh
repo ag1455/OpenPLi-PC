@@ -233,7 +233,7 @@ if [ -d plugins ]; then
 		./create_ipk.sh
 		ar -x *.ipk
 		tar -xvf data.tar.gz
-		mv -f usr/lib/enigma2/python/Plugins/Extensions/OpenWebif /usr/local/e2/lib/enigma2/python/Plugins/Extensions
+		mv -f usr/lib/enigma2/python/Plugins/Extensions/OpenWebif $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		rm -rf debian-binary usr *.gz *.ipk
 		cd ..
 	fi
@@ -583,7 +583,7 @@ if [ -d plugins ]; then
 			echo "config.plugins.iptvplayer.autoCheckForUpdate=false" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.deleteIcons=0" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.downgradePossible=true" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.dukpath=/usr/local/e2/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/duk" >> $INSTALL_E2DIR/etc/enigma2/settings
+			echo "config.plugins.iptvplayer.dukpath=$INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/duk" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.possibleUpdateType=sourcecode" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.showinMainMenu=true" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.uchardetpath=/usr/bin/uchardet" >> $INSTALL_E2DIR/etc/enigma2/settings
@@ -611,7 +611,7 @@ if [ -d plugins ]; then
 	cp -rfv skins/* $INSTALL_E2DIR
 
 	if [ ! -f /usr/local/bin/bitrate ]; then
-		ln -sf /usr/local/e2/bin/bitrate /usr/local/bin
+		ln -sf $INSTALL_E2DIR/bin/bitrate /usr/local/bin
 	fi
 
 	# Create folder for softam keys and symlink for plugin 'navibar'

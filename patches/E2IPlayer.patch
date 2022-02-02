@@ -20221,11 +20221,11 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  def IsBrokenDriver(filePath):
      # workaround for broken DVB driver mbtwinplus:
 -    # root@mbtwinplus:~# cat /proc/stb/video/policy2
-+    # root@mbtwinplus:~# cat /usr/local/e2/etc/stb/video/policy2
++    # root@mbtwinplus:~# cat /usr/local/e2/etc/video/policy2
      # Segmentation fault
      try:
 -        if 'video/policy' in filePath and not fileExists('/proc/stb/video/aspect_choices'):
-+        if 'video/policy' in filePath and not fileExists('/usr/local/e2/etc/stb/video/aspect_choices'):
++        if 'video/policy' in filePath and not fileExists('/usr/local/e2/etc/video/aspect_choices'):
              with open('/etc/hostname', 'r') as f:
                  data = f.read().strip()
              if 'mbtwinplus' in data:
@@ -20234,7 +20234,7 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  
  def GetE2VideoAspectChoices():
 -    tab = GetE2OptionsFromFile('/proc/stb/video/aspect_choices')
-+    tab = GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/aspect_choices')
++    tab = GetE2OptionsFromFile('/usr/local/e2/etc/video/aspect_choices')
      # workaround for some STB
      # reported here: https://gitlab.com/iptvplayer-for-e2/iptvplayer-for-e2/issues/30
      staticTab = ["4:3", "16:9", "any"]
@@ -20243,7 +20243,7 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  
  def GetE2VideoAspect():
 -    options = GetE2OptionsFromFile('/proc/stb/video/aspect')
-+    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/aspect')
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/video/aspect')
      if 1 == len(options):
          return options[0]
      return None
@@ -20251,17 +20251,17 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  
  def SetE2VideoAspect(value):
 -    return SetE2OptionByFile('/proc/stb/video/aspect', value)
-+    return SetE2OptionByFile('/usr/local/e2/etc/stb/video/aspect', value)
++    return SetE2OptionByFile('/usr/local/e2/etc/video/aspect', value)
  
  
  def GetE2VideoPolicyChoices(num=''):
 -    return GetE2OptionsFromFile('/proc/stb/video/policy%s_choices' % num)
-+    return GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/policy%s_choices' % num)
++    return GetE2OptionsFromFile('/usr/local/e2/etc/video/policy%s_choices' % num)
  
  
  def GetE2VideoPolicy(num=''):
 -    options = GetE2OptionsFromFile('/proc/stb/video/policy' + num)
-+    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/policy' + num)
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/video/policy' + num)
      if 1 == len(options):
          return options[0]
      return None
@@ -20269,17 +20269,17 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  
  def SetE2VideoPolicy(value, num=''):
 -    return SetE2OptionByFile('/proc/stb/video/policy' + num, value)
-+    return SetE2OptionByFile('/usr/local/e2/etc/stb/video/policy' + num, value)
++    return SetE2OptionByFile('/usr/local/e2/etc/video/policy' + num, value)
  
  
  def GetE2AudioCodecMixChoices(codec):
 -    return GetE2OptionsFromFile('/proc/stb/audio/%s_choices' % codec)
-+    return GetE2OptionsFromFile('/usr/local/e2/etc/stb/audio/%s_choices' % codec)
++    return GetE2OptionsFromFile('/usr/local/e2/etc/audio/%s_choices' % codec)
  
  
  def GetE2AudioCodecMixOption(codec):
 -    options = GetE2OptionsFromFile('/proc/stb/audio/%s' % codec)
-+    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/audio/%s' % codec)
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/audio/%s' % codec)
      if 1 == len(options):
          return options[0]
      return None
@@ -20287,7 +20287,7 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  
  def SetE2AudioCodecMixOption(codec, value):
 -    return SetE2OptionByFile('/proc/stb/audio/%s' % codec, value)
-+    return SetE2OptionByFile('/usr/local/e2/etc/stb/audio/%s' % codec, value)
++    return SetE2OptionByFile('/usr/local/e2/etc/audio/%s' % codec, value)
  
  # videomode
  
@@ -20295,13 +20295,13 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  def GetE2VideoModeChoices():
      # return 'pal ntsc 480i 576i 480p 576p 720p50 720p 1080i50 1080i 1080p24 1080p25 1080p30 720p24 720p25 720p30 1080p50 1080p'.split(' ')
 -    return GetE2OptionsFromFile('/proc/stb/video/videomode_choices')
-+    return GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/videomode_choices')
++    return GetE2OptionsFromFile('/usr/local/e2/etc/video/videomode_choices')
  
  
  def GetE2VideoMode():
      # return '1080p50'
 -    options = GetE2OptionsFromFile('/proc/stb/video/videomode')
-+    options = GetE2OptionsFromFile('/usr/local/e2/etc/stb/video/videomode')
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/video/videomode')
      if 1 == len(options):
          return options[0]
      return None
@@ -20309,7 +20309,7 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
  
  def SetE2VideoMode(value):
 -    return SetE2OptionByFile('/proc/stb/video/videomode', value)
-+    return SetE2OptionByFile('/usr/local/e2/etc/stb/video/videomode', value)
++    return SetE2OptionByFile('/usr/local/e2/etc/video/videomode', value)
  
  
  def ReadUint16(tmp, le=True):

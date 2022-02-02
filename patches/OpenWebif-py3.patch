@@ -6,7 +6,7 @@ diff -ruN o/plugin/controllers/ajax.py pc/plugin/controllers/ajax.py
  		elif getMachineBrand() == 'Technomate':
  			box['brand'] = "techomate"
 -		elif fileExists("/proc/stb/info/azmodel"):
-+		elif fileExists("/usr/local/e2/etc/stb/info/azmodel"):
++		elif fileExists("/usr/local/e2/etc/info/azmodel"):
  			box['brand'] = "azbox"
  		return {"box": box}
  
@@ -51,7 +51,7 @@ diff -ruN o/plugin/controllers/defaults.py pc/plugin/controllers/defaults.py
  
  def getTranscoding():
 -	if os.path.isfile("/proc/stb/encoder/0/bitrate"):
-+	if os.path.isfile("/usr/local/e2/etc/stb/encoder/0/bitrate"):
++	if os.path.isfile("/usr/local/e2/etc/encoder/0/bitrate"):
  		lp = eEnv.resolve('${libdir}/enigma2/python/Plugins/SystemPlugins/')
  		for p in ['TranscodingSetup', 'TransCodingSetup', 'MultiTransCodingSetup']:
 -			if os.path.exists(lp + p + '/plugin.py') or os.path.exists(lp + p + '/plugin.pyo'):
@@ -67,7 +67,7 @@ diff -ruN o/plugin/controllers/models/control.py pc/plugin/controllers/models/co
  from six.moves.urllib.parse import unquote
  
 -ENABLE_QPIP_PROCPATH = "/proc/stb/video/decodermode"
-+ENABLE_QPIP_PROCPATH = "/usr/local/e2/etc/stb/video/decodermode"
++ENABLE_QPIP_PROCPATH = "/usr/local/e2/etc/video/decodermode"
  
  try:
  	from enigma import setPrevAsciiCode
@@ -79,7 +79,7 @@ diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.
  			chipset = "SH4 @266MHz"
  		elif model.startswith("azbox"):
 -			f = open("/proc/stb/info/model", 'r')
-+			f = open("/usr/local/e2/etc/stb/info/model", 'r')
++			f = open("/usr/local/e2/etc/info/model", 'r')
  			model = f.readline().strip().lower()
  			f.close()
  			if model == "me":
@@ -89,8 +89,8 @@ diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.
  				chipset = "SH4 @450MHz"
 -	elif fileExists("/proc/stb/info/azmodel"):
 -		f = open("/proc/stb/info/model", 'r')
-+	elif fileExists("/usr/local/e2/etc/stb/info/azmodel"):
-+		f = open("/usr/local/e2/etc/stb/info/model", 'r')
++	elif fileExists("/usr/local/e2/etc/info/azmodel"):
++		f = open("/usr/local/e2/etc/info/model", 'r')
  		model = f.readline().strip().lower()
  		f.close()
  		if model == "me":
@@ -100,8 +100,8 @@ diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.
  			chipset = "SIGMA 8634"
 -	elif fileExists("/proc/stb/info/model"):
 -		f = open("/proc/stb/info/model", 'r')
-+	elif fileExists("/usr/local/e2/etc/stb/info/model"):
-+		f = open("/usr/local/e2/etc/stb/info/model", 'r')
++	elif fileExists("/usr/local/e2/etc/info/model"):
++		f = open("/usr/local/e2/etc/info/model", 'r')
  		model = f.readline().strip().lower()
  		f.close()
  		if model == "tf7700hdpvr":
@@ -111,8 +111,8 @@ diff -ruN o/plugin/controllers/models/info.py pc/plugin/controllers/models/info.
  
 -	if fileExists("/proc/stb/info/chipset"):
 -		f = open("/proc/stb/info/chipset", 'r')
-+	if fileExists("/usr/local/e2/etc/stb/info/chipset"):
-+		f = open("/usr/local/e2/etc/stb/info/chipset", 'r')
++	if fileExists("/usr/local/e2/etc/info/chipset"):
++		f = open("/usr/local/e2/etc/info/chipset", 'r')
  		chipset = f.readline().strip()
  		f.close()
  
@@ -124,10 +124,10 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		orgdream = tpm_check()
  
 -	if fileExists("/proc/stb/info/hwmodel"):
-+	if fileExists("/usr/local/e2/etc/stb/info/hwmodel"):
++	if fileExists("/usr/local/e2/etc/info/hwmodel"):
  		brand = "DAGS"
 -		f = open("/proc/stb/info/hwmodel", 'r')
-+		f = open("/usr/local/e2/etc/stb/info/hwmodel", 'r')
++		f = open("/usr/local/e2/etc/info/hwmodel", 'r')
  		procmodel = f.readline().strip()
  		f.close()
  		if (procmodel.startswith("optimuss") or procmodel.startswith("pingulux")):
@@ -136,18 +136,18 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  			elif procmodel == "dual":
  				model = procmodel.replace("dual", "Dual")
 -	elif fileExists("/proc/stb/info/azmodel"):
-+	elif fileExists("/usr/local/e2/etc/stb/info/azmodel"):
++	elif fileExists("/usr/local/e2/etc/info/azmodel"):
  		brand = "AZBox"
 -		f = open("/proc/stb/info/model", 'r')  # To-Do: Check if "model" is really correct ...
-+		f = open("/usr/local/e2/etc/stb/info/model", 'r')  # To-Do: Check if "model" is really correct ...
++		f = open("/usr/local/e2/etc/info/model", 'r')  # To-Do: Check if "model" is really correct ...
  		procmodel = f.readline().strip()
  		f.close()
  		model = procmodel.lower()
 -	elif fileExists("/proc/stb/info/gbmodel"):
-+	elif fileExists("/usr/local/e2/etc/stb/info/gbmodel"):
++	elif fileExists("/usr/local/e2/etc/info/gbmodel"):
  		brand = "GigaBlue"
 -		f = open("/proc/stb/info/gbmodel", 'r')
-+		f = open("/usr/local/e2/etc/stb/info/gbmodel", 'r')
++		f = open("/usr/local/e2/etc/info/gbmodel", 'r')
  		procmodel = f.readline().strip()
  		f.close()
  		if procmodel == "GBQUAD PLUS":
@@ -156,10 +156,10 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  		elif procmodel == "gbtrio4k":
  			model = procmodel.replace("gbtrio4k", "UHD Trio 4k")
 -	elif fileExists("/proc/stb/info/vumodel") and not fileExists("/proc/stb/info/boxtype"):
-+	elif fileExists("/usr/local/e2/etc/stb/info/vumodel") and not fileExists("/usr/local/e2/etc/stb/info/boxtype"):
++	elif fileExists("/usr/local/e2/etc/info/vumodel") and not fileExists("/usr/local/e2/etc/info/boxtype"):
  		brand = "Vu+"
 -		f = open("/proc/stb/info/vumodel", 'r')
-+		f = open("/usr/local/e2/etc/stb/info/vumodel", 'r')
++		f = open("/usr/local/e2/etc/info/vumodel", 'r')
  		procmodel = f.readline().strip()
  		f.close()
  		model = procmodel.title().replace("olose", "olo SE").replace("olo2se", "olo2 SE").replace("2", "²").replace("4Kse", "4K SE")
@@ -179,7 +179,7 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  			brand = "Octagon"
  			if procmodel.startswith("sf8008"):
 -				sf8008type = open("/proc/stb/info/type").read()
-+				sf8008type = open("/usr/local/e2/etc/stb/info/type").read()
++				sf8008type = open("/usr/local/e2/etc/info/type").read()
  				if sf8008type.startswith("11"):
  					procmodel = "sf8008t"
  					model = "SF8008 4K Twin"
@@ -189,8 +189,8 @@ diff -ruN o/plugin/controllers/models/owibranding.py pc/plugin/controllers/model
  
 -	elif fileExists("/proc/stb/info/model"):
 -		f = open("/proc/stb/info/model", 'r')
-+	elif fileExists("/usr/local/e2/etc/stb/info/model"):
-+		f = open("/usr/local/e2/etc/stb/info/model", 'r')
++	elif fileExists("/usr/local/e2/etc/info/model"):
++		f = open("/usr/local/e2/etc/info/model", 'r')
  		procmodel = f.readline().strip().lower()
  		f.close()
  		if procmodel == "tf7700hdpvr":
@@ -215,11 +215,11 @@ diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/str
  		if _port != None:
  			portNumber = _port
 -	elif fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
-+	elif fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/stb/encoder/0/apply"):
++	elif fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/encoder/0/apply"):
  		transcoder_port = portNumber
  
 -	if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
-+	if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/stb/encoder/0/apply"):
++	if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/encoder/0/apply"):
  		if device == "phone":
  			try:
  				bitrate = config.plugins.transcodingsetup.bitrate.value
@@ -228,7 +228,7 @@ diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/str
  				aspectratio = config.plugins.transcodingsetup.aspectratio.value
  				interlaced = config.plugins.transcodingsetup.interlaced.value
 -				if fileExists("/proc/stb/encoder/0/vcodec"):
-+				if fileExists("/usr/local/e2/etc/stb/encoder/0/vcodec"):
++				if fileExists("/usr/local/e2/etc/encoder/0/vcodec"):
  					vcodec = config.plugins.transcodingsetup.vcodec.value
  					args = "?bitrate=%s__width=%s__height=%s__vcodec=%s__aspectratio=%s__interlaced=%s" % (bitrate, width, height, vcodec, aspectratio, interlaced)
  				else:
@@ -237,7 +237,7 @@ diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/str
  		device = getUrlArg(request, "device")
  
 -		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
-+		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/stb/encoder/0/apply"):
++		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/encoder/0/apply"):
  			try:
  				transcoder_port = int(config.plugins.transcodingsetup.port.value)
  			except Exception:
@@ -246,7 +246,7 @@ diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/str
  				portNumber = _port
  
 -		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/proc/stb/encoder/0/apply"):
-+		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/stb/encoder/0/apply"):
++		if fileExists("/dev/bcm_enc0") or fileExists("/dev/encoder0") or fileExists("/usr/local/e2/etc/encoder/0/apply"):
  			if device == "phone":
  				try:
  					bitrate = config.plugins.transcodingsetup.bitrate.value
@@ -255,7 +255,7 @@ diff -ruN o/plugin/controllers/models/stream.py pc/plugin/controllers/models/str
  					aspectratio = config.plugins.transcodingsetup.aspectratio.value
  					interlaced = config.plugins.transcodingsetup.interlaced.value
 -					if fileExists("/proc/stb/encoder/0/vcodec"):
-+					if fileExists("/usr/local/e2/etc/stb/encoder/0/vcodec"):
++					if fileExists("/usr/local/e2/etc/encoder/0/vcodec"):
  						vcodec = config.plugins.transcodingsetup.vcodec.value
  						args = "?bitrate=%s__width=%s__height=%s__vcodec=%s__aspectratio=%s__interlaced=%s" % (bitrate, width, height, vcodec, aspectratio, interlaced)
  					else:

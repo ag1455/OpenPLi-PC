@@ -6,7 +6,7 @@ diff -ruN b/main.c a/main.c
  	int val = -1;
  	char tmp[64];
 -	sprintf(tmp, "/proc/stb/vmpeg/%d/%s", decoder, str);
-+	sprintf(tmp, "/usr/local/e2/etc/stb/vmpeg/%d/%s", decoder, str);
++	sprintf(tmp, "/usr/local/e2/etc/vmpeg/%d/%s", decoder, str);
  	FILE *f = fopen(tmp, "r");
  	if (f) {
  		fscanf(f, "%x", &val);
@@ -16,8 +16,8 @@ diff -ruN b/main.c a/main.c
  {
 -	write_string("/proc/stb/pcr/pcr_stc_offset", "200");
 -	write_string("/proc/stb/vmpeg/0/sync_offset", "200");
-+	write_string("/usr/local/e2/etc/stb/pcr/pcr_stc_offset", "200");
-+	write_string("/usr/local/e2/etc/stb/vmpeg/0/sync_offset", "200");
++	write_string("/usr/local/e2/etc/pcr/pcr_stc_offset", "200");
++	write_string("/usr/local/e2/etc/vmpeg/0/sync_offset", "200");
  }
  
  // reset decoder buffer offsets
@@ -25,8 +25,8 @@ diff -ruN b/main.c a/main.c
  {
 -	write_string("/proc/stb/pcr/pcr_stc_offset", "2710");
 -	write_string("/proc/stb/vmpeg/0/sync_offset", "2710");
-+	write_string("/usr/local/e2/etc/stb/pcr/pcr_stc_offset", "2710");
-+	write_string("/usr/local/e2/etc/stb/vmpeg/0/sync_offset", "2710");
++	write_string("/usr/local/e2/etc/pcr/pcr_stc_offset", "2710");
++	write_string("/usr/local/e2/etc/vmpeg/0/sync_offset", "2710");
  }
  
  #endif

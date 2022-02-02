@@ -6,14 +6,14 @@ diff -ruN o/gstdtsdownmix.c pc/gstdtsdownmix.c
  {
  	FILE *f;
 -	f = fopen("/proc/stb/stc/0/sync", "r");
-+	f = fopen("/usr/local/e2/etc/stb/stc/0/sync", "r");
++	f = fopen("/usr/local/e2/etc/stc/0/sync", "r");
  	if (f)
  	{
  		fgets(dts->stcmode, sizeof(dts->stcmode), f);
  		fclose(f);
  	}
 -	f = fopen("/proc/stb/stc/0/sync", "w");
-+	f = fopen("/usr/local/e2/etc/stb/stc/0/sync", "w");
++	f = fopen("/usr/local/e2/etc/stc/0/sync", "w");
  	if (f)
  	{
  		fprintf(f, "audio");
@@ -22,7 +22,7 @@ diff -ruN o/gstdtsdownmix.c pc/gstdtsdownmix.c
  	if (dts->stcmode[0])
  	{
 -		FILE *f = fopen("/proc/stb/stc/0/sync", "w");
-+		FILE *f = fopen("/usr/local/e2/etc/stb/stc/0/sync", "w");
++		FILE *f = fopen("/usr/local/e2/etc/stc/0/sync", "w");
  		if (f)
  		{
  			fputs(dts->stcmode, f);
@@ -31,7 +31,7 @@ diff -ruN o/gstdtsdownmix.c pc/gstdtsdownmix.c
  	FILE *f;
  	char buffer[32] = {0};
 -	f = fopen("/proc/stb/audio/ac3", "r");
-+	f = fopen("/usr/local/e2/etc/stb/audio/ac3", "r");
++	f = fopen("/usr/local/e2/etc/audio/ac3", "r");
  	if (f)
  	{
  		fread(buffer, sizeof(buffer), 1, f);
@@ -43,7 +43,7 @@ diff -ruN o/gstdvbaudiosink.c pc/gstdvbaudiosink.c
  	FILE *f;
  	char buffer[32] = {0};
 -	f = fopen("/proc/stb/audio/ac3", "r");
-+	f = fopen("/usr/local/e2/etc/stb/audio/ac3", "r");
++	f = fopen("/usr/local/e2/etc/audio/ac3", "r");
  	if (f)
  	{
  		fread(buffer, sizeof(buffer), 1, f);
@@ -55,7 +55,7 @@ diff -ruN o/gstdvbvideosink.c pc/gstdvbvideosink.c
  		if (gst_structure_get_fraction (structure, "framerate", &numerator, &denominator))
  		{
 -			FILE *f = fopen("/proc/stb/vmpeg/0/fallback_framerate", "w");
-+			FILE *f = fopen("/usr/local/e2/etc/stb/vmpeg/0/fallback_framerate", "w");
++			FILE *f = fopen("/usr/local/e2/etc/vmpeg/0/fallback_framerate", "w");
  			if (f)
  			{
  				int valid_framerates[] = { 23976, 24000, 25000, 29970, 30000, 50000, 59940, 60000 };
@@ -64,7 +64,7 @@ diff -ruN o/gstdvbvideosink.c pc/gstdvbvideosink.c
  	self->pesheader_buffer = gst_buffer_new_and_alloc(2048);
  
 -	f = fopen("/proc/stb/vmpeg/0/fallback_framerate", "r");
-+	f = fopen("/usr/local/e2/etc/stb/vmpeg/0/fallback_framerate", "r");
++	f = fopen("/usr/local/e2/etc/vmpeg/0/fallback_framerate", "r");
  	if (f)
  	{
  		fgets(self->saved_fallback_framerate, sizeof(self->saved_fallback_framerate), f);
@@ -73,7 +73,7 @@ diff -ruN o/gstdvbvideosink.c pc/gstdvbvideosink.c
  	}
  
 -	f = fopen("/proc/stb/vmpeg/0/fallback_framerate", "w");
-+	f = fopen("/usr/local/e2/etc/stb/vmpeg/0/fallback_framerate", "w");
++	f = fopen("/usr/local/e2/etc/vmpeg/0/fallback_framerate", "w");
  	if (f)
  	{
  		fputs(self->saved_fallback_framerate, f);

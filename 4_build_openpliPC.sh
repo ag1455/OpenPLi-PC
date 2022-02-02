@@ -135,7 +135,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 20602dba
+git reset --hard 133c90d1
 cd ..
 
 # Copy headers
@@ -149,9 +149,9 @@ fi
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-cp -fv patches/patch-20602dba-to-PC.patch $PKG
+cp -fv patches/patch-133c90d1-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-20602dba-to-PC.patch
+patch -p1 < patch-133c90d1-to-PC.patch
 
 if [ "$release" = "14.04" ]; then
 	echo ""
@@ -303,7 +303,7 @@ echo "********************************************************"
 echo ""
 
 # Remove unused plugins
-rm -rf /usr/local/e2/lib/enigma2/python/Plugins/SystemPlugins/VideoEnhancement
+rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/VideoEnhancement
 rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/SoftwareManager
 
 # Creating symlinks after installing enigma2 and copying the necessary files
@@ -322,9 +322,13 @@ fi
 if [ ! -d /media/hdd ]; then
 	ln -s /home/hdd /media
 fi
-if [ -d  /usr/local/etc/stb ]; then
-	rm -f /usr/local/etc/stb
+
+# Temporarily action
+if [ -d  $INSTALL_E2DIR/etc/stb ]; then
+	rm -fr $INSTALL_E2DIR/etc/stb
 fi
+# End of temporarily action
+
 if [ ! -d /etc/enigma2 ]; then
 	ln -s $INSTALL_E2DIR/etc/enigma2 /etc
 fi
@@ -374,7 +378,7 @@ fi
 
 # Copy files
 cp -rfv pre/enigma2 $INSTALL_E2DIR/etc
-cp -rfv pre/stb $INSTALL_E2DIR/etc
+cp -rfv pre/stub/* $INSTALL_E2DIR/etc
 cp -rfv pre/tuxbox $INSTALL_E2DIR/etc
 cp -fv pre/enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv pre/enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
@@ -464,7 +468,7 @@ echo "do the opposite as user, but not as root."
 echo "********************************************************"
 echo ""
 
-if [ ! -f /usr/local/e2/etc/tuxbox/nim_sockets ]; then
+if [ ! -f $INSTALL_E2DIR/etc/tuxbox/nim_sockets ]; then
 	echo ""
 	echo "********************************************************"
 	echo "            AUTOMATIC CREATION nim_sockets."
@@ -483,7 +487,7 @@ if [ ! -f /usr/local/e2/etc/tuxbox/nim_sockets ]; then
 	echo "    If you have own settings, then they are restored."
 	echo ""
 	echo "                    Now check please:"
-	echo "           /usr/local/e2/etc/tuxbox/nim_sockets"
+	echo "           $INSTALL_E2DIR/etc/tuxbox/nim_sockets"
 	echo "      according to your /dev/dvb/adapter?/frontend?"
 	echo ""
 	echo ""

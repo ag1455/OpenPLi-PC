@@ -33,7 +33,7 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  			char *targets[]={"left", "top", "width", "height", "apply"};
  			char filename[128];
 -			snprintf(filename, 128, "/proc/stb/vmpeg/%d/dst_%s", 0, targets[i]);
-+			snprintf(filename, 128, "/usr/local/e2/etc/stb/vmpeg/%d/dst_%s", 0, targets[i]);
++			snprintf(filename, 128, "/usr/local/e2/etc/vmpeg/%d/dst_%s", 0, targets[i]);
  			FILE *f = fopen(filename, "w");
  			if (!f)
  				break;
@@ -43,8 +43,8 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  
 -		writeproc("/proc/stb/avs/0/sb", fncmodes[renderinfo->screen_mode2]);
 -		writeproc("/proc/stb/denc/0/wss", saamodes[renderinfo->screen_mode2]);
-+		writeproc("/usr/local/e2/etc/stb/avs/0/sb", fncmodes[renderinfo->screen_mode2]);
-+		writeproc("/usr/local/e2/etc/stb/denc/0/wss", saamodes[renderinfo->screen_mode2]);
++		writeproc("/usr/local/e2/etc/avs/0/sb", fncmodes[renderinfo->screen_mode2]);
++		writeproc("/usr/local/e2/etc/denc/0/wss", saamodes[renderinfo->screen_mode2]);
  	}
  	else /* not split */
  	{
@@ -53,7 +53,7 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  			char *targets[]={"left", "top", "width", "height", "apply"};
  			char filename[128];
 -			snprintf(filename, 128, "/proc/stb/vmpeg/%d/dst_%s", 0, targets[i]);
-+			snprintf(filename, 128, "/usr/local/e2/etc/stb/vmpeg/%d/dst_%s", 0, targets[i]);
++			snprintf(filename, 128, "/usr/local/e2/etc/vmpeg/%d/dst_%s", 0, targets[i]);
  			FILE *f = fopen(filename, "w");
  			if (!f)
  				break;
@@ -63,8 +63,8 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  		renderinfo->StartX = renderinfo->sx; //+ (ex-sx - 40*fontwidth) / 2; /* center screen */
 -		writeproc("/proc/stb/avs/0/sb", fncmodes[renderinfo->screen_mode1]);
 -		writeproc("/proc/stb/denc/0/wss", saamodes[renderinfo->screen_mode1]);
-+		writeproc("/usr/local/e2/etc/stb/avs/0/sb", fncmodes[renderinfo->screen_mode1]);
-+		writeproc("/usr/local/e2/etc/stb/denc/0/wss", saamodes[renderinfo->screen_mode1]);
++		writeproc("/usr/local/e2/etc/avs/0/sb", fncmodes[renderinfo->screen_mode1]);
++		writeproc("/usr/local/e2/etc/denc/0/wss", saamodes[renderinfo->screen_mode1]);
  	}
  }
  
@@ -98,13 +98,13 @@ diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
  
 -	readproc("/proc/stb/denc/0/wss", saved_wss);
 -	writeproc("/proc/stb/denc/0/wss", saamodes[renderinfo.screen_mode1]);
-+	readproc("/usr/local/e2/etc/stb/denc/0/wss", saved_wss);
-+	writeproc("/usr/local/e2/etc/stb/denc/0/wss", saamodes[renderinfo.screen_mode1]);
++	readproc("/usr/local/e2/etc/denc/0/wss", saved_wss);
++	writeproc("/usr/local/e2/etc/denc/0/wss", saamodes[renderinfo.screen_mode1]);
  
 -	readproc("/proc/stb/avs/0/sb", saved_pin8);
 -	writeproc("/proc/stb/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
-+	readproc("/usr/local/e2/etc/stb/avs/0/sb", saved_pin8);
-+	writeproc("/usr/local/e2/etc/stb/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
++	readproc("/usr/local/e2/etc/avs/0/sb", saved_pin8);
++	writeproc("/usr/local/e2/etc/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
  
  	gethotlist();
  	tuxtxt_SwitchScreenMode(&renderinfo,renderinfo.screenmode);
@@ -114,8 +114,8 @@ diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
  
 -	writeproc("/proc/stb/avs/0/sb", saved_pin8);
 -	writeproc("/proc/stb/denc/0/wss", saved_wss);
-+	writeproc("/usr/local/e2/etc/stb/avs/0/sb", saved_pin8);
-+	writeproc("/usr/local/e2/etc/stb/denc/0/wss", saved_wss);
++	writeproc("/usr/local/e2/etc/avs/0/sb", saved_pin8);
++	writeproc("/usr/local/e2/etc/denc/0/wss", saved_wss);
  }
  /******************************************************************************
   * GetTeletextPIDs                                                           *
@@ -125,8 +125,8 @@ diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
  					Menu_HighlightLine(menu, MenuLine[menuitem], 1);
 -					writeproc("/proc/stb/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
 -					writeproc("/proc/stb/denc/0/wss", saamodes[renderinfo.screen_mode1]);
-+					writeproc("/usr/local/e2/etc/stb/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
-+					writeproc("/usr/local/e2/etc/stb/denc/0/wss", saamodes[renderinfo.screen_mode1]);
++					writeproc("/usr/local/e2/etc/avs/0/sb", fncmodes[renderinfo.screen_mode1]);
++					writeproc("/usr/local/e2/etc/denc/0/wss", saamodes[renderinfo.screen_mode1]);
  					break;
  
  				case M_SC2:
@@ -136,8 +136,8 @@ diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
  		/* restore videoformat */
 -		writeproc("/proc/stb/avs/0/sb", saved_pin8);
 -		writeproc("/proc/stb/denc/0/wss", saved_wss);
-+		writeproc("/usr/local/e2/etc/stb/avs/0/sb", saved_pin8);
-+		writeproc("/usr/local/e2/etc/stb/denc/0/wss", saved_wss);
++		writeproc("/usr/local/e2/etc/avs/0/sb", saved_pin8);
++		writeproc("/usr/local/e2/etc/denc/0/wss", saved_wss);
  		tuxtxt_ClearBB(&renderinfo,tuxtxt_color_transp);
  		tuxtxt_cache.pageupdate = 1;
  	}
@@ -146,8 +146,8 @@ diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
  		/* restore videoformat */
 -		writeproc("/proc/stb/avs/0/sb", saved_pin8);
 -		writeproc("/proc/stb/denc/0/wss", saved_wss);
-+		writeproc("/usr/local/e2/etc/stb/avs/0/sb", saved_pin8);
-+		writeproc("/usr/local/e2/etc/stb/denc/0/wss", saved_wss);
++		writeproc("/usr/local/e2/etc/avs/0/sb", saved_pin8);
++		writeproc("/usr/local/e2/etc/denc/0/wss", saved_wss);
  		tuxtxt_ClearFB(&renderinfo,tuxtxt_color_transp);
  		renderinfo.clearbbcolor = tuxtxt_cache.FullScrColor;
  	}

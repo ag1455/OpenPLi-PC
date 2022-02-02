@@ -6,7 +6,7 @@ diff -ruN o/main.c pc/main.c
  	if (stb_type == UNKNOWN)
  	{
 -		FILE *file = fopen("/proc/stb/info/chipset", "r");
-+		FILE *file = fopen("/usr/local/e2/etc/stb/info/chipset", "r");
++		FILE *file = fopen("/usr/local/e2/etc/info/chipset", "r");
  		if (file)
  		{
  			char buf[32];
@@ -15,7 +15,7 @@ diff -ruN o/main.c pc/main.c
  	if (stb_type == UNKNOWN)
  	{
 -		FILE *file = fopen("/proc/stb/info/model", "r");
-+		FILE *file = fopen("/usr/local/e2/etc/stb/info/model", "r");
++		FILE *file = fopen("/usr/local/e2/etc/info/model", "r");
  		if (file)
  		{
  			char buf[32];
@@ -24,7 +24,7 @@ diff -ruN o/main.c pc/main.c
  	else
  	{
 -		fp = fopen("/proc/stb/vmpeg/0/aspect", "r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/aspect", "r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/aspect", "r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf), fp))
@@ -32,7 +32,7 @@ diff -ruN o/main.c pc/main.c
  			fclose(fp);
  		}
 -		fp = fopen("/proc/stb/vmpeg/0/dst_width", "r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/dst_width", "r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/dst_width", "r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf), fp))
@@ -40,7 +40,7 @@ diff -ruN o/main.c pc/main.c
  			fclose(fp);
  		}
 -		fp = fopen("/proc/stb/vmpeg/0/dst_height", "r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/dst_height", "r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/dst_height", "r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf), fp))
@@ -48,7 +48,7 @@ diff -ruN o/main.c pc/main.c
  			fclose(fp);
  		}
 -		fp = fopen("/proc/stb/vmpeg/0/dst_top", "r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/dst_top", "r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/dst_top", "r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf), fp))
@@ -56,7 +56,7 @@ diff -ruN o/main.c pc/main.c
  			fclose(fp);
  		}
 -		fp = fopen("/proc/stb/vmpeg/0/dst_left", "r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/dst_left", "r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/dst_left", "r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf), fp))
@@ -65,7 +65,7 @@ diff -ruN o/main.c pc/main.c
  		munmap((void*)data, 100);
  
 -		fp=fopen("/proc/stb/vmpeg/0/yres","r");
-+		fp=fopen("/usr/local/e2/etc/stb/vmpeg/0/yres","r");
++		fp=fopen("/usr/local/e2/etc/vmpeg/0/yres","r");
  		while (fgets(buf,sizeof(buf),fp))
  			sscanf(buf,"%x",&res);
  		fclose(fp);
@@ -74,7 +74,7 @@ diff -ruN o/main.c pc/main.c
  	{
  		// grab xilleon pic from decoder memory
 -		fp = fopen("/proc/stb/vmpeg/0/xres","r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/xres","r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/xres","r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf),fp))
@@ -83,7 +83,7 @@ diff -ruN o/main.c pc/main.c
  			fclose(fp);
  		}
 -		fp = fopen("/proc/stb/vmpeg/0/yres","r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/yres","r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/yres","r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf),fp))
@@ -92,7 +92,7 @@ diff -ruN o/main.c pc/main.c
  		*yres=0;
  
 -		fp = fopen("/proc/stb/vmpeg/0/xres","r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/xres","r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/xres","r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf),fp))
@@ -101,7 +101,7 @@ diff -ruN o/main.c pc/main.c
  		}
  
 -		fp = fopen("/proc/stb/vmpeg/0/yres","r");
-+		fp = fopen("/usr/local/e2/etc/stb/vmpeg/0/yres","r");
++		fp = fopen("/usr/local/e2/etc/vmpeg/0/yres","r");
  		if (fp)
  		{
  			while (fgets(buf,sizeof(buf),fp))
