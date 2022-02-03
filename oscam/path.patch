@@ -9,10 +9,10 @@ diff -ruN o/oscam-patched/oscam.c n/oscam-patched/oscam.c
 -	read_line_from_file("/proc/stb/info/model", model, sizeof(model));
 -	read_line_from_file("/proc/stb/info/boxtype", boxtype, sizeof(boxtype));
 -	read_line_from_file("/proc/stb/info/vumodel", vumodel, sizeof(vumodel));
-+	if ((f = fopen("/usr/local/e2/etc/stb/info/azmodel", "r"))){ azmodel = 1; fclose(f);}
-+	read_line_from_file("/usr/local/e2/etc/stb/info/model", model, sizeof(model));
-+	read_line_from_file("/usr/local/e2/etc/stb/info/boxtype", boxtype, sizeof(boxtype));
-+	read_line_from_file("/usr/local/e2/etc/stb/info/vumodel", vumodel, sizeof(vumodel));
++	if ((f = fopen("/usr/local/e2/etc/info/azmodel", "r"))){ azmodel = 1; fclose(f);}
++	read_line_from_file("/usr/local/e2/etc/info/model", model, sizeof(model));
++	read_line_from_file("/usr/local/e2/etc/info/boxtype", boxtype, sizeof(boxtype));
++	read_line_from_file("/usr/local/e2/etc/info/vumodel", vumodel, sizeof(vumodel));
  	if (vumodel[0] && !boxtype[0] && !azmodel)
  	{
  		snprintf(boxtype, sizeof(boxtype), "vu%s", vumodel);
