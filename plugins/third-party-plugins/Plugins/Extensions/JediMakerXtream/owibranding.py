@@ -149,9 +149,9 @@ def getAllInfo():
     if tpmloaded:
         orgdream = tpm_check()
 
-    if fileExists("/usr/local/e2/etc/stb/info/hwmodel"):
+    if fileExists("/usr/local/e2/etc/info/hwmodel"):
         brand = "DAGS"
-        f = open("/usr/local/e2/etc/stb/info/hwmodel", 'r')
+        f = open("/usr/local/e2/etc/info/hwmodel", 'r')
         procmodel = f.readline().strip()
         f.close()
         if (procmodel.startswith("optimuss") or procmodel.startswith("pingulux")):
@@ -179,15 +179,15 @@ def getAllInfo():
                 model = procmodel.replace("lunix", "Lunix")
             if procmodel == "lunix4k":
                 model = procmodel.replace("lunix4k", "Lunix4K")
-    elif fileExists("/usr/local/e2/etc/stb/info/azmodel"):
+    elif fileExists("/usr/local/e2/etc/info/azmodel"):
         brand = "AZBox"
-        f = open("/usr/local/e2/etc/stb/info/model", 'r')  # To-Do: Check if "model" is really correct ...
+        f = open("/usr/local/e2/etc/info/model", 'r')  # To-Do: Check if "model" is really correct ...
         procmodel = f.readline().strip()
         f.close()
         model = procmodel.lower()
-    elif fileExists("/usr/local/e2/etc/stb/info/gbmodel"):
+    elif fileExists("/usr/local/e2/etc/info/gbmodel"):
         brand = "GigaBlue"
-        f = open("/usr/local/e2/etc/stb/info/gbmodel", 'r')
+        f = open("/usr/local/e2/etc/info/gbmodel", 'r')
         procmodel = f.readline().strip()
         f.close()
         if procmodel == "GBQUAD PLUS":
@@ -202,9 +202,9 @@ def getAllInfo():
             model = procmodel.replace("ue4k", "UHD UE 4k")
         elif procmodel == "gbtrio4k":
             model = procmodel.replace("gbtrio4k", "UHD Trio 4k")
-    elif fileExists("/usr/local/e2/etc/stb/info/vumodel") and not fileExists("/usr/local/e2/etc/stb/info/boxtype"):
+    elif fileExists("/usr/local/e2/etc/info/vumodel") and not fileExists("/usr/local/e2/etc/info/boxtype"):
         brand = "Vu+"
-        f = open("/usr/local/e2/etc/stb/info/vumodel", 'r')
+        f = open("/usr/local/e2/etc/info/vumodel", 'r')
         procmodel = f.readline().strip()
         f.close()
         model = procmodel.title().replace("olose", "olo SE").replace("olo2se", "olo2 SE").replace("2", "²").replace("4Kse", "4K SE")
@@ -230,8 +230,8 @@ def getAllInfo():
                 model = "UHD 88"
             else:
                 model = "ESI 88"
-    elif fileExists("/usr/local/e2/etc/stb/info/boxtype"):
-        f = open("/usr/local/e2/etc/stb/info/boxtype", 'r')
+    elif fileExists("/usr/local/e2/etc/info/boxtype"):
+        f = open("/usr/local/e2/etc/info/boxtype", 'r')
         procmodel = f.readline().strip().lower()
         f.close()
         if procmodel.startswith("et"):
@@ -480,7 +480,7 @@ def getAllInfo():
         elif procmodel.startswith("sf"):
             brand = "Octagon"
             if procmodel.startswith("sf8008"):
-                sf8008type = open("/usr/local/e2/etc/stb/info/type").read()
+                sf8008type = open("/usr/local/e2/etc/info/type").read()
                 if sf8008type.startswith("11"):
                     procmodel = "sf8008t"
                     model = "SF8008 4K Twin"
@@ -503,8 +503,8 @@ def getAllInfo():
         else:
             model = procmodel
 
-    elif fileExists("/usr/local/e2/etc/stb/info/model"):
-        f = open("/usr/local/e2/etc/stb/info/model", 'r')
+    elif fileExists("/usr/local/e2/etc/info/model"):
+        f = open("/usr/local/e2/etc/info/model", 'r')
         procmodel = f.readline().strip().lower()
         f.close()
         if procmodel == "tf7700hdpvr":

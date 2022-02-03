@@ -322,13 +322,6 @@ fi
 if [ ! -d /media/hdd ]; then
 	ln -s /home/hdd /media
 fi
-
-# Temporarily action
-if [ -d  $INSTALL_E2DIR/etc/stb ]; then
-	rm -fr $INSTALL_E2DIR/etc/stb
-fi
-# End of temporarily action
-
 if [ ! -d /etc/enigma2 ]; then
 	ln -s $INSTALL_E2DIR/etc/enigma2 /etc
 fi

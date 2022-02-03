@@ -7742,10 +7742,22 @@ diff -ruN o/lib/python/Plugins/Extensions/PicturePlayer/ui.py pc/lib/python/Plug
  config.pic.slidetime = ConfigInteger(default=10, limits=(1, 60))
  config.pic.resize = ConfigSelection(default="1", choices=[("0", _("simple")), ("1", _("better"))])
  config.pic.cache = ConfigYesNo(default=True)
+diff -ruN o/lib/python/Plugins/SystemPlugins/Makefile.am pc/lib/python/Plugins/SystemPlugins/Makefile.am
+--- o/lib/python/Plugins/SystemPlugins/Makefile.am	2021-07-07 13:18:31.527202884 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Makefile.am	2022-02-03 13:54:12.901489170 +0300
+@@ -3,7 +3,7 @@
+ SUBDIRS = SoftwareManager PositionerSetup Satfinder \
+ 	SatelliteEquipmentControl Videomode VideoTune Hotplug \
+ 	DefaultServicesScanner DiseqcTester CommonInterfaceAssignment \
+-	CableScan FastScan OSDPositionSetup OSD3DSetup HdmiCEC VideoClippingSetup \
++	CableScan FastScan VideoClippingSetup \
+ 	VideoEnhancement WirelessLan NetworkWizard
+ 
+ if HAVE_TEMPFANCONTROL
 diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py
 --- o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-10-01 13:48:13.420652295 +0300
 +++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-10-01 13:49:05.621220634 +0300
-@@ -152,7 +152,7 @@
+@@ -152,7 +143,7 @@
  		if self.step == 1:
  			self.step = self.yes_no.value and 5 or 2
  		elif self.step == 2:
@@ -8105,7 +8117,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  
  		# handle hotplug by re-creating setup
  		self.onShow.append(self.startHotplug)
-@@ -52,79 +53,49 @@
+@@ -52,79 +53,47 @@
  	def createSetup(self):
  		level = config.usage.setup_level.index
  
@@ -8170,8 +8182,6 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
 -				if SystemInfo["ScartSwitch"]:
 -					self.list.append(getConfigListEntry(_("Auto scart switching"), config.av.vcrswitch, _("When enabled, your receiver will detect activity on the VCR SCART input.")))
 +		self.list = [ ]
-+		self.list.append(getConfigListEntry(_("Refresh Rate"), config.av.videorate, _("Select Xine refresh rate.")))
-+		self.list.append(getConfigListEntry(_("Aspect Ratio"), config.av.aspect, _("Select Xine aspect ratio.")))
 +
 +		if config.av.aspect.value != "auto":
 +			self.list.append(getConfigListEntry(_("Display 4:3 content as"), config.av.policy_43, _("Select 4:3 display zoom method.")))
@@ -8220,7 +8230,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  			if SystemInfo["HasMultichannelPCM"]:
  				self.list.append(getConfigListEntry(_("Multichannel PCM"), config.av.multichannel_pcm, _("Configure whether multi channel PCM sound should be enabled.")))
  			if SystemInfo["HasAutoVolume"] or SystemInfo["HasAutoVolumeLevel"]:
-@@ -138,11 +109,11 @@
+@@ -138,11 +107,11 @@
  				if SystemInfo["Has3DSurroundSoftLimiter"] and config.av.surround_3d_speaker.value != "disabled":
  					self.list.append(getConfigListEntry(_("3D surround softlimiter"), config.av.surround_softlimiter_3d, _("This option allows you to enable 3D surround softlimiter.")))
  
@@ -8237,7 +8247,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  
  		self["config"].list = self.list
  
-@@ -156,7 +127,6 @@
+@@ -156,7 +125,6 @@
  
  	def confirm(self, confirmed):
  		if not confirmed:
@@ -8245,7 +8255,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  			config.av.videomode[self.last_good[0]].value = self.last_good[1]
  			config.av.videorate[self.last_good[1]].value = self.last_good[2]
  			self.hw.setMode(*self.last_good)
-@@ -164,17 +134,15 @@
+@@ -164,17 +132,15 @@
  			self.keySave()
  
  	def grabLastGoodMode(self):
@@ -8270,7 +8280,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  			from Screens.MessageBox import MessageBox
  			self.session.openWithCallback(self.confirm, MessageBox, _("Is this video mode ok?"), MessageBox.TYPE_YESNO, timeout=20, default=False)
  		else:
-@@ -197,20 +165,18 @@
+@@ -197,20 +163,18 @@
  
  	def hotplug(self, what):
  		print "hotplug detected on port '%s'" % (what)
@@ -8298,7 +8308,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  
  
  hotplug = None
-@@ -244,11 +210,10 @@
+@@ -244,11 +208,10 @@
  
  
  def startSetup(menuid):
@@ -11741,7 +11751,17 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Configure the offline decoding delay in milliseconds. The configured delay is observed at each control word parity change."
  msgstr "Настройка задержки декодирования оффлайн в миллисекундах. Настроенная задержка наблюдается при каждой смене управляющего слова четности."
-@@ -2093,10 +2093,10 @@
+@@ -2059,9 +2059,6 @@
+ msgid "Configure the primary EPG language."
+ msgstr "Настройка первого языка EPG."
+ 
+-msgid "Configure the refresh rate of the screen."
+-msgstr "Настройка частоты обновления экрана."
+-
+ msgid "Configure the screen resolution in PC output mode."
+ msgstr "Настройка разрешения экрана в режиме выхода ПК."
+ 
+@@ -2093,10 +2090,10 @@
  msgstr "Настройка для получения источника данных интерфейса в инфобарах. 'Установки' - данные берутся из файла lamedb. 'Тюнер' - непосредственно из данных опрашиваемого тюнера."
  
  msgid "Configure the speed of the background deletion process. Lower speed will consume less hard disk drive performance."
@@ -11754,7 +11774,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Configure the subtitle delay when timing information is not available."
  msgstr "Настройка задержки субтитров, когда информация о времени не доступна."
-@@ -2111,7 +2111,7 @@
+@@ -2111,7 +2108,7 @@
  msgstr "Настройка прозрачности экранного меню (OSD)."
  
  msgid "Configure the transparency of the black background of graphical DVB subtitles."
@@ -11763,7 +11783,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Configure the tuner mode."
  msgstr "Настройка режима тюнера."
-@@ -2120,7 +2120,7 @@
+@@ -2120,7 +2117,7 @@
  msgstr "Настройка вида значков индикации статуса, при показе в списке фильмов."
  
  msgid "Configure the vertical position of the subtitles, measured from the bottom of the screen."
@@ -11772,7 +11792,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Configure the video output mode (or resolution)."
  msgstr "Настройка режима видеовыхода (или разрешение)."
-@@ -2132,52 +2132,52 @@
+@@ -2132,52 +2129,52 @@
  msgstr "Варианты настроек тюнера."
  
  msgid "Configure where completed timers show up in the timer list."
@@ -11838,7 +11858,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Configuring"
  msgstr "Настройки"
-@@ -2189,10 +2189,10 @@
+@@ -2189,10 +2186,10 @@
  msgstr "Конфликт не решен!"
  
  msgid "Congo"
@@ -11851,7 +11871,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Connect"
  msgstr "Подключить"
-@@ -2204,7 +2204,7 @@
+@@ -2204,7 +2201,7 @@
  msgstr "Подключено"
  
  msgid "Connected satellites"
@@ -11860,7 +11880,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Connected to"
  msgstr "Подключено к"
-@@ -2219,10 +2219,10 @@
+@@ -2219,10 +2216,10 @@
  msgstr "Модуляция & FFT режим"
  
  msgid "Consult your SCR device spec sheet for this information."
@@ -11873,7 +11893,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Content does not fit on DVD!"
  msgstr "Контент не соответствует DVD!"
-@@ -2237,13 +2237,13 @@
+@@ -2237,13 +2234,13 @@
  msgstr "Продолжить воспроизведение"
  
  msgid "Continues play (loop)"
@@ -11889,7 +11909,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Copy"
  msgstr "Копирование"
-@@ -2252,10 +2252,10 @@
+@@ -2252,10 +2249,10 @@
  msgstr "Копировать в пакет"
  
  msgid "Costa Rica"
@@ -11902,7 +11922,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Could not find installed channel list."
  msgstr "Нет найден инсталлированный список каналов."
-@@ -2281,7 +2281,7 @@
+@@ -2281,7 +2278,7 @@
  msgstr "Страна"
  
  msgid "Cover dashed flickering line for this service"
@@ -11911,7 +11931,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Create DVD-ISO"
  msgstr "Создать DVD-ISO"
-@@ -2293,11 +2293,11 @@
+@@ -2293,11 +2290,11 @@
  msgstr "Создать новую папку и выйти"
  
  msgid "Create separate radio userbouquet"
@@ -11925,7 +11945,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Creating filesystem"
  msgstr "Создание файловой системы"
-@@ -2306,16 +2306,16 @@
+@@ -2306,16 +2303,16 @@
  msgstr "Создание разделов"
  
  msgid "Croatia"
@@ -11945,7 +11965,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Current"
  msgstr "Текущий"
-@@ -2341,7 +2341,7 @@
+@@ -2341,7 +2338,7 @@
  msgstr "Текущий режим: %s \n"
  
  msgid "Current rotor position: "
@@ -11954,7 +11974,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Current settings:"
  msgstr "Текущие настройки:"
-@@ -2359,7 +2359,7 @@
+@@ -2359,7 +2356,7 @@
  msgstr "Пользовательский интервал времени для кнопок '1'/'3'"
  
  msgid "Custom skip time for '4'/'6' buttons"
@@ -11963,7 +11983,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Custom skip time for '7'/'9' buttons"
  msgstr "Пользовательский интервал времени для кнопок '7'/'9'"
-@@ -2371,7 +2371,7 @@
+@@ -2371,7 +2368,7 @@
  msgstr "Настройте параметры OpenWebIF для резервного тюнера"
  
  msgid "Customize channel list cursor behavior"
@@ -11972,7 +11992,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Cut"
  msgstr "Сократить"
-@@ -2380,16 +2380,16 @@
+@@ -2380,16 +2377,16 @@
  msgstr "Видео редактор списка сокращений"
  
  msgid "Cutlist editor..."
@@ -11992,7 +12012,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "D"
  msgstr "D"
-@@ -2407,46 +2407,46 @@
+@@ -2407,46 +2404,46 @@
  msgstr "DTS микширование"
  
  msgid "DUAL LAYER DVD"
@@ -12050,7 +12070,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Danish"
  msgstr "Датский"
-@@ -2461,16 +2461,16 @@
+@@ -2461,16 +2458,16 @@
  msgstr "Отладка в файл"
  
  msgid "Deep Standby LED"
@@ -12070,7 +12090,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Default movie location"
  msgstr "Дефолтное место записей"
-@@ -2479,106 +2479,106 @@
+@@ -2479,106 +2476,106 @@
  msgstr "Дефолтные настройки"
  
  msgid "Default timer type"
@@ -12207,7 +12227,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Delete the character to the left of text cursor"
  msgstr "Удалить символ слева от текстового курсора"
-@@ -2593,22 +2593,22 @@
+@@ -2593,22 +2590,22 @@
  msgstr "Удалено"
  
  msgid "Deleted image"
@@ -12235,7 +12255,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Description"
  msgstr "Описание"
-@@ -2617,7 +2617,7 @@
+@@ -2617,7 +2614,7 @@
  msgstr "Не выбирать"
  
  msgid "Destination of fallback remote receiver"
@@ -12244,7 +12264,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Destination of fallback remote receiver for ATSC"
  msgstr "Назначение запасного удаленного ресивера для ATSC"
-@@ -2629,16 +2629,16 @@
+@@ -2629,16 +2626,16 @@
  msgstr "Назначение запасного удаленного ресивера для DVB-T"
  
  msgid "Details for plugin: "
@@ -12265,7 +12285,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Device name:"
  msgstr "Имя устройства:"
-@@ -2665,7 +2665,7 @@
+@@ -2665,7 +2662,7 @@
  msgstr "Тестирование DiSEqC"
  
  msgid "DiSEqC mode"
@@ -12274,7 +12294,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid "DiSEqC port %s: %s"
-@@ -2675,20 +2675,20 @@
+@@ -2675,20 +2672,20 @@
  msgstr "Настройки DiSEqC-тестер"
  
  msgid "Did you see all eight arrow heads?"
@@ -12299,7 +12319,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Directory browser"
  msgstr "Директория браузера"
-@@ -2701,7 +2701,7 @@
+@@ -2701,7 +2698,7 @@
  msgstr "Отключить"
  
  msgid "Disable Picture in Picture"
@@ -12308,7 +12328,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Disable background scanning"
  msgstr "Отключить фоновое сканирование"
-@@ -2725,40 +2725,40 @@
+@@ -2725,40 +2722,40 @@
  msgstr "Состояние диска: "
  
  msgid "Display 16:9 content as"
@@ -12360,7 +12380,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Do a cable service scan now"
  msgstr "Выполнить ручной поиск сервисов сейчас"
-@@ -2846,7 +2846,7 @@
+@@ -2846,7 +2843,7 @@
  msgstr "Вы хотите автоматически восстановить настройки?"
  
  msgid "Do you want to burn this collection to DVD medium?"
@@ -12369,7 +12389,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid ""
-@@ -2869,10 +2869,10 @@
+@@ -2869,10 +2866,10 @@
  msgstr "Вы хотите воспроизвести DVD в приводе?"
  
  msgid "Do you want to preview this DVD before burning?"
@@ -12382,7 +12402,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Do you want to reboot your receiver?"
  msgstr "Вы хотите перезагрузить Ваш ресивер?"
-@@ -2900,13 +2900,13 @@
+@@ -2900,13 +2897,13 @@
  msgstr "Вы хотите обновить Ваш ресивер от %s?"
  
  msgid "Do you want to update your receiver?"
@@ -12399,7 +12419,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Don't save and stop timeshift"
  msgstr "Не сохранять и остановить таймшифт"
-@@ -2929,9 +2929,9 @@
+@@ -2929,9 +2926,9 @@
  #, python-format
  msgid "Done - Installed, updated or removed %d package (%s)"
  msgid_plural "Done - Installed, updated or removed %d packages (%s)"
@@ -12412,7 +12432,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Download plugins"
  msgstr "Загрузка плагинов"
-@@ -2949,13 +2949,13 @@
+@@ -2949,13 +2946,13 @@
  msgstr "Загрузка имиджа"
  
  msgid "Downloading a new packet list. Please wait..."
@@ -12429,7 +12449,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Dutch"
  msgstr "Нидерландский"
-@@ -2970,7 +2970,7 @@
+@@ -2970,7 +2967,7 @@
  msgstr "ECM инфо"
  
  msgid "EPG"
@@ -12438,7 +12458,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "EPG language selection 1"
  msgstr "Выбор языка EPG 1"
-@@ -2979,7 +2979,7 @@
+@@ -2979,7 +2976,7 @@
  msgstr "Выбор языка EPG 2"
  
  msgid "EPG only"
@@ -12447,7 +12467,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "EPG selection"
  msgstr "Выбор EPG"
-@@ -2988,11 +2988,11 @@
+@@ -2988,11 +2985,11 @@
  msgstr "Настройки EPG"
  
  msgid "EPG:"
@@ -12461,7 +12481,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid "ERROR downloading file %s"
-@@ -3002,43 +3002,43 @@
+@@ -3002,43 +2999,43 @@
  msgstr "Восток"
  
  msgid "East limit set"
@@ -12515,7 +12535,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Edit title"
  msgstr "Редактировать название"
-@@ -3047,13 +3047,13 @@
+@@ -3047,13 +3044,13 @@
  msgstr "Редактировать URL-адрес источника обновления"
  
  msgid "Education/Science/..."
@@ -12532,7 +12552,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Electronic Program Guide"
  msgstr "Электронный Программный Гид"
-@@ -3092,10 +3092,10 @@
+@@ -3092,10 +3089,10 @@
  msgstr "Включить Netmed EPG"
  
  msgid "Enable OK as preview in channel selection"
@@ -12545,7 +12565,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Enable OpenTV EPG"
  msgstr "Включить OpenTV EPG"
-@@ -3117,13 +3117,13 @@
+@@ -3117,13 +3114,13 @@
  msgstr "Вкл. автосканирование для %s"
  
  msgid "Enable bouquet edit"
@@ -12562,7 +12582,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Enable favourites edit"
  msgstr "Включить редактирование фаворитов"
-@@ -3132,13 +3132,13 @@
+@@ -3132,13 +3129,13 @@
  msgstr "Включить freesat EPG"
  
  msgid "Enable import timer from fallback tuner"
@@ -12578,7 +12598,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Enable or disable using HDMI-CEC."
  msgstr "Включение или отключение использования HDMI-CEC"
-@@ -3147,7 +3147,7 @@
+@@ -3147,7 +3144,7 @@
  msgstr "Включить родительский контроль"
  
  msgid "Enable remote enigma2 receiver to be tried to tune into services that cannot be tuned into locally (e.g. tuner is occupied or service type is unavailable on the local tuner. Specify complete URL including http:// and port number (normally ...:8001), e.g. http://second_box:8001."
@@ -12587,7 +12607,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Enable teletext caching"
  msgstr "Включить кэширование телетекста"
-@@ -3162,19 +3162,19 @@
+@@ -3162,19 +3159,19 @@
  msgstr "Значение для таких параметров, как 'да/нет', 'включить/выключить' и 'вкл/выкл', будет заменено графическим переключателем."
  
  msgid "Enable volume control with arrow buttons"
@@ -12610,7 +12630,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Encryption"
  msgstr "Шифрование"
-@@ -3189,13 +3189,13 @@
+@@ -3189,13 +3186,13 @@
  msgstr "Шифрование:"
  
  msgid "End alternatives edit"
@@ -12627,7 +12647,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "End time"
  msgstr "Время окончания"
-@@ -3204,21 +3204,21 @@
+@@ -3204,21 +3201,21 @@
  msgstr "Окончание времени игнорирования"
  
  msgid "End time to ignore shutdown in standby"
@@ -12653,7 +12673,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Enter"
  msgstr "Ввод"
-@@ -3236,28 +3236,28 @@
+@@ -3236,28 +3233,28 @@
  msgstr "Ввод URL"
  
  msgid "Enter an URL where alternative images could be listed for FlashImage"
@@ -12688,7 +12708,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Enter the service PIN"
  msgstr "Ввод PIN-код сервиса"
-@@ -3266,25 +3266,25 @@
+@@ -3266,25 +3263,25 @@
  msgstr "Введите ONID/TSID транспондера"
  
  msgid "Enter your current latitude. This is the number of degrees you are from the equator as a decimal."
@@ -12721,7 +12741,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Error"
  msgstr "Ошибка"
-@@ -3323,24 +3323,24 @@
+@@ -3323,24 +3320,24 @@
  "%s"
  
  msgid "Error stop stream!"
@@ -12751,7 +12771,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid ""
-@@ -3351,7 +3351,7 @@
+@@ -3351,7 +3348,7 @@
  "Повторить?"
  
  msgid "Estonia"
@@ -12760,7 +12780,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Estonian"
  msgstr "Эстонский"
-@@ -3360,10 +3360,10 @@
+@@ -3360,10 +3357,10 @@
  msgstr "EtPortal"
  
  msgid "Ethernet network interface"
@@ -12773,7 +12793,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Event font size (relative to skin size)"
  msgstr "Размер шрифта событий (по отношению к скину)"
-@@ -3375,7 +3375,7 @@
+@@ -3375,7 +3372,7 @@
  msgstr "Обзор события"
  
  msgid "Event view context menu"
@@ -12782,7 +12802,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Event view menu"
  msgstr "Меню обзора события"
-@@ -3390,7 +3390,7 @@
+@@ -3390,7 +3387,7 @@
  msgstr "Везде"
  
  msgid "Exceeds dual layer medium!"
@@ -12791,7 +12811,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Execution finished!!"
  msgstr "Выполнение закончено!"
-@@ -3420,19 +3420,19 @@
+@@ -3420,19 +3417,19 @@
  msgstr "Выход из медиаплеера"
  
  msgid "Exit movie list"
@@ -12816,7 +12836,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Exit the wizard"
  msgstr "Выйти из мастера настроек"
-@@ -3453,19 +3453,19 @@
+@@ -3453,19 +3450,19 @@
  msgstr "Расширенное"
  
  msgid "Extended PID info"
@@ -12841,7 +12861,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Extensions"
  msgstr "Дополнения"
-@@ -3564,7 +3564,7 @@
+@@ -3564,7 +3561,7 @@
  "\n"
  "Do you really want to proceed?"
  msgstr ""
@@ -12850,7 +12870,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Действительно выполнить сброс на заводские установки?"
  
-@@ -3578,40 +3578,40 @@
+@@ -3578,40 +3575,40 @@
  msgstr "Неудачно:"
  
  msgid "Falkland Islands (Malvinas)"
@@ -12902,7 +12922,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid "Fan %d"
-@@ -3632,31 +3632,31 @@
+@@ -3632,31 +3629,31 @@
  msgstr "Скорость вентилятора"
  
  msgid "Faroe Islands"
@@ -12941,7 +12961,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "File appears to be busy.\n"
  msgstr "Файл сейчас используется.\n"
-@@ -3680,28 +3680,28 @@
+@@ -3680,28 +3677,28 @@
  msgstr "Найти текущий играющий сервис"
  
  msgid "Fine movement"
@@ -12976,7 +12996,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Flash Image"
  msgstr "Прошивка имиджа"
-@@ -3724,7 +3724,7 @@
+@@ -3724,7 +3721,7 @@
  "%s"
  
  msgid "Following tasks will be done after you press OK!"
@@ -12985,7 +13005,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Force legacy signal stats"
  msgstr "Статистика уровня snr/db из E2(если поддерживается)"
-@@ -3736,34 +3736,34 @@
+@@ -3736,34 +3733,34 @@
  msgstr "Формат"
  
  msgid "Forward volume keys"
@@ -13028,7 +13048,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Frequency bands"
  msgstr "Частотные диапазоны"
-@@ -3788,7 +3788,7 @@
+@@ -3788,7 +3785,7 @@
  
  #, python-format
  msgid "Frontprocessor version: %s"
@@ -13037,7 +13057,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Full description separator"
  msgstr "Разделитель полного описания"
-@@ -3819,10 +3819,10 @@
+@@ -3819,10 +3816,10 @@
  msgstr "GB"
  
  msgid "GUI Settings"
@@ -13050,7 +13070,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "GUI needs a restart to apply a new language\n"
-@@ -3832,10 +3832,10 @@
+@@ -3832,10 +3829,10 @@
  "Хотите выполнить рестарт GUI сейчас?"
  
  msgid "Gabon"
@@ -13063,7 +13083,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Gateway"
  msgstr "Шлюз"
-@@ -3850,22 +3850,22 @@
+@@ -3850,22 +3847,22 @@
  msgstr "Жанр"
  
  msgid "Georgia"
@@ -13091,7 +13111,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Go down the list"
  msgstr "Перейти вниз списка"
-@@ -3904,16 +3904,16 @@
+@@ -3904,16 +3901,16 @@
  msgstr "Переход"
  
  msgid "Goto 0"
@@ -13112,7 +13132,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Goto next day of events"
  msgstr "Перейти на следущий день событий"
-@@ -3922,7 +3922,7 @@
+@@ -3922,7 +3919,7 @@
  msgstr "Перейти на следующую страницу событий"
  
  msgid "Goto position"
@@ -13121,7 +13141,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Goto previous day of events"
  msgstr "Перейти на предыдущий день событий"
-@@ -3937,7 +3937,7 @@
+@@ -3937,7 +3934,7 @@
  msgstr "Переход на конкретную дату/время"
  
  msgid "Goto up service"
@@ -13130,7 +13150,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Goto:"
  msgstr "Куда:"
-@@ -3952,43 +3952,43 @@
+@@ -3952,43 +3949,43 @@
  msgstr "Графический мульти-EPG"
  
  msgid "Greece"
@@ -13185,7 +13205,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "H"
  msgstr "H"
-@@ -4036,13 +4036,13 @@
+@@ -4036,13 +4033,13 @@
  msgstr "HDx1/HD1xxx/HD5x0C/VS1x00/et7x00/et8500/et7000mini"
  
  msgid "HELP"
@@ -13201,7 +13221,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Handle standby from TV"
  msgstr "Задействовать команду 'ожидания' от ТВ"
-@@ -4051,31 +4051,31 @@
+@@ -4051,31 +4048,31 @@
  msgstr "Задействовать команду 'включения' от ТВ"
  
  msgid "Hard disk"
@@ -13240,7 +13260,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Hidden network"
  msgstr "Скрытая сеть"
-@@ -4102,7 +4102,7 @@
+@@ -4102,7 +4099,7 @@
  msgstr "Скрыть доп. меню"
  
  msgid "Hide zap errors"
@@ -13249,7 +13269,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Hierarchy info"
  msgstr "Иерархия инфо"
-@@ -4111,10 +4111,10 @@
+@@ -4111,10 +4108,10 @@
  msgstr "Поддержка высокого битрейта"
  
  msgid "History back"
@@ -13262,7 +13282,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Hold screen"
  msgstr "Держать экран"
-@@ -4123,37 +4123,37 @@
+@@ -4123,37 +4120,37 @@
  msgstr "Держать экран до разблокировки"
  
  msgid "Holy See"
@@ -13308,7 +13328,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Hotplug"
  msgstr "Горячее подключение"
-@@ -4171,7 +4171,7 @@
+@@ -4171,7 +4168,7 @@
  msgstr "Венгерский"
  
  msgid "Hungary"
@@ -13317,7 +13337,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "I"
  msgstr "I"
-@@ -4183,10 +4183,10 @@
+@@ -4183,10 +4180,10 @@
  msgstr "I55SE/H7(новая модель)/H9(новая модель)/H9COMBO/H9TWIN/H9SE/H9COMBOSE/H10/H11"
  
  msgid "IDLE"
@@ -13330,7 +13350,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "INS"
  msgstr "INS"
-@@ -4195,7 +4195,7 @@
+@@ -4195,7 +4192,7 @@
  msgstr "IP-адрес"
  
  msgid "IP of fallback remote receiver"
@@ -13339,7 +13359,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "ISO file is too large for this filesystem!"
  msgstr "Объем ISO файл слишком большой для этой файловой системы!"
-@@ -4204,13 +4204,13 @@
+@@ -4204,13 +4201,13 @@
  msgstr "ISO путь"
  
  msgid "Iceland"
@@ -13356,7 +13376,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "If enabled, a log will be kept of CEC protocol traffic ('hdmicec.log')"
  msgstr "Если включено, будет вестись журнал трафика протокола CEC ('hdmicec.log')."
-@@ -4222,37 +4222,37 @@
+@@ -4222,37 +4219,37 @@
  msgstr "Если включено, на дисплее отображается 12 символов вместо 8, но только для кодировки latin-1 или транслита."
  
  msgid "If enabled, then there will be displayed icons for new/unseen items too."
@@ -13401,7 +13421,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "SCART соединением. Нажмите кнопку ОК, чтобы вернуться."
  
  msgid ""
-@@ -4279,7 +4279,7 @@
+@@ -4279,7 +4276,7 @@
  msgstr "Игнорировать конфликт"
  
  msgid "Image View On"
@@ -13410,7 +13430,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid ""
-@@ -4296,7 +4296,7 @@
+@@ -4296,7 +4293,7 @@
  msgstr "Импортировать каналы/EPG при выходе из режима ожидания"
  
  msgid "Import channels and/or EPG from remote receiver URL when receiver is booted"
@@ -13419,7 +13439,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Import channels and/or EPG from remote receiver URL when receiver or enigma2 is restarted"
  msgstr "Импортировать каналы/EPG после рестарта enigma2"
-@@ -4320,19 +4320,19 @@
+@@ -4320,19 +4317,19 @@
  msgstr "В прогрессе"
  
  msgid "Inactivity Sleeptimer"
@@ -13444,7 +13464,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Incorrect service type for Picture in Picture!"
  msgstr "Некорректный тип сервиса для PiP!"
-@@ -4347,22 +4347,22 @@
+@@ -4347,22 +4344,22 @@
  msgstr "Выделен номер:"
  
  msgid "India"
@@ -13472,7 +13492,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Infobar frontend data source"
  msgstr "Источник данных интерфейса в инфобаре"
-@@ -4395,13 +4395,13 @@
+@@ -4395,13 +4392,13 @@
  msgstr "Начальное качество сигнала:"
  
  msgid "Initialization"
@@ -13488,7 +13508,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Input"
  msgstr "Вход"
-@@ -4410,7 +4410,7 @@
+@@ -4410,7 +4407,7 @@
  msgstr "Вход "
  
  msgid "Input Stream ID"
@@ -13497,7 +13517,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Input device setup"
  msgstr "Настройки устройства ввода"
-@@ -4419,7 +4419,7 @@
+@@ -4419,7 +4416,7 @@
  msgstr "Настройки пульта"
  
  msgid "Install"
@@ -13506,7 +13526,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Install channel list"
  msgstr "Инсталлировать список каналов"
-@@ -4431,7 +4431,7 @@
+@@ -4431,7 +4428,7 @@
  msgstr "Инсталляция локальных пакетов"
  
  msgid "Install picons on"
@@ -13515,7 +13535,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Installation has completed."
  msgstr "Инсталляция завершена."
-@@ -4443,7 +4443,7 @@
+@@ -4443,7 +4440,7 @@
  msgstr "Инсталляция"
  
  msgid "Installing software..."
@@ -13524,7 +13544,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Instant recording"
  msgstr "Немедленные записи"
-@@ -4458,16 +4458,16 @@
+@@ -4458,16 +4455,16 @@
  msgstr "Внутренний"
  
  msgid "Internal flash"
@@ -13544,7 +13564,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid "Invalid directory selected: %s"
-@@ -4486,34 +4486,34 @@
+@@ -4486,34 +4483,34 @@
  msgstr "Инверсия & Пропускная способность"
  
  msgid "Inversion, Pilot & Roll-off"
@@ -13588,7 +13608,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "It seems you did not see all the eight arrow heads. This means your TV has overscan enabled, and is not configured properly.\n"
-@@ -4521,14 +4521,14 @@
+@@ -4521,14 +4518,14 @@
  "Please refer to your TV's manual to find how you can disable overscan on your TV. Look for terms like 'Just fit', 'Full width', etc. If you can't find it, ask other users at http://forums.openpli.org.\n"
  "\n"
  msgstr ""
@@ -13605,7 +13625,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Items per page "
  msgstr "Строк на страницу "
-@@ -4540,25 +4540,25 @@
+@@ -4540,25 +4537,25 @@
  msgstr "J"
  
  msgid "Jamaica"
@@ -13636,7 +13656,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Jump to next marked position"
  msgstr "Перейти к следующей метке"
-@@ -4574,13 +4574,13 @@
+@@ -4574,13 +4571,13 @@
  msgstr "KA-спутник"
  
  msgid "Kazakhstan"
@@ -13653,7 +13673,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Kernel version: "
  msgstr "Версия ядра: "
-@@ -4592,7 +4592,7 @@
+@@ -4592,7 +4589,7 @@
  msgstr "Клавиатура"
  
  msgid "Keyboard data entry"
@@ -13662,7 +13682,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Keyboard map"
  msgstr "Раскладка клавиатуры"
-@@ -4601,19 +4601,19 @@
+@@ -4601,19 +4598,19 @@
  msgstr "Настройки клавиатуры"
  
  msgid "Kiribati"
@@ -13687,7 +13707,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "LAN adapter"
  msgstr "Адаптер LAN"
-@@ -4622,22 +4622,22 @@
+@@ -4622,22 +4619,22 @@
  msgstr "Подключение LAN"
  
  msgid "LNB"
@@ -13714,7 +13734,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Last speed"
  msgstr "Последняя скорость"
-@@ -4646,16 +4646,16 @@
+@@ -4646,16 +4643,16 @@
  msgstr "Последнее обновление: "
  
  msgid "Latest Commits"
@@ -13734,7 +13754,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Latvian"
  msgstr "Латвийский"
-@@ -4667,19 +4667,19 @@
+@@ -4667,19 +4664,19 @@
  msgstr "Оставьте этот параметр 'да', если Вы не знаете для чего он."
  
  msgid "Lebanon"
@@ -13758,7 +13778,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #. TRANSLATORS: (aspect ratio policy: black bars on top/bottom) in doubt, keep english term.
  msgid "Letterbox"
-@@ -4689,25 +4689,25 @@
+@@ -4689,25 +4686,25 @@
  msgstr "Смена масштаба изображения"
  
  msgid "Liberia"
@@ -13790,7 +13810,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Limits cancelled"
  msgstr "Ограничения отменены"
-@@ -4716,16 +4716,16 @@
+@@ -4716,16 +4713,16 @@
  msgstr "Ограничения включены"
  
  msgid "Limits off"
@@ -13810,7 +13830,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Linked titles with a DVD menu"
  msgstr "Названия, связанные с DVD меню"
-@@ -4737,7 +4737,7 @@
+@@ -4737,7 +4734,7 @@
  msgstr "Режим списка"
  
  msgid "List of storage devices"
@@ -13819,7 +13839,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "List type"
  msgstr "Вид списка"
-@@ -4750,19 +4750,19 @@
+@@ -4750,19 +4747,19 @@
  msgstr[2] "Список версии %(ver)d, найдено %(num)d каналов"
  
  msgid "Listen to the radio..."
@@ -13842,7 +13862,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Load"
  msgstr "Загрузить"
-@@ -4774,19 +4774,19 @@
+@@ -4774,19 +4771,19 @@
  msgstr "Загрузить плейлист"
  
  msgid "Load unlinked userbouquets"
@@ -13865,7 +13885,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Location for instant recordings"
  msgstr "Расположение немедленные записей"
-@@ -4807,13 +4807,13 @@
+@@ -4807,13 +4804,13 @@
  msgstr "Длинное название"
  
  msgid "Long key press"
@@ -13881,7 +13901,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Looking for active transponders in the terrestrial network. Please wait..."
  msgstr "Пытаемся найти транспондеры, используемые в наземной сети. Пожалуйста, подождите..."
-@@ -4825,7 +4825,7 @@
+@@ -4825,7 +4822,7 @@
  msgstr "Нижний регистр"
  
  msgid "Luxembourg"
@@ -13890,7 +13910,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Luxembourgish"
  msgstr "Люксембургский"
-@@ -4834,7 +4834,7 @@
+@@ -4834,7 +4831,7 @@
  msgstr "MB"
  
  msgid "MHz"
@@ -13899,7 +13919,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "MMC card"
  msgstr "MMC карта"
-@@ -4846,40 +4846,40 @@
+@@ -4846,40 +4843,40 @@
  msgstr "Macao"
  
  msgid "Madagascar"
@@ -13950,7 +13970,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Manage extensions"
  msgstr "Менеджер дополнений"
-@@ -4888,19 +4888,19 @@
+@@ -4888,19 +4885,19 @@
  msgstr "Управление дополнениями или плагинами Вашего ресивера."
  
  msgid "Manage your receiver's software"
@@ -13974,7 +13994,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Manual transponder"
  msgstr "Транспондер вручную"
-@@ -4925,43 +4925,43 @@
+@@ -4925,43 +4922,43 @@
  msgstr "Объединить перед записью (в минутах)"
  
  msgid "Mark service as dedicated 3D service"
@@ -14030,7 +14050,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Medium is not a writeable DVD!"
  msgstr "Носитель не записываемый DVD!"
-@@ -4973,7 +4973,7 @@
+@@ -4973,7 +4970,7 @@
  msgstr "Память"
  
  msgid "Memory Info"
@@ -14039,7 +14059,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Memory index"
  msgstr "Номер в памяти"
-@@ -4989,23 +4989,23 @@
+@@ -4989,23 +4986,23 @@
  msgstr "Сообщение"
  
  msgid "Message..."
@@ -14067,7 +14087,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Missing "
  msgstr "Отсутствует "
-@@ -5013,13 +5013,11 @@
+@@ -5013,13 +5010,11 @@
  msgid "Mode"
  msgstr "Режим"
  
@@ -14085,7 +14105,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Model"
  msgstr "Модель"
-@@ -5037,7 +5035,7 @@
+@@ -5037,7 +5032,7 @@
  msgstr "Модулятор"
  
  msgid "Moldova (Republic of)"
@@ -14094,7 +14114,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Mon"
  msgstr "Пн"
-@@ -5046,28 +5044,28 @@
+@@ -5046,28 +5041,28 @@
  msgstr "Пн-Пт"
  
  msgid "Monaco"
@@ -14129,7 +14149,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Motor running timeout"
  msgstr "Таймаут работы мотора"
-@@ -5078,7 +5076,7 @@
+@@ -5078,7 +5073,7 @@
  msgid "Move"
  msgstr "Перемещение"
  
@@ -14138,7 +14158,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgstr "Изменить PiP"
  
  msgid "Move PiP to main picture"
-@@ -5088,7 +5086,7 @@
+@@ -5088,7 +5083,7 @@
  msgstr "Переместить картинку в картинке"
  
  msgid "Move east"
@@ -14147,7 +14167,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Move the keyboard cursor down"
  msgstr "Перемещение курсора виртуальной клавиатуры вниз"
-@@ -5109,10 +5107,10 @@
+@@ -5109,10 +5104,10 @@
  msgstr "Переместить курсор текстового буфера вправо"
  
  msgid "Move the text cursor to the first character"
@@ -14160,7 +14180,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Move to position X"
  msgstr "Перемещение к позиции Х"
-@@ -5121,16 +5119,16 @@
+@@ -5121,16 +5116,16 @@
  msgstr "Перейти на следующую страницу"
  
  msgid "Move to the next skin"
@@ -14180,7 +14200,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Moved to position 0"
  msgstr "Перемещение к позиции 0"
-@@ -5139,7 +5137,7 @@
+@@ -5139,7 +5134,7 @@
  msgstr "Перемещение к позиции номера"
  
  msgid "Movement"
@@ -14189,7 +14209,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Movie list configuration"
  msgstr "Конфигурация списка видео"
-@@ -5157,19 +5155,19 @@
+@@ -5157,19 +5152,19 @@
  msgstr "Меню списка видео"
  
  msgid "Moving"
@@ -14213,7 +14233,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Multi EPG"
  msgstr "Мульти EPG"
-@@ -5178,13 +5176,13 @@
+@@ -5178,13 +5173,13 @@
  msgstr "Мультиканальное микширование"
  
  msgid "Multi-EPG bouquet selection"
@@ -14229,7 +14249,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Multichannel PCM"
  msgstr "Мультиканал PCM"
-@@ -5199,7 +5197,7 @@
+@@ -5199,7 +5194,7 @@
  msgstr "Несколько спутников"
  
  msgid "Multisat all select"
@@ -14238,7 +14258,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Multistream"
  msgstr "Мультистрим"
-@@ -5208,10 +5206,10 @@
+@@ -5208,10 +5203,10 @@
  msgstr "Музыка/Балет/Танец"
  
  msgid "Mute"
@@ -14251,7 +14271,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "N/A"
  msgstr "N/A"
-@@ -5220,7 +5218,7 @@
+@@ -5220,7 +5215,7 @@
  msgstr "ДАЛЕЕ"
  
  msgid "NIM & Type"
@@ -14260,7 +14280,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "NO"
  msgstr "НЕТ"
-@@ -5229,7 +5227,7 @@
+@@ -5229,7 +5224,7 @@
  msgstr "СЕЙЧАС"
  
  msgid "NTP Hostname"
@@ -14269,7 +14289,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "NTSC"
  msgstr "NTSC"
-@@ -5245,25 +5243,25 @@
+@@ -5245,25 +5240,25 @@
  msgstr "Сервер имен (DNS) %d"
  
  msgid "Nameserver settings"
@@ -14302,7 +14322,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Netmask"
  msgstr "Маска подсети"
-@@ -5278,10 +5276,10 @@
+@@ -5278,10 +5273,10 @@
  msgstr "Информация о сети:"
  
  msgid "Network configuration"
@@ -14315,7 +14335,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Network mount"
  msgstr "Сетевое монтирование"
-@@ -5303,7 +5301,7 @@
+@@ -5303,7 +5298,7 @@
  msgstr "Тест сети"
  
  msgid "Network test..."
@@ -14324,7 +14344,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Network test: "
  msgstr "Тест сети: "
-@@ -5318,39 +5316,34 @@
+@@ -5318,39 +5313,34 @@
  msgstr "Никогда не декодировать контент во время записи. Это отменяет индивидуальную настройку таймера на глобальном уровне. Если включено, контент не будет декодирован во время записи и Вам надо будет выполнить отложенное декодирование позже. По умолчанию: выкл."
  
  msgid "Never decrypt while recording"
@@ -14371,7 +14391,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No"
  msgstr "Нет"
-@@ -5365,10 +5358,10 @@
+@@ -5365,10 +5355,10 @@
  msgstr "Нет доступных ECMPids (FTA сервис)"
  
  msgid "No HDD found or HDD not initialized!"
@@ -14384,7 +14404,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No age block"
  msgstr "Нет возрастного ограничения"
-@@ -5377,7 +5370,7 @@
+@@ -5377,7 +5367,7 @@
  "No data on transponder!\n"
  "(Timeout reading PAT)"
  msgstr ""
@@ -14393,7 +14413,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "(Таймаут чтения PAT)"
  
  msgid "No data received yet"
-@@ -5393,13 +5386,13 @@
+@@ -5393,13 +5383,13 @@
  msgstr "Нет отображаемых файлов на этом носителе!"
  
  msgid "No epg.dat file found server"
@@ -14409,7 +14429,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No free index available"
  msgstr "Нет свободного номера памяти"
-@@ -5408,7 +5401,7 @@
+@@ -5408,7 +5398,7 @@
  msgstr "Нет свободного тюнера!"
  
  msgid "No images found"
@@ -14418,7 +14438,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No network connection available."
  msgstr "Нет доступного сетевого подключения."
-@@ -5426,19 +5419,19 @@
+@@ -5426,19 +5416,19 @@
  msgstr "Не найден спутниковый интрефейс!"
  
  msgid "No satellite, terrestrial or cable tuner is configured. Please check your tuner setup."
@@ -14442,7 +14462,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No tags are set on these movies."
  msgstr "Нет тегов, установленных для этого видео."
-@@ -5457,13 +5450,13 @@
+@@ -5457,13 +5447,13 @@
  "Please setup your tuner settings before you start a service scan."
  msgstr ""
  "Нет включенного тюнера!\n"
@@ -14458,7 +14478,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No wireless networks found! Searching..."
  msgstr "Не обнаружены беспроводные сети! Сканирование..."
-@@ -5473,33 +5466,33 @@
+@@ -5473,33 +5463,33 @@
  "Please verify that you have attached a network cable and your network is configured correctly."
  msgstr ""
  "Нет рабочего локального сетевого адаптера.\n"
@@ -14497,7 +14517,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "No, never"
  msgstr "Нет, никогда"
-@@ -5509,10 +5502,10 @@
+@@ -5509,10 +5499,10 @@
  
  #. TRANSLATORS: (aspect ratio policy: display as fullscreen, with stretching the left/right)
  msgid "Nonlinear"
@@ -14510,7 +14530,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Normal"
  msgstr "Нормальный"
-@@ -5527,16 +5520,16 @@
+@@ -5527,16 +5517,16 @@
  msgstr "Северная Македония (Республика)"
  
  msgid "Northern Mariana Islands"
@@ -14530,7 +14550,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Not associated"
  msgstr "Нет ассоциаций"
-@@ -5552,41 +5545,37 @@
+@@ -5552,41 +5542,37 @@
  msgstr "Без теста:"
  
  msgid "Note: when enabled, and you do want standby mode after wake up, set option 'Startup to Standby' as 'No, except Wakeup timer'."
@@ -14549,15 +14569,15 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgstr ""
  "Нечего сканировать!\n"
 -"Пожалуйста, настройте ваш тюнер и попробуйте еще раз."
+-
+-msgid "Now"
+-msgstr "Сейчас"
 +"Пожалуйста, настройте Ваш тюнер и попробуйте ещё раз."
  
+-msgctxt "now/next: 'now' event label"
  msgid "Now"
  msgstr "Сейчас"
  
--msgctxt "now/next: 'now' event label"
--msgid "Now"
--msgstr "Сейчас"
--
  msgid "Now playing"
 -msgstr "Сейчас воспроизвести"
 +msgstr "Воспроизводится"
@@ -14579,7 +14599,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "OK"
  msgstr "OK"
-@@ -5595,16 +5584,16 @@
+@@ -5595,16 +5581,16 @@
  msgstr "ONID"
  
  msgid "OSD 3D setup"
@@ -14600,7 +14620,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "OVR"
  msgstr "OVR"
-@@ -5616,16 +5605,16 @@
+@@ -5616,16 +5602,16 @@
  msgstr "Задержка отложенного декодирования (мс)"
  
  msgid "Oman"
@@ -14620,7 +14640,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "On valid ONIDs, ignore frequency sub network part"
  msgstr "При валидных ONID, игнорировать частотную часть подсетей"
-@@ -5643,28 +5632,28 @@
+@@ -5643,28 +5629,28 @@
  msgstr "Только дополнения."
  
  msgid "Only free scan"
@@ -14657,7 +14677,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Open setup tuner "
  msgstr "Открыть настройки тюнера "
-@@ -5673,13 +5662,13 @@
+@@ -5673,13 +5659,13 @@
  msgstr "Открыть список видео"
  
  msgid "Operating LED status in deep standby mode"
@@ -14674,7 +14694,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Opkg"
  msgstr "Opkg"
-@@ -5688,7 +5677,7 @@
+@@ -5688,7 +5674,7 @@
  msgstr "Варианты отключения таймера"
  
  msgid "Orbital position"
@@ -14683,7 +14703,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Ordinary"
  msgstr "Обычный"
-@@ -5703,16 +5692,16 @@
+@@ -5703,17 +5689,14 @@
  msgstr "Другая"
  
  msgid "Other Subtitles & lang"
@@ -14697,13 +14717,13 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgid "Overall progress:"
  msgstr "Общий прогресс:"
  
- msgid "Overscan wizard"
+-msgid "Overscan wizard"
 -msgstr "Мастер настройки переразвертки"
-+msgstr "Регулировка размеров развертки ТВ"
- 
+-
  msgid "Overwrite configuration files during software update?"
  msgstr "Переписывать файлы конфигурации во время обновления ПО?"
-@@ -5733,7 +5722,7 @@
+ 
+@@ -5733,7 +5716,7 @@
  msgstr "PGS файл"
  
  msgid "PID Filtering"
@@ -14712,7 +14732,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "PIN code needed"
  msgstr "Необходим PIN-код"
-@@ -5742,10 +5731,10 @@
+@@ -5742,10 +5725,10 @@
  msgstr "PLP ID"
  
  msgid "PLS Code"
@@ -14725,7 +14745,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "PMT PID"
  msgstr "РМТ PID"
-@@ -5769,32 +5758,32 @@
+@@ -5769,32 +5752,32 @@
  msgstr "Менеджер пакетов"
  
  msgid "Pakistan"
@@ -14765,7 +14785,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Parental control"
  msgstr "Родительский контроль"
-@@ -5806,7 +5795,7 @@
+@@ -5806,7 +5789,7 @@
  msgstr "Установки родительского контроля"
  
  msgid "Password"
@@ -14774,7 +14794,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Pause"
  msgstr "Пауза"
-@@ -5818,7 +5807,7 @@
+@@ -5818,7 +5801,7 @@
  msgstr "Пауза воспроизведения"
  
  msgid "Pause/Continue playback"
@@ -14783,7 +14803,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Pending restart"
  msgstr "Ожидание рестарта"
-@@ -5833,28 +5822,28 @@
+@@ -5833,28 +5816,28 @@
  msgstr "Окончательное удаление всех записей в корзине?"
  
  msgid "Permanently remove all deleted items"
@@ -14819,7 +14839,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #. TRANSLATORS: (aspect ratio policy: black bars on left/right) in doubt, keep english term.
  msgid "Pillarbox"
-@@ -5864,10 +5853,10 @@
+@@ -5864,10 +5847,10 @@
  msgstr "Пилот"
  
  msgid "Pitcairn"
@@ -14832,7 +14852,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Play"
  msgstr "Воспроизвести"
-@@ -5876,84 +5865,84 @@
+@@ -5876,84 +5859,84 @@
  msgstr "Воспроизвести DVD"
  
  msgid "Play DVDs"
@@ -14937,7 +14957,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Please enter a name for the new marker"
  msgstr "Пожалуйста, введите имя для нового маркера"
-@@ -5962,10 +5951,10 @@
+@@ -5962,10 +5945,10 @@
  msgstr "Пожалуйста, введите новое имя файла"
  
  msgid "Please enter filename (empty = use current date)"
@@ -14950,7 +14970,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Please enter new description:"
  msgstr "Пожалуйста, введите новое описание:"
-@@ -5973,7 +5962,7 @@
+@@ -5973,7 +5956,7 @@
  msgid "Please enter new name:"
  msgstr "Пожалуйста, введите новое имя:"
  
@@ -14959,7 +14979,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgstr "Пожалуйста, введите правильный PIN-код"
  
  msgid "Please enter the new PIN code"
-@@ -5986,47 +5975,47 @@
+@@ -5986,47 +5969,47 @@
  msgstr "Пожалуйста, следуйте инструкциям на ТВ"
  
  msgid "Please note that the previously selected media could not be accessed and therefore the default directory is being used instead."
@@ -15019,7 +15039,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Нажмите ОК для продолжения."
  
-@@ -6040,43 +6029,43 @@
+@@ -6040,43 +6023,43 @@
  "Нажмите ОК для продолжения."
  
  msgid "Please set up tuner A"
@@ -15076,7 +15096,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Please setup the following basic configs!"
  msgstr "Пожалуйста, настройте следующие основные конфигурации!"
-@@ -6103,28 +6092,28 @@
+@@ -6103,28 +6086,28 @@
  msgstr "Пожалуйста, подождите (обновление пакетов)"
  
  msgid "Please wait for activation of your network configuration..."
@@ -15113,7 +15133,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Please wait, restarting softcam."
  msgstr "Пожалуйста, подождите, выполняется рестарт эмулятора."
-@@ -6133,10 +6122,10 @@
+@@ -6133,10 +6116,10 @@
  msgstr "Пожалуйста, подождите..."
  
  msgid "Please wait... Loading list..."
@@ -15126,7 +15146,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Plugin browser"
  msgstr "Браузер плагинов"
-@@ -6151,7 +6140,7 @@
+@@ -6151,7 +6134,7 @@
  msgstr "Плагины"
  
  msgid "Poland"
@@ -15135,7 +15155,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Polarisation"
  msgstr "Поляризация"
-@@ -6178,10 +6167,10 @@
+@@ -6178,10 +6161,10 @@
  msgstr "Порт D"
  
  msgid "Port of fallback remote receiver"
@@ -15148,7 +15168,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Portuguese"
  msgstr "Португальский"
-@@ -6193,7 +6182,7 @@
+@@ -6193,7 +6176,7 @@
  msgstr "Позиция завершенных таймеров в списке таймеров"
  
  msgid "Position stored at index"
@@ -15157,7 +15177,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Positioner"
  msgstr "Позиционер"
-@@ -6208,7 +6197,7 @@
+@@ -6208,7 +6191,7 @@
  msgstr "Лог настроек позиционера"
  
  msgid "Power LED"
@@ -15166,7 +15186,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Power management. Consult your receiver's manual for more information."
  msgstr "Управление питанием. Для получения дополнительной информации обратитесь к инструкции."
-@@ -6226,7 +6215,7 @@
+@@ -6226,7 +6209,7 @@
  msgstr "Меню выключения"
  
  msgid "Predefined transponder"
@@ -15175,7 +15195,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Prefer AC3 track"
  msgstr "Приоритет аудио дорожки AC3"
-@@ -6235,7 +6224,7 @@
+@@ -6235,7 +6218,7 @@
  msgstr "Приоритет аудио дорожки AC3+"
  
  msgid "Prefer audio track stored by service"
@@ -15184,7 +15204,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Prefer graphical DVB subtitles"
  msgstr "Приоритет графических DVB субтитров"
-@@ -6280,13 +6269,13 @@
+@@ -6280,13 +6263,13 @@
  msgstr "Подготовка... Пожалуйста, подождите"
  
  msgid "Press '0' to toggle PiP mode"
@@ -15200,7 +15220,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Press 'OK' for remove item or 'CH+/-' for toggle to list of features."
  msgstr "Нажмите 'OK' для удаления записи или 'CH+/-' для переключения к списку функций."
-@@ -6295,23 +6284,23 @@
+@@ -6295,23 +6278,23 @@
  msgstr "Нажмите 'OK' для удаления записи или < > для изменения порядка или 'CH+/-' для переключения к списку функций."
  
  msgid "Press INFO on your remote control for additional information."
@@ -15229,7 +15249,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid "Press OK to get further details for %s"
-@@ -6337,7 +6326,7 @@
+@@ -6337,7 +6320,7 @@
  msgstr "Нажмите OK для выбора спутников"
  
  msgid "Press OK to select the save location of the log file."
@@ -15238,7 +15258,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Press OK to select/deselect a CAId."
  msgstr "Нажмите OK, чтобы выбрать/отменить CAId."
-@@ -6349,7 +6338,7 @@
+@@ -6349,7 +6332,7 @@
  msgstr "Нажмите ОК для подтверждения или отмены."
  
  msgid "Press OK, save and exit..."
@@ -15247,7 +15267,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Press or select button and then press 'OK' for attach function."
  msgstr "Нажмите или выберите кнопку, а затем нажмите 'OK' для назначения функции."
-@@ -6358,12 +6347,11 @@
+@@ -6358,12 +6341,11 @@
  msgstr "Нажмите или выберите кнопку, а затем нажмите 'OK' для назначения функции или редактирования назначенного."
  
  msgid "Press yellow button to set CEC address again"
@@ -15262,7 +15282,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgid "Prev"
  msgstr "Предыдущий"
  
-@@ -6392,10 +6380,10 @@
+@@ -6392,10 +6374,10 @@
  msgstr "Прогресс"
  
  msgid "Progress bar left"
@@ -15275,7 +15295,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Progress:"
  msgstr "Прогресс:"
-@@ -6416,7 +6404,7 @@
+@@ -6416,7 +6398,7 @@
  msgstr "Защита главного меню"
  
  msgid "Protect manufacturer reset screen"
@@ -15284,7 +15304,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Protect menu sort"
  msgstr "Защита меню сортировки"
-@@ -6425,13 +6413,13 @@
+@@ -6425,13 +6407,13 @@
  msgstr "Защита видео списка"
  
  msgid "Protect on EPG age"
@@ -15300,7 +15320,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Protect software update screen"
  msgstr "Защита меню обновления ПО"
-@@ -6449,10 +6437,10 @@
+@@ -6449,10 +6431,10 @@
  msgstr "Провайдеры"
  
  msgid "Puerto Rico"
@@ -15313,7 +15333,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Put A/V receiver to standby too."
  msgstr "Перевод аудио/видео системы в режим ожидания"
-@@ -6461,28 +6449,28 @@
+@@ -6461,28 +6443,28 @@
  msgstr "Перевести ТВ в режим ожидания"
  
  msgid "Put receiver in standby"
@@ -15348,7 +15368,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "RF output"
  msgstr "RF выход"
-@@ -6513,13 +6501,13 @@
+@@ -6513,13 +6495,13 @@
  msgstr "Действительно выйти из меню субсервисов?"
  
  msgid "Really perform a manufacturer reset now?"
@@ -15364,7 +15384,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Really restart now?"
  msgstr "Действительно выполнить рестарт сейчас?"
-@@ -6532,7 +6520,7 @@
+@@ -6532,7 +6514,7 @@
  msgstr "Действительно сохранить номер %2d для текущей позиции?"
  
  msgid "Really update the frontprocessor and reboot now?"
@@ -15373,7 +15393,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Really update your settop box and reboot now?"
  msgstr "Действительно обновить Ваш ресивер и выполнить перезагрузку сейчас?"
-@@ -6541,7 +6529,7 @@
+@@ -6541,7 +6523,7 @@
  msgstr "Перезагрузка"
  
  msgid "Rec"
@@ -15382,7 +15402,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Recall to previous service"
  msgstr "Возврат на предыдущий сервис"
-@@ -6557,7 +6545,7 @@
+@@ -6557,7 +6539,7 @@
  msgstr "Время записи ограничено из-за конфликтного таймера %s"
  
  msgid "Recorded files..."
@@ -15391,7 +15411,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Recording"
  msgstr "Запись"
-@@ -6566,7 +6554,7 @@
+@@ -6566,7 +6548,7 @@
  msgstr "Настройка записей"
  
  msgid "Recording in progress"
@@ -15400,7 +15420,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Recording paths"
  msgstr "Место записей, таймшифта"
-@@ -6587,7 +6575,7 @@
+@@ -6587,7 +6569,7 @@
  msgstr "Красная"
  
  msgid "Red button..."
@@ -15409,7 +15429,17 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Red colored"
  msgstr "Название сервиса красного цвета"
-@@ -6611,13 +6599,13 @@
+@@ -6601,23 +6583,17 @@
+ msgid "Refresh"
+ msgstr "Обновление"
+ 
+-msgid "Refresh rate"
+-msgstr "Частота обновления"
+-
+-msgid "Refresh rate selection."
+-msgstr "Выбор частоты обновления"
+-
+ msgid "Refusing to move to the same directory"
  msgstr "Отказаться от перехода в тот же каталог"
  
  msgid "Regard deep standby as standby"
@@ -15425,7 +15455,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Reload"
  msgstr "Обновить"
-@@ -6626,7 +6614,7 @@
+@@ -6626,7 +6602,7 @@
  msgstr "Обновить черный список"
  
  msgid "Reloading bouquets and services..."
@@ -15434,7 +15464,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Remember last service in PiP"
  msgstr "Помнить последний сервис PiP"
-@@ -6635,13 +6623,13 @@
+@@ -6635,13 +6611,13 @@
  msgstr "Запоминать PIN-код сервиса"
  
  msgid "Reminder, you have chosen to save timeshift file."
@@ -15451,7 +15481,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Removal has completed."
  msgstr "Удаление завершено."
-@@ -6656,19 +6644,19 @@
+@@ -6656,19 +6632,19 @@
  msgstr "Удалить запись сервера имен"
  
  msgid "Remove all alternatives"
@@ -15475,7 +15505,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Remove cable services"
  msgstr "Удалить кабельные сервисы"
-@@ -6692,7 +6680,7 @@
+@@ -6692,7 +6668,7 @@
  msgstr "Удалять файлы из корзины через (в днях)"
  
  msgid "Remove new found flag"
@@ -15484,7 +15514,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Remove plugins"
  msgstr "Удаление плагинов"
-@@ -6717,13 +6705,13 @@
+@@ -6717,13 +6693,13 @@
  
  #, python-format
  msgid "Removing directory %s failed. (Maybe not empty.)"
@@ -15500,7 +15530,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Rename entry"
  msgstr "Переименовать выбранное"
-@@ -6759,7 +6747,7 @@
+@@ -6759,7 +6735,7 @@
  msgstr "Запрос для вендора оповещения"
  
  msgid "Require authentication for http streams"
@@ -15509,7 +15539,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Required medium type:"
  msgstr "Требуемый тип носителя:"
-@@ -6777,7 +6765,7 @@
+@@ -6777,7 +6753,7 @@
  msgstr "Сбросить и перенумеровать имена названий"
  
  msgid "Reset order (All)"
@@ -15518,7 +15548,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Reset persistent PIN code"
  msgstr "Сброс постоянного PIN-кода"
-@@ -6798,19 +6786,19 @@
+@@ -6798,19 +6774,19 @@
  msgstr "Перезагрузка"
  
  msgid "Restart GUI now?"
@@ -15542,7 +15572,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Restart enigma in standard mode"
  msgstr "Рестарт GUI в стандартный режим"
-@@ -6831,16 +6819,16 @@
+@@ -6831,16 +6807,16 @@
  msgstr "Восстановить"
  
  msgid "Restore backups"
@@ -15563,7 +15593,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Restore system settings"
  msgstr "Восстановить системные настройки"
-@@ -6852,7 +6840,7 @@
+@@ -6852,7 +6828,7 @@
  msgstr "Восстановить настройки Вашего ресивера."
  
  msgid "Restoring..."
@@ -15572,7 +15602,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Resume from last position"
  msgstr "Возобновить с последней позиции"
-@@ -6872,19 +6860,19 @@
+@@ -6872,19 +6848,19 @@
  msgstr "Возобновление воспроизведения"
  
  msgid "Retrieving image list - Please wait..."
@@ -15597,7 +15627,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Reverse list"
  msgstr "Обратный список"
-@@ -6896,16 +6884,16 @@
+@@ -6896,16 +6872,16 @@
  msgstr "Перепаковывать субтитры"
  
  msgid "Right"
@@ -15617,7 +15647,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Romanian"
  msgstr "Румынский"
-@@ -6917,7 +6905,7 @@
+@@ -6917,7 +6893,7 @@
  msgstr "Корневой каталог"
  
  msgid "Rotor step position:"
@@ -15626,7 +15656,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Rotor turning speed"
  msgstr "Скорость вращения мотора"
-@@ -6926,16 +6914,16 @@
+@@ -6926,16 +6902,16 @@
  msgstr "Мотор: "
  
  msgid "Round start time on"
@@ -15646,7 +15676,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "SCPC optimized search range"
  msgstr "SCPC оптимизированный диапазон поиска"
-@@ -6950,7 +6938,7 @@
+@@ -6950,7 +6926,7 @@
  msgstr "SCR Unicable"
  
  msgid "SINGLE LAYER DVD"
@@ -15655,7 +15685,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "SNR"
  msgstr "SNR"
-@@ -6968,40 +6956,40 @@
+@@ -6968,40 +6944,40 @@
  msgstr "SSID:"
  
  msgid "Saint Barthelemy"
@@ -15708,7 +15738,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sat"
  msgstr "Сб"
-@@ -7016,7 +7004,7 @@
+@@ -7016,7 +6992,7 @@
  msgstr "Спутниковое оборудование"
  
  msgid "Satellite equipment setup"
@@ -15717,7 +15747,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Satellite longitude:"
  msgstr "Долгота спутника:"
-@@ -7028,34 +7016,34 @@
+@@ -7028,34 +7004,34 @@
  msgstr "Спутники"
  
  msgid "Saturation"
@@ -15758,7 +15788,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Save last directory on exit"
  msgstr "Сохранить последний каталог при выходе"
-@@ -7094,7 +7082,7 @@
+@@ -7094,7 +7070,7 @@
  msgstr "Режим вычисления"
  
  msgid "Scan"
@@ -15767,7 +15797,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Scan "
  msgstr "Сканировать "
-@@ -7115,7 +7103,7 @@
+@@ -7115,7 +7091,7 @@
  #, python-format
  msgid "Scan completed, %d channel found."
  msgid_plural "Scan completed, %d channels found."
@@ -15776,7 +15806,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  msgstr[1] "Сканирование завершено, %d канала найдено"
  msgstr[2] "Сканирование завершено, %d каналов найдено"
  
-@@ -7123,19 +7111,19 @@
+@@ -7123,19 +7099,19 @@
  msgstr "Ошибка сканирования!"
  
  msgid "Scan files..."
@@ -15800,7 +15830,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Scan wireless networks"
  msgstr "Сканирование беспроводных сетей"
-@@ -7169,7 +7157,7 @@
+@@ -7169,7 +7145,7 @@
  msgstr "Сканировать lamedb по спутникам с подключенным мотоподвесом"
  
  msgid "Scroll delay"
@@ -15809,7 +15839,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Scroll repeats"
  msgstr "Количество повторов"
-@@ -7178,28 +7166,28 @@
+@@ -7178,28 +7154,28 @@
  msgstr "Поиск"
  
  msgid "Search east"
@@ -15845,7 +15875,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Secondary DNS"
  msgstr "Вторичный DNS"
-@@ -7223,55 +7211,55 @@
+@@ -7223,55 +7199,55 @@
  msgstr "Выбор"
  
  msgid "Select '1.0' for standard committed switches, '1.1' for uncommitted switches, and '1.2' for systems using a positioner."
@@ -15915,7 +15945,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select 'yes' to only send the DiSEqC command when changing from one satellite to another, or select 'no' for the DiSEqC command to be resent on every zap."
  msgstr "Выберите 'да', чтобы отправлять команду DiSEqC только при переходе с одного спутника на другой или выберите 'нет', чтобы команда DiSEqC посылалась при каждом переключении."
-@@ -7280,13 +7268,13 @@
+@@ -7280,13 +7256,13 @@
  msgstr "Выбор CAId"
  
  msgid "Select Card Server"
@@ -15931,7 +15961,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select HDD"
  msgstr "Выбор HDD"
-@@ -7295,10 +7283,10 @@
+@@ -7295,10 +7271,10 @@
  msgstr "Выбор эмулятора"
  
  msgid "Select a bouquet"
@@ -15944,7 +15974,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select a network adapter"
  msgstr "Выбор сетевого адаптера"
-@@ -7307,26 +7295,26 @@
+@@ -7307,26 +7283,26 @@
  msgstr "Выбор тюнера"
  
  msgid "Select a wireless network"
@@ -15976,7 +16006,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select channel"
  msgstr "Выбор канала"
-@@ -7338,19 +7326,19 @@
+@@ -7338,19 +7314,19 @@
  msgstr "Выберите символ для замены новой строки в EPG."
  
  msgid "Select copy destination for:"
@@ -16001,7 +16031,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select function"
  msgstr "Выбор функции"
-@@ -7362,13 +7350,13 @@
+@@ -7362,13 +7338,13 @@
  msgstr "Выбор горизонтального разрешения:"
  
  msgid "Select how quickly the dish should move between satellites."
@@ -16018,7 +16048,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select image"
  msgstr "Выбор имиджа"
-@@ -7377,7 +7365,7 @@
+@@ -7377,7 +7353,7 @@
  msgstr "Настройте разрешение изображений на экране для в 'Просмотр фото' и 'Видеоплеер'."
  
  msgid "Select input device"
@@ -16027,7 +16057,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select input device."
  msgstr "Выбор устройства ввода"
-@@ -7392,19 +7380,19 @@
+@@ -7392,19 +7368,16 @@
  msgstr "Выбор видео"
  
  msgid "Select path for logfile"
@@ -16036,11 +16066,10 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select provider to add..."
 -msgstr "Выбор провайдера для добавления..."
-+msgstr "Выбор провайдера для добавления."
- 
- msgid "Select refresh rate"
+-
+-msgid "Select refresh rate"
 -msgstr "Выберите частоту обновления"
-+msgstr "Выбор частоты обновления"
++msgstr "Выбор провайдера для добавления."
  
  msgid "Select satellites"
  msgstr "Выбор спутников"
@@ -16051,7 +16080,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select slot"
  msgstr "Выбор слота"
-@@ -7413,7 +7401,7 @@
+@@ -7413,7 +7386,7 @@
  msgstr "Выбор способа сортировки:"
  
  msgid "Select target folder"
@@ -16060,7 +16089,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the User Band channel to be assigned to this tuner. This is an index into the table of frequencies the SCR switch or SCR LNB uses to pass the requested transponder to the tuner."
  msgstr "Выберите канал User Band для назначения этому тюнеру. Это индекс в таблице частот, который коммутатор SCR или LNB SCR использует для передачи запрошенного транспондера тюнеру."
-@@ -7428,7 +7416,7 @@
+@@ -7428,7 +7401,7 @@
  msgstr "Выберите символ или действие под курсором виртуальной клавиатуры"
  
  msgid "Select the locale from a menu"
@@ -16069,7 +16098,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the manufacturer of your SCR device. If the manufacturer is not listed, set 'SCR' to 'user defined' and enter the device parameters manually according to its spec sheet."
  msgstr "Выберите производителя Вашего SCR устройства."
-@@ -7437,22 +7425,22 @@
+@@ -7437,22 +7410,22 @@
  msgstr "Выберите номер модели Вашего SCR устройства."
  
  msgid "Select the movie path"
@@ -16098,7 +16127,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the satellite you want to configure. Once that satellite is configured you can select and configure other satellites that will be accessed using this same tuner."
  msgstr "Выберите спутник, который Вы хотите настроить. Как только этот спутник настроен, Вы можете выбирать и настраивать другие спутники, к которым будет осуществляться доступ, используя тот же самый тюнер."
-@@ -7461,7 +7449,7 @@
+@@ -7461,7 +7434,7 @@
  msgstr "Выберите спутник, к которому подключена Ваша тарелка. Если вы не уверены, выберите 'автоматически', и ресивер попытается определить это для Вас."
  
  msgid "Select the shifted character set"
@@ -16107,7 +16136,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the shifted character set for the next character only"
  msgstr "Выберите набор символов со сдвигом виртуальной клавиатуры только для следующего символа"
-@@ -7470,7 +7458,7 @@
+@@ -7470,7 +7443,7 @@
  msgstr "Выберите часовой пояс в пределах области или региона."
  
  msgid "Select the tuner that controls the motorised dish."
@@ -16116,7 +16145,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the tuner that this loopthrough depends on."
  msgstr "Выберите тюнер для петлевого входа."
-@@ -7479,7 +7467,7 @@
+@@ -7479,7 +7452,7 @@
  msgstr "Выберите тюнер, к которому подключен кабель SCR устройства."
  
  msgid "Select the type of LNB/device being used (normally 'Universal'). If your LNB type is not available select 'user defined'."
@@ -16125,7 +16154,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select the type of Single Cable Reception device you are using."
  msgstr "Выберите тип используемого устройства."
-@@ -7491,13 +7479,13 @@
+@@ -7491,13 +7464,13 @@
  msgstr "Выбор источника обновления для редактирования"
  
  msgid "Select video input with up/down buttons"
@@ -16142,7 +16171,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select which satellite to scan."
  msgstr "Выберите спутник для сканирования."
-@@ -7509,10 +7497,10 @@
+@@ -7509,10 +7482,10 @@
  msgstr "Выберите, какой тюнер использовать для сканирования."
  
  msgid "Select wireless network"
@@ -16155,7 +16184,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Select your backup device.\n"
-@@ -7522,10 +7510,10 @@
+@@ -7522,10 +7495,10 @@
  "Текущее устройство: "
  
  msgid "Select your country. If not available select 'all'."
@@ -16168,7 +16197,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Select your provider, and press OK to start the scan"
  msgstr "Выберите Вашего провайдера и нажмите ОК для начала сканирования"
-@@ -7534,7 +7522,7 @@
+@@ -7534,7 +7507,7 @@
  msgstr "Выбор Вашего региона. Если Ваша страна не доступна, то измените на 'все' и выберите одну из альтернатив по умолчанию."
  
  msgid "Select your time zone area or region."
@@ -16177,7 +16206,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Selecting satellites 1 (USALS)"
  msgstr "Выбор спутников 1 (USALS)"
-@@ -7549,7 +7537,7 @@
+@@ -7549,7 +7522,7 @@
  msgstr "Выбор режима показа live ТВ на LCD дисплее."
  
  msgid "Selects video source displayed on the LCD."
@@ -16186,7 +16215,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Send 'sourceactive' before zap timers"
  msgstr "Послать 'sourceactive' перед таймерами переключения"
-@@ -7561,16 +7549,16 @@
+@@ -7561,16 +7534,16 @@
  msgstr "Отправить DiSEqC только при смене спутника"
  
  msgid "Senegal"
@@ -16207,7 +16236,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Serbian"
  msgstr "Сербский"
-@@ -7585,7 +7573,7 @@
+@@ -7585,7 +7558,7 @@
  msgstr "ID сервиса"
  
  msgid "Service belongs to a parental protected bouquet"
@@ -16216,7 +16245,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Service has been added to the favourites."
  msgstr "Сервис был успешно добавлен в фавориты."
-@@ -7597,22 +7585,22 @@
+@@ -7597,22 +7570,22 @@
  msgstr "Информация о сервисе"
  
  msgid "Service info - ECM Info"
@@ -16245,7 +16274,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Service invalid!\n"
-@@ -7635,7 +7623,7 @@
+@@ -7635,7 +7608,7 @@
  msgstr "Референс сервиса"
  
  msgid "Service scan"
@@ -16254,7 +16283,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Service title mode"
  msgstr "Режим названия сервиса"
-@@ -7648,7 +7636,7 @@
+@@ -7648,7 +7621,7 @@
  "Проверьте настройки тюнера!"
  
  msgid "Servicename"
@@ -16263,7 +16292,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Services"
  msgstr "Сервисы"
-@@ -7660,22 +7648,22 @@
+@@ -7660,22 +7633,22 @@
  msgstr "Установить PIN-код"
  
  msgid "Set action when movie playback is finished."
@@ -16290,7 +16319,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Set end time"
  msgstr "Установить время окончания"
-@@ -7684,37 +7672,37 @@
+@@ -7684,37 +7657,37 @@
  msgstr "Зафиксировать"
  
  msgid "Set fps for external subtitles"
@@ -16337,7 +16366,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Set the type of the progress indication in the channel selection screen."
  msgstr "Установите тип индикации прогресса текущего события в списке выбора каналов."
-@@ -7738,13 +7726,13 @@
+@@ -7738,13 +7711,13 @@
  msgstr "Установка времени окна на 6 часов"
  
  msgid "Set voltage and 22KHz"
@@ -16353,7 +16382,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Setup"
  msgstr "Настройки"
-@@ -7765,7 +7753,7 @@
+@@ -7765,7 +7738,7 @@
  msgstr "Настройки спутникового оборудования"
  
  msgid "Seychelles"
@@ -16362,7 +16391,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sharpness"
  msgstr "Резкость"
-@@ -7774,7 +7762,7 @@
+@@ -7774,7 +7747,7 @@
  msgstr "Shell-скрипт"
  
  msgid "Shift"
@@ -16371,7 +16400,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Short filenames"
  msgstr "Короткое название"
-@@ -7783,121 +7771,121 @@
+@@ -7783,121 +7756,121 @@
  msgstr "Показать"
  
  msgid "Show Audioselection"
@@ -16528,7 +16557,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Show latest update log"
  msgstr "Показать последний лог обновления"
-@@ -7909,22 +7897,22 @@
+@@ -7909,22 +7882,22 @@
  msgstr "Показать номера меню или плагинов"
  
  msgid "Show message when recording starts"
@@ -16557,7 +16586,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Show notification when import channels was not successful"
  msgstr "Показывать уведомление, когда импорт каналов не удался"
-@@ -7933,106 +7921,106 @@
+@@ -7933,106 +7906,106 @@
  msgstr "Показывать уведомление, когда импорт каналов удался"
  
  msgid "Show packages to be updated"
@@ -16695,7 +16724,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Shows the state of your wireless LAN connection.\n"
  msgstr "Показывает состояние Вашего беспроводного соединения WLAN.\n"
-@@ -8047,10 +8035,10 @@
+@@ -8047,10 +8020,10 @@
  msgstr "Выключение из режима ожидания"
  
  msgid "Side by side"
@@ -16708,7 +16737,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Signal OK, proceeding"
  msgstr "Сигнал ОК, продолжаем процесс"
-@@ -8083,7 +8071,7 @@
+@@ -8083,7 +8056,7 @@
  msgstr "Простой заголовок (совместимость с устаревшими плеерами)"
  
  msgid "Singapore"
@@ -16717,7 +16746,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Single"
  msgstr "Одиночный"
-@@ -8095,13 +8083,13 @@
+@@ -8095,13 +8068,13 @@
  msgstr "Однострочный режим"
  
  msgid "Single satellite"
@@ -16734,7 +16763,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Site latitude"
  msgstr "Широта по сайту"
-@@ -8111,13 +8099,13 @@
+@@ -8111,13 +8084,13 @@
  
  #, python-format
  msgid "Skin & Resolution: %s (%sx%s)\n"
@@ -16751,7 +16780,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Skins"
  msgstr "Скины"
-@@ -8126,7 +8114,7 @@
+@@ -8126,7 +8099,7 @@
  msgstr "Пропускать пустые сервисы"
  
  msgid "Skip internet connection check (disables automatic package installation)"
@@ -16760,7 +16789,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sleep timer"
  msgstr "Таймер сна"
-@@ -8152,20 +8140,20 @@
+@@ -8152,20 +8125,20 @@
  
  #, python-format
  msgid "Slot %s / FBC in %s"
@@ -16785,7 +16814,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Slovenian"
  msgstr "Словенский"
-@@ -8174,7 +8162,7 @@
+@@ -8174,7 +8147,7 @@
  msgstr "Медленно"
  
  msgid "Slow motion speeds"
@@ -16794,7 +16823,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Small"
  msgstr "Маленький"
-@@ -8192,10 +8180,10 @@
+@@ -8192,10 +8165,10 @@
  msgstr "Социальное/Политика/Экономика"
  
  msgid "SocketMMI"
@@ -16807,7 +16836,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Softcam Setup"
  msgstr "Настройки эмулятора"
-@@ -8219,13 +8207,13 @@
+@@ -8219,13 +8192,13 @@
  msgstr "Информация менеджера ПО"
  
  msgid "Solomon Islands"
@@ -16824,7 +16853,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Some plugins are not available:\n"
  msgstr "Некоторые плагины недоступны:\n"
-@@ -8235,10 +8223,10 @@
+@@ -8235,10 +8208,10 @@
  msgstr "Извините, %s не установлен!"
  
  msgid "Sorry, deleting directories can (for now) only be done through the trash can."
@@ -16837,7 +16866,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sorry, no details available!"
  msgstr "Извините, нет доступного описания!"
-@@ -8298,16 +8286,16 @@
+@@ -8298,16 +8271,16 @@
  msgstr "Юг"
  
  msgid "South Africa"
@@ -16858,7 +16887,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Spanish"
  msgstr "Испанский"
-@@ -8319,37 +8307,37 @@
+@@ -8319,37 +8292,37 @@
  msgstr "Специальное 2"
  
  msgid "Specify extra timeframe to ignore inactivity sleeptimer"
@@ -16907,7 +16936,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Splitscreen"
  msgstr "Разделённый экран"
-@@ -8358,10 +8346,10 @@
+@@ -8358,10 +8331,10 @@
  msgstr "Спорт"
  
  msgid "Sri Lanka"
@@ -16920,7 +16949,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Standard list"
  msgstr "Стандартный список"
-@@ -8373,18 +8361,18 @@
+@@ -8373,18 +8346,18 @@
  msgstr "Меню выключения"
  
  msgid "Standby LED"
@@ -16942,7 +16971,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Standby in "
  msgstr "Режим ожидания через "
-@@ -8393,7 +8381,7 @@
+@@ -8393,7 +8366,7 @@
  msgstr "Начальный каталог"
  
  msgid "Start from the beginning"
@@ -16951,7 +16980,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Start instant recording"
  msgstr "Старт немедленной записи"
-@@ -8429,22 +8417,22 @@
+@@ -8429,22 +8402,22 @@
  msgstr "Начиная с"
  
  msgid "Startup the set top box in standby"
@@ -16979,7 +17008,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Steps"
  msgstr "Шаги"
-@@ -8459,7 +8447,7 @@
+@@ -8459,7 +8432,7 @@
  msgstr "Остановить все текущие записи"
  
  msgid "Stop all streams"
@@ -16988,7 +17017,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Stop and delete all current recordings"
  msgstr "Остановить и удалить все текущие записи"
-@@ -8480,7 +8468,7 @@
+@@ -8480,7 +8453,7 @@
  msgstr "Остановить текущее событие, но не отключать таймер"
  
  msgid "Stop current stream"
@@ -16997,7 +17026,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Stop entry"
  msgstr "Остановить запись"
-@@ -8489,7 +8477,7 @@
+@@ -8489,7 +8462,7 @@
  msgstr "Остановка 'live ТВ' сервиса"
  
  msgid "Stop play TV"
@@ -17006,7 +17035,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Stop playing this movie?"
  msgstr "Остановить воспроизведение этого видео?"
-@@ -8528,7 +8516,7 @@
+@@ -8528,7 +8501,7 @@
  msgstr "Остановить таймшифт?"
  
  msgid "Stop using as startup service"
@@ -17015,7 +17044,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Stopped"
  msgstr "Остановлено"
-@@ -8537,16 +8525,16 @@
+@@ -8537,16 +8510,16 @@
  msgstr "Сохранить номер"
  
  msgid "Store position"
@@ -17035,7 +17064,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Streaming clients info"
  msgstr "Информация о клиентах стриминга"
-@@ -8555,7 +8543,7 @@
+@@ -8555,7 +8528,7 @@
  msgstr "Лучшая позиция"
  
  msgid "Subservice list..."
@@ -17044,7 +17073,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Subservices"
  msgstr "Субсервисы"
-@@ -8597,13 +8585,13 @@
+@@ -8597,13 +8570,13 @@
  msgstr "Выбор субтитров"
  
  msgid "Subtitle selection..."
@@ -17060,7 +17089,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Subtitles"
  msgstr "Субтитры"
-@@ -8621,7 +8609,7 @@
+@@ -8621,7 +8594,7 @@
  msgstr "Успешных:"
  
  msgid "Sudan"
@@ -17069,7 +17098,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Sun"
  msgstr "Вс"
-@@ -8634,13 +8622,13 @@
+@@ -8634,13 +8607,13 @@
  "Please wait(3-20 min) for the scan to finish."
  msgstr ""
  "Sundtek - аппаратное слепое сканирование в процессе.\n"
@@ -17086,7 +17115,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Swap PiP"
  msgstr "Поменять PiP"
-@@ -8652,16 +8640,16 @@
+@@ -8652,16 +8625,16 @@
  msgstr "Поменять местами сервисы"
  
  msgid "Swaziland"
@@ -17106,7 +17135,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Switch TV to correct input"
  msgstr "Переключать ТВ на правильный вход"
-@@ -8697,61 +8685,61 @@
+@@ -8697,61 +8670,61 @@
  msgstr "Перейти на закладки"
  
  msgid "Switch to filelist"
@@ -17181,7 +17210,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "T2MI PID"
  msgstr "РМТ PID"
-@@ -8763,14 +8751,14 @@
+@@ -8763,14 +8736,14 @@
  msgstr "T2MI PLP ID"
  
  msgid "T2MI RAW Mode"
@@ -17199,7 +17228,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "TS file is too large for ISO9660 level 1!"
  msgstr "TS файл слишком большой для ISO9660 level 1!"
-@@ -8782,7 +8770,7 @@
+@@ -8782,7 +8755,7 @@
  msgstr "ТЮНЕР:"
  
  msgid "TUNING"
@@ -17208,7 +17237,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "TV physical address report"
  msgstr "Оповещение физического адреса ТВ"
-@@ -8791,7 +8779,7 @@
+@@ -8791,7 +8764,7 @@
  msgstr "TXT PID"
  
  msgid "TXT Subtitles page & lang"
@@ -17217,7 +17246,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Table of contents for collection"
  msgstr "Содержание коллекции"
-@@ -8800,13 +8788,13 @@
+@@ -8800,13 +8773,13 @@
  msgstr "Теги"
  
  msgid "Taiwan"
@@ -17234,7 +17263,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Teletext subtitle color"
  msgstr "Цвет телетекста субтитров"
-@@ -8830,10 +8818,10 @@
+@@ -8830,10 +8803,10 @@
  msgstr "Тип теста"
  
  msgid "Testscreens"
@@ -17247,7 +17276,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Text View On"
  msgstr "<Text View On>"
-@@ -8845,7 +8833,7 @@
+@@ -8845,7 +8818,7 @@
  msgstr "Тайский"
  
  msgid "Thailand"
@@ -17256,7 +17285,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Thank you for using the wizard.\n"
-@@ -8900,10 +8888,10 @@
+@@ -8900,10 +8873,10 @@
  "Убедитесь, что Вы выбрали нужную перезаписываемую директорию."
  
  msgid "The following files were found..."
@@ -17269,7 +17298,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "The network wizard extension is not installed!\n"
-@@ -8923,7 +8911,7 @@
+@@ -8923,7 +8896,7 @@
  "\n"
  "Примечание: Вы всегда можете запустить мастера переразвертки позже, с помощью\n"
  "\n"
@@ -17278,7 +17307,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "The overscan wizard helps you to setup your TV in the correct way.\n"
-@@ -8943,8 +8931,8 @@
+@@ -8943,8 +8916,8 @@
  "\n"
  "Во многих ТВ переразвертка включена по дефолту. Это означает, что Вы всегда просматриваете увеличенное изображение, а не реальное HD и часть скина не видна.\n"
  "\n"
@@ -17289,7 +17318,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Если Вы видите все наконечники стрелок, то overscan ТВ отключен.\n"
  "\n"
-@@ -8959,7 +8947,7 @@
+@@ -8959,7 +8932,7 @@
  msgstr "Результаты были записаны в %s"
  
  msgid "The saved PIN was cleared."
@@ -17298,7 +17327,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "The sleep timer has been activated."
  msgstr "Таймер сна был включен."
-@@ -8985,10 +8973,10 @@
+@@ -8985,10 +8958,10 @@
  msgstr "Рестарт GUI для применения выбраного скина"
  
  msgid "The user interface of your receiver is restarting"
@@ -17311,7 +17340,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "The wireless LAN plugin is not installed!\n"
-@@ -9006,7 +8994,7 @@
+@@ -9006,7 +8979,7 @@
  
  #, python-format
  msgid "There are at least %d updates available."
@@ -17320,7 +17349,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "There are currently no outstanding actions."
  msgstr "В текущий момент нет выдающихся действий."
-@@ -9031,7 +9019,7 @@
+@@ -9031,7 +9004,7 @@
  "Вы действительно хотите продолжить?"
  
  msgid "This DVD RW medium is already formatted - reformatting will erase all content on the disc."
@@ -17329,7 +17358,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This bouquet is protected by a parental control PIN"
  msgstr "Этот букет защищен PIN-кодом родительского контроля"
-@@ -9041,7 +9029,7 @@
+@@ -9041,7 +9014,7 @@
  
  #, python-format
  msgid "This field allows you to search an additional symbol rate up to %s."
@@ -17338,7 +17367,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "This info is for developers only.\n"
-@@ -9053,16 +9041,16 @@
+@@ -9053,16 +9026,16 @@
  "Без паники, если здесь будет отображаться любая подозрительная информация!"
  
  msgid "This is a multitype tuner. Available options depend on the hardware."
@@ -17358,7 +17387,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows to set the level of dynamic contrast of the picture."
  msgstr "Эта опция позволяет установить уровень динамической контрастности изображения."
-@@ -9080,13 +9068,13 @@
+@@ -9080,13 +9053,13 @@
  msgstr "Эта опция позволяет добавить 'Настройки эмулятора' в меню дополнений."
  
  msgid "This option allows you to alphabetically sort setup menu entries."
@@ -17374,7 +17403,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows you to change the virtuell loadspeaker position."
  msgstr "Эта опция позволяет Вам изменить позицию виртуального динамика."
-@@ -9098,7 +9086,7 @@
+@@ -9098,7 +9071,7 @@
  msgstr "Эта опция позволяет вам настроить колориметрию для HDR."
  
  msgid "This option allows you to configure the Colorspace from Auto to RGB"
@@ -17383,7 +17412,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows you to configure the HDR type."
  msgstr "Эта опция позволяет вам настроить тип HDR."
-@@ -9107,16 +9095,16 @@
+@@ -9107,16 +9080,16 @@
  msgstr "Эта опция позволяет Вам отключить или изменить позицию виртуального динамика."
  
  msgid "This option allows you to enable 3D surround softlimiter."
@@ -17403,7 +17432,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows you to force the HDR10 modes for UHD"
  msgstr "Этот параметр позволяет принудительно использовать режим HDR10 для UHD"
-@@ -9125,7 +9113,7 @@
+@@ -9125,7 +9098,7 @@
  msgstr "Этот параметр позволяет принудительно использовать режим HLG для UHD"
  
  msgid "This option allows you to hide and sort menu entries. When selecting user you can change order and hide menu items via the blue button. With the user defined hidden the blue button is not shown in the menus"
@@ -17412,7 +17441,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option allows you to power off the display."
  msgstr "Эта опция позволяет отключить дисплей."
-@@ -9134,34 +9122,34 @@
+@@ -9134,34 +9107,34 @@
  msgstr "Эта опция позволяет Вам показывать все символы на дисплее."
  
  msgid "This option allows you to show menu and/or plugin number quick links."
@@ -17455,7 +17484,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This option sets the scaler sharpness, used when stretching picture from 4:3 to 16:9."
  msgstr "Эта опция устанавливает четкость, которая используется при растяжении изображения с 4:3 до 16:9."
-@@ -9195,7 +9183,7 @@
+@@ -9195,7 +9168,7 @@
  msgstr "Эта настройка тюнера позволяет дублировать настройку другого тюнера."
  
  msgid "This setting depends on your cable provider and location. If you don't know the correct setting refer to the menu in the official cable receiver, or get it from your cable provider, or seek help via internet forum."
@@ -17464,7 +17493,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This setting is for special setups only. It gives this LNB higher priority over other LNBs with lower values. The free LNB with the highest priority will be the first LNB selected for tuning services."
  msgstr "Эта настройка предназначена только для специальных параметров. Это дает выбранному LNB более высокий приоритет, по сравнению с другими LNB с более низкими значениями. Свободным LNB с наивысшим приоритетом будет первый LNB, выбранный для подключения сервиса."
-@@ -9208,7 +9196,7 @@
+@@ -9208,7 +9181,7 @@
  msgstr ""
  "Этот тест проверяет конфигурацию серверов имен(DNS).\n"
  "При появлении сообщения \"неподтверждено\":\n"
@@ -17473,7 +17502,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "- Если Вы настроили вручную сервера имен, то проверьте конфигурацию записи в \"Сервер имен(DNS)\""
  
  msgid ""
-@@ -9241,7 +9229,7 @@
+@@ -9241,7 +9214,7 @@
  "If you get an \"enabeld\" message:\n"
  "- verify that you have a configured and working DHCP server in your network."
  msgstr ""
@@ -17482,7 +17511,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "При появлении сообщения \" отключено\":\n"
  "- Ваш LAN адаптер сконфигурирован для ручной настройки IP.\n"
  "- проверьте, что Вы ввели корректную информацию в меню настройки сети.\n"
-@@ -9249,7 +9237,7 @@
+@@ -9249,7 +9222,7 @@
  "- убедитесь, что у вас есть сконфигурированный и работающий DHCP сервер в Вашей сети."
  
  msgid "This test detects your configured LAN adapter."
@@ -17491,7 +17520,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "This valid ONID/TSID"
  msgstr "Действительные ONID/TSID"
-@@ -9258,7 +9246,7 @@
+@@ -9258,7 +9231,7 @@
  "This will (re-)calculate all positions of your rotor and may remove previously memorised positions and fine-tuning!\n"
  "Are you sure?"
  msgstr ""
@@ -17500,7 +17529,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "Вы уверены в продолжении?"
  
  msgid "Three"
-@@ -9289,7 +9277,7 @@
+@@ -9289,7 +9262,7 @@
  msgstr "Часовой пояс"
  
  msgid "Time zone area"
@@ -17509,7 +17538,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Timer"
  msgstr "Таймер"
-@@ -9326,7 +9314,7 @@
+@@ -9326,7 +9299,7 @@
  msgstr "Выбор таймера"
  
  msgid "Timer selection..."
@@ -17518,7 +17547,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Timer type"
  msgstr "Тип таймера"
-@@ -9353,7 +9341,7 @@
+@@ -9353,7 +9326,7 @@
  msgstr "Часовой пояс"
  
  msgid "Timor-Leste"
@@ -17527,7 +17556,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Title"
  msgstr "Название"
-@@ -9366,14 +9354,14 @@
+@@ -9366,14 +9339,14 @@
  
  #, python-format
  msgid "To apply the selected '%s' skin the GUI needs to restart. Would you like to restart the GUI now?"
@@ -17544,7 +17573,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "To subtitle selection"
  msgstr "К выбору субтитров"
-@@ -9388,10 +9376,10 @@
+@@ -9388,10 +9361,10 @@
  msgstr "Смена LCD LiveTV"
  
  msgid "Toggle PiPzap"
@@ -17557,7 +17586,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Toggle a cut mark at the current position"
  msgstr "Добавить/удалить метку в текущей позиции"
-@@ -9403,25 +9391,25 @@
+@@ -9403,25 +9376,25 @@
  msgstr "Смена инфобаров"
  
  msgid "Toggle new text inserts before or overwrites existing text"
@@ -17589,7 +17618,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Tone amplitude"
  msgstr "Тоновая амплитуда"
-@@ -9430,13 +9418,13 @@
+@@ -9430,13 +9403,13 @@
  msgstr "Тоновый режим"
  
  msgid "Toneburst"
@@ -17606,7 +17635,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Top and bottom"
  msgstr "Сверху и снизу"
-@@ -9466,7 +9454,7 @@
+@@ -9466,7 +9439,7 @@
  msgstr "Транспондер"
  
  msgid "Transponder Time"
@@ -17615,7 +17644,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Transport Stream Type"
  msgstr "Тип транспортного потока"
-@@ -9478,13 +9466,13 @@
+@@ -9478,13 +9451,13 @@
  msgstr "Осталось попыток:"
  
  msgid "Trinidad and Tobago"
@@ -17632,7 +17661,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Tue"
  msgstr "Вт"
-@@ -9514,13 +9502,13 @@
+@@ -9514,13 +9487,13 @@
  msgstr "Тюнер не поддерживается"
  
  msgid "Tuner live values"
@@ -17648,7 +17677,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Tuner slot"
  msgstr "Слот тюнера"
-@@ -9532,37 +9520,37 @@
+@@ -9532,37 +9505,37 @@
  msgstr "Тип тюнера"
  
  msgid "Tuners & scanning"
@@ -17695,7 +17724,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Two"
  msgstr "Два"
-@@ -9583,34 +9571,34 @@
+@@ -9583,34 +9556,34 @@
  msgstr "Тип сканирования"
  
  msgid "UNKNOWN"
@@ -17737,7 +17766,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Unable to create the required directories on the media (e.g. USB stick or Harddisk) - Please verify media and try again!"
  msgstr "Невозможно создать необходимые каталоги на носителе (например, USB-накопитель или жесткий диск). Пожалуйста, проверьте носитель и попробуйте снова!"
-@@ -9622,13 +9610,13 @@
+@@ -9622,13 +9595,13 @@
  msgstr ""
  "Автоматическое обновление в процессе.\n"
  "Пожалуйста, дождитесь перезагрузки Вашего ресивера.\n"
@@ -17754,7 +17783,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Undo install"
  msgstr "Отмена установки"
-@@ -9637,55 +9625,55 @@
+@@ -9637,55 +9610,55 @@
  msgstr "Отмена удаления"
  
  msgid "Unencrypted"
@@ -17825,7 +17854,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Unsupported"
  msgstr "Не поддерживается"
-@@ -9722,7 +9710,7 @@
+@@ -9722,7 +9695,7 @@
  msgstr "Обновление завершено. Вы хотите перезагрузить ресивер?"
  
  msgid "Update failed. Your receiver does not have a working internet connection."
@@ -17834,7 +17863,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Update feed not available."
  msgstr "Обновления с фида не доступны."
-@@ -9744,7 +9732,7 @@
+@@ -9744,7 +9717,7 @@
  msgstr "Время работы: %s\n"
  
  msgid "Uruguay"
@@ -17843,7 +17872,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Usage Setup"
  msgstr "Индивидуальные настройки"
-@@ -9774,7 +9762,7 @@
+@@ -9774,7 +9747,7 @@
  msgstr "Использовать информацию Netmed EPG (провайдеры 13E), если она доступна."
  
  msgid "Use OpenTV EPG information when it is available."
@@ -17852,7 +17881,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Use TV remote control"
  msgstr "Использовать пульт ТВ для управления"
-@@ -9792,7 +9780,7 @@
+@@ -9792,7 +9765,7 @@
  msgstr "Использовать шлюз"
  
  msgid "Use as PiP if possible"
@@ -17861,7 +17890,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Use circular LNB"
  msgstr "Использовать круговой LNB"
-@@ -9816,16 +9804,16 @@
+@@ -9816,16 +9789,16 @@
  msgstr "Официальная нумерация каналов"
  
  msgid "Use original DVB subtitle position"
@@ -17881,7 +17910,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Use the network wizard to configure your network\n"
  msgstr "Использовать мастер настройки сети для конфигурации Вашей сети.\n"
-@@ -9834,7 +9822,7 @@
+@@ -9834,7 +9807,7 @@
  msgstr "Используйте кнопки вверх/вниз на Вашем пульте для выбора опций. После этого нажмите OK."
  
  msgid "Use the wizard to set up basic features"
@@ -17890,7 +17919,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Use these input device settings?"
  msgstr "Использовать эти параметры устройства ввода?"
-@@ -9860,19 +9848,19 @@
+@@ -9860,19 +9833,19 @@
  msgstr "Пользовательский диапазон %d (%s)"
  
  msgid "User ID"
@@ -17914,7 +17943,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "User interface"
  msgstr "Интерфейс пользователя"
-@@ -9889,10 +9877,10 @@
+@@ -9889,10 +9862,10 @@
  msgstr "Используемый тюнер %s"
  
  msgid "Usually when the subtitle language is the same as the audio language, the subtitles will not be used. Enable this option to allow these subtitles to be used."
@@ -17927,7 +17956,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "VCR scart"
  msgstr "Видеомагнитофон (VCR скарт)"
-@@ -9910,19 +9898,19 @@
+@@ -9910,19 +9883,19 @@
  msgstr "VU+"
  
  msgid "Valid ONID/TSID look at www.lyngsat.com..."
@@ -17951,7 +17980,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Vertical turning speed"
  msgstr "Поляризация (V) - скорость поворота"
-@@ -9931,7 +9919,7 @@
+@@ -9931,7 +9904,7 @@
  msgstr "Видео PID"
  
  msgid "Video clipping setup"
@@ -17960,7 +17989,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Video enhancement preview"
  msgstr "Превью улучшения настроек видео"
-@@ -9972,26 +9960,26 @@
+@@ -9972,26 +9945,26 @@
  msgstr "Видео: %s fps"
  
  msgid "VideoMode"
@@ -17993,7 +18022,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "View list of available EPG extensions."
  msgstr "Просмотр списка доступных дополнений EPG."
-@@ -10024,25 +10012,25 @@
+@@ -10024,25 +9997,25 @@
  msgstr "Просмотр списка доступных дополнений ПО"
  
  msgid "View list of available system extensions"
@@ -18025,7 +18054,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Virtual KeyBoard Functions"
  msgstr "Функции виртуальной клавиатуры"
-@@ -10063,13 +10051,13 @@
+@@ -10063,13 +10036,13 @@
  msgstr "Громкость"
  
  msgid "Volume down"
@@ -18042,7 +18071,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "W"
  msgstr "W"
-@@ -10093,19 +10081,19 @@
+@@ -10093,19 +10066,19 @@
  msgstr "Wake On LAN (включение по сети)"
  
  msgid "Wake the receiver from standby when selected wake command is sent from the TV."
@@ -18065,7 +18094,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Wakeup receiver for start timer"
  msgstr "Включить ресивер для старта таймера"
-@@ -10123,7 +10111,7 @@
+@@ -10123,7 +10096,7 @@
  msgstr "Тип пробуждения"
  
  msgid "Wallis and Futuna"
@@ -18074,7 +18103,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Warning"
  msgstr "Внимание"
-@@ -10134,11 +10122,11 @@
+@@ -10134,11 +10107,11 @@
  "Really disable timer conflict detection?"
  msgstr ""
  "Внимание!\n"
@@ -18088,7 +18117,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Warning: no LNB; using factory defaults."
  msgstr "Предупреждение: нет LNB; используются заводские настройки."
-@@ -10147,10 +10135,10 @@
+@@ -10147,10 +10120,10 @@
  msgstr "Предупреждение: второй вход этого двойного тюнера может не поддерживать SCR LNB. "
  
  msgid "Watch movies..."
@@ -18101,7 +18130,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Wed"
  msgstr "Ср"
-@@ -10186,7 +10174,7 @@
+@@ -10186,7 +10159,7 @@
  msgstr ""
  "Добро пожаловать.\n"
  "\n"
@@ -18110,7 +18139,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Нажмите ОК для начала настройки сети."
  
-@@ -10211,22 +10199,22 @@
+@@ -10211,22 +10184,22 @@
  msgstr "Включить ограничение на запад"
  
  msgid "Western Sahara"
@@ -18138,7 +18167,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled the receiver will automatically return to standby when the TV is turned off."
  msgstr "Если включено, то ресивер автоматически вернется в режим ожидания при выключении ТВ."
-@@ -10238,16 +10226,16 @@
+@@ -10238,16 +10211,16 @@
  msgstr "Если включено и если спецификация ресивера позволяет, то можно разбудить ресивер из глубокого ожидания по LAN подключению удаленно."
  
  msgid "When enabled the timer from the fallback tuner is imported"
@@ -18158,7 +18187,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled you can specify a timeframe to ignore the shutdown timer when the receiver is in standby mode"
  msgstr "Если включено, то установите период времени игнорирования действия выключения ресивера в режиме ожидания."
-@@ -10258,20 +10246,20 @@
+@@ -10258,20 +10231,20 @@
  msgid "When enabled you can specify an extra timeframe when the inactivity sleeptimer is ignored. Not the detection is disabled during this timeframe but the inactivity timeout is disabled"
  msgstr "Если включено, то установите экстра период времени игнорирования действия для таймера неактивности."
  
@@ -18183,7 +18212,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, HDMI-CEC is enabled with standard configuration"
  msgstr "Если включено, HDMI-CEC будет включен в стандартной конфигурации."
-@@ -10283,7 +10271,7 @@
+@@ -10283,7 +10256,7 @@
  msgstr "Если включено, то появится уведомление при начале записи."
  
  msgid "When enabled, a radio background image will be visible while listening to a radio channel."
@@ -18192,7 +18221,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, a recording is allowed to interrupt live tv, when there are no free tuners."
  msgstr "Если включено, то при старте таймера записи, передача в прямом эфире будет прервана, если нет свободных тюнеров."
-@@ -10292,13 +10280,13 @@
+@@ -10292,13 +10265,13 @@
  msgstr "Если включено, будет показано предупреждение и пользователь получит возможность остановить или продолжить таймшифт."
  
  msgid "When enabled, always descramble receiving http streams. This takes up more resources (descrambling demuxers), only enable if necessary. Individual streams are always descrambled if 0x100 is added to the service type, regardless of this setting. Default off."
@@ -18208,7 +18237,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, content with an aspect ratio of 4:3 will be stretched to fit the screen."
  msgstr "Когда изображение на канале имеет соотношение сторон 4:3, выберите, будет ли растянута картинка на весь экран."
-@@ -10307,7 +10295,7 @@
+@@ -10307,7 +10280,7 @@
  msgstr "Если включено, при переключении каналов будет переход к следующему фавориту, когда последний канал текущего фаворита будет достигнут."
  
  msgid "When enabled, deleted recordings are moved to the trash can, instead of being deleted immediately."
@@ -18217,7 +18246,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, display the EIT now/next eventdata in infobar. When disabled, display now/next eventdata from the EPG cache instead."
  msgstr "Если включено, события сейчас/далее из DVB EPG будут показаны в инфобаре. При отключении, данные события будут показываться из файла кеша EPG."
-@@ -10322,19 +10310,19 @@
+@@ -10322,19 +10295,19 @@
  msgstr "Если это активировано, то внешние субтитры будут всегда включены для воспроизведения видео."
  
  msgid "When enabled, graphical DVB subtitles are preferred over teletext subtitles, when both types are available."
@@ -18242,7 +18271,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, it is possible to leave the movie player with exit."
  msgstr "Если включено, то можно закрыть видеоплеер с помощью кнопки выход."
-@@ -10352,7 +10340,7 @@
+@@ -10352,7 +10325,7 @@
  msgstr "Если включено, переформатировать субтитры в соответствии с шириной экрана."
  
  msgid "When enabled, services may be grouped in multiple bouquets."
@@ -18251,7 +18280,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, show channel numbers in the channel selection screen."
  msgstr "Если включено, показывается номер канала в окне выбора каналов."
-@@ -10382,13 +10370,13 @@
+@@ -10382,13 +10355,13 @@
  msgstr "Если включено, инфобар будет появлятся при переключении каналов."
  
  msgid "When enabled, the infobar will be displayed when skipping forwards/backwards during media playback."
@@ -18267,7 +18296,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, the receiver will automatically use the subtitles which you selected before."
  msgstr "Если включено, ресивер будет использовать субтитры, которые были выбраны ранее."
-@@ -10403,16 +10391,16 @@
+@@ -10403,16 +10376,16 @@
  msgstr "Если включено, то ресивер будет использовать аудио дорожку AC3+ (если доступно)."
  
  msgid "When enabled, this setting has more weight than 'Preferred tuner for recordings'."
@@ -18287,7 +18316,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When enabled, your receiver will detect activity on the VCR SCART input."
  msgstr "Если включено, Ваш ресивер будет определять активность на входе VCR SCART."
-@@ -10427,7 +10415,7 @@
+@@ -10427,7 +10400,7 @@
  msgstr "Когда ресивер выходит из режима ожидания, он дает команду телевизору переключиться на вход HDMI, к которому подключен ресивер."
  
  msgid "When selected this allows video modes to be selected even if they are not reported as supported."
@@ -18296,7 +18325,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "When the content has an aspect ratio of 16:9, choose whether to scale/stretch the picture."
  msgstr "Когда изображение на канале имеет соотношение сторон 16:9, выберите, следует ли масштабировать/растянуть картинку."
-@@ -10460,7 +10448,7 @@
+@@ -10460,7 +10433,7 @@
  msgstr "Статистика беспроводной сети"
  
  msgid "With T2MI RAW mode disabled (default) we can use single T2MI PLP de-encapsulation. With T2MI RAW mode enabled we can use astra-sm to analyze T2MI"
@@ -18305,7 +18334,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "With errors:"
  msgstr "С ошибками:"
-@@ -10478,7 +10466,7 @@
+@@ -10478,7 +10451,7 @@
  msgstr "С помощью этой опции вы можете включить дисплей в режиме ожидания."
  
  msgid "With this option you can switch the LED color or deactivate the LED."
@@ -18314,7 +18343,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Without popup"
  msgstr "Без сообщения"
-@@ -10491,7 +10479,7 @@
+@@ -10491,7 +10464,7 @@
  
  #, python-format
  msgid "Would you save the entered PIN %s persistent?"
@@ -18323,7 +18352,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Write error while recording. Disk full?\n"
  msgstr "Ошибка во время записи. Диск переполнен?\n"
-@@ -10509,13 +10497,13 @@
+@@ -10509,13 +10482,13 @@
  msgstr "Год"
  
  msgid "Yellow"
@@ -18340,7 +18369,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Yes"
  msgstr "Да"
-@@ -10527,7 +10515,7 @@
+@@ -10527,7 +10500,7 @@
  msgstr "Да, и сохранить"
  
  msgid "Yes and save in movie dir"
@@ -18349,7 +18378,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Yes to all"
  msgstr "Да, для всех"
-@@ -10594,7 +10582,7 @@
+@@ -10594,7 +10567,7 @@
  msgstr "Вы можете удалить это плагин."
  
  msgid "You can set selected directory as 'root' directory for movie player."
@@ -18358,7 +18387,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "You can set sorting type for items in movielist."
  msgstr "Вы можете установить тип сортировки для элементов в списке видео."
-@@ -10617,11 +10605,11 @@
+@@ -10617,11 +10590,11 @@
  "\n"
  "К сожалению, Ваша модель ресивера не способна регулировать размеры пользовательского интерфейса. Если не все видно, Вы должны изменить установленный скин на другой, который поддерживает переразвертку Вашего ТВ.\n"
  "\n"
@@ -18372,7 +18401,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "You did not see all eight arrow heads. This means your TV has overscan enabled and presents you with a zoomed-in picture, causing you to loose part of a full HD screen. In addition to this you may also miss parts of the user interface, for example volume bars and more.\n"
-@@ -10650,13 +10638,13 @@
+@@ -10650,13 +10623,13 @@
  msgstr "Вам необходимо переключить на сервис %s (%s - '%s')!\n"
  
  msgid "You seem to be in timeshift!"
@@ -18388,7 +18417,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Your current collection will get lost!"
  msgstr "Ваша текущая коллекция будет утеряна!"
-@@ -10666,32 +10654,32 @@
+@@ -10666,32 +10639,32 @@
  "Please wait until your receiver reboots\n"
  "This may take a few minutes"
  msgstr ""
@@ -18428,7 +18457,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Your receiver is now ready to be used.\n"
-@@ -10699,9 +10687,9 @@
+@@ -10699,9 +10672,9 @@
  "Your internet connection is working.\n"
  "\n"
  msgstr ""
@@ -18440,7 +18469,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid ""
  "Your receiver is now ready to use.\n"
-@@ -10710,9 +10698,9 @@
+@@ -10710,9 +10683,9 @@
  "\n"
  "Please press OK to continue."
  msgstr ""
@@ -18452,7 +18481,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  "\n"
  "Пожалуйста, нажмите ОК для продолжения."
  
-@@ -10723,7 +10711,7 @@
+@@ -10723,7 +10696,7 @@
  msgstr "Ваш ресивер переходит в глубокий режим ожидания"
  
  msgid "Your receiver might be unusable now. Please consult the manual for further assistance before rebooting your receiver."
@@ -18461,7 +18490,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Your receiver will got to stand by due to the sleeptimer."
  msgstr "Ваш ресивер будет переведен в режим ожидания по таймеру сна."
-@@ -10740,13 +10728,13 @@
+@@ -10740,13 +10713,13 @@
  "\n"
  "Please choose what you want to do next."
  msgstr ""
@@ -18477,7 +18506,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Zap"
  msgstr "Переключение"
-@@ -10758,7 +10746,7 @@
+@@ -10758,7 +10731,7 @@
  msgstr "Вернутся на предыдущий сервис до начала настроек позиционера?"
  
  msgid "Zap bouquets blindly on zap buttons"
@@ -18486,7 +18515,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Zap down"
  msgstr "Переключить канал вниз"
-@@ -10776,10 +10764,10 @@
+@@ -10776,10 +10749,10 @@
  msgstr "Переключить на"
  
  msgid "Zap to selected channel"
@@ -18499,7 +18528,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "Zap to selected channel, or show detailed event info (depends on configuration)"
  msgstr "Переключить на выбранный канал или показать детали события (зависит от конфигурации)"
-@@ -10789,50 +10777,50 @@
+@@ -10789,50 +10762,50 @@
  
  #, python-format
  msgid "Zapped to timer service %s as Picture in Picture!"
@@ -18560,7 +18589,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "active"
  msgstr "активно"
-@@ -10847,46 +10835,46 @@
+@@ -10847,46 +10820,46 @@
  msgstr "дополнительный кабель от мотора"
  
  msgid "adult movie/drama"
@@ -18619,7 +18648,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "and select next channel"
  msgstr "и выбрать следующий канал"
-@@ -10898,194 +10886,194 @@
+@@ -10898,194 +10871,194 @@
  msgstr "Вы уверены, что хотите отменить все изменения?"
  
  msgid "arts/culture (without music, general)"
@@ -18875,7 +18904,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "et4000"
  msgstr "et4000"
-@@ -11103,70 +11091,70 @@
+@@ -11103,70 +11076,70 @@
  msgstr "et9200/et9500/et6500"
  
  msgid "execute cuts (requires MovieCut plugin)"
@@ -18968,7 +18997,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "free"
  msgstr "свободно"
-@@ -11175,103 +11163,103 @@
+@@ -11175,103 +11148,103 @@
  msgstr "из"
  
  msgid "further education"
@@ -19105,7 +19134,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "list style default"
  msgstr "Список по умолчанию"
-@@ -11280,34 +11268,34 @@
+@@ -11280,34 +11253,34 @@
  msgstr "Список в одну строку"
  
  msgid "listens to hotplug events"
@@ -19150,7 +19179,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "mins"
  msgstr "мин"
-@@ -11316,368 +11304,368 @@
+@@ -11316,368 +11289,368 @@
  msgstr "месяц"
  
  msgid "motor sport"
@@ -19636,7 +19665,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  msgid "stereo"
  msgstr "стерео"
-@@ -11686,130 +11674,130 @@
+@@ -11686,130 +11659,130 @@
  msgstr "успешно"
  
  msgid "switch to the next angle"
@@ -19809,7 +19838,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
  
  #, python-format
  msgid "with %d error"
-@@ -11819,40 +11807,331 @@
+@@ -11819,40 +11792,325 @@
  msgstr[2] "с %d ошибками"
  
  msgid "with errors"
@@ -19874,9 +19903,6 @@ diff -ruN o/po/ru.po pc/po/ru.po
 +
 +msgid "LibXine version: "
 +msgstr "Версия LibXine: "
-+
-+msgid "Select Xine refresh rate."
-+msgstr "Выбор частоты кадров изображения."
 +
 +msgid "Select Xine aspect ratio."
 +msgstr "Выбор соотношения сторон экрана."
@@ -20087,9 +20113,6 @@ diff -ruN o/po/ru.po pc/po/ru.po
 +
 +msgid "Device 7"
 +msgstr "Устройство 7"
-+
-+msgid "Refresh Rate"
-+msgstr "Частота обновления"
 +
 +msgid "bob"
 +msgstr "Только чётные строки"
