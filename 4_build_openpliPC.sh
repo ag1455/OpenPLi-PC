@@ -135,7 +135,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 133c90d1
+git reset --hard 01c2d331
 cd ..
 
 # Copy headers
@@ -149,9 +149,9 @@ fi
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-cp -fv patches/patch-133c90d1-to-PC.patch $PKG
+cp -fv patches/patch-01c2d331-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-133c90d1-to-PC.patch
+patch -p1 < patch-01c2d331-to-PC.patch
 
 if [ "$release" = "14.04" ]; then
 	echo ""
@@ -265,7 +265,7 @@ if [ ! -f /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends/dvbsoftware
 	if [ -f dvbsoftwareca.ko ]; then
 		make clean
 	fi
-	make -j"$DO_PARALLEL"
+	make -C /lib/modules/`uname -r`/build M=`pwd` -j"$DO_PARALLEL"
 	if [ ! $? -eq 0 ]; then
 		echo ""
 		echo "******************************************************************"
