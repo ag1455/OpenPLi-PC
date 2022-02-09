@@ -203,7 +203,7 @@ echo "                    *** Build and install $PKG ***"
 echo ""
 I=`dpkg -s $LIB | grep "Status"`
 if [ -n "$I" ]; then
-	dpkg -r libdvbsi++1 libdvbsi++-dev
+	dpkg -r $PKG1 $PKG-dev
 else
 	echo "$LIB not installed"
 fi
@@ -213,9 +213,10 @@ cd $PKG
 #autoupdate
 dpkg-buildpackage -uc -us
 cd ..
-mv libdvbsi++*.* $PKG
+mv $PKG*.* $PKG
 cd $PKG
 dpkg -i *.deb
+rm -f *.tar.xz
 cd ..
 
 # Build and install libxmlccwrap-git:
@@ -232,7 +233,7 @@ else
 	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r libxmlccwrap libxmlccwrap-dev
+		dpkg -r $PKG $PKG-dev
 	else
 		echo "$PKG not installed"
 	fi
@@ -247,6 +248,7 @@ else
 	mv libxmlccwrap*.* $PKG
 	cd $PKG
 	dpkg -i *.deb
+	rm -f *.tar.gz
 	cd ..
 fi
 
@@ -265,7 +267,7 @@ else
 	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r libdvbcsa libdvbcsa-dev tsdecrypt
+		dpkg -r $PKG $PKG-dev tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
@@ -276,7 +278,8 @@ else
 	cd $PKG
 	./bootstrap
 	./configure --prefix=/usr --enable-sse2
-	checkinstall -D --install=yes --default --pkgname=libdvbcsa --pkgversion=1.1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	rm -f *.tgz
 	cd ..
 fi
 
@@ -299,7 +302,7 @@ else
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 	fi
 	if [ -d $SOURCE ]; then
-		dpkg -r libtuxtxt tuxtxt
+		dpkg -r $PKG tuxtxt
 		rm -rf $SOURCE
 	fi
 	if [ ! -d $INSTALL_LIB/lib/enigma2 ]; then
@@ -320,7 +323,8 @@ else
 #	autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-boxtype=generic DVB_API_VERSION=5
-	checkinstall -D --install=yes --default --pkgname=libtuxtxt --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	rm -f *.tgz
 	cd ..
 fi
 
@@ -340,8 +344,9 @@ else
 #	autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
-	checkinstall -D --install=yes --default --pkgname=tuxtxt --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
+	rm -f *.tgz
 	cd ../..
 fi
 
@@ -360,7 +365,7 @@ else
 	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r aio-grab
+		dpkg -r $PKG
 	else
 		echo "$PKG not installed"
 	fi
@@ -369,12 +374,13 @@ else
 	rm $VER.zip
 	mv $PKG-$VER $PKG
 	cd ..
-	cp -v patches/aio-grab.patch libs/$PKG
+	cp -v patches/$PKG.patch libs/$PKG
 	cd libs/$PKG
-	patch -p1 < aio-grab.patch
+	patch -p1 < $PKG.patch
 	autoreconf -i
 	./configure --prefix=/usr
-	checkinstall -D --install=yes --default --pkgname=aio-grab --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	rm -f *.tgz
 	cd ..
 fi
 
@@ -414,6 +420,7 @@ else
 	autoreconf -i
 	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
 	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	rm -f *.tgz
 	cd ..
 fi
 
@@ -459,8 +466,9 @@ else
 #		autoupdate
 		autoreconf -i
 		./configure --prefix=/usr
-		checkinstall -D --install=yes --default --pkgname=libgstreamer-plugins-subsink --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	fi
+	rm -f *.tgz
 	cd ..
 fi
 
