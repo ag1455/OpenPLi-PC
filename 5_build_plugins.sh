@@ -24,9 +24,9 @@ if [ -d plugins ]; then
 	rm $VER.zip
 	mv $PKG-$VER $PKG
 	cd ../..
-	cp -fv patches/servicemp3.patch plugins/enigma2-plugins/$PKG
+	cp -fv patches/$PKG.patch plugins/enigma2-plugins/$PKG
 	cd plugins/enigma2-plugins/$PKG
-	patch -p1 < servicemp3.patch
+	patch -p1 < $PKG.patch
 	cd ..
 
 	if [[ "$release" = "14.04" ]]; then
@@ -95,13 +95,14 @@ if [ -d plugins ]; then
 		echo ""
 		cd e2openplugin
 		PKG="e2openplugin-StreamInterface"
+		PKG_="StreamInterface"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/StreamInterface ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/StreamInterface
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-StreamInterface/archive/refs/heads/master.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -113,9 +114,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/StreamInterface $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_streaminterface* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/StreamInterface
+		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ..
 	fi
 
@@ -128,21 +129,22 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SystemTools"
+		PKG_="SystemTools"
 		VER="7b12408f5f3542aa87de1efad21aac644b48d430"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-SystemTools/archive/$VER.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
 		cd ../..
-		cp -fv patches/SystemTools.patch plugins/e2openplugin/$PKG
+		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
-		patch -p1 < SystemTools.patch
+		patch -p1 < $PKG_.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "21.10" ]; then
@@ -150,9 +152,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SystemTools $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_systemtools* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SystemTools
+		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ..
 	fi
 
@@ -165,13 +167,14 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-AddStreamUrl"
+		PKG_="AddStreamUrl"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/AddStreamUrl ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/AddStreamUrl
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-AddStreamUrl/archive/refs/heads/master.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -183,7 +186,7 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/AddStreamUrl $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_addstreamurl* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cd ..
 	fi
@@ -197,43 +200,44 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OpenWebif"
+		PKG_="WebInterface"
 		VER="b238b3770b90f49ba076987f66a4f042eb4b318e"
 		VER1="7f53c0efcc7ebf5c79efa34d525721d9d195b597"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OpenWebif
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		if [ "$release" = "20.04" ]; then
-			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/$VER.zip
+			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 			unzip $VER.zip
 			rm $VER.zip
 			mv $PKG-$VER $PKG
 			cd ../..
-			cp -fv patches/OpenWebif-py3.patch plugins/e2openplugin/$PKG
+			cp -fv patches/$PKG_-py3.patch plugins/e2openplugin/$PKG
 		elif [ "$release" = "21.10" ]; then
-			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/$VER.zip
+			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 			unzip $VER.zip
 			rm $VER.zip
 			mv $PKG-$VER $PKG
 			cd ../..
-			cp -fv patches/OpenWebif-py3.patch plugins/e2openplugin/$PKG
+			cp -fv patches/$PKG_-py3.patch plugins/e2openplugin/$PKG
 		else
-			wget https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/archive/$VER1.zip
+			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER1.zip
 			unzip $VER1.zip
 			rm $VER1.zip
 			mv $PKG-$VER1 $PKG
 			cd ../..
-			cp -fv patches/OpenWebif-py2.patch plugins/e2openplugin/$PKG
+			cp -fv patches/$PKG_-py2.patch plugins/e2openplugin/$PKG
 		fi
 		cd plugins/e2openplugin/$PKG
-		patch -p1 < OpenWebif-*.patch
+		patch -p1 < $PKG_-*.patch
 		mv CI/create_ipk.sh create_ipk.sh
 		./create_ipk.sh
 		ar -x *.ipk
 		tar -xvf data.tar.gz
-		mv -f usr/lib/enigma2/python/Plugins/Extensions/OpenWebif $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f usr/lib/enigma2/python/Plugins/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		rm -rf debian-binary usr *.gz *.ipk
 		cd ..
 	fi
@@ -247,21 +251,22 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SetPicon"
+		PKG_="SetPicon"
 		VER="ef33e2657203fcb8039afbc2a49b9b059db0c5ee"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-SetPicon/archive/$VER.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
 		cd ../..
-		cp -fv patches/SetPicon.patch plugins/e2openplugin/$PKG
+		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
-		patch -p1 < SetPicon.patch
+		patch -p1 < $PKG_.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "21.10" ]; then
@@ -269,9 +274,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SetPicon $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_setpicon* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SetPicon
+		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ..
 	fi
 
@@ -284,21 +289,22 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SnmpAgent"
+		PKG_="SnmpAgent"
 		VER="31dd52b4277f273524622a8bf3678dff8e1ecf8e"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-SnmpAgent/archive/$VER.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
 		cd ../..
-		cp -fv patches/SnmpAgent.patch plugins/e2openplugin/$PKG
+		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
-		patch -p1 < SnmpAgent.patch
+		patch -p1 < $PKG_.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "21.10" ]; then
@@ -306,9 +312,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SnmpAgent $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_snmpagent* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SnmpAgent
+		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ..
 	fi
 
@@ -321,21 +327,22 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-SimpleUmount"
+		PKG_="SimpleUmount"
 		VER="8c82986a90d77295d3c5bf70983667e2508f17d1"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-SimpleUmount/archive/$VER.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
 		cd ../..
-		cp -fv patches/SimpleUmount.patch plugins/e2openplugin/$PKG
+		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
-		patch -p1 < SimpleUmount.patch
+		patch -p1 < $PKG_.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
 		elif [ "$release" = "21.10" ]; then
@@ -343,9 +350,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/SimpleUmount $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_simpleumount* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SimpleUmount
+		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ..
 	fi
 
@@ -358,18 +365,19 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-Foreca"
+		PKG_="Foreca"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Foreca ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Foreca
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-Foreca/archive/refs/heads/master.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
-		rpl "Foreca - прогноз погоды" "'Foreca' - Прогноз погоды" e2openplugin-Foreca/plugin/locale/ru/LC_MESSAGES/Foreca.po
-		rpl '\x1b' 'KEY_ESC' e2openplugin-Foreca/plugin/keymap.xml
+		rpl "Foreca - прогноз погоды" "'Foreca' - Прогноз погоды" $PKG/plugin/locale/ru/LC_MESSAGES/Foreca.po
+		rpl '\x1b' 'KEY_ESC' $PKG/plugin/keymap.xml
 		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
@@ -378,9 +386,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/Foreca $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_foreca* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Foreca
+		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ..
 	fi
 
@@ -393,13 +401,14 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="enigma2-plugin-youtube"
+		PKG_="YouTube"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/YouTube ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/YouTube
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/Taapat/enigma2-plugin-youtube/archive/refs/heads/master.zip
+		wget https://github.com/Taapat/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -411,9 +420,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/YouTube $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_youtube* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv build/lib/Extensions/YouTube/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/YouTube
+		cp -rfv build/lib/Extensions/YouTube/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ..
 	fi
 
@@ -426,13 +435,14 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OscamStatus"
+		PKG_="OscamStatus"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/e2openplugin-OscamStatus/archive/refs/heads/master.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -445,9 +455,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/OscamStatus $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_oscamstatus* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/OscamStatus
+		cp -rfv plugin/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ..
 	fi
 
@@ -460,21 +470,22 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="enigma2-plugin-extensions-epgimport"
+		PKG_="EPGImport"
 		VER="0f638f2b8d6a0c59895a4f5f772aebd81a8376f3"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
 		cd ../..
-		cp -fv patches/EPGImport.patch plugins/e2openplugin/$PKG
+		cp -fv patches/$PKG_.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
-		patch -p1 < EPGImport.patch
+		patch -p1 < $PKG_.patch
 		cd src
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
@@ -483,9 +494,9 @@ if [ -d plugins ]; then
 		else
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/EPGImport $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_xmltvimport* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv EPGImport/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/EPGImport
+		cp -rfv $PKG_/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		cd ../..
 	fi
 
@@ -504,12 +515,14 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2iplayer"
+		PKG_="IPTVPlayer"
+		PKG__="E2IPlayer"
 		VER="8de52879b072b946f699d820bd2061268a90bc3f"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
-		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer ]; then
-			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
+		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
+			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		rm -f /usr/lib/librtmp.so.1
 		wget https://gitlab.com/zadmario/e2iplayer/-/archive/$VER/e2iplayer-$VER.zip
@@ -517,10 +530,10 @@ if [ -d plugins ]; then
 		rm $PKG-$VER.zip
 		mv $PKG-$VER $PKG
 		cd ../..
-		cp -rv pre/icons plugins/e2openplugin/$PKG/IPTVPlayer
-		cp -fv patches/E2IPlayer.patch plugins/e2openplugin/$PKG
+		cp -rv pre/icons plugins/e2openplugin/$PKG/$PKG_
+		cp -fv patches/$PKG__.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
-		patch -p1 < E2IPlayer.patch
+		patch -p1 < $PKG__.patch
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then
 			python2 setup_translate.py
@@ -532,30 +545,30 @@ if [ -d plugins ]; then
 			python setup_translate.py
 			python setup.py install
 		fi
-		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/IPTVPlayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
+		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_iptvplayer* $INSTALL_E2DIR/lib/enigma2/python/Plugins
-		cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer
+		cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		wget http://iptvplayer.vline.pl/resources/bin/i686/_subparser.so
 		chmod 755 _subparser.so
-		mv -f _subparser.so $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/libs/iptvsubparser
+		mv -f _subparser.so $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/libs/iptvsubparser
 		wget http://iptvplayer.vline.pl/resources/bin/i686/duk
 		chmod 755 duk
-		mv -f duk $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
+		mv -f duk $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 		rm -f /usr/bin/duk
 		wget http://iptvplayer.vline.pl/resources/bin/i686/hlsdl_static_curl_openssl.1.0.2
 		chmod 755 hlsdl_static_curl_openssl.1.0.2
-		mv -f hlsdl_static_curl_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/hlsdl
+		mv -f hlsdl_static_curl_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/hlsdl
 		rm -f /usr/bin/hlsdl
 		wget http://iptvplayer.vline.pl/resources/bin/i686/f4mdump_openssl.1.0.2
 		chmod 755 f4mdump_openssl.1.0.2
-		mv -f f4mdump_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/f4mdump
+		mv -f f4mdump_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/f4mdump
 		rm -f /usr/bin/f4mdump
 		wget http://iptvplayer.vline.pl/resources/bin/i686/uchardet
 		chmod 755 uchardet
-		mv -f uchardet $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
+		mv -f uchardet $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 		wget http://iptvplayer.vline.pl/resources/bin/i686/wget_openssl.1.0.2
 		chmod 755 wget_openssl.1.0.2
-		mv -f wget_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/fullwget
+		mv -f wget_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/fullwget
 		cd ..
 		if [ -d e2iplayer ]; then
 			if [[ "$release" = "14.04" ]]; then
@@ -563,27 +576,27 @@ if [ -d plugins ]; then
 				wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer0.10
 				mv -f gstplayer_gstreamer0.10 gstplayer
 				chmod 755 gstplayer
-				mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
+				mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 				rm -f /usr/bin/gstplayer
 			fi
 		else
 			wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer1.0
 			mv -f gstplayer_gstreamer1.0 gstplayer
 			chmod 755 gstplayer
-			mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin
+			mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 			rm -f /usr/bin/gstplayer
 		fi
 		if grep "config.plugins.iptvplayer.wgetpath=/usr/bin/wget" $INSTALL_E2DIR/etc/enigma2/settings; then
 			echo ""
 			echo ""
-			echo "*************************** Detected IPTVPlayer settings.***************************"
+			echo "*************************** Detected $PKG_ settings.***************************"
 		else
 			echo ""
 			echo "******************* There are no iptvplayer settings. Adding...*********************"
 			echo "config.plugins.iptvplayer.autoCheckForUpdate=false" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.deleteIcons=0" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.downgradePossible=true" >> $INSTALL_E2DIR/etc/enigma2/settings
-			echo "config.plugins.iptvplayer.dukpath=$INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/bin/duk" >> $INSTALL_E2DIR/etc/enigma2/settings
+			echo "config.plugins.iptvplayer.dukpath=$INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/duk" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.possibleUpdateType=sourcecode" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.showinMainMenu=true" >> $INSTALL_E2DIR/etc/enigma2/settings
 			echo "config.plugins.iptvplayer.uchardetpath=/usr/bin/uchardet" >> $INSTALL_E2DIR/etc/enigma2/settings
