@@ -267,6 +267,7 @@
 		<widget source="session.CurrentService" render="PicEmu2" position="1674,933" size="150,90" transparent="1" alphatest="blend" zPosition="3"/>
 		<ePixmap position="352,928" size="450,15" pixmap="chan_p1_bar.png" alphatest="blend" zPosition="1"/>
 		<ePixmap position="972,928" size="450,15" pixmap="chan_p1_bar.png" alphatest="blend" zPosition="1"/>
+
 		<!-- Event Now -->
 		<widget source="session.Event_Now" render="Label" position="76,27" size="1770,42" font="Regular;33" halign="center" zPosition="5" backgroundColor="transpBlack" foregroundColor="unccff" transparent="1">
 			<convert type="EventName">Name</convert>
@@ -274,10 +275,12 @@
 		<widget source="session.Event_Now" render="Label" position="111,72" size="1688,105" font="Regular;28" halign="center" zPosition="5" backgroundColor="transpBlack" transparent="1">
 			<convert type="EventName2">ExtendedDescription</convert>
 		</widget>
+
 		<!-- Picon -->
 		<widget source="session.CurrentService" render="Picon" position="107,792" size="150,90" zPosition="10" transparent="1" alphatest="blend">
 			<convert type="ServiceName">Reference</convert>
 		</widget>
+
 		<!-- Time -->
 		<widget source="global.CurrentTime" render="Label" position="1377,705" size="450,37" zPosition="2" font="Regular;28" halign="right" backgroundColor="transpBlack" foregroundColor="un9fcff" transparent="1">
 			<convert type="ClockToText">Date</convert>
@@ -291,6 +294,7 @@
 		<widget source="global.CurrentTime" render="Watches" position="1741,798" size="70,67" foregroundColor="white" zPosition="4" transparent="1" alphatest="blend">
 			<convert type="ExtraNumText">hourHand</convert>
 		</widget>
+
 		<!-- Service -->
 		<widget source="session.FrontendStatus" render="Label" position="1425,921" size="82,28" font="Regular;24" valign="center" backgroundColor="black" shadowColor="black" shadowOffset="-2,-2" transparent="1" foregroundColor="und6c07f">
 			<convert type="FrontendInfo">SNR</convert>
@@ -376,6 +380,7 @@
 		<widget source="session.RecordState" render="Pixmap" pixmap="icons/icon_rec.png" position="1651,805" zPosition="4" size="60,60" alphatest="blend">
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
+
 		<!-- Tuner Info  -->
 		<widget source="session.TunerInfo" render="Pixmap" position="1214,813" zPosition="4" size="24,24" pixmap="icons/NimA_Active.png" alphatest="blend">
 			<convert type="TunerInfo">TunerUseMask</convert>
@@ -397,11 +402,13 @@
 			<convert type="ValueBitTest">8</convert>
 			<convert type="ConditionalShowHide"/>
 		</widget>
+
 		<!-- Cam Info  -->
 		<widget source="session.CurrentService" render="Label" position="1148,1005" size="322,36" font="Regular;30" halign="center" zPosition="2" backgroundColor="black" foregroundColor="green" transparent="1">
 <!--			<convert type="CamdInfo3">Camd</convert>-->
 			<convert type="CaidInfo2">%T mc</convert>
 		</widget>
+
 		<!-- ECM Info  -->
 		<widget source="session.CurrentService" render="mvmCaids" ecmColor="green" emmColor="yellow" font="Regular;30" nocColor="grey2" position="285,1005" size="765,36" transparent="1" zPosition="10" alphatest="blend">
 			<convert type="mvmCaidDisplay">
@@ -1466,11 +1473,11 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 
 	<!-- Scan Setup -->
 	<screen name="ScanSetup" position="center,220" size="900,690">
-		<widget name="config" position="30,30" size="840,470" itemHeight="38" font="Regular;30" transparent="1"/>
-		<ePixmap position="140,510" size="240,60" pixmap="buttons/red16.png" alphatest="blend" zPosition="1"/>
-		<ePixmap position="520,510" size="240,60" pixmap="buttons/green16.png" alphatest="blend" zPosition="1"/>
-		<widget source="key_red" render="Label" position="140,510" size="240,60" font="Regular;36" zPosition="2" halign="center" valign="center" transparent="1"/>
-		<widget source="key_green" render="Label" position="520,510" size="240,60" font="Regular;36" zPosition="2" halign="center" valign="center" transparent="1"/>
+		<widget name="config" position="30,30" size="840,495" itemHeight="38" font="Regular;30" transparent="1"/>
+		<ePixmap position="140,560" size="240,60" pixmap="buttons/red16.png" alphatest="blend" zPosition="1"/>
+		<ePixmap position="520,560" size="240,60" pixmap="buttons/green16.png" alphatest="blend" zPosition="1"/>
+		<widget source="key_red" render="Label" position="140,560" size="240,60" font="Regular;36" zPosition="2" halign="center" valign="center" transparent="1"/>
+		<widget source="key_green" render="Label" position="520,560" size="240,60" font="Regular;36" zPosition="2" halign="center" valign="center" transparent="1"/>
 		<widget name="introduction" position="30,600" size="840,70" font="Regular;33" halign="center" transparent="1"/>
 	</screen>
 

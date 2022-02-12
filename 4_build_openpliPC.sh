@@ -313,6 +313,28 @@ echo ""
 rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/VideoEnhancement
 rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/SystemPlugins/SoftwareManager
 
+# Copy files
+cp -rfv pre/enigma2 $INSTALL_E2DIR/etc
+cp -rfv pre/stub/* $INSTALL_E2DIR/etc
+cp -rfv pre/tuxbox $INSTALL_E2DIR/etc
+cp -fv pre/enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
+cp -fv pre/enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
+cp -fv pre/logo.mvi $INSTALL_E2DIR/share/enigma2
+cp -fv pre/radio.mvi $INSTALL_E2DIR/share/enigma2
+cp -fv pre/e2pc.desktop /home/$(logname)/.local/share/applications
+cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
+cp -fv scripts/* $INSTALL_E2DIR/bin
+cp -fv enigma2/lib/gdi/*.h $INSTALL_E2DIR/include/enigma2/lib/gdi
+cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
+cp -fv /etc/network/interfaces /etc/network/interfaces~
+if [ -d $DVB_DEV ]; then
+	cp -fv pre/rc.local /etc
+else
+	# Preventing stopping boot your PC without a dvb card.
+	cp -fv pre/rc.local.orig /etc
+	mv -fv /etc/rc.local.orig /etc/rc.local
+fi
+
 # Creating symlinks after installing enigma2 and copying the necessary files
 if [ ! -d $INSTALL_E2DIR/etc ]; then
 	mkdir -p $INSTALL_E2DIR/etc
@@ -374,28 +396,6 @@ if [ -d /lib/i386-linux-gnu ]; then
 	if [ ! -d /lib/i686-linux-gnu ]; then
 	ln -s /lib/i386-linux-gnu /lib/i686-linux-gnu
 	fi
-fi
-
-# Copy files
-cp -rfv pre/enigma2 $INSTALL_E2DIR/etc
-cp -rfv pre/stub/* $INSTALL_E2DIR/etc
-cp -rfv pre/tuxbox $INSTALL_E2DIR/etc
-cp -fv pre/enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
-cp -fv pre/enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
-cp -fv pre/logo.mvi $INSTALL_E2DIR/share/enigma2
-cp -fv pre/radio.mvi $INSTALL_E2DIR/share/enigma2
-cp -fv pre/e2pc.desktop /home/$(logname)/.local/share/applications
-cp -fv pre/kill_e2pc.desktop /home/$(logname)/.local/share/applications
-cp -fv scripts/* $INSTALL_E2DIR/bin
-cp -fv enigma2/lib/gdi/*.h $INSTALL_E2DIR/include/enigma2/lib/gdi
-cp -fv /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf~
-cp -fv /etc/network/interfaces /etc/network/interfaces~
-if [ -d $DVB_DEV ]; then
-	cp -fv pre/rc.local /etc
-else
-	# Preventing stopping boot your PC without a dvb card.
-	cp -fv pre/rc.local.orig /etc
-	mv -fv /etc/rc.local.orig /etc/rc.local
 fi
 
 # Use xine.conf for any GPU
