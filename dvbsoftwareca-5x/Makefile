@@ -13,4 +13,5 @@ clean:
 	rm -f .*.cmd
 	rm -f *.mod
 	rm -f *.order
+	rm -f *.a
 	rm -Rf .tmp_versions

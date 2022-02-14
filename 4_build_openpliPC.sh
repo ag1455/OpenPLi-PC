@@ -15,7 +15,7 @@ DVB_DEV="/dev/dvb/adapter0"
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 KDIR="/lib/modules/`uname -r`/kernel/extra"
-CA="dvbsoftwareca.ko"
+CA="dvbsoftwareca"
 
 export PYTHON_VERSION=2.7
 export PYTHON_CPPFLAGS=-I/usr/include/python2.7
@@ -263,44 +263,45 @@ fi
 
 # Make dvbsoftwareca module
 modprobe -r $CA
-if [ ! -f /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends/$CA ]; then
-	rm -f $CA
+if [ -f /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends/$CA.ko ]; then
+	rm -f /lib/modules/`uname -r`/kernel/drivers/media/dvb-frontends/$CA.ko
 fi
-if [ ! -f $KDIR/$CA ]; then
+if [ ! -d $KDIR ]; then
 	mkdir -p $KDIR
-	cd ../$CA-5x
-	if [ -f $CA ]; then
-		make clean
-	fi
-	make -C /lib/modules/`uname -r`/build M=`pwd` -j"$DO_PARALLEL"
-	if [ ! $? -eq 0 ]; then
-		echo ""
-		echo "******************************************************************"
-		echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION DVBSOFTWARECA!"
-		echo "******************************************************************"
-		echo ""
-		exit
-	fi
-	cp -fv $CA $KDIR/
-	/sbin/depmod -a
-	cd ..
+fi
+cd ../$CA-5x
+if [ -f $CA.ko ]; then
+	make clean
+fi
+make -C /lib/modules/`uname -r`/build M=`pwd` -j"$DO_PARALLEL"
+if [ ! $? -eq 0 ]; then
+	echo ""
+	echo "******************************************************************"
+	echo "AN ERROR OCCURED WHILE BUILDING OpenPliPC - SECTION DVBSOFTWARECA!"
+	echo "******************************************************************"
+	echo ""
+	exit
+fi
+cp -fv $CA.ko $KDIR
+make clean
+depmod -a
+cd ..
+
 # Create symlink
-	if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
-		ln -s $DVB_DEV/demux0 $DVB_DEV/demux1
-	else
-		echo "Symlink demux1 already exists"
-	fi
-	if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
-		ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
-	else
-		echo "Symlink dvr1 already exists"
-	fi
+#	if [ ! $(ls $DVB_DEV | grep -w demux1) ]; then
+#		ln -s $DVB_DEV/demux0 $DVB_DEV/demux1
+#	else
+#		echo "Symlink demux1 already exists"
+#	fi
+#	if [ ! $(ls $DVB_DEV | grep -w dvr1) ]; then
+#		ln -s $DVB_DEV/dvr0 $DVB_DEV/dvr1
+#	else
+#		echo "Symlink dvr1 already exists"
+#	fi
+
 # Insert module dvbsoftwareca
-	if [ $(lsmod | grep -c $CA) -eq 0 ]; then
-		modprobe -v $CA
-	fi
-else
-	cd ..
+if [ $(lsmod | grep -c $CA) -eq 0 ]; then
+	modprobe -v $CA
 fi
 
 echo ""

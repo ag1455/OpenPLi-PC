@@ -107,7 +107,7 @@ class ScNewSelection(Screen):
 				<widget name="key_blue" position="450,230" zPosition="2" size="150,25" valign="center" halign="center" font="Regular;21" transparent="1" />
 				<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/images/key_menu.png" position="20,230" zPosition="2" size="50,40" alphatest="on" />
 			</screen>"""
-			
+
 	def __init__(self, session):
 		Screen.__init__(self, session)
 
@@ -122,7 +122,7 @@ class ScNewSelection(Screen):
 				"blue": self.bluekey,
 				"menu": self.keyMenu,
 			},-1)
-			
+
 		self.setTitle(_("Softcam Setup"))
 		if config.plugins.SoftcamMenu.showEcm.value:
 			self["text"] = ScrollLabel()
@@ -131,21 +131,21 @@ class ScNewSelection(Screen):
 			self.timer.callback.append(self.listServices)
 			self.timer.callback.append(self.listServices1)
 			self.timer.start(50, True)
-			
+
 		self.softcam = CamControl('softcam')
 		self.cardserver = CamControl('cardserver')
 		self.blueAction = REFRESH
-		
+
 		self["entries"] = ConfigList([])
 		self.initConfig()
 		self.createConfig()
-		
+
 		self["key_red"] = Label(_("Cancel"))
 		self["key_green"] = Label(_("OK"))
 		self["key_blue"] = Label(_("Refresh"))
 		self["cam"] = Label()
 		self["server"] = Label()
-		
+
 		self.nameSoftcam()
 		self.nameCardserver()
 		self.onClose.append(self.__onClose)
@@ -221,7 +221,6 @@ class ScNewSelection(Screen):
 		
 	def ok(self):
 		self["entries"].handleKey(KEY_OK)
-	
 
 	def restart(self, what):
 		self.what = what
@@ -271,7 +270,7 @@ class ScNewSelection(Screen):
 	def restartCardServer(self):
 		if hasattr(self, 'cardservers'):
 			self.restart("c")
-	
+
 	def restartSoftcam(self):
 		self.restart("s")
 
@@ -288,31 +287,31 @@ class ScNewSelection(Screen):
 
 	def keyMenu(self):
 		self.session.open(ScSetupScreen)
-						
+
 	def nameSoftcam(self):
-		if fileExists("/etc/init.d/softcam"):
+		if fileExists("/usr/local/bin/softcam"):
 			name = ""
 			try:
-				f = os.popen("/etc/init.d/softcam info")
+				f = os.popen("/usr/local/bin/softcam info")
 				for i in f.readlines():
 					text = _("Current softcam: ")
 					name = text + i
-			except: 
+			except:
 				pass
 		else:
 			name = ""
 		self["cam"].setText(name)
 		self.setblueKey(name)
-			
+
 	def nameCardserver(self):
-		if fileExists("/etc/init.d/cardserver"):
+		if fileExists("/usr/local/bin/cardserver"):
 			name = ""
 			try:
-				f = os.popen("/etc/init.d/cardserver info")
+				f = os.popen("/usr/local/bin/cardserver info")
 				for i in f.readlines():
 					text = _("Current cardserver: ")
 					name = text + i
-			except: 
+			except:
 				pass
 		else:
 			name = ""
@@ -334,7 +333,7 @@ class ScNewSelection(Screen):
 				pass
 		self["text"].setText(list)
 		self.timer.start(2000, True)
-		
+
 	def listServices1(self):
 		list1 = "\n"
 		prev1_mtime = None
@@ -370,7 +369,7 @@ class ScNewSelection(Screen):
 
 	def CCcamInfoCallback(self):
 		pass
-		
+
 	def setblueKey(self, cam):
 		print"[SOFTCAM] setblueKey=%s<" %cam
 		if cam == None or cam == '':
@@ -397,7 +396,7 @@ class ScSetupScreen(Screen, ConfigListScreen):
 			<widget name="green" position="300,5" zPosition="2" size="170,25" valign="center" halign="center" font="Regular;21" transparent="1" />
 			<widget name="config" position="10,50" size="550,140" font="Regular;20" />
 		</screen>
-		""" 
+		"""
 	def __init__(self, session, args = None):
 		self.skin = ScSetupScreen.skin
 		self.setup_title = _("Settings menu")
@@ -406,7 +405,7 @@ class ScSetupScreen(Screen, ConfigListScreen):
 		self["red"] = Button(_("Cancel"))
 		self["green"] = Button(_("OK"))
 		
-		self["actions"] = ActionMap(["SetupActions", "ColorActions"], 
+		self["actions"] = ActionMap(["SetupActions", "ColorActions"],
 		{
 			"ok": self.keyOk,
 			"save": self.keyGreen,
@@ -419,13 +418,13 @@ class ScSetupScreen(Screen, ConfigListScreen):
 
 		self.onClose.append(self.__closed)
 		self.onLayoutFinish.append(self.__layoutFinished)
-		
+
 	def __closed(self):
 		pass
-		
+
 	def __layoutFinished(self):
 		self.setTitle(self.setup_title)
-		
+
 	def initConfig(self):
 		def getPrevValues(section):
 			res = { }
@@ -435,7 +434,7 @@ class ScSetupScreen(Screen, ConfigListScreen):
 				else:
 					res[key] = val.value
 			return res
-		
+
 		self.SC = config.plugins.SoftcamMenu
 		self.prev_values  = getPrevValues(self.SC)
 		self.cfg_MenuExt = getConfigListEntry(_("Show plugin extensions menu"), config.plugins.SoftcamMenu.MenuExt)
@@ -479,7 +478,7 @@ class ScSetupScreen(Screen, ConfigListScreen):
 		self.keyGreen()
 
 	def keyGreen(self):
-		global quick_softcam_setup		
+		global quick_softcam_setup
 		if config.plugins.SoftcamMenu.quickButton.isChanged():
 			if config.plugins.SoftcamMenu.quickButton.value:
 				quick_softcam_setup = QuickSoftcamSetup(self.session)
@@ -493,7 +492,6 @@ class ScSetupScreen(Screen, ConfigListScreen):
 			self.SC.CloseOnRestart.value = True
 		self.SC.save()
 		self.close()
-		
 
 	def keyLeft(self):
 		ConfigListScreen.keyLeft(self)
@@ -502,12 +500,12 @@ class ScSetupScreen(Screen, ConfigListScreen):
 	def keyRight(self):
 		ConfigListScreen.keyRight(self)
 		self.newConfig()
-		
+
 class QuickSoftcamSetup:
 
 	def __init__(self, session):
 		self.session = session
-		
+
 	def change_keymap(self, keymap):
 		if keymap not in KEYMAPPINGS:
 			return
@@ -521,7 +519,6 @@ class QuickSoftcamSetup:
 			return
 		global globalActionMap
 		globalActionMap.actions['quickSoftcamSetup'] = self.quickSoftcamSetup
-	
 
 	def unload_keymap(self):
 		for keymap in KEYMAPPINGS.values():
@@ -534,7 +531,6 @@ class QuickSoftcamSetup:
 	def enable(self):
 		self.change_keymap(config.plugins.SoftcamMenu.keymapBut.value)
 
-	
 	def disable(self):
 		global quick_softcam_setup
 		self.unload_keymap()
@@ -542,4 +538,3 @@ class QuickSoftcamSetup:
 
 	def quickSoftcamSetup(self):
 		self.session.open(ScNewSelection)
-		
