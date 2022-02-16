@@ -32,7 +32,7 @@
 #include <linux/platform_device.h>
 #include "dvb_softwareca.h"
 #include "ca_netlink.h"
-#include <media/dvbdev.h>
+#include "dvbdev.h"
 
 static struct platform_device *dvblb_basedev;
 static struct ca_device* ca_devices[MAX_CA_DEVICES];
