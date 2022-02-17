@@ -245,7 +245,7 @@ else
 #	autoupdate
 	dpkg-buildpackage -b -d -uc -us
 	cd ..
-	mv libxmlccwrap*.* $PKG
+	mv $PKG*.* $PKG
 	cd $PKG
 	dpkg -i *.deb
 	rm -f *.tar.gz
@@ -271,7 +271,7 @@ else
 	else
 		echo "$PKG not installed"
 	fi
-	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/libdvbcsa-$VER.zip
+	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
 	unzip $PKG-$VER.zip
 	rm $PKG-$VER.zip
 	mv $PKG-$VER $PKG
@@ -395,6 +395,7 @@ else
 	echo ""
 	LIB="libgstreamer-plugins-dvbmediasink"
 	PKG="gst-plugin-dvbmediasink"
+	PKG_="dvbmediasink"
 	VER="1d197313832d39fdaf430634f62ad95a33029db0"
 	echo ""
 	echo "                 *** Build and install $PKG ***"
@@ -411,9 +412,9 @@ else
 	mv $PKG-$VER $PKG
 	cd $PKG
 	cd ../..
-	cp -v patches/dvbmediasink-1.0.patch libs/$PKG
+	cp -v patches/$PKG_-1.0.patch libs/$PKG
 	cd libs/$PKG
-	patch -p1 < dvbmediasink-1.0.patch
+	patch -p1 < $PKG_-1.0.patch
 	echo ""
 	echo "                 *** Patch for $PKG applied ***"
 	echo ""
