@@ -15,12 +15,12 @@ diff -ruN o/debian/changelog pc/debian/changelog
 --- o/debian/changelog	2021-05-07 16:11:29.885121541 +0300
 +++ pc/debian/changelog	2021-10-07 10:33:46.513779009 +0300
 @@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.11+hg-daf720e6a48d-15030-e2pc) experimental; urgency=low
++xine-lib-1.2 (1.2.11+hg-2b3b329db3f7-15052-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
 +  * Patched version for e2pc.
 +
-+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 1 Feb 2022 16:29:17 +0100
++ -- Gianfranco Costamagna <locutusofborg@debian.org>  Thu, 17 Feb 2022 12:46:17 +0100
 +
  xine-lib-1.2 (1.2.9+hg-0) experimental; urgency=low
  
@@ -2676,114 +2676,11 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    uint32_t            overlay_output_width;
    uint32_t            overlay_output_height;
-@@ -322,6 +324,36 @@
-   pthread_mutex_unlock(&this->vaapi_lock);
- }
- 
-+static ff_vaapi_surface_t *get_vaapi_surface(vo_frame_t *frame_gen) {
-+  vaapi_driver_t      *this       = (vaapi_driver_t *) frame_gen->driver;
-+  vaapi_frame_t       *frame      = (vaapi_frame_t *) frame_gen;
-+  ff_vaapi_context_t  *va_context = this->va_context;
-+  return &va_context->va_render_surfaces[frame->vaapi_accel_data.index];
-+}
-+
-+static ff_vaapi_surface_t *alloc_vaapi_surface(vo_frame_t *frame_gen) {
-+
-+  vaapi_driver_t      *this       = (vaapi_driver_t *) frame_gen->driver;
-+
-+  return _x_va_alloc_surface(this->va);
-+}
-+
-+/* Set VAAPI surface status to render */
-+static void render_vaapi_surface(vo_frame_t *frame_gen, ff_vaapi_surface_t *va_surface) {
-+  vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
-+  vaapi_accel_t *accel = (vaapi_accel_t*)frame_gen->accel_data;
-+
-+  accel->index = va_surface->index;
-+  _x_va_render_surface(this->va, va_surface);
-+}
-+
-+/* Set VAAPI surface status to free */
-+static void release_vaapi_surface(vo_frame_t *frame_gen, ff_vaapi_surface_t *va_surface) {
-+  vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
-+
-+  _x_va_release_surface(this->va, va_surface);
-+}
-+
- typedef struct {
-   video_driver_class_t driver_class;
- 
-@@ -882,6 +914,16 @@
-   return this->capabilities;
- }
- 
-+static int profile_from_imgfmt(vo_frame_t *frame_gen, unsigned format)
-+{
-+  vo_driver_t         *this_gen   = (vo_driver_t *) frame_gen->driver;
-+  vaapi_driver_t      *this       = (vaapi_driver_t *) this_gen;
-+
-+  _x_assert(this->va->c.va_display);
-+
-+  return _x_va_profile_from_imgfmt(this->va, format);
-+}
-+
- /* Init subpicture */
- static void vaapi_init_subpicture(vaapi_driver_t *this) {
-   this->va_subpic_width               = 0;
-@@ -917,6 +959,13 @@
- 
-   _x_va_close(this->va);
- }
-+ 
-+/* Returns internal VAAPI context */
-+static ff_vaapi_context_t *get_context(vo_frame_t *frame_gen) {
-+  vaapi_driver_t        *this = (vaapi_driver_t *) frame_gen->driver;
-+
-+  return this->va_context;
-+}
- 
- /* Deassociate and free subpicture */
- static void vaapi_destroy_subpicture(vaapi_driver_t *this) {
-@@ -1606,26 +1655,26 @@
-   vaapi_frame_t   *frame;
-   static const struct vaapi_accel_funcs_s accel_funcs = {
-     .vaapi_init                = vaapi_init,
--    .profile_from_imgfmt       = _x_va_accel_profile_from_imgfmt,
--    .get_context               = _x_va_accel_get_context,
-+    .profile_from_imgfmt       = profile_from_imgfmt,
-+    .get_context               = get_context,
-     .lock_vaapi                = _x_va_accel_lock_decode_dummy,
-     .unlock_vaapi              = NULL,
- 
--    .get_vaapi_surface         = _x_va_accel_get_vaapi_surface,
-+    .get_vaapi_surface         = get_vaapi_surface,
-     .render_vaapi_surface      = NULL,
-     .release_vaapi_surface     = NULL,
-     .guarded_render            = _x_va_accel_guarded_render,
-   };
-   static const struct vaapi_accel_funcs_s accel_funcs_guarded = {
-     .vaapi_init                = vaapi_init,
--    .profile_from_imgfmt       = _x_va_accel_profile_from_imgfmt,
--    .get_context               = _x_va_accel_get_context,
-+    .profile_from_imgfmt       = profile_from_imgfmt,
-+    .get_context               = get_context,
-     .lock_vaapi                = vaapi_lock_decode_guarded,
-     .unlock_vaapi              = vaapi_unlock_decode_guarded,
- 
--    .get_vaapi_surface         = _x_va_accel_alloc_vaapi_surface,
--    .render_vaapi_surface      = _x_va_accel_render_vaapi_surface,
--    .release_vaapi_surface     = _x_va_accel_release_vaapi_surface,
-+    .get_vaapi_surface         = alloc_vaapi_surface,
-+    .render_vaapi_surface      = render_vaapi_surface,
-+    .release_vaapi_surface     = release_vaapi_surface,
-     .guarded_render            = _x_va_accel_guarded_render,
-   };
- 
-@@ -1912,6 +1961,16 @@
+@@ -1915,6 +1917,16 @@
        else
          this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
  
-+      if(this->enigma_osd_width) 
++      if(this->enigma_osd_width)
 +        this->overlay_bitmap_width =  UMAX (this->enigma_osd_width, this->sc.gui_width);
 +      else
 +        this->overlay_bitmap_width =  UMAX (unscaled_width, this->sc.gui_width);
@@ -2796,7 +2693,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      } else if (need_init) {
  
        if(this->vdr_osd_width) 
-@@ -1924,6 +1983,16 @@
+@@ -1927,6 +1939,16 @@
        else
          this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
  
@@ -2813,7 +2710,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      }
    }
  
-@@ -2817,6 +2886,20 @@
+@@ -2820,6 +2842,20 @@
    this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
  }
  
@@ -2834,7 +2731,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
  {
    vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
-@@ -3070,6 +3153,8 @@
+@@ -3073,6 +3109,8 @@
    this->deinterlace                    = 0;
    this->vdr_osd_width                  = 0;
    this->vdr_osd_height                 = 0;
@@ -2843,7 +2740,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
          _("vaapi: VDR osd width workaround."),
-@@ -3083,6 +3168,18 @@
+@@ -3086,6 +3124,18 @@
          10, vaapi_vdr_osd_height_flag, this );
    this->vdr_osd_height = i < 0 ? 0 : i;
  
@@ -2865,7 +2762,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
 diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
 --- o/src/video_out/video_out_vdpau.c	2021-10-07 10:30:31.121011632 +0300
 +++ pc/src/video_out/video_out_vdpau.c	2021-10-07 10:32:29.610653382 +0300
-@@ -776,7 +776,14 @@
+@@ -777,7 +777,14 @@
        this->ovl_video_dest_rect = vid_rect;
      }
  
@@ -2881,7 +2778,7 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
        double rx, ry;
  
        if (zoom) {
-@@ -2349,6 +2356,12 @@
+@@ -2352,6 +2359,12 @@
        this->deinterlace = value;
        vdpau_set_deinterlace (this);
        break;
