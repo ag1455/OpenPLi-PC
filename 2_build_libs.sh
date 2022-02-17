@@ -261,6 +261,7 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	PKG="libdvbcsa"
+	PKG1="libdvbcsa1"
 	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
 	echo ""
 	echo "                       *** Build and install $PKG ***"
@@ -270,6 +271,12 @@ else
 		dpkg -r $PKG $PKG-dev tsdecrypt
 	else
 		echo "$PKG not installed"
+	fi
+	I=`dpkg -s $PKG1 | grep "Status"`
+	if [ -n "$I" ]; then
+		dpkg -r $PKG1 $PKG-dev tsdecrypt
+	else
+		echo "$PKG1 not installed"
 	fi
 	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
 	unzip $PKG-$VER.zip
