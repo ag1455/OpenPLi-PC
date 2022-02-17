@@ -45,7 +45,7 @@ patch -p1 < xine-lib-1.2-$VER.patch
 echo "-----------------------------------------"
 echo "       patch for xine-lib applied"
 echo "-----------------------------------------"
-dpkg-buildpackage -d -uc -us
+dpkg-buildpackage -b -d -uc -us
 
 cd ..
 mv *.deb $PKG

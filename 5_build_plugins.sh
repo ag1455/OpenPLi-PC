@@ -200,7 +200,7 @@ if [ -d plugins ]; then
 		echo "**************************** OK. Go to the next step. ******************************"
 		echo ""
 		PKG="e2openplugin-OpenWebif"
-		PKG_="WebInterface"
+		PKG_="OpenWebif"
 		VER="b238b3770b90f49ba076987f66a4f042eb4b318e"
 		VER1="7f53c0efcc7ebf5c79efa34d525721d9d195b597"
 		if [ -d $PKG ]; then

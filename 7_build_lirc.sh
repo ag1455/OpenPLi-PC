@@ -48,7 +48,7 @@ else
 	cd ..
 	tar -cvzf lirc_0.10.1-6.orig.tar.gz $PKG
 	cd $PKG
-	dpkg-buildpackage -uc -us
+	dpkg-buildpackage -b -d -uc -us
 	cd ..
 
 	if [[ "$release" = "16.04" ]]; then

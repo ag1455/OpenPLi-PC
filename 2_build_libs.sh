@@ -211,7 +211,7 @@ fi
 git clone --depth 1 git://git.opendreambox.org/git/obi/$PKG.git
 cd $PKG
 #autoupdate
-dpkg-buildpackage -uc -us
+dpkg-buildpackage -b -d -uc -us
 cd ..
 mv $PKG*.* $PKG
 cd $PKG
@@ -243,9 +243,9 @@ else
 	rpl '5' '10' debian/compat
 	rpl 'Source-Version' 'binary:Version' debian/control
 #	autoupdate
-	dpkg-buildpackage -uc -us
+	dpkg-buildpackage -b -d -uc -us
 	cd ..
-	mv $PKG*.* $PKG
+	mv libxmlccwrap*.* $PKG
 	cd $PKG
 	dpkg -i *.deb
 	rm -f *.tar.gz
@@ -261,7 +261,6 @@ else
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	PKG="libdvbcsa"
-	PKG1="libdvbcsa1"
 	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
 	echo ""
 	echo "                       *** Build and install $PKG ***"
@@ -272,13 +271,7 @@ else
 	else
 		echo "$PKG not installed"
 	fi
-	I=`dpkg -s $PKG1 | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -r $PKG1 $PKG-dev tsdecrypt
-	else
-		echo "$PKG1 not installed"
-	fi
-	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
+	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/libdvbcsa-$VER.zip
 	unzip $PKG-$VER.zip
 	rm $PKG-$VER.zip
 	mv $PKG-$VER $PKG
@@ -402,7 +395,6 @@ else
 	echo ""
 	LIB="libgstreamer-plugins-dvbmediasink"
 	PKG="gst-plugin-dvbmediasink"
-	PKG_="dvbmediasink"
 	VER="1d197313832d39fdaf430634f62ad95a33029db0"
 	echo ""
 	echo "                 *** Build and install $PKG ***"
@@ -419,9 +411,9 @@ else
 	mv $PKG-$VER $PKG
 	cd $PKG
 	cd ../..
-	cp -v patches/$PKG_-1.0.patch libs/$PKG
+	cp -v patches/dvbmediasink-1.0.patch libs/$PKG
 	cd libs/$PKG
-	patch -p1 < $PKG_-1.0.patch
+	patch -p1 < dvbmediasink-1.0.patch
 	echo ""
 	echo "                 *** Patch for $PKG applied ***"
 	echo ""
