@@ -100,11 +100,11 @@ video.output.vaapi_deinterlace:2
 
 # vaapi: enigma osd height workaround.
 # numeric, default: 0
-video.output.vaapi_enigma_osd_height:1080
+video.output.vaapi_enigma_osd_height:0
 
 # vaapi: enigma osd width workaround.
 # numeric, default: 0
-video.output.vaapi_enigma_osd_width:1920
+video.output.vaapi_enigma_osd_width:0
 
 # vaapi: set vaapi_guarded_render to 0 ( no ) 1 ( yes )
 # numeric, default: 1
@@ -144,7 +144,7 @@ video.processing.ffmpeg_direct_rendering:1
 
 # Enable VAAPI
 # bool, default: 1
-video.processing.ffmpeg_enable_vaapi:0
+video.processing.ffmpeg_enable_vaapi:1
 
 # MPEG-4 postprocessing quality
 # [0..6], default: 3
@@ -163,8 +163,8 @@ video.processing.ffmpeg_thread_count:2
 #video.processing.vaapi_mpeg_softdec:0
 
 # number of audio buffers
-# numeric, default: 230
-engine.buffers.audio_num_buffers:230
+# numeric, default: 700
+engine.buffers.audio_num_buffers:700
 
 # number of video buffers
 # numeric, default: 500

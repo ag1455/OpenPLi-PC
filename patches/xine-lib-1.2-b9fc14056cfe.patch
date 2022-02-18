@@ -1,6 +1,6 @@
 diff -ruN o/configure.ac pc/configure.ac
---- o/configure.ac	2021-05-07 16:11:02.703700456 +0300
-+++ pc/configure.ac	2021-10-07 10:32:29.602653248 +0300
+--- o/configure.ac	2022-02-08 23:22:17.592307312 +0300
++++ pc/configure.ac	2022-02-18 17:04:32.630196100 +0300
 @@ -1664,7 +1664,8 @@
  src/video_out/macosx/Makefile
  src/xine-utils/Makefile
@@ -12,28 +12,28 @@ diff -ruN o/configure.ac pc/configure.ac
  AC_OUTPUT
  
 diff -ruN o/debian/changelog pc/debian/changelog
---- o/debian/changelog	2021-05-07 16:11:29.885121541 +0300
-+++ pc/debian/changelog	2021-10-07 10:33:46.513779009 +0300
+--- o/debian/changelog	2022-02-08 23:23:06.674020359 +0300
++++ pc/debian/changelog	2022-02-18 17:04:32.631196136 +0300
 @@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.11+hg-2b3b329db3f7-15052-e2pc) experimental; urgency=low
++xine-lib-1.2 (1.2.11+hg-b9fc14056cfe-15056-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
 +  * Patched version for e2pc.
 +
-+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Thu, 17 Feb 2022 12:46:17 +0100
++ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 18 Feb 2022 12:24:32 +0100
 +
  xine-lib-1.2 (1.2.9+hg-0) experimental; urgency=low
  
    * Hg snapshot.
 diff -ruN o/debian/compat pc/debian/compat
---- o/debian/compat	2021-05-07 16:11:30.041123957 +0300
-+++ pc/debian/compat	2021-10-07 10:32:29.602653248 +0300
+--- o/debian/compat	2022-02-08 23:23:06.785021985 +0300
++++ pc/debian/compat	2022-02-18 17:04:32.631196136 +0300
 @@ -1 +1 @@
 -5
 +10
 diff -ruN o/debian/control pc/debian/control
---- o/debian/control	2021-05-07 16:11:29.963122749 +0300
-+++ pc/debian/control	2021-10-07 10:32:29.602653248 +0300
+--- o/debian/control	2022-02-08 23:23:06.716020974 +0300
++++ pc/debian/control	2022-02-18 17:04:32.631196136 +0300
 @@ -73,7 +73,7 @@
  Suggests: ${shlibs:Suggests}, libxine2-doc | libxine-doc
  Conflicts: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x
@@ -44,8 +44,8 @@ diff -ruN o/debian/control pc/debian/control
   This is the xine media player library (libxine).
   .
 diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
---- o/debian/libxine2-dev.install	2021-05-07 16:11:29.874121370 +0300
-+++ pc/debian/libxine2-dev.install	2021-10-07 10:32:29.603653265 +0300
+--- o/debian/libxine2-dev.install	2022-02-08 23:23:06.664020212 +0300
++++ pc/debian/libxine2-dev.install	2022-02-18 17:04:32.631196136 +0300
 @@ -1,11 +1,9 @@
  usr/bin/xine-config
  usr/include
@@ -60,16 +60,16 @@ diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
  usr/share/man/man1/xine-config.1
  ../dh_xine				usr/bin
 diff -ruN o/debian/libxine2-doc.docs pc/debian/libxine2-doc.docs
---- o/debian/libxine2-doc.docs	2021-05-07 16:11:30.042123972 +0300
-+++ pc/debian/libxine2-doc.docs	2021-10-07 10:32:29.603653265 +0300
+--- o/debian/libxine2-doc.docs	2022-02-08 23:23:06.800022205 +0300
++++ pc/debian/libxine2-doc.docs	2022-02-18 17:04:32.631196136 +0300
 @@ -1,4 +1,3 @@
 -debian/tmp/usr/share/doc/libxine2/faq/*
  debian/tmp/usr/share/doc/libxine2/README_xxmc.html
  debian/tmp/usr/share/doc/libxine2/README
  debian/tmp/usr/share/doc/libxine2/faq.*
 diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
---- o/debian/libxine2.install	2021-05-07 16:11:29.948122517 +0300
-+++ pc/debian/libxine2.install	2021-10-07 10:32:29.603653265 +0300
+--- o/debian/libxine2.install	2022-02-08 23:23:06.717020989 +0300
++++ pc/debian/libxine2.install	2022-02-18 17:04:32.631196136 +0300
 @@ -2,9 +2,10 @@
  usr/lib/libxine*.so.*
  usr/lib/xine/plugins/*/post/*.so
@@ -84,8 +84,8 @@ diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
  usr/share/man/man1/xine-list*.1
 +#usr/lib/xine/plugins/*/vidix/*.so
 diff -ruN o/debian/rules pc/debian/rules
---- o/debian/rules	2021-05-07 16:11:29.941122408 +0300
-+++ pc/debian/rules	2021-10-07 10:32:29.604653281 +0300
+--- o/debian/rules	2022-02-08 23:23:06.698020710 +0300
++++ pc/debian/rules	2022-02-18 17:04:32.631196136 +0300
 @@ -69,8 +69,11 @@
  	--prefix=/usr \
  	--with-freetype \
@@ -109,8 +109,8 @@ diff -ruN o/debian/rules pc/debian/rules
  	dh_installchangelogs -k ChangeLog
  	dh_link
 diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
---- o/include/xine/metronom.h	2021-05-07 16:11:04.042721205 +0300
-+++ pc/include/xine/metronom.h	2021-10-07 10:32:29.604653281 +0300
+--- o/include/xine/metronom.h	2022-02-08 23:22:19.212330643 +0300
++++ pc/include/xine/metronom.h	2022-02-18 17:04:32.632196172 +0300
 @@ -191,6 +191,11 @@
  #define METRONOM_VDR_TRICK_PTS    11
  #define METRONOM_NO_LOCK          0x8000
@@ -124,8 +124,8 @@ diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
  
  metronom_t *_x_metronom_init (int have_video, int have_audio, xine_t *xine) XINE_MALLOC XINE_PROTECTED;
 diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
---- o/include/xine/osd.h	2021-05-07 16:11:03.915719237 +0300
-+++ pc/include/xine/osd.h	2021-10-07 10:32:29.604653281 +0300
+--- o/include/xine/osd.h	2022-02-08 23:22:19.079328727 +0300
++++ pc/include/xine/osd.h	2022-02-18 17:04:32.632196172 +0300
 @@ -216,6 +216,7 @@
     * overlay is blended at output (screen) resolution.
     */
@@ -135,8 +135,8 @@ diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
    /*
     * see xine.h for defined XINE_OSD_CAP_ values.
 diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
---- o/include/xine/video_out.h	2021-05-07 16:11:03.713716107 +0300
-+++ pc/include/xine/video_out.h	2021-10-07 10:32:29.604653281 +0300
+--- o/include/xine/video_out.h	2022-02-08 23:22:18.880325860 +0300
++++ pc/include/xine/video_out.h	2022-02-18 17:04:32.634196244 +0300
 @@ -287,6 +287,9 @@
  #define VO_PROP_CAPS2                 30 /* read-only. second capability flags, see below. */
  #define VO_PROP_TRANSFORM             31 /* XINE_VO_TRANSFORM_* */
@@ -148,8 +148,8 @@ diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
  /* number of colors in the overlay palette. Currently limited to 256
     at most, because some alphablend functions use an 8-bit index into
 diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
---- o/include/xine/xineintl.h	2021-05-07 16:11:03.740716525 +0300
-+++ pc/include/xine/xineintl.h	2021-10-07 10:32:29.604653281 +0300
+--- o/include/xine/xineintl.h	2022-02-08 23:22:18.919326422 +0300
++++ pc/include/xine/xineintl.h	2022-02-18 17:04:32.634196244 +0300
 @@ -27,6 +27,9 @@
  
  #include <locale.h>
@@ -161,8 +161,8 @@ diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
  #    include <libintl.h>
  #    define _(String) dgettext (XINE_TEXTDOMAIN, String)
 diff -ruN o/include/xine.h pc/include/xine.h
---- o/include/xine.h	2021-10-07 10:30:31.070010114 +0300
-+++ pc/include/xine.h	2021-10-07 10:32:29.605653298 +0300
+--- o/include/xine.h	2022-02-08 23:22:18.827325097 +0300
++++ pc/include/xine.h	2022-02-18 17:04:32.634196244 +0300
 @@ -1845,6 +1845,7 @@
  #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
  #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
@@ -226,8 +226,8 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /* empty drawing area */
  void        xine_osd_clear         (xine_osd_t *self) XINE_PROTECTED;
 diff -ruN o/m4/input.m4 pc/m4/input.m4
---- o/m4/input.m4	2021-05-07 16:11:02.716700658 +0300
-+++ pc/m4/input.m4	2021-10-07 10:32:29.605653298 +0300
+--- o/m4/input.m4	2022-02-18 12:40:10.123836828 +0300
++++ pc/m4/input.m4	2022-02-18 17:04:32.634196244 +0300
 @@ -20,6 +20,7 @@
      default_enable_vcd=yes
      default_enable_vcdo=no
@@ -236,7 +236,7 @@ diff -ruN o/m4/input.m4 pc/m4/input.m4
      default_enable_bluray=yes
      default_enable_avformat=yes
      default_enable_sftp=yes
-@@ -34,6 +35,7 @@
+@@ -35,6 +36,7 @@
              default_enable_gnomevfs=no
              default_enable_samba=no
              default_enable_vdr=no
@@ -244,7 +244,7 @@ diff -ruN o/m4/input.m4 pc/m4/input.m4
              ;;
          darwin*)
              default_enable_gnomevfs=no
-@@ -207,6 +209,10 @@
+@@ -208,6 +210,10 @@
      XINE_ARG_ENABLE([vdr], [Enable support for the VDR plugin (default: enabled)])
      AM_CONDITIONAL([ENABLE_VDR], [test x"$enable_vdr" != x"no"])
  
@@ -256,8 +256,8 @@ diff -ruN o/m4/input.m4 pc/m4/input.m4
      XINE_ARG_ENABLE([bluray], [Enable BluRay support])
      if test "x$enable_bluray" != "xno"; then
 diff -ruN o/m4/summary.m4 pc/m4/summary.m4
---- o/m4/summary.m4	2021-05-07 16:11:02.889703339 +0300
-+++ pc/m4/summary.m4	2021-10-07 10:32:29.605653298 +0300
+--- o/m4/summary.m4	2022-02-18 12:40:10.124836820 +0300
++++ pc/m4/summary.m4	2022-02-18 17:04:32.634196244 +0300
 @@ -54,6 +54,7 @@
      dis=""
      echo "  * Misc:"
@@ -266,7 +266,7 @@ diff -ruN o/m4/summary.m4 pc/m4/summary.m4
      test x"$have_gnomevfs" = x"yes"  && echo "   - gnome-vfs" || dis="$dis gnome-vfs"
      test x"$enable_ffmpeg" != x"no" -a x"$have_avformat" = x"yes" && echo "   - avio (libavformat)" || dis="$dis avio"
      echo "   - test"
-@@ -200,6 +201,7 @@
+@@ -201,6 +202,7 @@
      echo "   - unsharp         - tvtime"
      test x"$enable_postproc" != x"no" && echo "   - postproc"  || dis="$dis postproc"
      test x"$enable_vdr" != x"no"      && echo "   - vdr"       || dis="$dis vdr"
@@ -275,8 +275,8 @@ diff -ruN o/m4/summary.m4 pc/m4/summary.m4
      echo "   - goom            - oscope"
      echo "   - fftscope        - mosaico"
 diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
---- o/src/demuxers/demux_mpeg_pes.c	2021-05-07 16:11:34.047185999 +0300
-+++ pc/src/demuxers/demux_mpeg_pes.c	2021-10-07 10:32:29.606653315 +0300
+--- o/src/demuxers/demux_mpeg_pes.c	2022-02-08 23:23:11.093085166 +0300
++++ pc/src/demuxers/demux_mpeg_pes.c	2022-02-18 17:04:32.635196280 +0300
 @@ -71,6 +71,7 @@
  
    input_plugin_t       *input;
@@ -331,8 +331,8 @@ diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
    /* Don't start demuxing stream until we see a program_stream_pack_header */
    /* We need to system header in order to identify is the stream is mpeg1 or mpeg2. */
 diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
---- o/src/demuxers/demux_ts.c	2021-09-14 12:04:22.676778045 +0300
-+++ pc/src/demuxers/demux_ts.c	2021-10-07 10:32:29.607653332 +0300
+--- o/src/demuxers/demux_ts.c	2022-02-08 23:23:10.649078650 +0300
++++ pc/src/demuxers/demux_ts.c	2022-02-18 17:04:32.635196280 +0300
 @@ -161,7 +161,7 @@
  #define LOG
  */
@@ -444,7 +444,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  #endif
 diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 --- o/src/e2pc/combined_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.c	2021-10-07 10:32:29.607653332 +0300
++++ pc/src/e2pc/combined_enigma.c	2022-02-18 17:04:32.663197290 +0300
 @@ -0,0 +1,48 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -496,7 +496,7 @@ diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 +
 diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 --- o/src/e2pc/combined_enigma.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.h	2021-10-07 10:32:29.607653332 +0300
++++ pc/src/e2pc/combined_enigma.h	2022-02-18 17:04:32.663197290 +0300
 @@ -0,0 +1,82 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -582,7 +582,7 @@ diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 +
 diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 --- o/src/e2pc/input_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/input_enigma.c	2021-10-07 10:32:29.607653332 +0300
++++ pc/src/e2pc/input_enigma.c	2022-02-18 17:04:32.664197326 +0300
 @@ -0,0 +1,859 @@
 +/*
 + * Copyright (C) 2003-2021 the xine project
@@ -1445,7 +1445,7 @@ diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 +}
 diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 --- o/src/e2pc/Makefile.am	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/Makefile.am	2021-10-07 10:32:29.608653348 +0300
++++ pc/src/e2pc/Makefile.am	2022-02-18 17:04:32.664197326 +0300
 @@ -0,0 +1,13 @@
 +include $(top_builddir)/misc/Makefile.plugins
 +include $(top_srcdir)/misc/Makefile.common
@@ -1462,7 +1462,7 @@ diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 +xineplug_enigma_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL)
 diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 --- o/src/e2pc/post_enigma_audio.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_audio.c	2021-10-07 10:32:29.608653348 +0300
++++ pc/src/e2pc/post_enigma_audio.c	2022-02-18 17:04:32.664197326 +0300
 @@ -0,0 +1,277 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -1743,7 +1743,7 @@ diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 +}
 diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 --- o/src/e2pc/post_enigma_video.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_video.c	2021-10-07 10:32:29.608653348 +0300
++++ pc/src/e2pc/post_enigma_video.c	2022-02-18 17:04:32.664197326 +0300
 @@ -0,0 +1,519 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -2265,8 +2265,8 @@ diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 +  return skip;
 +}
 diff -ruN o/src/Makefile.am pc/src/Makefile.am
---- o/src/Makefile.am	2021-05-07 16:11:30.058124220 +0300
-+++ pc/src/Makefile.am	2021-10-07 10:32:29.608653348 +0300
+--- o/src/Makefile.am	2022-02-08 23:23:06.810022351 +0300
++++ pc/src/Makefile.am	2022-02-18 17:04:32.664197326 +0300
 @@ -16,4 +16,5 @@
  	libreal \
  	post \
@@ -2275,8 +2275,8 @@ diff -ruN o/src/Makefile.am pc/src/Makefile.am
 +	vdr \
 +	e2pc
 diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
---- o/src/video_out/video_out_opengl.c	2021-05-07 16:11:32.751165928 +0300
-+++ pc/src/video_out/video_out_opengl.c	2021-10-07 10:32:29.608653348 +0300
+--- o/src/video_out/video_out_opengl.c	2022-02-08 23:23:09.672064315 +0300
++++ pc/src/video_out/video_out_opengl.c	2022-02-18 17:04:32.665197362 +0300
 @@ -134,6 +134,14 @@
  
  #define MY_2PI               (M_PI * 2)
@@ -2665,9 +2665,33 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
    this->config                  = config;
  
 diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
---- o/src/video_out/video_out_vaapi.c	2021-05-07 16:11:32.920168546 +0300
-+++ pc/src/video_out/video_out_vaapi.c	2021-10-07 10:32:29.609653365 +0300
-@@ -180,6 +180,8 @@
+--- o/src/video_out/video_out_vaapi.c	2022-02-18 12:40:10.144836661 +0300
++++ pc/src/video_out/video_out_vaapi.c	2022-02-18 17:24:06.034307335 +0300
+@@ -74,9 +74,9 @@
+ # define ENABLE_VA_GLX
+ #endif /* OPENGL */
+ 
++#include "accel_vaapi.h"
+ #include "vaapi/vaapi_util.h"
+-#include "vaapi/vaapi_frame.h"
+-#include "vaapi/xine_va_display.h" /* interop flags */
++#include "mem_frame.h"
+ 
+ #include <pthread.h>
+ 
+@@ -144,6 +144,11 @@
+ } vaapi_rect_t;
+ 
+ typedef struct {
++  mem_frame_t       mem_frame;
++  vaapi_accel_t     vaapi_accel_data;
++} vaapi_frame_t;
++
++typedef struct {
+   VADisplayAttribType type;
+   int                 value;
+   int                 min;
+@@ -180,6 +185,8 @@
  
    uint32_t            vdr_osd_width;
    uint32_t            vdr_osd_height;
@@ -2676,11 +2700,254 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    uint32_t            overlay_output_width;
    uint32_t            overlay_output_height;
-@@ -1915,6 +1917,16 @@
+@@ -223,6 +230,8 @@
+   int                 va_subpic_width;
+   int                 va_subpic_height;
+   unsigned int        last_sub_image_fmt;
++  unsigned int        num_frame_buffers;
++  vaapi_frame_t       *frames[RENDER_SURFACES];
+ 
+   pthread_mutex_t     vaapi_lock;
+ 
+@@ -268,6 +277,13 @@
+ static VAStatus vaapi_destroy_soft_surfaces(vaapi_driver_t *this);
+ static int vaapi_set_property (vo_driver_t *this_gen, int property, int value);
+ 
++static void yv12_to_nv12(const uint8_t *y_src, int y_src_pitch, 
++                         const uint8_t *u_src, int u_src_pitch, 
++                         const uint8_t *v_src, int v_src_pitch,
++                         uint8_t *y_dst,  int y_dst_pitch,
++                         uint8_t *uv_dst, int uv_dst_pitch,
++                         int width, int height);
++
+ #ifdef ENABLE_VA_GLX
+ void (GLAPIENTRY *mpglBindTexture)(GLenum, GLuint);
+ void (GLAPIENTRY *mpglXBindTexImage)(Display *, GLXDrawable, int, const int *);
+@@ -300,6 +316,12 @@
+   return 1;
+ }
+ 
++static int vaapi_lock_decode_dummy(vo_frame_t *vo_frame)
++{
++  (void)vo_frame;
++  return 0;
++}
++
+ static int vaapi_lock_decode_guarded(vo_frame_t *frame_gen)
+ {
+   vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
+@@ -316,11 +338,44 @@
+   pthread_mutex_unlock(&this->vaapi_lock);
+ }
+ 
++static int guarded_render(vo_frame_t *frame_gen) {
++  vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
++
++  return this->guarded_render;
++}
++
++static ff_vaapi_surface_t *get_vaapi_surface(vo_frame_t *frame_gen) {
++  vaapi_driver_t      *this       = (vaapi_driver_t *) frame_gen->driver;
++  vaapi_frame_t       *frame      = (vaapi_frame_t *) frame_gen;
++  ff_vaapi_context_t  *va_context = this->va_context;
++  return &va_context->va_render_surfaces[frame->vaapi_accel_data.index];
++}
++
++static ff_vaapi_surface_t *alloc_vaapi_surface(vo_frame_t *frame_gen) {
++
++  vaapi_driver_t      *this       = (vaapi_driver_t *) frame_gen->driver;
++
++  return _x_va_alloc_surface(this->va);
++}
++
++static void render_vaapi_surface(vo_frame_t *frame_gen, ff_vaapi_surface_t *va_surface) {
++  vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
++  vaapi_accel_t *accel = (vaapi_accel_t*)frame_gen->accel_data;
++
++  accel->index = va_surface->index;
++  _x_va_render_surface(this->va, va_surface);
++}
++
++static void release_vaapi_surface(vo_frame_t *frame_gen, ff_vaapi_surface_t *va_surface) {
++  vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
++
++  _x_va_release_surface(this->va, va_surface);
++}
++
+ typedef struct {
+   video_driver_class_t driver_class;
+ 
+   xine_t              *xine;
+-  unsigned             visual_type;
+ } vaapi_class_t;
+ 
+ static void vaapi_x11_wait_event(Display *dpy, Window w, int type)
+@@ -876,6 +931,16 @@
+   return this->capabilities;
+ }
+ 
++static int profile_from_imgfmt(vo_frame_t *frame_gen, unsigned format)
++{
++  vo_driver_t         *this_gen   = (vo_driver_t *) frame_gen->driver;
++  vaapi_driver_t      *this       = (vaapi_driver_t *) this_gen;
++
++  _x_assert(this->va->c.va_display);
++
++  return _x_va_profile_from_imgfmt(this->va, format);
++}
++
+ /* Init subpicture */
+ static void vaapi_init_subpicture(vaapi_driver_t *this) {
+   this->va_subpic_width               = 0;
+@@ -911,6 +976,12 @@
+ 
+   _x_va_close(this->va);
+ }
++ 
++static ff_vaapi_context_t *get_context(vo_frame_t *frame_gen) {
++  vaapi_driver_t        *this = (vaapi_driver_t *) frame_gen->driver;
++
++  return this->va_context;
++}
+ 
+ /* Deassociate and free subpicture */
+ static void vaapi_destroy_subpicture(vaapi_driver_t *this) {
+@@ -1493,8 +1564,6 @@
+   int i, n = 0;
+   for (i = 0; i < VO_NUM_RECENT_FRAMES; i++) {
+     if (this->recent_frames[i]) {
+-      if (this->guarded_render && this->recent_frames[i]->format == XINE_IMGFMT_VAAPI)
+-        _x_va_frame_displayed(this->recent_frames[i]);
+       this->recent_frames[i]->free (this->recent_frames[i]);
+       this->recent_frames[i] = NULL;
+       n++;
+@@ -1504,6 +1573,7 @@
+ }
+ 
+ static VAStatus vaapi_init_internal(vaapi_driver_t *this, int va_profile, int width, int height) {
++  int                 i;
+   VAStatus            vaStatus;
+ 
+   vaapi_close(this);
+@@ -1514,10 +1584,16 @@
+   if (vaStatus != VA_STATUS_SUCCESS)
+     goto error;
+ 
+-#if 0
+-  int i;
++  /* xine was told to allocate RENDER_SURFACES frames. assign the frames the rendering surfaces. */
+   for(i = 0; i < RENDER_SURFACES; i++) {
+-    if(this->va->frames[i]) {
++    if(this->frames[i]) {
++      vaapi_frame_t *frame                  = this->frames[i];
++      if (!this->guarded_render) {
++        frame->vaapi_accel_data.index = i;
++      } else {
++        frame->vaapi_accel_data.index = RENDER_SURFACES; /* invalid */
++      }
++#if 0
+       /* this seems to break decoding to the surface ? */
+       VAImage va_image;
+       int is_bound;
+@@ -1528,12 +1604,12 @@
+                               0, 0, va_image.width, va_image.height);
+         _x_va_destroy_image(this->va, &va_image);
+       }
++#endif
+     }
+ #ifdef DEBUG_SURFACE
+     printf("vaapi_init_internal 0x%08x\n", va_context->va_surface_ids[i]);
+ #endif
+   }
+-#endif
+ 
+   vaStatus = vaapi_init_soft_surfaces(this, width, height);
+   if(!vaapi_check_status(this, vaStatus, "vaapi_init_soft_surfaces()")) {
+@@ -1597,38 +1673,66 @@
+   return vaStatus;
+ }
+ 
++static void vaapi_frame_dispose (vo_frame_t *vo_img) {
++  vaapi_driver_t *this  = (vaapi_driver_t *) vo_img->driver;
++  vaapi_frame_t  *frame = xine_container_of(vo_img, vaapi_frame_t, mem_frame.vo_frame);
++  vaapi_accel_t  *accel = &frame->vaapi_accel_data;
++
++  lprintf("vaapi_frame_dispose\n");
++
++  if (this->guarded_render && accel->index < RENDER_SURFACES) {
++    ff_vaapi_surface_t *va_surface = &this->va_context->va_render_surfaces[accel->index];
++    va_surface->status = SURFACE_FREE;
++  }
++
++  _mem_frame_dispose(vo_img);
++}
++
+ static vo_frame_t *vaapi_alloc_frame (vo_driver_t *this_gen) {
+-  vaapi_driver_t  *this = xine_container_of(this_gen, vaapi_driver_t, vo_driver);
++  vaapi_driver_t  *this = (vaapi_driver_t *) this_gen;
+   vaapi_frame_t   *frame;
+   static const struct vaapi_accel_funcs_s accel_funcs = {
+     .vaapi_init                = vaapi_init,
+-    .profile_from_imgfmt       = _x_va_accel_profile_from_imgfmt,
+-    .get_context               = _x_va_accel_get_context,
+-    .lock_vaapi                = _x_va_accel_lock_decode_dummy,
++    .profile_from_imgfmt       = profile_from_imgfmt,
++    .get_context               = get_context,
++    .lock_vaapi                = vaapi_lock_decode_dummy,
+     .unlock_vaapi              = NULL,
+ 
+-    .get_vaapi_surface         = _x_va_accel_get_vaapi_surface,
++    .get_vaapi_surface         = get_vaapi_surface,
+     .render_vaapi_surface      = NULL,
+     .release_vaapi_surface     = NULL,
+-    .guarded_render            = _x_va_accel_guarded_render,
++    .guarded_render            = guarded_render,
+   };
+   static const struct vaapi_accel_funcs_s accel_funcs_guarded = {
+     .vaapi_init                = vaapi_init,
+-    .profile_from_imgfmt       = _x_va_accel_profile_from_imgfmt,
+-    .get_context               = _x_va_accel_get_context,
++    .profile_from_imgfmt       = profile_from_imgfmt,
++    .get_context               = get_context,
+     .lock_vaapi                = vaapi_lock_decode_guarded,
+     .unlock_vaapi              = vaapi_unlock_decode_guarded,
+ 
+-    .get_vaapi_surface         = _x_va_accel_alloc_vaapi_surface,
+-    .render_vaapi_surface      = _x_va_accel_render_vaapi_surface,
+-    .release_vaapi_surface     = _x_va_accel_release_vaapi_surface,
+-    .guarded_render            = _x_va_accel_guarded_render,
++    .get_vaapi_surface         = alloc_vaapi_surface,
++    .render_vaapi_surface      = render_vaapi_surface,
++    .release_vaapi_surface     = release_vaapi_surface,
++    .guarded_render            = guarded_render,
+   };
+ 
+-  frame = _x_va_frame_alloc_frame(this->va, this_gen, this->guarded_render);
++  if (this->num_frame_buffers >= sizeof(this->frames) / sizeof(this->frames[0])) {
++    xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " alloc_frame: "
++            "frame limit (%u) exceeded\n", this->num_frame_buffers);
++    return NULL;
++  }
++
++  frame = (vaapi_frame_t *)_mem_frame_alloc_frame(this_gen, sizeof(vaapi_frame_t));
++
+   if (!frame)
+     return NULL;
+ 
++  frame->mem_frame.vo_frame.dispose = vaapi_frame_dispose;
++
++  this->frames[this->num_frame_buffers++] = frame;
++
++  frame->mem_frame.vo_frame.accel_data = &frame->vaapi_accel_data;
++
+   /* override accel functions */
+   frame->vaapi_accel_data.f = this->guarded_render ? &accel_funcs_guarded : &accel_funcs;
+ 
+@@ -1908,6 +2012,16 @@
        else
          this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
  
-+      if(this->enigma_osd_width)
++      if(this->enigma_osd_width) 
 +        this->overlay_bitmap_width =  UMAX (this->enigma_osd_width, this->sc.gui_width);
 +      else
 +        this->overlay_bitmap_width =  UMAX (unscaled_width, this->sc.gui_width);
@@ -2693,7 +2960,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      } else if (need_init) {
  
        if(this->vdr_osd_width) 
-@@ -1927,6 +1939,16 @@
+@@ -1920,6 +2034,15 @@
        else
          this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
  
@@ -2706,11 +2973,459 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
 +        this->overlay_bitmap_height = UMAX (this->enigma_osd_height, this->sc.gui_height);
 +      else
 +        this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
-+
      }
    }
  
-@@ -2820,6 +2842,20 @@
+@@ -2051,6 +2174,403 @@
+   return ret;
+ }
+ 
++static void vaapi_provide_standard_frame_data (vo_frame_t *this, xine_current_frame_data_t *data)
++{
++  vaapi_driver_t      *driver     = (vaapi_driver_t *) this->driver;
++  ff_vaapi_context_t  *va_context = driver->va_context;
++
++  vaapi_accel_t       *accel      = (vaapi_accel_t *) this->accel_data;
++  ff_vaapi_surface_t  *va_surface;
++
++  uint32_t  pitches[3];
++  uint8_t   *base[3];
++
++  if (this->format != XINE_IMGFMT_VAAPI) {
++    xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_provide_standard_frame_data: unexpected frame format 0x%08x!\n", this->format);
++    return;
++  }
++
++  if (!accel)
++    return;
++
++  if (accel->index >= RENDER_SURFACES /* invalid */) {
++    xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_provide_standard_frame_data: invalid surface\n");
++    return;
++  }
++
++  va_surface = &va_context->va_render_surfaces[accel->index];
++  if (va_surface->va_surface_id == VA_INVALID_SURFACE)
++    return;
++
++  lprintf("vaapi_provide_standard_frame_data %s 0x%08x width %d height %d\n", 
++      (this->format == XINE_IMGFMT_VAAPI) ? "XINE_IMGFMT_VAAPI" : ((this->format == XINE_IMGFMT_YV12) ? "XINE_IMGFMT_YV12" : "XINE_IMGFMT_YUY2"),
++      va_surface->va_surface_id, this->width, this->height);
++
++  pthread_mutex_lock(&driver->vaapi_lock);
++  LOCK_DISPLAY (driver);
++
++  int width = va_context->width;
++  int height = va_context->height;
++
++  data->format = XINE_IMGFMT_YV12;
++  data->img_size = width * height
++                   + ((width + 1) / 2) * ((height + 1) / 2)
++                   + ((width + 1) / 2) * ((height + 1) / 2);
++  if (data->img) {
++    pitches[0] = width;
++    pitches[2] = width / 2;
++    pitches[1] = width / 2;
++    base[0] = data->img;
++    base[2] = data->img + width * height;
++    base[1] = data->img + width * height + width * this->height / 4;
++
++    VAImage   va_image;
++    VAStatus  vaStatus;
++    void      *p_base;
++    int        is_bound;
++
++    vaStatus = vaSyncSurface(va_context->va_display, va_surface->va_surface_id);
++    vaapi_check_status(driver, vaStatus, "vaSyncSurface()");
++
++    VASurfaceStatus surf_status = 0;
++
++    if (driver->va->query_va_status) {
++      vaStatus = vaQuerySurfaceStatus(va_context->va_display, va_surface->va_surface_id, &surf_status);
++      vaapi_check_status(driver, vaStatus, "vaQuerySurfaceStatus()");
++    } else {
++      surf_status = VASurfaceReady;
++    }
++
++    if(surf_status != VASurfaceReady)
++      goto error;
++
++    vaStatus = _x_va_create_image(driver->va, va_surface->va_surface_id, &va_image, width, height, 0, &is_bound);
++    if (!vaapi_check_status(driver, vaStatus, "_x_va_create_image()"))
++      goto error;
++
++    lprintf("vaapi_provide_standard_frame_data accel->va_surface_id 0x%08x va_image.image_id 0x%08x va_context->width %d va_context->height %d va_image.width %d va_image.height %d width %d height %d size1 %d size2 %d %d %d %d status %d num_planes %d\n", 
++       va_surface->va_surface_id, va_image.image_id, va_context->width, va_context->height, va_image.width, va_image.height, width, height, va_image.data_size, data->img_size, 
++       va_image.pitches[0], va_image.pitches[1], va_image.pitches[2], surf_status, va_image.num_planes);
++
++    if(va_image.image_id == VA_INVALID_ID)
++      goto error;
++
++    if (!is_bound) {
++      vaStatus = vaGetImage(va_context->va_display, va_surface->va_surface_id, 0, 0,
++                          va_image.width, va_image.height, va_image.image_id);
++    } else {
++      vaStatus = VA_STATUS_SUCCESS;
++    }
++
++    if(vaapi_check_status(driver, vaStatus, "vaGetImage()")) {
++      vaStatus = vaMapBuffer( va_context->va_display, va_image.buf, &p_base ) ;
++      if(vaapi_check_status(driver, vaStatus, "vaMapBuffer()")) {
++
++        /*
++        uint8_t *src[3] = { NULL, };
++        src[0] = (uint8_t *)p_base + va_image.offsets[0];
++        src[1] = (uint8_t *)p_base + va_image.offsets[1];
++        src[2] = (uint8_t *)p_base + va_image.offsets[2];
++        */
++
++        if( va_image.format.fourcc == VA_FOURCC( 'Y', 'V', '1', '2' ) ||
++            va_image.format.fourcc == VA_FOURCC( 'I', '4', '2', '0' ) ) {
++          lprintf("VAAPI YV12 image\n");
++
++          yv12_to_yv12(
++            (uint8_t*)p_base + va_image.offsets[0], va_image.pitches[0],
++            base[0], pitches[0],
++            (uint8_t*)p_base + va_image.offsets[1], va_image.pitches[1],
++            base[1], pitches[1],
++            (uint8_t*)p_base + va_image.offsets[2], va_image.pitches[2],
++            base[2], pitches[2],
++            va_image.width, va_image.height);
++
++        } else if( va_image.format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' ) ) {
++          lprintf("VAAPI NV12 image\n");
++
++          lprintf("va_image.offsets[0] %d va_image.offsets[1] %d va_image.offsets[2] %d size %d size %d size %d width %d height %d width %d height %d\n",
++              va_image.offsets[0], va_image.offsets[1], va_image.offsets[2], va_image.data_size, va_image.width * va_image.height,
++              data->img_size, width, height, va_image.width, va_image.height);
++
++          base[0] = data->img;
++          base[1] = data->img + width * height;
++          base[2] = data->img + width * height + width * height / 4;
++          _x_nv12_to_yv12((uint8_t *)p_base + va_image.offsets[0], va_image.pitches[0],
++                       (uint8_t *)p_base + va_image.offsets[1], va_image.pitches[1],
++                       base[0], pitches[0],
++                       base[1], pitches[1],
++                       base[2], pitches[2],
++                       va_image.width  > width  ? width  : va_image.width,
++                       va_image.height > height ? height : va_image.height);
++
++        } else {
++          printf("vaapi_provide_standard_frame_data unsupported image format\n");
++        }
++
++        vaStatus = vaUnmapBuffer(va_context->va_display, va_image.buf);
++        vaapi_check_status(driver, vaStatus, "vaUnmapBuffer()");
++        _x_va_destroy_image(driver->va, &va_image);
++      }
++    }
++  }
++
++error:
++  UNLOCK_DISPLAY (driver);
++  pthread_mutex_unlock(&driver->vaapi_lock);
++}
++
++static void vaapi_duplicate_frame_data (vo_frame_t *this_gen, vo_frame_t *original)
++{
++  vaapi_driver_t      *driver     = (vaapi_driver_t *) original->driver;
++  ff_vaapi_context_t  *va_context = driver->va_context;
++
++  mem_frame_t *this = xine_container_of(this_gen, mem_frame_t, vo_frame);
++  mem_frame_t *orig = xine_container_of(original, mem_frame_t, vo_frame);
++
++  vaapi_accel_t *accel_this = this_gen->accel_data;
++  vaapi_accel_t *accel_orig = original->accel_data;
++
++  ff_vaapi_surface_t *va_surface_this;
++  ff_vaapi_surface_t *va_surface_orig;
++
++  if (orig->vo_frame.format != XINE_IMGFMT_VAAPI) {
++    xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_duplicate_frame_data: unexpected frame format 0x%08x!\n", orig->format);
++    return;
++  }
++
++  if (this->vo_frame.format != XINE_IMGFMT_VAAPI) {
++    xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_duplicate_frame_data: unexpected frame format 0x%08x!\n", this->format);
++    return;
++  }
++
++  if (driver->guarded_render) {
++    if (accel_orig->index >= RENDER_SURFACES) {
++      xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_duplicate_frame_data: invalid source surface\n");
++      return;
++    }
++    va_surface_orig = &va_context->va_render_surfaces[accel_orig->index];
++
++    va_surface_this = alloc_vaapi_surface(this_gen);
++    if (!va_surface_this) {
++      xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_duplicate_frame_data: surface allocation failed\n");
++      return;
++    }
++  } else {
++    _x_assert (accel_this->index < RENDER_SURFACES); /* "fixed" in this mode */
++    _x_assert (accel_orig->index < RENDER_SURFACES); /* "fixed" in this mode */
++    va_surface_this = &va_context->va_render_surfaces[accel_this->index];
++    va_surface_orig = &va_context->va_render_surfaces[accel_orig->index];
++  }
++
++  lprintf("vaapi_duplicate_frame_data  0x%08x <- 0x%08x\n",
++          va_surface_this->va_surface_id, va_surface_orig->va_surface_id);
++
++  pthread_mutex_lock(&driver->vaapi_lock);
++  LOCK_DISPLAY (driver);
++
++  VAImage   va_image_orig;
++  VAImage   va_image_this;
++  VAStatus  vaStatus;
++  void      *p_base_orig = NULL;
++  void      *p_base_this = NULL;
++
++  va_image_this.image_id = VA_INVALID_ID;
++  va_image_orig.image_id = VA_INVALID_ID;
++
++  vaStatus = vaSyncSurface(va_context->va_display, va_surface_orig->va_surface_id);
++  vaapi_check_status(driver, vaStatus, "vaSyncSurface()");
++
++  int this_width = va_context->width;
++  int this_height = va_context->height;
++  int orig_width = va_context->width;
++  int orig_height = va_context->height;
++  int this_is_bound, orig_is_bound;
++
++  vaStatus = _x_va_create_image(driver->va, va_surface_orig->va_surface_id, &va_image_orig, orig_width, orig_height, 0, &orig_is_bound);
++  if (!vaapi_check_status(driver, vaStatus, "_x_va_create_image()")) {
++    va_image_orig.image_id = VA_INVALID_ID;
++    goto error;
++  }
++
++  vaStatus = _x_va_create_image(driver->va, va_surface_this->va_surface_id, &va_image_this, this_width, this_height, 0, &this_is_bound);
++  if (!vaapi_check_status(driver, vaStatus, "_x_va_create_image()")) {
++    va_image_this.image_id = VA_INVALID_ID;
++    goto error;
++  }
++
++  if(va_image_orig.image_id == VA_INVALID_ID || va_image_this.image_id == VA_INVALID_ID) {
++    printf("vaapi_duplicate_frame_data invalid image\n");
++    goto error;
++  }
++
++  lprintf("vaapi_duplicate_frame_data va_image_orig.image_id 0x%08x va_image_orig.width %d va_image_orig.height %d width %d height %d size %d %d %d %d\n", 
++       va_image_orig.image_id, va_image_orig.width, va_image_orig.height, this->width, this->height, va_image_orig.data_size, 
++       va_image_orig.pitches[0], va_image_orig.pitches[1], va_image_orig.pitches[2]);
++
++  if (!orig_is_bound) {
++    vaStatus = vaGetImage(va_context->va_display, va_surface_orig->va_surface_id, 0, 0,
++                          va_image_orig.width, va_image_orig.height, va_image_orig.image_id);
++  } else {
++    vaStatus = VA_STATUS_SUCCESS;
++  }
++
++  if(vaapi_check_status(driver, vaStatus, "vaGetImage()")) {
++    
++    if (!this_is_bound) {
++      vaStatus = vaPutImage(va_context->va_display, va_surface_this->va_surface_id, va_image_orig.image_id,
++                            0, 0, va_image_orig.width, va_image_orig.height,
++                            0, 0, va_image_this.width, va_image_this.height);
++      vaapi_check_status(driver, vaStatus, "vaPutImage()");
++    } else {
++      vaStatus = vaMapBuffer( va_context->va_display, va_image_orig.buf, &p_base_orig ) ;
++      if(!vaapi_check_status(driver, vaStatus, "vaMapBuffer()"))
++        goto error;
++
++      vaStatus = vaMapBuffer( va_context->va_display, va_image_this.buf, &p_base_this ) ;
++      if(!vaapi_check_status(driver, vaStatus, "vaMapBuffer()"))
++        goto error;
++
++      int size = (va_image_orig.data_size > va_image_this.data_size) ? va_image_this.data_size : va_image_orig.data_size;
++      xine_fast_memcpy((uint8_t *) p_base_this, (uint8_t *) p_base_orig, size);
++
++    }
++  }
++
++  if (driver->guarded_render) {
++    accel_this->index = va_surface_this->index;
++    va_surface_this->status = SURFACE_RENDER_RELEASE;
++  }
++
++error:
++  if(p_base_orig) {
++    vaStatus = vaUnmapBuffer(va_context->va_display, va_image_orig.buf);
++    vaapi_check_status(driver, vaStatus, "vaUnmapBuffer()");
++  }
++  if(p_base_this) {
++    vaStatus = vaUnmapBuffer(va_context->va_display, va_image_this.buf);
++    vaapi_check_status(driver, vaStatus, "vaUnmapBuffer()");
++  }
++
++  _x_va_destroy_image(driver->va, &va_image_orig);
++  _x_va_destroy_image(driver->va, &va_image_this);
++
++  UNLOCK_DISPLAY (driver);
++  pthread_mutex_unlock(&driver->vaapi_lock);
++}
++
++static void vaapi_update_frame_format (vo_driver_t *this_gen,
++                                       vo_frame_t *frame_gen,
++                                       uint32_t width, uint32_t height,
++                                       double ratio, int format, int flags) {
++  vaapi_driver_t      *this       = (vaapi_driver_t *) this_gen;
++  mem_frame_t         *frame      = xine_container_of(frame_gen, mem_frame_t, vo_frame);
++
++  if (this->guarded_render && frame->format == XINE_IMGFMT_VAAPI) {
++    /*
++     * This code handles frames that were dropped (used in decoder, but not drawn).
++     * -> we need to lock because of surface may still be in use in decoder.
++     */
++    vaapi_accel_t      *accel      = frame_gen->accel_data;
++    if (accel->index < RENDER_SURFACES) {
++      ff_vaapi_surface_t *va_surface = &this->va_context->va_render_surfaces[accel->index];
++      _x_va_surface_displayed(this->va, va_surface);
++      accel->index = RENDER_SURFACES; /* invalid */
++    }
++  }
++
++  lprintf("vaapi_update_frame_format %s %s width %d height %d\n", 
++        (frame->format == XINE_IMGFMT_VAAPI) ? "XINE_IMGFMT_VAAPI" : ((frame->format == XINE_IMGFMT_YV12) ? "XINE_IMGFMT_YV12" : "XINE_IMGFMT_YUY2") ,
++        (format == XINE_IMGFMT_VAAPI) ? "XINE_IMGFMT_VAAPI" : ((format == XINE_IMGFMT_YV12) ? "XINE_IMGFMT_YV12" : "XINE_IMGFMT_YUY2") ,
++        width, height);
++
++  if ((frame->width ^ width) | (frame->height ^ height) | (frame->format ^ format)) {
++
++    mem_frame_update_frame_format(this_gen, frame_gen, width, height, ratio, format, flags);
++
++    if (format == XINE_IMGFMT_VAAPI) {
++      frame->width = width; /* mem_frame freed frame->base */
++      frame->vo_frame.width = width;
++      frame->vo_frame.proc_duplicate_frame_data = vaapi_duplicate_frame_data;
++      frame->vo_frame.proc_provide_standard_frame_data = vaapi_provide_standard_frame_data;
++      lprintf("XINE_IMGFMT_VAAPI width %d height %d\n", width, height);
++    } else {
++      frame->vo_frame.proc_duplicate_frame_data = NULL;
++      frame->vo_frame.proc_provide_standard_frame_data = NULL;
++    }
++  }
++}
++
++static void yv12_to_nv12(const uint8_t *y_src, int y_src_pitch, 
++                         const uint8_t *u_src, int u_src_pitch, 
++                         const uint8_t *v_src, int v_src_pitch,
++                         uint8_t *y_dst,  int y_dst_pitch,
++                         uint8_t *uv_dst, int uv_dst_pitch,
++                         int width, int height) {
++  int y, x;
++
++  lprintf("yv12_to_nv12 converter\n");
++
++  for (y = 0; y < height; y++) {
++    xine_fast_memcpy(y_dst, y_src, width);
++    y_src += y_src_pitch;
++    y_dst += y_dst_pitch;
++  }
++
++  /* Combine uv line to temporary (cached) buffer.
++     Avoids fetching destination plane to cache. */
++  uint8_t *line = xine_malloc_aligned(width + 1);
++  if (!line)
++    return;
++
++  for(y = 0; y < height / 2; y++) {
++    for(x = 0; x < width / 2; x++) {
++      line[2*x]     = *(u_src + x);
++      line[2*x + 1] = *(v_src + x);
++    }
++
++    xine_fast_memcpy(uv_dst, line, width);
++
++    uv_dst += uv_dst_pitch;
++    u_src += u_src_pitch;
++    v_src += v_src_pitch;
++  }
++
++  xine_free_aligned(line);
++}
++
++static void yuy2_to_nv12(const uint8_t *src_yuy2_map, int yuy2_pitch, 
++                         uint8_t *y_dst,  int y_dst_pitch,
++                         uint8_t *uv_dst, int uv_dst_pitch,
++                         int width, int height) {
++  int y, x;
++
++  const uint8_t *yuy2_map = src_yuy2_map;
++  for(y = 0; y < height; y++) {
++    uint8_t *y_dst_tmp = y_dst;
++    const uint8_t *yuy2_src_tmp = yuy2_map;
++    for(x = 0; x < width / 2; x++) {
++      *(y_dst_tmp++   ) = *(yuy2_src_tmp++);
++      yuy2_src_tmp++;
++      *(y_dst_tmp++   ) = *(yuy2_src_tmp++);
++      yuy2_src_tmp++;
++    }
++    y_dst += y_dst_pitch;
++    yuy2_map += yuy2_pitch;
++  }
++
++  yuy2_map = src_yuy2_map;
++  for(y = 0; y < height; y += 2) {
++    for(x = 0; x < width; x += 2) {
++      *(uv_dst + x )     = *(yuy2_map + x*2 + 1);
++      *(uv_dst + x + 1 ) = *(yuy2_map + x*2 + 3);
++    }
++    uv_dst += uv_dst_pitch;
++    yuy2_map += yuy2_pitch * 2;
++  }
++
++}
++
+ static VAStatus vaapi_software_render_frame(vaapi_driver_t *this, mem_frame_t *frame,
+                                             VAImage *va_image, int is_bound, VASurfaceID va_surface_id) {
+   ff_vaapi_context_t *va_context      = this->va_context;
+@@ -2109,7 +2629,7 @@
+     } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
+       lprintf("vaapi_software_render_frame yv12 -> nv12 convert\n");
+ 
+-      _x_yv12_to_nv12(frame->vo_frame.base[0], frame->vo_frame.pitches[0],
++      yv12_to_nv12(frame->vo_frame.base[0], frame->vo_frame.pitches[0],
+                       frame->vo_frame.base[1], frame->vo_frame.pitches[1],
+                       frame->vo_frame.base[2], frame->vo_frame.pitches[2],
+                       (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
+@@ -2132,7 +2652,7 @@
+     } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
+       lprintf("vaapi_software_render_frame yuy2 -> nv12 convert\n");
+ 
+-      _x_yuy2_to_nv12(frame->vo_frame.base[0], frame->vo_frame.pitches[0],
++      yuy2_to_nv12(frame->vo_frame.base[0], frame->vo_frame.pitches[0],
+                       (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
+                       (uint8_t *)p_base + va_image->offsets[1], va_image->pitches[1],
+                       frame->vo_frame.width, frame->vo_frame.height);
+@@ -2252,13 +2772,24 @@
+ }
+ */
+ 
++static void _x_va_frame_displayed(vaapi_context_impl_t *va_context, vo_frame_t *vo_frame)
++{
++  vaapi_accel_t *accel = vo_frame->accel_data;
++
++  if (accel->index < RENDER_SURFACES) {
++    ff_vaapi_surface_t *va_surface = &va_context->c.va_render_surfaces[accel->index];
++    _x_va_surface_displayed(va_context, va_surface);
++    accel->index = RENDER_SURFACES; /* invalid */
++  }
++}
++
+ static void _add_recent_frame (vaapi_driver_t *this, vo_frame_t *vo_frame) {
+   int i;
+ 
+   i = VO_NUM_RECENT_FRAMES-1;
+   if (this->recent_frames[i]) {
+-    if (this->guarded_render && this->recent_frames[i]->format == XINE_IMGFMT_VAAPI)
+-      _x_va_frame_displayed(this->recent_frames[i]);
++    if (this->guarded_render && vo_frame->format == XINE_IMGFMT_VAAPI)
++      _x_va_frame_displayed(this->va, this->recent_frames[i]);
+     this->recent_frames[i]->free (this->recent_frames[i]);
+   }
+ 
+@@ -2742,6 +3273,20 @@
    this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
  }
  
@@ -2731,7 +3446,42 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
  {
    vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
-@@ -3073,6 +3109,8 @@
+@@ -2847,14 +3392,12 @@
+ {
+   VAStatus vaStatus;
+   int fmt_count = 0;
+-  unsigned interop_flags = XINE_VA_DISPLAY_X11;
+ 
+ #ifdef ENABLE_VA_GLX
+-  if (this->opengl_render)
+-    interop_flags = XINE_VA_DISPLAY_GLX;
++  this->va = _x_va_new(this->xine, visual_type, visual, this->opengl_render);
++#else
++  this->va = _x_va_new(this->xine, visual_type, visual, 0);
+ #endif
+-
+-  this->va = _x_va_new(this->xine, visual_type, visual, interop_flags);
+   if (!this->va)
+     return 0;
+ 
+@@ -2960,6 +3503,7 @@
+   this->gl_texture                      = GL_NONE;
+ #endif /* ENABLE_VA_GLX */
+ 
++  this->num_frame_buffers               = 0;
+   this->va_soft_surface_ids             = this->va_soft_surface_ids_storage;
+   this->va_soft_images                  = this->va_soft_images_storage;
+   for (i = 0; i < SOFT_SURFACES; i++) {
+@@ -2980,7 +3524,7 @@
+ 
+   this->vo_driver.get_capabilities     = vaapi_get_capabilities;
+   this->vo_driver.alloc_frame          = vaapi_alloc_frame;
+-  this->vo_driver.update_frame_format  = _x_va_frame_update_frame_format;
++  this->vo_driver.update_frame_format  = vaapi_update_frame_format;
+   this->vo_driver.overlay_begin        = vaapi_overlay_begin;
+   this->vo_driver.overlay_blend        = vaapi_overlay_blend;
+   this->vo_driver.overlay_end          = vaapi_overlay_end;
+@@ -2995,6 +3539,8 @@
    this->deinterlace                    = 0;
    this->vdr_osd_width                  = 0;
    this->vdr_osd_height                 = 0;
@@ -2740,7 +3490,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
          _("vaapi: VDR osd width workaround."),
-@@ -3086,6 +3124,18 @@
+@@ -3008,6 +3554,18 @@
          10, vaapi_vdr_osd_height_flag, this );
    this->vdr_osd_height = i < 0 ? 0 : i;
  
@@ -2760,8 +3510,8 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
 diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
---- o/src/video_out/video_out_vdpau.c	2021-10-07 10:30:31.121011632 +0300
-+++ pc/src/video_out/video_out_vdpau.c	2021-10-07 10:32:29.610653382 +0300
+--- o/src/video_out/video_out_vdpau.c	2022-02-15 13:04:38.330781543 +0300
++++ pc/src/video_out/video_out_vdpau.c	2022-02-18 17:04:32.667197435 +0300
 @@ -777,7 +777,14 @@
        this->ovl_video_dest_rect = vid_rect;
      }
@@ -2792,8 +3542,8 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
        if ((value >= XINE_VO_ZOOM_MIN) && (value <= XINE_VO_ZOOM_MAX)) {
          this->zoom_x = value;
 diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
---- o/src/xine-engine/metronom.c	2021-05-07 16:11:33.125171721 +0300
-+++ pc/src/xine-engine/metronom.c	2021-10-07 10:32:29.610653382 +0300
+--- o/src/xine-engine/metronom.c	2022-02-08 23:23:10.159071460 +0300
++++ pc/src/xine-engine/metronom.c	2022-02-18 17:04:32.667197435 +0300
 @@ -451,6 +451,7 @@
      int           seek;
      int           force_jump;
@@ -2902,8 +3652,8 @@ diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
    this->audio.samples          = 0;
    this->audio.drift_step       = 0;
 diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
---- o/src/xine-engine/osd.c	2021-10-07 10:30:31.139012167 +0300
-+++ pc/src/xine-engine/osd.c	2021-10-07 10:32:29.611653399 +0300
+--- o/src/xine-engine/osd.c	2022-02-08 23:23:10.422075319 +0300
++++ pc/src/xine-engine/osd.c	2022-02-18 17:04:32.668197470 +0300
 @@ -525,6 +525,10 @@
    return _osd_show(osd, vpts, 1);
  }
@@ -2924,8 +3674,8 @@ diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
    this->r.set_extent         = osd_set_extent;
    this->r.set_video_window   = osd_set_video_window;
 diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
---- o/src/xine-engine/video_out.c	2021-09-14 12:04:22.701778393 +0300
-+++ pc/src/xine-engine/video_out.c	2021-10-07 10:32:29.611653399 +0300
+--- o/src/xine-engine/video_out.c	2022-02-08 23:23:10.483076214 +0300
++++ pc/src/xine-engine/video_out.c	2022-02-18 17:04:32.668197470 +0300
 @@ -207,6 +207,7 @@
  
    /* pts value when decoder delivered last video frame */
@@ -2986,8 +3736,8 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
     * handle XINE_PARAM_xxx properties (convert from driver's range)
     */
 diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
---- o/src/xine-engine/xine_interface.c	2021-07-02 12:06:30.246655660 +0300
-+++ pc/src/xine-engine/xine_interface.c	2021-10-07 10:32:29.611653399 +0300
+--- o/src/xine-engine/xine_interface.c	2022-02-08 23:23:10.483076214 +0300
++++ pc/src/xine-engine/xine_interface.c	2022-02-18 17:04:32.669197507 +0300
 @@ -880,6 +880,10 @@
    this->osd.renderer->show_unscaled(&this->osd, vpts);
  }
