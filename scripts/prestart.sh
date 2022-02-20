@@ -14,10 +14,10 @@ LOG="/var/log/oscam/wait.log"
 #fi
 
 if [ ! -f $LOG ]; then
-	touch "$LOG"
+	touch $LOG
 else
-	rm -f "$LOG"
-	touch "$LOG"
+	rm -f $LOG
+	touch $LOG
 fi
 
 while [ 1 != 0 ]; do # The script will run in a loop until appears frontend0.

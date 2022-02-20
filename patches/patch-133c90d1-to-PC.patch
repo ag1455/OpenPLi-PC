@@ -7156,6 +7156,159 @@ diff -ruN o/lib/python/Components/InputDevice.py pc/lib/python/Components/InputD
  		return int(rc)
  
  
+diff -ruN o/lib/python/Components/Network.py pc/lib/python/Components/Network.py
+--- o/lib/python/Components/Network.py	2022-02-20 18:09:12.326038522 +0300
++++ pc/lib/python/Components/Network.py	2022-02-20 17:45:02.896466027 +0300
+@@ -1,6 +1,5 @@
+ import os
+ import re
+-import netifaces as ni
+ from socket import *
+ from Components.Console import Console
+ from Components.PluginComponent import plugins
+@@ -63,27 +62,72 @@
+ 		return [int(n) for n in ip.split('.')]
+ 
+ 	def getAddrInet(self, iface, callback):
+-		data = {'up': False, 'dhcp': False, 'preup': False, 'predown': False}
+-		try:
+-			data['up'] = int(open('/sys/class/net/%s/flags' % iface).read().strip(), 16) & 1 == 1
+-			if data['up']:
+-				self.configuredInterfaces.append(iface)
+-			nit = ni.ifaddresses(iface)
+-			data['ip'] = self.convertIP(nit[ni.AF_INET][0]['addr']) # ipv4
+-			data['netmask'] = self.convertIP(nit[ni.AF_INET][0]['netmask'])
+-			data['bcast'] = self.convertIP(nit[ni.AF_INET][0]['broadcast'])
+-			data['mac'] = nit[ni.AF_LINK][0]['addr'] # mac
+-			data['gateway'] = self.convertIP(ni.gateways()['default'][ni.AF_INET][0]) # default gw
+-		except:
++		cmd = ("/sbin/ip", "/sbin/ip", "-o", "addr", "show", "dev", iface)
++		self.console.ePopen(cmd, self.IPaddrFinished, [iface, callback])
++
++	def IPaddrFinished(self, result, retval, extra_args):
++		(iface, callback ) = extra_args
++		data = { 'up': False, 'dhcp': False, 'preup' : False, 'predown' : False }
++		globalIPpattern = re.compile("scope global")
++		ipRegexp = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
++		netRegexp = '[0-9]{1,2}'
++		macRegexp = '[0-9a-fA-F]{2}\:[0-9a-fA-F]{2}\:[0-9a-fA-F]{2}\:[0-9a-fA-F]{2}\:[0-9a-fA-F]{2}\:[0-9a-fA-F]{2}'
++		ipLinePattern = re.compile('inet ' + ipRegexp + '/')
++		ipPattern = re.compile(ipRegexp)
++		netmaskLinePattern = re.compile('/' + netRegexp)
++		netmaskPattern = re.compile(netRegexp)
++		bcastLinePattern = re.compile(' brd ' + ipRegexp)
++		upPattern = re.compile('UP')
++		macPattern = re.compile(macRegexp)
++		macLinePattern = re.compile('link/ether ' + macRegexp)
++
++		for line in result.splitlines():
++			split = line.strip().split(' ',2)
++			if (split[1][:-1] == iface) or (split[1][:-1] == (iface + '@sys0')):
++				up = self.regExpMatch(upPattern, split[2])
++				mac = self.regExpMatch(macPattern, self.regExpMatch(macLinePattern, split[2]))
++				if up is not None:
++					data['up'] = True
++					if iface is not 'lo':
++						self.configuredInterfaces.append(iface)
++				if mac is not None:
++					data['mac'] = mac
++			if split[1] == iface:
++				if re.search(globalIPpattern, split[2]):
++					ip = self.regExpMatch(ipPattern, self.regExpMatch(ipLinePattern, split[2]))
++					netmask = self.calc_netmask(self.regExpMatch(netmaskPattern, self.regExpMatch(netmaskLinePattern, split[2])))
++					bcast = self.regExpMatch(ipPattern, self.regExpMatch(bcastLinePattern, split[2]))
++					if ip is not None:
++						data['ip'] = self.convertIP(ip)
++					if netmask is not None:
++						data['netmask'] = self.convertIP(netmask)
++					if bcast is not None:
++						data['bcast'] = self.convertIP(bcast)
++
++		if 'ip' not in data:
+ 			data['dhcp'] = True
+ 			data['ip'] = [0, 0, 0, 0]
+ 			data['netmask'] = [0, 0, 0, 0]
+ 			data['gateway'] = [0, 0, 0, 0]
+-		if iface in self.ifaces:
+-			self.ifaces[iface].update(data)
+-		else:
+-			self.ifaces[iface] = data
+-		self.loadNetworkConfig(iface, callback)
++
++		cmd = "route -n | grep " + iface
++		self.console.ePopen(cmd,self.routeFinished, [iface, data, callback])
++
++	def routeFinished(self, result, retval, extra_args):
++		(iface, data, callback) = extra_args
++		ipRegexp = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
++		ipPattern = re.compile(ipRegexp)
++		ipLinePattern = re.compile(ipRegexp)
++
++		for line in result.splitlines():
++			print line[0:7]
++			if line[0:7] == "0.0.0.0":
++				gateway = self.regExpMatch(ipPattern, line[16:31])
++				if gateway:
++					data['gateway'] = self.convertIP(gateway)
++
++		self.ifaces[iface] = data
++		self.loadNetworkConfig(iface,callback)
+ 
+ 	def writeNetworkConfig(self):
+ 		self.configuredInterfaces = []
+@@ -96,10 +140,9 @@
+ 				fp.write("auto " + ifacename + "\n")
+ 				self.configuredInterfaces.append(ifacename)
+ 			if iface['dhcp']:
+-				fp.write("iface " + ifacename + " inet dhcp\n")
+-				fp.write("udhcpc_opts -T1 -t9\n")
++				fp.write("iface "+ ifacename +" inet dhcp\n")
+ 			if not iface['dhcp']:
+-				fp.write("iface " + ifacename + " inet static\n")
++				fp.write("iface "+ ifacename +" inet static\n")
+ 				if 'ip' in iface:
+ 					print tuple(iface['ip'])
+ 					fp.write("	address %d.%d.%d.%d\n" % tuple(iface['ip']))
+@@ -114,6 +157,7 @@
+ 				fp.write(iface["predown"])
+ 			fp.write("\n")
+ 		fp.close()
++
+ 		self.configuredNetworkAdapters = self.configuredInterfaces
+ 		self.writeNameserverConfig()
+ 
+@@ -176,12 +220,7 @@
+ 			# load ns only once
+ 			self.loadNameserverConfig()
+ 			print "read configured interface:", ifaces
+-			# remove any password before info is printed to the debug log
+-			safe_ifaces = self.ifaces.copy()
+-			for intf in safe_ifaces:
+-				if 'preup' in safe_ifaces[intf] and safe_ifaces[intf]['preup'] is not False:
+-					safe_ifaces[intf]['preup'] = re.sub(' -k "\S*" ', ' -k ********* ', safe_ifaces[intf]['preup'])
+-			print "self.ifaces after loading:", safe_ifaces
++			print "self.ifaces after loading:", self.ifaces
+ 			self.config_ready = True
+ 			self.msgPlugins()
+ 			if callback is not None:
+@@ -280,8 +319,6 @@
+ 				name = 'Intel'
+ 			elif name.startswith('brcm') or name.startswith('bcm'):
+ 				name = 'Broadcom'
+-		elif os.path.isdir('/tmp/bcm/' + iface):
+-			name = 'Broadcom'
+ 		else:
+ 			name = _('Unknown')
+ 
+@@ -294,8 +331,6 @@
+ 		return self.ifaces.keys()
+ 
+ 	def getAdapterAttribute(self, iface, attribute):
+-		if self.ifaces.get(iface, {}).get('ip') == [0, 0, 0, 0]:
+-			self.getAddrInet(iface, None)
+ 		return self.ifaces.get(iface, {}).get(attribute)
+ 
+ 	def setAdapterAttribute(self, iface, attribute, value):
 diff -ruN o/lib/python/Components/NimManager.py pc/lib/python/Components/NimManager.py
 --- o/lib/python/Components/NimManager.py	2021-10-01 13:48:13.418652364 +0300
 +++ pc/lib/python/Components/NimManager.py	2021-10-01 13:49:05.619220948 +0300
@@ -7757,7 +7910,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Makefile.am pc/lib/python/Plugins/S
 diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py
 --- o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-10-01 13:48:13.420652295 +0300
 +++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2021-10-01 13:49:05.621220634 +0300
-@@ -152,7 +143,7 @@
+@@ -152,7 +152,7 @@
  		if self.step == 1:
  			self.step = self.yes_no.value and 5 or 2
  		elif self.step == 2:
@@ -8145,7 +8298,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
 -
 -		if not force_wide:
 -			self.list.append(getConfigListEntry(_("Aspect ratio"), config.av.aspect, _("Configure the aspect ratio of the screen.")))
--
++		self.list = [ ]
+ 
 -		if force_wide or config.av.aspect.value in ("16_9", "16_10"):
 -			self.list.extend((
 -				getConfigListEntry(_("Display 4:3 content as"), config.av.policy_43, _("When the content has an aspect ratio of 4:3, choose whether to scale/stretch the picture.")),
@@ -8181,8 +8335,6 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
 -				self.list.append(getConfigListEntry(_("WSS on 4:3"), config.av.wss, _("When enabled, content with an aspect ratio of 4:3 will be stretched to fit the screen.")))
 -				if SystemInfo["ScartSwitch"]:
 -					self.list.append(getConfigListEntry(_("Auto scart switching"), config.av.vcrswitch, _("When enabled, your receiver will detect activity on the VCR SCART input.")))
-+		self.list = [ ]
-+
 +		if config.av.aspect.value != "auto":
 +			self.list.append(getConfigListEntry(_("Display 4:3 content as"), config.av.policy_43, _("Select 4:3 display zoom method.")))
 +			if config.av.policy_43.value == "zoom":
@@ -20178,7 +20330,7 @@ diff -ruN o/po/ru.po pc/po/ru.po
 diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 --- o/tools/enigma2.sh.in	2021-12-22 14:50:36.996728175 +0300
 +++ pc/tools/enigma2.sh.in	2022-02-02 23:44:30.063990468 +0300
-@@ -1,149 +1,37 @@
+@@ -1,149 +1,42 @@
  #!/bin/sh
  
 -prefix=@prefix@
@@ -20198,6 +20350,8 @@ diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 -fi
 +HDD="/media/hdd"
 +PREFIX="/usr/local/e2/bin"
++# Ubuntu does not use this file if it was created by you.
++FI="/etc/network/interfaces"
  
 -LIBS=@libdir@/libopen.so.0.0.0
 +nice -n -10 $PREFIX/enigma2 > /tmp/BootLogEnigma2 2>&1
@@ -20255,9 +20409,11 @@ diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
  	case $ret in
  		1)
 -			/sbin/halt
++			rm -f $FI
 +			/sbin/poweroff
  			;;
  		2)
++			rm -f $FI
  			/sbin/reboot
  			;;
  		3)
@@ -20328,6 +20484,7 @@ diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
 -				rm -f /etc/.doNotAutoInstall
 -			fi
 -			break
++			rm -f $FI
  			;;
  		*)
 -			break
