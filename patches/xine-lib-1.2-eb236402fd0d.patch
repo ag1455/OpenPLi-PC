@@ -1,6 +1,6 @@
 diff -ruN o/configure.ac pc/configure.ac
 --- o/configure.ac	2022-02-08 23:22:17.592307312 +0300
-+++ pc/configure.ac	2022-02-18 17:04:32.630196100 +0300
++++ pc/configure.ac	2022-03-01 12:44:27.515156917 +0300
 @@ -1664,7 +1664,8 @@
  src/video_out/macosx/Makefile
  src/xine-utils/Makefile
@@ -13,27 +13,27 @@ diff -ruN o/configure.ac pc/configure.ac
  
 diff -ruN o/debian/changelog pc/debian/changelog
 --- o/debian/changelog	2022-02-08 23:23:06.674020359 +0300
-+++ pc/debian/changelog	2022-02-18 17:04:32.631196136 +0300
++++ pc/debian/changelog	2022-03-01 12:46:48.307556660 +0300
 @@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.11+hg-b9fc14056cfe-15056-e2pc) experimental; urgency=low
++xine-lib-1.2 (1.2.11+hg-eb236402fd0d-15073-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
 +  * Patched version for e2pc.
 +
-+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 18 Feb 2022 12:24:32 +0100
++ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 01 Mar 2022 12:45:22 +0100
 +
  xine-lib-1.2 (1.2.9+hg-0) experimental; urgency=low
  
    * Hg snapshot.
 diff -ruN o/debian/compat pc/debian/compat
 --- o/debian/compat	2022-02-08 23:23:06.785021985 +0300
-+++ pc/debian/compat	2022-02-18 17:04:32.631196136 +0300
++++ pc/debian/compat	2022-03-01 12:44:27.516156927 +0300
 @@ -1 +1 @@
 -5
 +10
 diff -ruN o/debian/control pc/debian/control
 --- o/debian/control	2022-02-08 23:23:06.716020974 +0300
-+++ pc/debian/control	2022-02-18 17:04:32.631196136 +0300
++++ pc/debian/control	2022-03-01 12:44:27.516156927 +0300
 @@ -73,7 +73,7 @@
  Suggests: ${shlibs:Suggests}, libxine2-doc | libxine-doc
  Conflicts: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x
@@ -45,7 +45,7 @@ diff -ruN o/debian/control pc/debian/control
   .
 diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
 --- o/debian/libxine2-dev.install	2022-02-08 23:23:06.664020212 +0300
-+++ pc/debian/libxine2-dev.install	2022-02-18 17:04:32.631196136 +0300
++++ pc/debian/libxine2-dev.install	2022-03-01 12:44:27.517156937 +0300
 @@ -1,11 +1,9 @@
  usr/bin/xine-config
  usr/include
@@ -61,7 +61,7 @@ diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
  ../dh_xine				usr/bin
 diff -ruN o/debian/libxine2-doc.docs pc/debian/libxine2-doc.docs
 --- o/debian/libxine2-doc.docs	2022-02-08 23:23:06.800022205 +0300
-+++ pc/debian/libxine2-doc.docs	2022-02-18 17:04:32.631196136 +0300
++++ pc/debian/libxine2-doc.docs	2022-03-01 12:44:27.517156937 +0300
 @@ -1,4 +1,3 @@
 -debian/tmp/usr/share/doc/libxine2/faq/*
  debian/tmp/usr/share/doc/libxine2/README_xxmc.html
@@ -69,7 +69,7 @@ diff -ruN o/debian/libxine2-doc.docs pc/debian/libxine2-doc.docs
  debian/tmp/usr/share/doc/libxine2/faq.*
 diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
 --- o/debian/libxine2.install	2022-02-08 23:23:06.717020989 +0300
-+++ pc/debian/libxine2.install	2022-02-18 17:04:32.631196136 +0300
++++ pc/debian/libxine2.install	2022-03-01 12:44:27.517156937 +0300
 @@ -2,9 +2,10 @@
  usr/lib/libxine*.so.*
  usr/lib/xine/plugins/*/post/*.so
@@ -85,7 +85,7 @@ diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
 +#usr/lib/xine/plugins/*/vidix/*.so
 diff -ruN o/debian/rules pc/debian/rules
 --- o/debian/rules	2022-02-08 23:23:06.698020710 +0300
-+++ pc/debian/rules	2022-02-18 17:04:32.631196136 +0300
++++ pc/debian/rules	2022-03-01 12:44:27.517156937 +0300
 @@ -69,8 +69,11 @@
  	--prefix=/usr \
  	--with-freetype \
@@ -110,7 +110,7 @@ diff -ruN o/debian/rules pc/debian/rules
  	dh_link
 diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
 --- o/include/xine/metronom.h	2022-02-08 23:22:19.212330643 +0300
-+++ pc/include/xine/metronom.h	2022-02-18 17:04:32.632196172 +0300
++++ pc/include/xine/metronom.h	2022-03-01 12:44:27.517156937 +0300
 @@ -191,6 +191,11 @@
  #define METRONOM_VDR_TRICK_PTS    11
  #define METRONOM_NO_LOCK          0x8000
@@ -125,7 +125,7 @@ diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
  metronom_t *_x_metronom_init (int have_video, int have_audio, xine_t *xine) XINE_MALLOC XINE_PROTECTED;
 diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
 --- o/include/xine/osd.h	2022-02-08 23:22:19.079328727 +0300
-+++ pc/include/xine/osd.h	2022-02-18 17:04:32.632196172 +0300
++++ pc/include/xine/osd.h	2022-03-01 12:44:27.517156937 +0300
 @@ -216,6 +216,7 @@
     * overlay is blended at output (screen) resolution.
     */
@@ -135,8 +135,8 @@ diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
    /*
     * see xine.h for defined XINE_OSD_CAP_ values.
 diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
---- o/include/xine/video_out.h	2022-02-08 23:22:18.880325860 +0300
-+++ pc/include/xine/video_out.h	2022-02-18 17:04:32.634196244 +0300
+--- o/include/xine/video_out.h	2022-02-21 12:52:23.825184916 +0300
++++ pc/include/xine/video_out.h	2022-03-01 12:44:27.518156947 +0300
 @@ -287,6 +287,9 @@
  #define VO_PROP_CAPS2                 30 /* read-only. second capability flags, see below. */
  #define VO_PROP_TRANSFORM             31 /* XINE_VO_TRANSFORM_* */
@@ -149,7 +149,7 @@ diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
     at most, because some alphablend functions use an 8-bit index into
 diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
 --- o/include/xine/xineintl.h	2022-02-08 23:22:18.919326422 +0300
-+++ pc/include/xine/xineintl.h	2022-02-18 17:04:32.634196244 +0300
++++ pc/include/xine/xineintl.h	2022-03-01 12:44:27.518156947 +0300
 @@ -27,6 +27,9 @@
  
  #include <locale.h>
@@ -161,9 +161,9 @@ diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
  #    include <libintl.h>
  #    define _(String) dgettext (XINE_TEXTDOMAIN, String)
 diff -ruN o/include/xine.h pc/include/xine.h
---- o/include/xine.h	2022-02-08 23:22:18.827325097 +0300
-+++ pc/include/xine.h	2022-02-18 17:04:32.634196244 +0300
-@@ -1845,6 +1845,7 @@
+--- o/include/xine.h	2022-02-21 12:52:23.824184900 +0300
++++ pc/include/xine.h	2022-03-01 12:44:27.518156947 +0300
+@@ -1846,6 +1846,7 @@
  #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
  #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
  #define XINE_EVENT_NBC_STATS             15 /* nbc buffer status */
@@ -171,7 +171,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  
  
  /* input events coming from frontend */
-@@ -1932,10 +1933,22 @@
+@@ -1933,10 +1934,22 @@
  #define XINE_EVENT_VDR_TRICKSPEEDMODE   353
  #define XINE_EVENT_VDR_PLUGINSTARTED    354
  #define XINE_EVENT_VDR_DISCONTINUITY    355
@@ -194,7 +194,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * xine event struct
   */
-@@ -1969,6 +1982,11 @@
+@@ -1970,6 +1983,11 @@
    char                str[256]; /* might be longer */
  } xine_ui_data_t;
  
@@ -206,7 +206,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * Send messages to UI. used mostly to report errors.
   */
-@@ -2047,6 +2065,10 @@
+@@ -2048,6 +2066,10 @@
    int                 type;         /* 0=buffer put, 1=buffer get */
  } xine_nbc_stats_data_t;
  
@@ -217,7 +217,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * mrl reference data is sent by demuxers when a reference stream is found.
   * this stream just contains pointers (urls) to the real data, which are
-@@ -2352,6 +2374,7 @@
+@@ -2353,6 +2375,7 @@
  void        xine_osd_set_position  (xine_osd_t *self, int x, int y) XINE_PROTECTED;
  void        xine_osd_show          (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
  void        xine_osd_show_unscaled (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
@@ -227,7 +227,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  void        xine_osd_clear         (xine_osd_t *self) XINE_PROTECTED;
 diff -ruN o/m4/input.m4 pc/m4/input.m4
 --- o/m4/input.m4	2022-02-18 12:40:10.123836828 +0300
-+++ pc/m4/input.m4	2022-02-18 17:04:32.634196244 +0300
++++ pc/m4/input.m4	2022-03-01 12:44:27.518156947 +0300
 @@ -20,6 +20,7 @@
      default_enable_vcd=yes
      default_enable_vcdo=no
@@ -257,7 +257,7 @@ diff -ruN o/m4/input.m4 pc/m4/input.m4
      if test "x$enable_bluray" != "xno"; then
 diff -ruN o/m4/summary.m4 pc/m4/summary.m4
 --- o/m4/summary.m4	2022-02-18 12:40:10.124836820 +0300
-+++ pc/m4/summary.m4	2022-02-18 17:04:32.634196244 +0300
++++ pc/m4/summary.m4	2022-03-01 12:44:27.518156947 +0300
 @@ -54,6 +54,7 @@
      dis=""
      echo "  * Misc:"
@@ -276,7 +276,7 @@ diff -ruN o/m4/summary.m4 pc/m4/summary.m4
      echo "   - fftscope        - mosaico"
 diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
 --- o/src/demuxers/demux_mpeg_pes.c	2022-02-08 23:23:11.093085166 +0300
-+++ pc/src/demuxers/demux_mpeg_pes.c	2022-02-18 17:04:32.635196280 +0300
++++ pc/src/demuxers/demux_mpeg_pes.c	2022-03-01 12:44:27.519156957 +0300
 @@ -71,6 +71,7 @@
  
    input_plugin_t       *input;
@@ -332,7 +332,7 @@ diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
    /* We need to system header in order to identify is the stream is mpeg1 or mpeg2. */
 diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
 --- o/src/demuxers/demux_ts.c	2022-02-08 23:23:10.649078650 +0300
-+++ pc/src/demuxers/demux_ts.c	2022-02-18 17:04:32.635196280 +0300
++++ pc/src/demuxers/demux_ts.c	2022-03-01 12:44:27.519156957 +0300
 @@ -161,7 +161,7 @@
  #define LOG
  */
@@ -444,7 +444,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  #endif
 diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 --- o/src/e2pc/combined_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.c	2022-02-18 17:04:32.663197290 +0300
++++ pc/src/e2pc/combined_enigma.c	2022-03-01 12:44:27.520156967 +0300
 @@ -0,0 +1,48 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -496,7 +496,7 @@ diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 +
 diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 --- o/src/e2pc/combined_enigma.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.h	2022-02-18 17:04:32.663197290 +0300
++++ pc/src/e2pc/combined_enigma.h	2022-03-01 12:44:27.520156967 +0300
 @@ -0,0 +1,82 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -582,7 +582,7 @@ diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 +
 diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 --- o/src/e2pc/input_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/input_enigma.c	2022-02-18 17:04:32.664197326 +0300
++++ pc/src/e2pc/input_enigma.c	2022-03-01 12:44:27.520156967 +0300
 @@ -0,0 +1,859 @@
 +/*
 + * Copyright (C) 2003-2021 the xine project
@@ -1445,7 +1445,7 @@ diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 +}
 diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 --- o/src/e2pc/Makefile.am	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/Makefile.am	2022-02-18 17:04:32.664197326 +0300
++++ pc/src/e2pc/Makefile.am	2022-03-01 12:44:27.520156967 +0300
 @@ -0,0 +1,13 @@
 +include $(top_builddir)/misc/Makefile.plugins
 +include $(top_srcdir)/misc/Makefile.common
@@ -1462,7 +1462,7 @@ diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 +xineplug_enigma_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL)
 diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 --- o/src/e2pc/post_enigma_audio.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_audio.c	2022-02-18 17:04:32.664197326 +0300
++++ pc/src/e2pc/post_enigma_audio.c	2022-03-01 12:44:27.520156967 +0300
 @@ -0,0 +1,277 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -1743,7 +1743,7 @@ diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 +}
 diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 --- o/src/e2pc/post_enigma_video.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_video.c	2022-02-18 17:04:32.664197326 +0300
++++ pc/src/e2pc/post_enigma_video.c	2022-03-01 12:44:27.520156967 +0300
 @@ -0,0 +1,519 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -2266,7 +2266,7 @@ diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 +}
 diff -ruN o/src/Makefile.am pc/src/Makefile.am
 --- o/src/Makefile.am	2022-02-08 23:23:06.810022351 +0300
-+++ pc/src/Makefile.am	2022-02-18 17:04:32.664197326 +0300
++++ pc/src/Makefile.am	2022-03-01 12:44:27.520156967 +0300
 @@ -16,4 +16,5 @@
  	libreal \
  	post \
@@ -2276,7 +2276,7 @@ diff -ruN o/src/Makefile.am pc/src/Makefile.am
 +	e2pc
 diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
 --- o/src/video_out/video_out_opengl.c	2022-02-08 23:23:09.672064315 +0300
-+++ pc/src/video_out/video_out_opengl.c	2022-02-18 17:04:32.665197362 +0300
++++ pc/src/video_out/video_out_opengl.c	2022-03-01 12:44:27.521156977 +0300
 @@ -134,6 +134,14 @@
  
  #define MY_2PI               (M_PI * 2)
@@ -2665,8 +2665,8 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
    this->config                  = config;
  
 diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
---- o/src/video_out/video_out_vaapi.c	2022-02-18 12:40:10.144836661 +0300
-+++ pc/src/video_out/video_out_vaapi.c	2022-02-18 17:24:06.034307335 +0300
+--- o/src/video_out/video_out_vaapi.c	2022-02-21 12:52:23.836185093 +0300
++++ pc/src/video_out/video_out_vaapi.c	2022-03-01 12:44:27.522156987 +0300
 @@ -74,9 +74,9 @@
  # define ENABLE_VA_GLX
  #endif /* OPENGL */
@@ -2812,7 +2812,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
  /* Deassociate and free subpicture */
  static void vaapi_destroy_subpicture(vaapi_driver_t *this) {
-@@ -1493,8 +1564,6 @@
+@@ -1431,8 +1502,6 @@
    int i, n = 0;
    for (i = 0; i < VO_NUM_RECENT_FRAMES; i++) {
      if (this->recent_frames[i]) {
@@ -2821,7 +2821,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
        this->recent_frames[i]->free (this->recent_frames[i]);
        this->recent_frames[i] = NULL;
        n++;
-@@ -1504,6 +1573,7 @@
+@@ -1442,6 +1511,7 @@
  }
  
  static VAStatus vaapi_init_internal(vaapi_driver_t *this, int va_profile, int width, int height) {
@@ -2829,7 +2829,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    VAStatus            vaStatus;
  
    vaapi_close(this);
-@@ -1514,10 +1584,16 @@
+@@ -1452,10 +1522,16 @@
    if (vaStatus != VA_STATUS_SUCCESS)
      goto error;
  
@@ -2849,7 +2849,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
        /* this seems to break decoding to the surface ? */
        VAImage va_image;
        int is_bound;
-@@ -1528,12 +1604,12 @@
+@@ -1466,12 +1542,12 @@
                                0, 0, va_image.width, va_image.height);
          _x_va_destroy_image(this->va, &va_image);
        }
@@ -2863,7 +2863,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    vaStatus = vaapi_init_soft_surfaces(this, width, height);
    if(!vaapi_check_status(this, vaStatus, "vaapi_init_soft_surfaces()")) {
-@@ -1597,38 +1673,66 @@
+@@ -1535,38 +1611,66 @@
    return vaStatus;
  }
  
@@ -2943,7 +2943,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    /* override accel functions */
    frame->vaapi_accel_data.f = this->guarded_render ? &accel_funcs_guarded : &accel_funcs;
  
-@@ -1908,6 +2012,16 @@
+@@ -1846,6 +1950,16 @@
        else
          this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
  
@@ -2960,7 +2960,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      } else if (need_init) {
  
        if(this->vdr_osd_width) 
-@@ -1920,6 +2034,15 @@
+@@ -1858,6 +1972,15 @@
        else
          this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
  
@@ -2976,7 +2976,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      }
    }
  
-@@ -2051,6 +2174,403 @@
+@@ -1989,6 +2112,403 @@
    return ret;
  }
  
@@ -3380,7 +3380,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static VAStatus vaapi_software_render_frame(vaapi_driver_t *this, mem_frame_t *frame,
                                              VAImage *va_image, int is_bound, VASurfaceID va_surface_id) {
    ff_vaapi_context_t *va_context      = this->va_context;
-@@ -2109,7 +2629,7 @@
+@@ -2047,7 +2567,7 @@
      } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
        lprintf("vaapi_software_render_frame yv12 -> nv12 convert\n");
  
@@ -3389,7 +3389,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
                        frame->vo_frame.base[1], frame->vo_frame.pitches[1],
                        frame->vo_frame.base[2], frame->vo_frame.pitches[2],
                        (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
-@@ -2132,7 +2652,7 @@
+@@ -2070,7 +2590,7 @@
      } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
        lprintf("vaapi_software_render_frame yuy2 -> nv12 convert\n");
  
@@ -3398,7 +3398,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
                        (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
                        (uint8_t *)p_base + va_image->offsets[1], va_image->pitches[1],
                        frame->vo_frame.width, frame->vo_frame.height);
-@@ -2252,13 +2772,24 @@
+@@ -2190,13 +2710,24 @@
  }
  */
  
@@ -3425,7 +3425,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      this->recent_frames[i]->free (this->recent_frames[i]);
    }
  
-@@ -2742,6 +3273,20 @@
+@@ -2680,6 +3211,20 @@
    this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
  }
  
@@ -3446,7 +3446,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
  {
    vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
-@@ -2847,14 +3392,12 @@
+@@ -2785,14 +3330,12 @@
  {
    VAStatus vaStatus;
    int fmt_count = 0;
@@ -3464,7 +3464,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    if (!this->va)
      return 0;
  
-@@ -2960,6 +3503,7 @@
+@@ -2898,6 +3441,7 @@
    this->gl_texture                      = GL_NONE;
  #endif /* ENABLE_VA_GLX */
  
@@ -3472,7 +3472,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->va_soft_surface_ids             = this->va_soft_surface_ids_storage;
    this->va_soft_images                  = this->va_soft_images_storage;
    for (i = 0; i < SOFT_SURFACES; i++) {
-@@ -2980,7 +3524,7 @@
+@@ -2918,7 +3462,7 @@
  
    this->vo_driver.get_capabilities     = vaapi_get_capabilities;
    this->vo_driver.alloc_frame          = vaapi_alloc_frame;
@@ -3481,7 +3481,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->vo_driver.overlay_begin        = vaapi_overlay_begin;
    this->vo_driver.overlay_blend        = vaapi_overlay_blend;
    this->vo_driver.overlay_end          = vaapi_overlay_end;
-@@ -2995,6 +3539,8 @@
+@@ -2933,6 +3477,8 @@
    this->deinterlace                    = 0;
    this->vdr_osd_width                  = 0;
    this->vdr_osd_height                 = 0;
@@ -3490,7 +3490,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
          _("vaapi: VDR osd width workaround."),
-@@ -3008,6 +3554,18 @@
+@@ -2946,6 +3492,18 @@
          10, vaapi_vdr_osd_height_flag, this );
    this->vdr_osd_height = i < 0 ? 0 : i;
  
@@ -3510,8 +3510,8 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
 diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
---- o/src/video_out/video_out_vdpau.c	2022-02-15 13:04:38.330781543 +0300
-+++ pc/src/video_out/video_out_vdpau.c	2022-02-18 17:04:32.667197435 +0300
+--- o/src/video_out/video_out_vdpau.c	2022-02-21 12:52:23.839185142 +0300
++++ pc/src/video_out/video_out_vdpau.c	2022-03-01 12:44:27.522156987 +0300
 @@ -777,7 +777,14 @@
        this->ovl_video_dest_rect = vid_rect;
      }
@@ -3528,7 +3528,7 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
        double rx, ry;
  
        if (zoom) {
-@@ -2352,6 +2359,12 @@
+@@ -2293,6 +2300,12 @@
        this->deinterlace = value;
        vdpau_set_deinterlace (this);
        break;
@@ -3543,7 +3543,7 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
          this->zoom_x = value;
 diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
 --- o/src/xine-engine/metronom.c	2022-02-08 23:23:10.159071460 +0300
-+++ pc/src/xine-engine/metronom.c	2022-02-18 17:04:32.667197435 +0300
++++ pc/src/xine-engine/metronom.c	2022-03-01 12:44:27.523156997 +0300
 @@ -451,6 +451,7 @@
      int           seek;
      int           force_jump;
@@ -3653,7 +3653,7 @@ diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
    this->audio.drift_step       = 0;
 diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
 --- o/src/xine-engine/osd.c	2022-02-08 23:23:10.422075319 +0300
-+++ pc/src/xine-engine/osd.c	2022-02-18 17:04:32.668197470 +0300
++++ pc/src/xine-engine/osd.c	2022-03-01 12:44:27.523156997 +0300
 @@ -525,6 +525,10 @@
    return _osd_show(osd, vpts, 1);
  }
@@ -3675,7 +3675,7 @@ diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
    this->r.set_video_window   = osd_set_video_window;
 diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
 --- o/src/xine-engine/video_out.c	2022-02-08 23:23:10.483076214 +0300
-+++ pc/src/xine-engine/video_out.c	2022-02-18 17:04:32.668197470 +0300
++++ pc/src/xine-engine/video_out.c	2022-03-01 12:44:27.524157007 +0300
 @@ -207,6 +207,7 @@
  
    /* pts value when decoder delivered last video frame */
@@ -3737,7 +3737,7 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
     */
 diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
 --- o/src/xine-engine/xine_interface.c	2022-02-08 23:23:10.483076214 +0300
-+++ pc/src/xine-engine/xine_interface.c	2022-02-18 17:04:32.669197507 +0300
++++ pc/src/xine-engine/xine_interface.c	2022-03-01 12:44:27.524157007 +0300
 @@ -880,6 +880,10 @@
    this->osd.renderer->show_unscaled(&this->osd, vpts);
  }

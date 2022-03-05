@@ -9,6 +9,8 @@
 
 	<screen name="PartnerboxEntryConfigScreen" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
+		<panel name="VKeyIconPanel"/>
+		<widget name="HelpWindow" position="center,650" size="80,0"/>
 		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" transparent="1" scrollbarMode="showOnDemand"/>
 	</screen>
 
@@ -69,6 +71,8 @@
 	<screen name="RemoteTimerEntry" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
 		<panel name="CancelOKTemplate"/>
+		<panel name="VKeyIconPanel"/>
+		<widget name="HelpWindow" position="center,650" size="80,0"/>
 		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
 	</screen>
 
@@ -561,6 +565,7 @@
 		<panel name="PigTemplate"/>
 		<panel name="KeyMenuInfoTemplate"/>
 		<widget name="config" position="780,105" size="1110,600" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
+		<widget name="description" position="30,570" size="720,300" itemHeight="38" font="Regular;30" valign="top"/>
 		<widget name="statusbar" position="780,975" size="1110,34" font="Regular;30"/>
 		<widget name="status" position="780,780" size="1110,90" font="Regular;30"/>
 	</screen>
@@ -584,15 +589,6 @@
 	<screen name="EPGImportLog" position="fill" title="EPG Import Log" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
 		<widget name="list" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
-	</screen>
-
-	<!-- HDMI-CEC Setup -->
-
-	<screen name="HdmiCECSetupScreen" position="fill" title="HDMI-CEC Setup" flags="wfNoBorder">
-		<panel name="PigTemplate"/>
-		<widget name="config" position="780,105" size="1110,874" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
-		<widget source="current_address" render="Label" position="30,562" size="720,45" zPosition="10" font="Regular;31" halign="left" valign="center"/>
-		<widget source="fixed_address" render="Label" position="30,607" size="720,45" zPosition="10" font="Regular;31" halign="left" valign="center"/>
 	</screen>
 
 	<!-- Cross EPG -->
@@ -982,6 +978,22 @@
 	<screen name="CSFDLCDSummaryElse" position="0,0" size="144,96">
 		<widget name="headline" position="0,0" size="144,21" font="FdLcD;18"/>
 		<widget name="infomovie" position="0,27" size="144,63" font="FdLcD;15"/>
+	</screen>
+
+	<!-- CSFD Lite -->
+
+	<screen name="CSFDLite" position="fill" title="CSFD Lite" >
+		<panel name="PigTemplate"/>
+		<panel name="KeyMenuTemplate"/>
+		<widget name="titlelabel" position="780,108" size="761,37" font="Regular;32" valign="center" foregroundColor="#f0b400" transparent="1"/>
+		<widget name="starsbg" position="1570,108" size="320,32" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/CSFDLite/starsbar_empty_FullHD.png" zPosition="0" transparent="1" alphatest="on"/>
+		<widget name="stars" position="1570,108" size="320,32" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/CSFDLite/starsbar_filled_FullHD.png" transparent="1"/>
+		<widget name="ratinglabel" position="1570,145" size="320,35" halign="right" font="Regular;30" foregroundColor="#f0b400" backgroundColor="black" transparent="1"/>
+		<widget name="detailslabel" position="780,184" size="1110,836" zPosition="1" transparent="1" itemHeight="38" font="Regular;30" halign="block"/>
+		<widget name="extralabel" position="780,184" size="1110,798" zPosition="1" itemHeight="38" transparent="1" font="Regular;32" halign="block"/>
+		<widget name="menu" position="780,105" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
+		<widget name="statusbar" position="30,540" size="720,23" font="Regular;20" foregroundColor="#7a7a52" />
+		<widget name="poster" position="20,580" size="321,380" alphatest="blend" backgroundColor="black"/>
 	</screen>
 
 	<!-- XPower plugin -->
@@ -1492,8 +1504,8 @@
 
 	<screen name="ModifyPLiFullHD" position="fill" title="Modify PLi-FullHD - setup font and colors">
 		<panel name="PigTemplate"/>
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ModifyPLiFullHD/png/help.png" position="30,540" size="720,405" zPosition="2"/>
-		<widget name="config" position="780,105" size="1110,760" itemHeight="38" font="Regular;28" zPosition="1" scrollbarMode="showOnDemand"/>
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/ModifyPLiFullHD/png/fullhd.png" position="30,540" size="720,405" zPosition="2"/>
+		<widget name="config" position="780,105" size="1110,912" itemHeight="38" font="Regular;28" zPosition="1" scrollbarMode="showOnDemand"/>
 		<widget name="info" position="780,975" size="1100,37" font="Regular;32" foregroundColor="foreground" halign="center"/>
 	</screen>
 	<screen name="ModifyPLiFullHDFontInfo" position="fill" title="Modify PLi-FullHD - font info table">
@@ -1664,8 +1676,7 @@
 
 	<screen name="TranscodingSetup" position="fill" flags="wfNoBorder" title="Transcoding Setup">
 		<panel name="PigTemplate"/>
-		<widget name="content" render="Label" position="780,110" size="1000,75" font="Regular;33" itemHeight="45" scrollbarMode="showOnDemand"/>
-		<widget name="config" position="780,160" size="1132,855" font="Regular;33" itemHeight="45" scrollbarMode="showOnDemand"/>
+		<widget name="config" position="780,105" size="1110,874" font="Regular;28" itemHeight="38" scrollbarMode="showOnDemand"/>
 	</screen>
 
 	<!-- HDMI Test	-->
@@ -1759,11 +1770,11 @@
 	</screen>
 	<screen name="ManagerAutofsRemoveBackupFiles" position="fill" flags="wfNoBorder">
 		<panel name="PigTemplate"/>
-		<widget name="text" position="30,560" size="720,120" zPosition="1" font="Regular;26" halign="left"/>
-		<widget name="config" position="780,105" size="1110,874" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
+		<widget name="text" position="30,560" size="720,180" zPosition="1" font="Regular;26" halign="left"/>
+		<widget name="config" position="780,105" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
 	</screen>
-	<screen name="NonModalMessageBoxDialog" position="center,center" size="710,160" backgroundColor="toptemplatecolor" zPosition="2" flags="wfNoBorder">
-		<widget name="message" position="center,center" size="700,150" font="Regular;30" valign="center" halign="center"/>
+	<screen name="NonModalMessageBoxDialog" position="center,center" size="710,160" backgroundColor="#00707070" zPosition="2" flags="wfNoBorder">
+		<widget name="message" position="center,center" size="706,156" font="Regular;30" valign="center" halign="center"/>
 	</screen>
 
 	<!-- RefreshTimers  -->
@@ -1793,11 +1804,11 @@
 		</widget>
 		<widget name="description" position="30,560" size="720,64" zPosition="1" font="Regular;28" foregroundColor="grey" halign="block"/>
 
-		<widget source="Service" render="Label" position="30,650" size="720,64" foregroundColor="secondFG" font="Regular;28" transparent="1">
-			<convert type="MovieInfo">ShortDescription</convert>
+		<widget source="Service" render="Label" position="30,640" size="720,32" foregroundColor="secondFG" font="Regular;28" transparent="1">
+			<convert type="MovieInfo">Name</convert>
 		</widget>
-		<widget source="Service" render="Label" position="30,725" size="720,256" font="Regular;28" halign="block">
-			<convert type="MovieInfo">MetaDescription</convert>
+		<widget source="Service" render="Label" position="30,683" size="720,288" font="Regular;28" halign="block">
+			<convert type="MovieInfo">FullDescription</convert>
 		</widget>
 		<widget name="number" position="30,982" size="720,30" zPosition="1" foregroundColor="green" font="Regular;28" transparent="1"/>
 		<widget name="size" position="30,982" size="720,30" zPosition="1" foregroundColor="green" font="Regular;28" halign="right" transparent="1"/>
@@ -1824,6 +1835,9 @@
 		<panel name="TextTemplate"/>
 		<widget name="list" position="780,100" size="1110,912" scrollbarMode="showOnDemand"/>
 		<widget name="description" position="30,613" size="720,256" zPosition="1" foregroundColor="grey" font="Regular;28"/>
+	</screen>
+	<screen name="MovieManagerNonModalMessageBoxDialog" position="center,center" size="710,160" backgroundColor="#00707070" zPosition="2" flags="wfNoBorder">
+		<widget name="message" position="center,center" size="706,156" font="Regular;30" valign="center" halign="center"/>
 	</screen>
 
 	<!-- AutoBouquetsMaker (ABM) -->
@@ -1974,12 +1988,7 @@
 	</screen>
 
 	<!-- File Commander -->
-	<screen name="FileCommanderButtons">
-		<panel name="ButtonTemplate"/>
-		<eLabel position="0,1022" size="1920,58" backgroundColor="basictemplatecolor"/>
-		<ePixmap pixmap="border/smallshadowline.png" position="0,1021" size="1920,1"/>
-	</screen>
-	<screen name="FileCommanderScreen" position="fill" title="">
+	<screen name="FileCommanderScreen" position="fill">
 		<eLabel position="0,0" size="1920,87" backgroundColor="toptemplatecolor"/>
 		<ePixmap pixmap="border/smallshadowline.png" position="0,87" size="1920,1" zPosition="2"/>
 		<widget source="global.CurrentTime" render="Label" position="1665,22" size="225,37" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;36" valign="center" halign="right">
@@ -1988,28 +1997,34 @@
 		<widget source="global.CurrentTime" render="Label" position="1440,52" size="450,37" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;24" valign="center" halign="right">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<panel name="FileCommanderButtons"/>
+		<panel name="ButtonTemplate"/>
+		<eLabel position="0,1022" size="1920,58" backgroundColor="basictemplatecolor"/>
+		<ePixmap pixmap="border/smallshadowline.png" position="0,1021" size="1920,1"/>
 		<panel name="KeyChannelTemplate"/>
 		<panel name="KeyMenuInfoTemplate"/>
 
-		<widget name="list_left_head1" position="30,15" size="925,30" font="Regular;26" backgroundColor="secondBG" transparent="1" zPosition="1"/>
-		<widget name="list_right_head1" position="965,15" size="925,30" font="Regular;26" backgroundColor="secondBG" transparent="1" zPosition="1"/>
+		<widget name="list_left_head1" position="35,10" size="920,30" font="Regular;26" noWrap="1" backgroundColor="secondBG" transparent="1" zPosition="1"/>
+		<widget name="list_right_head1" position="970,10" size="920,30" font="Regular;26" noWrap="1" backgroundColor="secondBG" transparent="1" zPosition="1"/>
+		<widget name="list_left_filename" position="35,40" size="925,21" font="Regular;18" noWrap="1" foregroundColor="transponderinfo" backgroundColor="secondBG" transparent="1" zPosition="1"/>
+		<widget name="list_right_filename" position="970,40" size="925,21" font="Regular;18" noWrap="1" foregroundColor="transponderinfo" backgroundColor="secondBG" transparent="1" zPosition="1"/>
+		<widget name="list_left_free" position="35,62" size="300,25" font="Regular;22" backgroundColor="secondBG" foregroundColor="grey" transparent="1" zPosition="1"/>
+		<widget name="list_right_free" position="970,62" size="300,25" font="Regular;22" backgroundColor="secondBG" foregroundColor="grey" transparent="1" zPosition="1"/>
 
-		<widget name="sort_left" position="30,60" size="925,23" halign="center" font="Regular;23" backgroundColor="secondBG" transparent="1" zPosition="1"/>
-		<widget name="sort_right" position="965,60" size="925,23" halign="center" font="Regular;23" backgroundColor="secondBG" transparent="1" zPosition="1"/>
-		<ePixmap pixmap="border/smallshadowline.png" position="0,87" size="1920,1" zPosition="2"/>
+		<widget name="sort_left" position="35,60" size="920,23" halign="center" font="Regular;23" backgroundColor="secondBG" foregroundColor="transponderinfo" transparent="1" zPosition="1"/>
+		<widget name="sort_right" position="970,60" size="920,23" halign="center" font="Regular;23" backgroundColor="secondBG" foregroundColor="transponderinfo" transparent="1" zPosition="1"/>
+		<ePixmap pixmap="border/smallshadowline.png" position="0,87" size="1920,1" zPosition="1"/>
 
-		<widget name="list_left" position="30,100" size="925,874" scrollbarMode="showOnDemand"/>
-		<ePixmap pixmap="border/vsmallshadowline.png" position="959,88" size="2,933" zPosition="2"/>
-		<widget name="list_right" position="965,100" size="925,874" scrollbarMode="showOnDemand"/>
-		<ePixmap pixmap="border/smallshadowline.png" position="0,988" size="1920,1" zPosition="2"/>
+		<widget name="list_left" position="30,100" size="925,874" scrollbarMode="showOnDemand" scrollbarSliderBorderColor="grey" scrollbarSliderForegroundColor="grey"/>
+		<ePixmap pixmap="border/vsmallshadowline.png" position="959,88" size="2,933" zPosition="1"/>
+		<widget name="list_right" position="965,100" size="925,874" scrollbarMode="showOnDemand" scrollbarSliderBorderColor="grey" scrollbarSliderForegroundColor="grey"/>
+		<ePixmap pixmap="border/smallshadowline.png" position="0,988" size="1920,1" zPosition="1"/>
 
 		<widget source="list_left_head2" render="Listbox" position="30,990" size="925,30" selectionDisabled="1" transparent="1">
 			<convert type="TemplatedMultiContent">
 				{"template": [
-					MultiContentEntryText(pos = (30, 0), size = (130, 30), font = 0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is a symbolic mode
-					MultiContentEntryText(pos = (300, 0), size = (600, 30), font = 0, flags = RT_HALIGN_RIGHT, text = 16), # index 16 is the size and scaled divided size
-					MultiContentEntryText(pos = (300, 0), size = (600, 30), font = 0, flags = RT_HALIGN_LEFT, text = 13), # index 13 is the modification time
+					MultiContentEntryText(pos = (30, 0), size = (150, 30), font = 0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is a symbolic mode
+					MultiContentEntryText(pos = (300, 0), size = (600, 30), font = 0, flags = RT_HALIGN_LEFT, text = 13), # index 13 is the size and scaled divided size
+					MultiContentEntryText(pos = (300, 0), size = (600, 30), font = 0, flags = RT_HALIGN_RIGHT, text = 15), # index 15 is the modification time
 					],
 					"fonts": [gFont("Regular", 26)],
 					"itemHeight": 30,
@@ -2021,9 +2036,9 @@
 		<widget source="list_right_head2" render="Listbox" position="965,990" size="925,30" selectionDisabled="1" transparent="1" >
 			<convert type="TemplatedMultiContent">
 				{"template": [
-					MultiContentEntryText(pos = (30, 0), size = (130, 30), font = 0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is a symbolic mode
-					MultiContentEntryText(pos = (300, 0), size = (600, 30), font = 0, flags = RT_HALIGN_RIGHT, text = 16), # index 16 is the size and scaled divided size
-					MultiContentEntryText(pos = (300, 0), size = (600, 30), font = 0, flags = RT_HALIGN_LEFT, text = 13), # index 13 is the modification time
+					MultiContentEntryText(pos = (30, 0), size = (150, 30), font = 0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is a symbolic mode
+					MultiContentEntryText(pos = (300, 0), size = (600, 30), font = 0, flags = RT_HALIGN_LEFT, text = 13), # index 13 is the size and scaled divided size
+					MultiContentEntryText(pos = (300, 0), size = (600, 30), font = 0, flags = RT_HALIGN_RIGHT, text = 15), # index 15 is the modification time
 					],
 					"fonts": [gFont("Regular", 26)],
 					"itemHeight": 30,
@@ -2032,60 +2047,77 @@
 			</convert>
 		</widget>
 	</screen>
-	<screen name="FileCommanderContextMenu" position="fill" title="File Commander context">
+	<screen name="FileCommanderContextMenu" position="fill">
 		<panel name="PigTemplate"/>
-		<widget name="menu" position="780,105" size="1110,874" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand" />
+		<widget name="menu" position="780,105" size="1110,874" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand" scrollbarSliderBorderColor="grey" scrollbarSliderForegroundColor="grey"/>
 	</screen>
-	<screen name="FileCommanderScreenFileSelect" position="fill" title="">
+	<screen name="FileCommanderSetup" position="fill">
+		<panel name="PigTemplate"/>
+		<panel name="VKeyIconPanel"/>
+		<widget name="HelpWindow" position="center,350" size="80,0"/>
+		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand" scrollbarSliderBorderColor="grey" scrollbarSliderForegroundColor="grey"/>
+		<!--widget name="help" position="30,540" size="720,72" font="Regular;28" halign="left" valign="center"/-->
+		<widget name="description" position="30,570" size="720,300" font="Regular;30" halign="left" valign="top"/>
+	</screen>
+	<screen name="FileCommanderScreenFileSelect" position="fill">
 		<panel name="FileCommanderScreen"/>
+		<widget name="list_left_select" position="30,990" size="925,30" font="Regular;26" noWrap="1" foregroundColor="#0000cc60" backgroundColor="secondBG" transparent="1" zPosition="1"/>
+		<widget name="list_right_select" position="965,990" size="925,30" font="Regular;26" noWrap="1" foregroundColor="#0000cc60" backgroundColor="secondBG" transparent="1" zPosition="1"/>
 	</screen>
-	<screen name="FileCommanderFileStatInfo" position="fill" title="File/Directory Status Information">
+	<screen name="FileCommanderFileStatInfo" position="center,center" size="840,503" flags="wfNoBorder">
+			<eLabel position="center,center" size="840,503" backgroundColor="grey"/>
+			<eLabel position="center,center" size="838,501" backgroundColor="toptemplatecolor" zPosition="1"/>
+			<widget name="filename" position="20,10" size="800,64" font="Regular;28" valign="center" halign="center" backgroundColor="toptemplatecolor" zPosition="2"/>
+			<widget source="list" render="Listbox" position="1,100" size="838,384" scrollbarMode="showOnDemand" selectionDisabled="1" backgroundColor="toptemplatecolor" zPosition="2">
+				<convert type="TemplatedMultiContent">
+					{"template": [
+						# 0   100 200 300 400 500
+						# |   |   |   |   |   |
+						# 00000000 1111111111111
+						MultiContentEntryText(pos = (30, 0), size = (350, 32), font = 0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is a label
+						MultiContentEntryText(pos = (370, 0), size = (420, 32), font = 0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is the information
+						],
+						"fonts": [gFont("Regular", 28)],
+						"itemHeight": 32,
+						"selectionEnabled": False
+					}
+				</convert>
+			</widget>
+	</screen>
+	<screen name="ArchiverMenuScreen" position="fill">
 		<panel name="PigTemplate"/>
-		<panel name="CancelTemplate"/>
-		<widget name="filename" position="780,105" size="1110,70" font="Regular;30"/>
-		<widget source="list" render="Listbox" position="780,200" size="1110,570" scrollbarMode="showOnDemand" selectionDisabled="1" transparent="1" >
-			<convert type="TemplatedMultiContent">
-				{"template": [
-					# 0	100	200	300	400	500
-					# |	|	|	|	|	|
-					# 00000000 1111111111111
-					MultiContentEntryText(pos = (0, 0), size = (300, 38), font = 0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is a label
-					MultiContentEntryText(pos = (338, 0), size = (450, 38), font = 0, flags = RT_HALIGN_LEFT, text = 1), # index 1 is the information
-					],
-					"fonts": [gFont("Regular", 30)],
-					"itemHeight": 38,
-					"selectionEnabled": False
-				}
-			</convert>
-		</widget>
+		<widget name="list_left_head" position="790,105" size="1110,70" font="Regular;30"/>
+		<widget name="list_left" position="780,200" size="1110,190" scrollbarMode="showOnDemand"/>
+		<widget name="unpacking" position="780,400" size="1110,38" scrollbarMode="showOnDemand"/>
 	</screen>
-	<screen name="ArchiverMenuScreen" position="60,120" size="1800,900" title="">
-		<widget name="list_left_head" position="15,15" size="1770,90" font="Regular;30" foregroundColor="#00fff000"/>
-		<widget name="list_left" position="15,128" size="855,705" scrollbarMode="showOnDemand"/>
-		<widget name="unpacking" position="15,375" size="855,45" scrollbarMode="showOnDemand" foregroundColor="#00ffffff"/>
-		<panel name="FileCommanderButtons"/>
-	</screen>
-	<screen name="ArchiverInfoScreen" position="60,120" size="1800,900" title="" >
-		<widget name="list_left_head" position="15,15" size="1770,90" font="Regular;30" foregroundColor="#00fff000"/>
-		<widget name="list_left" position="15,128" size="1770,705" scrollbarMode="showOnDemand"/>
-		<panel name="FileCommanderButtons"/>
-	</screen>
-	<screen name="vEditorScreen" position="fill" title="">
-		<widget name="list_head" position="15,15" size="1980,70" font="Regular;30" foregroundColor="#00fff000"/>
-		<widget name="filedata"  scrollbarMode="showOnDemand" position="15,90" size="1890,912" itemHeight="38" font="Regular;28"/>
-		<panel name="FileCommanderButtons"/>
-	</screen>
-	<screen name="TaskListScreen" position="fill" title="Task list" >
+	<screen name="ArchiverInfoScreen" position="fill">
 		<panel name="BasicTemplate"/>
-		<widget source="tasklist" render="Listbox" position="15,105" size="1905,900" zPosition="7" scrollbarMode="showOnDemand">
+		<widget name="list_left_head" position="40,105" size="1860,35" font="Regular;30"/>
+		<widget name="list_left" position="30,170" size="1860,836" scrollbarMode="showOnDemand"/>
+	</screen>
+	<screen name="vEditorScreen" position="fill">
+		<panel name="BasicTemplate"/>
+		<widget name="list_head" position="30,100" size="1860,32" zPosition="1" font="Regular;28" halign="center"/>
+		<widget name="filedata"  scrollbarMode="showOnDemand" position="15,140" size="1890,874" itemHeight="38" font="Regular;28"/>
+		### Do not remove it and set same font and x-size as "input" in "InputBoxWide" screen !###
+		<widget name="InputBoxWide_input" position="0,0" size="1560,0" noWrap="1" font="Regular;25"/>
+		###
+	</screen>
+	<screen name="InputBoxWide" position="center,center" size="1600,120" title="Input">
+		<widget name="text" position="20,20" size="1560,25" noWrap="1" font="Regular;22"/>
+		<widget name="input" position="20,70" size="1560,28" noWrap="1" font="Regular;25"/>
+	</screen>
+	<screen name="TaskListScreen" position="fill" title="Task list">
+		<panel name="PigTemplate"/>
+		<widget source="tasklist" render="Listbox" position="780,105" size="1110,900" zPosition="7" scrollbarMode="showOnDemand">
 			<convert type="TemplatedMultiContent">
 				{"template": [
-					MultiContentEntryText(pos = (8, 2), size = (1013, 36), font=1, flags = RT_HALIGN_LEFT, text = 1), # name
-					MultiContentEntryText(pos = (8, 38), size = (225, 36), font=1, flags = RT_HALIGN_LEFT, text = 2), # state
-					MultiContentEntryProgress(pos = (240, 38), size = (585, 30), percent = -3), # progress
-					MultiContentEntryText(pos = (840, 38), size = (150, 36), font=1, flags = RT_HALIGN_RIGHT, text = 4), # percentage
+					MultiContentEntryText(pos = (5, 8), size = (1110, 25), font=1, flags = RT_HALIGN_LEFT, text = 1), # name
+					MultiContentEntryText(pos = (5, 40), size = (235, 30), font=0, flags = RT_HALIGN_LEFT, text = 2), # state
+					MultiContentEntryProgress(pos = (240, 44), size = (600, 20), percent = -3), # progress
+					MultiContentEntryText(pos = (930, 40), size = (150, 30), font=0, flags = RT_HALIGN_RIGHT, text = 4), # percentage
 				],
-				"fonts": [gFont("Regular", 33),gFont("Regular", 27)],
+				"fonts": [gFont("Regular", 26),gFont("Regular", 22)],
 				"itemHeight": 75
 				}
 			</convert>
@@ -2097,12 +2129,12 @@
 		<panel name="PigTemplate"/>
 		<panel name="KeyMenuInfoTemplate"/>
 		<widget name="text" position="30,560" size="720,210" font="Regular;36" halign="center" zPosition="1"/>
-		<widget source="list" render="Listbox" transparent="0" position="780,100" size="1110,912" scrollbarMode="showOnDemand" >
+		<widget source="list" render="Listbox" transparent="0" position="780,105" size="1110,864" scrollbarMode="showOnDemand" >
 			<convert type="TemplatedMultiContent" >
 				{"template": [
-				MultiContentEntryPixmapAlphaTest(pos=(0,0), size=(150,108), png=2), # Thumbnail
+				MultiContentEntryPixmapAlphaTest(pos=(0,0), flags=BT_SCALE, size=(150,108), png=2), # Thumbnail
 				MultiContentEntryText(pos=(165,1), size=(862,78), font=0, flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER|RT_WRAP, text=3), # Title
-				MultiContentEntryText(pos=(180, 75), size=(300,33), font=1, flags=RT_HALIGN_LEFT, text=4), # Views
+				MultiContentEntryText(pos=(180,75), size=(300,33), font=1, flags=RT_HALIGN_LEFT, text=4), # Views
 				MultiContentEntryText(pos=(540,75), size=(300,33), font=1, flags=RT_HALIGN_LEFT, text=5), # Duration
 				],
 				"fonts": [gFont("Regular",30), gFont("Regular",24)],
@@ -2114,20 +2146,20 @@
 	</screen>
 
 	<screen name="YouTubeSearch" position="fill" flags="wfNoBorder">
-		<panel name="PigTemplate"/>
+		<panel name="SelectionTemplate"/>
 		<panel name="KeyMenuTemplate"/>
 		<widget name="config" position="780,100" size="1110,45" itemHeight="45" font="Regular;30" halign="center" zPosition="1"/> <!-- Search box -->
-		<widget source="list" render="Listbox" transparent="0" position="780,150" size="1110,712" scrollbarMode="showOnDemand" >
+		<widget source="list" render="Listbox" transparent="0" position="780,150" size="1110,760" scrollbarMode="showOnDemand" >
 			<convert type="TemplatedMultiContent" >
 				{"template": [
-				MultiContentEntryText(pos=(15,1), size=(870,45), font=0, flags=RT_HALIGN_LEFT, text=0)
+				MultiContentEntryText(pos=(15,4), size=(870,32), font=0, flags=RT_HALIGN_LEFT, text=0)
 				],
-				"fonts": [gFont("Regular",30)],
-				"itemHeight": 45
+				"fonts": [gFont("Regular",28)],
+				"itemHeight": 40
 				}
 			</convert>
 		</widget>
-		<widget name="HelpWindow" position="30,710" size="1,1" transparent="1" zPosition="3" alphatest="on"/>
+		<widget name="HelpWindow" position="30,765" size="1,1" transparent="1" zPosition="3" alphatest="on"/>
 	</screen>
 
 	<!-- LCD4linux -->
@@ -2159,5 +2191,49 @@
 				scrollbarWidth="6" scrollbarSliderBorderWidth="1" scrollbarSliderForegroundColor="blue" scrollbarSliderBorderColor="blue" scrollbarBackgroundPicture="infobar/scrollbar.png" scrollbarSliderPicture="infobar/scrlbr.png"/>
 		<widget source="File" render="Label" position="7,568" size="715,396" font="Regular;33" foregroundColor="secondFG" valign="center" halign="center"/>
 	</screen>
-	
+
+	<!-- ZapHistoryBrowser -->
+
+	<!-- example for no full screen - started on x=1000 -->
+	<!--screen name="ZapHistoryBrowser" position="1000,center" size="840,660">
+		<ePixmap pixmap="skin_fallback_1080/buttons/red.png" position="0,0" size="210,60" transparent="1" alphatest="on"/>
+		<ePixmap pixmap="skin_fallback_1080/buttons/green.png" position="210,0" size="210,60" transparent="1" alphatest="on"/>
+		<ePixmap pixmap="skin_fallback_1080/buttons/yellow.png" position="420,0" size="210,60" transparent="1" alphatest="on"/>
+		<ePixmap pixmap="skin_fallback_1080/buttons/blue.png" position="630,0" size="210,60" transparent="1" alphatest="on"/>
+		<widget name="key_red" position="0,0" zPosition="1" size="210,60" font="Regular;30" valign="center" halign="center" backgroundColor="#1f771f" transparent="1"/>
+		<widget name="key_green" position="210,0" zPosition="1" size="210,60" font="Regular;30" valign="center" halign="center" backgroundColor="#1f771f" transparent="1"/>
+		<widget name="key_yellow" position="420,0" zPosition="1" size="210,60" font="Regular;30" valign="center" halign="center" backgroundColor="#1f771f" transparent="1"/>
+		<widget name="key_blue" position="630,0" zPosition="1" size="210,60" font="Regular;30" valign="center" halign="center" backgroundColor="#1f771f" transparent="1"/>
+		<widget source="list" render="Listbox" position="0,60" size="840,560" scrollbarMode="showOnDemand">
+			<convert type="TemplatedMultiContent">
+			{
+				"template":[
+						MultiContentEntryText(pos=(3,2), size=(554,35), font=0, flags=RT_HALIGN_LEFT, text=0),
+						MultiContentEntryText(pos=(33,40), size=(524,30), font=1, flags=RT_HALIGN_LEFT, text=1),
+				],
+				"fonts": [gFont("Regular",30), gFont("Regular",26)],
+				"itemHeight": 70
+			}
+			</convert>
+		</widget>
+	</screen-->
+	<screen name="ZapHistoryBrowser" position="fill" flags="wfNoBorder">
+		<panel name="PigTemplate"/>
+		<widget source="list" render="Listbox" position="780,105" size="1110,910" scrollbarMode="showOnDemand">
+			<convert type="TemplatedMultiContent">
+			{
+				"template":[
+						MultiContentEntryText(pos=(10,2), size=(1090,35), font=0, flags=RT_HALIGN_LEFT, text=0),
+						MultiContentEntryText(pos=(50,38), size=(1050,30), font=1, flags=RT_HALIGN_LEFT, text=1),
+				],
+				"fonts": [gFont("Regular",30), gFont("Regular",26)],
+				"itemHeight": 70
+			}
+			</convert>
+		</widget>
+	</screen>
+	<screen name="ZapHistoryConfigurator" position="fill">
+		<panel name="PigTemplate"/>
+		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
+	</screen>
 </skin>

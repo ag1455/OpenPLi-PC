@@ -36,7 +36,7 @@
 	<screen name="TopTemplate">
 		<eLabel position="0,0" size="1920,87" backgroundColor="toptemplatecolor"/>
 		<ePixmap pixmap="border/smallshadowline.png" position="0,87" size="1920,1" zPosition="2"/>
-		<widget source="screen_path" render="Label" position="30,5" size="1860,20" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;19" valign="center" halign="left"/>
+		<widget source="ScreenPath" render="Label" position="30,5" size="1860,20" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;19" valign="center" halign="left"/>
 		<widget source="Title" render="Label" position="30,7" size="1860,75" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;36" valign="center" halign="left"/>
 		<widget source="global.CurrentTime" render="Label" position="1665,22" size="225,37" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;36" valign="center" halign="right">
 			<convert type="ClockToText">Format:%-H:%M</convert>
@@ -188,7 +188,7 @@
 	</screen>
 
 	<screen name="KeyInfoAutoTemplate"><!-- show with Components.Sources.Boolean -->
-		<widget source="key_info" conditional="key_info" render="Pixmap" pixmap="buttons/key_info.png" alphatest="blend" position="135,1032" size="52,38">
+		<widget source="key_info" conditional="key_info" render="Pixmap" pixmap="buttons/key_info.png" alphatest="blend" position="134,1032" size="52,38">
 			<convert type="ConditionalShowHide"/>
 		</widget>
 	</screen>
@@ -206,11 +206,11 @@
 	</screen>
 
 	<screen name="KeyInfoTemplate">
-		<ePixmap pixmap="buttons/key_info.png" alphatest="blend" position="135,1032" size="52,38"/>
+		<ePixmap pixmap="buttons/key_info.png" alphatest="blend" position="134,1032" size="52,38"/>
 	</screen>
 
 	<screen name="KeyPrevNextTemplate">
-		<ePixmap pixmap="buttons/key_prevnext.png" alphatest="blend" position="135,1032" size="52,38"/>
+		<ePixmap pixmap="buttons/key_prevnext.png" alphatest="blend" position="134,1032" size="52,38"/>
 	</screen>
 
 	<screen name="KeyZeroTemplate">
@@ -232,7 +232,7 @@
 		<ePixmap pixmap="buttons/key_help.png" alphatest="blend" position="82,1032" size="52,38"/>
 	</screen>
 	<screen name="KeyHelpRTemplate">
-		<ePixmap pixmap="buttons/key_help.png" alphatest="blend" position="135,1032" size="52,38"/>
+		<ePixmap pixmap="buttons/key_help.png" alphatest="blend" position="134,1032" size="52,38"/>
 	</screen>
 
 	<screen name="KeyTextTemplate">
@@ -389,17 +389,19 @@
 			<convert type="ClientsStreaming"/>
 			<convert type="ConditionalShowHide"/>
 		</widget>
-		<widget source="session.HddSleepingState" render="Pixmap" pixmap="infobar/hdd.png" position="1182,903" size="32,32" zPosition="3" alphatest="blend" >
-			<convert type="ConditionalShowHide"/>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="infobar/hdd.png" position="1182,903" size="32,32" zPosition="3" alphatest="blend">
+			<convert type="HddState"></convert>
+			<convert type="ConditionalShowHide" />
 		</widget>
 		<widget render="VideoSize" source="session.CurrentService" position="1740,943" size="165,30" backgroundColor="secondBG" font="Regular;28" foregroundColor="foreground" halign="left" transparent="1" zPosition="1"/>
 		<widget source="session.FrontendStatus" render="Label" position="1740,985" size="112,33" backgroundColor="secondBG" transparent="1" zPosition="1" foregroundColor="foreground" font="Regular;28">
 			<convert type="FrontendInfo">SNRdB</convert>
+			<convert type="ConditionalShowHide"/>
 		</widget>
 		<widget source="session.FrontendInfo" render="Label" position="1740,900" size="165,30" borderWidth="1" borderColor="black" zPosition="1" backgroundColor="transpBlack" transparent="1" halign="left" font="Regular;30">
 			<convert type="FrontendInfo">STRING,8,5</convert>
 		</widget>
-		<widget source="session.CurrentService" render="Label" position="1740,1027" size="165,33" backgroundColor="secondBG" transparent="1" zPosition="1" text="DVB-S" font="Regular;28">
+		<widget source="session.CurrentService" render="Label" position="1740,1027" size="165,33" backgroundColor="secondBG" transparent="1" zPosition="1" font="Regular;28">
 			<convert type="ServiceOrbitalPosition"/>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="1740,856" size="180,25" borderWidth="1" borderColor="black" backgroundColor="transpBlack" zPosition="1" font="Regular;22" transparent="1">
