@@ -9526,6 +9526,256 @@ diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.
  		self.packages = [package for package in self.packages if package not in installed]
  		if self.packages:
  			self.run_console()
+diff -ruN o/lib/python/skin.py pc/lib/python/skin.py
+--- o/lib/python/skin.py	2022-02-20 18:09:12.368006098 +0300
++++ pc/lib/python/skin.py	2022-03-08 12:40:09.200152241 +0300
+@@ -1,6 +1,10 @@
++from Tools.Profile import profile
++profile("LOAD:ElementTree")
+ import errno
++import os
+ import xml.etree.cElementTree
+ 
++profile("LOAD:enigma_skin")
+ from enigma import addFont, eLabel, ePixmap, ePoint, eRect, eSize, eWindow, eWindowStyleManager, eWindowStyleSkinned, getDesktop, gFont, getFontFaces, gRGB, BT_ALPHATEST, BT_ALPHABLEND
+ from os.path import basename, dirname, isfile
+ 
+@@ -23,6 +27,7 @@
+ GUI_SKIN_ID = 0  # Main frame-buffer.
+ DISPLAY_SKIN_ID = 1  # Front panel / display / LCD.
+ 
++domSkins = []  # List of skins to be processed into the domScreens dictionary.
+ domScreens = {}  # Dictionary of skin based screens.
+ colors = {  # Dictionary of skin color names.
+ 	"key_back": gRGB(0x00313131),
+@@ -117,40 +122,25 @@
+ def loadSkinData(desktop):
+ 	InitSkins()
+ 
++def findUserRelatedSkin():
++	if os.path.isfile(resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value)):
++		name = USER_SKIN_TEMPLATE % os.path.dirname(config.skin.primary_skin.value)
++		if isfile(resolveFilename(SCOPE_CURRENT_SKIN, name)):
++			return name
++	return None
++
+ # Method to load a skin XML file into the skin data structures.
+ #
+ 
+ 
+ def loadSkin(filename, scope=SCOPE_SKIN, desktop=getDesktop(GUI_SKIN_ID), screenID=GUI_SKIN_ID):
+-	global windowStyles
++	global domSkins
+ 	filename = resolveFilename(scope, filename)
+ 	print("[Skin] Loading skin file '%s'." % filename)
+ 	try:
+ 		with open(filename, "r") as fd:  # This open gets around a possible file handle leak in Python's XML parser.
+ 			try:
+-				domSkin = xml.etree.cElementTree.parse(fd).getroot()
+-				# print("[Skin] DEBUG: Extracting non screen blocks from '%s'.  (scope='%s')" % (filename, scope))
+-				# For loadSingleSkinData colors, bordersets etc. are applied one after
+-				# the other in order of ascending priority.
+-				loadSingleSkinData(desktop, screenID, domSkin, filename, scope=scope)
+-				for element in domSkin:
+-					if element.tag == "screen":  # Process all screen elements.
+-						name = element.attrib.get("name", None)
+-						if name:  # Without a name, it's useless!
+-							scrnID = element.attrib.get("id", None)
+-							if scrnID is None or scrnID == screenID:  # If there is a screen ID is it for this display.
+-								# print("[Skin] DEBUG: Extracting screen '%s' from '%s'.  (scope='%s')" % (name, filename, scope))
+-								domScreens[name] = (element, "%s/" % dirname(filename))
+-					elif element.tag == "windowstyle":  # Process the windowstyle element.
+-						scrnID = element.attrib.get("id", None)
+-						if scrnID is not None:  # Without an scrnID, it is useless!
+-							scrnID = int(scrnID)
+-							# print("[Skin] DEBUG: Processing a windowstyle ID='%s'." % scrnID)
+-							domStyle = xml.etree.cElementTree.ElementTree(xml.etree.cElementTree.Element("skin"))
+-							domStyle.getroot().append(element)
+-							windowStyles[scrnID] = (desktop, screenID, domStyle, filename, scope)
+-					# Element is not a screen or windowstyle element so no need for it any longer.
+-				reloadWindowStyles()  # Reload the window style to ensure all skin changes are taken into account.
++				domSkins.append((scope, "%s/" % os.path.dirname(filename), xml.etree.cElementTree.parse(fd).getroot()))
+ 				print("[Skin] Loading skin file '%s' complete." % filename)
+ 				if runCallbacks:
+ 					for method in self.callbacks:
+@@ -199,6 +189,8 @@
+ 	InitSkins()
+ 
+ 
++profile("LoadSkin")
++
+ def addCallback(callback):
+ 	if callback not in callbacks:
+ 		callbacks.append(callback)
+@@ -208,6 +200,62 @@
+ 	if callback in self.callbacks:
+ 		callbacks.remove(callback)
+ 
++# Add an optional skin related user skin "user_skin_<SkinName>.xml".  If there is
++# not a skin related user skin then try to add am optional generic user skin.
++result = None
++name = findUserRelatedSkin()
++if name:
++	result = loadSkin(name, scope=SCOPE_CURRENT_SKIN)
++if not name or not result:
++	loadSkin(USER_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Add the main GUI skin.
++currentPrimarySkin = None
++result = []
++for skin, name in [(config.skin.primary_skin.value, "current"), (DEFAULT_SKIN, "default"), (EMERGENCY_SKIN, "emergency")]:
++	if skin in result:  # Don't try to add a skin that has already failed.
++		continue
++	config.skin.primary_skin.value = skin
++	if loadSkin(config.skin.primary_skin.value, scope=SCOPE_CURRENT_SKIN):
++		currentPrimarySkin = config.skin.primary_skin.value
++		break
++	print "[Skin] Error: Adding %s GUI skin '%s' has failed!" % (name, config.skin.primary_skin.value)
++	result.append(skin)
++
++# Add the front panel / display / lcd skin.
++currentDisplaySkin = None
++result = []
++for skin, name in [(config.skin.display_skin.value, "current"), (DEFAULT_DISPLAY_SKIN, "default")]:
++	if skin in result:  # Don't try to add a skin that has already failed.
++		continue
++	config.skin.display_skin.value = skin
++	if loadSkin(config.skin.display_skin.value, scope=SCOPE_CURRENT_LCDSKIN):
++		currentDisplaySkin = config.skin.display_skin.value
++		break
++	print "[Skin] Error: Adding %s display skin '%s' has failed!" % (name, config.skin.display_skin.value)
++	result.append(skin)
++
++# Add an optional adjustment skin as some boxes lie about their dimensions.
++# loadSkin(BOX_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Add an optional discrete second infobar skin.
++# loadSkin(SECOND_INFOBAR_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Add the subtitle skin.
++loadSkin(SUBTITLE_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Add the emergency skin.  This skin should provide enough functionality
++# to enable basic GUI functions to work.
++if config.skin.primary_skin.value != EMERGENCY_SKIN:
++	loadSkin(EMERGENCY_SKIN, scope=SCOPE_CURRENT_SKIN)
++
++# Remove global working variables.
++del skin
++del name
++del result
++
++profile("LoadSkinDefaultDone")
++
+ 
+ class SkinError(Exception):
+ 	def __init__(self, message):
+@@ -429,6 +477,13 @@
+ 	if size is not None:
+ 		skinAttributes.append(("size", size))
+ 
++def morphRcImagePath(value):
++	if rc_model.rcIsDefault() is False:
++		if value in ("/usr/share/enigma2/skin_default/rc.png", "/usr/share/enigma2/skin_default/rcold.png"):  # OpenPLi version.
++			value = rc_model.getRcImg()
++		# if ("rc.png" or "oldrc.png") in value:  # OpenViX version.
++		# 	value = "%src.png" % rc_model.getRcLocation()
++	return value
+ 
+ class AttributeParser:
+ 	def __init__(self, guiObject, desktop, scale=((1, 1), (1, 1))):
+@@ -701,7 +756,7 @@
+ 		loadSingleSkinData(desktop, screenID, domSkin, pathSkin, scope)
+ 
+ 
+-def loadSingleSkinData(desktop, screenID, domSkin, pathSkin, scope=SCOPE_CURRENT_SKIN):
++def loadSingleSkinData(desktop, domSkin, pathSkin, scope=SCOPE_CURRENT_SKIN):
+ 	"""Loads skin data like colors, windowstyle etc."""
+ 	assert domSkin.tag == "skin", "root element in skin must be 'skin'!"
+ 	global colors, fonts, menus, parameters, setups, switchPixmap
+@@ -777,7 +832,7 @@
+ 		if filename:
+ 			filename = resolveFilename(scope, filename, path_prefix=pathSkin)
+ 			if isfile(filename):
+-				loadSkin(filename, scope=scope, desktop=desktop, screenID=screenID)
++				loadSkin(filename, desktop=desktop, scope=scope)
+ 			else:
+ 				raise SkinError("Included file '%s' not found" % filename)
+ 	for tag in domSkin.findall("switchpixmap"):
+@@ -939,6 +994,73 @@
+ 		# for the one that this actually applies to.
+ 		getDesktop(scrnID).setMargins(r)
+ 
++# Now a utility for plugins to add skin data to the screens.
++#
++def loadSkin(filename, desktop=None, scope=SCOPE_SKIN, override=False):
++	global domScreens
++	filename = resolveFilename(scope, filename)
++	try:
++		# This open gets around a possible file handle leak in Python's XML parser.
++		with open(filename, "r") as fd:
++			try:
++				domSkin = xml.etree.cElementTree.parse(fd).getroot()
++				if desktop is not None:
++					loadSingleSkinData(desktop, domSkin, filename, scope=scope)
++				for element in domSkin:
++					name = evaluateElement(element, DISPLAY_SKIN_ID)
++					if name is None:
++						element.clear()
++					elif name not in domScreens:
++						domScreens[name] = (element, "%s/" % os.path.dirname(filename))
++						print "[Skin] Load skin screen name '%s' added to the skin." % name
++					elif override:
++						domScreens[name] = (element, "%s/" % os.path.dirname(filename))
++						print "[Skin] Load skin screen name '%s' replacing existing screen in the skin." % name
++					else:
++						print "[Skin] Load skin screen name '%s' already exists in the skin and has been skipped." % name
++			except xml.etree.cElementTree.ParseError as err:
++				fd.seek(0)
++				content = fd.readlines()
++				line, column = err.position
++				print "[Skin] XML Parse Error: '%s' in '%s'!" % (err, filename)
++				data = content[line - 1].replace("\t", " ").rstrip()
++				print "[Skin] XML Parse Error: '%s'" % data
++				print "[Skin] XML Parse Error: '%s^%s'" % ("-" * column, " " * (len(data) - column - 1))
++			except Exception as err:
++				print "[Skin] Error: Unable to parse skin data in '%s' - '%s'!" % (filename, err)
++	except (IOError, OSError) as err:
++		if err.errno == errno.ENOENT:  #  No such file or directory
++			print "[Skin] Warning: Skin file '%s' does not exist!" % filename
++		else:
++			print "[Skin] Error %d: Opening skin file '%s'! (%s)" % (err.errno, filename, err.strerror)
++	except Exception as err:
++		print "[Skin] Error: Unexpected error opening skin file '%s'! (%s)" % (filename, err)
++
++# Kinda hackish, but this is called once by mytest.py.
++#
++def loadSkinData(desktop):
++	global domSkins
++	skins = domSkins[:]
++	skins.reverse()
++	for (scope, pathSkin, domSkin) in skins:
++		loadSingleSkinData(desktop, domSkin, pathSkin, scope=scope)
++		for element in domSkin:
++			name = evaluateElement(element, DISPLAY_SKIN_ID)
++			if name is None:
++				element.clear()
++			else:
++				domScreens[name] = (element, pathSkin)
++	# No longer needed, we know where the screens are now.
++	del domSkins
++
++def evaluateElement(element, screenID):
++	if element.tag == "screen":  # If non-screen element, no need for it any longer.
++		name = element.attrib.get("name", None)
++		if name:  # Without a name, it's useless!
++			screenID = element.attrib.get("id", None)
++			if not screenID or (screenID == screenID):  # If for this display.
++				return name
++	return None
+ 
+ class additionalWidget:
+ 	def __init__(self):
 diff -ruN o/lib/python/StartEnigma.py pc/lib/python/StartEnigma.py
 --- o/lib/python/StartEnigma.py	2022-02-20 18:09:12.366007642 +0300
 +++ pc/lib/python/StartEnigma.py	2022-03-05 17:22:07.043663171 +0300
