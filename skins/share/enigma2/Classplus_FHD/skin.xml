@@ -612,6 +612,10 @@
 				"itemHeight": 57 }
 			</convert>
 		</widget>
+		<widget objectTypes="key_blue,StaticText" source="key_blue" render="Pixmap" pixmap="buttons/blue25.png" position="85,775" size="375,60" alphatest="blend" transparent="1">
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget source="key_blue" render="Label" position="93,773" zPosition="10" size="375,60" font="Regular;36" halign="center" valign="center" foregroundColor="white" backgroundColor="black" transparent="1"/>
 	</screen>
 
 	<!-- Menu HDD -->
@@ -2516,8 +2520,8 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	</screen>
 
 	<!-- Edit menu -->
-	<screen name="MenuSort" position="center,165" size="1185,825" title="">
-		<widget source="menu" render="Listbox" position="75,75" size="1035,684" zPosition="7" scrollbarMode="showOnDemand" transparent="1">
+	<screen name="MenuSort" position="center,150" size="1185,825" title="">
+		<widget source="menu" render="Listbox" position="75,75" size="1035,630" zPosition="7" scrollbarMode="showOnDemand" transparent="1">
 			<convert type="TemplatedMultiContent">
 				{ "template": [
 				 MultiContentEntryText(pos = (22, 3), size = (900, 57), flags = RT_HALIGN_LEFT, text = 0) ],
