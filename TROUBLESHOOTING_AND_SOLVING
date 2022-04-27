@@ -1,0 +1,15 @@
+
+Q. Why I hear sound after launching e2pc, but the screen is black?
+
+You are using VAAPI with the intel-media driver, which may not work in the Wayland environment. If the command "vainfo" starts the driver only in the $ terminal, but in the # terminal it gives an error, then you need to close the session and after clicking on the password entry window, find the icon in the lower right corner of the screen and select "Ubuntu on xorg".
+Also, some useful programs like "unclutter" don't work in Wayland.
+
+Q. Why the desktop and all windows have the wrong color balance?
+
+After upgrading to Ubuntu 22.04 works on Wayland by default and a lot has been remake for it. In "Ubuntu on xorg" environment wrong color balance is possible.
+To reset the color, go to the "settings menu" -> "color".
+For example, you see a Philips TV monitor. Click on the down arrow button on the screen and then click on "Auto  - Philips TV". "Delete profile" will appear.
+After deleete this, the Philips TV monitor window will display the word "not calibrated". Then, in the # terminal, enter the command
+# systemctl restart gdm3
+and the screen will return to normal color. 
+You can also choose the profile you like from the drop-down list.
