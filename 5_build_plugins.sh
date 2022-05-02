@@ -61,10 +61,10 @@ if [ -d plugins ]; then
 		echo "************************************************************************************"
 		echo ""
 		export CXX=/usr/bin/g++-9
-	elif [[ "$release" = "21.10" ]]; then
+	elif [[ "$release" = "22.04" ]]; then
 		echo ""
 		echo "************************************************************************************"
-		echo "                             *** release 21.10 ***"
+		echo "                             *** release 22.04 ***"
 		echo "                              *** used g++-11 ***"
 		echo "************************************************************************************"
 		echo ""
@@ -109,7 +109,7 @@ if [ -d plugins ]; then
 		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -147,7 +147,7 @@ if [ -d plugins ]; then
 		patch -p1 < $PKG_.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -181,7 +181,7 @@ if [ -d plugins ]; then
 		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -216,7 +216,7 @@ if [ -d plugins ]; then
 			mv $PKG-$VER $PKG
 			cd ../..
 			cp -fv patches/$PKG_-py3.patch plugins/e2openplugin/$PKG
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 			unzip $VER.zip
 			rm $VER.zip
@@ -269,7 +269,7 @@ if [ -d plugins ]; then
 		patch -p1 < $PKG_.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -307,7 +307,7 @@ if [ -d plugins ]; then
 		patch -p1 < $PKG_.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -345,7 +345,7 @@ if [ -d plugins ]; then
 		patch -p1 < $PKG_.patch
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -381,7 +381,7 @@ if [ -d plugins ]; then
 		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -415,7 +415,7 @@ if [ -d plugins ]; then
 		cd $PKG
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -450,7 +450,7 @@ if [ -d plugins ]; then
 		find plugin/locale -name "*.mo" -exec rm {} \;
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -489,7 +489,7 @@ if [ -d plugins ]; then
 		cd src
 		if [ "$release" = "20.04" ]; then
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup.py install
 		else
 			python setup.py install
@@ -538,7 +538,7 @@ if [ -d plugins ]; then
 		if [ "$release" = "20.04" ]; then
 			python2 setup_translate.py
 			python2 setup.py install
-		elif [ "$release" = "21.10" ]; then
+		elif [ "$release" = "22.04" ]; then
 			python2 setup_translate.py
 			python2 setup.py install
 		else
@@ -641,7 +641,7 @@ if [ -d plugins ]; then
 	# Compile other pyc files
 	if [ "$release" = "20.04" ]; then
 		python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
-	elif [ "$release" = "21.10" ]; then
+	elif [ "$release" = "22.04" ]; then
 		python2 -m compileall $INSTALL_E2DIR/lib/enigma2/python
 	else
 		python -m compileall $INSTALL_E2DIR/lib/enigma2/python
@@ -650,7 +650,7 @@ if [ -d plugins ]; then
 	# Force recompile new pyc files
 	#if [ "$release" = "20.04" ]; then
 	#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
-	#elif [ "$release" = "21.10" ]; then
+	#elif [ "$release" = "22.04" ]; then
 	#	python2 -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
 	#else
 	#	python -m compileall -f $INSTALL_E2DIR/lib/enigma2/python

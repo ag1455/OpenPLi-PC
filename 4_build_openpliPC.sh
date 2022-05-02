@@ -137,7 +137,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git reset --hard 9f75ac7e
+git reset --hard 6d61994b
 cd ..
 
 # Copy headers
@@ -151,9 +151,9 @@ fi
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-cp -fv patches/patch-9f75ac7e-to-PC.patch $PKG
+cp -fv patches/patch-6d61994b-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-9f75ac7e-to-PC.patch
+patch -p1 < patch-6d61994b-to-PC.patch
 
 if [ "$release" = "14.04" ]; then
 	echo ""
@@ -198,10 +198,10 @@ elif [ "$release" = "20.04" ]; then
 	cd $PKG
 	patch -p1 < Makefile.am.patch
 	export CXX=/usr/bin/g++-9
-elif [ "$release" = "21.10" ]; then
+elif [ "$release" = "22.04" ]; then
 	echo ""
 	echo "********************************************************"
-	echo "                 *** RELEASE 21.10 ***"
+	echo "                 *** RELEASE 22.04 ***"
 	echo "                  *** USED g++-11 ***"
 	echo "********************************************************"
 	echo ""

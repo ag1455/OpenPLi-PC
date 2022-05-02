@@ -15,10 +15,15 @@ DIR="lirc_build"
 CONF="/etc/lirc"
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-if [[ "$release" = "14.04" ]]; then
-	echo "**** Incompatible! ****"
+dpkg -r liblirc-dev liblirc0 liblircclient-dev lirc lirc-doc lirc-x
+
+if [[ "$release" = "22.04" ]]; then
+	apt install -y dh-exec dh-python doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
+	wget http://ftp.de.debian.org/debian/pool/main/d/debhelper/dh-systemd_13.2.1_all.deb
+	dpkg -i dh-systemd_13.2.1_all.deb
+	rm -f dh-systemd_13.2.1_all.deb
+	dpkg -i pre/lirc/*.deb
 else
-	dpkg -r liblirc-dev liblirc0 liblircclient-dev lirc lirc-doc lirc-x
 	apt install -y dh-exec dh-python dh-systemd doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
 
 	mkdir $DIR
@@ -36,11 +41,8 @@ else
 	patch -p1 < lirc_0.10.1-6.patch
 	if [[ "$release" = "20.04" ]]; then
 		patch -p1 < python38_client_py.patch
-	elif [[ "$release" = "21.10" ]]; then
-		patch -p1 < python38_client_py.patch
 	fi
-	rm -f lirc_0.10.1-6.patch
-	rm -f python38_client_py.patch
+	rm -f *.patch
 	chmod 755 debian/install
 	chmod 755 debian/pbuilder-test
 	chmod 755 debian/lirc-old2new
@@ -62,19 +64,19 @@ else
 	fi
 
 	cd ..
-	cp -rfv pre/lirc /etc
-	cp -fv pre/99-lirc-symlinks.rules /etc/udev/rules.d
+fi
 
-	if [ -f $CONF/lircd.conf.d/devinput.lircd.conf ]; then
-		mv $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
-	fi
-	if [ -f $CONF/irexec.lircrc ]; then
-		mv $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
-	fi
-	if [ -f $CONF/irexec.lircrc ];then
-		rm -f $CONF/irexec.lircrc
-	fi
-	#reboot
+cp -rfv pre/lirc/lircd.conf.d /etc
+cp -rfv pre/lirc/lirc_options.conf.example /etc
+cp -fv pre/99-lirc-symlinks.rules /etc/udev/rules.d
+if [ -f $CONF/lircd.conf.d/devinput.lircd.conf ]; then
+	mv $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
+fi
+if [ -f $CONF/irexec.lircrc ]; then
+	mv $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
+fi
+if [ -f $CONF/irexec.lircrc ];then
+	rm -f $CONF/irexec.lircrc
 fi
 
 systemctl enable lircd.socket
@@ -85,3 +87,5 @@ systemctl mask lircd-uinput.service
 systemctl daemon-reload
 systemctl start lircd
 systemctl restart lircd
+
+#reboot

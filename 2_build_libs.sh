@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and test 21.10 (64-bit) with startup option "Ubuntu on Xorg".
+# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and 22.04 (64-bit) with startup option "Ubuntu on Xorg".
 # Install these packages:
 
 echo ""
@@ -150,18 +150,27 @@ elif [[ "$release" = "20.04" ]]; then
 	dpkg -i *.deb
 	apt-get -f install -y
 	rm -f *.deb
-elif [[ "$release" = "21.10" ]]; then
+elif [[ "$release" = "22.04" ]]; then
 	echo ""
 	echo "************************************************************************************"
-	echo "                             *** release 21.10 ***"
+	echo "                             *** release 22.04 ***"
 	echo "************************************************************************************"
 	echo ""
-	REQPKG="flake8 gcc-11 g++-11 libdca-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libpython2-dev python2-dev libffi7 \
+	REQPKG="flake8 gcc-11 g++-11 libdca-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libpython2-dev python2-dev libffi7 \
 	libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib \
 	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint \
-	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint \
+	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
 	"
+	apt-get -f install -y
+	wget http://neurodebian.ovgu.de/debian/pool/main/d/debhelper/dh-systemd_12.1.1~nd20.04+1_all.deb
+	wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1_amd64.deb
+	dpkg -i dh-systemd_12.1.1~nd20.04+1_all.deb
+	dpkg -i libssl1.1_1.1.1l-1ubuntu1_amd64.deb
+	rm -f *.deb
 	cp -rfv pre/python/* /usr/lib/python2.7 # hack!
+# Unfortunately e2pc doesn't work with wayland
+#	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
+#	rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
 fi
 
 for p in $REQPKG; do

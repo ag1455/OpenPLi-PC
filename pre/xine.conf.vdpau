@@ -30,6 +30,10 @@
 # { auto  null  pulseaudio  alsa  oss  jack  file  none }, default: 0
 audio.driver:alsa
 
+# device used for pulseaudio
+# string, default: 
+#audio.pulseaudio_device:
+
 # a/v sync precision
 # { Normal  Fine }, default: 1
 #audio.synchronization.av_fine_sync:Fine
@@ -59,7 +63,7 @@ audio.synchronization.slow_fast_audio:1
 audio.volume.mixer_volume:100
 
 # используемый видеодрайвер
-# { auto  vdpau  aadxr3  dxr3  xv vaapi opengl2  XDirectFB  DirectFB  raw  opengl  aa  xshm  caca  xxmc  none  fb  xvmc }, default: 0
+# { auto  vdpau  dxr3  aadxr3  xv  vaapi  opengl2  XDirectFB  DirectFB  raw  opengl  xshm  aa  caca  xxmc  none  sdl  fb  xvmc }, default: 0
 video.driver:vdpau
 
 # basic video to audio delay in pts
@@ -116,7 +120,7 @@ video.output.vdpau_honor_progressive:1
 
 # vdpau: restrict enabling video properties for SD video only
 # { none  noise  sharpness  noise+sharpness }, default: 0
-video.output.vdpau_sd_only_properties:noise+sharpness
+#video.output.vdpau_sd_only_properties:none
 
 # vdpau: disable advanced deinterlacers chroma filter
 # bool, default: 0
@@ -124,7 +128,7 @@ video.output.vdpau_sd_only_properties:noise+sharpness
 
 # Choose speed over specification compliance
 # bool, default: 0
-video.processing.ffmpeg_choose_speed_over_accuracy:1
+#video.processing.ffmpeg_choose_speed_over_accuracy:0
 
 # Enable direct rendering
 # bool, default: 1
@@ -172,7 +176,7 @@ engine.performance.memcpy_method:kernel
 
 # allow implicit changes to the configuration (e.g. by MRL)
 # bool, default: 0
-misc.implicit_config:1
+#misc.implicit_config:0
 
 #set ENIGMA_FIFO buffer mode 0=fixed / 1=dynamic, default: 0
 input.buffer.dynamic:1

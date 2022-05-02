@@ -22,9 +22,13 @@
 # bool, default: 0
 #audio.a52.surround_downmix:0
 
-# use A/52 pass through
-# bool, default: 0
-#audio.device.pulseaudio_a52_pass_through:0
+# device used for stereo output
+# string, default: plug:front:default
+audio.device.alsa_front_device:default
+
+# alsa mixer device
+# string, default: PCM
+audio.device.alsa_mixer_name:Master
 
 # используемый аудиодрайвер
 # { auto  null  pulseaudio  alsa  oss  jack  file  none }, default: 0
@@ -52,14 +56,14 @@ audio.driver:alsa
 
 # play audio even on slow/fast speeds
 # bool, default: 0
-audio.synchronization.slow_fast_audio:1
+#audio.synchronization.slow_fast_audio:0
 
 # startup audio volume
 # [0..100], default: 50
-#audio.volume.mixer_volume:100
+#audio.volume.mixer_volume:50
 
 # используемый видеодрайвер
-# { auto  vdpau  aadxr3  dxr3  xv  vaapi  opengl2  XDirectFB  DirectFB  raw  opengl  xshm  caca  aa  xxmc  none  sdl  fb  xvmc }, default: 0
+# { auto  vdpau  aadxr3  dxr3  xv  vaapi  opengl2  XDirectFB  DirectFB  raw  opengl  xshm  aa  caca  xxmc  none  sdl  fb  xvmc }, default: 0
 video.driver:vaapi
 
 # basic video to audio delay in pts
@@ -68,27 +72,27 @@ video.driver:vaapi
 
 # Output colour matrix
 # { Signal  Signal+Size  SD  HD }, default: 1
-#video.output.color_matrix:Signal+Size
+video.output.color_matrix:Signal
 
 # Output colour range
 # { Auto  MPEG  FULL }, default: 0
-#video.output.color_range:Auto
+video.output.color_range:MPEG
 
 # disable all video scaling
 # bool, default: 0
-#video.output.disable_scaling:1
+#video.output.disable_scaling:0
 
 # treat screen pixels as exactly square
 # bool, default: 0
-#video.output.square_pixels:1
+#video.output.square_pixels:0
 
 # Brightness setting
 # [-100..100], default: 0
 #video.output.vaapi_brightness:0
 
 # Contrast setting
-# [-100..100], default: 0
-#video.output.vaapi_contrast:0
+# [0..100], default: 50
+#video.output.vaapi_contrast:50
 
 # VAAPI colour conversion method
 # { user_matrix  simple  simple+2  simple+3 }, default: 3
@@ -98,20 +102,20 @@ video.driver:vaapi
 # numeric, default: 0
 video.output.vaapi_deinterlace:2
 
-# vaapi: enigma osd height workaround.
+# vaapi: ENIGMA osd height workaround.
 # numeric, default: 0
-video.output.vaapi_enigma_osd_height:0
+#video.output.vaapi_enigma_osd_height:0
 
-# vaapi: enigma osd width workaround.
+# vaapi: ENIGMA osd width workaround.
 # numeric, default: 0
-video.output.vaapi_enigma_osd_width:0
+#video.output.vaapi_enigma_osd_width:0
 
 # vaapi: set vaapi_guarded_render to 0 ( no ) 1 ( yes )
 # numeric, default: 1
-#video.output.vaapi_guarded_render:1
+video.output.vaapi_guarded_render:1
 
 # Hue setting
-# [-100..100], default: 0
+# [-180..180], default: 0
 #video.output.vaapi_hue:0
 
 # vaapi: opengl output rendering
@@ -123,8 +127,8 @@ video.output.vaapi_enigma_osd_width:0
 #video.output.vaapi_opengl_use_tfp:0
 
 # Saturation setting
-# [-100..100], default: 0
-#video.output.vaapi_saturation:0
+# [0..100], default: 50
+#video.output.vaapi_saturation:50
 
 # vaapi: set scaling level to : default (default) fast (fast) hq (HQ) nla (anamorphic)
 # { default  fast  hq  nla }, default: 0
@@ -136,7 +140,7 @@ video.output.vaapi_scaling_level:nla
 
 # Choose speed over specification compliance
 # bool, default: 0
-video.processing.ffmpeg_choose_speed_over_accuracy:1
+#video.processing.ffmpeg_choose_speed_over_accuracy:0
 
 # Enable direct rendering
 # bool, default: 1
@@ -156,7 +160,7 @@ video.processing.ffmpeg_enable_vaapi:1
 
 # FFmpeg video decoding thread count
 # numeric, default: 1
-video.processing.ffmpeg_thread_count:2
+video.processing.ffmpeg_thread_count:4
 
 # VAAPI Mpeg2 softdecoding
 # bool, default: 0
@@ -171,8 +175,8 @@ engine.buffers.audio_num_buffers:700
 engine.buffers.video_num_buffers:800
 
 # default number of video frames
-# numeric, default: 50
-engine.buffers.video_num_frames:50
+# numeric, default: 22
+engine.buffers.video_num_frames:22
 
 # disable decoder flush at discontinuity
 # bool, default: 0
@@ -184,7 +188,7 @@ engine.buffers.video_num_frames:50
 
 # memcopy method used by xine
 # { probe  libc  kernel  mmx  mmxext  sse  avx }, default: 0
-engine.performance.memcpy_method:libc
+engine.performance.memcpy_method:kernel
 
 # Sync multiple clocks in a separate thread
 # bool, default: 0
@@ -192,7 +196,7 @@ engine.performance.memcpy_method:libc
 
 # allow implicit changes to the configuration (e.g. by MRL)
 # bool, default: 0
-misc.implicit_config:1
+#misc.implicit_config:0
 
 #set ENIGMA_FIFO buffer mode 0=fixed / 1=dynamic, default: 0
 input.buffer.dynamic:1
