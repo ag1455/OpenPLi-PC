@@ -26,7 +26,7 @@ def EPGSelectionInit():
 
 
 def EPGSearchSelection__init__(self, session, service, zapFunc=None, eventid=None, bouquetChangeCB=None, serviceChangeCB=None, parent=None):
-	baseEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB, parent)
+	baseEPGSelection__init__(self, session, service, zapFunc, eventid, bouquetChangeCB, serviceChangeCB)
 	if self.type != EPG_TYPE_MULTI and config.plugins.epgsearch.add_search_to_epg.value:
 		def bluePressed():
 			if config.plugins.epgsearch.type_button_blue.value == "0":

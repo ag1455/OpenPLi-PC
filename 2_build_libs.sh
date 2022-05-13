@@ -1,7 +1,14 @@
 #!/bin/bash
 
 # To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and 22.04 (64-bit) with startup option "Ubuntu on Xorg".
-# Install these packages:
+
+# Hack for 22.04!
+if [ ! -d /usr/share/pyshared ]; then
+	cp -rfv pre/pyshared /usr/share
+fi
+if [ ! -f /usr/lib/python3/dist-packages/lsb_release.py ]; then
+	ln -s /usr/share/pyshared/lsb_release.py /usr/lib/python3/dist-packages/lsb_release.py
+fi
 
 echo ""
 echo "                       *** INSTALL REQUIRED PACKAGES ***"
@@ -156,18 +163,17 @@ elif [[ "$release" = "22.04" ]]; then
 	echo "                             *** release 22.04 ***"
 	echo "************************************************************************************"
 	echo ""
-	REQPKG="flake8 gcc-11 g++-11 libdca-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libpython2-dev python2-dev libffi7 \
-	libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect python3-restructuredtext-lint python3-ntplib \
-	python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint \
-	sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
+	REQPKG="flake8 gcc-11 g++-11 libdca-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 python2-minimal libpython2-dev \
+	libpython2-stdlib python2 python2-dev libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect \
+	python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty \
+	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
 	"
 	apt-get -f install -y
-	wget http://neurodebian.ovgu.de/debian/pool/main/d/debhelper/dh-systemd_12.1.1~nd20.04+1_all.deb
+	wget http://ftp.de.debian.org/debian/pool/main/d/debhelper/dh-systemd_13.2.1_all.deb
 	wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1_amd64.deb
-	dpkg -i dh-systemd_12.1.1~nd20.04+1_all.deb
+	dpkg -i dh-systemd_13.2.1_all.deb
 	dpkg -i libssl1.1_1.1.1l-1ubuntu1_amd64.deb
 	rm -f *.deb
-	cp -rfv pre/python/* /usr/lib/python2.7 # hack!
 # Unfortunately e2pc doesn't work with wayland
 #	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
 #	rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
@@ -226,10 +232,11 @@ mv $PKG*.* $PKG
 cd $PKG
 dpkg -i *.deb
 rm -f *.tar.xz
+make distclean
 cd ..
 
 # Build and install libxmlccwrap-git:
-if [ ! -f libdvbsi++/*.deb ]; then
+if [ ! -f libdvbsi++/libdvbsi++1_0.3.9_amd64.deb ]; then
 	set -e
 	set -o pipefail
 else
@@ -258,11 +265,12 @@ else
 	cd $PKG
 	dpkg -i *.deb
 	rm -f *.tar.gz
+	make distclean
 	cd ..
 fi
 
 # Build and install libdvbcsa-git:
-if [ ! -f libxmlccwrap/*.deb ]; then
+if [ ! -f libxmlccwrap/libxmlccwrap_0.0.12-1_amd64.deb ]; then
 	set -e
 	set -o pipefail
 else
@@ -296,6 +304,7 @@ else
 	./configure --prefix=/usr --enable-sse2
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
@@ -342,6 +351,7 @@ else
 	./configure --prefix=/usr --with-boxtype=generic DVB_API_VERSION=5
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
@@ -364,6 +374,7 @@ else
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
 	rm -f *.tgz
+	make distclean
 	cd ../..
 fi
 
@@ -398,6 +409,7 @@ else
 	./configure --prefix=/usr
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
@@ -426,8 +438,7 @@ else
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
-	cd $PKG
-	cd ../..
+	cd ..
 	cp -v patches/$PKG_-1.0.patch libs/$PKG
 	cd libs/$PKG
 	patch -p1 < $PKG_-1.0.patch
@@ -439,6 +450,7 @@ else
 	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
 	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
@@ -487,11 +499,12 @@ else
 		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
 	fi
 	rm -f *.tgz
+	make distclean
 	cd ..
 fi
 
 # Copying python2.7 files:
-if [ ! -f gst-plugin-subsink/*.deb ]; then
+if [ ! -f gst-plugin-subsink/libgstreamer-plugins-subsink_1.0-1_amd64.deb ]; then
 	set -e
 	set -o pipefail
 	# Message if error at any point of script
@@ -502,6 +515,11 @@ if [ ! -f gst-plugin-subsink/*.deb ]; then
 	echo ""
 else
 	cd ..
+	if [[ "$release" = "22.04" ]]; then
+		cp -rfv pre/python/* /usr/lib/python2.7 # hack!
+		echo ""
+		echo "************************************ DONE! *****************************************"
+	else
 	cp -rfv pre/python/dist-packages/pythonwifi /usr/lib/python2.7/dist-packages
 	cp -fv pre/python/dist-packages/python_wifi-0.5.0.egg-info /usr/lib/python2.7/dist-packages
 	cp -rfv pre/python/dist-packages/twistedsnmp /usr/lib/python2.7/dist-packages
@@ -512,4 +530,5 @@ else
 	cp -rfv pre/python/dist-packages/Js2Py-0.50.egg-info /usr/lib/python2.7/dist-packages
 	echo ""
 	echo "************************************ DONE! *****************************************"
+	fi
 fi
