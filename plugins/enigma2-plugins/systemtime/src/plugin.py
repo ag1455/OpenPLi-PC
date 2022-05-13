@@ -165,7 +165,7 @@ class SystemTimeSetupScreen(Screen, ConfigListScreen):
 			list.append(self.cfg_ip)
 		list.append(self.cfg_syncNTPtime)
 		list.append(self.cfg_syncManually)
-		if fileExists("/proc/stb/fp/rtc"):
+		if fileExists("/usr/local/e2/etc/fp/rtc"):
 			list.append(self.cfg_useRTCstart)
 		self["config"].list = list
 		self["config"].l.setList(list)
