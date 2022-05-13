@@ -1,1 +1,0 @@
-../../../../share/pyshared/mechanize/_msiecookiejar.py

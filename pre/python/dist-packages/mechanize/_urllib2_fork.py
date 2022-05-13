@@ -1,1 +1,0 @@
-../../../../share/pyshared/mechanize/_urllib2_fork.py
