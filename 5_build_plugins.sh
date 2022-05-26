@@ -376,14 +376,16 @@ if [ -d plugins ]; then
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
-		rpl "Foreca - прогноз погоды" "'Foreca' - Прогноз погоды" $PKG/plugin/locale/ru/LC_MESSAGES/Foreca.po
-		rpl '\x1b' 'KEY_ESC' $PKG/plugin/keymap.xml
 		cd $PKG
+		rpl "Foreca - прогноз погоды" "'Foreca' - Прогноз погоды" plugin/locale/ru/LC_MESSAGES/Foreca.po
 		if [ "$release" = "20.04" ]; then
+			rpl "\x1b" "KEY_ESC" plugin/keymap.xml
 			python2 setup.py install
 		elif [ "$release" = "22.04" ]; then
+			rpl -F "\x1b" "KEY_ESC" plugin/keymap.xml
 			python2 setup.py install
 		else
+			rpl "\x1b" "KEY_ESC" plugin/keymap.xml
 			python setup.py install
 		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
@@ -517,7 +519,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="8c58a4817dfc2d0fdf3305f143d755aefdad3d70"
+		VER="c81ec91a33b8122b1dc893fb195ffd02fca0ebc3"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
