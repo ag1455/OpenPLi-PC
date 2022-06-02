@@ -2602,8 +2602,8 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	</screen>
 
 	<!-- Audio selection -->
-	<screen name="AudioSelection" position="center,315" size="727,495" title="Audio">
-		<widget name="config" position="75,15" size="637,165" itemHeight="38" font="Regular;32" scrollbarMode="showOnDemand"/>
+	<screen name="AudioSelection" position="center,315" size="920,495" title="Audio">
+		<widget name="config" position="75,15" size="840,165" itemHeight="38" font="Regular;32" scrollbarMode="showOnDemand"/>
 		<widget source="key_red" render="Pixmap" pixmap="buttons/key_red.png" position="15,15" size="53,38" alphatest="blend">
 			<convert type="ConditionalShowHide"/>
 		</widget>
@@ -2616,8 +2616,8 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 		<widget source="key_blue" render="Pixmap" pixmap="buttons/key_blue.png" position="15,127" size="53,38" alphatest="blend">
 			<convert type="ConditionalShowHide"/>
 		</widget>
-		<eLabel position="15,168" size="697,3" backgroundColor="#00555555" zPosition="1"/>
-		<widget source="streams" render="Listbox" scrollbarMode="showOnDemand" position="15,180" size="697,300" zPosition="3" transparent="1">
+		<eLabel position="15,168" size="890,3" backgroundColor="#00555555" zPosition="1"/>
+		<widget source="streams" render="Listbox" scrollbarMode="showOnDemand" position="15,180" size="890,300" zPosition="3" transparent="1">
 			<convert type="TemplatedMultiContent">
 				{ "templates":
 				{ "default": (37, [

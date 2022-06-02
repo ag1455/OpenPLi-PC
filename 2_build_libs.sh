@@ -143,7 +143,6 @@ elif [[ "$release" = "20.04" ]]; then
 	http://ftp.br.debian.org/debian/pool/main/p/python-langdetect/python-langdetect_1.0.7-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/pickleshare/python-pickleshare_0.7.5-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-sabyenc/python-sabyenc_3.3.5-1_amd64.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-restructuredtext-lint/python-restructuredtext-lint_0.12.2-2_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/r/requests/python-requests_2.21.0-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/pyjwt/python-jwt_1.7.0-2_all.deb \
