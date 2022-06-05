@@ -3529,6 +3529,15 @@ diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
  		}
  		num_adapter++;
  	}
+@@ -676,7 +683,7 @@
+ 
+ void eDVBResourceManager::setUsbTuner()
+ {
+-	std::ifstream in("/proc/bus/nim_sockets");
++	std::ifstream in("/usr/local/e2/etc/tuxbox/nim_sockets");
+ 	std::string line;
+ 
+ 	int res = -1;
 @@ -1606,6 +1613,22 @@
  	return false;
  }

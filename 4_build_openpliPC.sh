@@ -377,6 +377,12 @@ if [ -d /lib/i386-linux-gnu ]; then
 	fi
 fi
 
+# Temporary until next version
+if [ -d $INSTALL_E2DIR/etc/fp ]; then
+	rm -rf $INSTALL_E2DIR/etc/fp
+	rm -rf $INSTALL_E2DIR/etc/power
+fi
+
 # Copy files
 cp -rfv pre/enigma2 $INSTALL_E2DIR/etc
 cp -rfv pre/stub/* $INSTALL_E2DIR/etc
