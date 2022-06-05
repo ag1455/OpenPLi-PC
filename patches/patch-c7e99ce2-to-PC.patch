@@ -6854,7 +6854,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  
  		if not cpu_speed:
  			try:
-@@ -123,15 +131,15 @@
+@@ -123,17 +131,8 @@
  
  		temperature = None
  		freq = _("MHz")
@@ -6865,20 +6865,16 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 -		elif os.path.isfile('/proc/stb/fp/temp_sensor'):
 -			temperature = open("/proc/stb/fp/temp_sensor").readline().replace('\n', '')
 -		elif os.path.isfile("/sys/devices/virtual/thermal/thermal_zone0/temp"):
-+		if os.path.isfile('/usr/local/e2/etc/fp/temp_sensor_avs'):
-+			temperature = open("/usr/local/e2/etc/fp/temp_sensor_avs").readline().replace('\n', '')
-+		elif os.path.isfile('/usr/local/e2/etc/power/avs'):
-+			temperature = open("/usr/local/e2/etc/power/avs").readline().replace('\n', '')
-+		elif os.path.isfile('/usr/local/e2/etc/fp/temp_sensor'):
-+			temperature = open("/usr/local/e2/etc/fp/temp_sensor").readline().replace('\n', '')
-+		elif os.path.isfile("/sys/devices/virtual/thermal/thermal_zone1/temp"):
- 			try:
+-			try:
 -				temperature = int(open("/sys/devices/virtual/thermal/thermal_zone0/temp").read().strip()) / 1000
+-			except:
+-				pass
++		if os.path.isfile("/sys/devices/virtual/thermal/thermal_zone1/temp"):
 +				temperature = int(open("/sys/devices/virtual/thermal/thermal_zone1/temp").read().strip()) / 1000
- 			except:
- 				pass
  		elif os.path.isfile("/proc/hisi/msp/pm_cpu"):
-@@ -150,14 +158,14 @@
+ 			try:
+ 				temperature = re.search('temperature = (\d+) degree', open("/proc/hisi/msp/pm_cpu").read()).group(1)
+@@ -150,14 +149,14 @@
  	try:
  		from glob import glob
  		try:
