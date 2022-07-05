@@ -201,7 +201,7 @@ if [ -d plugins ]; then
 		echo ""
 		PKG="e2openplugin-OpenWebif"
 		PKG_="OpenWebif"
-		VER="b238b3770b90f49ba076987f66a4f042eb4b318e"
+		VER="3bbc28e92b8b3b8fccceb1ff5648d1435d890de8"
 		VER1="7f53c0efcc7ebf5c79efa34d525721d9d195b597"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
@@ -252,7 +252,7 @@ if [ -d plugins ]; then
 		echo ""
 		PKG="e2openplugin-SetPicon"
 		PKG_="SetPicon"
-		VER="ef33e2657203fcb8039afbc2a49b9b059db0c5ee"
+		VER="4703f27cb67cb858e9ecdc14df4e31e42a9e7308"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -473,7 +473,7 @@ if [ -d plugins ]; then
 		echo ""
 		PKG="enigma2-plugin-extensions-epgimport"
 		PKG_="EPGImport"
-		VER="0f638f2b8d6a0c59895a4f5f772aebd81a8376f3"
+		VER="a82a48233dad402a7e5ed69edfa2720a793f3dcd"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -519,7 +519,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="d43c526b5ea98583aaaa6dd810a10f0700502c9b"
+		VER="3a026b0a1974f751a08da94a0d7e6c35090366d2"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi

@@ -2,7 +2,7 @@
 #  CamdInfo3 - Converter
 # <widget source="session.CurrentService" render="Label" position="189,397" zPosition="4" size="350,20" noWrap="1" valign="center" halign="center" font="Regular;14" foregroundColor="clText" transparent="1"  backgroundColor="#20002450">
 #	<convert type="CamdInfo">Camd</convert>
-# </widget>			
+# </widget>
 
 from enigma import iServiceInformation
 from Components.Converter.Converter import Converter
@@ -46,7 +46,7 @@ class CamdInfo3(Poll, Converter, object):
 				if line.find("config.plugins.emuman.cam") > -1:
 					return line.split("=")[-1].strip('\n')
 		#PKT
-		elif fileExists("//usr/lib/enigma2/python/Plugins/Extensions/PKT/plugin.pyo"):
+		elif fileExists("//usr/lib/enigma2/python/Plugins/Extensions/PKT/plugin.pyc"):
 			for line in open("/etc/enigma2/settings"):
 				if line.find("config.plugins.emuman.cam=") > -1:
 					return line.split("=")[-1].strip('\n')

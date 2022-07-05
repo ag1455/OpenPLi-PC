@@ -1,6 +1,6 @@
-diff -ruN a/src/EPGImport/EPGConfig.py b/src/EPGImport/EPGConfig.py
---- o/src/EPGImport/EPGConfig.py	2021-05-02 15:16:54.000000000 +0300
-+++ pc/src/EPGImport/EPGConfig.py	2021-05-06 14:22:32.746207137 +0300
+diff -ruN o/src/EPGImport/EPGConfig.py pc/src/EPGImport/EPGConfig.py
+--- o/src/EPGImport/EPGConfig.py	2022-07-04 14:26:42.605294657 +0300
++++ pc/src/EPGImport/EPGConfig.py	2022-07-04 14:27:25.709676832 +0300
 @@ -14,7 +14,7 @@
  from . import log
  
@@ -29,8 +29,8 @@ diff -ruN a/src/EPGImport/EPGConfig.py b/src/EPGImport/EPGConfig.py
  		# and we don't have multiple download from server problem since it is always a local file.
  		if os.path.exists(customFile):
 diff -ruN o/src/EPGImport/epgdat_importer.py pc/src/EPGImport/epgdat_importer.py
---- o/src/EPGImport/epgdat_importer.py	2021-05-02 15:16:54.000000000 +0300
-+++ pc/src/EPGImport/epgdat_importer.py	2021-05-06 14:23:45.799196196 +0300
+--- o/src/EPGImport/epgdat_importer.py	2022-07-04 14:26:42.605294657 +0300
++++ pc/src/EPGImport/epgdat_importer.py	2022-07-04 14:27:25.713676868 +0300
 @@ -11,7 +11,7 @@
  	settingspath = '.'
  else:
@@ -41,8 +41,8 @@ diff -ruN o/src/EPGImport/epgdat_importer.py pc/src/EPGImport/epgdat_importer.py
  
  class epgdatclass:
 diff -ruN o/src/EPGImport/epgdat.py pc/src/EPGImport/epgdat.py
---- o/src/EPGImport/epgdat.py	2021-05-02 15:16:54.000000000 +0300
-+++ pc/src/EPGImport/epgdat.py	2021-05-06 14:24:00.775401933 +0300
+--- o/src/EPGImport/epgdat.py	2022-07-04 14:26:42.605294657 +0300
++++ pc/src/EPGImport/epgdat.py	2022-07-04 14:27:25.713676868 +0300
 @@ -115,7 +115,7 @@
  class epgdat_class:
  	# temp files used for EPG.DAT creation
@@ -53,9 +53,9 @@ diff -ruN o/src/EPGImport/epgdat.py pc/src/EPGImport/epgdat.py
  	EPGDAT_FILENAME = 'epgtest.dat'
  	EPGDAT_TMP_FILENAME = 'epgdat.tmp'
 diff -ruN o/src/EPGImport/EPGImport.py pc/src/EPGImport/EPGImport.py
---- o/src/EPGImport/EPGImport.py	2021-05-02 15:16:54.000000000 +0300
-+++ pc/src/EPGImport/EPGImport.py	2021-05-06 14:18:22.799740284 +0300
-@@ -27,7 +27,7 @@
+--- o/src/EPGImport/EPGImport.py	2022-07-04 14:26:42.605294657 +0300
++++ pc/src/EPGImport/EPGImport.py	2022-07-04 14:27:25.713676868 +0300
+@@ -28,7 +28,7 @@
  
  from . import log
  
@@ -65,8 +65,8 @@ diff -ruN o/src/EPGImport/EPGImport.py pc/src/EPGImport/EPGImport.py
  
  class SNIFactory(ssl.ClientContextFactory):
 diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
---- o/src/EPGImport/filtersServices.py	2021-05-02 15:16:54.000000000 +0300
-+++ pc/src/EPGImport/filtersServices.py	2021-05-06 14:18:22.799740284 +0300
+--- o/src/EPGImport/filtersServices.py	2022-07-04 14:26:42.605294657 +0300
++++ pc/src/EPGImport/filtersServices.py	2022-07-04 14:27:25.713676868 +0300
 @@ -67,8 +67,8 @@
  
  	def saveTo(self, filename):
@@ -97,8 +97,8 @@ diff -ruN o/src/EPGImport/filtersServices.py pc/src/EPGImport/filtersServices.py
  	def addService(self, ref):
  		if isinstance(ref, str):
 diff -ruN o/src/EPGImport/locale/ru.po pc/src/EPGImport/locale/ru.po
---- o/src/EPGImport/locale/ru.po	2021-05-02 15:16:54.000000000 +0300
-+++ pc/src/EPGImport/locale/ru.po	2021-05-06 14:18:22.799740284 +0300
+--- o/src/EPGImport/locale/ru.po	2022-07-04 14:26:42.605294657 +0300
++++ pc/src/EPGImport/locale/ru.po	2022-07-04 14:27:25.713676868 +0300
 @@ -223,7 +223,7 @@
  
  #: ../plugin.py:318
@@ -109,8 +109,8 @@ diff -ruN o/src/EPGImport/locale/ru.po pc/src/EPGImport/locale/ru.po
  #: ../plugin.py:89
  msgid "Monday"
 diff -ruN o/src/EPGImport/plugin.py pc/src/EPGImport/plugin.py
---- o/src/EPGImport/plugin.py	2021-05-02 15:16:54.000000000 +0300
-+++ pc/src/EPGImport/plugin.py	2021-05-06 14:18:22.799740284 +0300
+--- o/src/EPGImport/plugin.py	2022-07-04 14:26:42.609294692 +0300
++++ pc/src/EPGImport/plugin.py	2022-07-04 14:27:25.713676868 +0300
 @@ -94,7 +94,7 @@
  	]
  

@@ -241,15 +241,3 @@ diff -ruN o/plugin/locale/ru/LC_MESSAGES/SetPicon.po pc/plugin/locale/ru/LC_MESS
  
  msgid "Are You sure delete picon?\n%s"
  msgstr "Вы уверены, что хотите удалить пикон?\n%s"
-diff -ruN o/plugin/ui.py pc/plugin/ui.py
---- o/plugin/ui.py	2021-04-14 16:42:49.000000000 +0300
-+++ pc/plugin/ui.py	2021-05-06 13:30:14.005555880 +0300
-@@ -990,7 +990,7 @@
- 			"blue": self.bothAsInputDir
- 		}, -2)
- 
--		self.inhibitDirs = ["/autofs", "/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/tmp", "/usr"]
-+		self.inhibitDirs = ["/autofs", "/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys"]
- 
- 		self.onChangedEntry = []
- 		self.refreshMenu()
