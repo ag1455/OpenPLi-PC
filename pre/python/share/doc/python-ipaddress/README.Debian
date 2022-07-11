@@ -1,0 +1,21 @@
+python-ipaddress vs. python-ipaddr
+==================================
+python-ipaddress contains a backport of the Python 3 stdlib module "ipaddress",
+which is in turn based on the "ipaddr" module which is packaged in
+python-ipaddr (the Python 3 variant is not provided).
+
+The modules share very similar APIs, with two important differences:
+
+1) ipaddr provides ipaddr.IPAddress and ipaddr.IPNetwork while ipaddress
+   provides these under the names ipaddress.ip_address and
+   ipaddress.ip_network.
+
+2) ipaddr expects bytes objects (eg. b'127.0.0.1') for unpacked addresses,
+   ipaddr.Bytes objects (eg. ipaddr.Bytes(b'\x7f\x00\x00\x01')) for packed
+   addresses, and does not expect unicode objects at all (so these will be
+   implicitly decoded by Python).
+
+   ipaddress expects unicode objects (eg. u'127.0.0.1') for unpacked addresses,
+   and bytes objects (eg. b'\x7f\x00\x00\x01') for packed addresses.
+
+ -- Tristan Seligmann <mithrandi@debian.org>  Wed, 10 Jun 2015 05:35:52 +0200

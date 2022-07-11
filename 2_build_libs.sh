@@ -2,10 +2,11 @@
 
 # To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and 22.04 (64-bit) with startup option "Ubuntu on Xorg".
 
-# Hack for 22.04!
-if [ ! -d /usr/share/pyshared ]; then
-	cp -rfv pre/pyshared /usr/share
-fi
+# Be sure that the version of Ubuntu is determined
+#if [ ! -d /usr/share/pyshared ]; then
+#	cp -rfv pre/pyshared /usr/share
+#fi
+
 if [ ! -f /usr/lib/python3/dist-packages/lsb_release.py ]; then
 	ln -s /usr/share/pyshared/lsb_release.py /usr/lib/python3/dist-packages/lsb_release.py
 fi
@@ -139,7 +140,7 @@ elif [[ "$release" = "20.04" ]]; then
 	http://ftp.br.debian.org/debian/pool/main/p/pysendfile/python-sendfile_2.0.1-2_amd64.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-lzma/python-lzma_0.5.3-4_amd64.deb \
 	http://ftp.br.debian.org/debian/pool/main/b/blessings/python-blessings_1.6-2_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/p/python-mechanize/python-mechanize_0.2.5-3_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-mechanize/python-mechanize_0.2.5-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-langdetect/python-langdetect_1.0.7-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/pickleshare/python-pickleshare_0.7.5-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-sabyenc/python-sabyenc_3.3.5-1_amd64.deb \
@@ -168,9 +169,7 @@ elif [[ "$release" = "22.04" ]]; then
 	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
 	"
 	apt-get -f install -y
-	wget http://ftp.de.debian.org/debian/pool/main/d/debhelper/dh-systemd_13.2.1_all.deb
 	wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1_amd64.deb
-	dpkg -i dh-systemd_13.2.1_all.deb
 	dpkg -i libssl1.1_1.1.1l-1ubuntu1_amd64.deb
 	rm -f *.deb
 # Unfortunately e2pc doesn't work with wayland
@@ -191,8 +190,8 @@ done
 
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
+BUILD_DIR="libs"
 
-rm -rfv /usr/local/lib/python2.7
 cp -fv pre/dvb/* $INCLUDE
 cp -fv pre/dvb/* $HEADERS
 
@@ -201,7 +200,6 @@ wget https://github.com/crazycat69/media_build/releases/download/latest/dvb-firm
 tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
 rm -f dvb-firmwares.tar.bz2
 
-BUILD_DIR="libs"
 if [ -d $BUILD_DIR ]; then
 	rm -rfv $BUILD_DIR
 fi
@@ -217,7 +215,7 @@ echo "                    *** Build and install $PKG ***"
 echo ""
 I=`dpkg -s $LIB | grep "Status"`
 if [ -n "$I" ]; then
-	dpkg -r $PKG1 $PKG-dev
+	dpkg -r $PKG $PKG-dev
 else
 	echo "$LIB not installed"
 fi
@@ -242,10 +240,9 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
-	PKG="libxmlccwrap"
-	echo ""
 	echo "                     *** Build and install $PKG ***"
 	echo ""
+	PKG="libxmlccwrap"
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r $PKG $PKG-dev
@@ -276,12 +273,11 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
+	echo "                       *** Build and install $PKG ***"
+	echo ""
 	PKG="libdvbcsa"
 	PKG1="libdvbcsa1"
 	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
-	echo ""
-	echo "                       *** Build and install $PKG ***"
-	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r $PKG $PKG-dev tsdecrypt
@@ -315,14 +311,13 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
+	echo "                       *** Build and install $PKG ***"
+	echo ""
 	INSTALL_E2DIR="/usr/local/e2"
 	SOURCE="tuxtxt-git"
 	PKG="libtuxtxt"
 	PKG_="tuxtxt"
 	VER="1402795d660955757d87967b8ff1e3790625f9c1"
-	echo ""
-	echo "                       *** Build and install $PKG ***"
-	echo ""
 	if [ ! -d $INSTALL_E2DIR ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 	fi
@@ -330,8 +325,9 @@ else
 		dpkg -r $PKG $PKG_
 		rm -rf $SOURCE
 	fi
-	if [ ! -d $INSTALL_LIB/lib/enigma2 ]; then
-		ln -s $INSTALL_E2DIR/lib/enigma2 $INSTALL_LIB/lib/enigma2
+	if [ ! -d $INSTALL_E2DIR/lib/enigma2 ]; then
+		mkdir -p $INSTALL_E2DIR/lib/enigma2
+		ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
 	fi
 	wget https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
@@ -362,10 +358,9 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
-	PKG="tuxtxt"
-	echo ""
 	echo "                        *** Build and install $PKG ***"
 	echo ""
+	PKG="tuxtxt"
 	cd $PKG
 #	autoupdate
 	autoreconf -i
@@ -385,11 +380,10 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
-	PKG="aio-grab"
-	VER="cf62da47eedb6afe4c44949253ef0b876deb2105"
-	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
+	PKG="aio-grab"
+	VER="cf62da47eedb6afe4c44949253ef0b876deb2105"
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r $PKG
@@ -420,13 +414,12 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
+	echo "                 *** Build and install $PKG ***"
+	echo ""
 	LIB="libgstreamer-plugins-dvbmediasink"
 	PKG="gst-plugin-dvbmediasink"
 	PKG_="dvbmediasink"
 	VER="1d197313832d39fdaf430634f62ad95a33029db0"
-	echo ""
-	echo "                 *** Build and install $PKG ***"
-	echo ""
 	I=`dpkg -s $LIB | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r $LIB
@@ -461,12 +454,11 @@ else
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
+	echo "                    *** Build and install $PKG ***"
+	echo ""
 	LIB="libgstreamer-plugins-subsink"
 	PKG="gst-plugin-subsink"
 	VER="2c4288bb29e0781f27aecc25c941b6e441630f8d"
-	echo ""
-	echo "                    *** Build and install $PKG ***"
-	echo ""
 	I=`dpkg -s $LIB | grep "Status"`
 	if [ -n "$I" ]; then
 		dpkg -r $LIB
@@ -502,11 +494,10 @@ else
 	cd ..
 fi
 
-# Copying python2.7 files:
+# Message if error at any point of script
 if [ ! -f gst-plugin-subsink/libgstreamer-plugins-subsink_1.0-1_amd64.deb ]; then
 	set -e
 	set -o pipefail
-	# Message if error at any point of script
 	echo ""
 	echo "          *** Forced stop script execution. It maybe сompilation error, ***"
 	echo "           *** lost Internet connection or the server not responding. ***"
@@ -515,19 +506,17 @@ if [ ! -f gst-plugin-subsink/libgstreamer-plugins-subsink_1.0-1_amd64.deb ]; the
 else
 	cd ..
 	if [[ "$release" = "22.04" ]]; then
-		cp -rfv pre/python/* /usr/lib/python2.7 # hack!
-		echo ""
-		echo "************************************ DONE! *****************************************"
+		cp -rfv pre/python/* /usr # hack!
 	else
-	cp -rfv pre/python/dist-packages/pythonwifi /usr/lib/python2.7/dist-packages
-	cp -fv pre/python/dist-packages/python_wifi-0.5.0.egg-info /usr/lib/python2.7/dist-packages
-	cp -rfv pre/python/dist-packages/twistedsnmp /usr/lib/python2.7/dist-packages
-	cp -fv pre/python/dist-packages/TwistedSNMP-0.3.13.egg-info /usr/lib/python2.7/dist-packages
-	cp -rfv pre/python/dist-packages/pysnmp /usr/lib/python2.7/dist-packages
-	cp -fv pre/python/dist-packages/pysnmp_se-3.5.2.egg-info /usr/lib/python2.7/dist-packages
-	cp -rfv pre/python/dist-packages/js2py /usr/lib/python2.7/dist-packages
-	cp -rfv pre/python/dist-packages/Js2Py-0.50.egg-info /usr/lib/python2.7/dist-packages
+		cp -rfv pre/python/lib/python2.7/dist-packages/pythonwifi /usr/lib/python2.7/dist-packages
+		cp -fv pre/python/lib/python2.7/dist-packages/python_wifi-0.6.1.egg-info /usr/lib/python2.7/dist-packages
+		cp -rfv pre/python/lib/python2.7/dist-packages/twistedsnmp /usr/lib/python2.7/dist-packages
+		cp -fv pre/python/lib/python2.7/dist-packages/TwistedSNMP-0.3.13.egg-info /usr/lib/python2.7/dist-packages
+		cp -rfv pre/python/lib/python2.7/dist-packages/pysnmp /usr/lib/python2.7/dist-packages
+		cp -fv pre/python/lib/python2.7/dist-packages/pysnmp_se-3.5.2.egg-info /usr/lib/python2.7/dist-packages
+		cp -rfv pre/python/lib/python2.7/dist-packages/js2py /usr/lib/python2.7/dist-packages
+		cp -rfv pre/python/lib/python2.7/dist-packages/Js2Py-0.50.egg-info /usr/lib/python2.7/dist-packages
+	fi
 	echo ""
 	echo "************************************ DONE! *****************************************"
-	fi
 fi
