@@ -201,7 +201,7 @@ if [ -d plugins ]; then
 		echo ""
 		PKG="e2openplugin-OpenWebif"
 		PKG_="OpenWebif"
-		VER="31bacdc70671477ab9f941c309232feb5a3a0e21"
+		VER="d540448510ef7ec4c36b3c303ba79a32c5508194"
 		VER1="7f53c0efcc7ebf5c79efa34d525721d9d195b597"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
@@ -519,7 +519,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="103dd02acecc482cb9dcb63ca61a95e1c32f629e"
+		VER="441066798786a888de1636bb341316be1245b536"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi

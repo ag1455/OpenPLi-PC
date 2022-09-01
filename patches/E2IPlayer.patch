@@ -1,6 +1,6 @@
 diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconmenager.py
 --- o/IPTVPlayer/components/iconmenager.py	2022-06-11 23:56:57.439586260 +0300
-+++ pc/IPTVPlayer/components/iconmenager.py	2022-07-21 22:59:18.201466105 +0300
++++ pc/IPTVPlayer/components/iconmenager.py	2022-09-01 21:22:34.500073865 +0300
 @@ -29,7 +29,7 @@
  
  
@@ -20,9 +20,9 @@ diff -ruN o/IPTVPlayer/components/iconmenager.py pc/IPTVPlayer/components/iconme
          else:
              params_cfad = {}
 diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/iptvconfigmenu.py
---- o/IPTVPlayer/components/iptvconfigmenu.py	2022-07-04 15:08:20.322652778 +0300
-+++ pc/IPTVPlayer/components/iptvconfigmenu.py	2022-07-21 22:59:18.201466105 +0300
-@@ -74,7 +74,7 @@
+--- o/IPTVPlayer/components/iptvconfigmenu.py	2022-08-23 21:40:27.459827800 +0300
++++ pc/IPTVPlayer/components/iptvconfigmenu.py	2022-09-01 21:22:34.500073865 +0300
+@@ -76,7 +76,7 @@
  config.plugins.iptvplayer.showinMainMenu = ConfigYesNo(default=False)
  config.plugins.iptvplayer.ListaGraficzna = ConfigYesNo(default=True)
  config.plugins.iptvplayer.group_hosts = ConfigYesNo(default=True)
@@ -31,7 +31,7 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
  config.plugins.iptvplayer.bufferingPath = ConfigDirectory(default=config.plugins.iptvplayer.NaszaSciezka.value) #, fixed_size = False)
  config.plugins.iptvplayer.buforowanie = ConfigYesNo(default=False)
  config.plugins.iptvplayer.buforowanie_m3u8 = ConfigYesNo(default=True)
-@@ -160,7 +160,7 @@
+@@ -162,7 +162,7 @@
  
  # end with buffering mode players
  
@@ -40,7 +40,7 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
  config.plugins.iptvplayer.NaszaTMP = ConfigDirectory(default="/tmp/") #, fixed_size = False)
  config.plugins.iptvplayer.ZablokujWMV = ConfigYesNo(default=True)
  
-@@ -182,7 +182,7 @@
+@@ -184,7 +184,7 @@
  config.plugins.iptvplayer.napisy24pl_password = ConfigText(default="", fixed_size=False)
  
  config.plugins.iptvplayer.debugprint = ConfigSelection(default="", choices=[("", _("no")), ("console", _("yes, to console")), 
@@ -51,7 +51,7 @@ diff -ruN o/IPTVPlayer/components/iptvconfigmenu.py pc/IPTVPlayer/components/ipt
                                                                              ])
 diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/iptvplayerwidget.py
 --- o/IPTVPlayer/components/iptvplayerwidget.py	2022-07-01 23:56:32.573739716 +0300
-+++ pc/IPTVPlayer/components/iptvplayerwidget.py	2022-07-21 22:59:18.201466105 +0300
++++ pc/IPTVPlayer/components/iptvplayerwidget.py	2022-09-01 21:22:34.500073865 +0300
 @@ -59,7 +59,6 @@
  
  from Plugins.Extensions.IPTVPlayer.components.iptvplayerinit import TranslateTXT as _, IPTVPlayerNeedInit, GetIPTVPlayerLastHostError, GetIPTVNotify, GetIPTVSleep
@@ -91,7 +91,7 @@ diff -ruN o/IPTVPlayer/components/iptvplayerwidget.py pc/IPTVPlayer/components/i
                      message.append("Please be also informed that users of http://ipab.tv/ will NOT get support, due to same reason.")
 diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
 --- o/IPTVPlayer/hosts/hosturllist.py	2022-05-29 17:06:37.447729460 +0300
-+++ pc/IPTVPlayer/hosts/hosturllist.py	2022-07-21 22:59:18.201466105 +0300
++++ pc/IPTVPlayer/hosts/hosturllist.py	2022-09-01 21:22:34.500073865 +0300
 @@ -22,7 +22,7 @@
  ###################################################
  # Config options for HOST
@@ -103,11 +103,11 @@ diff -ruN o/IPTVPlayer/hosts/hosturllist.py pc/IPTVPlayer/hosts/hosturllist.py
  
 diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 --- o/IPTVPlayer/hosts/hostXXX.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/hosts/hostXXX.py	2022-07-23 22:53:09.828670687 +0300
-@@ -0,0 +1,11272 @@
-+# -*- coding: utf-8 -*-
-+# Modified by Blindspot - 2022.07.22.
-+# Added new host: SexVid
++++ pc/IPTVPlayer/hosts/hostXXX.py	2022-09-01 21:19:12.938293200 +0300
+@@ -0,0 +1,11247 @@
++﻿# -*- coding: utf-8 -*-
++# Modified by Blindspot - 2022.08.31.
++# Fixed XHamster
 +###################################################
 +# LOCAL import
 +###################################################
@@ -278,7 +278,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +    ###################################################
 +
 +class Host:
-+    XXXversion = "2022.07.22.1"
++    XXXversion = "2022.08.31.1"
 +    XXXremote  = "0.0.0.0"
 +    currList = []
 +    MAIN_URL = ''
@@ -406,7 +406,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           valTab.append(CDisplayListItem('TUBE8',          'www.tube8.com',      CDisplayListItem.TYPE_CATEGORY, ['http://www.tube8.com/categories.html'], 'tube8',   'http://cdn1.static.tube8.phncdn.com/images/t8logo.png', None))
 +           valTab.append(CDisplayListItem('YOUPORN',        'wwww.youporn.com',   CDisplayListItem.TYPE_CATEGORY, ['https://www.youporn.com/categories/'],'youporn', 'https://fs.ypncdn.com/cb/bundles/youpornwebfront/images/l_youporn_black.png?v=9b34af679da9f8f8279fb875c7bcea555a784ec3', None))
 +           valTab.append(CDisplayListItem('PORNHUB',        'www.pornhub.com',    CDisplayListItem.TYPE_CATEGORY, ['https://www.pornhub.com/categories'],    'pornhub', 'https://mk0onemorecupofd9ppb.kinstacdn.com/wp-content/uploads/2018/11/Make-Money-Pornhub.jpg', None))
-+           valTab.append(CDisplayListItem('HDPORN',         'www.hdporn.net',     CDisplayListItem.TYPE_CATEGORY, ['http://www.hdporn.net/channels/'],      'hdporn',  'http://www.hdporn.com/gfx/logo.jpg', None))
++           valTab.append(CDisplayListItem('HDPORN',         'www.hdporn.net',     CDisplayListItem.TYPE_CATEGORY, ['http://www.hdporn.net'],      'hdporn',  'http://www.hdporn.com/gfx/logo.jpg', None))
 +           valTab.append(CDisplayListItem('REDTUBE',        'www.redtube.com',    CDisplayListItem.TYPE_CATEGORY, ['http://www.redtube.com/categories'],      'redtube', 'https://pornox.hu/contents/content_sources/15/s1_redtube.jpg', None))
 +           valTab.append(CDisplayListItem('HENTAIGASM',     'hentaigasm.com',     CDisplayListItem.TYPE_CATEGORY, ['http://hentaigasm.com'],                'hentaigasm','http://hentaigasm.com/wp-content/themes/detube/images/logo.png', None))
 +           valTab.append(CDisplayListItem('XVIDEOS',        'www.xvideos.com',    CDisplayListItem.TYPE_CATEGORY, ['http://www.xvideos.com'],               'xvideos', 'http://emblemsbf.com/img/31442.jpg', None))
@@ -424,7 +424,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           valTab.append(CDisplayListItem('RUS.PORN',     'https://rusvidos.tv', CDisplayListItem.TYPE_CATEGORY, ['http://rus.porn/'],'RUSPORN', 'http://mixporn24.com/images/logo.png', None))
 +           valTab.append(CDisplayListItem('PORNTREX',     'http://www.porntrex.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.porntrex.com/categories/'],'PORNTREX', 'https://www.porntrex.com/images/logo.png', None))
 +           valTab.append(CDisplayListItem('GLAVMATURES',     'https://glavmatures.com', CDisplayListItem.TYPE_CATEGORY, ['https://glavmatures.com/tags/'],'GLAVMATURES', 'https://momporn.xxx/contents/content_sources/9/s2_0008.jpg', None))
-+           valTab.append(CDisplayListItem('PORNfromCZECH',     'http://www.pornfromczech.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.pornfromczech.com/'],'PORNFROMCZECH', 'https://pornfromczech.com/wp-content/uploads/2013/03/PfC_logo.png', None))
++           valTab.append(CDisplayListItem('WATCHMYGF',     'https://www.watchmygf.me', CDisplayListItem.TYPE_CATEGORY, ['https://www.watchmygf.me/categories/'],'WATCHMYGF', 'http://www.dinoreviews.com/img/watchmygf/watchmygf.jpg', None))
 +           valTab.append(CDisplayListItem('FILMYPORNO',     'http://www.filmyporno.tv', CDisplayListItem.TYPE_CATEGORY, ['http://www.filmyporno.tv/channels/'],'FILMYPORNO', 'http://www.filmyporno.tv/templates/default_tube2016/images/logo.png', None))
 +           valTab.append(CDisplayListItem('CLIPHUNTER',     'http://www.cliphunter.com', CDisplayListItem.TYPE_CATEGORY, ['http://www.cliphunter.com/categories/'],'CLIPHUNTER', 'http://www.cliphunter.com/gfx/new/logo.png', None))
 +           valTab.append(CDisplayListItem('PORNMAKI',     'https://pornmaki.com', CDisplayListItem.TYPE_CATEGORY, ['https://pornmaki.com/channels/'],'PORNMAKI', 'https://images.pornmaki.com/resources/pornmaki.com/rwd_beta/default/images/logo.png', None))
@@ -461,7 +461,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           valTab.append(CDisplayListItem('STREAMPORN',     'https://streamporn.pw', CDisplayListItem.TYPE_CATEGORY, ['https://streamporn.pw'],'streamporn', 'https://static-ca-cdn.eporner.com/gallery/5K/Oo/wxT1T22Oo5K/501600-beautiful-island-in-the-stream.jpg', None))
 +           valTab.append(CDisplayListItem('PORNVIDEOS 4K',     'http://pornvideos4k.com/en/', CDisplayListItem.TYPE_CATEGORY, ['http://pornvideos4k.com/en/'],'pornvideos4k', 'https://www.pornvideos4k.net/img/logo_desktop_v4@2x.png', None))
 +           valTab.append(CDisplayListItem('MYDIRTYHOBBY',     'https://www.mydirtyhobby.to', CDisplayListItem.TYPE_CATEGORY, ['https://www.mydirtyhobby.to'],'MYDIRTYHOBBY', 'https://www.camadvisers.com/wp-content/uploads/2021/02/mydirtyhobby.png', None))
-+           #valTab.append(CDisplayListItem('XXXSTREAMS',     'http://xxxstreams.org/', CDisplayListItem.TYPE_CATEGORY, ['http://xxxstreams.org/'],'xxxstreams', 'https://tse2.mm.bing.net/th?id=OIP.pqy2ErzrtHKd4GvMT_kQtAHaJP&pid=15.1', None))
++           valTab.append(CDisplayListItem('RULEPORN',     'https://ruleporn.com', CDisplayListItem.TYPE_CATEGORY, ['https://ruleporn.com/categories/'],'ruleporn', 'https://ruleporn.com/templates/ruleporn/images/logo.png?v=1', None))
 +           valTab.append(CDisplayListItem('PANDAMOVIE',     'https://pandamovie.info', CDisplayListItem.TYPE_CATEGORY, ['https://pandamovie.info'],'123PANDAMOVIE', 'https://pandamovie.info/wp-content/uploads/2021/03/pandamovie-new-clolor.png', None))
 +           valTab.append(CDisplayListItem('DANSMOVIES',     'http://dansmovies.com', CDisplayListItem.TYPE_CATEGORY, ['http://dansmovies.com/'],'DANSMOVIES', 'http://cdn1.photos.dansmovies.com/templates/dansmovies/images/logo.png', None))
 +           valTab.append(CDisplayListItem('PORNREWIND',     'https://www.pornrewind.com', CDisplayListItem.TYPE_CATEGORY, ['https://www.pornrewind.com/categories/'],'PORNREWIND', 'https://www.pornrewind.com/static/images/logo-light-pink.png', None))
@@ -614,6 +614,11 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              for item in valtemp: item.name='GLAVMATURES - '+item.name
 +              valTab = valTab + valtemp
 +
++              self.MAIN_URL = 'https://www.watchmygf.me'
++              valtemp = self.listsItems(-1, url, 'WATCHMYGF-search')
++              for item in valtemp: item.name='WATCHMYGF - '+item.name
++              valTab = valTab + valtemp
++
 +              self.MAIN_URL = 'https://www.homepornking.com'
 +              valtemp = self.listsItems(-1, url, 'homepornking-search')
 +              for item in valtemp: item.name='HOMEPORNKING - '+item.name
@@ -651,10 +656,6 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              self.MAIN_URL = 'https://www.porntube.com'
 +              valtemp = self.listsItems(-1, url, '4TUBE-search')
 +              for item in valtemp: item.name='PORNTUBE - '+item.name
-+              valTab = valTab + valtemp
-+
-+              valtemp = self.listsItems(-1, url, 'PORNFROMCZECH-search')
-+              for item in valtemp: item.name='PORNFROMCZECH - '+item.name
 +              valTab = valTab + valtemp
 +
 +              valtemp = self.listsItems(-1, url, 'PERFECTGIRLS-search')
@@ -1089,6 +1090,9 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                    break
 +              if not phTitle: phTitle = 'VIDEO'
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"](/video[^"^']+?)['"]''', 1, True)[0]
++              if not phUrl:
++                 phUrl = self.cm.ph.getSearchGroups(item, '''href=['"](/search-video[^"^']+?)['"]''', 1, True)[0]
++              #printDBG( 'Video oldala: '+phUrl )
 +              phImage = self.cm.ph.getSearchGroups(item, '''data-src=['"]([^"^']+?)['"]''', 1, True)[0]
 +              phTime = self.cm.ph.getSearchGroups(item, '''duration">([^>]+?)<''', 1, True)[0]
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime.strip()+']  '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', self.MAIN_URL+phUrl, 1)], 0, phImage, None))
@@ -1306,10 +1310,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0]
 +              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0]
-+              allRuntime = self.cm.ph.getAllItemsBeetwenMarkers(item, 'duration>', '</span>', False)
-+              for phRuntime in allRuntime:
-+                  allRuntime[allRuntime.index(phRuntime)] = 'Hossz: ' + phRuntime
-+              #printDBG('Ido: '+str(phRuntime))
++              phRuntime = self.cm.ph.getSearchGroups(item, '''duration"[>]([^"^']+?)[<]/span''', 1, True)[0]
 +              views =self.cm.ph.getSearchGroups(item, '''text">([^>]+?)</span''', 1, True)[0]
 +              like = self.cm.ph.getSearchGroups(item, '''like".*?text">([^>]+?)<''', 1, True)[0]
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phRuntime+'] '+decodeHtml(phTitle)+'\n'+views+'\n'+like,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
@@ -1501,16 +1502,17 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           sts, data = self.get_Page(url)
 +           if not sts: return
 +           printDBG( 'HD Porn adatok: '+data )
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, 'class="content">', '</div>')
++           data = self.cm.ph.getDataBeetwenMarkers(data, 'ul id="channel_box">', '</ul>', False)[1]
++           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<li>', '</a>')
++           phImage = 'https://cdni.pornpics.com/460/1/256/72714917/72714917_004_404a.jpg'
 +           for item in data:
-+              phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0].replace('&amp;','&')
-+              phImage = self.cm.ph.getSearchGroups(item, '''<img\ssrc=['"]([^"^']+?)['"]''', 1, True)[0]
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=['"]([^"^']+?)['"]''', 1, True)[0].replace('&amp;','&')
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0]
 +              phUrl = self.cm.getFullUrl(phUrl, self.MAIN_URL)
 +              valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'hdporn-clips', phImage, None))
 +           valTab.sort(key=lambda poz: poz.name)
-+           valTab.insert(0,CDisplayListItem("--- Top Rated ---","Top Rated",           CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+"/top-rated/"]  , 'hdporn-clips','', None))
-+           valTab.insert(0,CDisplayListItem("--- Home ---","Home",           CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL]  , 'hdporn-clips','', None))
++           valTab.insert(0,CDisplayListItem("--- Top Rated ---","Top Rated",           CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+"/top-rated/"]  , 'hdporn-clips','https://cdni.pornpics.com/1280/7/487/89451786/89451786_015_f08f.jpg', None))
++           valTab.insert(0,CDisplayListItem("--- Home ---","Home",           CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL]  , 'hdporn-clips','https://cdni.pornpics.com/1280/7/514/55629529/55629529_044_dae9.jpg', None))
 +           return valTab
 +        if 'hdporn-clips' == name:
 +           printDBG( 'Host listsItems begin name='+name )
@@ -1533,7 +1535,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              next = re.findall("</a><a href='(.*?)'>", next[0], re.S)
 +              if len(next)>0:
 +                 #next = self.cm.getFullUrl(next[0], self.MAIN_URL)
-+                 valTab.append(CDisplayListItem('Next', next[0].replace('.html',''), CDisplayListItem.TYPE_CATEGORY, [self.cm.getFullUrl(next[0], url)], name, '', None))
++                 valTab.append(CDisplayListItem('Next', next[0].replace('.html',''), CDisplayListItem.TYPE_CATEGORY, [self.cm.getFullUrl(next[0], url)], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +              return valTab
 +
 +        if 'pornrabbit' == name:
@@ -2850,7 +2852,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           self.MAIN_URL = 'https://glavmatures.com'
 +           COOKIEFILE = os_path.join(GetCookieDir(), 'glavmatures.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'dansmovies.cookie', 'dansmovies.com', self.defaultParams)
++           sts, data = self.getPage(url, 'glavmatures.cookie', 'glavmatures.com', self.defaultParams)
 +           printDBG( 'Host listsItems data: '+data )
 +           data = self.cm.ph.getDataBeetwenMarkers(data, '<div class="tags">', '<div class="footer">', False)[1]
 +           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<div class="tag">', '</div>')
@@ -2897,67 +2899,65 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+']  '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next:
 +              next = self.MAIN_URL + next
-+              valTab.append(CDisplayListItem('Next ', 'Page: '+next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next ', 'Page: '+next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
-+        if 'PORNFROMCZECH' == name:
++        if 'WATCHMYGF' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           self.MAIN_URL = 'http://www.pornfromczech.com'
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'pornfromczech.cookie')
-+           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'pornfromczech.cookie', 'pornfromczech.com', self.defaultParams)
-+           if not sts: return valTab
-+           printDBG( 'Host listsItems data: '+str(data) )
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<li id="menu-item', '</li>')
++           self.MAIN_URL = 'https://www.watchmygf.me'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'watchmygf.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'watchmygf.cookie', 'watchmygf.me', self.defaultParams)
++           #printDBG( 'Host listsItems data: '+str(data) )
++           next = self.cm.ph.getDataBeetwenMarkers(data, '<li class="next"><a href="', '" data-action', False)[1]
++           data = self.cm.ph.getDataBeetwenMarkers(data, 'categories item">', '<div class="pagination', False)[1]
++           data = self.cm.ph.getAllItemsBeetwenMarkers(data, 'video-box-card', 'box-description')
 +           for item in data:
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0]
-+              phTitle = self._cleanHtmlStr(item)
-+              valTab.append(CDisplayListItem(decodeHtml(phTitle),phUrl,CDisplayListItem.TYPE_CATEGORY, [phUrl],'PORNFROMCZECH-clips', '', phUrl))
-+           self.SEARCH_proc='PORNFROMCZECH-search'
-+           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None))
-+           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None))
++              phTitle = self.cm.ph.getSearchGroups(item, '''alt=["']([^"^']+?)["']>''', 1, True)[0]
++              phImage = self.cm.ph.getSearchGroups(item, '''src=["']([^"^']+?)["'] alt''', 1, True)[0]
++              valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'WATCHMYGF-clips', phImage, None))
++           valTab.insert(0,CDisplayListItem("--- NEW VIDEOS ---","NEW VIDEOS",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/new/'],             'WATCHMYGF-clips',    'https://cdni.pornpics.com/460/1/203/69330065/69330065_007_ad28.jpg', None))
++           valTab.insert(0,CDisplayListItem("--- LONGEST VIDEOS ---","LONGEST VIDEOS",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/longest/'],              'WATCHMYGF-clips',    'https://cdni.pornpics.com/460/1/205/68271587/68271587_002_1603.jpg', None))
++           valTab.insert(0,CDisplayListItem("--- TOP RATED VIDEOS ---","TOP RATED VIDEOS",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/rated/'],             'WATCHMYGF-clips',    'https://cdni.pornpics.com/460/1/97/20121335/20121335_001_a7e9.jpg', None))
++           valTab.insert(0,CDisplayListItem("--- POPULAR VIDEOS ---","POPULAR VIDEOS",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/popular/'],             'WATCHMYGF-clips',    'https://cdni.pornpics.com/460/1/203/55570985/55570985_013_e332.jpg', None))
++           self.SEARCH_proc='WATCHMYGF-search'
++           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', 'https://img2.thejournal.ie/inline/2398415/original/?width=630&version=2398415', None))
++           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        'https://www.hyperpoolgroup.co.za/wp-content/uploads/2018/07/Product-Search.jpg', None))
++           if next:
++              if next.startswith('/'):
++                 next = self.MAIN_URL + next
++              valTab.append(CDisplayListItem('Next ', 'Page: '+next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
-+        if 'PORNFROMCZECH-search' == name:
-+           printDBG( 'Host listsItems begin name='+name )
-+           valTab = self.listsItems(-1, 'http://pornfromczech.com/?s=%s&x=0&y=0' % url.replace(' ','+'), 'PORNFROMCZECH-clips')
-+           return valTab
-+        if 'PORNFROMCZECH-clips' == name:
-+           printDBG( 'Host listsItems begin name='+name )
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'pornfromczech.cookie')
-+           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'pornfromczech.cookie', 'pornfromczech.com', self.defaultParams)
-+           if not sts: return valTab
-+           printDBG( 'Host listsItems data: '+str(data) )
-+           Movies = re.findall('<div\sclass="thumb">.*?<a\shref="(.*?)".*?title="(.*?)">.*?<img\ssrc="(.*?)".*?<p class="duration">(.*?)</p>', data, re.S)
-+           if Movies:
-+              for (phUrl, phTitle, phImage, Time) in Movies:
-+                  Time = Time.strip()
-+                  phImage = urlparser.decorateUrl(phImage, {'Referer': url})
-+                  valTab.append(CDisplayListItem(decodeHtml(phTitle), '['+Time+']    '+decodeHtml(phTitle), CDisplayListItem.TYPE_CATEGORY, [phUrl], 'PORNFROMCZECH-serwer', phImage, decodeHtml(phTitle)))
-+           match = re.search('rel="next" href="(.*?)"', data, re.S)
-+           if match:
-+              phUrl = match.group(1)
-+              valTab.append(CDisplayListItem('Next ', 'Page: '+phUrl, CDisplayListItem.TYPE_CATEGORY, [phUrl], name, '', None))
-+           return valTab
-+        if 'PORNFROMCZECH-serwer' == name:
-+           printDBG( 'Host listsItems begin name='+name )
-+           catUrl = self.currList[Index].possibleTypesOfSearch
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'pornfromczech.cookie')
-+           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'pornfromczech.cookie', 'pornfromczech.com', self.defaultParams)
-+           if not sts: return valTab
-+           printDBG( 'Host listsItems data: '+str(data) )
-+           phserwer = ''
-+           phName = catUrl
-+           data = ph.IFRAME.findall(data)
-+           for item in data:
-+              phUrl = self.cm.getFullUrl(item[1])
-+              phserwer = phUrl.split('/')[2]+' - '
-+              if 'exosrv' in phUrl: continue
-+              printDBG( 'Kész linkek: '+str(phUrl) )
-+              phUrl = urlparser.decorateUrl(phUrl, {'Referer': url})
-+              valTab.append(CDisplayListItem(phserwer+phName,phUrl,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, '', None))
 +
++        if 'WATCHMYGF-search' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           valTab = self.listsItems(-1, 'https://www.watchmygf.me/search/%s/' % url.replace(' ','+'), 'WATCHMYGF-clips')
++           return valTab
++
++        if 'WATCHMYGF-clips' == name:
++           printDBG( 'Host listsItems begin name='+name )
++           COOKIEFILE = os_path.join(GetCookieDir(), 'watchmygf.cookie')
++           self.defaultParams = {'use_cookie': True, 'load_cookie': False, 'save_cookie': True, 'cookiefile': COOKIEFILE}
++           sts, data = self.getPage(url, 'watchmygf.cookie', 'watchmygf.me', self.defaultParams)
++           if not sts: return valTab
++           #printDBG( 'Ujabb adat: '+data )
++           next = self.cm.ph.getDataBeetwenMarkers(data, '<li class="next"><a href="', '" data-action', False)[1]
++           if next.startswith('#search'): next = ''
++           data = self.cm.ph.getDataBeetwenMarkers(data, 'video-box-body', '<div class="pagination', False)[1]
++           data = self.cm.ph.getAllItemsBeetwenMarkers(data, 'video-box-card', '</span>', True)
++           for item in data:
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]  class''', 1, True)[0]
++              phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"] class''', 1, True)[0]
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^']+?)['"] width''', 1, True)[0]
++              phTime = self.cm.ph.getSearchGroups(item, '''time"[>]([^"^']+?)[<]/div''', 1, True)[0]
++              #printDBG( 'Videolista: '+ phUrl )
++              if phTitle:
++                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+']  '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
++           if next:
++              if next.startswith('/'):
++                 next = self.MAIN_URL + next
++              valTab.append(CDisplayListItem('Next ', 'Page: '+next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if 'FILMYPORNO' == name:
@@ -3133,7 +3133,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                 url = 'https' + url
 +              next = url + next
 +              printDBG( 'Kovi: '+next )
-+              valTab.append(CDisplayListItem('Next', next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if 'THUMBZILLA' == name:
@@ -3375,7 +3375,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                 valTab.append(CDisplayListItem(phTitle,'['+Time+']   '+phTitle,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next_page:
 +              number = next_page.split('/')[-2]
-+              valTab.append(CDisplayListItem('Next', 'Next '+number, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', 'Next '+number, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if 'PERFECTGIRLS' == name:
@@ -3635,10 +3635,10 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           printDBG( 'Host listsItems data: '+data )
 +           next_page = self.cm.ph.getDataBeetwenMarkers(data, '</span><a href="', '" class="pop"', False)[1]
 +           if next_page.startswith('/'): next_page = self.MAIN_URL + next_page
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, 'data-frames', '"uploader">')
++           data = self.cm.ph.getAllItemsBeetwenMarkers(data, 'thumb-container video', '"uploader">')
 +           for item in data:
-+              phTitle = self.cm.ph.getSearchGroups(item, '''alt=['"]([^"^']+?)['"]''', 1, True)[0]
-+              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0]
++              phTitle = self.cm.ph.getSearchGroups(item, '''title=["]([^;]+?)["]''', 1, True)[0]
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"] title''', 1, True)[0]
 +              phImage = self.cm.ph.getSearchGroups(item, '''" src=['"]([^"^']+?)['"]''', 1, True)[0]
 +              Time = self.cm.ph.getSearchGroups(item, '''size">([^"^']+?)<''', 1, True)[0]
 +              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
@@ -4419,7 +4419,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              valTab.append(CDisplayListItem(phTitle,'['+phTime+']  '+phTitle,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next:
 +              if next.startswith('/'): next = self.MAIN_URL + next
-+              valTab.append(CDisplayListItem('Next', next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if 'zbporn-clips' == name:
@@ -4440,7 +4440,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              valTab.append(CDisplayListItem(phTitle,'['+phTime+']  '+phTitle,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next:
 +              if next.startswith('/'): next = self.MAIN_URL + next
-+              valTab.append(CDisplayListItem('Next', next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if 'pornoxo' == name:
@@ -4655,7 +4655,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+']  '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next_page:
 +              if next_page.startswith('/'): next_page = self.MAIN_URL + next_page
-+              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if 'txxx' == name:
@@ -5015,7 +5015,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           printDBG( 'Host listsItems data: '+data )
 +           try:
 +              result = byteify(simplejson.loads(data))
-+              if 'videos' in result["page"]["embedded"]:
++              if result["page"]["embedded"].has_key('videos'):
 +                 node = result["page"]["embedded"]
 +              else:
 +                 node = result["page"]
@@ -5145,7 +5145,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              printDBG( 'Videolista: '+ phUrl )
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+']  '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next_page:
-+              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +
@@ -5273,7 +5273,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+']  '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next2:
 +              next_page = 'http://pornvideos4k.com' + next2
-+              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if 'fux' == name:
@@ -5323,7 +5323,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           printDBG( 'Host listsItems data: '+data )
 +           try:
 +              result = byteify(simplejson.loads(data))
-+              if 'videos' in result["page"]["embedded"]:
++              if result["page"]["embedded"].has_key('videos'):
 +                 node = result["page"]["embedded"]
 +              else:
 +                 node = result["page"]
@@ -5387,7 +5387,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           printDBG( 'Host listsItems data: '+data )
 +           try:
 +              result = byteify(simplejson.loads(data))
-+              if 'videos' in result["page"]["embedded"]:
++              if result["page"]["embedded"].has_key('videos'):
 +                 node = result["page"]["embedded"]
 +              else:
 +                 node = result["page"]
@@ -5481,93 +5481,60 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, '', None))
 +           return valTab
 +
-+        if 'xxxstreams' == name:
++        if 'ruleporn' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           self.MAIN_URL = 'http://www.xxxstreams.org'
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'xxxstreams.cookie')
++           self.MAIN_URL = 'https://ruleporn.com'
++           COOKIEFILE = os_path.join(GetCookieDir(), 'ruleporn.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'xxxstreams.cookie', 'xxxstreams.org', self.defaultParams)
++           sts, data = self.getPage(url, 'ruleporn.cookie', 'ruleporn.com', self.defaultParams)
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<li id="menu-item', '</li>')
++           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<!-- item -->', '<!-- item END -->')
 +           for item in data:
 +              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0]
-+              phTitle = self._cleanHtmlStr(item)
-+              if phUrl.startswith('//'): phUrl = 'http:' + phUrl
-+              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
-+              if not 'xxxstreams' in phUrl: phTitle=''
-+              if 'Siterips' in phTitle: phTitle=''
++              phImage = self.cm.ph.getSearchGroups(item, '''img src=['"]([^"^']+?)['"]''', 1, True)[0]
++              phTitle = self.cm.ph.getSearchGroups(item, '''title">([^"^']+?)[<]''', 1, True)[0]
 +              if phTitle:
-+                 valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'xxxstreams-clips', '', None))
++                 valTab.append(CDisplayListItem(phTitle,phTitle,CDisplayListItem.TYPE_CATEGORY, [phUrl],'ruleporn-clips', phImage , None))
 +           valTab.sort(key=lambda poz: poz.name)
-+           self.SEARCH_proc='xxxstreams-search'
-+           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', '', None))
-+           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None))
++           valTab.insert(0,CDisplayListItem("--- Most Recent ---","Most Recent",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/videos/'],             'ruleporn-clips',    'https://cdni.pornpics.com/460/1/272/10878785/10878785_005_04b3.jpg', None))
++           valTab.insert(0,CDisplayListItem("--- Most Viewed ---","Most Viewed",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/most-viewed/'],             'ruleporn-clips',    'https://cdni.pornpics.com/460/7/402/89047311/89047311_016_1b0c.jpg', None))
++           valTab.insert(0,CDisplayListItem("--- Top Rated ---","Top Rated",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/top-rated/'],             'ruleporn-clips',    'https://cdni.pornpics.com/1280/7/95/72519895/72519895_028_c84e.jpg', None))
++           valTab.insert(0,CDisplayListItem("--- Most Discussed ---","Most Discussed",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/most-discussed/'],             'ruleporn-clips',    'https://cdni.pornpics.com/1280/1/287/93147403/93147403_004_54f4.jpg', None))
++           valTab.insert(0,CDisplayListItem("--- Longest ---","Longest",     CDisplayListItem.TYPE_CATEGORY,[self.MAIN_URL+'/longest/'],             'ruleporn-clips',    'https://cdni.pornpics.com/1280/1/162/98620335/98620335_002_bf7a.jpg', None))
++           self.SEARCH_proc='ruleporn-search'
++           valTab.insert(0,CDisplayListItem(_('Search history'), _('Search history'), CDisplayListItem.TYPE_CATEGORY, [''], 'HISTORY', 'https://img2.thejournal.ie/inline/2398415/original/?width=630&version=2398415' , None))
++           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        'https://www.hyperpoolgroup.co.za/wp-content/uploads/2018/07/Product-Search.jpg', None))
 +           return valTab
-+        if 'xxxstreams-search' == name:
++        if 'ruleporn-search' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           valTab = self.listsItems(-1, 'http://xxxstreams.org/?s=%s' % url.replace(' ','+'), 'xxxstreams-clips')
++           valTab = self.listsItems(-1, 'https://ruleporn.com/search/%s/' % url.replace(' ','-'), 'ruleporn-clips')
 +           return valTab
-+        if 'xxxstreams-clips' == name:
++        if 'ruleporn-clips' == name:
 +           printDBG( 'Host listsItems begin name='+name )
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'xxxstreams.cookie')
++           COOKIEFILE = os_path.join(GetCookieDir(), 'ruleporn.cookie')
 +           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'xxxstreams.cookie', 'xxxstreams.org', self.defaultParams)
++           sts, data = self.getPage(url, 'ruleporn.cookie', 'ruleporn.com', self.defaultParams)
++           printDBG( 'Oldal címe: '+url )
 +           if not sts: return ''
 +           printDBG( 'Host listsItems data: '+data )
 +           cookieHeader = self.cm.getCookieHeader(COOKIEFILE)
-+           next_page = self.cm.ph.getSearchGroups(data, '''rel="next" href=['"]([^"^']+?)['"]''', 1, True)[0]
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<article', '</article>')
++           actualUrl = self.cm.ph.getDataBeetwenMarkers(data, '<link rel="canonical" href="', '"', False)[1]
++           if actualUrl.endswith('.html'):
++              actualUrl = actualUrl.replace(actualUrl.split('/')[-1],'')
++           next_page = self.cm.ph.getDataBeetwenMarkers(data, '<link rel="next" href="', '"', False)[1]
++           next_page = actualUrl + next_page
++           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<!-- item -->', '<!-- item END -->')
 +           for item in data:
-+              phImage = self.cm.ph.getSearchGroups(item, '''<img\ssrc=['"]([^"^']+?)['"]''', 1, True)[0]
-+              item = self.cm.ph.getDataBeetwenMarkers(item, '<h1 class="entry-title">', '</h1>', False)[1]
-+              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0]
-+              phTitle = self._cleanHtmlStr(item)
-+              phImage = strwithmeta(phImage, {'Referer':self.MAIN_URL, 'Cookie':cookieHeader})
-+              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
-+              phUrl = strwithmeta(phUrl, {'Referer':self.MAIN_URL})
-+              if not 'UBIQFILE' in phTitle.upper():
-+                 valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl],'xxxstreams-serwer', phImage, phTitle))
++              phImage = self.cm.ph.getSearchGroups(item, '''src=['"]([^"^']+?)['"]''', 1, True)[0]
++              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"] title''', 1, True)[0]
++              phTitle = self.cm.ph.getSearchGroups(item, '''title">([^"^']+?)[<]''', 1, True)[0].strip()
++              if not phTitle: phTitle = self.cm.ph.getSearchGroups(item, '''title="([^"^']+?)["]''', 1, True)[0].replace("&#039;", "'")
++              if not phTitle: phTitle = 'Anonymous Video'
++              Time = self.cm.ph.getSearchGroups(item, '''time">([^"^']+?)<''', 1, True)[0]
++              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+Time+']   '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next_page:
-+              if next_page.startswith('/'): next_page = 'http://xxxstreams.org' + next_page
-+              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, '', None))
-+           return valTab
-+        if 'xxxstreams-serwer' == name:
-+           printDBG( 'Host listsItems begin name='+name )
-+           COOKIEFILE = os_path.join(GetCookieDir(), 'xxxstreams.cookie')
-+           self.defaultParams = {'use_cookie': True, 'load_cookie': True, 'save_cookie': True, 'cookiefile': COOKIEFILE}
-+           sts, data = self.getPage(url, 'xxxstreams.cookie', 'xxxstreams.org', self.defaultParams)
-+           if not sts: return ''
-+           printDBG( 'Host listsItems data: '+data )
-+           catUrl = self.currList[Index].possibleTypesOfSearch
-+           phImage = self.cm.ph.getSearchGroups(data, '''"og:image" content=['"]([^"^']+?)['"]''', 1, True)[0]
-+           phTitle = self.cm.ph.getSearchGroups(data, '''title" content=['"]([^"^']+?)['"]''', 1, True)[0]
-+           phTime = self.cm.ph.getSearchGroups(data, '''description" content=['"]([^"^']+?)['"|]''', 1, True)[0].strip()
-+           if len(phTime)>8: phTime=phTime.split(' ')[-1]
-+           data = self.cm.ph.getDataBeetwenMarkers(data, '<span id=', '</div>', False)[1]
-+           data2 = self.cm.ph.getAllItemsBeetwenMarkers(data, '<p>', '</p>')
-+           for item in data2:
-+              if '|' in item:
-+                 phTime = item.split('|')[0].replace('<p>','')
-+           data = self.cm.ph.getAllItemsBeetwenMarkers(data, '<a', '</a>')
-+           for item in data:
-+              phUrl = self.cm.ph.getSearchGroups(item, '''href=['"]([^"^']+?)['"]''', 1, True)[0]
-+              phTitle = self._cleanHtmlStr(item)
-+              if 'HITFILE' in phTitle.upper(): continue
-+              if 'SHARE-ONLINE' in phTitle.upper(): continue
-+              if 'UBIQFILE' in phTitle.upper(): continue
-+              if 'RAPIDGATOR' in phTitle.upper(): continue
-+              if 'OPENLOAD' in phTitle.upper(): continue
-+              if 'SEVEREPORN' in phTitle.upper(): continue
-+              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
-+              if phImage.startswith('/'): phImage = 'http:' + phImage
-+              if 'clipwatching.com' in phUrl:
-+                 if 'embed' not in phUrl:
-+                     video_id = self.cm.ph.getSearchGroups(phUrl, 'clipwatching.com/([A-Za-z0-9]{12})[/.-]')[0]
-+                     phUrl = 'http://clipwatching.com/embed-{0}.html'.format(video_id)
-+              if phTitle and catUrl:
-+                 phUrl = urlparser.decorateUrl(phUrl, {'Referer': self.MAIN_URL})
-+                 valTab.append(CDisplayListItem(decodeHtml(catUrl),'['+str(phTime.strip())+']  '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
++              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if '123PANDAMOVIE' == name:
@@ -5747,7 +5714,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if phTitle:
 +                 valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+']   '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next_page:
-+              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +
@@ -6362,7 +6329,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           valTab.insert(0,CDisplayListItem(_('Search'),  _('Search'),                       CDisplayListItem.TYPE_SEARCH,   [''], '',        '', None))
 +           if next:
 +              number = next.split('=')[-1]
-+              valTab.append(CDisplayListItem('More Categories', 'More Categories, Page: '+number, CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('More Categories', 'More Categories, Page: '+number, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +
 +        if 'porndroid-search' == name:
@@ -6391,7 +6358,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+Time+'] '+decodeHtml(phTitle),CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)],'', phImage, None))
 +           if next:
 +              number = next.split('=')[-1]
-+              valTab.append(CDisplayListItem('Next ', 'Page: '+number, CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', 'next'))
++              valTab.append(CDisplayListItem('Next ', 'Page: '+number, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', 'next'))
 +           return valTab
 +
 +        if 'porndroid-channels' == name:
@@ -6412,7 +6379,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl],'porndroid-clips', phImage, None))
 +            if next_page:
 +                number = next_page.split('=')[-1]
-+                valTab.append(CDisplayListItem('More Channels', 'Next Page: '+number, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++                valTab.append(CDisplayListItem('More Channels', 'Next Page: '+number, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +            return valTab
 +
 +        if 'porndroid-pornstars' == name:
@@ -6433,7 +6400,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle),CDisplayListItem.TYPE_CATEGORY, [phUrl],'porndroid-clips', phImage, None))
 +            if next_page:
 +                number = next_page.split('=')[-1]
-+                valTab.append(CDisplayListItem('More Pornstars', 'Next Page: '+number, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++                valTab.append(CDisplayListItem('More Pornstars', 'Next Page: '+number, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +            return valTab
 +
 +        if 'lovehomeporn' == name:
@@ -7101,7 +7068,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if not 'Ubiqfile' in phTitle:
 +                 valTab.append(CDisplayListItem(decodeHtml(phTitle),decodeHtml(phTitle)+'\n'+phTime,CDisplayListItem.TYPE_CATEGORY, [phUrl],'watchpornx-serwer', phImage, phTitle))
 +           if next_page:
-+              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', None))
++              valTab.append(CDisplayListItem('Next', next_page, CDisplayListItem.TYPE_CATEGORY, [next_page], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', None))
 +           return valTab
 +        if 'watchpornx-serwer' == name:
 +           printDBG( 'Host listsItems begin name='+name )
@@ -7716,7 +7683,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              printDBG( 'Kész link: '+str(phUrl) )
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle), decodeHtml(phTitle), CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next:
-+              valTab.append(CDisplayListItem('Next Page', next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', 'Next'))
++              valTab.append(CDisplayListItem('Next Page', next, CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', 'Next'))
 +           return valTab
 +
 +        if 'freeones' == name:
@@ -7778,7 +7745,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              if phUrl.startswith('/'): phUrl = self.MAIN_URL + phUrl
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle),'['+phTime+'] '+decodeHtml(phTitle), CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next:
-+              valTab.append(CDisplayListItem('Next Page', 'Next Page', CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', 'Next'))
++              valTab.append(CDisplayListItem('Next Page', 'Next Page', CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', 'Next'))
 +           return valTab
 +
 +        if 'freeones-channels' == name:
@@ -7807,7 +7774,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +              valTab.append(CDisplayListItem(decodeHtml(phTitle), decodeHtml(phTitle), CDisplayListItem.TYPE_CATEGORY, [phUrl],'freeones-clips', phImage, None))
 +           if next:
 +              next = self.MAIN_URL + next
-+              valTab.append(CDisplayListItem('Next Page', 'Next Page', CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', 'Next'))
++              valTab.append(CDisplayListItem('Next Page', 'Next Page', CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', 'Next'))
 +           return valTab
 +
 +        if 'lustysextube' == name:
@@ -7868,7 +7835,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                 valTab.append(CDisplayListItem(decodeHtml(phTitle), decodeHtml(phTitle) ,CDisplayListItem.TYPE_VIDEO, [CUrlItem('', phUrl, 1)], 0, phImage, None))
 +           if next:
 +              printDBG( 'Kövi: '+ str(next))
-+              valTab.append(CDisplayListItem('Next Page', 'Next Page', CDisplayListItem.TYPE_CATEGORY, [next], name, 'https://www.clipartmax.com/png/small/109-1090359_next-page-button-f-cliffs-of-moher.png', 'Next'))
++              valTab.append(CDisplayListItem('Next Page', 'Next Page', CDisplayListItem.TYPE_CATEGORY, [next], name, 'http://www.clker.com/cliparts/n/H/d/S/N/j/green-next-page-button-hi.png', 'Next'))
 +           return valTab
 +
 +        if 'familyporn' == name:
@@ -8131,6 +8098,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if url.startswith('http://www.cliphunter.com'):               return 'http://www.cliphunter.com'
 +        if url.startswith('https://www.pornhat.com/'):                return 'https://www.pornhat.com/'
 +        if url.startswith('https://pornhat.com/'):                    return 'https://www.pornhat.com/'
++        if url.startswith('https://ruleporn.com'):                    return 'https://ruleporn.com'
 +        if url.startswith('http://www.drtuber.com'):                  return 'http://www.drtuber.com'
 +        if url.startswith('http://www.eporner.com'):                  return 'http://www.eporner.com'
 +        if url.startswith('http://www.yourupload.com'):               return 'https://www.yourupload.com'
@@ -8241,12 +8209,12 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +        if url.startswith('https://www.datoporn.com'):                return 'https://dato.porn'
 +        if url.startswith('https://vidlox.tv'):                       return 'https://vidlox.tv'
 +        if url.startswith('http://pornvideos4k.com/en'):              return 'http://pornvideos4k.com/en'
++        if url.startswith('https://www.watchmygf.me'):                return 'https://mangovideo'
 +        if self.MAIN_URL == 'https://www.freeomovie.to/':             return 'xxxlist.txt'
 +        if self.MAIN_URL == 'https://streamporn.pw':                  return 'xxxlist.txt'
 +        if self.MAIN_URL == 'http://www.xxxstreams.org':              return 'xxxlist.txt'
 +        if self.MAIN_URL == 'https://pandamovie.info':                return 'xxxlist.txt'
 +        if self.MAIN_URL == 'https://www.pornrewind.com':             return 'xxxlist.txt'
-+        if self.MAIN_URL == 'http://www.pornfromczech.com':           return 'xxxlist.txt'
 +        if self.MAIN_URL == 'http://netflixporno.net':                return 'xxxlist.txt'
 +        if self.MAIN_URL == 'https://watchpornx.com':                 return 'xxxlist.txt'
 +        if self.MAIN_URL == 'https://ebuxxx.net':                     return 'xxxlist.txt'
@@ -8663,10 +8631,10 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +                 videoUrl = 'rtmp://cdn-t0.showup.tv:1935/webrtc/'+Checksum+'_aac' # token=fake'
 +                 ws.close()
 +                 try:
-+                    import subprocess
++                    import commands
 +                    for x in range(1, 9):
 +                       cmd = '/usr/bin/rtmpdump -B 1 -r "%s"' % videoUrl.replace('cdn-t0','cdn-t0'+str(x))
-+                       wow = subprocess.getoutput(cmd)
++                       wow = commands.getoutput(cmd)
 +                       printDBG( 'HostXXX cmd > '+ cmd )
 +                       #printDBG( 'HostXXX rtmpdump > '+ wow )
 +                       if not 'StreamNotFound' in wow:
@@ -10214,6 +10182,12 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           printDBG( 'Final Url: '+videoUrl )
 +           return videoUrl
 +
++        if parser == 'https://ruleporn.com':
++           sts, data = self.get_Page(url)
++           videoUrl = self.cm.ph.getDataBeetwenMarkers(data, '<source src="', '"', False)[1]
++           printDBG( 'Final Url: '+videoUrl )
++           return videoUrl
++
 +        if parser == 'https://www.megatube.xxx':
 +            COOKIEFILE = os_path.join(GetCookieDir(), 'megatube.cookie')
 +            self.HTTP_HEADER = self.cm.getDefaultHeader(browser='chrome')
@@ -10467,6 +10441,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +           return ''
 +
 +        if parser == 'http://www.xvideos.com':
++           printDBG( 'Adatok: '+data )
 +           videoUrl = re.search("setVideoUrlHigh\('(.*?)'", data, re.S)
 +           if videoUrl: return decodeUrl(videoUrl.group(1))
 +           videoUrl = re.search('flv_url=(.*?)&', data, re.S)
@@ -11379,7 +11354,7 @@ diff -ruN o/IPTVPlayer/hosts/hostXXX.py pc/IPTVPlayer/hosts/hostXXX.py
 +    return m
 diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
 --- o/IPTVPlayer/hosts/hostyoutube.py	2022-06-11 23:56:57.459585478 +0300
-+++ pc/IPTVPlayer/hosts/hostyoutube.py	2022-07-21 22:59:18.207465811 +0300
++++ pc/IPTVPlayer/hosts/hostyoutube.py	2022-09-01 21:22:34.504073644 +0300
 @@ -26,7 +26,7 @@
  ###################################################
  # Config options for HOST
@@ -11390,16 +11365,16 @@ diff -ruN o/IPTVPlayer/hosts/hostyoutube.py pc/IPTVPlayer/hosts/hostyoutube.py
  
  def GetConfigList():
 diff -ruN o/IPTVPlayer/hosts/list.txt pc/IPTVPlayer/hosts/list.txt
---- o/IPTVPlayer/hosts/list.txt	2022-06-01 22:01:46.759743368 +0300
-+++ pc/IPTVPlayer/hosts/list.txt	2022-07-21 22:59:18.208465762 +0300
-@@ -185,3 +185,4 @@
+--- o/IPTVPlayer/hosts/list.txt	2022-08-23 21:40:27.460827606 +0300
++++ pc/IPTVPlayer/hosts/list.txt	2022-09-01 21:22:34.505073588 +0300
+@@ -187,3 +187,4 @@
  hostyoutube
  hostzaluknijcc
  hostzdfmediathek
 +hostXXX
 diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
 --- o/IPTVPlayer/iptvdm/iptvdh.py	2022-06-11 23:56:57.459585478 +0300
-+++ pc/IPTVPlayer/iptvdm/iptvdh.py	2022-07-21 22:59:18.208465762 +0300
++++ pc/IPTVPlayer/iptvdm/iptvdh.py	2022-09-01 21:22:34.505073588 +0300
 @@ -104,7 +104,7 @@
  
      @staticmethod
@@ -11411,7 +11386,7 @@ diff -ruN o/IPTVPlayer/iptvdm/iptvdh.py pc/IPTVPlayer/iptvdm/iptvdh.py
          return "ffmpeg"
 diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/xxx.sh
 --- o/IPTVPlayer/iptvupdate/custom/xxx.sh	1970-01-01 03:00:00.000000000 +0300
-+++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2022-07-21 22:59:18.208465762 +0300
++++ pc/IPTVPlayer/iptvupdate/custom/xxx.sh	2022-09-01 21:22:34.505073588 +0300
 @@ -0,0 +1,40 @@
 +#!/bin/sh
 +cp $1/iptvupdate/custom/xxx.sh $2/iptvupdate/custom/xxx.sh
@@ -11455,7 +11430,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/custom/xxx.sh pc/IPTVPlayer/iptvupdate/custom/
 +exit 0
 diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/updatemainwindow.py
 --- o/IPTVPlayer/iptvupdate/updatemainwindow.py	2022-06-25 19:35:30.816218016 +0300
-+++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2022-07-21 22:59:18.208465762 +0300
++++ pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2022-09-01 21:22:34.505073588 +0300
 @@ -311,7 +311,7 @@
          if os_path.isfile(newVerFile):
              verPattern = self.VERSION_PATTERN
@@ -11467,7 +11442,7 @@ diff -ruN o/IPTVPlayer/iptvupdate/updatemainwindow.py pc/IPTVPlayer/iptvupdate/u
          try:
 diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po
 --- o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2022-05-18 20:23:48.550553073 +0300
-+++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2022-07-21 22:59:18.211465615 +0300
++++ pc/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po	2022-09-01 21:22:34.507073477 +0300
 @@ -1,54 +1,103 @@
  msgid ""
  msgstr ""
@@ -19649,7 +19624,7 @@ diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +msgstr "Дефолтный обход капчи"
 diff -ruN o/IPTVPlayer/locale/updateallpo.sh pc/IPTVPlayer/locale/updateallpo.sh
 --- o/IPTVPlayer/locale/updateallpo.sh	2022-05-18 20:23:48.551553049 +0300
-+++ pc/IPTVPlayer/locale/updateallpo.sh	2022-07-21 22:59:18.211465615 +0300
++++ pc/IPTVPlayer/locale/updateallpo.sh	2022-09-01 21:22:34.507073477 +0300
 @@ -13,7 +13,7 @@
  Plugin=IPTVPlayer
  FilePath=/LC_MESSAGES/
@@ -19661,7 +19636,7 @@ diff -ruN o/IPTVPlayer/locale/updateallpo.sh pc/IPTVPlayer/locale/updateallpo.sh
  # Arguments to generate the pot and po files are not retrieved from the Makefile.
 diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
 --- o/IPTVPlayer/plugin.py	2022-07-04 15:08:20.328652461 +0300
-+++ pc/IPTVPlayer/plugin.py	2022-07-21 22:59:18.211465615 +0300
++++ pc/IPTVPlayer/plugin.py	2022-09-01 21:22:34.507073477 +0300
 @@ -6,7 +6,6 @@
  from Plugins.Extensions.IPTVPlayer.components.iptvconfigmenu import ConfigMenu
  from Plugins.Extensions.IPTVPlayer.components.iptvpin import IPTVPinWidget
@@ -19694,7 +19669,7 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
  
 diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.py
 --- o/IPTVPlayer/setup/iptvsetupimpl.py	2022-07-01 23:56:32.575739032 +0300
-+++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2022-07-21 22:59:18.212465566 +0300
++++ pc/IPTVPlayer/setup/iptvsetupimpl.py	2022-09-01 21:22:34.507073477 +0300
 @@ -483,7 +483,7 @@
                  return True, False
              else:
@@ -19706,7 +19681,7 @@ diff -ruN o/IPTVPlayer/setup/iptvsetupimpl.py pc/IPTVPlayer/setup/iptvsetupimpl.
      def getFFmpegVerFinished(self, stsTab, dataTab):
 diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.py
 --- o/IPTVPlayer/tools/iptvsubtitles.py	2022-05-29 17:06:37.458729079 +0300
-+++ pc/IPTVPlayer/tools/iptvsubtitles.py	2022-07-21 22:59:18.212465566 +0300
++++ pc/IPTVPlayer/tools/iptvsubtitles.py	2022-09-01 21:22:34.508073422 +0300
 @@ -374,5 +374,5 @@
  
  if __name__ == "__main__":
@@ -19715,8 +19690,8 @@ diff -ruN o/IPTVPlayer/tools/iptvsubtitles.py pc/IPTVPlayer/tools/iptvsubtitles.
 +    obj.loadSubtitles('/media/hdd/_Back.To.The.Future[1985]DvDrip-aXXo.pl.srt')
      obj.getSubtitles(10000)
 diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
---- o/IPTVPlayer/tools/iptvtools.py	2022-06-27 23:57:55.071187386 +0300
-+++ pc/IPTVPlayer/tools/iptvtools.py	2022-07-21 22:59:18.212465566 +0300
+--- o/IPTVPlayer/tools/iptvtools.py	2022-08-23 21:40:27.464826831 +0300
++++ pc/IPTVPlayer/tools/iptvtools.py	2022-09-01 21:22:34.508073422 +0300
 @@ -347,8 +347,8 @@
      baseName = resolveFilename(SCOPE_PLUGINS, 'Extensions/IPTVPlayer/scripts/') + name
      if fileExists(baseName + '.py'):
@@ -19746,9 +19721,106 @@ diff -ruN o/IPTVPlayer/tools/iptvtools.py pc/IPTVPlayer/tools/iptvtools.py
          else:
              DBGfile = DBG
          try:
+@@ -1547,10 +1547,10 @@
+ 
+ def IsBrokenDriver(filePath):
+     # workaround for broken DVB driver mbtwinplus:
+-    # root@mbtwinplus:~# cat /proc/stb/video/policy2
++    # root@mbtwinplus:~# cat /usr/local/e2/etc/video/policy2
+     # Segmentation fault
+     try:
+-        if 'video/policy' in filePath and not fileExists('/proc/stb/video/aspect_choices'):
++        if 'video/policy' in filePath and not fileExists('/usr/local/e2/etc/video/aspect_choices'):
+             with open('/etc/hostname', 'r') as f:
+                 data = f.read().strip()
+             if 'mbtwinplus' in data:
+@@ -1594,7 +1594,7 @@
+ 
+ 
+ def GetE2VideoAspectChoices():
+-    tab = GetE2OptionsFromFile('/proc/stb/video/aspect_choices')
++    tab = GetE2OptionsFromFile('/usr/local/e2/etc/video/aspect_choices')
+     # workaround for some STB
+     # reported here: https://gitlab.com/iptvplayer-for-e2/iptvplayer-for-e2/issues/30
+     staticTab = ["4:3", "16:9", "any"]
+@@ -1604,63 +1604,63 @@
+ 
+ 
+ def GetE2VideoAspect():
+-    options = GetE2OptionsFromFile('/proc/stb/video/aspect')
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/video/aspect')
+     if 1 == len(options):
+         return options[0]
+     return None
+ 
+ 
+ def SetE2VideoAspect(value):
+-    return SetE2OptionByFile('/proc/stb/video/aspect', value)
++    return SetE2OptionByFile('/usr/local/e2/etc/video/aspect', value)
+ 
+ 
+ def GetE2VideoPolicyChoices(num=''):
+-    return GetE2OptionsFromFile('/proc/stb/video/policy%s_choices' % num)
++    return GetE2OptionsFromFile('/usr/local/e2/etc/video/policy%s_choices' % num)
+ 
+ 
+ def GetE2VideoPolicy(num=''):
+-    options = GetE2OptionsFromFile('/proc/stb/video/policy' + num)
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/video/policy' + num)
+     if 1 == len(options):
+         return options[0]
+     return None
+ 
+ 
+ def SetE2VideoPolicy(value, num=''):
+-    return SetE2OptionByFile('/proc/stb/video/policy' + num, value)
++    return SetE2OptionByFile('/usr/local/e2/etc/video/policy' + num, value)
+ 
+ 
+ def GetE2AudioCodecMixChoices(codec):
+-    return GetE2OptionsFromFile('/proc/stb/audio/%s_choices' % codec)
++    return GetE2OptionsFromFile('/usr/local/e2/etc/audio/%s_choices' % codec)
+ 
+ 
+ def GetE2AudioCodecMixOption(codec):
+-    options = GetE2OptionsFromFile('/proc/stb/audio/%s' % codec)
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/audio/%s' % codec)
+     if 1 == len(options):
+         return options[0]
+     return None
+ 
+ 
+ def SetE2AudioCodecMixOption(codec, value):
+-    return SetE2OptionByFile('/proc/stb/audio/%s' % codec, value)
++    return SetE2OptionByFile('/usr/local/e2/etc/audio/%s' % codec, value)
+ 
+ # videomode
+ 
+ 
+ def GetE2VideoModeChoices():
+     # return 'pal ntsc 480i 576i 480p 576p 720p50 720p 1080i50 1080i 1080p24 1080p25 1080p30 720p24 720p25 720p30 1080p50 1080p'.split(' ')
+-    return GetE2OptionsFromFile('/proc/stb/video/videomode_choices')
++    return GetE2OptionsFromFile('/usr/local/e2/etc/video/videomode_choices')
+ 
+ 
+ def GetE2VideoMode():
+     # return '1080p50'
+-    options = GetE2OptionsFromFile('/proc/stb/video/videomode')
++    options = GetE2OptionsFromFile('/usr/local/e2/etc/video/videomode')
+     if 1 == len(options):
+         return options[0]
+     return None
+ 
+ 
+ def SetE2VideoMode(value):
+-    return SetE2OptionByFile('/proc/stb/video/videomode', value)
++    return SetE2OptionByFile('/usr/local/e2/etc/video/videomode', value)
+ 
+ 
+ def ReadUint16(tmp, le=True):
 diff -ruN o/IPTVPlayer/Web/initiator.py pc/IPTVPlayer/Web/initiator.py
 --- o/IPTVPlayer/Web/initiator.py	2022-06-01 22:01:46.754744091 +0300
-+++ pc/IPTVPlayer/Web/initiator.py	2022-07-21 22:59:18.212465566 +0300
++++ pc/IPTVPlayer/Web/initiator.py	2022-09-01 21:22:34.508073422 +0300
 @@ -55,7 +55,7 @@
      # Old openwebif version (prior July the 14th 2017) has a bug and does not populate links to all properly registered web addons except fancontrol
      # see: https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/pull/629
@@ -19760,7 +19832,7 @@ diff -ruN o/IPTVPlayer/Web/initiator.py pc/IPTVPlayer/Web/initiator.py
          try:
 diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
 --- o/IPTVPlayer/Web/webSite.py	2022-06-11 23:56:57.438586299 +0300
-+++ pc/IPTVPlayer/Web/webSite.py	2022-07-21 22:59:18.213465517 +0300
++++ pc/IPTVPlayer/Web/webSite.py	2022-09-01 21:22:34.508073422 +0300
 @@ -29,15 +29,15 @@
      #### Reload scripts if new version of source exists ####
      webPath = GetPluginDir(file='/Web/')
