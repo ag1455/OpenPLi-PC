@@ -137,7 +137,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
-git switch release-8.3
+git checkout release-8.3
 git reset --hard fea507cf
 cd ..
 
@@ -181,6 +181,7 @@ elif [ "$release" = "18.04" ]; then
 	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
 	export CXX=/usr/bin/g++-8
+	cd $PKG
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
