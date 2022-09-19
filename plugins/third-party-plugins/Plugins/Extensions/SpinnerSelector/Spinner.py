@@ -27,4 +27,3 @@ class Spinner(GUIComponent):
 				self.len = 0
 			self.instance.setPixmapFromFile(self.Bilder[self.len])
 			self.len += 1
-

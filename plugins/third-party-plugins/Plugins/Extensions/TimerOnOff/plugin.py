@@ -201,4 +201,3 @@ def Plugins(**kwargs):
 	list = [PluginDescriptor(name=_("OnOff timer"), description=_("set time to stanby/wakeup"), where = [PluginDescriptor.WHERE_PLUGINMENU], icon="timeoff.png", fnc=main)]
 	list.append(PluginDescriptor(name=_("OnOff timer"), description=_("set time to stanby/wakeup"), where = [PluginDescriptor.WHERE_MENU], fnc=menu))
 	return list
-

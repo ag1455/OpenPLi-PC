@@ -43,4 +43,3 @@ class SpinnerSelector:
 	def restart(self, answer):
 		if answer is True:
 			self.session.open(TryQuitMainloop, 3)
-

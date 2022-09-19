@@ -40,4 +40,3 @@ def Plugins(**kwargs):
 		return [PluginDescriptor(name=_("Spinner"), description=_("Configuration tool for Spinner"), where = PluginDescriptor.WHERE_PLUGINMENU, icon='pluginfhd.png', fnc=main)]
 	else:
 		return [PluginDescriptor(name=_("Spinner"), description=_("Configuration tool for Spinner"), where = PluginDescriptor.WHERE_PLUGINMENU, icon='plugin.png', fnc=main)]
-
