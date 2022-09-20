@@ -61,12 +61,12 @@ if [[ "$release" = "14.04" ]]; then
 	"
 	if [[ $(uname -m) = "i686" ]]; then
 		echo "Your system is 32-bit"
-		wget https://ftp.fau.de/ubuntu/ubuntu/pool/main/g/giflib/libgif7_5.1.9-2_i386.deb
-		wget https://ftp.fau.de/ubuntu/ubuntu/pool/main/g/giflib/libgif-dev_5.1.9-2_i386.deb
+		wget --no-check-certificate https://ftp.fau.de/ubuntu/ubuntu/pool/main/g/giflib/libgif7_5.1.9-2_i386.deb
+		wget --no-check-certificate https://ftp.fau.de/ubuntu/ubuntu/pool/main/g/giflib/libgif-dev_5.1.9-2_i386.deb
 	else
 		echo "Your system is 64-bit"
-		wget http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif7_5.1.4-2_amd64.deb
-		wget http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif-dev_5.1.4-2_amd64.deb
+		wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif7_5.1.4-2_amd64.deb
+		wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif-dev_5.1.4-2_amd64.deb
 	fi
 	dpkg -i *.deb
 	rm -f *.deb
@@ -128,7 +128,7 @@ elif [[ "$release" = "20.04" ]]; then
 	python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty python3-mutagen python3-urllib3 pylint python-ipaddress python-attr sphinx-rtd-theme-common swig swig3.0 yamllint \
 	"
 # Download 2.7 paskages
-	wget http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
+	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-web_18.9.0-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-names_18.9.0-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-mail_18.9.0-3_all.deb \
@@ -169,7 +169,7 @@ elif [[ "$release" = "22.04" ]]; then
 	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
 	"
 	apt-get -f install -y
-	wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1_amd64.deb
+	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1_amd64.deb
 	dpkg -i libssl1.1_1.1.1l-1ubuntu1_amd64.deb
 	rm -f *.deb
 # Unfortunately e2pc doesn't work with wayland
@@ -196,7 +196,7 @@ cp -fv pre/dvb/* $INCLUDE
 cp -fv pre/dvb/* $HEADERS
 
 # Download dvb-firmwares
-wget https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
+wget --no-check-certificate https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
 tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
 rm -f dvb-firmwares.tar.bz2
 
@@ -233,7 +233,7 @@ make distclean
 cd ..
 
 # Build and install libxmlccwrap-git:
-if [ ! -f libdvbsi++/libdvbsi++1_0.3.9_amd64.deb ]; then
+if [ ! -d libdvbsi++ ]; then
 	set -e
 	set -o pipefail
 else
@@ -266,7 +266,7 @@ else
 fi
 
 # Build and install libdvbcsa-git:
-if [ ! -f libxmlccwrap/libxmlccwrap_0.0.12-1_amd64.deb ]; then
+if [ ! -d libxmlccwrap ]; then
 	set -e
 	set -o pipefail
 else
@@ -290,7 +290,7 @@ else
 	else
 		echo "$PKG1 not installed"
 	fi
-	wget https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
+	wget --no-check-certificate https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
 	unzip $PKG-$VER.zip
 	rm $PKG-$VER.zip
 	mv $PKG-$VER $PKG
@@ -304,7 +304,7 @@ else
 fi
 
 # Build and install libtuxtxt:
-if [ ! -f libdvbcsa/*.deb ]; then
+if [ ! -d libdvbcsa ]; then
 	set -e
 	set -o pipefail
 else
@@ -329,7 +329,7 @@ else
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 		ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
 	fi
-	wget https://github.com/OpenPLi/$PKG_/archive/$VER.zip
+	wget --no-check-certificate https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG_-$VER $SOURCE
@@ -351,7 +351,7 @@ else
 fi
 
 # Build and install tuxtxt:
-if [ ! -f libtuxtxt/*.deb ]; then
+if [ ! -d libtuxtxt ]; then
 	set -e
 	set -o pipefail
 else
@@ -373,7 +373,7 @@ else
 fi
 
 # Build and install aio-grab-git:
-if [ ! -f tuxtxt-git/tuxtxt/*.deb ]; then
+if [ ! -d tuxtxt-git/tuxtxt ]; then
 	set -e
 	set -o pipefail
 else
@@ -390,7 +390,7 @@ else
 	else
 		echo "$PKG not installed"
 	fi
-	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -407,7 +407,7 @@ else
 fi
 
 # Build and install gst-plugin-dvbmediasink-git:
-if [ ! -f aio-grab/*.deb ]; then
+if [ ! -d aio-grab ]; then
 	set -e
 	set -o pipefail
 else
@@ -426,7 +426,7 @@ else
 	else
 		echo "$LIB not installed"
 	fi
-	wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -447,7 +447,7 @@ else
 fi
 
 # Build and install gst-plugin-subsink-git:
-if [ ! -f gst-plugin-dvbmediasink/*.deb ]; then
+if [ ! -d gst-plugin-dvbmediasink ]; then
 	set -e
 	set -o pipefail
 else
@@ -465,7 +465,7 @@ else
 	else
 		echo "$LIB not installed"
 	fi
-		wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+		wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
@@ -495,7 +495,7 @@ else
 fi
 
 # Message if error at any point of script
-if [ ! -f gst-plugin-subsink/libgstreamer-plugins-subsink_1.0-1_amd64.deb ]; then
+if [ ! -d gst-plugin-subsink ]; then
 	set -e
 	set -o pipefail
 	echo ""

@@ -19,7 +19,7 @@ if [ -d plugins ]; then
 	if [ -d $PKG ]; then
 		rm -rf $PKG
 	fi
-	wget https://github.com/OpenPLi/servicemp3/archive/$VER.zip
+	wget --no-check-certificate https://github.com/OpenPLi/servicemp3/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
 	mv $PKG-$VER $PKG
@@ -102,7 +102,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -137,7 +137,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
@@ -174,7 +174,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -210,21 +210,21 @@ if [ -d plugins ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		if [ "$release" = "20.04" ]; then
-			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+			wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 			unzip $VER.zip
 			rm $VER.zip
 			mv $PKG-$VER $PKG
 			cd ../..
 			cp -fv patches/$PKG_-py3.patch plugins/e2openplugin/$PKG
 		elif [ "$release" = "22.04" ]; then
-			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+			wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 			unzip $VER.zip
 			rm $VER.zip
 			mv $PKG-$VER $PKG
 			cd ../..
 			cp -fv patches/$PKG_-py3.patch plugins/e2openplugin/$PKG
 		else
-			wget https://github.com/E2OpenPlugins/$PKG/archive/$VER1.zip
+			wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/$VER1.zip
 			unzip $VER1.zip
 			rm $VER1.zip
 			mv $PKG-$VER1 $PKG
@@ -259,7 +259,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
@@ -297,7 +297,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
@@ -335,7 +335,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
@@ -372,7 +372,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -410,7 +410,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/Taapat/$PKG/archive/refs/heads/master.zip
+		wget --no-check-certificate https://github.com/Taapat/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -444,7 +444,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -473,14 +473,15 @@ if [ -d plugins ]; then
 		echo ""
 		PKG="enigma2-plugin-extensions-epgimport"
 		PKG_="EPGImport"
-		VER="a82a48233dad402a7e5ed69edfa2720a793f3dcd"
+		VER="9ec49eb1f2877ca2c8c7e044f74ed3807f40c8a2"
+99574a6f8dad00833f85ffa28db2433b708ad067
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/OpenPLi/$PKG/archive/$VER.zip
+		wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 		unzip $VER.zip
 		rm $VER.zip
 		mv $PKG-$VER $PKG
@@ -519,7 +520,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="9b46f5d4e7d969447126069d1d6ea1611275dc81"
+		VER="99574a6f8dad00833f85ffa28db2433b708ad067"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -527,7 +528,7 @@ if [ -d plugins ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
 		rm -f /usr/lib/librtmp.so.1
-		wget https://gitlab.com/zadmario/e2iplayer/-/archive/$VER/e2iplayer-$VER.zip
+		wget --no-check-certificate https://gitlab.com/zadmario/e2iplayer/-/archive/$VER/e2iplayer-$VER.zip
 		unzip $PKG-$VER.zip
 		rm $PKG-$VER.zip
 		mv $PKG-$VER $PKG
@@ -550,39 +551,39 @@ if [ -d plugins ]; then
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_iptvplayer* $INSTALL_E2DIR/lib/enigma2/python/Plugins
 		cp -rfv IPTVPlayer/locale $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
-		wget http://iptvplayer.vline.pl/resources/bin/i686/_subparser.so
+		wget --no-check-certificate http://iptvplayer.vline.pl/resources/bin/i686/_subparser.so
 		chmod 755 _subparser.so
 		mv -f _subparser.so $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/libs/iptvsubparser
-		wget http://iptvplayer.vline.pl/resources/bin/i686/duk
+		wget --no-check-certificate http://iptvplayer.vline.pl/resources/bin/i686/duk
 		chmod 755 duk
 		mv -f duk $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 		rm -f /usr/bin/duk
-		wget http://iptvplayer.vline.pl/resources/bin/i686/hlsdl_static_curl_openssl.1.0.2
+		wget --no-check-certificate http://iptvplayer.vline.pl/resources/bin/i686/hlsdl_static_curl_openssl.1.0.2
 		chmod 755 hlsdl_static_curl_openssl.1.0.2
 		mv -f hlsdl_static_curl_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/hlsdl
 		rm -f /usr/bin/hlsdl
-		wget http://iptvplayer.vline.pl/resources/bin/i686/f4mdump_openssl.1.0.2
+		wget --no-check-certificate http://iptvplayer.vline.pl/resources/bin/i686/f4mdump_openssl.1.0.2
 		chmod 755 f4mdump_openssl.1.0.2
 		mv -f f4mdump_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/f4mdump
 		rm -f /usr/bin/f4mdump
-		wget http://iptvplayer.vline.pl/resources/bin/i686/uchardet
+		wget --no-check-certificate http://iptvplayer.vline.pl/resources/bin/i686/uchardet
 		chmod 755 uchardet
 		mv -f uchardet $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
-		wget http://iptvplayer.vline.pl/resources/bin/i686/wget_openssl.1.0.2
+		wget --no-check-certificate http://iptvplayer.vline.pl/resources/bin/i686/wget_openssl.1.0.2
 		chmod 755 wget_openssl.1.0.2
 		mv -f wget_openssl.1.0.2 $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin/fullwget
 		cd ..
 		if [ -d e2iplayer ]; then
 			if [[ "$release" = "14.04" ]]; then
 				echo "         *** release 14.04 ***"
-				wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer0.10
+				wget --no-check-certificate http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer0.10
 				mv -f gstplayer_gstreamer0.10 gstplayer
 				chmod 755 gstplayer
 				mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin
 				rm -f /usr/bin/gstplayer
 			fi
 		else
-			wget http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer1.0
+			wget --no-check-certificate http://iptvplayer.vline.pl/resources/bin/i686/gstplayer_gstreamer1.0
 			mv -f gstplayer_gstreamer1.0 gstplayer
 			chmod 755 gstplayer
 			mv -f gstplayer $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_/bin

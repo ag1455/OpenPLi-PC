@@ -150,6 +150,11 @@ if [ ! -d /usr/include/netlink ]; then
 	ln -s /usr/include/libnl3/netlink /usr/include
 fi
 
+cp -fv patches/patch-fea507cf-to-PC.patch $PKG
+cd $PKG
+patch -p1 < patch-fea507cf-to-PC.patch
+cd ..
+
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
 if [ "$release" = "14.04" ]; then
@@ -180,8 +185,8 @@ elif [ "$release" = "18.04" ]; then
 	echo "                 *** RELEASE 18.04 ***"
 	echo "                  *** USED g++-8 ***"
 	echo "********************************************************"
-	export CXX=/usr/bin/g++-8
 	cd $PKG
+	export CXX=/usr/bin/g++-8
 elif [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
@@ -210,11 +215,6 @@ elif [ "$release" = "22.04" ]; then
 	patch -p1 < compile_py2.patch
 	export CXX=/usr/bin/g++-11
 fi
-
-cd ..
-cp -fv patches/patch-fea507cf-to-PC.patch $PKG
-cd $PKG
-patch -p1 < patch-fea507cf-to-PC.patch
 
 # Configure
 if [ "$DO_CONFIGURE" -eq "1" ]; then

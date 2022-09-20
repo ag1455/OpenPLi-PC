@@ -19,7 +19,7 @@ dpkg -r liblirc-dev liblirc0 liblircclient-dev lirc lirc-doc lirc-x
 
 if [[ "$release" = "22.04" ]]; then
 	apt install -y dh-exec dh-python doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
-	wget http://ftp.de.debian.org/debian/pool/main/d/debhelper/dh-systemd_13.2.1_all.deb
+	wget --no-check-certificate http://ftp.de.debian.org/debian/pool/main/d/debhelper/dh-systemd_13.2.1_all.deb
 	dpkg -i dh-systemd_13.2.1_all.deb
 	rm -f dh-systemd_13.2.1_all.deb
 	dpkg -i pre/lirc/*.deb
@@ -31,7 +31,7 @@ else
 	if [ -d $PKG ]; then
 		rm -fr $PKG
 	fi
-	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/lirc/0.10.1-6/lirc_0.10.1.orig.tar.gz
+	wget --no-check-certificate https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/lirc/0.10.1-6/lirc_0.10.1.orig.tar.gz
 	tar -xvf lirc_0.10.1.orig.tar.gz
 	rm -vf lirc_0.10.1.orig.tar.gz
 	cd ..

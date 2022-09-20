@@ -1,5 +1,5 @@
 diff -ruN a/lib/dvb_ci/aes_xcbc_mac.cpp b/lib/dvb_ci/aes_xcbc_mac.cpp
---- a/lib/dvb_ci/aes_xcbc_mac.cpp	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/aes_xcbc_mac.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/aes_xcbc_mac.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,62 +0,0 @@
 -#include <stdint.h>
@@ -65,7 +65,7 @@ diff -ruN a/lib/dvb_ci/aes_xcbc_mac.cpp b/lib/dvb_ci/aes_xcbc_mac.cpp
 -	return 0;
 -}
 diff -ruN a/lib/dvb_ci/aes_xcbc_mac.h b/lib/dvb_ci/aes_xcbc_mac.h
---- a/lib/dvb_ci/aes_xcbc_mac.h	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/aes_xcbc_mac.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/aes_xcbc_mac.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,17 +0,0 @@
 -#ifndef __AES_XCBC_H_
@@ -86,7 +86,7 @@ diff -ruN a/lib/dvb_ci/aes_xcbc_mac.h b/lib/dvb_ci/aes_xcbc_mac.h
 -
 -#endif
 diff -ruN a/lib/dvb_ci/descrambler.cpp b/lib/dvb_ci/descrambler.cpp
---- a/lib/dvb_ci/descrambler.cpp	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/descrambler.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/descrambler.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,111 +0,0 @@
 -#include <stdio.h>
@@ -201,7 +201,7 @@ diff -ruN a/lib/dvb_ci/descrambler.cpp b/lib/dvb_ci/descrambler.cpp
 -	close(desc_fd);
 -}
 diff -ruN a/lib/dvb_ci/descrambler.h b/lib/dvb_ci/descrambler.h
---- a/lib/dvb_ci/descrambler.h	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/descrambler.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/descrambler.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,9 +0,0 @@
 -#ifndef __DESCR_H_
@@ -214,8 +214,8 @@ diff -ruN a/lib/dvb_ci/descrambler.h b/lib/dvb_ci/descrambler.h
 -
 -#endif
 diff -ruN a/lib/dvb_ci/dvbci_appmgr.cpp b/lib/dvb_ci/dvbci_appmgr.cpp
---- a/lib/dvb_ci/dvbci_appmgr.cpp	2021-07-07 13:18:31.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_appmgr.cpp	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_appmgr.cpp	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/dvbci_appmgr.cpp	2022-09-20 12:27:05.000000000 +0300
 @@ -8,7 +8,6 @@
  {
  	slot = tslot;
@@ -257,8 +257,8 @@ diff -ruN a/lib/dvb_ci/dvbci_appmgr.cpp b/lib/dvb_ci/dvbci_appmgr.cpp
  		}
  	}
 diff -ruN a/lib/dvb_ci/dvbci_appmgr.h b/lib/dvb_ci/dvbci_appmgr.h
---- a/lib/dvb_ci/dvbci_appmgr.h	2021-07-07 13:18:31.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_appmgr.h	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_appmgr.h	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/dvbci_appmgr.h	2022-09-20 12:27:05.000000000 +0300
 @@ -11,8 +11,6 @@
  
  	eDVBCISlot *slot;
@@ -277,7 +277,7 @@ diff -ruN a/lib/dvb_ci/dvbci_appmgr.h b/lib/dvb_ci/dvbci_appmgr.h
  
  #endif
 diff -ruN a/lib/dvb_ci/dvbci_app_mmi.cpp b/lib/dvb_ci/dvbci_app_mmi.cpp
---- a/lib/dvb_ci/dvbci_app_mmi.cpp	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_app_mmi.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_app_mmi.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,35 +0,0 @@
 -/* DVB CI Application MMI Manager */
@@ -316,7 +316,7 @@ diff -ruN a/lib/dvb_ci/dvbci_app_mmi.cpp b/lib/dvb_ci/dvbci_app_mmi.cpp
 -	return 0;
 -}
 diff -ruN a/lib/dvb_ci/dvbci_app_mmi.h b/lib/dvb_ci/dvbci_app_mmi.h
---- a/lib/dvb_ci/dvbci_app_mmi.h	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_app_mmi.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_app_mmi.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,13 +0,0 @@
 -#ifndef __dvbci_dvbci_app_mmi_h
@@ -333,8 +333,8 @@ diff -ruN a/lib/dvb_ci/dvbci_app_mmi.h b/lib/dvb_ci/dvbci_app_mmi.h
 -
 -#endif
 diff -ruN a/lib/dvb_ci/dvbci_camgr.cpp b/lib/dvb_ci/dvbci_camgr.cpp
---- a/lib/dvb_ci/dvbci_camgr.cpp	2021-07-07 13:18:31.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_camgr.cpp	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_camgr.cpp	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/dvbci_camgr.cpp	2022-09-20 12:27:05.000000000 +0300
 @@ -16,10 +16,10 @@
  
  int eDVBCICAManagerSession::receivedAPDU(const unsigned char *tag, const void *data, int len)
@@ -372,7 +372,7 @@ diff -ruN a/lib/dvb_ci/dvbci_camgr.cpp b/lib/dvb_ci/dvbci_camgr.cpp
  	default:
  		return 0;
 diff -ruN a/lib/dvb_ci/dvbci_cam_upgrade.cpp b/lib/dvb_ci/dvbci_cam_upgrade.cpp
---- a/lib/dvb_ci/dvbci_cam_upgrade.cpp	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_cam_upgrade.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_cam_upgrade.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,35 +0,0 @@
 -/* DVB CI CAM Firmware Upgrade Manager */
@@ -411,7 +411,7 @@ diff -ruN a/lib/dvb_ci/dvbci_cam_upgrade.cpp b/lib/dvb_ci/dvbci_cam_upgrade.cpp
 -	return 0;
 -}
 diff -ruN a/lib/dvb_ci/dvbci_cam_upgrade.h b/lib/dvb_ci/dvbci_cam_upgrade.h
---- a/lib/dvb_ci/dvbci_cam_upgrade.h	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_cam_upgrade.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_cam_upgrade.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,13 +0,0 @@
 -#ifndef __dvbci_dvbci_cam_upgrade_h
@@ -428,7 +428,7 @@ diff -ruN a/lib/dvb_ci/dvbci_cam_upgrade.h b/lib/dvb_ci/dvbci_cam_upgrade.h
 -
 -#endif
 diff -ruN a/lib/dvb_ci/dvbci_ccmgr.cpp b/lib/dvb_ci/dvbci_ccmgr.cpp
---- a/lib/dvb_ci/dvbci_ccmgr.cpp	2021-08-29 10:49:26.000000000 +0300
+--- a/lib/dvb_ci/dvbci_ccmgr.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_ccmgr.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,951 +0,0 @@
 -/* DVB CI Content Control Manager */
@@ -1383,7 +1383,7 @@ diff -ruN a/lib/dvb_ci/dvbci_ccmgr.cpp b/lib/dvb_ci/dvbci_ccmgr.cpp
 -	return true;
 -}
 diff -ruN a/lib/dvb_ci/dvbci_ccmgr.h b/lib/dvb_ci/dvbci_ccmgr.h
---- a/lib/dvb_ci/dvbci_ccmgr.h	2021-08-29 10:49:26.000000000 +0300
+--- a/lib/dvb_ci/dvbci_ccmgr.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_ccmgr.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,285 +0,0 @@
 -#ifndef __dvbci_dvbci_ccmgr_h
@@ -1672,7 +1672,7 @@ diff -ruN a/lib/dvb_ci/dvbci_ccmgr.h b/lib/dvb_ci/dvbci_ccmgr.h
 -
 -#endif
 diff -ruN a/lib/dvb_ci/dvbci_ccmgr_helper.cpp b/lib/dvb_ci/dvbci_ccmgr_helper.cpp
---- a/lib/dvb_ci/dvbci_ccmgr_helper.cpp	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_ccmgr_helper.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_ccmgr_helper.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,434 +0,0 @@
 -#include <fcntl.h>
@@ -2110,7 +2110,7 @@ diff -ruN a/lib/dvb_ci/dvbci_ccmgr_helper.cpp b/lib/dvb_ci/dvbci_ccmgr_helper.cp
 -	return false;
 -}
 diff -ruN a/lib/dvb_ci/dvbci_ccmgr_helper.h b/lib/dvb_ci/dvbci_ccmgr_helper.h
---- a/lib/dvb_ci/dvbci_ccmgr_helper.h	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_ccmgr_helper.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_ccmgr_helper.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,23 +0,0 @@
 -#ifndef __RES_CONTENT_CTRL_HELPER_H
@@ -2137,8 +2137,8 @@ diff -ruN a/lib/dvb_ci/dvbci_ccmgr_helper.h b/lib/dvb_ci/dvbci_ccmgr_helper.h
 -
 -#endif
 diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
---- a/lib/dvb_ci/dvbci.cpp	2021-11-20 13:29:19.000000000 +0300
-+++ b/lib/dvb_ci/dvbci.cpp	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci.cpp	2022-09-20 01:27:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci.cpp	2022-09-20 12:27:05.000000000 +0300
 @@ -22,34 +22,143 @@
  #include <lib/dvb_ci/dvbci_ui.h>
  #include <lib/dvb_ci/dvbci_appmgr.h>
@@ -2678,8 +2678,18 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  	eDVBCISlot *slot = getSlot(slotid);
  	if (!slot)
  	{
-@@ -1029,129 +1071,20 @@
+@@ -1027,139 +1069,22 @@
+ 	return 0;
+ }
  
+-int eDVBCIInterfaces::setCIEnabled(int slotid, bool enabled)
+-{
+-	eDVBCISlot *slot = getSlot(slotid);
+-	if (slot)
+-		return slot->setEnabled(enabled);
+-	return -1;
+-}
+-
  int eDVBCIInterfaces::setCIClockRate(int slotid, int rate)
  {
 -	singleLock s(m_slot_lock);
@@ -2813,7 +2823,7 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  
  	if (sendqueue.empty())
  		res = ::write(fd, data, len);
-@@ -1169,8 +1102,7 @@
+@@ -1177,8 +1102,7 @@
  
  void eDVBCISlot::data(int what)
  {
@@ -2823,7 +2833,7 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  	if(what == eSocketNotifier::Priority) {
  		if(state != stateRemoved) {
  			state = stateRemoved;
-@@ -1182,7 +1114,7 @@
+@@ -1190,7 +1114,7 @@
  			eDVBCISession::deleteSessions(this);
  			eDVBCIInterfaces::getInstance()->ciRemoved(this);
  			notifier->setRequested(eSocketNotifier::Read);
@@ -2832,7 +2842,7 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  		}
  		return;
  	}
-@@ -1193,7 +1125,7 @@
+@@ -1201,7 +1125,7 @@
  	if(state != stateInserted) {
  		eDebug("[CI] ci inserted in slot %d", getSlotID());
  		state = stateInserted;
@@ -2841,7 +2851,7 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  		notifier->setRequested(eSocketNotifier::Read|eSocketNotifier::Priority);
  		/* enable PRI to detect removal or errors */
  	}
-@@ -1203,11 +1135,11 @@
+@@ -1211,11 +1135,11 @@
  		int r;
  		r = ::read(fd, data, 4096);
  		if(r > 0) {
@@ -2858,7 +2868,26 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  			eDVBCISession::receiveData(this, data, r);
  			eDVBCISession::pollAll();
  			return;
-@@ -1237,12 +1169,10 @@
+@@ -1240,33 +1164,19 @@
+ 
+ eDVBCISlot::eDVBCISlot(eMainloop *context, int nr)
+ {
+-	char configStr[255];
+-	slotid = nr;
+-	m_context = context;
+-	state = stateDisabled;
+-	snprintf(configStr, 255, "config.ci.%d.enabled", slotid);
+-	bool enabled = eConfigManager::getConfigBoolValue(configStr, true);
+-	if (enabled)
+-		openDevice();
+-	else
+-		/* emit */ eDVBCI_UI::getInstance()->m_messagepump.send(eDVBCIInterfaces::Message(eDVBCIInterfaces::Message::slotStateChanged, getSlotID(), 3)); // state disabled
+-}
+-
+-void eDVBCISlot::openDevice()
+-{
+ 	char filename[128];
+ 
  	application_manager = 0;
  	mmi_session = 0;
  	ca_manager = 0;
@@ -2869,9 +2898,14 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  	plugged = true;
 -	m_ci_version = versionUnknown;
  
- 	slotid = nr;
+-	sprintf(filename, "/dev/ci%d", slotid);
++	slotid = nr;
++
++	sprintf(filename, "/dev/ci%d", nr);
  
-@@ -1254,7 +1184,7 @@
+ //	possible_caids.insert(0x1702);
+ //	possible_providers.insert(providerPair("PREMIERE", 0xC00000));
+@@ -1274,12 +1184,12 @@
  
  	fd = ::open(filename, O_RDWR | O_NONBLOCK | O_CLOEXEC);
  
@@ -2880,15 +2914,31 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  	state = stateInvalid;
  
  	if (fd >= 0)
-@@ -1270,115 +1200,28 @@
+ 	{
+-		notifier = eSocketNotifier::create(m_context, fd, eSocketNotifier::Read | eSocketNotifier::Priority | eSocketNotifier::Write);
++		notifier = eSocketNotifier::create(context, fd, eSocketNotifier::Read | eSocketNotifier::Priority | eSocketNotifier::Write);
+ 		CONNECT(notifier->activated, eDVBCISlot::data);
+ 	} else
+ 	{
+@@ -1290,124 +1200,28 @@
  eDVBCISlot::~eDVBCISlot()
  {
  	eDVBCISession::deleteSessions(this);
 -	close(fd);
  }
  
- void eDVBCISlot::setAppManager( eDVBCIApplicationManagerSession *session )
+-void eDVBCISlot::closeDevice() 
++void eDVBCISlot::setAppManager( eDVBCIApplicationManagerSession *session )
  {
+-	close(fd);
+-	fd = -1;
+-	notifier->stop();
+-	data(eSocketNotifier::Priority);
+-	state = stateDisabled;
+-}
+-
+-void eDVBCISlot::setAppManager(eDVBCIApplicationManagerSession *session)
+-{
 -	singleLock s(eDVBCIInterfaces::m_slot_lock);
  	application_manager=session;
  }
@@ -2996,7 +3046,7 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  int eDVBCISlot::reset()
  {
  	eDebug("[CI] Slot %d: reset requested", getSlotID());
-@@ -1551,24 +1394,6 @@
+@@ -1580,24 +1394,6 @@
  			//dont need tag and lenfield
  			ca_manager->sendCAPMT(raw_data + hlen, wp - hlen);
  			running_services[program_number] = pmt_version;
@@ -3021,9 +3071,32 @@ diff -ruN a/lib/dvb_ci/dvbci.cpp b/lib/dvb_ci/dvbci.cpp
  		}
  	}
  	return 0;
+@@ -1636,22 +1432,4 @@
+ 	return 0;
+ }
+ 
+-int eDVBCISlot::setEnabled(bool enabled)
+-{
+-	eDebug("[CI] Slot: %d Enabled: %d, state %d", getSlotID(), enabled, state);
+-	if (enabled && state != stateDisabled)
+-		return 0;
+-
+-	if (!enabled && state == stateDisabled)
+-		return 0;
+-
+-	if(enabled)
+-		openDevice();
+-	else {
+-		closeDevice();
+-		/* emit */ eDVBCI_UI::getInstance()->m_messagepump.send(eDVBCIInterfaces::Message(eDVBCIInterfaces::Message::slotStateChanged, getSlotID(), 3)); // state disabled
+-	}
+-	return 0;
+-}
+-
+ eAutoInitP0<eDVBCIInterfaces> init_eDVBCIInterfaces(eAutoInitNumbers::dvb, "CI Slots");
 diff -ruN a/lib/dvb_ci/dvbci_datetimemgr.cpp b/lib/dvb_ci/dvbci_datetimemgr.cpp
---- a/lib/dvb_ci/dvbci_datetimemgr.cpp	2021-08-29 10:49:26.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_datetimemgr.cpp	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_datetimemgr.cpp	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/dvbci_datetimemgr.cpp	2022-09-20 12:27:05.000000000 +0300
 @@ -12,10 +12,10 @@
  
  int eDVBCIDateTimeSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
@@ -3087,8 +3160,8 @@ diff -ruN a/lib/dvb_ci/dvbci_datetimemgr.cpp b/lib/dvb_ci/dvbci_datetimemgr.cpp
  	if (m_interval > 0)
  	{
 diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
---- a/lib/dvb_ci/dvbci.h	2021-07-21 11:53:05.000000000 +0300
-+++ b/lib/dvb_ci/dvbci.h	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci.h	2022-09-20 01:27:07.000000000 +0300
++++ b/lib/dvb_ci/dvbci.h	2022-09-20 12:27:05.000000000 +0300
 @@ -4,17 +4,16 @@
  #ifndef SWIG
  
@@ -3121,10 +3194,11 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  	eDVBCIMMISession *mmi_session;
  	std::priority_queue<queueData> sendqueue;
  	caidSet possible_caids;
-@@ -66,13 +63,23 @@
+@@ -66,14 +63,23 @@
  	bool user_mapped;
  	void data(int);
  	bool plugged;
+-	eMainloop *m_context;
 +public:
 +	enum {stateRemoved, stateInserted, stateInvalid, stateResetted};
 +	eDVBCISlot(eMainloop *context, int nr);
@@ -3146,7 +3220,7 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  	int reset();
  	int startMMI();
  	int stopMMI();
-@@ -82,26 +89,10 @@
+@@ -83,29 +89,10 @@
  	int getMMIState();
  	int sendCAPMT(eDVBServicePMTHandler *ptr, const std::vector<uint16_t> &caids=std::vector<uint16_t>());
  	void removeService(uint16_t program_number=0xFFFF);
@@ -3154,12 +3228,15 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  	int setSource(const std::string &source);
  	int setClockRate(int);
 -	void determineCIVersion();
+-	int setEnabled(bool);
  	static std::string getTunerLetter(int tuner_no) { return std::string(1, char(65 + tuner_no)); }
 -public:
--	enum {stateRemoved, stateInserted, stateInvalid, stateResetted};
+-	enum {stateRemoved, stateInserted, stateInvalid, stateResetted, stateDisabled};
 -	enum {versionUnknown = -1, versionCI = 0, versionCIPlus1 = 1, versionCIPlus2 = 2};
 -	eDVBCISlot(eMainloop *context, int nr);
 -	~eDVBCISlot();
+-	void closeDevice();
+-	void openDevice();
 -
 -	int send(const unsigned char *data, size_t len);
 -
@@ -3174,7 +3251,7 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  };
  
  struct CIPmtHandler
-@@ -124,7 +115,55 @@
+@@ -128,7 +115,55 @@
  
  #endif // SWIG
  
@@ -3231,7 +3308,7 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  {
  private:
  	typedef enum
-@@ -149,36 +188,20 @@
+@@ -153,41 +188,24 @@
  
  	static eDVBCIInterfaces *instance;
  	eSmartPtrList<eDVBCISlot> m_slots;
@@ -3271,7 +3348,12 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  	void gotPMT(eDVBServicePMTHandler *pmthandler);
  	void ciRemoved(eDVBCISlot *slot);
  	int getSlotState(int slot);
-@@ -191,12 +214,13 @@
+ 
+-	int setCIEnabled(int slot, bool enabled);
+ 	int reset(int slot);
+ 	int initialize(int slot);
+ 	int startMMI(int slot);
+@@ -196,12 +214,13 @@
  	int answerEnq(int slot, char *value);
  	int cancelEnq(int slot);
  	int getMMIState(int slot);
@@ -3289,7 +3371,7 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  #ifdef SWIG
  public:
  #endif
-@@ -205,32 +229,9 @@
+@@ -210,32 +229,9 @@
  	PyObject *getDescrambleRules(int slotid);
  	RESULT setDescrambleRules(int slotid, SWIG_PYOBJECT(ePyObject) );
  	PyObject *readCICaIds(int slotid);
@@ -3325,7 +3407,7 @@ diff -ruN a/lib/dvb_ci/dvbci.h b/lib/dvb_ci/dvbci.h
  
  #endif
 diff -ruN a/lib/dvb_ci/dvbci_hlcmgr.cpp b/lib/dvb_ci/dvbci_hlcmgr.cpp
---- a/lib/dvb_ci/dvbci_hlcmgr.cpp	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_hlcmgr.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_hlcmgr.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,118 +0,0 @@
 -/* DVB CI Host Language and Country Manager */
@@ -3447,7 +3529,7 @@ diff -ruN a/lib/dvb_ci/dvbci_hlcmgr.cpp b/lib/dvb_ci/dvbci_hlcmgr.cpp
 -	return 0;
 -}
 diff -ruN a/lib/dvb_ci/dvbci_hlcmgr.h b/lib/dvb_ci/dvbci_hlcmgr.h
---- a/lib/dvb_ci/dvbci_hlcmgr.h	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_hlcmgr.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_hlcmgr.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,21 +0,0 @@
 -#ifndef __dvbci_dvbci_hlcmgr_h
@@ -3472,7 +3554,7 @@ diff -ruN a/lib/dvb_ci/dvbci_hlcmgr.h b/lib/dvb_ci/dvbci_hlcmgr.h
 -
 -#endif
 diff -ruN a/lib/dvb_ci/dvbci_host_ctrl.cpp b/lib/dvb_ci/dvbci_host_ctrl.cpp
---- a/lib/dvb_ci/dvbci_host_ctrl.cpp	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_host_ctrl.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_host_ctrl.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,35 +0,0 @@
 -/* DVB CI Host Control Manager */
@@ -3511,7 +3593,7 @@ diff -ruN a/lib/dvb_ci/dvbci_host_ctrl.cpp b/lib/dvb_ci/dvbci_host_ctrl.cpp
 -	return 0;
 -}
 diff -ruN a/lib/dvb_ci/dvbci_host_ctrl.h b/lib/dvb_ci/dvbci_host_ctrl.h
---- a/lib/dvb_ci/dvbci_host_ctrl.h	2021-07-07 13:18:31.000000000 +0300
+--- a/lib/dvb_ci/dvbci_host_ctrl.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_host_ctrl.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,13 +0,0 @@
 -#ifndef __dvbci_dvbci_host_ctrl_h
@@ -3528,8 +3610,8 @@ diff -ruN a/lib/dvb_ci/dvbci_host_ctrl.h b/lib/dvb_ci/dvbci_host_ctrl.h
 -
 -#endif
 diff -ruN a/lib/dvb_ci/dvbci_mmi.cpp b/lib/dvb_ci/dvbci_mmi.cpp
---- a/lib/dvb_ci/dvbci_mmi.cpp	2021-07-07 13:18:31.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_mmi.cpp	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_mmi.cpp	2022-09-20 01:27:40.000000000 +0300
++++ b/lib/dvb_ci/dvbci_mmi.cpp	2022-09-20 12:27:05.000000000 +0300
 @@ -28,20 +28,19 @@
  {
  	slot->setMMIManager(NULL);
@@ -3557,7 +3639,7 @@ diff -ruN a/lib/dvb_ci/dvbci_mmi.cpp b/lib/dvb_ci/dvbci_mmi.cpp
  			state=stateDisplayReply;
  			return 1;
 diff -ruN a/lib/dvb_ci/dvbci_operatorprofile.cpp b/lib/dvb_ci/dvbci_operatorprofile.cpp
---- a/lib/dvb_ci/dvbci_operatorprofile.cpp	2021-08-29 10:49:26.000000000 +0300
+--- a/lib/dvb_ci/dvbci_operatorprofile.cpp	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_operatorprofile.cpp	1970-01-01 03:00:00.000000000 +0300
 @@ -1,65 +0,0 @@
 -/* DVB CI Operator Profile Manager */
@@ -3626,7 +3708,7 @@ diff -ruN a/lib/dvb_ci/dvbci_operatorprofile.cpp b/lib/dvb_ci/dvbci_operatorprof
 -	return 0;
 -}
 diff -ruN a/lib/dvb_ci/dvbci_operatorprofile.h b/lib/dvb_ci/dvbci_operatorprofile.h
---- a/lib/dvb_ci/dvbci_operatorprofile.h	2021-08-29 10:49:26.000000000 +0300
+--- a/lib/dvb_ci/dvbci_operatorprofile.h	2022-03-31 16:51:28.000000000 +0300
 +++ b/lib/dvb_ci/dvbci_operatorprofile.h	1970-01-01 03:00:00.000000000 +0300
 @@ -1,18 +0,0 @@
 -#ifndef __dvbci_dvbci_operatorprofile_h
@@ -3648,8 +3730,8 @@ diff -ruN a/lib/dvb_ci/dvbci_operatorprofile.h b/lib/dvb_ci/dvbci_operatorprofil
 -
 -#endif
 diff -ruN a/lib/dvb_ci/dvbci_resmgr.cpp b/lib/dvb_ci/dvbci_resmgr.cpp
---- a/lib/dvb_ci/dvbci_resmgr.cpp	2021-11-20 13:29:19.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_resmgr.cpp	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_resmgr.cpp	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/dvbci_resmgr.cpp	2022-09-20 12:27:05.000000000 +0300
 @@ -2,14 +2,13 @@
  
  #include <lib/base/eerror.h>
@@ -3759,8 +3841,8 @@ diff -ruN a/lib/dvb_ci/dvbci_resmgr.cpp b/lib/dvb_ci/dvbci_resmgr.cpp
  		break;
  	}
 diff -ruN a/lib/dvb_ci/dvbci_resmgr.h b/lib/dvb_ci/dvbci_resmgr.h
---- a/lib/dvb_ci/dvbci_resmgr.h	2021-07-07 13:18:31.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_resmgr.h	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_resmgr.h	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/dvbci_resmgr.h	2022-09-20 12:27:05.000000000 +0300
 @@ -13,9 +13,7 @@
  		stateFinal };
  	int receivedAPDU(const unsigned char *tag, const void *data, int len);
@@ -3772,8 +3854,8 @@ diff -ruN a/lib/dvb_ci/dvbci_resmgr.h b/lib/dvb_ci/dvbci_resmgr.h
  
  #endif
 diff -ruN a/lib/dvb_ci/dvbci_session.cpp b/lib/dvb_ci/dvbci_session.cpp
---- a/lib/dvb_ci/dvbci_session.cpp	2021-08-29 10:49:26.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_session.cpp	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_session.cpp	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/dvbci_session.cpp	2022-09-20 12:27:05.000000000 +0300
 @@ -7,12 +7,33 @@
  #include <lib/dvb_ci/dvbci_camgr.h>
  #include <lib/dvb_ci/dvbci_datetimemgr.h>
@@ -3965,8 +4047,8 @@ diff -ruN a/lib/dvb_ci/dvbci_session.cpp b/lib/dvb_ci/dvbci_session.cpp
 +	}
 +}
 diff -ruN a/lib/dvb_ci/dvbci_session.h b/lib/dvb_ci/dvbci_session.h
---- a/lib/dvb_ci/dvbci_session.h	2021-07-07 13:18:31.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_session.h	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_session.h	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/dvbci_session.h	2022-09-20 12:27:05.000000000 +0300
 @@ -45,6 +45,20 @@
  
  	static int pollAll();
@@ -3989,8 +4071,8 @@ diff -ruN a/lib/dvb_ci/dvbci_session.h b/lib/dvb_ci/dvbci_session.h
  
  #endif
 diff -ruN a/lib/dvb_ci/dvbci_ui.cpp b/lib/dvb_ci/dvbci_ui.cpp
---- a/lib/dvb_ci/dvbci_ui.cpp	2021-07-07 13:18:31.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_ui.cpp	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_ui.cpp	2022-09-20 01:27:07.000000000 +0300
++++ b/lib/dvb_ci/dvbci_ui.cpp	2022-09-20 12:27:05.000000000 +0300
 @@ -15,11 +15,10 @@
  eDVBCI_UI *eDVBCI_UI::instance;
  
@@ -4030,9 +4112,20 @@ diff -ruN a/lib/dvb_ci/dvbci_ui.cpp b/lib/dvb_ci/dvbci_ui.cpp
  void eDVBCI_UI::setInit(int slot)
  {
  	eDVBCIInterfaces::getInstance()->initialize(slot);
+@@ -96,10 +76,5 @@
+ 	return eDVBCIInterfaces::getInstance()->setCIClockRate(slot, rate);
+ }
+ 
+-int eDVBCI_UI::setEnabled(int slot, bool enabled)
+-{
+-	return eDVBCIInterfaces::getInstance()->setCIEnabled(slot, enabled);
+-}
+-
+ //FIXME: correct "run/startlevel"
+ eAutoInitP0<eDVBCI_UI> init_dvbciui(eAutoInitNumbers::rc, "DVB-CI UI");
 diff -ruN a/lib/dvb_ci/dvbci_ui.h b/lib/dvb_ci/dvbci_ui.h
---- a/lib/dvb_ci/dvbci_ui.h	2021-07-07 13:18:31.000000000 +0300
-+++ b/lib/dvb_ci/dvbci_ui.h	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/dvbci_ui.h	2022-09-20 01:27:07.000000000 +0300
++++ b/lib/dvb_ci/dvbci_ui.h	2022-09-20 12:27:05.000000000 +0300
 @@ -2,17 +2,12 @@
  #define __dvbci_ui_h
  
@@ -4059,9 +4152,17 @@ diff -ruN a/lib/dvb_ci/dvbci_ui.h b/lib/dvb_ci/dvbci_ui.h
  	eDVBCI_UI();
  #endif
  	static eDVBCI_UI *getInstance();
+@@ -34,7 +28,6 @@
+ 	int answerEnq(int slot, char *val);
+ 	int cancelEnq(int slot);
+ 	int setClockRate(int slot, int rate);
+-	int setEnabled(int slot, bool enabled);
+ };
+ 
+ #endif
 diff -ruN a/lib/dvb_ci/Makefile.inc b/lib/dvb_ci/Makefile.inc
---- a/lib/dvb_ci/Makefile.inc	2021-08-29 10:49:26.000000000 +0300
-+++ b/lib/dvb_ci/Makefile.inc	2022-03-31 15:57:05.000000000 +0300
+--- a/lib/dvb_ci/Makefile.inc	2022-03-31 16:51:28.000000000 +0300
++++ b/lib/dvb_ci/Makefile.inc	2022-09-20 12:27:05.000000000 +0300
 @@ -8,17 +8,7 @@
  	dvb_ci/dvbci_mmi.cpp \
  	dvb_ci/dvbci_resmgr.cpp \
@@ -4097,8 +4198,8 @@ diff -ruN a/lib/dvb_ci/Makefile.inc b/lib/dvb_ci/Makefile.inc
 -	dvb_ci/descrambler.h
 +	dvb_ci/dvbci_ui.h
 diff -ruN a/lib/gdi/xineLib.cpp b/lib/gdi/xineLib.cpp
---- a/lib/gdi/xineLib.cpp	2022-03-31 16:17:30.000000000 +0300
-+++ b/lib/gdi/xineLib.cpp	2022-03-31 16:22:02.134355409 +0300
+--- a/lib/gdi/xineLib.cpp	2022-09-20 01:29:41.000000000 +0300
++++ b/lib/gdi/xineLib.cpp	2022-09-20 12:31:49.912888592 +0300
 @@ -732,13 +732,9 @@
  
  RESULT cXineLib::getPTS(pts_t &pts) {

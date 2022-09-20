@@ -25,7 +25,7 @@ if [ -f xine-lib-* ]; then
 fi
 
 # This is hg 1.2.12
-wget http://hg.code.sf.net/p/xine/xine-lib-1.2/archive/$VER.tar.bz2
+wget --no-check-certificate http://hg.code.sf.net/p/xine/xine-lib-1.2/archive/$VER.tar.bz2
 tar -xvjf $VER.tar.bz2
 rm $VER.tar.bz2
 mv xine-lib-1-2-$VER $PKG
