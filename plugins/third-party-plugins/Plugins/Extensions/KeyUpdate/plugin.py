@@ -51,3 +51,4 @@ def main(session, **kwargs):
 
 def Plugins(**kwargs):
     return [PluginDescriptor(name=_('KeyUpdate'), description=_('KeyUpdate for online Generator'), where=PluginDescriptor.WHERE_PLUGINMENU, fnc=main, icon='plugin.png')]
+

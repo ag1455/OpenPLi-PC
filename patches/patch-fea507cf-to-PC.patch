@@ -1,15 +1,15 @@
 diff -ruN o/autogen.sh pc/autogen.sh
---- o/autogen.sh	2022-09-15 22:01:03.236847444 +0300
+--- o/autogen.sh	2022-09-11 21:32:03.573799534 +0300
 +++ pc/autogen.sh	1970-01-01 03:00:00.000000000 +0300
 @@ -1,2 +0,0 @@
 -#!/bin/sh
 -autoreconf -i
 diff -ruN o/configure.ac pc/configure.ac
---- o/configure.ac	2022-09-15 22:02:23.332766903 +0300
-+++ pc/configure.ac	2022-09-15 22:08:19.840656290 +0300
+--- o/configure.ac	2022-09-11 21:36:22.943398207 +0300
++++ pc/configure.ac	2022-09-20 14:27:49.693316771 +0300
 @@ -1,4 +1,4 @@
 -AC_INIT([enigma2],[4],[forum@openpli.org])
-+AC_INIT([enigma2],[PC8.2],[forum@openpli.org])
++AC_INIT([enigma2],[PC8.1],[forum@openpli.org])
  AM_INIT_AUTOMAKE([dist-bzip2 no-define tar-pax -Wno-portability])
  AC_CONFIG_HEADERS([enigma2_config.h])
  
@@ -71,8 +71,8 @@ diff -ruN o/configure.ac pc/configure.ac
  AC_CONFIG_FILES([
  Makefile
 diff -ruN o/data/keymap.xml pc/data/keymap.xml
---- o/data/keymap.xml	2022-09-15 22:01:03.277845327 +0300
-+++ pc/data/keymap.xml	2022-09-15 22:08:19.840656290 +0300
+--- o/data/keymap.xml	2022-09-11 21:32:03.653799829 +0300
++++ pc/data/keymap.xml	2022-09-20 14:27:49.693316771 +0300
 @@ -37,7 +37,6 @@
  	<map context="HelpActions">
  		<key id="KEY_HELP" mapto="displayHelp" flags="b" />
@@ -140,8 +140,8 @@ diff -ruN o/data/keymap.xml pc/data/keymap.xml
  		<key id="KEY_NEXT" mapto="moveDown" flags="m" />
  	</map>
 diff -ruN o/data/menu.xml pc/data/menu.xml
---- o/data/menu.xml	2022-09-15 22:01:03.278845275 +0300
-+++ pc/data/menu.xml	2022-09-15 22:08:19.840656290 +0300
+--- o/data/menu.xml	2022-09-11 21:32:03.653799829 +0300
++++ pc/data/menu.xml	2022-09-20 14:27:49.693316771 +0300
 @@ -35,9 +35,8 @@
  			</menu>
  			<menu weight="5" level="0" text="System" entryID="system_selection">
@@ -179,8 +179,8 @@ diff -ruN o/data/menu.xml pc/data/menu.xml
  		</menu>
  </menu>
 diff -ruN o/data/setup.xml pc/data/setup.xml
---- o/data/setup.xml	2022-09-15 22:01:03.284844965 +0300
-+++ pc/data/setup.xml	2022-09-15 22:08:19.840656290 +0300
+--- o/data/setup.xml	2022-09-11 21:32:03.661799858 +0300
++++ pc/data/setup.xml	2022-09-20 14:27:49.693316771 +0300
 @@ -3,9 +3,6 @@
  		<item level="0" text="Time zone area" description="Select your time zone area or region.">config.timezone.area</item>
  		<item level="0" text="Time zone" description="Select the time zone within the area or region.">config.timezone.val</item>
@@ -208,7 +208,7 @@ diff -ruN o/data/setup.xml pc/data/setup.xml
  </setupxml>
 diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 --- o/lib/base/condVar.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/condVar.cpp	2022-09-15 22:08:19.841656244 +0300
++++ pc/lib/base/condVar.cpp	2022-09-20 14:27:49.693316771 +0300
 @@ -0,0 +1,240 @@
 +/*
 + * condVar.cpp: Mutexes, conditional vars.
@@ -452,7 +452,7 @@ diff -ruN o/lib/base/condVar.cpp pc/lib/base/condVar.cpp
 +}
 diff -ruN o/lib/base/condVar.h pc/lib/base/condVar.h
 --- o/lib/base/condVar.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/condVar.h	2022-09-15 22:08:19.841656244 +0300
++++ pc/lib/base/condVar.h	2022-09-20 14:27:49.693316771 +0300
 @@ -0,0 +1,64 @@
 +#ifndef __base_condVar_h
 +#define __base_condVar_h
@@ -519,8 +519,8 @@ diff -ruN o/lib/base/condVar.h pc/lib/base/condVar.h
 +
 +#endif
 diff -ruN o/lib/base/Makefile.inc pc/lib/base/Makefile.inc
---- o/lib/base/Makefile.inc	2022-09-15 22:01:03.294844449 +0300
-+++ pc/lib/base/Makefile.inc	2022-09-15 22:08:19.841656244 +0300
+--- o/lib/base/Makefile.inc	2022-09-11 21:32:03.677799917 +0300
++++ pc/lib/base/Makefile.inc	2022-09-20 14:27:49.693316771 +0300
 @@ -24,7 +24,9 @@
  	base/thread.cpp \
  	base/httpsstream.cpp \
@@ -541,8 +541,8 @@ diff -ruN o/lib/base/Makefile.inc pc/lib/base/Makefile.inc
 +	base/tsRingbuffer.h \
 +	base/condVar.h
 diff -ruN o/lib/base/rawfile.cpp pc/lib/base/rawfile.cpp
---- o/lib/base/rawfile.cpp	2022-09-15 22:02:23.334766802 +0300
-+++ pc/lib/base/rawfile.cpp	2022-09-15 22:08:19.841656244 +0300
+--- o/lib/base/rawfile.cpp	2022-09-11 21:36:22.943398207 +0300
++++ pc/lib/base/rawfile.cpp	2022-09-20 14:27:49.697316795 +0300
 @@ -3,6 +3,7 @@
  #include <fcntl.h>
  #include <lib/base/rawfile.h>
@@ -691,8 +691,8 @@ diff -ruN o/lib/base/rawfile.cpp pc/lib/base/rawfile.cpp
 +	return ret;
 +}
 diff -ruN o/lib/base/rawfile.h pc/lib/base/rawfile.h
---- o/lib/base/rawfile.h	2022-09-15 22:01:03.298844242 +0300
-+++ pc/lib/base/rawfile.h	2022-09-15 22:08:19.841656244 +0300
+--- o/lib/base/rawfile.h	2022-09-11 21:32:03.681799932 +0300
++++ pc/lib/base/rawfile.h	2022-09-20 14:27:49.697316795 +0300
 @@ -3,23 +3,27 @@
  
  #include <string>
@@ -748,7 +748,7 @@ diff -ruN o/lib/base/rawfile.h pc/lib/base/rawfile.h
  #endif
 diff -ruN o/lib/base/tsRingbuffer.cpp pc/lib/base/tsRingbuffer.cpp
 --- o/lib/base/tsRingbuffer.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/tsRingbuffer.cpp	2022-09-15 22:08:19.841656244 +0300
++++ pc/lib/base/tsRingbuffer.cpp	2022-09-20 14:27:49.697316795 +0300
 @@ -0,0 +1,328 @@
 +/*
 + * tsRingbuffer.cpp: A ring buffer
@@ -1080,7 +1080,7 @@ diff -ruN o/lib/base/tsRingbuffer.cpp pc/lib/base/tsRingbuffer.cpp
 +}
 diff -ruN o/lib/base/tsRingbuffer.h pc/lib/base/tsRingbuffer.h
 --- o/lib/base/tsRingbuffer.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/base/tsRingbuffer.h	2022-09-15 22:08:19.841656244 +0300
++++ pc/lib/base/tsRingbuffer.h	2022-09-20 14:27:49.697316795 +0300
 @@ -0,0 +1,106 @@
 +/*
 + * tsRingbuffer.h: A ring buffer
@@ -1189,8 +1189,8 @@ diff -ruN o/lib/base/tsRingbuffer.h pc/lib/base/tsRingbuffer.h
 +
 +#endif
 diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
---- o/lib/driver/avswitch.cpp	2022-09-15 22:02:23.334766802 +0300
-+++ pc/lib/driver/avswitch.cpp	2022-09-15 22:08:19.841656244 +0300
+--- o/lib/driver/avswitch.cpp	2022-09-11 21:36:22.943398207 +0300
++++ pc/lib/driver/avswitch.cpp	2022-09-20 14:27:49.697316795 +0300
 @@ -9,6 +9,7 @@
  #include <lib/base/eerror.h>
  #include <lib/base/ebase.h>
@@ -1198,84 +1198,6 @@ diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
 +#include <lib/gdi/xineLib.h>
  
  eAVSwitch *eAVSwitch::instance = 0;
- 
-@@ -48,11 +49,11 @@
- 	int val=0;
- 	if (m_fp_fd >= 0)
- 	{
--		CFile f("/proc/stb/fp/vcr_fns", "r");
-+		CFile f("/usr/local/e2/etc/fp/vcr_fns", "r");
- 		if (f)
- 		{
- 			if (fscanf(f, "%d", &val) != 1)
--				eDebug("[eAVSwitch] read /proc/stb/fp/vcr_fns failed: %m");
-+				eDebug("[eAVSwitch] read /usr/local/e2/etc/fp/vcr_fns failed: %m");
- 		}
- 		else if (ioctl(m_fp_fd, FP_IOCTL_GET_VCR, &val) < 0)
- 			eDebug("[eAVSwitch] FP_GET_VCR failed: %m");
-@@ -69,12 +70,12 @@
- 	}
- 	else
- 	{
--		CFile f("/proc/stb/fp/events", "r");
-+		CFile f("/usr/local/e2/etc/fp/events", "r");
- 		if (f)
- 		{
- 			int events;
- 			if (fscanf(f, "%d", &events) != 1)
--				eDebug("[eAVSwitch] read /proc/stb/fp/events failed: %m");
-+				eDebug("[eAVSwitch] read /usr/local/e2/etc/fp/events failed: %m");
- 			else if (events & FP_EVENT_VCR_SB_CHANGED)
- 				/* emit */ vcr_sb_notifier(getVCRSlowBlanking());
- 		}
-@@ -103,14 +104,14 @@
- bool eAVSwitch::haveScartSwitch()
- {
- 	char tmp[255];
--	int fd = open("/proc/stb/avs/0/input_choices", O_RDONLY);
-+	int fd = open("/usr/local/e2/etc/avs/0/input_choices", O_RDONLY);
- 	if(fd < 0) {
--		eDebug("[eAVSwitch] cannot open /proc/stb/avs/0/input_choices: %m");
-+		eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/avs/0/input_choices: %m");
- 		return false;
- 	}
- 	if (read(fd, tmp, 255) < 1)
- 	{
--		eDebug("[eAVSwitch] failed to read data from /proc/stb/avs/0/input_choices: %m");
-+		eDebug("[eAVSwitch] failed to read data from /usr/local/e2/etc/avs/0/input_choices: %m");
- 		return false;
- 	}
- 	close(fd);
-@@ -131,8 +132,8 @@
- 
- 	m_active = val == 0;
- 
--	if((fd = open("/proc/stb/avs/0/input", O_WRONLY)) < 0) {
--		eDebug("[eAVSwitch] cannot open /proc/stb/avs/0/input: %m");
-+	if((fd = open("/usr/local/e2/etc/avs/0/input", O_WRONLY)) < 0) {
-+		eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/avs/0/input: %m");
- 		return;
- 	}
- 
-@@ -158,7 +159,7 @@
- 	const char *fmt = "";
- 	int fd;
- 
--	if (access("/proc/stb/avs/0/colorformat", W_OK))
-+	if (access("/usr/local/e2/etc/avs/0/colorformat", W_OK))
- 		return;  // no colorformat file...
- 
- 	switch (format) {
-@@ -170,8 +171,8 @@
- 	if (*fmt == '\0')
- 		return; // invalid format
- 
--	if ((fd = open("/proc/stb/avs/0/colorformat", O_WRONLY)) < 0) {
--		eDebug("[eAVSwitch] cannot open /proc/stb/avs/0/colorformat: %m");
-+	if ((fd = open("/usr/local/e2/etc/avs/0/colorformat", O_WRONLY)) < 0) {
-+		eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/avs/0/colorformat: %m");
- 		return;
- 	}
  
 @@ -184,6 +185,9 @@
  
@@ -1287,70 +1209,6 @@ diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
  	/*
  	0-4:3 Letterbox
  	1-4:3 PanScan
-@@ -197,8 +201,8 @@
- 	const char *policy[] = {"letterbox", "panscan", "bestfit", "panscan", "letterbox", "panscan", "letterbox"};
- 
- 	int fd;
--	if((fd = open("/proc/stb/video/aspect", O_WRONLY)) < 0) {
--		eDebug("[eAVSwitch] cannot open /proc/stb/video/aspect: %m");
-+	if((fd = open("/usr/local/e2/etc/video/aspect", O_WRONLY)) < 0) {
-+		eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/video/aspect: %m");
- 		return;
- 	}
- //	eDebug("set aspect to %s", aspect[ratio]);
-@@ -208,8 +212,8 @@
- 	}
- 	close(fd);
- 
--	if((fd = open("/proc/stb/video/policy", O_WRONLY)) < 0) {
--		eDebug("[eAVSwitch] cannot open /proc/stb/video/policy: %m");
-+	if((fd = open("/usr/local/e2/etc/video/policy", O_WRONLY)) < 0) {
-+		eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/video/policy: %m");
- 		return;
- 	}
- //	eDebug("set ratio to %s", policy[ratio]);
-@@ -231,14 +235,14 @@
- 
- 	if (mode == 2)
- 	{
--		int fd1 = open("/proc/stb/video/videomode_50hz", O_WRONLY);
-+		int fd1 = open("/usr/local/e2/etc/video/videomode_50hz", O_WRONLY);
- 		if(fd1 < 0) {
--			eDebug("[eAVSwitch] cannot open /proc/stb/video/videomode_50hz: %m");
-+			eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/video/videomode_50hz: %m");
- 			return;
- 		}
--		int fd2 = open("/proc/stb/video/videomode_60hz", O_WRONLY);
-+		int fd2 = open("/usr/local/e2/etc/video/videomode_60hz", O_WRONLY);
- 		if(fd2 < 0) {
--			eDebug("[eAVSwitch] cannot open /proc/stb/video/videomode_60hz: %m");
-+			eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/video/videomode_60hz: %m");
- 			close(fd1);
- 			return;
- 		}
-@@ -255,9 +259,9 @@
- 	}
- 	else
- 	{
--		int fd = open("/proc/stb/video/videomode", O_WRONLY);
-+		int fd = open("/usr/local/e2/etc/video/videomode", O_WRONLY);
- 		if(fd < 0) {
--			eDebug("[eAVSwitch] cannot open /proc/stb/video/videomode: %m");
-+			eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/video/videomode: %m");
- 			return;
- 		}
- 		switch(mode) {
-@@ -285,8 +289,8 @@
- void eAVSwitch::setWSS(int val) // 0 = auto, 1 = auto(4:3_off)
- {
- 	int fd;
--	if((fd = open("/proc/stb/denc/0/wss", O_WRONLY)) < 0) {
--		eDebug("[eAVSwitch] cannot open /proc/stb/denc/0/wss: %m");
-+	if((fd = open("/usr/local/e2/etc/denc/0/wss", O_WRONLY)) < 0) {
-+		eDebug("[eAVSwitch] cannot open /usr/local/e2/etc/denc/0/wss: %m");
- 		return;
- 	}
- 	const char *wss[] = {
 @@ -302,5 +306,41 @@
  	close(fd);
  }
@@ -1394,8 +1252,8 @@ diff -ruN o/lib/driver/avswitch.cpp pc/lib/driver/avswitch.cpp
  //FIXME: correct "run/startlevel"
  eAutoInitP0<eAVSwitch> init_avswitch(eAutoInitNumbers::rc, "AVSwitch Driver");
 diff -ruN o/lib/driver/avswitch.h pc/lib/driver/avswitch.h
---- o/lib/driver/avswitch.h	2022-09-15 22:01:03.299844191 +0300
-+++ pc/lib/driver/avswitch.h	2022-09-15 22:08:19.841656244 +0300
+--- o/lib/driver/avswitch.h	2022-09-11 21:32:03.685799946 +0300
++++ pc/lib/driver/avswitch.h	2022-09-20 14:27:49.697316795 +0300
 @@ -29,9 +29,16 @@
  	int getVCRSlowBlanking();
  	void setColorFormat(int format);
@@ -1414,8 +1272,8 @@ diff -ruN o/lib/driver/avswitch.h pc/lib/driver/avswitch.h
  	PSignal1<void, int> vcr_sb_notifier;
  };
 diff -ruN o/lib/driver/Makefile.inc pc/lib/driver/Makefile.inc
---- o/lib/driver/Makefile.inc	2022-09-15 22:01:03.299844191 +0300
-+++ pc/lib/driver/Makefile.inc	2022-09-15 22:08:19.842656198 +0300
+--- o/lib/driver/Makefile.inc	2022-09-11 21:32:03.685799946 +0300
++++ pc/lib/driver/Makefile.inc	2022-09-20 14:27:49.697316795 +0300
 @@ -31,3 +31,12 @@
  	driver/rcsdl.cpp \
  	driver/rcsdl.h
@@ -1429,38 +1287,9 @@ diff -ruN o/lib/driver/Makefile.inc pc/lib/driver/Makefile.inc
 +	driver/rcxlib.h
 +endif
 +
-diff -ruN o/lib/driver/misc_options.cpp pc/lib/driver/misc_options.cpp
---- o/lib/driver/misc_options.cpp	2022-09-15 22:01:03.299844191 +0300
-+++ pc/lib/driver/misc_options.cpp	2022-09-15 22:08:19.842656198 +0300
-@@ -22,10 +22,10 @@
- {
- 	if (state == m_12V_output_state)
- 		return 0;
--	int fd = open("/proc/stb/misc/12V_output", O_WRONLY);
-+	int fd = open("/usr/local/e2/etc/misc/12V_output", O_WRONLY);
- 	if (fd < 0)
- 	{
--		eDebug("[Misc_Options] cannot open /proc/stb/misc/12V_output: %m");
-+		eDebug("[Misc_Options] cannot open /usr/local/e2/etc/misc/12V_output: %m");
- 		return -1;
- 	}
- 	const char *str=0;
-@@ -41,10 +41,10 @@
- 
- bool Misc_Options::detected_12V_output()
- {
--	int fd = open("/proc/stb/misc/12V_output", O_WRONLY);
-+	int fd = open("/usr/local/e2/etc/misc/12V_output", O_WRONLY);
- 	if (fd < 0)
- 	{
--		eDebug("[Misc_Options] 12Vdetect cannot open /proc/stb/misc/12V_output: %m");
-+		eDebug("[Misc_Options] 12Vdetect cannot open /usr/local/e2/etc/misc/12V_output: %m");
- 		return false;
- 	}
- 	close(fd);
 diff -ruN o/lib/driver/rcconsole.cpp pc/lib/driver/rcconsole.cpp
---- o/lib/driver/rcconsole.cpp	2022-09-15 22:01:03.299844191 +0300
-+++ pc/lib/driver/rcconsole.cpp	2022-09-15 22:08:19.842656198 +0300
+--- o/lib/driver/rcconsole.cpp	2022-09-11 21:32:03.685799946 +0300
++++ pc/lib/driver/rcconsole.cpp	2022-09-20 14:27:49.697316795 +0300
 @@ -111,4 +111,6 @@
  	}
  };
@@ -1469,8 +1298,8 @@ diff -ruN o/lib/driver/rcconsole.cpp pc/lib/driver/rcconsole.cpp
  eAutoInitP0<eRCConsoleInit> init_rcconsole(eAutoInitNumbers::rc+1, "Console RC Driver");
 +#endif
 diff -ruN o/lib/driver/rcinput.cpp pc/lib/driver/rcinput.cpp
---- o/lib/driver/rcinput.cpp	2022-09-15 22:01:03.299844191 +0300
-+++ pc/lib/driver/rcinput.cpp	2022-09-15 22:08:19.842656198 +0300
+--- o/lib/driver/rcinput.cpp	2022-09-11 21:32:03.685799946 +0300
++++ pc/lib/driver/rcinput.cpp	2022-09-20 14:27:49.697316795 +0300
 @@ -208,6 +208,7 @@
  	}
  };
@@ -1486,7 +1315,7 @@ diff -ruN o/lib/driver/rcinput.cpp pc/lib/driver/rcinput.cpp
 +#endif
 diff -ruN o/lib/driver/rclirc.cpp pc/lib/driver/rclirc.cpp
 --- o/lib/driver/rclirc.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rclirc.cpp	2022-09-15 22:08:19.842656198 +0300
++++ pc/lib/driver/rclirc.cpp	2022-09-20 14:27:49.717316908 +0300
 @@ -0,0 +1,586 @@
 +/*
 + * LIRC support based on LIRC for VDR, which was written by
@@ -2076,7 +1905,7 @@ diff -ruN o/lib/driver/rclirc.cpp pc/lib/driver/rclirc.cpp
 +eAutoInitP0<eRCLircInit> init_rcLirc(eAutoInitNumbers::rc+1, "Lirc RC Driver");
 diff -ruN o/lib/driver/rclirc.h pc/lib/driver/rclirc.h
 --- o/lib/driver/rclirc.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rclirc.h	2022-09-15 22:08:19.842656198 +0300
++++ pc/lib/driver/rclirc.h	2022-09-20 14:27:49.717316908 +0300
 @@ -0,0 +1,56 @@
 +#ifndef __lib_driver_rclirc_h
 +#define __lib_driver_rclirc_h
@@ -2136,7 +1965,7 @@ diff -ruN o/lib/driver/rclirc.h pc/lib/driver/rclirc.h
 +#endif
 diff -ruN o/lib/driver/rcxlib.cpp pc/lib/driver/rcxlib.cpp
 --- o/lib/driver/rcxlib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rcxlib.cpp	2022-09-15 22:08:19.842656198 +0300
++++ pc/lib/driver/rcxlib.cpp	2022-09-20 14:27:49.717316908 +0300
 @@ -0,0 +1,215 @@
 +#include <lib/driver/rcxlib.h>
 +#include <lib/base/init.h>
@@ -2355,7 +2184,7 @@ diff -ruN o/lib/driver/rcxlib.cpp pc/lib/driver/rcxlib.cpp
 +eAutoInitP0<eRCXlibInit> init_rcXlib(eAutoInitNumbers::rc+1, "Xlib RC Driver");
 diff -ruN o/lib/driver/rcxlib.h pc/lib/driver/rcxlib.h
 --- o/lib/driver/rcxlib.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/driver/rcxlib.h	2022-09-15 22:08:19.842656198 +0300
++++ pc/lib/driver/rcxlib.h	2022-09-20 14:27:49.717316908 +0300
 @@ -0,0 +1,35 @@
 +#ifndef __lib_driver_rcxlib_h
 +#define __lib_driver_rcxlib_h
@@ -2394,7 +2223,7 @@ diff -ruN o/lib/driver/rcxlib.h pc/lib/driver/rcxlib.h
 +#endif
 diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 --- o/lib/dvb/ca_connector.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.cpp	2022-09-15 22:08:19.842656198 +0300
++++ pc/lib/dvb/ca_connector.cpp	2022-09-20 14:27:49.717316908 +0300
 @@ -0,0 +1,123 @@
 +#include <lib/dvb/ca_connector.h>
 +#include <lib/dvb/dvb.h>
@@ -2521,7 +2350,7 @@ diff -ruN o/lib/dvb/ca_connector.cpp pc/lib/dvb/ca_connector.cpp
 +eAutoInitPtr<caConnector> init_caConnector(eAutoInitNumbers::dvb-1, "caConnector");
 diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 --- o/lib/dvb/ca_connector.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/ca_connector.h	2022-09-15 22:08:19.842656198 +0300
++++ pc/lib/dvb/ca_connector.h	2022-09-20 14:27:49.717316908 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __lib_dvb_ca_connector_h
 +#define __lib_dvb_ca_connector_h
@@ -2574,8 +2403,8 @@ diff -ruN o/lib/dvb/ca_connector.h pc/lib/dvb/ca_connector.h
 +
 +#endif
 diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
---- o/lib/dvb/decoder.cpp	2022-09-15 22:02:23.335766752 +0300
-+++ pc/lib/dvb/decoder.cpp	2022-09-15 22:08:19.843656152 +0300
+--- o/lib/dvb/decoder.cpp	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/decoder.cpp	2022-09-20 14:27:49.721316930 +0300
 @@ -7,6 +7,7 @@
  #include <linux/dvb/audio.h>
  #include <linux/dvb/video.h>
@@ -2880,24 +2709,6 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  }
  
  void eDVBVideo::video_event(int)
-@@ -656,7 +654,7 @@
- 		if (m_progressive == -1)
- 		{
- 			char tmp[64];
--			sprintf(tmp, "/proc/stb/vmpeg/%d/progressive", m_dev);
-+			sprintf(tmp, "/usr/local/e2/etc/vmpeg/%d/progressive", m_dev);
- 			CFile::parseIntHex(&m_progressive, tmp);
- 		}
- 	}
-@@ -687,7 +685,7 @@
- 		if (m_gamma == -1)
- 		{
- 			char tmp[64];
--			sprintf(tmp, "/proc/stb/vmpeg/%d/gamma", m_dev);
-+			sprintf(tmp, "/usr/local/e2/etc/vmpeg/%d/gamma", m_dev);
- 			CFile::parseIntHex(&m_gamma, tmp);
- 		}
- 	}
 @@ -899,7 +897,7 @@
  		if ((m_apid >= 0) && (m_apid < 0x1FFF) && !noaudio)
  		{
@@ -2926,24 +2737,6 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  		}
  		m_changed &= ~changeVideo;
  	}
-@@ -981,7 +987,7 @@
- {
- 	if (delay != m_pcm_delay )
- 	{
--		if (CFile::writeIntHex("/proc/stb/audio/audio_delay_pcm", delay*90) >= 0)
-+		if (CFile::writeIntHex("/usr/local/e2/etc/audio/audio_delay_pcm", delay*90) >= 0)
- 		{
- 			m_pcm_delay = delay;
- 			return 0;
-@@ -994,7 +1000,7 @@
- {
- 	if ( delay != m_ac3_delay )
- 	{
--		if (CFile::writeIntHex("/proc/stb/audio/audio_delay_bitstream", delay*90) >= 0)
-+		if (CFile::writeIntHex("/usr/local/e2/etc/audio/audio_delay_bitstream", delay*90) >= 0)
- 		{
- 			m_ac3_delay = delay;
- 			return 0;
 @@ -1016,7 +1022,7 @@
  
  eTSMPEGDecoder::eTSMPEGDecoder(eDVBDemux *demux, int decoder)
@@ -3011,8 +2804,8 @@ diff -ruN o/lib/dvb/decoder.cpp pc/lib/dvb/decoder.cpp
  			{
  				bool seq_end_avail = false;
 diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
---- o/lib/dvb/decoder.h	2022-09-15 22:02:23.335766752 +0300
-+++ pc/lib/dvb/decoder.h	2022-09-15 22:08:19.843656152 +0300
+--- o/lib/dvb/decoder.h	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/decoder.h	2022-09-20 14:27:49.721316930 +0300
 @@ -3,6 +3,7 @@
  
  #include <lib/base/object.h>
@@ -3062,7 +2855,7 @@ diff -ruN o/lib/dvb/decoder.h pc/lib/dvb/decoder.h
  	RESULT setPCMDelay(int delay);
 diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 --- o/lib/dvb/decsa.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.cpp	2022-09-15 22:08:19.843656152 +0300
++++ pc/lib/dvb/decsa.cpp	2022-09-20 14:27:49.721316930 +0300
 @@ -0,0 +1,247 @@
 +/*
 + * Based on "Softcam plugin to VDR (C++)"
@@ -3313,7 +3106,7 @@ diff -ruN o/lib/dvb/decsa.cpp pc/lib/dvb/decsa.cpp
 +
 diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 --- o/lib/dvb/decsa.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/decsa.h	2022-09-15 22:08:19.843656152 +0300
++++ pc/lib/dvb/decsa.h	2022-09-20 14:27:49.721316930 +0300
 @@ -0,0 +1,50 @@
 +#ifndef __dvb_decsa_h
 +#define __dvb_decsa_h
@@ -3366,8 +3159,8 @@ diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 +
 +#endif
 diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
---- o/lib/dvb/demux.cpp	2022-09-15 22:02:23.335766752 +0300
-+++ pc/lib/dvb/demux.cpp	2022-09-15 22:08:19.843656152 +0300
+--- o/lib/dvb/demux.cpp	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/demux.cpp	2022-09-20 14:27:49.721316930 +0300
 @@ -44,7 +44,11 @@
  	}
  	unsigned int megabytes = si.totalram >> 20;
@@ -3381,12 +3174,9 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  		result = 40; // 1024MB systems: Use 8MB IO buffers (vusolo2, vuduo2, ...)
  	else if (megabytes > 200)
  		result = 20; // 512MB systems: Use 4MB IO buffers (et9x00, vuultimo, ...)
-@@ -65,13 +69,14 @@
- 	m_dvr_id(-1),
- 	m_dvr_source_offset(DMX_SOURCE_DVR0)
+@@ -67,11 +71,12 @@
  {
--	if (CFile::parseInt(&m_dvr_source_offset, "/proc/stb/frontend/dvr_source_offset") == 0)
-+	if (CFile::parseInt(&m_dvr_source_offset, "/usr/local/e2/etc/frontend/dvr_source_offset") == 0)
+ 	if (CFile::parseInt(&m_dvr_source_offset, "/proc/stb/frontend/dvr_source_offset") == 0)
  		eDebug("[eDVBDemux] using %d for PVR DMX_SET_SOURCE", m_dvr_source_offset);
 -
 +	decsa = new cDeCSA(adapter, demux);
@@ -3454,8 +3244,8 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  }
  
 diff -ruN o/lib/dvb/demux.h pc/lib/dvb/demux.h
---- o/lib/dvb/demux.h	2022-09-15 22:02:23.335766752 +0300
-+++ pc/lib/dvb/demux.h	2022-09-15 22:08:19.843656152 +0300
+--- o/lib/dvb/demux.h	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/demux.h	2022-09-20 14:27:49.721316930 +0300
 @@ -6,52 +6,7 @@
  #include <lib/dvb/idemux.h>
  #include <lib/dvb/pvrparse.h>
@@ -3511,8 +3301,8 @@ diff -ruN o/lib/dvb/demux.h pc/lib/dvb/demux.h
  class eDVBSectionReader: public iDVBSectionReader, public sigc::trackable
  {
 diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
---- o/lib/dvb/dvb.cpp	2022-09-15 22:02:23.335766752 +0300
-+++ pc/lib/dvb/dvb.cpp	2022-09-15 22:08:19.844656106 +0300
+--- o/lib/dvb/dvb.cpp	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/dvb.cpp	2022-09-20 14:27:49.721316930 +0300
 @@ -99,7 +99,14 @@
  		if (eDVBAdapterLinux::isusb(num_adapter))
  		{
@@ -3529,15 +3319,6 @@ diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
  		}
  		num_adapter++;
  	}
-@@ -687,7 +694,7 @@
- 
- void eDVBResourceManager::setUsbTuner()
- {
--	std::ifstream in("/proc/bus/nim_sockets");
-+	std::ifstream in("/usr/local/e2/etc/tuxbox/nim_sockets");
- 	std::string line;
- 
- 	int res = -1;
 @@ -1617,6 +1624,22 @@
  	return false;
  }
@@ -3607,8 +3388,8 @@ diff -ruN o/lib/dvb/dvb.cpp pc/lib/dvb/dvb.cpp
  	}
  	m_source = NULL;
 diff -ruN o/lib/dvb/dvb.h pc/lib/dvb/dvb.h
---- o/lib/dvb/dvb.h	2022-09-15 22:02:23.335766752 +0300
-+++ pc/lib/dvb/dvb.h	2022-09-15 22:08:19.844656106 +0300
+--- o/lib/dvb/dvb.h	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/dvb.h	2022-09-20 14:27:49.721316930 +0300
 @@ -244,6 +244,7 @@
  	bool frontendIsMultistream(int index);
  	std::string getFrontendCapabilities(int index);
@@ -3617,44 +3398,9 @@ diff -ruN o/lib/dvb/dvb.h pc/lib/dvb/dvb.h
  };
  SWIG_TEMPLATE_TYPEDEF(ePtr<eDVBResourceManager>, eDVBResourceManager);
  SWIG_EXTEND(ePtr<eDVBResourceManager>,
-diff -ruN o/lib/dvb/dvbtime.cpp pc/lib/dvb/dvbtime.cpp
---- o/lib/dvb/dvbtime.cpp	2022-09-15 22:01:03.301844087 +0300
-+++ pc/lib/dvb/dvbtime.cpp	2022-09-15 22:08:19.844656106 +0300
-@@ -17,13 +17,13 @@
- 
- void setRTC(time_t time)
- {
--	FILE *f = fopen("/proc/stb/fp/rtc", "w");
-+	FILE *f = fopen("/usr/local/e2/etc/fp/rtc", "w");
- 	if (f)
- 	{
- 		if (fprintf(f, "%u", (unsigned int)time))
- 			prev_time = time;
- 		else
--			eDebug("[eDVBLocalTimeHandler] write /proc/stb/fp/rtc failed: %m");
-+			eDebug("[eDVBLocalTimeHandler] write /usr/local/e2/etc/fp/rtc failed: %m");
- 		fclose(f);
- 	}
- 	else
-@@ -43,13 +43,13 @@
- time_t getRTC()
- {
- 	time_t rtc_time=0;
--	FILE *f = fopen("/proc/stb/fp/rtc", "r");
-+	FILE *f = fopen("/usr/local/e2/etc/fp/rtc", "r");
- 	if (f)
- 	{
- 		// sanity check to detect corrupt atmel firmware
- 		unsigned int tmp;
- 		if (fscanf(f, "%u", &tmp) != 1)
--			eDebug("[eDVBLocalTimeHandler] read /proc/stb/fp/rtc failed: %m");
-+			eDebug("[eDVBLocalTimeHandler] read /usr/local/e2/etc/fp/rtc failed: %m");
- 		else
- 			rtc_time=tmp;
- 		fclose(f);
 diff -ruN o/lib/dvb/edvbdemux.h pc/lib/dvb/edvbdemux.h
 --- o/lib/dvb/edvbdemux.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/dvb/edvbdemux.h	2022-09-15 22:08:19.844656106 +0300
++++ pc/lib/dvb/edvbdemux.h	2022-09-20 14:27:49.725316953 +0300
 @@ -0,0 +1,59 @@
 +#ifndef __dvb_edvbdemux_h
 +#define __dvb_edvbdemux_h
@@ -3715,154 +3461,9 @@ diff -ruN o/lib/dvb/edvbdemux.h pc/lib/dvb/edvbdemux.h
 +};
 +
 +#endif
-diff -ruN o/lib/dvb/encoder.cpp pc/lib/dvb/encoder.cpp
---- o/lib/dvb/encoder.cpp	2022-09-15 22:01:03.302844036 +0300
-+++ pc/lib/dvb/encoder.cpp	2022-09-15 22:08:19.844656106 +0300
-@@ -61,7 +61,7 @@
- 		{
- 			char filename[64];
- 
--			snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/decoder", index);
-+			snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/decoder", index);
- 
- 			if (CFile::parseInt(&decoder_index, filename) < 0)
- 				break;
-@@ -142,18 +142,18 @@
- 		encoder[encoder_index].navigation_instance = encoder[encoder_index].navigation_instance_normal;
- 	}
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/bitrate", encoder_index);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/bitrate", encoder_index);
- 	CFile::writeInt(filename, bitrate);
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/width", encoder_index);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/width", encoder_index);
- 	CFile::writeInt(filename, width);
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/height", encoder_index);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/height", encoder_index);
- 	CFile::writeInt(filename, height);
- 
- 	if(bcm_encoder)
- 	{
--		snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/display_format", encoder_index);
-+		snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/display_format", encoder_index);
- 
- 		if(height > 576)
- 			CFile::write(filename, "720p");
-@@ -164,36 +164,36 @@
- 				CFile::write(filename, "480p");
- 	}
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/framerate", encoder_index);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/framerate", encoder_index);
- 	CFile::writeInt(filename, framerate);
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/interlaced", encoder_index);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/interlaced", encoder_index);
- 	CFile::writeInt(filename, interlaced);
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/aspectratio", encoder_index);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/aspectratio", encoder_index);
- 	CFile::writeInt(filename, aspectratio);
- 
- 	if(!vcodec.empty())
- 	{
--		snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/%s_choices", encoder_index, vcodec_node);
-+		snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/%s_choices", encoder_index, vcodec_node);
- 		if (CFile::contains_word(filename, vcodec))
- 		{
--			snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/%s", encoder_index, vcodec_node);
-+			snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/%s", encoder_index, vcodec_node);
- 			CFile::write(filename, vcodec.c_str());
- 		}
- 	}
- 
- 	if(!acodec.empty())
- 	{
--		snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/%s_choices", encoder_index, acodec_node);
-+		snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/%s_choices", encoder_index, acodec_node);
- 		if (CFile::contains_word(filename, acodec))
- 		{
--			snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/%s", encoder_index, acodec_node);
-+			snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/%s", encoder_index, acodec_node);
- 			CFile::write(filename, acodec.c_str());
- 		}
- 	}
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/apply", encoder_index);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/apply", encoder_index);
- 	CFile::writeInt(filename, 1);
- 
- 	if(source_file.empty())
-@@ -299,24 +299,24 @@
- 
- 	encoder[0].navigation_instance = encoder[0].navigation_instance_normal;
- 
--	CFile::writeInt("/proc/stb/encoder/0/bitrate", hdmi_encoding_bitrate);
--	CFile::writeInt("/proc/stb/encoder/0/width", hdmi_encoding_width);
--	CFile::writeInt("/proc/stb/encoder/0/height", hdmi_encoding_height);
-+	CFile::writeInt("/usr/local/e2/etc/encoder/0/bitrate", hdmi_encoding_bitrate);
-+	CFile::writeInt("/usr/local/e2/etc/encoder/0/width", hdmi_encoding_width);
-+	CFile::writeInt("/usr/local/e2/etc/encoder/0/height", hdmi_encoding_height);
- 
- 	if(bcm_encoder)
--		CFile::write("/proc/stb/encoder/0/display_format", "720p");
-+		CFile::write("/usr/local/e2/etc/encoder/0/display_format", "720p");
- 
--	CFile::writeInt("/proc/stb/encoder/0/framerate", hdmi_encoding_framerate);
--	CFile::writeInt("/proc/stb/encoder/0/interlaced", hdmi_encoding_interlaced);
--	CFile::writeInt("/proc/stb/encoder/0/aspectratio", hdmi_encoding_aspect_ratio);
-+	CFile::writeInt("/usr/local/e2/etc/encoder/0/framerate", hdmi_encoding_framerate);
-+	CFile::writeInt("/usr/local/e2/etc/encoder/0/interlaced", hdmi_encoding_interlaced);
-+	CFile::writeInt("/usr/local/e2/etc/encoder/0/aspectratio", hdmi_encoding_aspect_ratio);
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/%s", 0, vcodec_node);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/%s", 0, vcodec_node);
- 	CFile::write(filename, hdmi_encoding_vcodec);
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/%s", 0, acodec_node);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/%s", 0, acodec_node);
- 	CFile::write(filename, hdmi_encoding_acodec);
- 
--	snprintf(filename, sizeof(filename), "/proc/stb/encoder/%d/apply", 0);
-+	snprintf(filename, sizeof(filename), "/usr/local/e2/etc/encoder/%d/apply", 0);
- 	CFile::writeInt(filename, 1);
- 
- 	if(encoder[0].navigation_instance->playService(serviceref) < 0)
-diff -ruN o/lib/dvb/fbc.cpp pc/lib/dvb/fbc.cpp
---- o/lib/dvb/fbc.cpp	2022-09-15 22:01:03.303843984 +0300
-+++ pc/lib/dvb/fbc.cpp	2022-09-15 22:08:19.844656106 +0300
-@@ -17,7 +17,7 @@
- 	std::stringstream path;
- 	std::ifstream file;
- 
--	path << "/proc/stb/frontend/" << fe_index << "/" << entry;
-+	path << "/usr/local/e2/etc/frontend/" << fe_index << "/" << entry;
- 	file.open(path.str().c_str());
- 
- 	if(!file.is_open())
-@@ -36,7 +36,7 @@
- 	std::stringstream path;
- 	std::ofstream file;
- 
--	path << "/proc/stb/frontend/" << fe_index << "/" << entry;
-+	path << "/usr/local/e2/etc/frontend/" << fe_index << "/" << entry;
- 	file.open(path.str().c_str());
- 
- 	if(!file.is_open())
-@@ -53,7 +53,7 @@
- 	std::string::const_iterator it;
- 	int fbc_id;
- 
--	path << "/proc/stb/frontend/"  << fe_index << "/fbc_connect_choices";
-+	path << "/usr/local/e2/etc/frontend/"  << fe_index << "/fbc_connect_choices";
- 	file.open(path.str().c_str());
- 
- 	if(!file.is_open())
 diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
---- o/lib/dvb/filepush.cpp	2022-09-15 22:02:23.336766702 +0300
-+++ pc/lib/dvb/filepush.cpp	2022-09-15 22:08:19.873654766 +0300
+--- o/lib/dvb/filepush.cpp	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/filepush.cpp	2022-09-20 14:27:49.725316953 +0300
 @@ -359,10 +359,10 @@
  
  void eFilePushThreadRecorder::thread()
@@ -3949,8 +3550,8 @@ diff -ruN o/lib/dvb/filepush.cpp pc/lib/dvb/filepush.cpp
  {
  	static const struct timespec timespec_1 = { .tv_sec =  0, .tv_nsec = 1000000000 / 10 };
 diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
---- o/lib/dvb/filepush.h	2022-09-15 22:02:23.336766702 +0300
-+++ pc/lib/dvb/filepush.h	2022-09-15 22:08:19.873654766 +0300
+--- o/lib/dvb/filepush.h	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/filepush.h	2022-09-20 14:27:49.725316953 +0300
 @@ -70,6 +70,7 @@
  	void thread();
  	void stop();
@@ -3968,8 +3569,8 @@ diff -ruN o/lib/dvb/filepush.h pc/lib/dvb/filepush.h
  };
  
 diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
---- o/lib/dvb/frontend.cpp	2022-09-15 22:02:23.337766652 +0300
-+++ pc/lib/dvb/frontend.cpp	2022-09-15 22:08:19.873654766 +0300
+--- o/lib/dvb/frontend.cpp	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/frontend.cpp	2022-09-20 14:27:49.725316953 +0300
 @@ -562,6 +562,7 @@
  	,m_state(stateClosed), m_timeout(0), m_tuneTimer(0)
  {
@@ -3978,42 +3579,9 @@ diff -ruN o/lib/dvb/frontend.cpp pc/lib/dvb/frontend.cpp
  
  	m_timeout = eTimer::create(eApp);
  	CONNECT(m_timeout->timeout, eDVBFrontend::timeout);
-@@ -1659,12 +1660,12 @@
- 		return 0;
- 	int power=m_slotid;  // this is needed for read inputpower from the correct tuner !
- 	char proc_name[64];
--	sprintf(proc_name, "/proc/stb/frontend/%d/lnb_sense", m_slotid);
-+	sprintf(proc_name, "/usr/local/e2/etc/frontend/%d/lnb_sense", m_slotid);
- 
- 	if (CFile::parseInt(&power, proc_name) == 0)
- 		return power;
- 
--	sprintf(proc_name, "/proc/stb/fp/lnb_sense%d", m_slotid);
-+	sprintf(proc_name, "/usr/local/e2/etc/fp/lnb_sense%d", m_slotid);
- 	if (CFile::parseInt(&power, proc_name) == 0)
- 		return power;
- 
-@@ -2052,7 +2053,7 @@
- 				if (!m_simulate)
- 				{
- 					char proc_name[64];
--					sprintf(proc_name, "/proc/stb/frontend/%d/static_current_limiting", sec_fe->m_dvbid);
-+					sprintf(proc_name, "/usr/local/e2/etc/frontend/%d/static_current_limiting", sec_fe->m_dvbid);
- 					CFile f(proc_name, "w");
- 					if (f) // new interface exist?
- 					{
-@@ -2762,7 +2763,7 @@
- 	if (active_antenna_power != -1 && (m_type == feTerrestrial || m_type == feCable))
- 	{
- 		char filename[256];
--		snprintf(filename, sizeof(filename), "/proc/stb/frontend/%d/active_antenna_power", m_slotid);
-+		snprintf(filename, sizeof(filename), "/usr/local/e2/etc/frontend/%d/active_antenna_power", m_slotid);
- 		CFile proc_name(filename, "w");
- 		if(proc_name && fprintf(proc_name, "%s", active_antenna_power == 1 ? "on" : "off") > 0)
- 		{
 diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
---- o/lib/dvb/idvb.h	2022-09-15 22:02:23.337766652 +0300
-+++ pc/lib/dvb/idvb.h	2022-09-15 22:08:19.873654766 +0300
+--- o/lib/dvb/idvb.h	2022-09-11 21:36:22.947398239 +0300
++++ pc/lib/dvb/idvb.h	2022-09-20 14:27:49.729316976 +0300
 @@ -706,11 +706,11 @@
  public:
  	enum { pidDisabled = -1 };
@@ -4029,8 +3597,8 @@ diff -ruN o/lib/dvb/idvb.h pc/lib/dvb/idvb.h
  	enum { ac_left, ac_stereo, ac_right };
  		/** Set Displayed Audio Channel */
 diff -ruN o/lib/dvb/Makefile.inc pc/lib/dvb/Makefile.inc
---- o/lib/dvb/Makefile.inc	2022-09-15 22:01:03.300844139 +0300
-+++ pc/lib/dvb/Makefile.inc	2022-09-15 22:08:19.873654766 +0300
+--- o/lib/dvb/Makefile.inc	2022-09-11 21:32:03.685799946 +0300
++++ pc/lib/dvb/Makefile.inc	2022-09-20 14:27:49.729316976 +0300
 @@ -37,7 +37,9 @@
  	dvb/fbc.cpp \
  	dvb/atsc.cpp \
@@ -4052,8 +3620,8 @@ diff -ruN o/lib/dvb/Makefile.inc pc/lib/dvb/Makefile.inc
 +	dvb/ca_connector.h \
 +	dvb/decsa.h
 diff -ruN o/lib/dvb/pmtparse.cpp pc/lib/dvb/pmtparse.cpp
---- o/lib/dvb/pmtparse.cpp	2022-09-15 22:01:03.305843881 +0300
-+++ pc/lib/dvb/pmtparse.cpp	2022-09-15 22:08:19.873654766 +0300
+--- o/lib/dvb/pmtparse.cpp	2022-09-11 21:32:03.693799976 +0300
++++ pc/lib/dvb/pmtparse.cpp	2022-09-20 14:27:49.729316976 +0300
 @@ -103,6 +103,7 @@
  				video.type = videoStream::vtMPEG2;
  				audio.type = audioStream::atMPEG;
@@ -4063,8 +3631,8 @@ diff -ruN o/lib/dvb/pmtparse.cpp pc/lib/dvb/pmtparse.cpp
  				switch (streamtype)
  				{
 diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
---- o/lib/dvb/pmtparse.h	2022-09-15 22:01:03.305843881 +0300
-+++ pc/lib/dvb/pmtparse.h	2022-09-15 22:08:19.873654766 +0300
+--- o/lib/dvb/pmtparse.h	2022-09-11 21:32:03.693799976 +0300
++++ pc/lib/dvb/pmtparse.h	2022-09-20 14:27:49.729316976 +0300
 @@ -26,6 +26,7 @@
  		int component_tag;
  		enum { vtMPEG2, vtMPEG4_H264, vtVC1 = 3, vtMPEG4_Part2, vtVC1_SM, vtMPEG1, vtH265_HEVC, vtCAVS = 16, vtAVS2 = 40 };
@@ -4074,8 +3642,8 @@ diff -ruN o/lib/dvb/pmtparse.h pc/lib/dvb/pmtparse.h
  
  	struct audioStream
 diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
---- o/lib/dvb/volume.cpp	2022-09-15 22:01:03.307843777 +0300
-+++ pc/lib/dvb/volume.cpp	2022-09-15 22:08:19.874654720 +0300
+--- o/lib/dvb/volume.cpp	2022-09-11 21:32:03.693799976 +0300
++++ pc/lib/dvb/volume.cpp	2022-09-20 14:27:49.797317362 +0300
 @@ -5,16 +5,15 @@
  #include <fcntl.h>
  #include <sys/ioctl.h>
@@ -4107,59 +3675,27 @@ diff -ruN o/lib/dvb/volume.cpp pc/lib/dvb/volume.cpp
  
  #ifdef HAVE_ALSA
  	eDebug("[eDVBVolumecontrol] Setvolume: ALSA leftVol=%d", leftVol);
-@@ -174,7 +175,7 @@
- 	}
- 
+@@ -210,6 +211,8 @@
  	//HACK?
--	CFile::writeInt("/proc/stb/avs/0/volume", left); /* in -1dB */
-+	CFile::writeInt("/usr/local/e2/etc/avs/0/volume", left); /* in -1dB */
- #endif
- }
- 
-@@ -208,8 +209,10 @@
- 	muted = true;
- 
- 	//HACK?
--	CFile::writeInt("/proc/stb/audio/j1_mute", 1);
-+	CFile::writeInt("/usr/local/e2/etc/audio/j1_mute", 1);
+ 	CFile::writeInt("/proc/stb/audio/j1_mute", 1);
  #endif
 +	cXineLib *xineLib = cXineLib::getInstance();
 +	xineLib->setVolumeMute(1);
  }
  
  void eDVBVolumecontrol::volumeUnMute()
-@@ -231,8 +234,10 @@
- 	muted = false;
- 
+@@ -233,6 +236,8 @@
  	//HACK?
--	CFile::writeInt("/proc/stb/audio/j1_mute", 0);
-+	CFile::writeInt("/usr/local/e2/etc/audio/j1_mute", 0);
+ 	CFile::writeInt("/proc/stb/audio/j1_mute", 0);
  #endif
 +	cXineLib *xineLib = cXineLib::getInstance();
 +	xineLib->setVolumeMute(0);
  }
  
  void eDVBVolumecontrol::volumeToggleMute()
-diff -ruN o/lib/gdi/fblcd.cpp pc/lib/gdi/fblcd.cpp
---- o/lib/gdi/fblcd.cpp	2022-09-15 22:01:03.309843674 +0300
-+++ pc/lib/gdi/fblcd.cpp	2022-09-15 22:08:19.874654720 +0300
-@@ -275,11 +275,11 @@
- int eFbLCD::setLCDBrightness(int brightness)
- {
- 	eDebug("[eFbLCD] setLCDBrightness %d", brightness);
--	FILE *f = fopen("/proc/stb/lcd/oled_brightness", "w");
-+	FILE *f = fopen("/usr/local/e2/etc/lcd/oled_brightness", "w");
- 	if (f)
- 	{
- 		if (fprintf(f, "%d", brightness) == 0)
--			eDebug("[eFbLCD] write /proc/stb/lcd/oled_brightness failed: %m");
-+			eDebug("[eFbLCD] write /usr/local/e2/etc/lcd/oled_brightness failed: %m");
- 		fclose(f);
- 	}
- 	return 0;
 diff -ruN o/lib/gdi/gpixmap.cpp pc/lib/gdi/gpixmap.cpp
---- o/lib/gdi/gpixmap.cpp	2022-09-15 22:01:03.310843622 +0300
-+++ pc/lib/gdi/gpixmap.cpp	2022-09-15 22:08:19.874654720 +0300
+--- o/lib/gdi/gpixmap.cpp	2022-09-11 21:32:03.697799990 +0300
++++ pc/lib/gdi/gpixmap.cpp	2022-09-20 14:27:49.797317362 +0300
 @@ -209,12 +209,6 @@
  gSurface::gSurface(int width, int height, int _bpp, int accel):
  	gUnmanagedSurface(width, height, _bpp)
@@ -4175,7 +3711,7 @@ diff -ruN o/lib/gdi/gpixmap.cpp pc/lib/gdi/gpixmap.cpp
  		data = new unsigned char [y * stride];
 diff -ruN o/lib/gdi/gxlibdc.cpp pc/lib/gdi/gxlibdc.cpp
 --- o/lib/gdi/gxlibdc.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/gxlibdc.cpp	2022-09-15 22:08:19.902653427 +0300
++++ pc/lib/gdi/gxlibdc.cpp	2022-09-20 14:27:49.797317362 +0300
 @@ -0,0 +1,388 @@
 +#include <fstream>
 +#include <lib/gdi/gxlibdc.h>
@@ -4567,7 +4103,7 @@ diff -ruN o/lib/gdi/gxlibdc.cpp pc/lib/gdi/gxlibdc.cpp
 +eAutoInitPtr<gXlibDC> init_gXlibDC(eAutoInitNumbers::graphic-1, "gXlibDC");
 diff -ruN o/lib/gdi/gxlibdc.h pc/lib/gdi/gxlibdc.h
 --- o/lib/gdi/gxlibdc.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/gxlibdc.h	2022-09-15 22:08:19.902653427 +0300
++++ pc/lib/gdi/gxlibdc.h	2022-09-20 14:27:49.797317362 +0300
 @@ -0,0 +1,80 @@
 +#ifndef __lib_gdi_gxlibdc_h
 +#define __lib_gdi_gxlibdc_h
@@ -4649,64 +4185,9 @@ diff -ruN o/lib/gdi/gxlibdc.h pc/lib/gdi/gxlibdc.h
 +};
 +
 +#endif
-diff -ruN o/lib/gdi/lcd.cpp pc/lib/gdi/lcd.cpp
---- o/lib/gdi/lcd.cpp	2022-09-15 22:01:03.310843622 +0300
-+++ pc/lib/gdi/lcd.cpp	2022-09-15 22:08:19.902653427 +0300
-@@ -82,8 +82,8 @@
- 	lcdfd = open("/dev/dbox/oled0", O_RDWR);
- 	if (lcdfd < 0)
- 	{
--		if (!access("/proc/stb/lcd/oled_brightness", W_OK) ||
--		    !access("/proc/stb/fp/oled_brightness", W_OK) )
-+		if (!access("/usr/local/e2/etc/lcd/oled_brightness", W_OK) ||
-+		    !access("/usr/local/e2/etc/fp/oled_brightness", W_OK) )
- 			lcd_type = 2;
- 		lcdfd = open("/dev/dbox/lcd0", O_RDWR);
- 	}
-@@ -104,20 +104,20 @@
- 
- 		int i = LCD_MODE_BIN;
- 		ioctl(lcdfd, LCD_IOCTL_ASC_MODE, &i);
--		FILE *f = fopen("/proc/stb/lcd/xres", "r");
-+		FILE *f = fopen("/usr/local/e2/etc/lcd/xres", "r");
- 		if (f)
- 		{
- 			int tmp;
- 			if (fscanf(f, "%x", &tmp) == 1)
- 				xres = tmp;
- 			fclose(f);
--			f = fopen("/proc/stb/lcd/yres", "r");
-+			f = fopen("/usr/local/e2/etc/lcd/yres", "r");
- 			if (f)
- 			{
- 				if (fscanf(f, "%x", &tmp) == 1)
- 					yres = tmp;
- 				fclose(f);
--				f = fopen("/proc/stb/lcd/bpp", "r");
-+				f = fopen("/usr/local/e2/etc/lcd/bpp", "r");
- 				if (f)
- 				{
- 					if (fscanf(f, "%x", &tmp) == 1)
-@@ -180,13 +180,13 @@
- 		return(0);
- 
- 	eDebug("[eDboxLCD] setLCDBrightness %d", brightness);
--	FILE *f = fopen("/proc/stb/lcd/oled_brightness", "w");
-+	FILE *f = fopen("/usr/local/e2/etc/lcd/oled_brightness", "w");
- 	if (!f)
--		f = fopen("/proc/stb/fp/oled_brightness", "w");
-+		f = fopen("/usr/local/e2/etc/fp/oled_brightness", "w");
- 	if (f)
- 	{
- 		if (fprintf(f, "%d", brightness) == 0)
--			eDebug("[eDboxLCD] write /proc/stb/lcd|fp/oled_brightness failed: %m");
-+			eDebug("[eDboxLCD] write /usr/local/e2/etc/lcd|fp/oled_brightness failed: %m");
- 		fclose(f);
- 	}
- 	else
 diff -ruN o/lib/gdi/Makefile.inc pc/lib/gdi/Makefile.inc
---- o/lib/gdi/Makefile.inc	2022-09-15 22:01:03.309843674 +0300
-+++ pc/lib/gdi/Makefile.inc	2022-09-15 22:08:19.902653427 +0300
+--- o/lib/gdi/Makefile.inc	2022-09-11 21:32:03.697799990 +0300
++++ pc/lib/gdi/Makefile.inc	2022-09-20 14:27:49.797317362 +0300
 @@ -44,8 +44,17 @@
  	gdi/pixmapcache.h \
  	gdi/region.h
@@ -4732,8 +4213,8 @@ diff -ruN o/lib/gdi/Makefile.inc pc/lib/gdi/Makefile.inc
  endif
 +endif
 diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
---- o/lib/gdi/picload.cpp	2022-09-15 22:02:23.340766501 +0300
-+++ pc/lib/gdi/picload.cpp	2022-09-15 22:08:19.902653427 +0300
+--- o/lib/gdi/picload.cpp	2022-09-11 21:36:22.951398273 +0300
++++ pc/lib/gdi/picload.cpp	2022-09-20 14:27:49.797317362 +0300
 @@ -789,8 +789,6 @@
  
  void ePicLoad::decodePic()
@@ -4753,7 +4234,7 @@ diff -ruN o/lib/gdi/picload.cpp pc/lib/gdi/picload.cpp
  	{
 diff -ruN o/lib/gdi/post.cpp pc/lib/gdi/post.cpp
 --- o/lib/gdi/post.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/post.cpp	2022-09-15 22:08:19.902653427 +0300
++++ pc/lib/gdi/post.cpp	2022-09-20 14:27:49.801317385 +0300
 @@ -0,0 +1,818 @@
 +/*
 + * Copyright (C) 2003 by Dirk Meyer
@@ -5575,7 +5056,7 @@ diff -ruN o/lib/gdi/post.cpp pc/lib/gdi/post.cpp
 +
 diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 --- o/lib/gdi/post.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/post.h	2022-09-15 22:08:19.902653427 +0300
++++ pc/lib/gdi/post.h	2022-09-20 14:27:49.801317385 +0300
 @@ -0,0 +1,96 @@
 +/*
 + * Copyright (C) 2003 by Dirk Meyer
@@ -5675,7 +5156,7 @@ diff -ruN o/lib/gdi/post.h pc/lib/gdi/post.h
 +/* end of post.h */
 diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 --- o/lib/gdi/xineLib.cpp	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.cpp	2022-09-15 22:08:19.903653381 +0300
++++ pc/lib/gdi/xineLib.cpp	2022-09-20 14:27:49.801317385 +0300
 @@ -0,0 +1,946 @@
 +#include <fstream>
 +#include <lib/gdi/xineLib.h>
@@ -6625,7 +6106,7 @@ diff -ruN o/lib/gdi/xineLib.cpp pc/lib/gdi/xineLib.cpp
 +}
 diff -ruN o/lib/gdi/xineLib.h pc/lib/gdi/xineLib.h
 --- o/lib/gdi/xineLib.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/gdi/xineLib.h	2022-09-15 22:08:19.903653381 +0300
++++ pc/lib/gdi/xineLib.h	2022-09-20 14:27:49.801317385 +0300
 @@ -0,0 +1,116 @@
 +#ifndef __lib_gdi_xineLib_h
 +#define __lib_gdi_xineLib_h
@@ -6744,8 +6225,8 @@ diff -ruN o/lib/gdi/xineLib.h pc/lib/gdi/xineLib.h
 +};
 +#endif
 diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
---- o/lib/gui/evideo.cpp	2022-09-15 22:01:03.313843467 +0300
-+++ pc/lib/gui/evideo.cpp	2022-09-15 22:08:19.903653381 +0300
+--- o/lib/gui/evideo.cpp	2022-09-11 21:32:03.701800005 +0300
++++ pc/lib/gui/evideo.cpp	2022-09-20 14:27:49.801317385 +0300
 @@ -1,6 +1,7 @@
  #include <lib/base/cfile.h>
  #include <lib/gui/evideo.h>
@@ -6763,15 +6244,6 @@ diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
  	setPosition(0, posFullsizeLeft, posFullsizeTop, posFullsizeWidth, posFullsizeHeight);
  }
  
-@@ -69,7 +72,7 @@
- void eVideoWidget::setPosition(int index, int left, int top, int width, int height)
- {
- 	char filenamebase[128];
--	snprintf(filenamebase, sizeof(filenamebase), "/proc/stb/vmpeg/%d/dst_", index);
-+	snprintf(filenamebase, sizeof(filenamebase), "/usr/local/e2/etc/vmpeg/%d/dst_", index);
- 	std::string filename = filenamebase;
- 	writeProc(filename + "left", left);
- 	writeProc(filename + "top", top);
 @@ -84,6 +87,8 @@
  	{
  		if (force || (pendingFullsize & (1 << decoder)))
@@ -6791,8 +6263,8 @@ diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
  		pendingFullsize &= ~(1 << m_decoder);
  		m_state |= 8;
 diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
---- o/lib/python/Components/About.py	2022-09-15 22:02:23.341766451 +0300
-+++ pc/lib/python/Components/About.py	2022-09-15 22:08:19.903653381 +0300
+--- o/lib/python/Components/About.py	2022-09-11 21:36:22.955398306 +0300
++++ pc/lib/python/Components/About.py	2022-09-20 14:27:49.801317385 +0300
 @@ -12,8 +12,8 @@
  
  def getImageVersionString():
@@ -6843,17 +6315,6 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  	except:
  		return ""
  
-@@ -108,8 +116,8 @@
- 			elif line[0] == "processor":
- 				cpu_count += 1
- 
--		if processor.startswith("ARM") and os.path.isfile("/proc/stb/info/chipset"):
--			processor = "%s (%s)" % (open("/proc/stb/info/chipset").readline().strip().upper(), processor)
-+		if processor.startswith("ARM") and os.path.isfile("/usr/local/e2/etc/info/chipset"):
-+			processor = "%s (%s)" % (open("/usr/local/e2/etc/info/chipset").readline().strip().upper(), processor)
- 
- 		if not cpu_speed:
- 			try:
 @@ -123,17 +131,8 @@
  
  		temperature = None
@@ -6893,303 +6354,29 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
  	except:
  		return _("unknown")
 diff -ruN o/lib/python/Components/AVSwitch.py pc/lib/python/Components/AVSwitch.py
---- o/lib/python/Components/AVSwitch.py	2022-09-15 22:02:23.341766451 +0300
-+++ pc/lib/python/Components/AVSwitch.py	2022-09-15 22:08:19.967650425 +0300
-@@ -24,7 +24,7 @@
- 			return (4, 3)
- 		elif valstr == "16_9": # auto ... 4:3 or 16:9
- 			try:
--				if "1" in open("/proc/stb/vmpeg/0/aspect", "r").read(): # 4:3
-+				if "1" in open("/usr/local/e2/etc/vmpeg/0/aspect", "r").read(): # 4:3
- 					return (4, 3)
- 			except IOError:
- 				pass
-@@ -100,15 +100,15 @@
+--- o/lib/python/Components/AVSwitch.py	2022-09-11 21:36:22.955398306 +0300
++++ pc/lib/python/Components/AVSwitch.py	2022-09-20 14:27:49.801317385 +0300
+@@ -100,7 +100,7 @@
  	# TRANSLATORS: (aspect ratio policy: cropped content on left/right) in doubt, keep english term
  	"panscan": _("Pan&scan"),
  	# TRANSLATORS: (aspect ratio policy: scale as close to fullscreen as possible)
 -	"scale": _("Just scale")}
 +	"scale": _("Just scale"), "zoom": _("Zoom")}
  	try:
--		if "full" in open("/proc/stb/video/policy2_choices").read():
-+		if "full" in open("/usr/local/e2/etc/video/policy2_choices").read():
+ 		if "full" in open("/proc/stb/video/policy2_choices").read():
  			# TRANSLATORS: (aspect ratio policy: display as fullscreen, even if the content aspect ratio does not match the screen ratio)
- 			policy2_choices.update({"full": _("Full screen")})
- 	except:
- 		pass
- 	try:
--		if "auto" in open("/proc/stb/video/policy2_choices").read():
-+		if "auto" in open("/usr/local/e2/etc/video/policy2_choices").read():
- 			# TRANSLATORS: (aspect ratio policy: automatically select the best aspect ratio mode)
- 			policy2_choices.update({"auto": _("Auto")})
- 	except:
-@@ -120,21 +120,21 @@
+@@ -120,7 +120,7 @@
  	# TRANSLATORS: (aspect ratio policy: cropped content on left/right) in doubt, keep english term
  	"panscan": _("Pan&scan"),
  	# TRANSLATORS: (aspect ratio policy: scale as close to fullscreen as possible)
 -	"scale": _("Just scale")}
 +	"scale": _("Just scale"), "zoom": _("Zoom")}
  	try:
--		if "nonlinear" in open("/proc/stb/video/policy_choices").read():
-+		if "nonlinear" in open("/usr/local/e2/etc/video/policy_choices").read():
+ 		if "nonlinear" in open("/proc/stb/video/policy_choices").read():
  			# TRANSLATORS: (aspect ratio policy: display as fullscreen, with stretching the left/right)
- 			policy_choices.update({"nonlinear": _("Nonlinear")})
- 	except:
- 		pass
- 	try:
--		if "full" in open("/proc/stb/video/policy_choices").read():
-+		if "full" in open("/usr/local/e2/etc/video/policy_choices").read():
- 			# TRANSLATORS: (aspect ratio policy: display as fullscreen, even if the content aspect ratio does not match the screen ratio)
- 			policy_choices.update({"full": _("Full screen")})
- 	except:
- 		pass
- 	try:
--		if "auto" in open("/proc/stb/video/policy_choices").read():
-+		if "auto" in open("/usr/local/e2/etc/video/policy_choices").read():
- 			# TRANSLATORS: (aspect ratio policy: automatically select the best aspect ratio mode)
- 			policy_choices.update({"auto": _("Auto")})
- 	except:
-@@ -219,65 +219,65 @@
- 
- 	if SystemInfo["CanDownmixAC3"]:
- 		def setAC3Downmix(configElement):
--			open("/proc/stb/audio/ac3", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/ac3", "w").write(configElement.value)
- 		choices = [(ch("downmix")), (ch("passthrough"))]
- 		default = "downmix"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/ac3_choices"
-+			f = "/usr/local/e2/etc/audio/ac3_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.downmix_ac3 = ConfigSelection(choices=choices, default=default)
- 		config.av.downmix_ac3.addNotifier(setAC3Downmix)
- 
- 	if SystemInfo["CanAC3Transcode"]:
- 		def setAC3plusTranscode(configElement):
--			open("/proc/stb/audio/ac3plus", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/ac3plus", "w").write(configElement.value)
- 		choices = [(ch("use_hdmi_caps")), (ch("force_ac3"))]
- 		default = "force_ac3"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/ac3plus_choices"
-+			f = "/usr/local/e2/etc/audio/ac3plus_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.transcodeac3plus = ConfigSelection(choices=choices, default=default)
- 		config.av.transcodeac3plus.addNotifier(setAC3plusTranscode)
- 
- 	if SystemInfo["CanDownmixDTS"]:
- 		def setDTSDownmix(configElement):
--			open("/proc/stb/audio/dts", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/dts", "w").write(configElement.value)
- 		choices = [(ch("downmix")), (ch("passthrough"))]
- 		default = "downmix"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/dts_choices"
-+			f = "/usr/local/e2/etc/audio/dts_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.downmix_dts = ConfigSelection(choices=choices, default=default)
- 		config.av.downmix_dts.addNotifier(setDTSDownmix)
- 
- 	if SystemInfo["CanDTSHD"]:
- 		def setDTSHD(configElement):
--			open("/proc/stb/audio/dtshd", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/dtshd", "w").write(configElement.value)
- 		choices = [(ch("downmix")), (ch("force_dts")), (ch("use_hdmi_caps")), (ch("multichannel")), (ch("hdmi_best"))]
- 		default = "downmix"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/dtshd_choices"
-+			f = "/usr/local/e2/etc/audio/dtshd_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.dtshd = ConfigSelection(choices=choices, default=default)
- 		config.av.dtshd.addNotifier(setDTSHD)
- 
- 	if SystemInfo["CanDownmixAAC"]:
- 		def setAACDownmix(configElement):
--			open("/proc/stb/audio/aac", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/aac", "w").write(configElement.value)
- 		choices = [
- 			(ch("downmix")),
- 			(ch("passthrough"))
- 		]
- 		default = "downmix"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/aac_choices"
-+			f = "/usr/local/e2/etc/audio/aac_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.downmix_aac = ConfigSelection(choices=choices, default=default)
- 		config.av.downmix_aac.addNotifier(setAACDownmix)
- 
- 	if SystemInfo["CanDownmixAACPlus"]:
- 		def setAACDownmixPlus(configElement):
--			open("/proc/stb/audio/aacplus", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/aacplus", "w").write(configElement.value)
- 		choices = [
- 			(ch("downmix")),
- 			(ch("passthrough")),
-@@ -290,40 +290,40 @@
- 		]
- 		default = "downmix"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/aacplus_choices"
-+			f = "/usr/local/e2/etc/audio/aacplus_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.downmix_aacplus = ConfigSelection(choices=choices, default=default)
- 		config.av.downmix_aacplus.addNotifier(setAACDownmixPlus)
- 
- 	if SystemInfo["CanAACTranscode"]:
- 		def setAACTranscode(configElement):
--			open("/proc/stb/audio/aac_transcode", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/aac_transcode", "w").write(configElement.value)
- 		choices = [(ch("off")), (ch("ac3")), (ch("dts"))]
- 		default = "off"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/aac_transcode_choices"
-+			f = "/usr/local/e2/etc/audio/aac_transcode_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.transcodeaac = ConfigSelection(choices=choices, default=default)
- 		config.av.transcodeaac.addNotifier(setAACTranscode)
- 
- 	if SystemInfo["CanWMAPRO"]:
- 		def setWMAPRO(configElement):
--			open("/proc/stb/audio/wmapro", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/wmapro", "w").write(configElement.value)
- 		choices = [(ch("downmix")), (ch("passthrough")), (ch("multichannel")), (ch("hdmi_best"))]
- 		default = "downmix"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/wmapro_choices"
-+			f = "/usr/local/e2/etc/audio/wmapro_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.wmapro = ConfigSelection(choices=choices, default=default)
- 		config.av.wmapro.addNotifier(setWMAPRO)
- 
- 	if SystemInfo["CanBTAudio"]:
- 		def setBTAudio(configElement):
--			open("/proc/stb/audio/btaudio", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/audio/btaudio", "w").write(configElement.value)
- 		choices = [(ch("off")), (ch("on"))]
- 		default = "off"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/btaudio_choices"
-+			f = "/usr/local/e2/etc/audio/btaudio_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.btaudio = ConfigSelection(choices=choices, default="off")
- 		config.av.btaudio.addNotifier(setBTAudio)
-@@ -339,13 +339,13 @@
- 		config.av.btaudiodelay.addNotifier(setBTAudioDelay)
- 
- 	try:
--		SystemInfo["CanChangeOsdAlpha"] = open("/proc/stb/video/alpha", "r") and True or False
-+		SystemInfo["CanChangeOsdAlpha"] = open("/usr/local/e2/etc/video/alpha", "r") and True or False
- 	except:
- 		SystemInfo["CanChangeOsdAlpha"] = False
- 
- 	if SystemInfo["CanChangeOsdAlpha"]:
- 		def setAlpha(config):
--			open("/proc/stb/video/alpha", "w").write(str(config.value))
-+			open("/usr/local/e2/etc/video/alpha", "w").write(str(config.value))
- 		config.av.osd_alpha = ConfigSlider(default=255, limits=(0, 255))
- 		config.av.osd_alpha.addNotifier(setAlpha)
- 
-@@ -354,8 +354,8 @@
- 			myval = int(config.value)
- 			try:
- 				print "--> setting scaler_sharpness to: %0.8X" % myval
--				open("/proc/stb/vmpeg/0/pep_scaler_sharpness", "w").write("%0.8X" % myval)
--				open("/proc/stb/vmpeg/0/pep_apply", "w").write("1")
-+				open("/usr/local/e2/etc/vmpeg/0/pep_scaler_sharpness", "w").write("%0.8X" % myval)
-+				open("/usr/local/e2/etc/vmpeg/0/pep_apply", "w").write("1")
- 			except IOError:
- 				print "couldn't write pep_scaler_sharpness"
- 
-@@ -370,7 +370,7 @@
- 		choices = [(ch("none")), (ch("hdmi")), (ch("spdif")), (ch("dac"))]
- 		default = "none"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/avl_choices"
-+			f = "/usr/local/e2/etc/audio/avl_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.autovolume = ConfigSelection(choices=choices, default=default)
- 		config.av.autovolume.addNotifier(setAutoVolume)
-@@ -387,7 +387,7 @@
- 		choices = [(ch("none")), (ch("hdmi")), (ch("spdif")), (ch("dac"))]
- 		default = "none"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/3d_surround_choices"
-+			f = "/usr/local/e2/etc/audio/3d_surround_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.surround_3d = ConfigSelection(choices=choices, default=default)
- 		config.av.surround_3d.addNotifier(set3DSurround)
-@@ -404,7 +404,7 @@
- 		choices = [(ch("center")), (ch("wide")), (ch("extrawide"))]
- 		default = "center"
- 		if SystemInfo["CanProc"]:
--			f = "/proc/stb/audio/3dsurround_choices"
-+			f = "/usr/local/e2/etc/audio/3dsurround_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.surround_3d_speaker = ConfigSelection(choices=choices, default=default)
- 		config.av.surround_3d_speaker.addNotifier(set3DSurroundSpeaker)
-@@ -441,8 +441,8 @@
- 		else:
- 			choices = [("auto", "auto"), ("rgb", "RGB"), ("420", "4:2:0"), ("422", "4:2:2"), ("444", "4:4:4")]
- 			default = "auto"
--		if os.path.exists("/proc/stb/video/hdmi_colorspace_choices") and SystemInfo["CanProc"]:
--			f = "/proc/stb/video/hdmi_colorspace_choices"
-+		if os.path.exists("/usr/local/e2/etc/video/hdmi_colorspace_choices") and SystemInfo["CanProc"]:
-+			f = "/usr/local/e2/etc/video/hdmi_colorspace_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.hdmicolorspace = ConfigSelection(choices=choices, default=default)
- 		config.av.hdmicolorspace.addNotifier(setHaveColorspace)
-@@ -452,8 +452,8 @@
- 			open(SystemInfo["HasColordepth"], "w").write(configElement.value)
- 		choices = [("auto", "auto"), ("8bit", "8bit"), ("10bit", "10bit"), ("12bit", "12bit")]
- 		default = "auto"
--		if os.path.exists("/proc/stb/video/hdmi_colordepth_choices") and SystemInfo["CanProc"]:
--			f = "/proc/stb/video/hdmi_colordepth_choices"
-+		if os.path.exists("/usr/local/e2/etc/video/hdmi_colordepth_choices") and SystemInfo["CanProc"]:
-+			f = "/usr/local/e2/etc/video/hdmi_colordepth_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.hdmicolordepth = ConfigSelection(choices=choices, default=default)
- 		config.av.hdmicolordepth.addNotifier(setHaveColordepth)
-@@ -469,8 +469,8 @@
- 			open(SystemInfo["HasColorimetry"], "w").write(configElement.value)
- 		choices=[("auto", "auto"), ("bt2020ncl", "BT 2020 NCL"), ("bt2020cl", "BT 2020 CL"), ("bt709", "BT 709")]
- 		default = "auto"
--		if os.path.exists("/proc/stb/video/hdmi_colorimetry_choices") and SystemInfo["CanProc"]:
--			f = "/proc/stb/video/hdmi_colorimetry_choices"
-+		if os.path.exists("/usr/local/e2/etc/video/hdmi_colorimetry_choices") and SystemInfo["CanProc"]:
-+			f = "/usr/local/e2/etc/video/hdmi_colorimetry_choices"
- 			(choices, default) = readChoices(f, choices, default)
- 		config.av.hdmicolorimetry = ConfigSelection(choices=choices, default=default)
- 		config.av.hdmicolorimetry.addNotifier(setColorimetry)
-@@ -483,21 +483,21 @@
- 
- 	if SystemInfo["HDRSupport"]:
- 		def setHlgSupport(configElement):
--			open("/proc/stb/hdmi/hlg_support", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/hdmi/hlg_support", "w").write(configElement.value)
- 		config.av.hlg_support = ConfigSelection(default="auto(EDID)", choices=[("auto(EDID)", _("controlled by HDMI")), ("yes", _("force enabled")), ("no", _("force disabled"))])
- 		config.av.hlg_support.addNotifier(setHlgSupport)
- 
- 		def setHdr10Support(configElement):
--			open("/proc/stb/hdmi/hdr10_support", "w").write(configElement.value)
-+			open("/usr/local/e2/etc/hdmi/hdr10_support", "w").write(configElement.value)
- 		config.av.hdr10_support = ConfigSelection(default="auto(EDID)", choices=[("auto(EDID)", _("controlled by HDMI")), ("yes", _("force enabled")), ("no", _("force disabled"))])
- 		config.av.hdr10_support.addNotifier(setHdr10Support)
- 
- 		def setDisable12Bit(configElement):
--			open("/proc/stb/video/disable_12bit", "w").write("1" if configElement.value else "0")
-+			open("/usr/local/e2/etc/video/disable_12bit", "w").write("1" if configElement.value else "0")
- 		config.av.allow_12bit = ConfigYesNo(default=False)
- 		config.av.allow_12bit.addNotifier(setDisable12Bit)
- 
- 		def setDisable10Bit(configElement):
--			open("/proc/stb/video/disable_10bit", "w").write("1" if configElement.value else "0")
-+			open("/usr/local/e2/etc/video/disable_10bit", "w").write("1" if configElement.value else "0")
- 		config.av.allow_10bit = ConfigYesNo(default=False)
- 		config.av.allow_10bit.addNotifier(setDisable10Bit)
 diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Components/Converter/EventName.py
---- o/lib/python/Components/Converter/EventName.py	2022-09-15 22:01:03.315843364 +0300
-+++ pc/lib/python/Components/Converter/EventName.py	2022-09-15 22:08:19.967650425 +0300
+--- o/lib/python/Components/Converter/EventName.py	2022-09-11 21:32:03.705800019 +0300
++++ pc/lib/python/Components/Converter/EventName.py	2022-09-20 14:27:49.801317385 +0300
 @@ -106,10 +106,6 @@
  				return ""
  			else:
@@ -7201,70 +6388,9 @@ diff -ruN o/lib/python/Components/Converter/EventName.py pc/lib/python/Component
  		elif self.type == self.SHORT_DESCRIPTION:
  			return dropEPGNewLines(event.getShortDescription())
  		elif self.type == self.EXTENDED_DESCRIPTION:
-diff -ruN o/lib/python/Components/Converter/PliExtraInfo.py pc/lib/python/Components/Converter/PliExtraInfo.py
---- o/lib/python/Components/Converter/PliExtraInfo.py	2022-09-15 22:02:23.342766400 +0300
-+++ pc/lib/python/Components/Converter/PliExtraInfo.py	2022-09-15 22:08:19.997649039 +0300
-@@ -167,7 +167,7 @@
- 		fps = (info.getInfo(iServiceInformation.sFrameRate) + 500) / 1000
- 		if not fps or fps == -1:
- 			try:
--				fps = (int(open("/proc/stb/vmpeg/0/framerate", "r").read()) + 500) / 1000
-+				fps = (int(open("/usr/local/e2/etc/vmpeg/0/framerate", "r").read()) + 500) / 1000
- 			except:
- 				pass
- 		return "%sx%s%s%s" % (xres, yres, mode, fps)
-diff -ruN o/lib/python/Components/FanControl.py pc/lib/python/Components/FanControl.py
---- o/lib/python/Components/FanControl.py	2022-09-15 22:02:23.343766350 +0300
-+++ pc/lib/python/Components/FanControl.py	2022-09-15 22:08:19.997649039 +0300
-@@ -10,7 +10,7 @@
- class FanControl:
- 	# ATM there's only support for one fan
- 	def __init__(self):
--		if os.path.exists("/proc/stb/fp/fan_vlt") or os.path.exists("/proc/stb/fp/fan_pwm") or os.path.exists("/proc/stb/fp/fan_speed"):
-+		if os.path.exists("/usr/local/e2/etc/fp/fan_vlt") or os.path.exists("/usr/local/e2/etc/fp/fan_pwm") or os.path.exists("/usr/local/e2/etc/fp/fan_speed"):
- 			self.fancount = 1
- 		else:
- 			self.fancount = 0
-@@ -79,29 +79,29 @@
- 		return self.fancount
- 
- 	def hasRPMSensor(self, fanid):
--		return os.path.exists("/proc/stb/fp/fan_speed")
-+		return os.path.exists("/usr/local/e2/etc/fp/fan_speed")
- 
- 	def hasFanControl(self, fanid):
--		return os.path.exists("/proc/stb/fp/fan_vlt") or os.path.exists("/proc/stb/fp/fan_pwm")
-+		return os.path.exists("/usr/local/e2/etc/fp/fan_vlt") or os.path.exists("/usr/local/e2/etc/fp/fan_pwm")
- 
- 	def getFanSpeed(self, fanid):
--		return int(open("/proc/stb/fp/fan_speed", "r").readline().strip()[:-4])
-+		return int(open("/usr/local/e2/etc/fp/fan_speed", "r").readline().strip()[:-4])
- 
- 	def getVoltage(self, fanid):
--		return int(open("/proc/stb/fp/fan_vlt", "r").readline().strip(), 16)
-+		return int(open("/usr/local/e2/etc/fp/fan_vlt", "r").readline().strip(), 16)
- 
- 	def setVoltage(self, fanid, value):
- 		if value > 255:
- 			return
--		open("/proc/stb/fp/fan_vlt", "w").write("%x" % value)
-+		open("/usr/local/e2/etc/fp/fan_vlt", "w").write("%x" % value)
- 
- 	def getPWM(self, fanid):
--		return int(open("/proc/stb/fp/fan_pwm", "r").readline().strip(), 16)
-+		return int(open("/usr/local/e2/etc/fp/fan_pwm", "r").readline().strip(), 16)
- 
- 	def setPWM(self, fanid, value):
- 		if value > 255:
- 			return
--		open("/proc/stb/fp/fan_pwm", "w").write("%x" % value)
-+		open("/usr/local/e2/etc/fp/fan_pwm", "w").write("%x" % value)
- 
- 
- fancontrol = FanControl()
 diff -ruN o/lib/python/Components/Harddisk.py pc/lib/python/Components/Harddisk.py
---- o/lib/python/Components/Harddisk.py	2022-09-15 22:02:23.343766350 +0300
-+++ pc/lib/python/Components/Harddisk.py	2022-09-15 22:08:20.024647792 +0300
+--- o/lib/python/Components/Harddisk.py	2022-09-11 21:36:22.955398306 +0300
++++ pc/lib/python/Components/Harddisk.py	2022-09-20 14:27:49.805317408 +0300
 @@ -52,7 +52,7 @@
  	def __init__(self, device, removable=False):
  		self.device = device
@@ -7286,8 +6412,8 @@ diff -ruN o/lib/python/Components/Harddisk.py pc/lib/python/Components/Harddisk.
  				try:
  					rdev = os.stat(disk_path).st_rdev
 diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
---- o/lib/python/Components/HdmiCec.py	2022-09-15 22:02:23.344766300 +0300
-+++ pc/lib/python/Components/HdmiCec.py	2022-09-15 22:08:20.025647746 +0300
+--- o/lib/python/Components/HdmiCec.py	2022-09-11 21:36:22.959398339 +0300
++++ pc/lib/python/Components/HdmiCec.py	2022-09-20 14:27:49.805317408 +0300
 @@ -8,7 +8,7 @@
  from enigma import eTimer
  from sys import maxint
@@ -7298,8 +6424,8 @@ diff -ruN o/lib/python/Components/HdmiCec.py pc/lib/python/Components/HdmiCec.py
  
  # CEC Version's table
 diff -ruN o/lib/python/Components/InputDevice.py pc/lib/python/Components/InputDevice.py
---- o/lib/python/Components/InputDevice.py	2022-09-15 22:02:23.344766300 +0300
-+++ pc/lib/python/Components/InputDevice.py	2022-09-15 22:08:20.025647746 +0300
+--- o/lib/python/Components/InputDevice.py	2022-09-11 21:36:22.959398339 +0300
++++ pc/lib/python/Components/InputDevice.py	2022-09-20 14:27:49.805317408 +0300
 @@ -41,7 +41,6 @@
  				self.name = self.name[:self.name.find("\0")]
  				os.close(self.fd)
@@ -7308,176 +6434,9 @@ diff -ruN o/lib/python/Components/InputDevice.py pc/lib/python/Components/InputD
  				self.name = None
  
  			if self.name:
-@@ -198,9 +197,9 @@
- 
- class RcTypeControl():
- 	def __init__(self):
--		if SystemInfo["RcTypeChangable"] and os.path.exists('/proc/stb/info/boxtype'):
-+		if SystemInfo["RcTypeChangable"] and os.path.exists('/usr/local/e2/etc/info/boxtype'):
- 			self.isSupported = True
--			self.boxType = open('/proc/stb/info/boxtype', 'r').read().strip()
-+			self.boxType = open('/usr/local/e2/etc/info/boxtype', 'r').read().strip()
- 			if config.plugins.remotecontroltype.rctype.value != 0:
- 				self.writeRcType(config.plugins.remotecontroltype.rctype.value)
- 		else:
-@@ -214,12 +213,12 @@
- 
- 	def writeRcType(self, rctype):
- 		if self.isSupported and rctype > 0:
--			open('/proc/stb/ir/rc/type', 'w').write('%d' % rctype)
-+			open('/usr/local/e2/etc/ir/rc/type', 'w').write('%d' % rctype)
- 
- 	def readRcType(self):
- 		rc = 0
- 		if self.isSupported:
--			rc = open('/proc/stb/ir/rc/type', 'r').read().strip()
-+			rc = open('/usr/local/e2/etc/ir/rc/type', 'r').read().strip()
- 		return int(rc)
- 
- 
-diff -ruN o/lib/python/Components/NimManager.py pc/lib/python/Components/NimManager.py
---- o/lib/python/Components/NimManager.py	2022-09-15 22:02:23.345766250 +0300
-+++ pc/lib/python/Components/NimManager.py	2022-09-15 22:08:20.025647746 +0300
-@@ -575,7 +575,7 @@
- 				types.remove("DVB-S")
- 			if len(types) > 1:
- 				self.multi_type = {}
--				self.combined = not(os.path.exists("/proc/stb/frontend/%d/mode" % self.frontend_id) or self.isFBCTuner())
-+				self.combined = not(os.path.exists("/usr/local/e2/etc/frontend/%d/mode" % self.frontend_id) or self.isFBCTuner())
- 				for type in types:
- 					self.multi_type[str(types.index(type))] = type
- 
-@@ -641,12 +641,12 @@
- 	def setInternalLink(self):
- 		if self.internally_connectable is not None:
- 			print "[NIM] setting internal link on frontend id", self.frontend_id
--			open("/proc/stb/frontend/%d/rf_switch" % self.frontend_id, "w").write("internal")
-+			open("/usr/local/e2/etc/frontend/%d/rf_switch" % self.frontend_id, "w").write("internal")
- 
- 	def removeInternalLink(self):
- 		if self.internally_connectable is not None:
- 			print "[NIM] removing internal link on frontend id", self.frontend_id
--			open("/proc/stb/frontend/%d/rf_switch" % self.frontend_id, "w").write("external")
-+			open("/usr/local/e2/etc/frontend/%d/rf_switch" % self.frontend_id, "w").write("external")
- 
- 	def isMultiType(self):
- 		return not self.isCombined() and bool(len(self.multi_type))
-@@ -672,7 +672,7 @@
- 
- 	def isT2MI(self):
- 		# Check if t2mi feature exists using procfs due to missing FE_CAN_T2MI in DVB API
--		return os.path.exists("/proc/stb/frontend/%d/t2mi" % self.frontend_id)
-+		return os.path.exists("/usr/local/e2/etc/frontend/%d/t2mi" % self.frontend_id)
- 
- 	def supportsBlindScan(self):
- 		return self.supports_blind_scan
-@@ -709,7 +709,7 @@
- 		if self.isFBCTuner():
- 			return "%s-%s: %s" % (self.getSlotName(self.slot), self.getSlotID(self.slot + 7), self.getFullDescription())
- 		#compress by combining dual tuners by checking if the next tuner has a rf switch
--		elif self.frontend_id is not None and self.number_of_slots > self.frontend_id + 1 and os.access("/proc/stb/frontend/%d/rf_switch" % (self.frontend_id + 1), os.F_OK):
-+		elif self.frontend_id is not None and self.number_of_slots > self.frontend_id + 1 and os.access("/usr/local/e2/etc/frontend/%d/rf_switch" % (self.frontend_id + 1), os.F_OK):
- 			return "%s-%s: %s" % (self.slot_name, self.getSlotID(self.slot + 1), self.getFullDescription())
- 		return self.getFriendlyFullDescription()
- 
-@@ -856,9 +856,9 @@
- 			db.readATSC(self.atscList, self.transpondersatsc)
- 
- 	def enumerateNIMs(self):
--		# enum available NIMs. This is currently very dreambox-centric and uses the /proc/bus/nim_sockets interface.
-+		# enum available NIMs. This is currently very dreambox-centric and uses the /usr/local/e2/etc/tuxbox/nim_sockets interface.
- 		# the result will be stored into nim_slots.
--		# the content of /proc/bus/nim_sockets looks like:
-+		# the content of /usr/local/e2/etc/tuxbox/nim_sockets looks like:
- 		# NIM Socket 0:
- 		#          Type: DVB-S
- 		#          Name: BCM4501 DVB-S2 NIM (internal)
-@@ -879,7 +879,7 @@
- 		self.nim_slots = []
- 
- 		try:
--			nimfile = open("/proc/bus/nim_sockets")
-+			nimfile = open("/usr/local/e2/etc/tuxbox/nim_sockets")
- 		except IOError:
- 			return
- 
-@@ -939,10 +939,10 @@
- 			if "i2c" not in entry:
- 				entry["i2c"] = None
- 			if "has_outputs" not in entry:
--				entry["has_outputs"] = entry["name"] in SystemInfo["HasPhysicalLoopthrough"] # "Has_Outputs: yes" not in /proc/bus/nim_sockets NIM, but the physical loopthrough exist
-+				entry["has_outputs"] = entry["name"] in SystemInfo["HasPhysicalLoopthrough"] # "Has_Outputs: yes" not in /usr/local/e2/etc/tuxbox/nim_sockets NIM, but the physical loopthrough exist
- 			entry["internally_connectable"] = None
- 			if "frontend_device" in entry: # check if internally connectable
--				if os.path.exists("/proc/stb/frontend/%d/rf_switch" % entry["frontend_device"]) and (not id or entries[id]["name"] == entries[id - 1]["name"]):
-+				if os.path.exists("/usr/local/e2/etc/frontend/%d/rf_switch" % entry["frontend_device"]) and (not id or entries[id]["name"] == entries[id - 1]["name"]):
- 					if HardwareInfo().get_device_model() == "vusolo2":
- 						if not id:
- 							entry["internally_connectable"] = 1
-@@ -956,7 +956,7 @@
- 				entry["supports_blind_scan"] = False
- 
- 			entry["fbc"] = [0, 0, 0] # not fbc
--			if entry["name"] and ("fbc" in entry["name"].lower() or (entry["name"] in SystemInfo["HasFBCtuner"] and entry["frontend_device"] is not None and os.access("/proc/stb/frontend/%d/fbc_id" % entry["frontend_device"], os.F_OK))):
-+			if entry["name"] and ("fbc" in entry["name"].lower() or (entry["name"] in SystemInfo["HasFBCtuner"] and entry["frontend_device"] is not None and os.access("/usr/local/e2/etc/frontend/%d/fbc_id" % entry["frontend_device"], os.F_OK))):
- 				fbc_number += 1
- 				if fbc_number <= (entry["type"] and "DVB-C" in entry["type"] and 1 or 2):
- 					entry["fbc"] = [1, fbc_number, fbc_tuner] # fbc root
-@@ -1540,19 +1540,19 @@
- 	def scpcSearchRangeChanged(configElement):
- 		fe_id = configElement.fe_id
- 		slot_id = configElement.slot_id
--		if os.path.exists("/proc/stb/frontend/%d/use_scpc_optimized_search_range" % fe_id):
--			open("/proc/stb/frontend/%d/use_scpc_optimized_search_range" % (fe_id), "w").write(configElement.value)
-+		if os.path.exists("/usr/local/e2/etc/frontend/%d/use_scpc_optimized_search_range" % fe_id):
-+			open("/usr/local/e2/etc/frontend/%d/use_scpc_optimized_search_range" % (fe_id), "w").write(configElement.value)
- 
- 	def toneAmplitudeChanged(configElement):
- 		fe_id = configElement.fe_id
- 		slot_id = configElement.slot_id
--		if os.path.exists("/proc/stb/frontend/%d/tone_amplitude" % fe_id):
--			open("/proc/stb/frontend/%d/tone_amplitude" % (fe_id), "w").write(configElement.value)
-+		if os.path.exists("/usr/local/e2/etc/frontend/%d/tone_amplitude" % fe_id):
-+			open("/usr/local/e2/etc/frontend/%d/tone_amplitude" % (fe_id), "w").write(configElement.value)
- 
- 	def t2miRawModeChanged(configElement):
- 		slot = configElement.slot
--		if os.path.exists("/proc/stb/frontend/%d/t2mirawmode" % slot):
--			open("/proc/stb/frontend/%d/t2mirawmode" % slot, "w").write(configElement.value)
-+		if os.path.exists("/usr/local/e2/etc/frontend/%d/t2mirawmode" % slot):
-+			open("/usr/local/e2/etc/frontend/%d/t2mirawmode" % slot, "w").write(configElement.value)
- 
- 	def createSatConfig(nim, slot_id):
- 		nim.toneAmplitude = ConfigSelection([("11", "340mV"), ("10", "360mV"), ("9", "600mV"), ("8", "700mV"), ("7", "800mV"), ("6", "900mV"), ("5", "1100mV")], "7")
-@@ -1688,14 +1688,14 @@
- 						print "[InitNimManager] %d: tunerTypeChanged to '%s' failed (BUSY)" % (fe_id, configElement.getText())
- 						return
- 				frontend = raw_channel.getFrontend()
--				is_changed_mode = os.path.exists("/proc/stb/frontend/%d/mode" % fe_id)
-+				is_changed_mode = os.path.exists("/usr/local/e2/etc/frontend/%d/mode" % fe_id)
- 				if not is_changed_mode and frontend.setDeliverySystem(nimmgr.nim_slots[fe_id].getType()):
- 					print "[InitNimManager] tunerTypeChanged feid %d to mode %d" % (fe_id, int(configElement.value))
- 					InitNimManager(nimmgr, [fe_id])
- 					if not hasattr(config.misc, 'firstrun') or not config.misc.firstrun.value:
- 						configElement.save()
- 				elif is_changed_mode:
--					cur_type = int(open("/proc/stb/frontend/%d/mode" % (fe_id), "r").read())
-+					cur_type = int(open("/usr/local/e2/etc/frontend/%d/mode" % (fe_id), "r").read())
- 					if cur_type != int(configElement.value):
- 						print "[InitNimManager] tunerTypeChanged feid %d from %d to mode %d" % (fe_id, cur_type, int(configElement.value))
- 
-@@ -1708,7 +1708,7 @@
- 								print "[InitNimManager] tunerTypeChanged read /sys/module/dvb_core/parameters/dvb_shutdown_timeout failed"
- 
- 						frontend.closeFrontend()
--						open("/proc/stb/frontend/%d/mode" % (fe_id), "w").write(configElement.value)
-+						open("/usr/local/e2/etc/frontend/%d/mode" % (fe_id), "w").write(configElement.value)
- 						frontend.reopenFrontend()
- 
- 						if is_dvb_shutdown_timeout:
 diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Components/ParentalControlList.py
 --- o/lib/python/Components/ParentalControlList.py	1970-01-01 03:00:00.000000000 +0300
-+++ pc/lib/python/Components/ParentalControlList.py	2022-09-15 22:08:20.025647746 +0300
++++ pc/lib/python/Components/ParentalControlList.py	2022-09-20 14:27:49.805317408 +0300
 @@ -0,0 +1,45 @@
 +from MenuList import MenuList
 +from Components.ParentalControl import IMG_WHITESERVICE, IMG_WHITEBOUQUET, IMG_BLACKSERVICE, IMG_BLACKBOUQUET
@@ -7525,8 +6484,8 @@ diff -ruN o/lib/python/Components/ParentalControlList.py pc/lib/python/Component
 +		self.list[self.l.getCurrentSelectionIndex()] = ParentalControlEntryComponent(curSel[0][0], curSel[0][1], parentalControl.getProtectionType(curSel[0][0]))
 +		self.l.setList(self.list)
 diff -ruN o/lib/python/Components/PluginComponent.py pc/lib/python/Components/PluginComponent.py
---- o/lib/python/Components/PluginComponent.py	2022-09-15 22:02:23.346766199 +0300
-+++ pc/lib/python/Components/PluginComponent.py	2022-09-15 22:08:20.025647746 +0300
+--- o/lib/python/Components/PluginComponent.py	2022-09-11 21:36:22.959398339 +0300
++++ pc/lib/python/Components/PluginComponent.py	2022-09-20 14:27:49.805317408 +0300
 @@ -55,7 +55,7 @@
  						except Exception, exc:
  							print "Plugin ", c + "/" + pluginname, "failed to load:", exc
@@ -7536,47 +6495,9 @@ diff -ruN o/lib/python/Components/PluginComponent.py pc/lib/python/Components/Pl
  								if os.path.exists(os.path.join(path, fn)):
  									self.warnings.append((c + "/" + pluginname, str(exc)))
  									from traceback import print_exc
-diff -ruN o/lib/python/Components/RcModel.py pc/lib/python/Components/RcModel.py
---- o/lib/python/Components/RcModel.py	2022-09-15 22:01:03.318843209 +0300
-+++ pc/lib/python/Components/RcModel.py	2022-09-15 22:08:20.025647746 +0300
-@@ -21,8 +21,8 @@
- 
- 	def getRcFile(self, ext):
- 		# check for rc/type every time so rctype changes will be noticed
--		if os.path.exists('/proc/stb/ir/rc/type'):
--			rc = open('/proc/stb/ir/rc/type').read().strip()
-+		if os.path.exists('/usr/local/e2/etc/ir/rc/type'):
-+			rc = open('/usr/local/e2/etc/ir/rc/type').read().strip()
- 			modeltype = '%s.%s' % (self.model, rc)
- 		else:
- 			modeltype = None
-diff -ruN o/lib/python/Components/Renderer/FrontpanelLed.py pc/lib/python/Components/Renderer/FrontpanelLed.py
---- o/lib/python/Components/Renderer/FrontpanelLed.py	2022-09-15 22:01:03.318843209 +0300
-+++ pc/lib/python/Components/Renderer/FrontpanelLed.py	2022-09-15 22:08:20.025647746 +0300
-@@ -49,16 +49,16 @@
- 		(speed, pattern, pattern_4bit) = self.patterns[val] if self.patterns != True else ledPatterns.getLedPatterns(self.which)[val]
- 
- 		try:
--			open("/proc/stb/fp/led%d_pattern" % self.which, "w").write("%08x" % pattern)
-+			open("/usr/local/e2/etc/fp/led%d_pattern" % self.which, "w").write("%08x" % pattern)
- 		except IOError:
- 			pass
- 		if self.which == 0:
- 			try:
--				open("/proc/stb/fp/led_set_pattern", "w").write("%08x" % pattern_4bit)
--				open("/proc/stb/fp/led_set_speed", "w").write("%d" % speed)
-+				open("/usr/local/e2/etc/fp/led_set_pattern", "w").write("%08x" % pattern_4bit)
-+				open("/usr/local/e2/etc/fp/led_set_speed", "w").write("%d" % speed)
- 			except IOError:
- 				pass
- 			try:
--				open("/proc/stb/fp/led_pattern_speed", "w").write("%d" % speed)
-+				open("/usr/local/e2/etc/fp/led_pattern_speed", "w").write("%d" % speed)
- 			except IOError:
- 				pass
 diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Components/Renderer/NextEpgInfo.py
---- o/lib/python/Components/Renderer/NextEpgInfo.py	2022-09-15 22:02:23.346766199 +0300
-+++ pc/lib/python/Components/Renderer/NextEpgInfo.py	2022-09-15 22:08:20.027647654 +0300
+--- o/lib/python/Components/Renderer/NextEpgInfo.py	2022-09-11 21:36:22.959398339 +0300
++++ pc/lib/python/Components/Renderer/NextEpgInfo.py	2022-09-20 14:27:49.805317408 +0300
 @@ -32,15 +32,11 @@
  					if event:
  						if self.hideLabel:
@@ -7593,30 +6514,9 @@ diff -ruN o/lib/python/Components/Renderer/NextEpgInfo.py pc/lib/python/Componen
  
  	def applySkin(self, desktop, parent):
  		attribs = []
-diff -ruN o/lib/python/Components/Sensors.py pc/lib/python/Components/Sensors.py
---- o/lib/python/Components/Sensors.py	2022-09-15 22:01:03.319843158 +0300
-+++ pc/lib/python/Components/Sensors.py	2022-09-15 22:08:20.027647654 +0300
-@@ -51,12 +51,12 @@
- 
- 	def addSensors(self):
- 		import os
--		if os.path.exists("/proc/stb/sensors"):
--			for dirname in os.listdir("/proc/stb/sensors"):
-+		if os.path.exists("/usr/local/e2/etc/sensors"):
-+			for dirname in os.listdir("/usr/local/e2/etc/sensors"):
- 				if dirname.find("temp", 0, 4) == 0:
--					name = open("/proc/stb/sensors/%s/name" % dirname, "r").readline().strip()
--					unit = open("/proc/stb/sensors/%s/unit" % dirname, "r").readline().strip()
--					self.sensors_list.append((self.TYPE_TEMPERATURE, name, unit, "/proc/stb/sensors/%s" % dirname))
-+					name = open("/usr/local/e2/etc/sensors/%s/name" % dirname, "r").readline().strip()
-+					unit = open("/usr/local/e2/etc/sensors/%s/unit" % dirname, "r").readline().strip()
-+					self.sensors_list.append((self.TYPE_TEMPERATURE, name, unit, "/usr/local/e2/etc/sensors/%s" % dirname))
- 		for fanid in range(fancontrol.getFanCount()):
- 			if fancontrol.hasRPMSensor(fanid):
- 				self.sensors_list.append((self.TYPE_FAN_RPM, _("Fan %d") % (fanid + 1), "rpm", fanid))
 diff -ruN o/lib/python/Components/Sources/List.py pc/lib/python/Components/Sources/List.py
---- o/lib/python/Components/Sources/List.py	2022-09-15 22:02:23.347766149 +0300
-+++ pc/lib/python/Components/Sources/List.py	2022-09-15 22:08:20.027647654 +0300
+--- o/lib/python/Components/Sources/List.py	2022-09-11 21:36:22.963398371 +0300
++++ pc/lib/python/Components/Sources/List.py	2022-09-20 14:27:49.809317430 +0300
 @@ -101,7 +101,6 @@
  
  	def updateList(self, list):
@@ -7626,200 +6526,20 @@ diff -ruN o/lib/python/Components/Sources/List.py pc/lib/python/Components/Sourc
  		self.disable_callbacks = True
  		self.list = list
 diff -ruN o/lib/python/Components/SystemInfo.py pc/lib/python/Components/SystemInfo.py
---- o/lib/python/Components/SystemInfo.py	2022-09-15 22:02:23.348766099 +0300
-+++ pc/lib/python/Components/SystemInfo.py	2022-09-15 22:08:20.027647654 +0300
-@@ -23,8 +23,8 @@
- 
- 
- def countFrontpanelLEDs():
--	numLeds = fileExists("/proc/stb/fp/led_set_pattern") and 1 or 0
--	while fileExists("/proc/stb/fp/led%d_pattern" % numLeds):
-+	numLeds = fileExists("/usr/local/e2/etc/fp/led_set_pattern") and 1 or 0
-+	while fileExists("/usr/local/e2/etc/fp/led%d_pattern" % numLeds):
- 		numLeds += 1
- 	return numLeds
- 
-@@ -44,72 +44,72 @@
- model = HardwareInfo().get_device_model()
- SystemInfo["InDebugMode"] = eGetEnigmaDebugLvl() >= 4
- SystemInfo["CommonInterface"] = model in ("h9combo", "h9combose", "h10","pulse4kmini") and 1 or eDVBCIInterfaces.getInstance().getNumOfSlots()
--SystemInfo["CommonInterfaceCIDelay"] = fileCheck("/proc/stb/tsmux/rmx_delay")
-+SystemInfo["CommonInterfaceCIDelay"] = fileCheck("/usr/local/e2/etc/tsmux/rmx_delay")
- for cislot in range(0, SystemInfo["CommonInterface"]):
--	SystemInfo["CI%dSupportsHighBitrates" % cislot] = fileCheck("/proc/stb/tsmux/ci%d_tsclk" % cislot)
--	SystemInfo["CI%dRelevantPidsRoutingSupport" % cislot] = fileCheck("/proc/stb/tsmux/ci%d_relevant_pids_routing" % cislot)
-+	SystemInfo["CI%dSupportsHighBitrates" % cislot] = fileCheck("/usr/local/e2/etc/tsmux/ci%d_tsclk" % cislot)
-+	SystemInfo["CI%dRelevantPidsRoutingSupport" % cislot] = fileCheck("/usr/local/e2/etc/tsmux/ci%d_relevant_pids_routing" % cislot)
- SystemInfo["HasSoftcamInstalled"] = hassoftcaminstalled()
- SystemInfo["NumVideoDecoders"] = getNumVideoDecoders()
- SystemInfo["PIPAvailable"] = SystemInfo["NumVideoDecoders"] > 1
- SystemInfo["CanMeasureFrontendInputPower"] = eDVBResourceManager.getInstance().canMeasureFrontendInputPower()
- SystemInfo["12V_Output"] = Misc_Options.getInstance().detected_12V_output()
--SystemInfo["ZapMode"] = fileCheck("/proc/stb/video/zapmode") or fileCheck("/proc/stb/video/zapping_mode")
-+SystemInfo["ZapMode"] = fileCheck("/usr/local/e2/etc/video/zapmode") or fileCheck("/usr/local/e2/etc/video/zapping_mode")
- SystemInfo["NumFrontpanelLEDs"] = countFrontpanelLEDs()
- SystemInfo["FrontpanelDisplay"] = fileExists("/dev/dbox/oled0") or fileExists("/dev/dbox/lcd0")
--SystemInfo["LCDsymbol_circle_recording"] = fileCheck("/proc/stb/lcd/symbol_circle") or model in ("hd51", "vs1500") and fileCheck("/proc/stb/lcd/symbol_recording")
--SystemInfo["LCDsymbol_timeshift"] = fileCheck("/proc/stb/lcd/symbol_timeshift")
--SystemInfo["LCDshow_symbols"] = (model.startswith("et9") or model in ("hd51", "vs1500")) and fileCheck("/proc/stb/lcd/show_symbols")
--SystemInfo["LCDsymbol_hdd"] = model in ("hd51", "vs1500") and fileCheck("/proc/stb/lcd/symbol_hdd")
-+SystemInfo["LCDsymbol_circle_recording"] = fileCheck("/usr/local/e2/etc/lcd/symbol_circle") or model in ("hd51", "vs1500") and fileCheck("/usr/local/e2/etc/lcd/symbol_recording")
-+SystemInfo["LCDsymbol_timeshift"] = fileCheck("/usr/local/e2/etc/lcd/symbol_timeshift")
-+SystemInfo["LCDshow_symbols"] = (model.startswith("et9") or model in ("hd51", "vs1500")) and fileCheck("/usr/local/e2/etc/lcd/show_symbols")
-+SystemInfo["LCDsymbol_hdd"] = model in ("hd51", "vs1500") and fileCheck("/usr/local/e2/etc/lcd/symbol_hdd")
- SystemInfo["FrontpanelDisplayGrayscale"] = fileExists("/dev/dbox/oled0")
- SystemInfo["DeepstandbySupport"] = HardwareInfo().get_device_name() != "dm800"
--SystemInfo["Fan"] = fileCheck("/proc/stb/fp/fan")
--SystemInfo["FanPWM"] = SystemInfo["Fan"] and fileCheck("/proc/stb/fp/fan_pwm")
--SystemInfo["PowerLED"] = fileCheck("/proc/stb/power/powerled") or model in ("gbue4k", "gbquad4k") and fileCheck("/proc/stb/fp/led1_pattern")
--SystemInfo["StandbyLED"] = fileCheck("/proc/stb/power/standbyled") or model in ("gbue4k", "gbquad4k") and fileCheck("/proc/stb/fp/led0_pattern")
--SystemInfo["SuspendLED"] = fileCheck("/proc/stb/power/suspendled") or fileCheck("/proc/stb/fp/enable_led")
-+SystemInfo["Fan"] = fileCheck("/usr/local/e2/etc/fp/fan")
-+SystemInfo["FanPWM"] = SystemInfo["Fan"] and fileCheck("/usr/local/e2/etc/fp/fan_pwm")
-+SystemInfo["PowerLED"] = fileCheck("/usr/local/e2/etc/power/powerled") or model in ("gbue4k", "gbquad4k") and fileCheck("/usr/local/e2/etc/fp/led1_pattern")
-+SystemInfo["StandbyLED"] = fileCheck("/usr/local/e2/etc/power/standbyled") or model in ("gbue4k", "gbquad4k") and fileCheck("/usr/local/e2/etc/fp/led0_pattern")
-+SystemInfo["SuspendLED"] = fileCheck("/usr/local/e2/etc/power/suspendled") or fileCheck("/usr/local/e2/etc/fp/enable_led")
- SystemInfo["Display"] = SystemInfo["FrontpanelDisplay"] or SystemInfo["StandbyLED"]
--SystemInfo["LedPowerColor"] = fileCheck("/proc/stb/fp/ledpowercolor")
--SystemInfo["LedStandbyColor"] = fileCheck("/proc/stb/fp/ledstandbycolor")
--SystemInfo["LedSuspendColor"] = fileCheck("/proc/stb/fp/ledsuspendledcolor")
--SystemInfo["Power4x7On"] = fileCheck("/proc/stb/fp/power4x7on")
--SystemInfo["Power4x7Standby"] = fileCheck("/proc/stb/fp/power4x7standby")
--SystemInfo["Power4x7Suspend"] = fileCheck("/proc/stb/fp/power4x7suspend")
--SystemInfo["PowerOffDisplay"] = model not in "formuler1" and fileCheck("/proc/stb/power/vfd") or fileCheck("/proc/stb/lcd/vfd")
--SystemInfo["WakeOnLAN"] = not model.startswith("et8000") and fileCheck("/proc/stb/power/wol") or fileCheck("/proc/stb/fp/wol")
--SystemInfo["HasExternalPIP"] = not (model.startswith("et9") or model in ("e4hd",)) and fileCheck("/proc/stb/vmpeg/1/external")
--SystemInfo["VideoDestinationConfigurable"] = fileExists("/proc/stb/vmpeg/0/dst_left")
--SystemInfo["hasPIPVisibleProc"] = fileCheck("/proc/stb/vmpeg/1/visible")
-+SystemInfo["LedPowerColor"] = fileCheck("/usr/local/e2/etc/fp/ledpowercolor")
-+SystemInfo["LedStandbyColor"] = fileCheck("/usr/local/e2/etc/fp/ledstandbycolor")
-+SystemInfo["LedSuspendColor"] = fileCheck("/usr/local/e2/etc/fp/ledsuspendledcolor")
-+SystemInfo["Power4x7On"] = fileCheck("/usr/local/e2/etc/fp/power4x7on")
-+SystemInfo["Power4x7Standby"] = fileCheck("/usr/local/e2/etc/fp/power4x7standby")
-+SystemInfo["Power4x7Suspend"] = fileCheck("/usr/local/e2/etc/fp/power4x7suspend")
-+SystemInfo["PowerOffDisplay"] = model not in "formuler1" and fileCheck("/usr/local/e2/etc/power/vfd") or fileCheck("/usr/local/e2/etc/lcd/vfd")
-+SystemInfo["WakeOnLAN"] = not model.startswith("et8000") and fileCheck("/usr/local/e2/etc/power/wol") or fileCheck("/usr/local/e2/etc/fp/wol")
-+SystemInfo["HasExternalPIP"] = not (model.startswith("et9") or model in ("e4hd",)) and fileCheck("/usr/local/e2/etc/vmpeg/1/external")
-+SystemInfo["VideoDestinationConfigurable"] = fileExists("/usr/local/e2/etc/vmpeg/0/dst_left")
-+SystemInfo["hasPIPVisibleProc"] = fileCheck("/usr/local/e2/etc/vmpeg/1/visible")
- SystemInfo["MaxPIPSize"] = model in ("hd51", "h7", "vs1500", "e4hd") and (360, 288) or (540, 432)
--SystemInfo["VFD_scroll_repeats"] = not model.startswith("et8500") and fileCheck("/proc/stb/lcd/scroll_repeats")
--SystemInfo["VFD_scroll_delay"] = not model.startswith("et8500") and fileCheck("/proc/stb/lcd/scroll_delay")
--SystemInfo["VFD_initial_scroll_delay"] = not model.startswith("et8500") and fileCheck("/proc/stb/lcd/initial_scroll_delay")
--SystemInfo["VFD_final_scroll_delay"] = not model.startswith("et8500") and fileCheck("/proc/stb/lcd/final_scroll_delay")
--SystemInfo["LcdLiveTV"] = fileCheck("/proc/stb/fb/sd_detach") or fileCheck("/proc/stb/lcd/live_enable")
--SystemInfo["LcdLiveTVMode"] = fileCheck("/proc/stb/lcd/mode")
--SystemInfo["LcdLiveDecoder"] = fileCheck("/proc/stb/lcd/live_decoder")
-+SystemInfo["VFD_scroll_repeats"] = not model.startswith("et8500") and fileCheck("/usr/local/e2/etc/lcd/scroll_repeats")
-+SystemInfo["VFD_scroll_delay"] = not model.startswith("et8500") and fileCheck("/usr/local/e2/etc/lcd/scroll_delay")
-+SystemInfo["VFD_initial_scroll_delay"] = not model.startswith("et8500") and fileCheck("/usr/local/e2/etc/lcd/initial_scroll_delay")
-+SystemInfo["VFD_final_scroll_delay"] = not model.startswith("et8500") and fileCheck("/usr/local/e2/etc/lcd/final_scroll_delay")
-+SystemInfo["LcdLiveTV"] = fileCheck("/usr/local/e2/etc/fb/sd_detach") or fileCheck("/usr/local/e2/etc/lcd/live_enable")
-+SystemInfo["LcdLiveTVMode"] = fileCheck("/usr/local/e2/etc/lcd/mode")
-+SystemInfo["LcdLiveDecoder"] = fileCheck("/usr/local/e2/etc/lcd/live_decoder")
- SystemInfo["FastChannelChange"] = False
--SystemInfo["3DMode"] = fileCheck("/proc/stb/fb/3dmode") or fileCheck("/proc/stb/fb/primary/3d")
--SystemInfo["3DZNorm"] = fileCheck("/proc/stb/fb/znorm") or fileCheck("/proc/stb/fb/primary/zoffset")
--SystemInfo["Blindscan_t2_available"] = fileCheck("/proc/stb/info/vumodel") and model.startswith("vu")
--SystemInfo["RcTypeChangable"] = not (model in ("gbquad4k", "gbue4k", "et8500") or model.startswith("et7")) and pathExists("/proc/stb/ir/rc/type")
-+SystemInfo["3DMode"] = fileCheck("/usr/local/e2/etc/fb/3dmode") or fileCheck("/usr/local/e2/etc/fb/primary/3d")
-+SystemInfo["3DZNorm"] = fileCheck("/usr/local/e2/etc/fb/znorm") or fileCheck("/usr/local/e2/etc/fb/primary/zoffset")
-+SystemInfo["Blindscan_t2_available"] = fileCheck("/usr/local/e2/etc/info/vumodel") and model.startswith("vu")
-+SystemInfo["RcTypeChangable"] = not (model in ("gbquad4k", "gbue4k", "et8500") or model.startswith("et7")) and pathExists("/usr/local/e2/etc/ir/rc/type")
- SystemInfo["HasFullHDSkinSupport"] = model not in ("et4000", "et5000", "sh1", "hd500c", "hd1100", "xp1000", "lc")
--SystemInfo["HasBypassEdidChecking"] = fileCheck("/proc/stb/hdmi/bypass_edid_checking")
-+SystemInfo["HasBypassEdidChecking"] = fileCheck("/usr/local/e2/etc/hdmi/bypass_edid_checking")
- SystemInfo["HasMMC"] = "root" in cmdline and cmdline["root"].startswith("/dev/mmcblk")
--SystemInfo["HasColorspace"] = fileCheck("/proc/stb/video/hdmi_colorspace")
-+SystemInfo["HasColorspace"] = fileCheck("/usr/local/e2/etc/video/hdmi_colorspace")
- SystemInfo["HasColorspaceSimple"] = SystemInfo["HasColorspace"] and SystemInfo["HasMMC"] and SystemInfo["Blindscan_t2_available"]
--SystemInfo["HasTranscoding"] = pathExists("/proc/stb/encoder/0") or fileCheck("/dev/bcm_enc0")
--SystemInfo["HasH265Encoder"] = fileHas("/proc/stb/encoder/0/vcodec_choices", "h265")
-+SystemInfo["HasTranscoding"] = pathExists("/usr/local/e2/etc/encoder/0") or fileCheck("/dev/bcm_enc0")
-+SystemInfo["HasH265Encoder"] = fileHas("/usr/local/e2/etc/encoder/0/vcodec_choices", "h265")
- SystemInfo["CanNotDoSimultaneousTranscodeAndPIP"] = model in ("vusolo4k", "gbquad4k", "gbue4k")
--SystemInfo["HasColordepth"] = fileCheck("/proc/stb/video/hdmi_colordepth")
-+SystemInfo["HasColordepth"] = fileCheck("/usr/local/e2/etc/video/hdmi_colordepth")
- SystemInfo["HasFrontDisplayPicon"] = model in ("et8500", "vusolo4k", "vuuno4kse", "vuduo4k", "vuduo4kse", "vuultimo4k", "gbquad4k", "gbue4k")
--SystemInfo["Has24hz"] = fileCheck("/proc/stb/video/videomode_24hz")
--SystemInfo["Has2160p"] = fileHas("/proc/stb/video/videomode_preferred", "2160p50")
--SystemInfo["HasHDMIpreemphasis"] = fileCheck("/proc/stb/hdmi/preemphasis")
--SystemInfo["HasColorimetry"] = fileCheck("/proc/stb/video/hdmi_colorimetry")
--SystemInfo["HasHdrType"] = fileCheck("/proc/stb/video/hdmi_hdrtype")
--SystemInfo["HasScaler_sharpness"] = pathExists("/proc/stb/vmpeg/0/pep_scaler_sharpness")
-+SystemInfo["Has24hz"] = fileCheck("/usr/local/e2/etc/video/videomode_24hz")
-+SystemInfo["Has2160p"] = fileHas("/usr/local/e2/etc/video/videomode_preferred", "2160p50")
-+SystemInfo["HasHDMIpreemphasis"] = fileCheck("/usr/local/e2/etc/hdmi/preemphasis")
-+SystemInfo["HasColorimetry"] = fileCheck("/usr/local/e2/etc/video/hdmi_colorimetry")
-+SystemInfo["HasHdrType"] = fileCheck("/usr/local/e2/etc/video/hdmi_hdrtype")
-+SystemInfo["HasScaler_sharpness"] = pathExists("/usr/local/e2/etc/vmpeg/0/pep_scaler_sharpness")
+--- o/lib/python/Components/SystemInfo.py	2022-09-11 21:36:22.963398371 +0300
++++ pc/lib/python/Components/SystemInfo.py	2022-09-20 14:27:49.809317430 +0300
+@@ -109,7 +109,7 @@
+ SystemInfo["HasHdrType"] = fileCheck("/proc/stb/video/hdmi_hdrtype")
+ SystemInfo["HasScaler_sharpness"] = pathExists("/proc/stb/vmpeg/0/pep_scaler_sharpness")
  SystemInfo["HasHDMIin"] = model in ("vuduo4k", "vuduo4kse", "vuultimo4k", "vuuno4kse", "gbquad4k", "hd2400", "et10000")
 -SystemInfo["HasHDMI-CEC"] = HardwareInfo().has_hdmi() and fileExists(resolveFilename(SCOPE_PLUGINS, "SystemPlugins/HdmiCEC/plugin.pyo")) and (fileExists("/dev/cec0") or fileExists("/dev/hdmi_cec") or fileExists("/dev/misc/hdmi_cec0"))
 +SystemInfo["HasHDMI-CEC"] = HardwareInfo().has_hdmi() and fileExists(resolveFilename(SCOPE_PLUGINS, "SystemPlugins/HdmiCEC/plugin.pyc")) and (fileExists("/dev/cec0") or fileExists("/dev/hdmi_cec") or fileExists("/dev/misc/hdmi_cec0"))
  SystemInfo["HasYPbPr"] = model in ("dm8000", "et5000", "et6000", "et6500", "et9000", "et9200", "et9500", "et10000", "formuler1", "mbtwinplus", "spycat", "vusolo", "vuduo", "vuduo2", "vuultimo")
  SystemInfo["HasScart"] = model in ("dm8000", "et4000", "et6500", "et8000", "et9000", "et9200", "et9500", "et10000", "formuler1", "hd1100", "hd1200", "hd1265", "hd2400", "vusolo", "vusolo2", "vuduo", "vuduo2", "vuultimo", "vuuno", "xp1000")
  SystemInfo["HasSVideo"] = model in ("dm8000")
-@@ -121,26 +121,26 @@
- SystemInfo["canMultiBoot"] = getMultibootslots()
- SystemInfo["canDualBoot"] = fileExists("/dev/block/by-name/flag")
- SystemInfo["canFlashWithOfgwrite"] = not(model.startswith("dm"))
--SystemInfo["HDRSupport"] = fileExists("/proc/stb/hdmi/hlg_support_choices") and fileCheck("/proc/stb/hdmi/hlg_support")
-+SystemInfo["HDRSupport"] = fileExists("/usr/local/e2/etc/hdmi/hlg_support_choices") and fileCheck("/usr/local/e2/etc/hdmi/hlg_support")
- SystemInfo["CanProc"] = SystemInfo["HasMMC"] and not SystemInfo["Blindscan_t2_available"]
--SystemInfo["HasMultichannelPCM"] = fileCheck("/proc/stb/audio/multichannel_pcm")
--SystemInfo["HasAutoVolume"] = fileExists("/proc/stb/audio/avl_choices") and fileCheck("/proc/stb/audio/avl")
--SystemInfo["HasAutoVolumeLevel"] = fileExists("/proc/stb/audio/autovolumelevel_choices") and fileCheck("/proc/stb/audio/autovolumelevel")
--SystemInfo["Has3DSurround"] = fileExists("/proc/stb/audio/3d_surround_choices") and fileCheck("/proc/stb/audio/3d_surround")
--SystemInfo["Has3DSpeaker"] = fileExists("/proc/stb/audio/3d_surround_speaker_position_choices") and fileCheck("/proc/stb/audio/3d_surround_speaker_position")
--SystemInfo["Has3DSurroundSpeaker"] = fileExists("/proc/stb/audio/3dsurround_choices") and fileCheck("/proc/stb/audio/3dsurround")
--SystemInfo["Has3DSurroundSoftLimiter"] = fileExists("/proc/stb/audio/3dsurround_softlimiter_choices") and fileCheck("/proc/stb/audio/3dsurround_softlimiter")
--SystemInfo["CanDownmixAC3"] = fileHas("/proc/stb/audio/ac3_choices", "downmix")
--SystemInfo["CanDownmixDTS"] = fileHas("/proc/stb/audio/dts_choices", "downmix")
--SystemInfo["CanDownmixAAC"] = fileHas("/proc/stb/audio/aac_choices", "downmix")
--SystemInfo["HDMIAudioSource"] = fileCheck("/proc/stb/hdmi/audio_source")
--SystemInfo["CanAC3Transcode"] = fileHas("/proc/stb/audio/ac3plus_choices", "force_ac3")
--SystemInfo["CanDTSHD"] = fileHas("/proc/stb/audio/dtshd_choices", "downmix")
--SystemInfo["CanDownmixAACPlus"] = fileHas("/proc/stb/audio/aacplus_choices", "downmix")
--SystemInfo["CanAACTranscode"] = fileHas("/proc/stb/audio/aac_transcode_choices", "off")
--SystemInfo["CanWMAPRO"] = fileHas("/proc/stb/audio/wmapro_choices", "downmix")
--SystemInfo["CanBTAudio"] = fileHas("/proc/stb/audio/btaudio_choices", "off")
--SystemInfo["CanBTAudioDelay"] = fileCheck("/proc/stb/audio/btaudio_delay") or fileCheck("/proc/stb/audio/btaudio_delay_pcm")
-+SystemInfo["HasMultichannelPCM"] = fileCheck("/usr/local/e2/etc/audio/multichannel_pcm")
-+SystemInfo["HasAutoVolume"] = fileExists("/usr/local/e2/etc/audio/avl_choices") and fileCheck("/usr/local/e2/etc/audio/avl")
-+SystemInfo["HasAutoVolumeLevel"] = fileExists("/usr/local/e2/etc/audio/autovolumelevel_choices") and fileCheck("/usr/local/e2/etc/audio/autovolumelevel")
-+SystemInfo["Has3DSurround"] = fileExists("/usr/local/e2/etc/audio/3d_surround_choices") and fileCheck("/usr/local/e2/etc/audio/3d_surround")
-+SystemInfo["Has3DSpeaker"] = fileExists("/usr/local/e2/etc/audio/3d_surround_speaker_position_choices") and fileCheck("/usr/local/e2/etc/audio/3d_surround_speaker_position")
-+SystemInfo["Has3DSurroundSpeaker"] = fileExists("/usr/local/e2/etc/audio/3dsurround_choices") and fileCheck("/usr/local/e2/etc/audio/3dsurround")
-+SystemInfo["Has3DSurroundSoftLimiter"] = fileExists("/usr/local/e2/etc/audio/3dsurround_softlimiter_choices") and fileCheck("/usr/local/e2/etc/audio/3dsurround_softlimiter")
-+SystemInfo["CanDownmixAC3"] = fileHas("/usr/local/e2/etc/audio/ac3_choices", "downmix")
-+SystemInfo["CanDownmixDTS"] = fileHas("/usr/local/e2/etc/audio/dts_choices", "downmix")
-+SystemInfo["CanDownmixAAC"] = fileHas("/usr/local/e2/etc/audio/aac_choices", "downmix")
-+SystemInfo["HDMIAudioSource"] = fileCheck("/usr/local/e2/etc/hdmi/audio_source")
-+SystemInfo["CanAC3Transcode"] = fileHas("/usr/local/e2/etc/audio/ac3plus_choices", "force_ac3")
-+SystemInfo["CanDTSHD"] = fileHas("/usr/local/e2/etc/audio/dtshd_choices", "downmix")
-+SystemInfo["CanDownmixAACPlus"] = fileHas("/usr/local/e2/etc/audio/aacplus_choices", "downmix")
-+SystemInfo["CanAACTranscode"] = fileHas("/usr/local/e2/etc/audio/aac_transcode_choices", "off")
-+SystemInfo["CanWMAPRO"] = fileHas("/usr/local/e2/etc/audio/wmapro_choices", "downmix")
-+SystemInfo["CanBTAudio"] = fileHas("/usr/local/e2/etc/audio/btaudio_choices", "off")
-+SystemInfo["CanBTAudioDelay"] = fileCheck("/usr/local/e2/etc/audio/btaudio_delay") or fileCheck("/usr/local/e2/etc/audio/btaudio_delay_pcm")
- SystemInfo["BootDevice"] = getBootdevice()
- SystemInfo["FbcTunerPowerAlwaysOn"] = model in ("vusolo4k", "vuduo4k", "vuduo4kse", "vuultimo4k", "vuuno4k", "vuuno4kse")
- SystemInfo["HasPhysicalLoopthrough"] = ["Vuplus DVB-S NIM(AVL2108)", "GIGA DVB-S2 NIM (Internal)"]
-diff -ruN o/lib/python/Components/Timezones.py pc/lib/python/Components/Timezones.py
---- o/lib/python/Components/Timezones.py	2022-09-15 22:02:23.348766099 +0300
-+++ pc/lib/python/Components/Timezones.py	2022-09-15 22:08:20.027647654 +0300
-@@ -294,7 +294,7 @@
- 		except Exception:
- 			from enigma import e_tzset
- 			e_tzset()
--		if path.exists("/proc/stb/fp/rtc_offset"):
-+		if path.exists("/usr/local/e2/etc/fp/rtc_offset"):
- 			setRTCoffset()
- 		now = int(time())
- 		timeFormat = "%a %d-%b-%Y %H:%M:%S"
 diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageConfig.py
---- o/lib/python/Components/UsageConfig.py	2022-09-15 22:02:23.349766049 +0300
-+++ pc/lib/python/Components/UsageConfig.py	2022-09-15 22:08:20.027647654 +0300
+--- o/lib/python/Components/UsageConfig.py	2022-09-11 21:36:22.963398371 +0300
++++ pc/lib/python/Components/UsageConfig.py	2022-09-20 14:27:49.809317430 +0300
 @@ -122,8 +122,8 @@
  	config.usage.default_path = ConfigText(default="")
  	config.usage.timer_path = ConfigText(default="<default>")
@@ -7831,17 +6551,6 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  
  	config.usage.movielist_trashcan = ConfigYesNo(default=True)
  	config.usage.movielist_trashcan_days = ConfigNumber(default=8)
-@@ -333,8 +333,8 @@
- 
- 	if SystemInfo["Fan"]:
- 		choicelist = [('off', _("Off")), ('on', _("On")), ('auto', _("Auto"))]
--		if os.path.exists("/proc/stb/fp/fan_choices"):
--			choicelist = [x for x in choicelist if x[0] in open("/proc/stb/fp/fan_choices", "r").read().strip().split(" ")]
-+		if os.path.exists("/usr/local/e2/etc/fp/fan_choices"):
-+			choicelist = [x for x in choicelist if x[0] in open("/usr/local/e2/etc/fp/fan_choices", "r").read().strip().split(" ")]
- 		config.usage.fan = ConfigSelection(choicelist)
- 
- 		def fanChanged(configElement):
 @@ -740,6 +740,13 @@
  	config.autolanguage.subtitle_defaultdvb = ConfigYesNo(default=False)
  	config.autolanguage.subtitle_usecache = ConfigYesNo(default=True)
@@ -7857,8 +6566,8 @@ diff -ruN o/lib/python/Components/UsageConfig.py pc/lib/python/Components/UsageC
  	config.streaming.stream_ecm = ConfigYesNo(default=False)
  	config.streaming.descramble = ConfigYesNo(default=True)
 diff -ruN o/lib/python/enigma_python.i pc/lib/python/enigma_python.i
---- o/lib/python/enigma_python.i	2022-09-15 22:02:23.365765244 +0300
-+++ pc/lib/python/enigma_python.i	2022-09-15 22:08:20.028647608 +0300
+--- o/lib/python/enigma_python.i	2022-09-11 21:36:22.987398570 +0300
++++ pc/lib/python/enigma_python.i	2022-09-20 14:27:49.809317430 +0300
 @@ -43,7 +43,6 @@
  #include <lib/base/message.h>
  #include <lib/base/e2avahi.h>
@@ -7876,8 +6585,8 @@ diff -ruN o/lib/python/enigma_python.i pc/lib/python/enigma_python.i
  %include <lib/gdi/font.h>
  %include <lib/gdi/gpixmap.h>
 diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml
---- o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2022-09-15 22:01:03.322843003 +0300
-+++ pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2022-09-15 22:08:20.055646361 +0300
+--- o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2022-09-11 21:32:03.713800050 +0300
++++ pc/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml	2022-09-20 14:27:49.809317430 +0300
 @@ -7,7 +7,7 @@
  		titlesetmode="multi"
  		vmgm="vmgmdream.mpg"
@@ -7888,8 +6597,8 @@ diff -ruN o/lib/python/Plugins/Extensions/DVDBurn/DreamboxDVD.ddvdp.xml pc/lib/p
  	/>
  	<titles> </titles>
 diff -ruN o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py
---- o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2022-09-15 22:02:23.351765948 +0300
-+++ pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2022-09-15 22:08:20.083645068 +0300
+--- o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2022-09-11 21:36:22.967398405 +0300
++++ pc/lib/python/Plugins/Extensions/MediaPlayer/plugin.py	2022-09-20 14:27:49.809317430 +0300
 @@ -350,13 +350,11 @@
  		currPlay = self.session.nav.getCurrentService()
  		sTagAudioCodec = currPlay.info().getInfoString(iServiceInformation.sTagAudioCodec)
@@ -7905,8 +6614,8 @@ diff -ruN o/lib/python/Plugins/Extensions/MediaPlayer/plugin.py pc/lib/python/Pl
  	def __evPluginError(self):
  		currPlay = self.session.nav.getCurrentService()
 diff -ruN o/lib/python/Plugins/Extensions/PicturePlayer/ui.py pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py
---- o/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2022-09-15 22:02:23.351765948 +0300
-+++ pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2022-09-15 22:08:20.083645068 +0300
+--- o/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2022-09-11 21:36:22.967398405 +0300
++++ pc/lib/python/Plugins/Extensions/PicturePlayer/ui.py	2022-09-20 14:27:49.809317430 +0300
 @@ -20,7 +20,7 @@
  
  
@@ -7916,51 +6625,9 @@ diff -ruN o/lib/python/Plugins/Extensions/PicturePlayer/ui.py pc/lib/python/Plug
  config.pic.slidetime = ConfigInteger(default=10, limits=(1, 60))
  config.pic.resize = ConfigSelection(default="1", choices=[("0", _("simple")), ("1", _("better"))])
  config.pic.cache = ConfigYesNo(default=True)
-diff -ruN o/lib/python/Plugins/SystemPlugins/FastChannelChange/plugin.py pc/lib/python/Plugins/SystemPlugins/FastChannelChange/plugin.py
---- o/lib/python/Plugins/SystemPlugins/FastChannelChange/plugin.py	2022-09-15 22:01:03.335842331 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/FastChannelChange/plugin.py	2022-09-15 22:08:20.083645068 +0300
-@@ -89,7 +89,7 @@
- #		on_pip_start_stop.append(self.FCCForceStopforPIP)
- 
- 	def setProcFCC(self, value):
--		procPath = "/proc/stb/frontend/fbc/fcc"
-+		procPath = "/usr/local/e2/etc/frontend/fbc/fcc"
- 		if os.access(procPath, os.W_OK):
- 			open(procPath, 'w').write(value and "enable" or "disable")
- 		else:
-diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py
---- o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2022-09-15 22:01:03.337842228 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/overscanwizard.py	2022-09-15 22:08:20.084645022 +0300
-@@ -152,7 +152,7 @@
- 		if self.step == 1:
- 			self.step = self.yes_no.value and 5 or 2
- 		elif self.step == 2:
--			self.step = self.yes_no.value and 5 or os.path.exists("/proc/stb/fb/dst_left") and 3 or 4
-+			self.step = self.yes_no.value and 5 or os.path.exists("/usr/local/e2/etc/fb/dst_left") and 3 or 4
- 		elif self.step == 3:
- 			self.save_new_position = True
- 			self.step = 5
-diff -ruN o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py
---- o/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py	2022-09-15 22:02:23.353765847 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/OSDPositionSetup/plugin.py	2022-09-15 22:08:20.084645022 +0300
-@@ -14,10 +14,10 @@
- 	if dst_top + dst_height > 576:
- 		dst_height = 576 - dst_top
- 	try:
--		open("/proc/stb/fb/dst_left", "w").write('%08x' % dst_left)
--		open("/proc/stb/fb/dst_width", "w").write('%08x' % dst_width)
--		open("/proc/stb/fb/dst_top", "w").write('%08x' % dst_top)
--		open("/proc/stb/fb/dst_height", "w").write('%08x' % dst_height)
-+		open("/usr/local/e2/etc/fb/dst_left", "w").write('%08x' % dst_left)
-+		open("/usr/local/e2/etc/fb/dst_width", "w").write('%08x' % dst_width)
-+		open("/usr/local/e2/etc/fb/dst_top", "w").write('%08x' % dst_top)
-+		open("/usr/local/e2/etc/fb/dst_height", "w").write('%08x' % dst_height)
- 	except:
- 		return
- 
 diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py
---- o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-09-15 22:02:23.353765847 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-09-15 22:08:20.084645022 +0300
+--- o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-09-11 21:36:22.971398438 +0300
++++ pc/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py	2022-09-20 14:27:49.809317430 +0300
 @@ -112,7 +112,7 @@
  
  		self.selectedFiles = config.plugins.configurationbackup.backupdirs.value
@@ -7970,315 +6637,9 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/SoftwareManager/BackupRestore.py pc
  		self.filelist = MultiFileSelectList(self.selectedFiles, defaultDir, inhibitDirs=inhibitDirs)
  		self["checkList"] = self.filelist
  
-@@ -291,8 +291,8 @@
- 			self.onShown.append(self.doRestore)
- 
- 	def doRestore(self):
--		if path.exists("/proc/stb/vmpeg/0/dst_width"):
--			restorecmdlist = ["tar -xzvf " + self.fullbackupfilename + " -C /", "echo 0 > /proc/stb/vmpeg/0/dst_height", "echo 0 > /proc/stb/vmpeg/0/dst_left", "echo 0 > /proc/stb/vmpeg/0/dst_top", "echo 0 > /proc/stb/vmpeg/0/dst_width", "killall -9 enigma2"]
-+		if path.exists("/usr/local/e2/etc/vmpeg/0/dst_width"):
-+			restorecmdlist = ["tar -xzvf " + self.fullbackupfilename + " -C /", "echo 0 > /usr/local/e2/etc/vmpeg/0/dst_height", "echo 0 > /usr/local/e2/etc/vmpeg/0/dst_left", "echo 0 > /usr/local/e2/etc/vmpeg/0/dst_top", "echo 0 > /usr/local/e2/etc/vmpeg/0/dst_width", "killall -9 enigma2"]
- 		else:
- 			restorecmdlist = ["tar -xzvf " + self.fullbackupfilename + " -C /", "killall -9 enigma2"]
- 		if self.finished_cb:
-diff -ruN o/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py pc/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py
---- o/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py	2022-09-15 22:01:03.341842021 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoClippingSetup/plugin.py	2022-09-15 22:08:20.084645022 +0300
-@@ -99,16 +99,16 @@
- 	if clip_top + clip_height > 576:
- 		clip_height = 576 - clip_top
- 	try:
--		file = open("/proc/stb/vmpeg/0/clip_left", "w")
-+		file = open("/usr/local/e2/etc/vmpeg/0/clip_left", "w")
- 		file.write('%X' % clip_left)
- 		file.close()
--		file = open("/proc/stb/vmpeg/0/clip_width", "w")
-+		file = open("/usr/local/e2/etc/vmpeg/0/clip_width", "w")
- 		file.write('%X' % clip_width)
- 		file.close()
--		file = open("/proc/stb/vmpeg/0/clip_top", "w")
-+		file = open("/usr/local/e2/etc/vmpeg/0/clip_top", "w")
- 		file.write('%X' % clip_top)
- 		file.close()
--		file = open("/proc/stb/vmpeg/0/clip_height", "w")
-+		file = open("/usr/local/e2/etc/vmpeg/0/clip_height", "w")
- 		file.write('%X' % clip_height)
- 		file.close()
- 	except:
-@@ -129,7 +129,7 @@
- 
- def Plugins(**kwargs):
- 	from os import path
--	if path.exists("/proc/stb/vmpeg/0/clip_left"):
-+	if path.exists("/usr/local/e2/etc/vmpeg/0/clip_left"):
- 		from Plugins.Plugin import PluginDescriptor
- 		return [PluginDescriptor(name=_("Video clipping setup"), description=_("clip overscan / letterbox borders"), where=PluginDescriptor.WHERE_PLUGINMENU, fnc=main),
- 					PluginDescriptor(name=_("Video clipping setup"), description="", where=PluginDescriptor.WHERE_SESSIONSTART, fnc=startup)]
-diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py
---- o/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py	2022-09-15 22:02:23.354765797 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/plugin.py	2022-09-15 22:08:20.084645022 +0300
-@@ -371,6 +371,6 @@
- 
- def Plugins(**kwargs):
- 	list = []
--	if config.usage.setup_level.index >= 2 and os.path.exists("/proc/stb/vmpeg/0/pep_apply"):
-+	if config.usage.setup_level.index >= 2 and os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_apply"):
- 		list.append(PluginDescriptor(name=_("Video enhancement setup"), description=_("Advanced video enhancement setup"), where=PluginDescriptor.WHERE_MENU, needsRestart=False, fnc=startSetup))
- 	return list
-diff -ruN o/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py
---- o/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py	2022-09-15 22:02:23.354765797 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoEnhancement/VideoEnhancement.py	2022-09-15 22:08:20.084645022 +0300
-@@ -15,12 +15,12 @@
- 		config.pep = ConfigSubsection()
- 		config.pep.configsteps = NoSave(ConfigSelection(choices=[1, 5, 10, 25], default=1))
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_contrast"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_contrast"):
- 			def setContrast(config):
- 				myval = int(config.value * 256)
- 				try:
- 					print "[VideoEnhancement] setting contrast to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_contrast", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_contrast", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_contrast."
- 
-@@ -32,12 +32,12 @@
- 		else:
- 			config.pep.contrast = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_saturation"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_saturation"):
- 			def setSaturation(config):
- 				myval = int(config.value * 256)
- 				try:
- 					print "[VideoEnhancement] setting saturation to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_saturation", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_saturation", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_saturaion."
- 
-@@ -49,12 +49,12 @@
- 		else:
- 			config.pep.saturation = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_hue"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_hue"):
- 			def setHue(config):
- 				myval = int(config.value * 256)
- 				try:
- 					print "[VideoEnhancement] setting hue to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_hue", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_hue", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_hue."
- 
-@@ -66,12 +66,12 @@
- 		else:
- 			config.pep.hue = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_brightness"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_brightness"):
- 			def setBrightness(config):
- 				myval = int(config.value * 256)
- 				try:
- 					print "[VideoEnhancement] setting brightness to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_brightness", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_brightness", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_brightness."
- 
-@@ -82,12 +82,12 @@
- 		else:
- 			config.pep.brightness = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_block_noise_reduction"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_block_noise_reduction"):
- 			def setBlock_noise_reduction(config):
- 				myval = int(config.value)
- 				try:
- 					print "[VideoEnhancement] setting block_noise_reduction to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_block_noise_reduction", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_block_noise_reduction", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_block_noise_reduction."
- 
-@@ -99,12 +99,12 @@
- 		else:
- 			config.pep.block_noise_reduction = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_mosquito_noise_reduction"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_mosquito_noise_reduction"):
- 			def setMosquito_noise_reduction(config):
- 				myval = int(config.value)
- 				try:
- 					print "[VideoEnhancement] setting mosquito_noise_reduction to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_mosquito_noise_reduction", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_mosquito_noise_reduction", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_mosquito_noise_reduction."
- 
-@@ -116,12 +116,12 @@
- 		else:
- 			config.pep.mosquito_noise_reduction = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_digital_contour_removal"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_digital_contour_removal"):
- 			def setDigital_contour_removal(config):
- 				myval = int(config.value)
- 				try:
- 					print "[VideoEnhancement] setting digital_contour_removal to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_digital_contour_removal", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_digital_contour_removal", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_digital_contour_removal."
- 
-@@ -133,11 +133,11 @@
- 		else:
- 			config.pep.digital_contour_removal = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_split"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_split"):
- 			def setSplitMode(config):
- 				try:
- 					print "[VideoEnhancement] setting splitmode to:", str(config.value)
--					open("/proc/stb/vmpeg/0/pep_split", "w").write(str(config.value))
-+					open("/usr/local/e2/etc/vmpeg/0/pep_split", "w").write(str(config.value))
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_split."
- 
-@@ -153,12 +153,12 @@
- 		else:
- 			config.pep.split = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_sharpness"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_sharpness"):
- 			def setSharpness(config):
- 				myval = int(config.value * 256)
- 				try:
- 					print "[VideoEnhancement] setting sharpness to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_sharpness", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_sharpness", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_sharpness."
- 
-@@ -170,12 +170,12 @@
- 		else:
- 			config.pep.sharpness = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_auto_flesh"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_auto_flesh"):
- 			def setAutoflesh(config):
- 				myval = int(config.value)
- 				try:
- 					print "[VideoEnhancement] setting auto_flesh to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_auto_flesh", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_auto_flesh", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_auto_flesh."
- 
-@@ -187,12 +187,12 @@
- 		else:
- 			config.pep.auto_flesh = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_green_boost"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_green_boost"):
- 			def setGreenboost(config):
- 				myval = int(config.value)
- 				try:
- 					print "[VideoEnhancement] setting green_boost to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_green_boost", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_green_boost", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_green_boost."
- 
-@@ -204,12 +204,12 @@
- 		else:
- 			config.pep.green_boost = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_blue_boost"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_blue_boost"):
- 			def setBlueboost(config):
- 				myval = int(config.value)
- 				try:
- 					print "[VideoEnhancement] setting blue_boost to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_blue_boost", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_blue_boost", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_blue_boost."
- 
-@@ -221,12 +221,12 @@
- 		else:
- 			config.pep.blue_boost = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_dynamic_contrast"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_dynamic_contrast"):
- 			def setDynamic_contrast(config):
- 				myval = int(config.value)
- 				try:
- 					print "[VideoEnhancement] setting dynamic_contrast to: %0.8X" % myval
--					open("/proc/stb/vmpeg/0/pep_dynamic_contrast", "w").write("%0.8X" % myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_dynamic_contrast", "w").write("%0.8X" % myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_dynamic_contrast."
- 
-@@ -241,12 +241,12 @@
- 		try:
- 			x = config.av.scaler_sharpness.value
- 		except KeyError:
--			if os.path.exists("/proc/stb/vmpeg/0/pep_scaler_sharpness"):
-+			if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_scaler_sharpness"):
- 				def setScaler_sharpness(config):
- 					myval = int(config.value)
- 					try:
- 						print "[VideoEnhancement] setting scaler_sharpness to: %0.8X" % myval
--						open("/proc/stb/vmpeg/0/pep_scaler_sharpness", "w").write("%0.8X" % myval)
-+						open("/usr/local/e2/etc/vmpeg/0/pep_scaler_sharpness", "w").write("%0.8X" % myval)
- 					except IOError:
- 						print "[VideoEnhancement] couldn't write pep_scaler_sharpness."
- 
-@@ -258,12 +258,12 @@
- 			else:
- 				config.av.scaler_sharpness = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/pep_scaler_vertical_dejagging"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/pep_scaler_vertical_dejagging"):
- 			def setScaler_vertical_dejagging(configElement):
- 				myval = configElement.value and "enable" or "disable"
- 				try:
- 					print "[VideoEnhancement] setting scaler_vertical_dejagging to: %s" % myval
--					open("/proc/stb/vmpeg/0/pep_scaler_vertical_dejagging", "w").write(myval)
-+					open("/usr/local/e2/etc/vmpeg/0/pep_scaler_vertical_dejagging", "w").write(myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write pep_scaler_vertical_dejagging."
- 
-@@ -275,12 +275,12 @@
- 		else:
- 			config.pep.scaler_vertical_dejagging = NoSave(ConfigNothing())
- 
--		if os.path.exists("/proc/stb/vmpeg/0/smooth"):
-+		if os.path.exists("/usr/local/e2/etc/vmpeg/0/smooth"):
- 			def setSmooth(configElement):
- 				myval = configElement.value and "enable" or "disable"
- 				try:
- 					print "[VideoEnhancement] setting smooth to: %s" % myval
--					open("/proc/stb/vmpeg/0/smooth", "w").write(myval)
-+					open("/usr/local/e2/etc/vmpeg/0/smooth", "w").write(myval)
- 				except IOError:
- 					print "[VideoEnhancement] couldn't write smooth."
- 
-@@ -300,7 +300,7 @@
- 	def setConfiguredValues(self):
- 		try:
- 			print "[VideoEnhancement] applying pep values"
--			open("/proc/stb/vmpeg/0/pep_apply", "w").write("1")
-+			open("/usr/local/e2/etc/vmpeg/0/pep_apply", "w").write("1")
- 		except IOError:
- 			print "[VideoEnhancement] couldn't apply pep values."
- 
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py
---- o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2022-09-15 22:02:23.355765747 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2022-09-15 22:08:20.084645022 +0300
+--- o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2022-09-11 21:36:22.971398438 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2022-09-20 14:27:49.813317453 +0300
 @@ -17,9 +17,10 @@
  		Screen.__init__(self, session)
  		# for the skin: first try VideoSetup, then Setup, this allows individual skinning
@@ -8486,8 +6847,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/plugin.py pc/lib/python/P
  def VideoWizard(*args, **kwargs):
  	from VideoWizard import VideoWizard
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py
---- o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2022-09-15 22:02:23.354765797 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2022-09-15 22:08:20.085644975 +0300
+--- o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2022-09-11 21:36:22.971398438 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2022-09-20 14:27:49.813317453 +0300
 @@ -1,7 +1,9 @@
 +from enigma import eTimer, eAVSwitch
  from Components.config import config, ConfigSelection, ConfigSubDict, ConfigYesNo
@@ -8624,7 +6985,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/p
 +				ret = (16,10)
 +		elif is_auto:
 +			try:
-+				aspect_str = open("/usr/local/e2/etc/vmpeg/0/aspect", "r").read()
++				aspect_str = open("/proc/stb/vmpeg/0/aspect", "r").read()
 +				if aspect_str == "1": # 4:3
 +					ret = (4,3)
 +			except IOError:
@@ -8986,8 +7347,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py pc/lib/p
  video_hw = VideoHardware()
  video_hw.setConfiguredMode()
 diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py
---- o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2022-09-15 22:02:23.354765797 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2022-09-15 22:08:20.085644975 +0300
+--- o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2022-09-11 21:36:22.971398438 +0300
++++ pc/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py	2022-09-20 14:27:49.813317453 +0300
 @@ -3,7 +3,7 @@
  from Screens.Rc import Rc
  from VideoHardware import video_hw
@@ -9079,8 +7440,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/Videomode/VideoWizard.py pc/lib/pyt
  		config.misc.videowizardenabled.save()
  		configfile.save()
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am
---- o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2022-09-15 22:01:03.343841918 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2022-09-15 22:08:20.085644975 +0300
+--- o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2022-09-11 21:32:03.741800152 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am	2022-09-20 14:27:49.813317453 +0300
 @@ -4,4 +4,4 @@
  
  install_PYTHON =	\
@@ -9088,8 +7449,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/Makefile.am pc/lib/python
 -	plugin.py VideoFinetune.py testbeeld-4k.mvi
 +	plugin.py VideoFinetune.py
 diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py
---- o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2022-09-15 22:02:23.354765797 +0300
-+++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2022-09-15 22:08:20.085644975 +0300
+--- o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2022-09-11 21:36:22.971398438 +0300
++++ pc/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py	2022-09-20 14:27:49.813317453 +0300
 @@ -1,8 +1,6 @@
  from Screens.Screen import Screen
 -from Components.config import config
@@ -9155,7 +7516,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  class VideoFinetune(Screen):
  	skin = """
  		<screen position="fill">
-@@ -117,25 +80,21 @@
+@@ -117,10 +80,6 @@
  
  	def __init__(self, session):
  		Screen.__init__(self, session)
@@ -9166,31 +7527,7 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  		self["Canvas"] = CanvasSource()
  
  		self.basic_colors = [RGB(255, 255, 255), RGB(255, 255, 0), RGB(0, 255, 255), RGB(0, 255, 0), RGB(255, 0, 255), RGB(255, 0, 0), RGB(0, 0, 255), RGB(0, 0, 0)]
- 		self.fontsize = getDesktop(0).size().height() == 1080 and 30 or 20
- 
--		if fileExists("/proc/stb/fb/dst_left"):
--			self.left = open("/proc/stb/fb/dst_left", "r").read()
--			self.width = open("/proc/stb/fb/dst_width", "r").read()
--			self.top = open("/proc/stb/fb/dst_top", "r").read()
--			self.height = open("/proc/stb/fb/dst_height", "r").read()
-+		if fileExists("/usr/local/e2/etc/fb/dst_left"):
-+			self.left = open("/usr/local/e2/etc/fb/dst_left", "r").read()
-+			self.width = open("/usr/local/e2/etc/fb/dst_width", "r").read()
-+			self.top = open("/usr/local/e2/etc/fb/dst_top", "r").read()
-+			self.height = open("/usr/local/e2/etc/fb/dst_height", "r").read()
- 			if self.left != "00000000" or self.top != "00000000" or self.width != "000002d0" or self.height != "0000000240":
--				open("/proc/stb/fb/dst_left", "w").write("00000000")
--				open("/proc/stb/fb/dst_width", "w").write("000002d0")
--				open("/proc/stb/fb/dst_top", "w").write("00000000")
--				open("/proc/stb/fb/dst_height", "w").write("0000000240")
-+				open("/usr/local/e2/etc/fb/dst_left", "w").write("00000000")
-+				open("/usr/local/e2/etc/fb/dst_width", "w").write("000002d0")
-+				open("/usr/local/e2/etc/fb/dst_top", "w").write("00000000")
-+				open("/usr/local/e2/etc/fb/dst_height", "w").write("0000000240")
- 				self.onClose.append(self.__close)
- 
- 		self["actions"] = NumberActionMap(["InputActions", "OkCancelActions"],
-@@ -147,21 +106,19 @@
+@@ -147,8 +106,6 @@
  			"5": self.keyNumber,
  			"6": self.keyNumber,
  			"7": self.keyNumber,
@@ -9199,17 +7536,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
  			"ok": self.callNext,
  			"cancel": self.close,
  		})
- 		self.testpic_brightness()
- 
- 	def __close(self):
--		open("/proc/stb/fb/dst_left", "w").write(self.left)
--		open("/proc/stb/fb/dst_width", "w").write(self.width)
--		open("/proc/stb/fb/dst_top", "w").write(self.top)
--		open("/proc/stb/fb/dst_height", "w").write(self.height)
-+		open("/usr/local/e2/etc/fb/dst_left", "w").write(self.left)
-+		open("/usr/local/e2/etc/fb/dst_width", "w").write(self.width)
-+		open("/usr/local/e2/etc/fb/dst_top", "w").write(self.top)
-+		open("/usr/local/e2/etc/fb/dst_height", "w").write(self.height)
+@@ -161,7 +118,7 @@
+ 		open("/proc/stb/fb/dst_height", "w").write(self.height)
  
  	def keyNumber(self, key):
 -		(self.testpic_brightness, self.testpic_contrast, self.testpic_colors, self.testpic_filter, self.testpic_gamma, self.testpic_overscan, self.testpic_fullhd, self.testpic_uhd, self.testpic_pixels)[key - 1]()
@@ -9340,8 +7668,8 @@ diff -ruN o/lib/python/Plugins/SystemPlugins/VideoTune/VideoFinetune.py pc/lib/p
 -	def keyNumber(self, key):
 -		self.close(key)
 diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
---- o/lib/python/Screens/About.py	2022-09-15 22:02:23.355765747 +0300
-+++ pc/lib/python/Screens/About.py	2022-09-15 22:08:20.085644975 +0300
+--- o/lib/python/Screens/About.py	2022-09-11 21:36:22.971398438 +0300
++++ pc/lib/python/Screens/About.py	2022-09-20 14:27:49.813317453 +0300
 @@ -56,8 +56,13 @@
  		GStreamerVersion = about.getGStreamerVersionString().replace("GStreamer", "")
  		self["GStreamerVersion"] = StaticText(GStreamerVersion)
@@ -9397,8 +7725,8 @@ diff -ruN o/lib/python/Screens/About.py pc/lib/python/Screens/About.py
  				self.titles.append("%s" % install_log)
  				self.commands.append("cat %s" % install_log)
 diff -ruN o/lib/python/Screens/AudioSelection.py pc/lib/python/Screens/AudioSelection.py
---- o/lib/python/Screens/AudioSelection.py	2022-09-15 22:02:23.355765747 +0300
-+++ pc/lib/python/Screens/AudioSelection.py	2022-09-15 22:08:20.085644975 +0300
+--- o/lib/python/Screens/AudioSelection.py	2022-09-11 21:36:22.971398438 +0300
++++ pc/lib/python/Screens/AudioSelection.py	2022-09-20 14:27:49.813317453 +0300
 @@ -406,6 +406,20 @@
  		self.skinName = ["AudioSelection"]
  
@@ -9421,8 +7749,8 @@ diff -ruN o/lib/python/Screens/AudioSelection.py pc/lib/python/Screens/AudioSele
  	skin = """
  	<screen position="50,50" size="480,305" title="Subtitle settings" backgroundColor="#7f000000" flags="wfNoBorder">
 diff -ruN o/lib/python/Screens/ChannelSelection.py pc/lib/python/Screens/ChannelSelection.py
---- o/lib/python/Screens/ChannelSelection.py	2022-09-15 22:02:23.356765697 +0300
-+++ pc/lib/python/Screens/ChannelSelection.py	2022-09-15 22:08:20.086644929 +0300
+--- o/lib/python/Screens/ChannelSelection.py	2022-09-11 21:36:22.975398471 +0300
++++ pc/lib/python/Screens/ChannelSelection.py	2022-09-20 14:27:49.813317453 +0300
 @@ -185,7 +185,7 @@
  								append_when_current_valid(current, menu, (_("Remove from parental protection"), boundFunction(self.removeParentalProtection, current)), level=0)
  						if self.parentalControl.blacklist and config.ParentalControl.hideBlacklist.value and not self.parentalControl.sessionPinCached and config.ParentalControl.storeservicepin.value != "never":
@@ -9432,53 +7760,9 @@ diff -ruN o/lib/python/Screens/ChannelSelection.py pc/lib/python/Screens/Channel
  						if eDVBDB.getInstance().getFlag(eServiceReference(current.toString())) & FLAG_IS_DEDICATED_3D:
  							append_when_current_valid(current, menu, (_("Unmark service as dedicated 3D service"), self.removeDedicated3DFlag), level=2)
  						else:
-diff -ruN o/lib/python/Screens/DVD.py pc/lib/python/Screens/DVD.py
---- o/lib/python/Screens/DVD.py	2022-09-15 22:02:23.356765697 +0300
-+++ pc/lib/python/Screens/DVD.py	2022-09-15 22:08:20.114643636 +0300
-@@ -258,16 +258,16 @@
- 		self.onFirstExecBegin.append(self.opened)
- 		self.service = None
- 		self.in_menu = False
--		if fileExists("/proc/stb/fb/dst_left"):
--			self.left = open("/proc/stb/fb/dst_left", "r").read()
--			self.width = open("/proc/stb/fb/dst_width", "r").read()
--			self.top = open("/proc/stb/fb/dst_top", "r").read()
--			self.height = open("/proc/stb/fb/dst_height", "r").read()
-+		if fileExists("/usr/local/e2/etc/fb/dst_left"):
-+			self.left = open("/usr/local/e2/etc/fb/dst_left", "r").read()
-+			self.width = open("/usr/local/e2/etc/fb/dst_width", "r").read()
-+			self.top = open("/usr/local/e2/etc/fb/dst_top", "r").read()
-+			self.height = open("/usr/local/e2/etc/fb/dst_height", "r").read()
- 			if self.left != "00000000" or self.top != "00000000" or self.width != "000002d0" or self.height != "0000000240":
--				open("/proc/stb/fb/dst_left", "w").write("00000000")
--				open("/proc/stb/fb/dst_width", "w").write("000002d0")
--				open("/proc/stb/fb/dst_top", "w").write("00000000")
--				open("/proc/stb/fb/dst_height", "w").write("0000000240")
-+				open("/usr/local/e2/etc/fb/dst_left", "w").write("00000000")
-+				open("/usr/local/e2/etc/fb/dst_width", "w").write("000002d0")
-+				open("/usr/local/e2/etc/fb/dst_top", "w").write("00000000")
-+				open("/usr/local/e2/etc/fb/dst_height", "w").write("0000000240")
- 				self.onClose.append(self.__restoreOSDSize)
- 
- 	def save_infobar_seek_config(self):
-@@ -295,10 +295,10 @@
- 		config.seek.on_pause.value = self.saved_config_seek_on_pause
- 
- 	def __restoreOSDSize(self):
--		open("/proc/stb/fb/dst_left", "w").write(self.left)
--		open("/proc/stb/fb/dst_width", "w").write(self.width)
--		open("/proc/stb/fb/dst_top", "w").write(self.top)
--		open("/proc/stb/fb/dst_height", "w").write(self.height)
-+		open("/usr/local/e2/etc/fb/dst_left", "w").write(self.left)
-+		open("/usr/local/e2/etc/fb/dst_width", "w").write(self.width)
-+		open("/usr/local/e2/etc/fb/dst_top", "w").write(self.top)
-+		open("/usr/local/e2/etc/fb/dst_height", "w").write(self.height)
- 
- 	def chapterZap(self):
- 		if not self.in_menu:
 diff -ruN o/lib/python/Screens/EpgSelection.py pc/lib/python/Screens/EpgSelection.py
---- o/lib/python/Screens/EpgSelection.py	2022-09-15 22:02:23.357765646 +0300
-+++ pc/lib/python/Screens/EpgSelection.py	2022-09-15 22:08:20.114643636 +0300
+--- o/lib/python/Screens/EpgSelection.py	2022-09-11 21:36:22.975398471 +0300
++++ pc/lib/python/Screens/EpgSelection.py	2022-09-20 14:27:49.817317475 +0300
 @@ -66,8 +66,8 @@
  			self.setTitle(_("Multi EPG"))
  			self.skinName = "EPGSelectionMulti"
@@ -9491,8 +7775,8 @@ diff -ruN o/lib/python/Screens/EpgSelection.py pc/lib/python/Screens/EpgSelectio
  			self["next_button"] = Pixmap()
  			self["more_button"] = Pixmap()
 diff -ruN o/lib/python/Screens/Hotkey.py pc/lib/python/Screens/Hotkey.py
---- o/lib/python/Screens/Hotkey.py	2022-09-15 22:02:23.357765646 +0300
-+++ pc/lib/python/Screens/Hotkey.py	2022-09-15 22:08:20.114643636 +0300
+--- o/lib/python/Screens/Hotkey.py	2022-09-11 21:36:22.975398471 +0300
++++ pc/lib/python/Screens/Hotkey.py	2022-09-20 14:27:49.817317475 +0300
 @@ -227,8 +227,8 @@
  	hotkey.functions.append((_("PowerMenu"), "Menu/shutdown", "Power"))
  	hotkey.functions.append((_("Standby"), "Module/Screens.Standby/Standby", "Power"))
@@ -9505,8 +7789,8 @@ diff -ruN o/lib/python/Screens/Hotkey.py pc/lib/python/Screens/Hotkey.py
  	hotkey.functions.append((_("User interface"), "Setup/userinterface", "Setup"))
  	hotkey.functions.append((_("Recording Setup"), "Setup/recording", "Setup"))
 diff -ruN o/lib/python/Screens/InfoBarGenerics.py pc/lib/python/Screens/InfoBarGenerics.py
---- o/lib/python/Screens/InfoBarGenerics.py	2022-09-15 22:02:23.358765596 +0300
-+++ pc/lib/python/Screens/InfoBarGenerics.py	2022-09-15 22:08:20.115643590 +0300
+--- o/lib/python/Screens/InfoBarGenerics.py	2022-09-11 21:36:22.975398471 +0300
++++ pc/lib/python/Screens/InfoBarGenerics.py	2022-09-20 14:27:49.817317475 +0300
 @@ -502,8 +502,7 @@
  	def mayShowEndTimer(self):
  		self.mayShow = True
@@ -9527,8 +7811,8 @@ diff -ruN o/lib/python/Screens/InfoBarGenerics.py pc/lib/python/Screens/InfoBarG
  
  class InfoBarHDMI:
 diff -ruN o/lib/python/Screens/PluginBrowser.py pc/lib/python/Screens/PluginBrowser.py
---- o/lib/python/Screens/PluginBrowser.py	2022-09-15 22:02:23.360765496 +0300
-+++ pc/lib/python/Screens/PluginBrowser.py	2022-09-15 22:08:20.115643590 +0300
+--- o/lib/python/Screens/PluginBrowser.py	2022-09-11 21:36:22.979398503 +0300
++++ pc/lib/python/Screens/PluginBrowser.py	2022-09-20 14:27:49.817317475 +0300
 @@ -58,7 +58,6 @@
  		self.firsttime = True
  
@@ -9546,8 +7830,8 @@ diff -ruN o/lib/python/Screens/PluginBrowser.py pc/lib/python/Screens/PluginBrow
  		self["DirectionActions"] = ActionMap(["DirectionActions"],
  		{
 diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
---- o/lib/python/Screens/Satconfig.py	2022-09-15 22:02:23.360765496 +0300
-+++ pc/lib/python/Screens/Satconfig.py	2022-09-15 22:08:20.143642297 +0300
+--- o/lib/python/Screens/Satconfig.py	2022-09-11 21:36:22.979398503 +0300
++++ pc/lib/python/Screens/Satconfig.py	2022-09-20 14:27:49.817317475 +0300
 @@ -132,7 +132,7 @@
  				self.list.append(self.configMode)
  				warning_text = _(" Warning: the selected tuner should not use SCR Unicable type for LNBs because each tuner need a own SCR number.")
@@ -9557,38 +7841,9 @@ diff -ruN o/lib/python/Screens/Satconfig.py pc/lib/python/Screens/Satconfig.py
  					self.list.append(self.diseqcModeEntry)
  					if self.nimConfig.diseqcMode.value in ("single", "toneburst_a_b", "diseqc_a_b", "diseqc_a_b_c_d"):
  						self.createSimpleSetup(self.list, self.nimConfig.diseqcMode.value)
-@@ -193,13 +193,13 @@
- 							self.fillListWithAdvancedSatEntrys(self.nimConfig.advanced.sat[cur_orb_pos])
- 					self.have_advanced = True
- 				if self.nimConfig.configMode.value != "nothing" and config.usage.setup_level.index >= 2:
--					if fileExists("/proc/stb/frontend/%d/tone_amplitude" % self.nim.slot):
-+					if fileExists("/usr/local/e2/etc/frontend/%d/tone_amplitude" % self.nim.slot):
- 						self.toneamplitude = getConfigListEntry(self.indent % _("Tone amplitude"), self.nimConfig.toneAmplitude, _("Your receiver can use tone amplitude. Consult your receiver's manual for more information."))
- 						self.list.append(self.toneamplitude)
--					if fileExists("/proc/stb/frontend/%d/use_scpc_optimized_search_range" % self.nim.slot):
-+					if fileExists("/usr/local/e2/etc/frontend/%d/use_scpc_optimized_search_range" % self.nim.slot):
- 						self.scpc = getConfigListEntry(self.indent % _("SCPC optimized search range"), self.nimConfig.scpcSearchRange, _("Your receiver can use SCPC optimized search range. Consult your receiver's manual for more information."))
- 						self.list.append(self.scpc)
--					if fileExists("/proc/stb/frontend/%d/t2mirawmode" % self.nim.slot):
-+					if fileExists("/usr/local/e2/etc/frontend/%d/t2mirawmode" % self.nim.slot):
- 						self.t2mirawmode = getConfigListEntry(self.indent % _("T2MI RAW Mode"), self.nimConfig.t2miRawMode, _("With T2MI RAW mode disabled (default) we can use single T2MI PLP de-encapsulation. With T2MI RAW mode enabled we can use astra-sm to analyze T2MI"))
- 						self.list.append(self.t2mirawmode)
- 		if self.nim.isCompatible("DVB-C") or (self.nim.isCombined() and self.nim.canBeCompatible("DVB-C")):
-diff -ruN o/lib/python/Screens/ServiceInfo.py pc/lib/python/Screens/ServiceInfo.py
---- o/lib/python/Screens/ServiceInfo.py	2022-09-15 22:02:23.361765445 +0300
-+++ pc/lib/python/Screens/ServiceInfo.py	2022-09-15 22:08:20.143642297 +0300
-@@ -149,7 +149,7 @@
- 					fps = (self.info.getInfo(iServiceInformation.sFrameRate) + 500) / 1000
- 					if fps in (0, -1):
- 						try:
--							fps = (int(open("/proc/stb/vmpeg/0/framerate", "r").read()) + 500) / 1000
-+							fps = (int(open("/usr/local/e2/etc/vmpeg/0/framerate", "r").read()) + 500) / 1000
- 						except:
- 							pass
- 					resolution += str(fps)
 diff -ruN o/lib/python/Screens/SoftcamSetup.py pc/lib/python/Screens/SoftcamSetup.py
---- o/lib/python/Screens/SoftcamSetup.py	2022-09-15 22:02:23.361765445 +0300
-+++ pc/lib/python/Screens/SoftcamSetup.py	2022-09-15 22:08:20.143642297 +0300
+--- o/lib/python/Screens/SoftcamSetup.py	2022-09-11 21:36:22.979398503 +0300
++++ pc/lib/python/Screens/SoftcamSetup.py	2022-09-20 14:27:49.817317475 +0300
 @@ -94,13 +94,13 @@
  
  	def ppanelShortcut(self):
@@ -9607,8 +7862,8 @@ diff -ruN o/lib/python/Screens/SoftcamSetup.py pc/lib/python/Screens/SoftcamSetu
  			self.session.open(PPanel, name=self.softcams.value + ' PPanel', node=None, filename=ppanelFileName, deletenode=None)
  		else:
 diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.py
---- o/lib/python/Screens/StartWizard.py	2022-09-15 22:02:23.362765395 +0300
-+++ pc/lib/python/Screens/StartWizard.py	2022-09-15 22:08:20.143642297 +0300
+--- o/lib/python/Screens/StartWizard.py	2022-09-11 21:36:22.983398537 +0300
++++ pc/lib/python/Screens/StartWizard.py	2022-09-20 14:27:49.821317498 +0300
 @@ -100,7 +100,7 @@
  		self["AboutScrollLabel"] = ScrollLabel("", showscrollbar=False)
  		self["header"] = Label(_("Autoinstalling please wait for packages being updated"))
@@ -9628,8 +7883,8 @@ diff -ruN o/lib/python/Screens/StartWizard.py pc/lib/python/Screens/StartWizard.
  		if self.packages:
  			self.run_console()
 diff -ruN o/lib/python/skin.py pc/lib/python/skin.py
---- o/lib/python/skin.py	2022-09-15 22:02:23.365765244 +0300
-+++ pc/lib/python/skin.py	2022-09-15 22:08:20.143642297 +0300
+--- o/lib/python/skin.py	2022-09-11 21:36:22.987398570 +0300
++++ pc/lib/python/skin.py	2022-09-20 14:27:49.821317498 +0300
 @@ -1,6 +1,10 @@
 +from Tools.Profile import profile
 +profile("LOAD:ElementTree")
@@ -9877,120 +8132,9 @@ diff -ruN o/lib/python/skin.py pc/lib/python/skin.py
  
  class additionalWidget:
  	def __init__(self):
-diff -ruN o/lib/python/Tools/HardwareInfo.py pc/lib/python/Tools/HardwareInfo.py
---- o/lib/python/Tools/HardwareInfo.py	2022-09-15 22:02:23.364765295 +0300
-+++ pc/lib/python/Tools/HardwareInfo.py	2022-09-15 22:08:20.143642297 +0300
-@@ -20,25 +20,25 @@
- 		print "[HardwareInfo] Scanning hardware info"
- 		# Version
- 		try:
--			self.device_version = open("/proc/stb/info/version").read().strip()
-+			self.device_version = open("/usr/local/e2/etc/info/version").read().strip()
- 		except:
- 			pass
- 
- 		# Revision
- 		try:
--			self.device_revision = open("/proc/stb/info/board_revision").read().strip()
-+			self.device_revision = open("/usr/local/e2/etc/info/board_revision").read().strip()
- 		except:
- 			pass
- 
- 		# Name ... bit odd, but history prevails
- 		try:
--			self.device_name = open("/proc/stb/info/model").read().strip()
-+			self.device_name = open("/usr/local/e2/etc/info/model").read().strip()
- 		except:
- 			pass
- 
- 		# Brandname ... bit odd, but history prevails
- 		try:
--			self.device_brandname = open("/proc/stb/info/brandname").read().strip()
-+			self.device_brandname = open("/usr/local/e2/etc/info/brandname").read().strip()
- 		except:
- 			pass
- 
-@@ -52,7 +52,7 @@
- 					infoFname = l
- 					prefix = ""
- 				try:
--					self.device_model = prefix + open("/proc/stb/info/" + infoFname).read().strip()
-+					self.device_model = prefix + open("/usr/local/e2/etc/info/" + infoFname).read().strip()
- 					break
- 				except:
- 					pass
-diff -ruN o/lib/python/Tools/StbHardware.py pc/lib/python/Tools/StbHardware.py
---- o/lib/python/Tools/StbHardware.py	2022-09-15 22:02:23.364765295 +0300
-+++ pc/lib/python/Tools/StbHardware.py	2022-09-15 22:08:20.143642297 +0300
-@@ -7,7 +7,7 @@
- def getFPVersion():
- 	ret = None
- 	try:
--		ret = long(open("/proc/stb/fp/version", "r").read())
-+		ret = long(open("/usr/local/e2/etc/fp/version", "r").read())
- 	except IOError:
- 		try:
- 			fp = open("/dev/dbox/fp0")
-@@ -22,7 +22,7 @@
- 
- def setFPWakeuptime(wutime):
- 	try:
--		open("/proc/stb/fp/wakeup_time", "w").write(str(wutime))
-+		open("/usr/local/e2/etc/fp/wakeup_time", "w").write(str(wutime))
- 	except IOError:
- 		try:
- 			fp = open("/dev/dbox/fp0")
-@@ -35,17 +35,17 @@
- 	if forsleep is None:
- 		forsleep = (localtime(time()).tm_hour - gmtime(time()).tm_hour) * 3600
- 	try:
--		open("/proc/stb/fp/rtc_offset", "w").write(str(forsleep))
-+		open("/usr/local/e2/etc/fp/rtc_offset", "w").write(str(forsleep))
- 		print "[RTC] set RTC offset to %s sec." % (forsleep)
- 	except IOError:
- 		print "setRTCoffset failed!"
- 
- 
- def setRTCtime(wutime):
--	if path.exists("/proc/stb/fp/rtc_offset"):
-+	if path.exists("/usr/local/e2/etc/fp/rtc_offset"):
- 		setRTCoffset()
- 	try:
--		open("/proc/stb/fp/rtc", "w").write(str(wutime))
-+		open("/usr/local/e2/etc/fp/rtc", "w").write(str(wutime))
- 	except IOError:
- 		try:
- 			fp = open("/dev/dbox/fp0")
-@@ -57,7 +57,7 @@
- def getFPWakeuptime():
- 	ret = 0
- 	try:
--		ret = long(open("/proc/stb/fp/wakeup_time", "r").read())
-+		ret = long(open("/usr/local/e2/etc/fp/wakeup_time", "r").read())
- 	except IOError:
- 		try:
- 			fp = open("/dev/dbox/fp0")
-@@ -76,7 +76,7 @@
- 		return wasTimerWakeup
- 	wasTimerWakeup = False
- 	try:
--		wasTimerWakeup = int(open("/proc/stb/fp/was_timer_wakeup", "r").read()) and True or False
-+		wasTimerWakeup = int(open("/usr/local/e2/etc/fp/was_timer_wakeup", "r").read()) and True or False
- 	except:
- 		try:
- 			fp = open("/dev/dbox/fp0")
-@@ -91,7 +91,7 @@
- 
- def clearFPWasTimerWakeup():
- 	try:
--		open("/proc/stb/fp/was_timer_wakeup", "w").write('0')
-+		open("/usr/local/e2/etc/fp/was_timer_wakeup", "w").write('0')
- 	except:
- 		try:
- 			fp = open("/dev/dbox/fp0")
 diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
---- o/lib/service/servicedvb.cpp	2022-09-15 22:02:23.366765194 +0300
-+++ pc/lib/service/servicedvb.cpp	2022-09-15 22:53:46.977734759 +0300
+--- o/lib/service/servicedvb.cpp	2022-09-11 22:01:08.426614630 +0300
++++ pc/lib/service/servicedvb.cpp	2022-09-20 14:27:49.821317498 +0300
 @@ -1048,6 +1048,9 @@
  	CONNECT(m_event_handler.m_eit_changed, eDVBServicePlay::gotNewEvent);
  	CONNECT(m_subtitle_sync_timer->timeout, eDVBServicePlay::checkSubtitleTiming);
@@ -10009,11 +8153,10 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	if (m_subtitle_widget) m_subtitle_widget->destroy();
  }
  
-@@ -1218,7 +1222,28 @@
- 		if (!m_timeshift_active)
+@@ -1219,6 +1223,28 @@
  			m_event((iPlayableService*)this, evUpdatedInfo);
  
--		m_event((iPlayableService*)this, evNewProgramInfo);
+ 		m_event((iPlayableService*)this, evNewProgramInfo);
 +		ePtr<iDVBDemux> demux;
 +		if ((!m_is_pvr && !m_service_handler.getDataDemux(demux)) & !m_timeshift_enabled)
 +		{
@@ -10039,7 +8182,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  		break;
  	}
  	case eDVBServicePMTHandler::eventPreStart:
-@@ -1362,6 +1387,9 @@
+@@ -1362,6 +1388,9 @@
  	else
  		m_event(this, evStart);
  
@@ -10049,7 +8192,16 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	if (m_is_stream)
  	{
  		/*
-@@ -1397,7 +1425,12 @@
+@@ -1380,7 +1409,7 @@
+ 
+ 	m_first_program_info = 1;
+ 	ePtr<iTsSource> source = createTsSource(service, packetsize);
+-	ret = m_service_handler.tuneExt(service, source, service.path.c_str(), m_cue, false, m_dvb_service, type, scrambled);
++	m_service_handler.tuneExt(service, source, service.path.c_str(), m_cue, false, m_dvb_service, type, scrambled);
+ 
+ 	if (m_is_pvr)
+ 	{
+@@ -1397,7 +1426,12 @@
  		}
  		m_event(this, evStart);
  	}
@@ -10063,7 +8215,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  }
  
  RESULT eDVBServicePlay::stop()
-@@ -1444,6 +1477,17 @@
+@@ -1444,6 +1478,17 @@
  
  	m_nownext_timer->stop();
  	m_event((iPlayableService*)this, evStopped);
@@ -10081,7 +8233,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	return 0;
  }
  
-@@ -1612,9 +1656,6 @@
+@@ -1612,9 +1657,6 @@
  {
  	eDebug("[eDVBServicePlay] seekTo %lld", to);
  
@@ -10091,7 +8243,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	ePtr<iDVBPVRChannel> pvr_channel;
  
  	if ((m_timeshift_enabled ? m_service_handler_timeshift : m_service_handler).getPVRChannel(pvr_channel))
-@@ -1627,6 +1668,9 @@
+@@ -1627,6 +1669,9 @@
  	m_dvb_subtitle_pages.clear();
  	m_subtitle_pages.clear();
  
@@ -10101,7 +8253,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	return 0;
  }
  
-@@ -1656,6 +1700,10 @@
+@@ -1656,6 +1701,10 @@
  	m_cue->seekTo(mode, to);
  	m_dvb_subtitle_pages.clear();
  	m_subtitle_pages.clear();
@@ -10112,7 +8264,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	return 0;
  }
  
-@@ -1672,12 +1720,9 @@
+@@ -1672,12 +1721,9 @@
  	int r = 0;
  
  		/* if there is a decoder, use audio or video PTS */
@@ -10128,7 +8280,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  
  		/* fixup */
  	return pvr_channel->getCurrentPosition(m_decode_demux, pos, m_decoder);
-@@ -1877,22 +1922,21 @@
+@@ -1877,22 +1923,21 @@
  	switch (w)
  	{
  	case sVideoHeight:
@@ -10156,7 +8308,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  		if (aspect == -1 && no_program_info)
  			break;
  		else if (aspect == -1 && !program.videoStreams.empty() && program.videoStreams[0].component_tag != -1)
-@@ -2103,6 +2147,9 @@
+@@ -2103,6 +2148,9 @@
  	if (m_decoder->set())
  		return -5;
  
@@ -10166,7 +8318,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	return ret;
  }
  
-@@ -2195,7 +2242,12 @@
+@@ -2195,7 +2243,12 @@
  
  	m_current_audio_pid = apid;
  
@@ -10180,7 +8332,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	{
  		eDebug("[eDVBServicePlay] set audio pid %04x failed", apid);
  		return -4;
-@@ -2755,9 +2807,6 @@
+@@ -2755,9 +2808,6 @@
  
  void eDVBServicePlay::updateTimeshiftPids()
  {
@@ -10190,7 +8342,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	eDVBServicePMTHandler::program program;
  	eDVBServicePMTHandler &h = m_timeshift_active ? m_service_handler_timeshift : m_service_handler;
  
-@@ -2820,13 +2869,22 @@
+@@ -2820,13 +2870,22 @@
  				);
  
  		for (std::set<int>::iterator i(new_pids.begin()); i != new_pids.end(); ++i)
@@ -10216,7 +8368,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	}
  }
  
-@@ -2850,6 +2908,29 @@
+@@ -2850,6 +2909,29 @@
  	/* free the timeshift service handler, we need the resources */
  	m_service_handler_timeshift.free();
  
@@ -10246,7 +8398,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	updateDecoder(true);
  }
  
-@@ -2925,11 +3006,23 @@
+@@ -2925,11 +3007,23 @@
  	eDebug("[eDVBServicePlay] switchToTimeshift, in pause mode now.");
  	pause();
  	updateDecoder(true); /* mainly to switch off PCR, and to set pause */
@@ -10271,7 +8423,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  	bool mustPlay = false;
  
  	eDVBServicePMTHandler &h = m_timeshift_active ? m_service_handler_timeshift : m_service_handler;
-@@ -2951,6 +3044,7 @@
+@@ -2951,6 +3045,7 @@
  				{
  					vpid = i->pid;
  					vpidtype = i->type;
@@ -10279,7 +8431,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  				}
  				if (i != program.videoStreams.begin())
  					eDebugNoNewLine(", ");
-@@ -3029,7 +3123,11 @@
+@@ -3029,7 +3124,11 @@
  			setPCMDelay(pcm_delay == -1 ? 0 : pcm_delay);
  		}
  
@@ -10292,7 +8444,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  		m_have_video_pid = (vpid > 0 && vpid < 0x2000);
  
  		if (!m_noaudio)
-@@ -3474,7 +3572,9 @@
+@@ -3474,7 +3573,9 @@
  	{
  		int subtitledelay = 0;
  		pts_t pts;
@@ -10303,7 +8455,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  		if (m_is_pvr || m_timeshift_enabled)
  		{
  			eDebug("[eDVBServicePlay] Subtitle in recording/timeshift");
-@@ -3510,10 +3610,7 @@
+@@ -3510,10 +3611,7 @@
  	{
  		return;
  	}
@@ -10315,7 +8467,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  
  	while (1)
  	{
-@@ -3567,8 +3664,7 @@
+@@ -3567,8 +3665,7 @@
  	if (m_subtitle_widget)
  	{
  		pts_t pos = 0;
@@ -10325,7 +8477,7 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  
  		// Where subtitles are delivered out of sync with video, only treat subtitles in the past as having bad timing.
  		// Those that are delivered too early are cached for displaying at the appropriate later time
-@@ -3688,7 +3784,7 @@
+@@ -3688,7 +3785,7 @@
  		if (!m_noaudio)
  			selectAudioStream();
  		else
@@ -10335,8 +8487,8 @@ diff -ruN o/lib/service/servicedvb.cpp pc/lib/service/servicedvb.cpp
  		m_decoder->set();
  	}
 diff -ruN o/lib/service/servicedvbfcc.cpp pc/lib/service/servicedvbfcc.cpp
---- o/lib/service/servicedvbfcc.cpp	2022-09-15 22:01:03.357841195 +0300
-+++ pc/lib/service/servicedvbfcc.cpp	2022-09-15 22:08:20.145642205 +0300
+--- o/lib/service/servicedvbfcc.cpp	2022-09-11 21:32:03.761800226 +0300
++++ pc/lib/service/servicedvbfcc.cpp	2022-09-20 14:27:49.821317498 +0300
 @@ -371,7 +371,6 @@
  		setAC3Delay(ac3_delay == -1 ? 0 : ac3_delay);
  		setPCMDelay(pcm_delay == -1 ? 0 : pcm_delay);
@@ -10346,8 +8498,8 @@ diff -ruN o/lib/service/servicedvbfcc.cpp pc/lib/service/servicedvbfcc.cpp
  
  		if (!(m_is_pvr || m_is_stream || m_timeshift_active))
 diff -ruN o/lib/service/servicedvb.h pc/lib/service/servicedvb.h
---- o/lib/service/servicedvb.h	2022-09-15 22:02:23.366765194 +0300
-+++ pc/lib/service/servicedvb.h	2022-09-15 22:08:20.145642205 +0300
+--- o/lib/service/servicedvb.h	2022-09-11 21:36:22.987398570 +0300
++++ pc/lib/service/servicedvb.h	2022-09-20 14:27:49.901317952 +0300
 @@ -9,6 +9,8 @@
  #include <lib/dvb/subtitle.h>
  #include <lib/dvb/teletext.h>
@@ -10380,35 +8532,8 @@ diff -ruN o/lib/service/servicedvb.h pc/lib/service/servicedvb.h
  
  class eStaticServiceDVBBouquetInformation: public iStaticServiceInformation
 diff -ruN o/lib/service/servicedvd.cpp pc/lib/service/servicedvd.cpp
---- o/lib/service/servicedvd.cpp	2022-09-15 22:02:23.367765144 +0300
-+++ pc/lib/service/servicedvd.cpp	2022-09-15 22:08:20.172640958 +0300
-@@ -188,7 +188,7 @@
- 	if (ddvd_language != "")
- 		ddvd_set_language(m_ddvdconfig, (ddvd_language.substr(0, 2)).c_str());
- 
--	int fd = open("/proc/stb/video/aspect", O_RDONLY);
-+	int fd = open("/usr/local/e2/etc/video/aspect", O_RDONLY);
- 	if (fd > -1)
- 	{
- 		rd = read(fd, tmp, 255);
-@@ -199,7 +199,7 @@
- 		close(fd);
- 	}
- 
-- 	fd = open("/proc/stb/video/policy", O_RDONLY);
-+ 	fd = open("/usr/local/e2/etc/video/policy", O_RDONLY);
- 	if (fd > -1)
- 	{
- 		rd = read(fd, tmp, 255);
-@@ -211,7 +211,7 @@
- 	}
- 
- #ifdef DDVD_SUPPORTS_16_10_SCALING
-- 	fd = open("/proc/stb/video/policy2", O_RDONLY);
-+ 	fd = open("/usr/local/e2/etc/video/policy2", O_RDONLY);
- 	if (fd > -1)
- 	{
- 		rd = read(fd, tmp, 255);
+--- o/lib/service/servicedvd.cpp	2022-09-11 21:36:22.987398570 +0300
++++ pc/lib/service/servicedvd.cpp	2022-09-20 14:27:49.901317952 +0300
 @@ -1021,7 +1021,7 @@
  	if (f == NULL)
  	{
@@ -10430,8 +8555,8 @@ diff -ruN o/lib/service/servicedvd.cpp pc/lib/service/servicedvd.cpp
  				return; // cannot create directory so no point in trying to save cue data
  			
 diff -ruN o/lib/service/servicehdmi.cpp pc/lib/service/servicehdmi.cpp
---- o/lib/service/servicehdmi.cpp	2022-09-15 22:02:23.367765144 +0300
-+++ pc/lib/service/servicehdmi.cpp	2022-09-15 22:08:20.172640958 +0300
+--- o/lib/service/servicehdmi.cpp	2022-09-11 21:36:22.987398570 +0300
++++ pc/lib/service/servicehdmi.cpp	2022-09-20 14:27:49.905317975 +0300
 @@ -123,9 +123,9 @@
  RESULT eServiceHDMI::start()
  {
@@ -10445,8 +8570,8 @@ diff -ruN o/lib/service/servicehdmi.cpp pc/lib/service/servicehdmi.cpp
  	m_event(this, evStart);
  	return 0;
 diff -ruN o/lib/service/servicets.cpp pc/lib/service/servicets.cpp
---- o/lib/service/servicets.cpp	2022-09-15 22:02:23.367765144 +0300
-+++ pc/lib/service/servicets.cpp	2022-09-15 22:08:20.172640958 +0300
+--- o/lib/service/servicets.cpp	2022-09-11 21:36:22.987398570 +0300
++++ pc/lib/service/servicets.cpp	2022-09-20 14:27:49.905317975 +0300
 @@ -251,8 +251,8 @@
  			return -1;
  		}
@@ -10468,8 +8593,8 @@ diff -ruN o/lib/service/servicets.cpp pc/lib/service/servicets.cpp
  		return 0;
  	} else {
 diff -ruN o/lib/service/servicewebts.cpp pc/lib/service/servicewebts.cpp
---- o/lib/service/servicewebts.cpp	2022-09-15 22:02:23.368765094 +0300
-+++ pc/lib/service/servicewebts.cpp	2022-09-15 22:08:20.172640958 +0300
+--- o/lib/service/servicewebts.cpp	2022-09-11 21:36:22.987398570 +0300
++++ pc/lib/service/servicewebts.cpp	2022-09-20 14:27:49.905317975 +0300
 @@ -376,10 +376,10 @@
  			PID_SET = 1;
  			m_decodedemux->flush();
@@ -10494,8 +8619,8 @@ diff -ruN o/lib/service/servicewebts.cpp pc/lib/service/servicewebts.cpp
  		return 0;
  	} else {
 diff -ruN o/main/bsod.cpp pc/main/bsod.cpp
---- o/main/bsod.cpp	2022-09-15 22:02:23.368765094 +0300
-+++ pc/main/bsod.cpp	2022-09-15 22:08:20.172640958 +0300
+--- o/main/bsod.cpp	2022-09-11 21:36:22.991398603 +0300
++++ pc/main/bsod.cpp	2022-09-20 14:27:49.905317975 +0300
 @@ -128,7 +128,7 @@
  		 * alone because we may be in a crash loop and writing this file
  		 * all night long may damage the flash. Also, usually the first
@@ -10505,37 +8630,9 @@ diff -ruN o/main/bsod.cpp pc/main/bsod.cpp
  		if ((access(crashlog_name.c_str(), F_OK) == 0) ||
  		    ((f = fopen(crashlog_name.c_str(), "wb")) == NULL))
  		{
-@@ -166,11 +166,11 @@
- 			enigma2_rev,
- 			component);
- 
--		stringFromFile(f, "stbmodel", "/proc/stb/info/boxtype");
--		stringFromFile(f, "stbmodel", "/proc/stb/info/vumodel");
--		stringFromFile(f, "stbmodel", "/proc/stb/info/model");
-+		stringFromFile(f, "stbmodel", "/usr/local/e2/etc/info/boxtype");
-+		stringFromFile(f, "stbmodel", "/usr/local/e2/etc/info/vumodel");
-+		stringFromFile(f, "stbmodel", "/usr/local/e2/etc/info/model");
- 		stringFromFile(f, "kernelcmdline", "/proc/cmdline");
--		stringFromFile(f, "nimsockets", "/proc/bus/nim_sockets");
-+		stringFromFile(f, "nimsockets", "/usr/local/e2/etc/tuxbox/nim_sockets");
- 		stringFromFile(f, "imageversion", "/etc/image-version");
- 		stringFromFile(f, "imageissue", "/etc/issue.net");
- 
-diff -ruN o/main/enigma.cpp pc/main/enigma.cpp
---- o/main/enigma.cpp	2022-09-15 22:02:23.368765094 +0300
-+++ pc/main/enigma.cpp	2022-09-15 22:08:20.173640912 +0300
-@@ -138,7 +138,7 @@
- 
- void quitMainloop(int exitCode)
- {
--	FILE *f = fopen("/proc/stb/fp/was_timer_wakeup", "w");
-+	FILE *f = fopen("/usr/local/e2/etc/fp/was_timer_wakeup", "w");
- 	if (f)
- 	{
- 		fprintf(f, "%d", 0);
 diff -ruN o/main/Makefile.am pc/main/Makefile.am
---- o/main/Makefile.am	2022-09-15 22:01:03.359841092 +0300
-+++ pc/main/Makefile.am	2022-09-15 22:08:20.173640912 +0300
+--- o/main/Makefile.am	2022-09-11 21:32:03.761800226 +0300
++++ pc/main/Makefile.am	2022-09-20 14:27:49.905317975 +0300
 @@ -45,7 +45,8 @@
  	@ALSA_LIBS@ \
  	@AVAHI_LIBS@ \
@@ -10547,8 +8644,8 @@ diff -ruN o/main/Makefile.am pc/main/Makefile.am
  enigma2_LDFLAGS = -Wl,--export-dynamic
  
 diff -ruN o/po/ru.po pc/po/ru.po
---- o/po/ru.po	2022-09-15 22:01:03.396839181 +0300
-+++ pc/po/ru.po	2022-09-15 22:08:20.176640773 +0300
+--- o/po/ru.po	2022-09-11 21:32:03.809800402 +0300
++++ pc/po/ru.po	2022-09-20 14:27:49.917318043 +0300
 @@ -4,14 +4,14 @@
  "Report-Msgid-Bugs-To: \n"
  "POT-Creation-Date: 2022-07-30 14:55+0200\n"
@@ -20457,8 +18554,8 @@ diff -ruN o/po/ru.po pc/po/ru.po
 +msgid "Bouquet Hotkeys Setup"
 +msgstr "Горячие клавиши буклета"
 diff -ruN o/tools/enigma2.sh.in pc/tools/enigma2.sh.in
---- o/tools/enigma2.sh.in	2022-09-15 22:02:23.368765094 +0300
-+++ pc/tools/enigma2.sh.in	2022-09-15 22:08:20.176640773 +0300
+--- o/tools/enigma2.sh.in	2022-09-11 21:36:22.991398603 +0300
++++ pc/tools/enigma2.sh.in	2022-09-20 14:27:49.917318043 +0300
 @@ -1,159 +1,42 @@
  #!/bin/sh
  

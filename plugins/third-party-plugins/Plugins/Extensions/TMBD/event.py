@@ -395,3 +395,4 @@ class Event:
 
 	def getExtendedDescription(self):
 		return self.extendedEventDescriptor and self.extendedEventDescriptor.getText() or '';
+

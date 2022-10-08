@@ -38,11 +38,11 @@ class FanTempInfo(Poll, Converter, object):
 	def getText(self):
 		info = 'N/A'
 		if self.type == self.FanInfo:
-			if fileExists("/usr/local/e2/etc/fp/fan_speed"):
-				info = open("/usr/local/e2/etc/fp/fan_speed").read().strip('\n')
+			if fileExists("/proc/stb/fp/fan_speed"):
+				info = open("/proc/stb/fp/fan_speed").read().strip('\n')
 		elif self.type == self.TempInfo:
-			if fileExists("/usr/local/e2/etc/sensors/temp0/value") and fileExists("/usr/local/e2/etc/sensors/temp0/unit"):
-				info = "%s%s%s" % (open("/usr/local/e2/etc/sensors/temp0/value").read().strip('\n'), unichr(176).encode("latin-1"), open("/usr/local/e2/etc/sensors/temp0/unit").read().strip('\n'))
+			if fileExists("/proc/stb/sensors/temp0/value") and fileExists("/proc/stb/sensors/temp0/unit"):
+				info = "%s%s%s" % (open("/proc/stb/sensors/temp0/value").read().strip('\n'), unichr(176).encode("latin-1"), open("/proc/stb/sensors/temp0/unit").read().strip('\n'))
 		return info
 
 	text = property(getText)

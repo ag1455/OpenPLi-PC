@@ -20,3 +20,4 @@ def _(txt):
  
 localeInit()
 language.addCallback(localeInit)
+

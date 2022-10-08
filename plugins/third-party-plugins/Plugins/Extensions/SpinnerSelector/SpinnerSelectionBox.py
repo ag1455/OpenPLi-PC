@@ -140,3 +140,4 @@ self.instance.move(ePoint((720-wsizex)/2, (576-wsizey)/(count &gt; 7 and 2 or 3)
 
 	def cancel(self):
 		self.close(None)
+

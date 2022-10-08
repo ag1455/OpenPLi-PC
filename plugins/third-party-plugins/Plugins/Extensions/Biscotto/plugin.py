@@ -291,3 +291,4 @@ def Plugins(**kwargs):
 	return [PluginDescriptor(name = "Biscotto" , description = _("Manually add Key to current service"), icon="plugin.png",
 		where = [PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU],
 		fnc = keymenu, needsRestart = False)]
+

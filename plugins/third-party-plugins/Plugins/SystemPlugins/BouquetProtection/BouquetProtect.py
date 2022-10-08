@@ -211,3 +211,4 @@ class PasswordSetup(Screen, ConfigListScreen):
 
 	def keyNumberGlobal(self, number):
 		ConfigListScreen.keyNumberGlobal(self, number)
+

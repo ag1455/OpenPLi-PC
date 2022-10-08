@@ -116,15 +116,3 @@ diff -ruN o/plugin/locale/ru/LC_MESSAGES/SnmpAgent.po pc/plugin/locale/ru/LC_MES
 +#: plugin.py:1030
 +msgid "SNMP Agent for Enigma2"
 +msgstr "Агент SNMP для Enigma2"
-diff -ruN o/plugin/plugin.py pc/plugin/plugin.py
---- o/plugin/plugin.py	2021-04-15 19:11:38.469580740 +0300
-+++ pc/plugin/plugin.py	2021-04-15 19:12:19.732583882 +0300
-@@ -357,7 +357,7 @@
- 	def timerPoll(self):
- 		data = ''
- 		try:
--			file = open('/proc/stb/vmpeg/0/stat_picture_displayed', 'r')
-+			file = open('/usr/local/e2/etc/vmpeg/0/stat_picture_displayed', 'r')
- 			data = file.readline()
- 			file.close()
- 		except:
