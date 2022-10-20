@@ -18,6 +18,9 @@ release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 dpkg -r liblirc-dev liblirc0 liblircclient-dev lirc lirc-doc lirc-x
 
 if [[ "$release" = "22.04" ]]; then
+	pip install --upgrade websockets
+	pip uninstall PyCrypto
+	pip install -U PyCryptodome
 	apt install -y dh-exec dh-python doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
 	wget --no-check-certificate http://ftp.de.debian.org/debian/pool/main/d/debhelper/dh-systemd_13.2.1_all.deb
 	dpkg -i dh-systemd_13.2.1_all.deb
@@ -25,56 +28,75 @@ if [[ "$release" = "22.04" ]]; then
 	dpkg -i pre/lirc/*.deb
 else
 	apt install -y dh-exec dh-python dh-systemd doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
-
-	mkdir $DIR
-	cd $DIR
-	if [ -d $PKG ]; then
-		rm -fr $PKG
-	fi
-	wget --no-check-certificate https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/lirc/0.10.1-6/lirc_0.10.1.orig.tar.gz
-	tar -xvf lirc_0.10.1.orig.tar.gz
-	rm -vf lirc_0.10.1.orig.tar.gz
-	cd ..
-	cp -v patches/lirc_0.10.1-6.patch $DIR/$PKG
-	cp -v patches/python38_client_py.patch $DIR/$PKG
-	cd $DIR/$PKG
-	patch -p1 < lirc_0.10.1-6.patch
-	if [[ "$release" = "20.04" ]]; then
-		patch -p1 < python38_client_py.patch
-	fi
-	rm -f *.patch
-	chmod 755 debian/install
-	chmod 755 debian/pbuilder-test
-	chmod 755 debian/lirc-old2new
-	chmod 755 debian/postrm
-	cd ..
-	tar -cvzf lirc_0.10.1-6.orig.tar.gz $PKG
-	cd $PKG
-	dpkg-buildpackage -b -d -uc -us
-	cd ..
-
-	if [[ "$release" = "16.04" ]]; then
-		# Hack. We need to resolve dependencies.
-		echo "*** 16.04 ***"
-		dpkg -i *.deb
-		sleep 1
-		dpkg -i *.deb
-	else
-		dpkg -i *.deb
-	fi
-
-	cd ..
 fi
+
+mkdir $DIR
+cd $DIR
+
+if [ -d $PKG ]; then
+	rm -fr $PKG
+fi
+
+wget --no-check-certificate https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/lirc/0.10.1-6/lirc_0.10.1.orig.tar.gz
+tar -xvf lirc_0.10.1.orig.tar.gz
+rm -f lirc_0.10.1.orig.tar.gz
+cd ..
+cp -v patches/lirc_0.10.1-6.patch $DIR/$PKG
+cp -v patches/python38_client_py.patch $DIR/$PKG
+cp -v patches/lirc-python3.10.patch $DIR/$PKG
+cd $DIR/$PKG
+
+if [[ "$release" = "16.04" ]]; then
+	patch -p1 < lirc_0.10.1-6.patch
+fi
+
+if [[ "$release" = "18.04" ]]; then
+	patch -p1 < lirc_0.10.1-6.patch
+fi
+
+if [[ "$release" = "20.04" ]]; then
+	patch -p1 < lirc_0.10.1-6.patch
+	patch -p1 < python38_client_py.patch
+fi
+
+if [[ "$release" = "22.04" ]]; then
+	patch -p1 < lirc-python3.10.patch
+fi
+
+rm -f *.patch
+chmod 755 debian/install
+chmod 755 debian/pbuilder-test
+chmod 755 debian/lirc-old2new
+chmod 755 debian/postrm
+cd ..
+tar -cvzf lirc_0.10.1-6.orig.tar.gz $PKG
+cd $PKG
+dpkg-buildpackage -b -d -uc -us
+cd ..
+
+if [[ "$release" = "16.04" ]]; then
+	# Hack. We need to resolve dependencies.
+	echo "*** 16.04 ***"
+	dpkg -i *.deb
+	sleep 1
+	dpkg -i *.deb
+else
+	dpkg -i *.deb
+fi
+	cd ..
 
 cp -rfv pre/lirc/lircd.conf.d /etc
 cp -rfv pre/lirc/lirc_options.conf.example /etc
 cp -fv pre/99-lirc-symlinks.rules /etc/udev/rules.d
+
 if [ -f $CONF/lircd.conf.d/devinput.lircd.conf ]; then
-	mv $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
+	mv -b $CONF/lircd.conf.d/devinput.lircd.conf /etc/lirc/lircd.conf.d/devinput.lircd.conf.dist
 fi
+
 if [ -f $CONF/irexec.lircrc ]; then
-	mv $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
+	mv -b $CONF/irexec.lircrc $CONF/irexec.lircrc.dist
 fi
+
 if [ -f $CONF/irexec.lircrc ];then
 	rm -f $CONF/irexec.lircrc
 fi

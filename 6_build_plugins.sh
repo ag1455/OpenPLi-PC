@@ -473,7 +473,7 @@ if [ -d plugins ]; then
 		echo ""
 		PKG="enigma2-plugin-extensions-epgimport"
 		PKG_="EPGImport"
-		VER="a82a48233dad402a7e5ed69edfa2720a793f3dcd"
+		VER="9ec49eb1f2877ca2c8c7e044f74ed3807f40c8a2"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -519,7 +519,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="99574a6f8dad00833f85ffa28db2433b708ad067"
+		VER="bbcdbe9ccb219a3d81d249e308f036f2235194d8"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
