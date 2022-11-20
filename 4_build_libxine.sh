@@ -3,7 +3,7 @@
 # Build and install xine-lib:
 LIB="libxine2"
 PKG="xine-lib-1.2-1.2.12+hg-e2pc"
-VER="c56c66eb5401"
+VER="9d0073aaae1a"
 
 I=`dpkg -s $LIB | grep "Status"`
 
@@ -25,7 +25,7 @@ if [ -f xine-lib-* ]; then
 fi
 
 # This is hg 1.2.12
-wget --no-check-certificate http://hg.code.sf.net/p/xine/xine-lib-1.2/archive/$VER.tar.bz2
+wget http://hg.code.sf.net/p/xine/xine-lib-1.2/archive/$VER.tar.bz2
 tar -xvjf $VER.tar.bz2
 rm $VER.tar.bz2
 mv xine-lib-1-2-$VER $PKG

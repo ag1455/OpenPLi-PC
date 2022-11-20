@@ -1,0 +1,3832 @@
+diff -ruN o/configure.ac pc/configure.ac
+--- o/configure.ac	2022-04-03 13:20:24.104483273 +0300
++++ pc/configure.ac	2022-11-04 13:16:26.165320465 +0300
+@@ -1664,7 +1664,8 @@
+ src/video_out/macosx/Makefile
+ src/xine-utils/Makefile
+ src/xine-engine/Makefile
+-src/vdr/Makefile])
++src/vdr/Makefile
++src/e2pc/Makefile])
+ AC_CONFIG_COMMANDS([default],[[chmod +x ./misc/SlackBuild ./misc/build_rpms.sh ./misc/relchk.sh]],[[]])
+ AC_OUTPUT
+ 
+diff -ruN o/debian/changelog pc/debian/changelog
+--- o/debian/changelog	2022-04-03 13:20:24.223485500 +0300
++++ pc/debian/changelog	2022-11-04 13:16:26.165320465 +0300
+@@ -1,3 +1,10 @@
++xine-lib-1.2 (1.2.12+hg-9d0073aaae1a-15181-e2pc) experimental; urgency=low
++
++  * Hg snapshot.
++  * Patched version for e2pc.
++
++ -- Torsten Jager <t.jager@gmx.de>  Thu, 03 Nov 2022 19:05:30 +0200
++
+ xine-lib-1.2 (1.2.9+hg-0) experimental; urgency=low
+ 
+   * Hg snapshot.
+diff -ruN o/debian/compat pc/debian/compat
+--- o/debian/compat	2022-04-03 13:20:24.150484133 +0300
++++ pc/debian/compat	2022-11-04 13:16:26.165320465 +0300
+@@ -1 +1 @@
+-5
++10
+diff -ruN o/debian/control pc/debian/control
+--- o/debian/control	2022-04-03 13:20:24.232485669 +0300
++++ pc/debian/control	2022-11-04 13:16:26.165320465 +0300
+@@ -73,7 +73,7 @@
+ Suggests: ${shlibs:Suggests}, libxine2-doc | libxine-doc
+ Conflicts: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x
+ Replaces: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x
+-Provides: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x, libxine2-vdr
++Provides: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x, libxine2-vdr, libxine2-enigma
+ Description: the xine video/media player library, binary files
+  This is the xine media player library (libxine).
+  .
+diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
+--- o/debian/libxine2-dev.install	2022-04-03 13:20:24.233485687 +0300
++++ pc/debian/libxine2-dev.install	2022-11-04 13:16:26.165320465 +0300
+@@ -1,11 +1,9 @@
+ usr/bin/xine-config
+ usr/include
+ usr/lib/libxine.la
++usr/lib/libxine-interface.la
+ usr/lib/libxine*.so
+ usr/lib/pkgconfig/libxine.pc
+-#usr/lib/xine/plugins/*/*.la
+-#usr/lib/xine/plugins/*/post/*.la
+-#usr/lib/xine/plugins/*/vidix/*.la
+ usr/share/aclocal/xine.m4
+ usr/share/man/man1/xine-config.1
+ ../dh_xine				usr/bin
+diff -ruN o/debian/libxine2-doc.docs pc/debian/libxine2-doc.docs
+--- o/debian/libxine2-doc.docs	2022-04-03 13:20:24.222485482 +0300
++++ pc/debian/libxine2-doc.docs	2022-11-04 13:16:26.165320465 +0300
+@@ -1,4 +1,3 @@
+-debian/tmp/usr/share/doc/libxine2/faq/*
+ debian/tmp/usr/share/doc/libxine2/README_xxmc.html
+ debian/tmp/usr/share/doc/libxine2/README
+ debian/tmp/usr/share/doc/libxine2/faq.*
+diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
+--- o/debian/libxine2.install	2022-04-03 13:20:24.151484152 +0300
++++ pc/debian/libxine2.install	2022-11-04 13:16:26.165320465 +0300
+@@ -2,9 +2,10 @@
+ usr/lib/libxine*.so.*
+ usr/lib/xine/plugins/*/post/*.so
+ usr/lib/xine/plugins/*/*.so
+-#usr/lib/xine/plugins/*/vidix/*.so
++usr/lib/xine/plugins/*/mime.types
+ usr/share/locale
+ usr/share/xine-lib
+-usr/share/doc/libxine2/hackersguide/*
++usr/share/doc/libxine2/*
+ usr/share/bug/libxine2/presubj
+ usr/share/man/man1/xine-list*.1
++#usr/lib/xine/plugins/*/vidix/*.so
+diff -ruN o/debian/rules pc/debian/rules
+--- o/debian/rules	2022-04-03 13:20:24.222485482 +0300
++++ pc/debian/rules	2022-11-04 13:16:26.165320465 +0300
+@@ -69,8 +69,9 @@
+ 	--prefix=/usr \
+ 	--with-freetype \
+ 	--with-wavpack \
+-	--enable-ipv6 \
+ 	--with-external-dvdnav \
++	--enable-directfb \
++	--enable-dvb \
+ 	$(DEB_BUILD_CONFIG_OPTIONS)
+ 
+ configure: configure-stamp
+@@ -135,7 +136,7 @@
+ 	mv debian/tmp/usr/share/doc/xine-lib debian/tmp/usr/share/doc/libxine${major}
+ #	build libxine${major} package by moving files from libxine-dev
+ 	dh_install --sourcedir=debian/tmp --list-missing
+-	dh_installman -plibxine-dev debian/dh_xine.1
++	dh_installman -plibxine2-dev debian/dh_xine.1
+ 	dh_installdocs
+ 	dh_installchangelogs -k ChangeLog
+ 	dh_link
+diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
+--- o/include/xine/metronom.h	2022-04-03 13:20:24.241485837 +0300
++++ pc/include/xine/metronom.h	2022-11-04 13:16:26.165320465 +0300
+@@ -191,6 +191,11 @@
+ #define METRONOM_VDR_TRICK_PTS    11
+ #define METRONOM_NO_LOCK          0x8000
+ 
++/* Nasty input_enigma helper. Inserts an immediate absolute discontinuity,
++ * old style without pts reorder fix. */
++#define METRONOM_ENIGMA_TRICK_PTS    12
++#define METRONOM_NO_LOCK          0x8000
++
+ typedef void xine_speed_change_cb_t (void *user_data, int new_speed);
+ 
+ metronom_t *_x_metronom_init (int have_video, int have_audio, xine_t *xine) XINE_MALLOC XINE_PROTECTED;
+diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
+--- o/include/xine/osd.h	2022-04-03 13:20:24.255486099 +0300
++++ pc/include/xine/osd.h	2022-11-04 13:16:26.165320465 +0300
+@@ -216,6 +216,7 @@
+    * overlay is blended at output (screen) resolution.
+    */
+   int (*show_unscaled) (osd_object_t *osd, int64_t vpts );
++  int (*show_scaled) (osd_object_t *osd, int64_t vpts );
+ 
+   /*
+    * see xine.h for defined XINE_OSD_CAP_ values.
+diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
+--- o/include/xine/video_out.h	2022-04-03 13:20:24.261486212 +0300
++++ pc/include/xine/video_out.h	2022-11-04 13:16:26.165320465 +0300
+@@ -287,6 +287,9 @@
+ #define VO_PROP_CAPS2                 30 /* read-only. second capability flags, see below. */
+ #define VO_PROP_TRANSFORM             31 /* XINE_VO_TRANSFORM_* */
+ #define VO_NUM_PROPERTIES             32
++#define VO_PROP_LAST_PTS              33
++#define VO_PROP_DEINTERLACE_SD        34
++#define VO_PROP_DEINTERLACE_HD        35
+ 
+ /* number of colors in the overlay palette. Currently limited to 256
+    at most, because some alphablend functions use an 8-bit index into
+diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
+--- o/include/xine/xineintl.h	2022-04-03 13:20:24.181484714 +0300
++++ pc/include/xine/xineintl.h	2022-11-04 13:16:26.165320465 +0300
+@@ -27,6 +27,9 @@
+ 
+ #include <locale.h>
+ 
++//#define ENABLE_NLS
++//#define XINE_TEXTDOMAIN "libxine2"
++
+ #ifdef ENABLE_NLS
+ #    include <libintl.h>
+ #    define _(String) dgettext (XINE_TEXTDOMAIN, String)
+diff -ruN o/include/xine.h pc/include/xine.h
+--- o/include/xine.h	2022-10-17 22:50:00.262011328 +0300
++++ pc/include/xine.h	2022-11-04 13:16:26.169320465 +0300
+@@ -1857,6 +1857,7 @@
+ #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
+ #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
+ #define XINE_EVENT_NBC_STATS             15 /* nbc buffer status */
++#define XINE_EVENT_FRAMERATE_CHANGE      16
+ 
+ 
+ /* input events coming from frontend */
+@@ -1944,10 +1945,22 @@
+ #define XINE_EVENT_VDR_TRICKSPEEDMODE   353
+ #define XINE_EVENT_VDR_PLUGINSTARTED    354
+ #define XINE_EVENT_VDR_DISCONTINUITY    355
++/* some space for further ENIGMA keys */
++#define XINE_EVENT_ENIGMA_SETVIDEOWINDOW   393
++#define XINE_EVENT_ENIGMA_FRAMESIZECHANGED 394
++#define XINE_EVENT_ENIGMA_SELECTAUDIO      395
++#define XINE_EVENT_ENIGMA_TRICKSPEEDMODE   396
++#define XINE_EVENT_ENIGMA_PLUGINSTARTED    397
++#define XINE_EVENT_ENIGMA_DISCONTINUITY    398
+ 
+ /* events generated from post plugins */
+ #define XINE_EVENT_POST_TVTIME_FILMMODE_CHANGE   400
+ 
++#define XINE_EVENT_SET_VIDEO_STREAMTYPE 501
++#define XINE_EVENT_SET_AUDIO_STREAMTYPE 502
++#define XINE_EVENT_SET_PVR_MODE         503
++
++
+ /*
+  * xine event struct
+  */
+@@ -1981,6 +1994,11 @@
+   char                str[256]; /* might be longer */
+ } xine_ui_data_t;
+ 
++typedef struct {
++  int                 pid;
++  int                 streamtype;
++} xine_streamtype_data_t;
++
+ /*
+  * Send messages to UI. used mostly to report errors.
+  */
+@@ -2059,6 +2077,10 @@
+   int                 type;         /* 0=buffer put, 1=buffer get */
+ } xine_nbc_stats_data_t;
+ 
++typedef struct {
++  int64_t             framerate;
++} xine_framerate_data_t;
++
+ /*
+  * mrl reference data is sent by demuxers when a reference stream is found.
+  * this stream just contains pointers (urls) to the real data, which are
+@@ -2364,6 +2386,7 @@
+ void        xine_osd_set_position  (xine_osd_t *self, int x, int y) XINE_PROTECTED;
+ void        xine_osd_show          (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
+ void        xine_osd_show_unscaled (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
++void        xine_osd_show_scaled   (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
+ void        xine_osd_hide          (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
+ /* empty drawing area */
+ void        xine_osd_clear         (xine_osd_t *self) XINE_PROTECTED;
+diff -ruN o/m4/input.m4 pc/m4/input.m4
+--- o/m4/input.m4	2022-10-17 22:50:00.294011328 +0300
++++ pc/m4/input.m4	2022-11-04 13:16:26.169320465 +0300
+@@ -20,6 +20,7 @@
+     default_enable_vcd=yes
+     default_enable_vcdo=no
+     default_enable_vdr=yes
++    default_enable_enigma=yes
+     default_enable_bluray=yes
+     default_enable_avformat=yes
+     default_enable_sftp=yes
+@@ -35,6 +36,7 @@
+             default_enable_gnomevfs=no
+             default_enable_samba=no
+             default_enable_vdr=no
++            default_enable_enigma=no
+             ;;
+         darwin*)
+             default_enable_gnomevfs=no
+@@ -208,6 +210,10 @@
+     XINE_ARG_ENABLE([vdr], [Enable support for the VDR plugin (default: enabled)])
+     AM_CONDITIONAL([ENABLE_VDR], [test x"$enable_vdr" != x"no"])
+ 
++    dnl enigma
++    XINE_ARG_ENABLE([enigma], [Enable support for the ENIGMA plugin (default: enabled)])
++    AM_CONDITIONAL([ENABLE_ENIGMA], [test x"$enable_enigma" != x"no"])
++
+     dnl bluray
+     XINE_ARG_ENABLE([bluray], [Enable BluRay support])
+     if test "x$enable_bluray" != "xno"; then
+diff -ruN o/m4/summary.m4 pc/m4/summary.m4
+--- o/m4/summary.m4	2022-04-03 13:20:24.192484920 +0300
++++ pc/m4/summary.m4	2022-11-04 13:16:26.169320465 +0300
+@@ -54,6 +54,7 @@
+     dis=""
+     echo "  * Misc:"
+     test x"$enable_vdr" != x"no"     && echo "   - vdr"       || dis="$dis vdr"
++    test x"$enable_enigma" != x"no"  && echo "   - enigma"    || dis="$dis enigma"
+     test x"$have_gnomevfs" = x"yes"  && echo "   - gnome-vfs" || dis="$dis gnome-vfs"
+     test x"$enable_ffmpeg" != x"no" -a x"$have_avformat" = x"yes" && echo "   - avio (libavformat)" || dis="$dis avio"
+     echo "   - test"
+@@ -201,6 +202,7 @@
+     echo "   - unsharp         - tvtime"
+     test x"$enable_postproc" != x"no" && echo "   - postproc"  || dis="$dis postproc"
+     test x"$enable_vdr" != x"no"      && echo "   - vdr"       || dis="$dis vdr"
++    test x"$enable_enigma" != x"no"   && echo "   - enigma"    || dis="$dis enigma"
+     echo "  * SFX:"
+     echo "   - goom            - oscope"
+     echo "   - fftscope        - mosaico"
+diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
+--- o/src/demuxers/demux_mpeg_pes.c	2022-04-03 13:20:24.376488364 +0300
++++ pc/src/demuxers/demux_mpeg_pes.c	2022-11-04 13:16:26.169320465 +0300
+@@ -71,6 +71,7 @@
+ 
+   input_plugin_t       *input;
+   int                   is_vdr;
++  int                   is_enigma;
+ 
+   int                   status;
+ 
+@@ -493,6 +494,22 @@
+ #endif
+ }
+ 
++static void demux_mpeg_pes_enigma_seek_0 (demux_mpeg_pes_t *this, int n) {
++  xprintf (this->stream->xine, XINE_VERBOSITY_DEBUG,
++    "demux_mpeg_pes: enigma sync point #%d.\n", n);
++  this->last_cell_time = 0;
++  this->send_newpts = 1;
++  this->buf_flag_seek = 0;
++  this->nav_last_end_pts = this->nav_last_start_pts = 0;
++  this->status   = DEMUX_OK ;
++  this->last_pts[0]   = 0;
++  this->last_pts[1]   = 0;
++#ifdef PTS_BOUNCE
++  this->apts = this->bpts = 0;
++  this->bounce_left = 0;
++#endif
++}
++
+ static int32_t parse_padding_stream(demux_mpeg_pes_t *this, uint8_t *p, buf_element_t *buf) {
+   /* Just skip padding. */
+   int todo = 6 + this->packet_len;
+@@ -503,6 +520,9 @@
+   if (this->is_vdr && (buf->content[4] == 0xff))
+     demux_mpeg_pes_vdr_seek_0 (this, buf->content[5]);
+ 
++  if (this->is_enigma && (buf->content[4] == 0xff))
++    demux_mpeg_pes_enigma_seek_0 (this, buf->content[5]);
++
+   while (done < todo)
+   {
+     /* Handle Jumbo frames from VDR. */
+@@ -1773,8 +1793,11 @@
+   this->status = DEMUX_FINISHED;
+ 
+   this->is_vdr = 0;
++  this->is_enigma = 0;
+   if (input->input_class->identifier && !strcmp (input->input_class->identifier, "VDR"))
+     this->is_vdr = 1;
++  if (input->input_class->identifier && !strcmp (input->input_class->identifier, "ENIGMA"))
++    this->is_enigma = 1;
+ 
+   /* Don't start demuxing stream until we see a program_stream_pack_header */
+   /* We need to system header in order to identify is the stream is mpeg1 or mpeg2. */
+diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
+--- o/src/demuxers/demux_ts.c	2022-04-03 13:20:24.389488608 +0300
++++ pc/src/demuxers/demux_ts.c	2022-11-04 13:16:26.169320465 +0300
+@@ -161,7 +161,7 @@
+ #define LOG
+ */
+ #define LOG_DYNAMIC_PMT
+-#define DUMP_VIDEO_HEADS
++//#define DUMP_VIDEO_HEADS /* ENIGMA_FIFO does not contain video heads */
+ 
+ #ifdef DUMP_VIDEO_HEADS
+ #  include <stdio.h>
+@@ -595,6 +595,7 @@
+   off_t        tbre_bytes, tbre_lastpos;
+   int64_t      tbre_time, tbre_lasttime;
+   unsigned int tbre_mode, tbre_pid;
++  int          pvr_mode; // Default equal is '0', then pids receive from E2
+ 
+ #ifdef DUMP_VIDEO_HEADS
+   FILE *vhdfile;
+@@ -2865,6 +2866,7 @@
+ /* 0 (go on), 1 (recheck), 2 (stop) */
+ static int demux_ts_parse_pat_pmt_packet (demux_ts_t*this) {
+ 
++ if (this->pvr_mode == 1) {
+   const uint8_t *originalPkt;
+   uint32_t       tsp_head;
+   uint32_t       pid;
+@@ -2941,10 +2943,12 @@
+     return 1;
+   }
+ 
++ }
+   return 0;
+ }
+ 
+ static void demux_ts_scan_pat_pmt (demux_ts_t *this) {
++ if (this->pvr_mode == 1) {
+   unsigned int max;
+ 
+   if ((this->videoPid != INVALID_PID) || (this->audio_tracks_count > 0))
+@@ -2976,6 +2980,7 @@
+     this->buf_size = 0;
+ #endif
+   }
++ }
+ }
+ 
+ 
+@@ -2985,6 +2990,7 @@
+ 
+ static void demux_ts_event_handler (demux_ts_t *this) {
+   xine_event_t *event = NULL;
++  int mi;
+ 
+   while ((event = xine_event_next (this->event_queue, event))) {
+ 
+@@ -2994,6 +3000,7 @@
+       /* flush all streams */
+       demux_ts_flush(this);
+       /* fall thru */
++      break;
+ 
+     case XINE_EVENT_PIDS_CHANGE:
+ 
+@@ -3002,6 +3009,36 @@
+       _x_demux_control_start (this->stream);
+       break;
+ 
++    case XINE_EVENT_SET_VIDEO_STREAMTYPE:
++      printf("RECEIVED XINE_EVENT_SET_VIDEO_STREAMTYPE\n");
++
++      if (event->data) {
++        xine_streamtype_data_t* data = (xine_streamtype_data_t*)event->data;
++
++        mi = demux_ts_dynamic_pmt_find (this, data->pid, BUF_VIDEO_BASE, data->streamtype);
++        if (mi >= 0) {
++          this->videoPid = data->pid;
++          this->videoMedia = mi;
++        }
++      }
++      break;
++
++    case XINE_EVENT_SET_AUDIO_STREAMTYPE:
++      printf("RECEIVED XINE_EVENT_SET_AUDIO_STREAMTYPE\n");
++
++      if (event->data) {
++        xine_streamtype_data_t* data = (xine_streamtype_data_t*)event->data;
++
++        mi = demux_ts_dynamic_pmt_find (this, data->pid, BUF_AUDIO_BASE, data->streamtype);
++      }
++      break;
++
++    case XINE_EVENT_SET_PVR_MODE:
++      printf("RECEIVED XINE_EVENT_SET_PVR_MODE\n");
++
++      this->pvr_mode = 1;
++      break;
++
+     }
+   }
+ }
+@@ -3560,6 +3597,9 @@
+   this->pkt_size   = PKT_SIZE + this->pkt_offset;
+ #endif
+ 
++  /* PVR_MODE, default is LIVE_TV, pids receive from E2 */
++  this->pvr_mode = 0;
++
+ #ifdef DUMP_VIDEO_HEADS
+   this->vhdfile = fopen ("video_heads.log", "rb+");
+ #endif
+diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
+--- o/src/e2pc/combined_enigma.c	1970-01-01 03:00:00.000000000 +0300
++++ pc/src/e2pc/combined_enigma.c	2022-11-04 13:16:26.169320465 +0300
+@@ -0,0 +1,48 @@
++/*
++ * Copyright (C) 2000-2019 the xine project
++ *
++ * This file is part of xine, a free video player.
++ *
++ * xine is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * xine is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
++ */
++
++/*
++ * plugins for ENIGMA
++ */
++
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++#include <xine/xine_internal.h>
++#include <xine/post.h>
++#include "combined_enigma.h"
++
++
++
++static const post_info_t enigma_video_special_info = { XINE_POST_TYPE_VIDEO_FILTER };
++static const post_info_t enigma_audio_special_info = { XINE_POST_TYPE_AUDIO_FILTER };
++
++/* exported plugin catalog entry */
++const plugin_info_t xine_plugin_info[] EXPORTED =
++{
++  /* type       , API, "name"        , version          , special_info              , init_function */
++  { PLUGIN_INPUT,  18, "ENIGMA"      , XINE_VERSION_CODE, NULL                      , &enigma_input_init_plugin },
++  { PLUGIN_POST ,  10, "enigma"      , XINE_VERSION_CODE, &enigma_video_special_info, &enigma_video_init_plugin },
++  { PLUGIN_POST ,  10, "enigma_video", XINE_VERSION_CODE, &enigma_video_special_info, &enigma_video_init_plugin },
++  { PLUGIN_POST ,  10, "enigma_audio", XINE_VERSION_CODE, &enigma_audio_special_info, &enigma_audio_init_plugin },
++  { PLUGIN_NONE ,   0, NULL          , 0                , NULL                      , NULL }
++};
++
+diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
+--- o/src/e2pc/combined_enigma.h	1970-01-01 03:00:00.000000000 +0300
++++ pc/src/e2pc/combined_enigma.h	2022-11-04 13:16:26.169320465 +0300
+@@ -0,0 +1,82 @@
++/*
++ * Copyright (C) 2000-2018 the xine project
++ *
++ * This file is part of xine, a free video player.
++ *
++ * xine is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * xine is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
++ */
++
++#ifndef __COMBINED_ENIGMA_H
++#define __COMBINED_ENIGMA_H
++
++
++
++typedef struct enigma_set_video_window_data_s {
++  int32_t x;
++  int32_t y;
++  int32_t w;
++  int32_t h;
++  int32_t w_ref;
++  int32_t h_ref;
++
++} enigma_set_video_window_data_t;
++
++
++
++typedef struct enigma_frame_size_changed_data_s {
++  int32_t x;
++  int32_t y;
++  int32_t w;
++  int32_t h;
++  double r;
++
++} enigma_frame_size_changed_data_t;
++
++
++
++typedef struct enigma_select_audio_data_s {
++  uint8_t channels;
++
++} enigma_select_audio_data_t;
++
++
++
++inline static int enigma_is_enigma_stream(xine_stream_t *stream)
++{
++  if (!stream
++      || !stream->input_plugin
++      || !stream->input_plugin->input_class)
++  {
++    return 0;
++  }
++
++  if (stream->input_plugin->input_class->identifier &&
++      0 == strcmp(stream->input_plugin->input_class->identifier, "ENIGMA"))
++    return 1;
++
++  return 0;
++}
++
++
++
++/* plugin class initialization function */
++void *enigma_input_init_plugin(xine_t *xine, const void *data);
++void *enigma_video_init_plugin(xine_t *xine, const void *data);
++void *enigma_audio_init_plugin(xine_t *xine, const void *data);
++
++
++
++#endif /* __COMBINED_ENIGMA_H */
++
+diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
+--- o/src/e2pc/input_enigma.c	1970-01-01 03:00:00.000000000 +0300
++++ pc/src/e2pc/input_enigma.c	2022-11-04 13:16:26.169320465 +0300
+@@ -0,0 +1,859 @@
++/*
++ * Copyright (C) 2003-2021 the xine project
++ *
++ * This file is part of xine, a free video player.
++ *
++ * xine is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * xine is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
++ */
++
++/* NOTE: This will bend the xine engine into a certain direction (just to avoid the
++ * term "misuse"). Demux keeps running all the time. Its the enigma server that
++ * performs seeks, stream switches, still frames, trick play frames etc.
++ * It then muxes the result down the line sequentially. For the demuxer, most stuff
++ * looks like ordinary absolute discontinuities. We need to watch the control
++ * messages coming through a side channel, and inject apropriate xine engine calls
++ * manually. In reverse, we listen to xine events, and send back enigma keys.
++ * "Trick play" is turned on and off by server. When on, xine shall just play all
++ * frames as if they had perfectly consecutive time stamps. We still need to register
++ * first discontinuity early because server will wait for it, and video decoder may
++ * delay it -> freeze.
++ * Issue #2: xine engine now uses a more efficient buffering scheme. Audio fifo
++ * default now is 700*2k with soft start vs 230*8k fixed. This is needed to support
++ * modern fragment streaming protocols. It also helps live DVB radio, and it speeds
++ * up seeking. However, enigma seems to freeze from it sometimes. We work around it
++ * by using fifo->buffer_pool_size_alloc (fifo, need), and by registering a dummy
++ * alloc callback that disables file_buf_ctrl soft start.
++ */
++
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <sys/stat.h>
++#include <sys/poll.h>
++#include <errno.h>
++#include <pthread.h>
++
++#define LOG_MODULE "input_enigma"
++#define LOG_VERBOSE
++/*
++#define LOG
++*/
++#include <xine/xine_internal.h>
++#include <xine/xineutils.h>
++#include <xine/input_plugin.h>
++
++#include "combined_enigma.h"
++#include "net_buf_ctrl.h" /* ? */
++
++// xvdr
++#include <sys/time.h>
++
++#define ENIGMA_ABS_FIFO_DIR     "/tmp"
++#define DEFAULT_PTS_START       150000
++#define BUFSIZE                 1024
++#define FILE_FLAGS O_RDONLY
++#define FIFO_PUT                0
++// xvdr
++#define XVDR_METRONOM_OPTION_BASE  0x1001
++#define XVDR_METRONOM_LAST_VO_PTS  (XVDR_METRONOM_OPTION_BASE)
++#define XVDR_METRONOM_TRICK_SPEED  (XVDR_METRONOM_OPTION_BASE + 1)
++#define XVDR_METRONOM_STILL_MODE   (XVDR_METRONOM_OPTION_BASE + 2)
++#define XVDR_METRONOM_ID           (XVDR_METRONOM_OPTION_BASE + 3)
++
++#define XVDR_METRONOM_LIVE_BUFFERING   (XVDR_METRONOM_OPTION_BASE + 4)
++#define XVDR_METRONOM_STREAM_START     (XVDR_METRONOM_OPTION_BASE + 5)
++
++typedef struct enigma_input_plugin_s enigma_input_plugin_t;
++
++  /* This is our relay metronom, built on top of the engine one.
++   * src/xine-engine/metronom.c uses a much more complex algorithm now.
++   * One goal is to avoid unnecessary waiting. Thus lets not wait
++   * ourselves here, and detect complete discontinuity pairs instead. */
++typedef struct {
++  metronom_t          metronom;
++  metronom_t         *stream_metronom;
++  enigma_input_plugin_t *input;
++  // xvdr
++  int     trickspeed;    /* current trick speed */
++  int     still_mode;
++  int64_t last_vo_pts;   /* last displayed video frame PTS */
++  int     wired;         /* true if currently wired to stream */
++
++  /* initial buffering in live mode */
++  uint8_t  buffering;      /* buffering active */
++  uint8_t  live_buffering; /* live buffering enabled */
++  uint8_t  stream_start;
++  int64_t  vid_pts;        /* last seen video pts */
++  int64_t  aud_pts;        /* last seen audio pts */
++  int64_t  disc_pts;       /* reported discontinuity pts */
++  uint64_t buffering_start_time;
++  uint64_t first_frame_seen_time;
++
++  pthread_mutex_t mutex;
++}
++enigma_metronom_t;
++
++typedef struct enigma_osd_s
++{
++  xine_osd_t *window;
++  uint8_t    *argb_buffer[ 2 ];
++  int         width;
++  int         height;
++}
++enigma_osd_t;
++
++typedef struct enigma_vpts_offset_s enigma_vpts_offset_t;
++
++struct enigma_vpts_offset_s
++{
++  enigma_vpts_offset_t *next;
++  int64_t            vpts;
++  int64_t            offset;
++};
++
++struct enigma_input_plugin_s {
++  input_plugin_t      input_plugin;
++  xine_stream_t      *stream;
++  int                 fh;
++  char               *mrl;
++  off_t               curpos;
++  char                seek_buf[BUFSIZE];
++  xine_t             *xine;
++  int                 last_disc_type;
++
++  uint8_t             trick_speed_mode;
++  uint8_t             trick_speed_mode_blocked;
++  pthread_mutex_t     trick_speed_mode_lock;
++  pthread_cond_t      trick_speed_mode_cond;
++
++  pthread_t           metronom_thread;
++  pthread_mutex_t     metronom_thread_lock;
++  int64_t             metronom_thread_request;
++  int                 metronom_thread_reply;
++  pthread_cond_t      metronom_thread_request_cond;
++  pthread_cond_t      metronom_thread_reply_cond;
++  pthread_mutex_t     metronom_thread_call_lock;
++
++  uint8_t             find_sync_point;
++  pthread_mutex_t     find_sync_point_lock;
++
++  enigma_metronom_t      metronom;
++
++  enigma_vpts_offset_t  *vpts_offset_queue;
++  enigma_vpts_offset_t  *vpts_offset_queue_tail;
++  pthread_mutex_t     vpts_offset_queue_lock;
++  pthread_cond_t      vpts_offset_queue_changed_cond;
++  int                 vpts_offset_queue_changes;
++
++  // xvdr
++  int     trickspeed;    // current trick speed
++  int     still_mode;
++  int64_t last_vo_pts;   // last displayed video frame PTS
++  int     wired;         // true if currently wired to stream
++};
++
++typedef struct {
++  input_class_t     input_class;
++  xine_t           *xine;
++} enigma_input_class_t;
++
++// xvdr
++static uint64_t time_ms(void)
++{
++  struct timeval t;
++#ifdef XINEUTILS_H
++  if (xine_monotonic_clock(&t, NULL) == 0)
++#else
++  if (gettimeofday(&t, NULL) == 0)
++#endif
++     return ((uint64_t)t.tv_sec) * 1000ULL + t.tv_usec / 1000ULL;
++  return 0;
++}
++
++static uint64_t elapsed(uint64_t t)
++{
++  return time_ms() - t;
++}
++
++static int warnings = 0;
++
++static int64_t absdiff(int64_t a, int64_t b) { int64_t diff = a-b; if (diff<0) diff = -diff; return diff; }
++static int64_t min64(int64_t a, int64_t b) { return a < b ? a : b; }
++
++static void check_buffering_done(enigma_metronom_t *this)
++{
++  /* both audio and video timestamps seen ? */
++  if (this->vid_pts && this->aud_pts) {
++    int64_t da = this->aud_pts - this->disc_pts;
++    int64_t dv = this->vid_pts - this->disc_pts;
++    int64_t d_min = min64(da, dv);
++    printf("  stream A-V diff %d ms", (int)(this->vid_pts - this->aud_pts)/90);
++    printf("  reported stream start at pts %"PRId64, this->disc_pts);
++    printf("  output fifo end at: audio %"PRId64" video %"PRId64, this->aud_pts, this->vid_pts);
++    printf("  dA %"PRId64" dV %"PRId64, da, dv);
++    if (d_min < 0 && d_min > -10*90000) {
++      printf("  *** output is late %"PRId64" ticks (%"PRId64" ms) ***", d_min, -d_min/90);
++    }
++    this->buffering = 0;
++    this->stream_start = 0;
++    return;
++  }
++
++  if (this->first_frame_seen_time) {
++    int64_t ms_since_first_frame = elapsed(this->first_frame_seen_time);
++
++    if (ms_since_first_frame > 1000) {
++
++      this->stream_start = 0;
++
++      /* abort buffering if no audio */
++      if (this->vid_pts && !this->aud_pts) {
++        printf("buffering stopped: NO AUDIO ? elapsed time %d ms", (int)ms_since_first_frame);
++        this->buffering = 0;
++        return;
++      }
++
++      /* abort buffering if no video */
++      if (!this->vid_pts && this->aud_pts) {
++        printf("buffering stopped: NO VIDEO ? elapsed time %d ms", (int)ms_since_first_frame);
++        this->buffering = 0;
++        return;
++      }
++    }
++  }
++}
++
++static void got_video_frame(metronom_t *self, vo_frame_t *frame)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++  int64_t          pts  = frame->pts;
++
++  if (this->still_mode) {
++    printf("Still frame, type %d", frame->picture_coding_type);
++    frame->pts       = 0;
++  }
++
++  if (this->trickspeed) {
++    frame->pts       = 0;
++    frame->duration *= 12; /* GOP */
++  }
++
++  /* initial buffering */
++  pthread_mutex_lock(&this->mutex);
++  if (this->buffering && !frame->bad_frame) {
++
++    /* track video pts */
++    if (pts) {
++      if (this->vid_pts && (absdiff(this->vid_pts, pts) > 5*90000)) {
++        printf("buffering: video jump resetted audio pts");
++        this->aud_pts = 0;
++      }
++      if (this->vid_pts && this->aud_pts && (absdiff(this->vid_pts, this->aud_pts) > 5*90000)) {
++        printf("buffering: A-V diff resetted audio pts");
++        this->aud_pts = 0;
++      }
++      if (!this->vid_pts) {
++        printf("got video pts, frame type %d (@%d ms)", frame->picture_coding_type, (int)elapsed(this->buffering_start_time));
++        this->first_frame_seen_time = time_ms(); 
++      }
++      this->vid_pts = pts;
++    }
++
++    /* some logging */
++    if (!pts) {
++      printf("got video, pts 0, buffering, frame type %d, bad_frame %d", frame->picture_coding_type, frame->bad_frame);
++    }
++    if (pts && !frame->pts) {
++      printf("*** ERROR: hiding video pts while buffering ***");
++    }
++
++    check_buffering_done(this);
++  }
++
++  pthread_mutex_unlock(&this->mutex);
++
++  this->stream_metronom->got_video_frame (this->stream_metronom, frame);
++
++  frame->pts = pts;
++}
++
++static int64_t got_audio_samples(metronom_t *self, int64_t pts, int nsamples)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++
++  pthread_mutex_lock(&this->mutex);
++
++  /* initial buffering */
++  if (this->buffering) {
++
++    /* track audio pts */
++    if (pts) {
++      if (this->aud_pts && (this->aud_pts > pts || absdiff(pts, this->aud_pts) > 5*90000)) {
++        printf("audio jump resetted video pts");
++        this->vid_pts = 0;
++      }
++      if (this->aud_pts && this->vid_pts && (absdiff(this->vid_pts, this->aud_pts) > 5*90000)) {
++        printf("buffering: A-V diff resetted video pts");
++        this->vid_pts = 0;
++      }
++      if (!this->aud_pts) {
++        printf("got audio pts (@%d ms)", (int)elapsed(this->buffering_start_time));
++        this->first_frame_seen_time = time_ms();
++      }
++      this->aud_pts = pts;
++    }
++
++    /* some logging */
++    if (!pts && !this->aud_pts) {
++      printf("got audio, pts 0, buffering");
++    }
++
++    check_buffering_done(this);
++  }
++
++  pthread_mutex_unlock(&this->mutex);
++
++  return this->stream_metronom->got_audio_samples (this->stream_metronom, pts, nsamples);
++}
++
++static int64_t got_spu_packet(metronom_t *self, int64_t pts)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++  return this->stream_metronom->got_spu_packet(this->stream_metronom, pts);
++}
++
++static void start_buffering(enigma_metronom_t *this, int64_t disc_off)
++{
++  if (this->live_buffering && this->stream_start && disc_off) {
++    if (!this->buffering) {
++      printf("live mode buffering started (@%d ms)", (int)elapsed(this->buffering_start_time));
++
++      this->aud_pts  = 0;
++      this->vid_pts  = 0;
++      this->disc_pts = disc_off;
++
++      this->first_frame_seen_time = 0;
++
++      this->buffering = 1;
++    }
++  } else {
++    if (this->buffering) {
++      printf("live mode buffering aborted (@%d ms)", (int)elapsed(this->buffering_start_time));
++      this->buffering = 0;
++    }
++  }
++}
++
++static void handle_audio_discontinuity(metronom_t *self, int type, int64_t disc_off)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++
++  start_buffering(this, disc_off);
++
++  this->stream_metronom->handle_audio_discontinuity(this->stream_metronom, type, disc_off);
++}
++
++static void handle_video_discontinuity(metronom_t *self, int type, int64_t disc_off)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++
++  start_buffering(this, disc_off);
++
++  this->stream_metronom->handle_video_discontinuity(this->stream_metronom, type, disc_off);
++}
++
++static void set_audio_rate(metronom_t *self, int64_t pts_per_smpls)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++  this->stream_metronom->set_audio_rate(this->stream_metronom, pts_per_smpls);
++}
++
++static void set_option(metronom_t *self, int option, int64_t value)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++
++  if (option == XVDR_METRONOM_LAST_VO_PTS) {
++    if (value > 0) {
++      pthread_mutex_lock(&this->mutex);
++      this->last_vo_pts = value;
++      pthread_mutex_unlock(&this->mutex);
++    }
++    return;
++  }
++
++  if (option == XVDR_METRONOM_LIVE_BUFFERING) {
++    pthread_mutex_lock(&this->mutex);
++    this->live_buffering = value;
++    pthread_mutex_unlock(&this->mutex);
++    return;
++  }
++
++  if (option == XVDR_METRONOM_STREAM_START) {
++    pthread_mutex_lock(&this->mutex);
++    this->stream_start = 1;
++    this->buffering_start_time = time_ms();
++    pthread_mutex_unlock(&this->mutex);
++    return;
++  }
++
++  if (option == XVDR_METRONOM_TRICK_SPEED) {
++    this->trickspeed = value;
++    return;
++  }
++
++  if (option == XVDR_METRONOM_STILL_MODE) {
++    this->still_mode = value;
++    return;
++  }
++
++  this->stream_metronom->set_option(this->stream_metronom, option, value);
++}
++
++static int64_t get_option(metronom_t *self, int option)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++
++  if (option == XVDR_METRONOM_LAST_VO_PTS) {
++    int64_t pts;
++    pthread_mutex_lock(&this->mutex);
++    pts = this->last_vo_pts;
++    pthread_mutex_unlock(&this->mutex);
++    return pts;
++  }
++  if (option == XVDR_METRONOM_TRICK_SPEED) {
++    return this->trickspeed;
++  }
++  if (option == XVDR_METRONOM_STILL_MODE) {
++    return this->still_mode;
++  }
++  if (option == XVDR_METRONOM_ID) {
++    return XVDR_METRONOM_ID;
++  }
++
++  return this->stream_metronom->get_option(this->stream_metronom, option);
++}
++
++static void set_master(metronom_t *self, metronom_t *master)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++  this->stream_metronom->set_master(this->stream_metronom, master);
++}
++
++static void metronom_exit(metronom_t *self)
++{
++  enigma_metronom_t *this = (enigma_metronom_t *)self;
++
++  _x_abort();
++}
++
++static off_t enigma_read_abort(xine_stream_t *stream, int fd, char *buf, off_t todo)
++{
++  off_t ret;
++
++  while (1)
++  {
++    /*
++     * System calls are not a thread cancellation point in Linux
++     * pthreads.  However, the RT signal sent to cancel the thread
++     * will cause recv() to return with EINTR, and we can manually
++     * check cancellation.
++     */
++    pthread_testcancel();
++    ret = _x_read_abort(stream, fd, buf, todo);
++    pthread_testcancel();
++
++    if (ret < 0
++        && (errno == EINTR
++          || errno == EAGAIN))
++    {
++      continue;
++    }
++
++    break;
++  }
++
++  return ret;
++}
++
++static off_t enigma_plugin_read (input_plugin_t *this_gen,
++				void *buf_gen, off_t len) {
++
++  enigma_input_plugin_t  *this = (enigma_input_plugin_t *) this_gen;
++  uint8_t *buf = (uint8_t *)buf_gen;
++  off_t n, total = 0;
++#ifdef LOG_READ
++  lprintf ("reading %lld bytes...\n", len);
++#endif
++
++  if( len > 0 )
++  {
++    int retries = 0;
++    do
++    {
++      n = enigma_read_abort (this->stream, this->fh, (char *)&buf[total], len-total);
++      if (0 == n)
++        lprintf("read 0, retries: %d\n", retries);
++    }
++    while (0 == n
++           && _x_continue_stream_processing(this->stream)
++           && 200 > retries++); // 200 * 50ms
++#ifdef LOG_READ
++    lprintf ("got %lld bytes (%lld/%lld bytes read)\n", n, total, len);
++#endif
++    if (n < 0)
++    {
++      _x_message(this->stream, XINE_MSG_READ_ERROR, NULL);
++      return 0;
++    }
++
++    this->curpos += n;
++    total += n;
++  }
++
++  if (this->find_sync_point
++    && total == 6)
++  {
++    pthread_mutex_lock(&this->find_sync_point_lock);
++
++    while (this->find_sync_point
++      && total == 6
++      && buf[0] == 0x00
++      && buf[1] == 0x00
++      && buf[2] == 0x01)
++    {
++      int l, sp;
++
++      if (buf[3] == 0xbe
++        && buf[4] == 0xff)
++      {
++        if (buf[5] == this->find_sync_point)
++        {
++          this->find_sync_point = 0;
++          break;
++        }
++      }
++
++      if ((buf[3] & 0xf0) != 0xe0
++        && (buf[3] & 0xe0) != 0xc0
++        && buf[3] != 0xbd
++        && buf[3] != 0xbe)
++      {
++        break;
++      }
++
++      l = buf[4] * 256 + buf[5];
++      if (l <= 0)
++         break;
++
++      sp = this->find_sync_point;
++      this->find_sync_point = 0;
++      this_gen->seek(this_gen, l, SEEK_CUR);
++      total = this_gen->read(this_gen, buf, 6);
++      this->find_sync_point = sp;
++    }
++
++    pthread_mutex_unlock(&this->find_sync_point_lock);
++  }
++
++  return total;
++
++}
++
++static buf_element_t *enigma_plugin_read_block (input_plugin_t *this_gen, fifo_buffer_t *fifo,
++					off_t todo) {
++
++  off_t                 total_bytes;
++  buf_element_t         *buf = fifo->buffer_pool_alloc (fifo);
++
++  if (todo > buf->max_size)
++    todo = buf->max_size;
++  if (todo < 0) {
++    buf->free_buffer (buf);
++    return NULL;
++  }
++
++  buf->content = buf->mem;
++  buf->type = BUF_DEMUX_BLOCK;
++
++  total_bytes = enigma_plugin_read (this_gen, (char*)buf->content, todo);
++
++  if (total_bytes != todo) {
++    buf->free_buffer (buf);
++    return NULL;
++  }
++
++  buf->size = total_bytes;
++
++  return buf;
++}
++
++/* forward reference */
++static off_t enigma_plugin_get_current_pos(input_plugin_t *this_gen);
++
++static off_t enigma_plugin_seek (input_plugin_t *this_gen, off_t offset, int origin) {
++
++  enigma_input_plugin_t  *this = (enigma_input_plugin_t *) this_gen;
++
++  printf ("seek %"PRId64" offset, %d origin...\n", offset, origin);
++
++  if ((origin == SEEK_CUR) && (offset >= 0)) {
++
++    for (;((int)offset) - BUFSIZE > 0; offset -= BUFSIZE) {
++      if( this_gen->read (this_gen, this->seek_buf, BUFSIZE) <= 0 )
++        return this->curpos;
++    }
++
++    this_gen->read (this_gen, this->seek_buf, offset);
++  }
++
++  if (origin == SEEK_SET) {
++
++    if (offset < this->curpos) {
++        xprintf (this->xine, XINE_VERBOSITY_LOG,
++                 _("stdin: cannot seek back! (%" PRIdMAX " > %" PRIdMAX ")\n"),
++                 (intmax_t)this->curpos, (intmax_t)offset);
++        printf ("stdin: cannot seek back! (%" PRIdMAX " > %" PRIdMAX ")\n",
++                 (intmax_t)this->curpos, (intmax_t)offset);
++
++    } else {
++      offset -= this->curpos;
++
++      for (;((int)offset) - BUFSIZE > 0; offset -= BUFSIZE) {
++        if( this_gen->read (this_gen, this->seek_buf, BUFSIZE) <= 0 )
++          return this->curpos;
++      }
++
++      this_gen->read (this_gen, this->seek_buf, offset);
++    }
++  }
++
++  return this->curpos;
++}
++
++static off_t enigma_plugin_get_length(input_plugin_t *this_gen) {
++  return 0;
++}
++
++static uint32_t enigma_plugin_get_capabilities(input_plugin_t *this_gen) {
++
++  return INPUT_CAP_PREVIEW;
++}
++
++static uint32_t enigma_plugin_get_blocksize(input_plugin_t *this_gen) {
++
++  return 0;
++}
++
++static off_t enigma_plugin_get_current_pos (input_plugin_t *this_gen){
++  enigma_input_plugin_t *this = (enigma_input_plugin_t *) this_gen;
++
++  return this->curpos;
++}
++
++static const char* enigma_plugin_get_mrl (input_plugin_t *this_gen) {
++  enigma_input_plugin_t *this = (enigma_input_plugin_t *) this_gen;
++
++  return this->mrl;
++}
++
++static void enigma_plugin_dispose (input_plugin_t *this_gen ) {
++  enigma_input_plugin_t *this = (enigma_input_plugin_t *) this_gen;
++
++  pthread_mutex_destroy(&this->metronom.mutex);
++
++  pthread_mutex_destroy(&this->find_sync_point_lock); // need
++
++
++  if (this->fh != -1)
++    close(this->fh);
++
++  free (this->mrl);
++
++  this->stream->metronom = this->metronom.stream_metronom;
++  this->metronom.stream_metronom = 0;
++
++  free (this);
++}
++
++static int enigma_plugin_get_optional_data (input_plugin_t *this_gen,
++					void *data, int data_type) {
++  enigma_input_plugin_t *this = (enigma_input_plugin_t *) this_gen;
++  (void)this; //Add from 
++  switch (data_type)
++  {
++  case INPUT_OPTIONAL_DATA_PREVIEW:
++    /* just fake what mpeg_pes demuxer expects */
++    memcpy (data, "\x00\x00\x01\xe0\x00\x03\x80\x00\x00", 9);
++    return 9;
++  case INPUT_OPTIONAL_DATA_DEMUXER:
++    {
++      char **tmp = (char**)data;
++      *tmp = "mpeg-ts";
++    }
++    return 0;
++  }
++
++  return INPUT_OPTIONAL_UNSUPPORTED;
++}
++
++static int enigma_plugin_open (input_plugin_t *this_gen ) {
++  enigma_input_plugin_t *this = (enigma_input_plugin_t *) this_gen;
++
++  printf ("trying to open '%s'...\n", this->mrl);
++
++  if (this->fh == -1) {
++    char *filename = (char *)ENIGMA_ABS_FIFO_DIR "/ENIGMA_FIFO";
++    this->fh = open (filename, FILE_FLAGS);
++
++    printf("filename '%s'\n", filename);
++
++    if (this->fh == -1) {
++      xprintf (this->xine, XINE_VERBOSITY_LOG, _("enigma_fifo: failed to open '%s'\n"), filename);
++      printf ("enigma_fifo: failed to open '%s'\n", filename);
++      return 0;
++    }
++
++  }
++
++  /*
++   * mrl accepted and opened successfully at this point
++   *
++   * => create plugin instance
++   */
++
++  this->curpos          = 0;
++
++  return 1;
++}
++
++static input_plugin_t *enigma_class_get_instance (input_class_t *class_gen,
++						xine_stream_t *stream, const char *data) {
++
++  enigma_input_class_t  *class = (enigma_input_class_t *) class_gen;
++  enigma_input_plugin_t *this;
++  char                 *mrl = strdup(data);
++
++  if (!strncasecmp(mrl, "enigma:/", 8)) {
++    lprintf("Enigma plugin\n");
++  } else {
++    free(mrl);
++    return NULL;
++  }
++
++  /*
++   * mrl accepted and opened successfully at this point
++   *
++   * => create plugin instance
++   */
++
++  this       = calloc(1, sizeof(enigma_input_plugin_t));
++
++  this->stream = stream;
++  this->curpos = 0;
++  this->mrl    = mrl;
++  this->fh     = -1;
++  this->xine   = class->xine;
++
++  this->input_plugin.open              = enigma_plugin_open;
++  this->input_plugin.get_capabilities  = enigma_plugin_get_capabilities;
++  this->input_plugin.read              = enigma_plugin_read;
++  this->input_plugin.read_block        = enigma_plugin_read_block;
++  this->input_plugin.seek              = enigma_plugin_seek;
++  this->input_plugin.get_current_pos   = enigma_plugin_get_current_pos;
++  this->input_plugin.get_length        = enigma_plugin_get_length;
++  this->input_plugin.get_blocksize     = enigma_plugin_get_blocksize;
++  this->input_plugin.get_mrl           = enigma_plugin_get_mrl;
++  this->input_plugin.dispose           = enigma_plugin_dispose;
++  this->input_plugin.get_optional_data = enigma_plugin_get_optional_data;
++  this->input_plugin.input_class       = class_gen;
++
++  pthread_mutex_init(&this->find_sync_point_lock, 0);
++
++  this->metronom.input = this;
++
++  // xvdr
++  this->metronom.metronom.set_audio_rate             = set_audio_rate;
++  this->metronom.metronom.got_video_frame            = got_video_frame;
++  this->metronom.metronom.got_audio_samples          = got_audio_samples;
++  this->metronom.metronom.got_spu_packet             = got_spu_packet;
++  this->metronom.metronom.handle_audio_discontinuity = handle_audio_discontinuity;
++  this->metronom.metronom.handle_video_discontinuity = handle_video_discontinuity;
++  this->metronom.metronom.set_option                 = set_option;
++  this->metronom.metronom.get_option                 = get_option;
++  this->metronom.metronom.set_master                 = set_master;
++  this->metronom.metronom.exit                       = metronom_exit;
++
++  pthread_mutex_init(&this->metronom.mutex, NULL);
++
++  this->metronom.stream_metronom = stream->metronom;
++  stream->metronom = &this->metronom.metronom;
++
++  return &this->input_plugin;
++}
++
++void *init_class (xine_t *xine, void *data) {
++
++  enigma_input_class_t  *this;
++
++  this = calloc(1, sizeof (enigma_input_class_t));
++
++  this->xine   = xine;
++
++  this->input_class.get_instance       = enigma_class_get_instance;
++  this->input_class.identifier         = "ENIGMA";
++  this->input_class.description        = N_("ENIGMA2PC display device plugin");
++  this->input_class.get_dir            = NULL;
++  this->input_class.get_autoplay_list  = NULL;
++  this->input_class.dispose            = default_input_class_dispose;
++  this->input_class.eject_media        = NULL;
++
++  return this;
++}
++
++/*
++ * enigma input plugin class stuff
++ */
++static const char * const *enigma_class_get_autoplay_list(input_class_t *this_gen,
++                                          int *num_files)
++{
++  static const char * const mrls[] = {"enigma:/" ENIGMA_ABS_FIFO_DIR "/stream#demux:mpeg_pes", NULL};
++
++  (void)this_gen;
++  *num_files = 1;
++  return mrls;
++}
++
++void *enigma_input_init_plugin(xine_t *xine, const void *data)
++{
++  lprintf("init_class\n");
++  static const input_class_t this = {
++    .get_instance      = enigma_class_get_instance,
++    .identifier        = "ENIGMA",
++    .description       = N_("ENIGMA display device plugin"),
++    .get_dir           = NULL,
++    .get_autoplay_list = enigma_class_get_autoplay_list,
++    .dispose           = NULL,
++    .eject_media       = NULL
++  };
++  (void)xine;
++  (void)data;
++  return (input_class_t *)&this;
++}
+diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
+--- o/src/e2pc/Makefile.am	1970-01-01 03:00:00.000000000 +0300
++++ pc/src/e2pc/Makefile.am	2022-11-04 13:16:26.169320465 +0300
+@@ -0,0 +1,13 @@
++include $(top_builddir)/misc/Makefile.plugins
++include $(top_srcdir)/misc/Makefile.common
++
++AM_CFLAGS  = $(DEFAULT_OCFLAGS) $(VISIBILITY_FLAG)
++AM_LDFLAGS = $(xineplug_ldflags)
++
++if ENABLE_ENIGMA
++xineplug_LTLIBRARIES = xineplug_enigma.la
++endif
++
++xineplug_enigma_la_SOURCES = combined_enigma.c combined_enigma.h input_enigma.c post_enigma_video.c post_enigma_audio.c
++xineplug_enigma_la_CFLAGS = $(AM_CFLAGS) -fno-strict-aliasing
++xineplug_enigma_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL)
+diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
+--- o/src/e2pc/post_enigma_audio.c	1970-01-01 03:00:00.000000000 +0300
++++ pc/src/e2pc/post_enigma_audio.c	2022-11-04 13:16:26.169320465 +0300
+@@ -0,0 +1,277 @@
++/*
++ * Copyright (C) 2000-2019 the xine project
++ *
++ * This file is part of xine, a free video player.
++ *
++ * xine is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * xine is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
++ */
++
++/*
++ * select audio channel plugin for ENIGMA
++ */
++
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++#define LOG_MODULE "enigma_audio"
++#define LOG_VERBOSE
++/*
++#define LOG
++*/
++
++#include <xine/xine_internal.h>
++#include <xine/post.h>
++#include "combined_enigma.h"
++
++
++
++typedef struct enigma_audio_post_plugin_s
++{
++  post_plugin_t post_plugin;
++
++  xine_event_queue_t *event_queue;
++  xine_stream_t      *enigma_stream;
++
++  uint8_t audio_channels;
++  int num_channels;
++
++}
++enigma_audio_post_plugin_t;
++
++
++static void enigma_audio_select_audio(enigma_audio_post_plugin_t *this, uint8_t channels)
++{
++  this->audio_channels = channels;
++}
++
++
++/* plugin class functions */
++static post_plugin_t *enigma_audio_open_plugin(post_class_t *class_gen, int inputs,
++                                            xine_audio_port_t **audio_target,
++                                            xine_video_port_t **video_target);
++
++/* plugin instance functions */
++static void           enigma_audio_dispose(post_plugin_t *this_gen);
++
++/* replaced ao_port functions */
++static int            enigma_audio_port_open(xine_audio_port_t *port_gen, xine_stream_t *stream,
++                                          uint32_t bits, uint32_t rate, int mode);
++static void           enigma_audio_port_put_buffer(xine_audio_port_t *port_gen, audio_buffer_t *buf, xine_stream_t *stream);
++
++
++
++void *enigma_audio_init_plugin(xine_t *xine, const void *data)
++{
++  post_class_t *class = calloc(1, sizeof (post_class_t));
++
++  (void)xine;
++  (void)data;
++
++  if (!class)
++    return NULL;
++
++  class->open_plugin     = enigma_audio_open_plugin;
++  class->identifier      = "enigma_audio";
++  class->description     = N_("modifies every audio frame as requested by ENIGMA");
++  class->dispose         = default_post_class_dispose;
++
++  return class;
++}
++
++static post_plugin_t *enigma_audio_open_plugin(post_class_t *class_gen, int inputs,
++				      xine_audio_port_t **audio_target,
++				      xine_video_port_t **video_target)
++{
++  enigma_audio_post_plugin_t *this = calloc(1, sizeof (enigma_audio_post_plugin_t));
++  post_in_t               *input;
++  post_out_t              *output;
++  post_audio_port_t       *port;
++/*
++fprintf(stderr, "~~~~~~~~~~ vdr open plugin\n");
++*/
++  if (!this || !audio_target || !audio_target[ 0 ])
++  {
++    free(this);
++    return NULL;
++  }
++
++  (void)class_gen;
++  (void)inputs;
++  (void)video_target;
++
++  _x_post_init(&this->post_plugin, 1, 0);
++  this->post_plugin.dispose = enigma_audio_dispose;
++
++  port = _x_post_intercept_audio_port(&this->post_plugin, audio_target[ 0 ], &input, &output);
++  port->new_port.open       = enigma_audio_port_open;
++  port->new_port.put_buffer = enigma_audio_port_put_buffer;
++
++  this->post_plugin.xine_post.audio_input[ 0 ] = &port->new_port;
++
++
++
++  this->audio_channels = 0;
++
++  return &this->post_plugin;
++}
++
++static void enigma_audio_dispose(post_plugin_t *this_gen)
++{
++/*
++fprintf(stderr, "~~~~~~~~~~ vdr dispose\n");
++*/
++  if (_x_post_dispose(this_gen))
++  {
++    enigma_audio_post_plugin_t *this = (enigma_audio_post_plugin_t *)this_gen;
++
++    if (this->enigma_stream)
++      xine_event_dispose_queue(this->event_queue);
++
++    free(this_gen);
++  }
++}
++
++static int enigma_audio_port_open(xine_audio_port_t *port_gen, xine_stream_t *stream,
++                               uint32_t bits, uint32_t rate, int mode) {
++
++  post_audio_port_t       *port = (post_audio_port_t *)port_gen;
++  enigma_audio_post_plugin_t *this = (enigma_audio_post_plugin_t *)port->post;
++
++  _x_post_rewire(&this->post_plugin);
++  _x_post_inc_usage(port);
++/*
++fprintf(stderr, "~~~~~~~~~~ vdr port open\n");
++*/
++  port->stream = stream;
++  port->bits = bits;
++  port->rate = rate;
++  port->mode = mode;
++
++  this->num_channels = _x_ao_mode2channels(mode);
++
++  return (port->original_port->open) (port->original_port, stream, bits, rate, mode );
++}
++
++
++static void enigma_audio_port_put_buffer(xine_audio_port_t *port_gen, audio_buffer_t *buf, xine_stream_t *stream)
++{
++  post_audio_port_t       *port = (post_audio_port_t *)port_gen;
++  enigma_audio_post_plugin_t *this = (enigma_audio_post_plugin_t *)port->post;
++  xine_event_t *event;
++/*
++fprintf(stderr, "~~~~~~ vdr_audio\n");
++*/
++  if (this->enigma_stream
++      && !_x_continue_stream_processing(this->enigma_stream))
++  {
++    this->enigma_stream = 0;
++
++    xine_event_dispose_queue(this->event_queue);
++    this->event_queue = 0;
++
++    this->audio_channels = 0;
++  }
++
++  if (!this->enigma_stream
++      && enigma_is_enigma_stream(stream))
++  {
++    this->event_queue = xine_event_new_queue(stream);
++    if (this->event_queue)
++    {
++      this->enigma_stream = stream;
++
++      {
++        xine_event_t event;
++
++        event.type = XINE_EVENT_ENIGMA_PLUGINSTARTED;
++        event.data = 0;
++        event.data_length = 1; /* enigma_audio */
++
++        xine_event_send(this->enigma_stream, &event);
++      }
++    }
++  }
++
++  if (this->event_queue)
++  {
++    while ((event = xine_event_get(this->event_queue)))
++    {
++      if (event->type == XINE_EVENT_ENIGMA_SELECTAUDIO)
++      {
++        enigma_select_audio_data_t *data = (enigma_select_audio_data_t *)event->data;
++
++        enigma_audio_select_audio(this, data->channels);
++      }
++
++      xine_event_free(event);
++    }
++  }
++
++  if (this->num_channels == 2
++      && this->audio_channels != 0
++      && this->audio_channels != 3)
++  {
++    audio_buffer_t *enigma_buf = port->original_port->get_buffer(port->original_port);
++    enigma_buf->num_frames = buf->num_frames;
++    enigma_buf->vpts = buf->vpts;
++    enigma_buf->frame_header_count = buf->frame_header_count;
++    enigma_buf->first_access_unit = buf->first_access_unit;
++    /* FIXME: The audio buffer should contain this info.
++     *        We should not have to get it from the open call.
++     */
++    enigma_buf->format.bits = buf->format.bits;
++    enigma_buf->format.rate = buf->format.rate;
++    enigma_buf->format.mode = buf->format.mode;
++    _x_extra_info_merge(enigma_buf->extra_info, buf->extra_info);
++
++    {
++      int step = buf->format.bits / 8;
++      uint8_t *src = (uint8_t *)buf->mem;
++      uint8_t *dst = (uint8_t *)enigma_buf->mem;
++
++      if (this->audio_channels == 2)
++        src += step;
++/*
++      fprintf(stderr, "~~~~~~~~~~ vdr port put buffer: channels: %d, %d\n"
++              , this->audio_channels
++              , buf->format.bits);
++*/
++      int i, k;
++      for (i = 0; i < buf->num_frames; i++)
++      {
++        for (k = 0; k < step; k++)
++          *dst++ = *src++;
++
++        src -= step;
++
++        for (k = 0; k < step; k++)
++          *dst++ = *src++;
++
++        src += step;
++      }
++    }
++
++    /* pass data to original port */
++    port->original_port->put_buffer(port->original_port, enigma_buf, stream);
++
++    /* free data from origial buffer */
++    buf->num_frames = 0; /* UNDOCUMENTED, but hey, it works! Force old audio_out buffer free. */
++  }
++
++  port->original_port->put_buffer(port->original_port, buf, stream);
++
++  return;
++}
+diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
+--- o/src/e2pc/post_enigma_video.c	1970-01-01 03:00:00.000000000 +0300
++++ pc/src/e2pc/post_enigma_video.c	2022-11-04 13:16:26.169320465 +0300
+@@ -0,0 +1,519 @@
++/*
++ * Copyright (C) 2000-2019 the xine project
++ *
++ * This file is part of xine, a free video player.
++ *
++ * xine is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * xine is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
++ */
++
++/*
++ * frame scaler plugin for ENIGMA
++ */
++
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
++#define LOG_MODULE "enigma_video"
++/*
++#define LOG
++#define LOG_VERBOSE
++*/
++
++#include <xine/xine_internal.h>
++#include <xine/post.h>
++#include "combined_enigma.h"
++
++
++
++typedef struct enigma_video_post_plugin_s
++{
++  post_plugin_t post_plugin;
++
++  xine_event_queue_t *event_queue;
++  xine_stream_t      *enigma_stream;
++
++  int8_t trick_speed_mode;
++  int8_t enabled;
++
++  int32_t x;
++  int32_t y;
++  int32_t w;
++  int32_t h;
++  int32_t w_ref;
++  int32_t h_ref;
++
++  int32_t old_frame_left;
++  int32_t old_frame_top;
++  int32_t old_frame_width;
++  int32_t old_frame_height;
++  double  old_frame_ratio;
++
++}
++enigma_video_post_plugin_t;
++
++
++static void enigma_video_set_video_window(enigma_video_post_plugin_t *this, int32_t x, int32_t y, int32_t w, int32_t h, int32_t w_ref, int32_t h_ref)
++{
++  this->enabled = 0;
++
++  this->x     = x;
++  this->y     = y;
++  this->w     = w;
++  this->h     = h;
++  this->w_ref = w_ref;
++  this->h_ref = h_ref;
++
++  if (w != w_ref || h != h_ref)
++    this->enabled = 1;
++}
++
++
++/* plugin class functions */
++static post_plugin_t *enigma_video_open_plugin(post_class_t *class_gen, int inputs,
++                                            xine_audio_port_t **audio_target,
++                                            xine_video_port_t **video_target);
++
++/* plugin instance functions */
++static void           enigma_video_dispose(post_plugin_t *this_gen);
++
++/* route preprocessing functions check */
++static int            enigma_video_route_preprocessing_procs(post_video_port_t *port, vo_frame_t *frame);
++
++/* replaced vo_frame functions */
++static int            enigma_video_draw(vo_frame_t *frame, xine_stream_t *stream);
++
++
++void *enigma_video_init_plugin(xine_t *xine, const void *data)
++{
++  post_class_t *class = calloc(1, sizeof (post_class_t));
++
++  (void)xine;
++  (void)data;
++
++  if (!class)
++    return NULL;
++
++  class->open_plugin     = enigma_video_open_plugin;
++  class->identifier      = "enigma";
++  class->description     = N_("modifies every video frame as requested by ENIGMA");
++  class->dispose         = default_post_class_dispose;
++
++  return class;
++}
++
++static post_plugin_t *enigma_video_open_plugin(post_class_t *class_gen, int inputs,
++                                            xine_audio_port_t **audio_target,
++                                            xine_video_port_t **video_target)
++{
++  enigma_video_post_plugin_t *this = calloc(1, sizeof (enigma_video_post_plugin_t));
++  post_in_t               *input;
++  post_out_t              *output;
++  post_video_port_t       *port;
++
++  if (!this || !video_target || !video_target[ 0 ])
++  {
++    free(this);
++    return NULL;
++  }
++
++  (void)class_gen;
++  (void)inputs;
++  (void)audio_target;
++
++  _x_post_init(&this->post_plugin, 0, 1);
++  this->post_plugin.dispose = enigma_video_dispose;
++
++  port = _x_post_intercept_video_port(&this->post_plugin, video_target[ 0 ], &input, &output);
++  port->route_preprocessing_procs = enigma_video_route_preprocessing_procs;
++  port->new_frame->draw           = enigma_video_draw;
++  this->post_plugin.xine_post.video_input[ 0 ] = &port->new_port;
++
++  this->enabled          = 0;
++  this->enigma_stream    = 0;
++  this->event_queue      = 0;
++  this->old_frame_left   = 0;
++  this->old_frame_top    = 0;
++  this->old_frame_width  = 0;
++  this->old_frame_height = 0;
++  this->old_frame_ratio  = 0;
++  this->trick_speed_mode = 0;
++
++  return &this->post_plugin;
++}
++
++static void enigma_video_dispose(post_plugin_t *this_gen)
++{
++  if (_x_post_dispose(this_gen))
++  {
++    enigma_video_post_plugin_t *this = (enigma_video_post_plugin_t *)this_gen;
++
++    if (this->enigma_stream)
++    {
++      xine_event_t event;
++      enigma_frame_size_changed_data_t event_data;
++
++      event_data.x = 0;
++      event_data.y = 0;
++      event_data.w = 0;
++      event_data.h = 0;
++
++      event.type        = XINE_EVENT_ENIGMA_FRAMESIZECHANGED;
++      event.data        = &event_data;
++      event.data_length = sizeof (event_data);
++
++      xine_event_send(this->enigma_stream, &event);
++
++      xine_event_dispose_queue(this->event_queue);
++    }
++
++    free(this_gen);
++  }
++}
++
++static int enigma_video_route_preprocessing_procs(post_video_port_t *port, vo_frame_t *frame)
++{
++  enigma_video_post_plugin_t *this = (enigma_video_post_plugin_t *)port->post;
++  return !this->enabled
++    || (frame->format != XINE_IMGFMT_YUY2
++      && frame->format != XINE_IMGFMT_YV12);
++}
++
++
++static inline void enigma_video_scale(uint8_t *src, uint8_t *dst, int y_inc, int x_inc, int w_dst, int h_dst, int x, int y, int w, int h, int w_ref, int h_ref, int init)
++{
++  int x0 = x * w_dst / w_ref;
++  int y0 = y * h_dst / h_ref;
++
++  int x1 = ((x + w) * w_dst - 1 + w_ref) / w_ref;
++  int y1 = ((y + h) * h_dst - 1 + h_ref) / h_ref;
++
++  int dx = x1 - x0;
++  int dy = y1 - y0;
++
++  int yy, xx;
++
++  int dy2    = dy + dy;
++  int h_dst2 = h_dst + h_dst;
++  int y_eps  = h_dst - dy2;
++
++  int dx2    = dx + dx;
++  int w_dst2 = w_dst + w_dst;
++  int x_eps0 = w_dst - dx2;
++
++  for (yy = 0; yy < y0; yy++)
++  {
++    uint8_t *dst0 = dst;
++
++    for (xx = 0; xx < w_dst; xx++)
++    {
++      *dst0 = init;
++      dst0 += x_inc;
++    }
++
++    dst += y_inc;
++  }
++
++  for (yy = y0; yy < y1; yy++)
++  {
++    uint8_t *dst0 = dst;
++    uint8_t *src0 = src;
++
++    int x_eps = x_eps0;
++
++    for (xx = 0; xx < x0; xx++)
++    {
++      *dst0 = init;
++      dst0 += x_inc;
++    }
++
++    for (xx = x0; xx < x1; xx++)
++    {
++      *dst0 = *src0;
++      dst0 += x_inc;
++
++      x_eps += w_dst2;
++      while (x_eps >= 0)
++      {
++        src0  += x_inc;
++        x_eps -= dx2;
++      }
++    }
++
++    for (xx = x1; xx < w_dst; xx++)
++    {
++      *dst0 = init;
++      dst0 += x_inc;
++    }
++
++    dst += y_inc;
++
++    y_eps += h_dst2;
++    while (y_eps >= 0)
++    {
++      src   += y_inc;
++      y_eps -= dy2;
++    }
++  }
++
++  for (yy = y1; yy < h_dst; yy++)
++  {
++    uint8_t *dst0 = dst;
++
++    for (xx = 0; xx < w_dst; xx++)
++    {
++      *dst0 = init;
++      dst0 += x_inc;
++    }
++
++    dst += y_inc;
++  }
++}
++
++static void enigma_video_scale_YUY2(enigma_video_post_plugin_t *this, vo_frame_t *src, vo_frame_t *dst)
++{
++  int w = dst->width  - dst->crop_left - dst->crop_right;
++  int h = dst->height - dst->crop_top  - dst->crop_bottom;
++  int offset;
++
++  if (w < 0)
++    w = 0;
++
++  if (h < 0)
++    h = 0;
++
++  offset = dst->pitches[ 0 ] * dst->crop_top + 2 *   dst->crop_left;
++  enigma_video_scale(&src->base[ 0 ][ 0 ] + offset, &dst->base[ 0 ][ 0 ] + offset, dst->pitches[ 0 ], 2,  w         , h, this->x, this->y, this->w, this->h, this->w_ref, this->h_ref, 0x00);
++  offset = dst->pitches[ 0 ] * dst->crop_top + 4 * ((dst->crop_left + 1) / 2);
++  enigma_video_scale(&src->base[ 0 ][ 1 ] + offset, &dst->base[ 0 ][ 1 ] + offset, dst->pitches[ 0 ], 4, (w + 1) / 2, h, this->x, this->y, this->w, this->h, this->w_ref, this->h_ref, 0x80);
++  offset = dst->pitches[ 0 ] * dst->crop_top + 4 * ((dst->crop_left + 1) / 2);
++  enigma_video_scale(&src->base[ 0 ][ 3 ] + offset, &dst->base[ 0 ][ 3 ] + offset, dst->pitches[ 0 ], 4, (w + 1) / 2, h, this->x, this->y, this->w, this->h, this->w_ref, this->h_ref, 0x80);
++}
++
++static void enigma_video_scale_YV12(enigma_video_post_plugin_t *this, vo_frame_t *src, vo_frame_t *dst)
++{
++  int w = dst->width  - dst->crop_left - dst->crop_right;
++  int h = dst->height - dst->crop_top  - dst->crop_bottom;
++  int offset;
++
++  if (w < 0)
++    w = 0;
++
++  if (h < 0)
++    h = 0;
++
++  offset = dst->pitches[ 0 ] *   dst->crop_top           + 1 *   dst->crop_left;
++  enigma_video_scale(&src->base[ 0 ][ 0 ] + offset, &dst->base[ 0 ][ 0 ] + offset, dst->pitches[ 0 ], 1,  w         ,  h         , this->x, this->y, this->w, this->h, this->w_ref, this->h_ref, 0x00);
++  offset = dst->pitches[ 1 ] * ((dst->crop_top + 1) / 2) + 1 * ((dst->crop_left + 1) / 2);
++  enigma_video_scale(&src->base[ 1 ][ 0 ] + offset, &dst->base[ 1 ][ 0 ] + offset, dst->pitches[ 1 ], 1, (w + 1) / 2, (h + 1) / 2, this->x, this->y, this->w, this->h, this->w_ref, this->h_ref, 0x80);
++  offset = dst->pitches[ 2 ] * ((dst->crop_top + 1) / 2) + 1 * ((dst->crop_left + 1) / 2);
++  enigma_video_scale(&src->base[ 2 ][ 0 ] + offset, &dst->base[ 2 ][ 0 ] + offset, dst->pitches[ 2 ], 1, (w + 1) / 2, (h + 1) / 2, this->x, this->y, this->w, this->h, this->w_ref, this->h_ref, 0x80);
++}
++
++
++static int enigma_video_draw(vo_frame_t *frame, xine_stream_t *stream)
++{
++  post_video_port_t       *port = (post_video_port_t *)frame->port;
++  enigma_video_post_plugin_t *this = (enigma_video_post_plugin_t *)port->post;
++  vo_frame_t *enigma_frame;
++  xine_event_t *event;
++  int skip;
++
++  if (this->enigma_stream
++      && !_x_continue_stream_processing(this->enigma_stream))
++  {
++    this->enigma_stream = 0;
++
++    xine_event_dispose_queue(this->event_queue);
++    this->event_queue = 0;
++
++    this->old_frame_left   = 0;
++    this->old_frame_top    = 0;
++    this->old_frame_width  = 0;
++    this->old_frame_height = 0;
++    this->old_frame_ratio  = 0;
++  }
++
++  if (!this->enigma_stream
++      && enigma_is_enigma_stream(stream))
++  {
++    this->event_queue = xine_event_new_queue(stream);
++    if (this->event_queue)
++    {
++      this->enigma_stream = stream;
++
++      {
++        xine_event_t event;
++
++        event.type = XINE_EVENT_ENIGMA_PLUGINSTARTED;
++        event.data = 0;
++        event.data_length = 0; /* enigma_video */
++
++        xine_event_send(this->enigma_stream, &event);
++      }
++    }
++  }
++
++  if (this->event_queue)
++  {
++    while ((event = xine_event_get(this->event_queue)))
++    {
++      if (event->type == XINE_EVENT_ENIGMA_SETVIDEOWINDOW)
++      {
++        enigma_set_video_window_data_t *data = (enigma_set_video_window_data_t *)event->data;
++
++        enigma_video_set_video_window(this, data->x, data->y, data->w, data->h, data->w_ref, data->h_ref);
++      }
++      else if (event->type == XINE_EVENT_ENIGMA_TRICKSPEEDMODE)
++      {
++/*
++        fprintf(stderr, "###############################: %p, %d\n", event->data, event->data_length);
++        this->trick_speed_mode = (0 != event->data_length);
++*/
++      }
++
++      xine_event_free(event);
++    }
++  }
++
++  {
++    int32_t frame_left   = frame->crop_left;
++    int32_t frame_width  = frame->width - frame->crop_left - frame->crop_right;
++    int32_t frame_top    = frame->crop_top;
++    int32_t frame_height = frame->height - frame->crop_top - frame->crop_bottom;
++    double  frame_ratio  = frame->ratio;
++
++    if (frame_left < 0)
++      frame_left = 0;
++    if (frame_width > frame->width)
++      frame_width = frame->width;
++    if (frame_top < 0)
++      frame_top = 0;
++    if (frame_height > frame->height)
++      frame_height = frame->height;
++
++    if (this->enigma_stream
++        && frame_width != 0
++        && frame_height != 0
++        && (this->old_frame_left    != frame_left
++          || this->old_frame_top    != frame_top
++          || this->old_frame_width  != frame_width
++          || this->old_frame_height != frame_height
++          || this->old_frame_ratio  != frame_ratio))
++    {
++      xine_event_t event;
++      enigma_frame_size_changed_data_t event_data;
++
++      event_data.x = frame_left;
++      event_data.y = frame_top;
++      event_data.w = frame_width;
++      event_data.h = frame_height;
++      event_data.r = frame_ratio;
++
++      xprintf(this->enigma_stream->xine, XINE_VERBOSITY_LOG,
++            _(LOG_MODULE ": osd: (%d, %d)-(%d, %d)@%lg\n"), frame_left, frame_top, frame_width, frame_height, frame_ratio);
++
++      event.type        = XINE_EVENT_ENIGMA_FRAMESIZECHANGED;
++      event.data        = &event_data;
++      event.data_length = sizeof (event_data);
++
++      xine_event_send(this->enigma_stream, &event);
++
++      // Enigma send event
++      xine_format_change_data_t event_data_enigma;
++
++      event_data_enigma.width = frame_width;
++      event_data_enigma.height = frame_height;
++
++      int ratio = (int)(10000 * frame_ratio + 0.5);
++      int matches4_3 = abs(ratio - 13333);
++      int matches16_9 = abs(ratio - 17778);
++      if (matches4_3 < matches16_9)
++       {
++        event_data_enigma.aspect = 2;
++       }
++      else
++      {
++        event_data_enigma.aspect = 3;
++      }
++      event_data_enigma.pan_scan = 0;
++
++      event.type        = XINE_EVENT_FRAME_FORMAT_CHANGE;
++      event.data        = &event_data_enigma;
++      event.data_length = sizeof (event_data_enigma);
++
++      xine_event_send(this->enigma_stream, &event);
++
++      this->old_frame_left   = frame_left;
++      this->old_frame_top    = frame_top;
++      this->old_frame_width  = frame_width;
++      this->old_frame_height = frame_height;
++      this->old_frame_ratio  = frame_ratio;
++    }
++  }
++/*
++  fprintf(stderr, "~~~~~~~~~~~~ trickspeedmode: %d\n", this->trick_speed_mode);
++
++  if (this->enigma_stream
++      && this->trick_speed_mode)
++  {
++    frame->pts = 0;
++    frame->next->pts = 0;
++  }
++*/
++#if defined(LOG) && defined(LOG_VERBOSE)
++  {
++    int a = 0, b = 0, c = 0, d = 0;
++    if (stream)
++      _x_query_buffer_usage(stream, &a, &b, &c, &d);
++    lprintf("buffer usage: %3d, %2d, %2d, %2d, %p\n", a, b, c, d, stream);
++  }
++#endif
++
++  if (!this->enabled
++      || frame->bad_frame
++      || (frame->format != XINE_IMGFMT_YUY2
++          && frame->format != XINE_IMGFMT_YV12)
++      || frame->proc_frame
++      || frame->proc_slice)
++  {
++    _x_post_frame_copy_down(frame, frame->next);
++    skip = frame->next->draw(frame->next, stream);
++    _x_post_frame_copy_up(frame, frame->next);
++    return skip;
++  }
++
++  enigma_frame = port->original_port->get_frame(port->original_port,
++    frame->width, frame->height, frame->ratio, frame->format, frame->flags | VO_BOTH_FIELDS);
++
++  _x_post_frame_copy_down(frame, enigma_frame);
++
++  switch (enigma_frame->format)
++  {
++  case XINE_IMGFMT_YUY2:
++    enigma_video_scale_YUY2(this, frame, enigma_frame);
++    break;
++
++  case XINE_IMGFMT_YV12:
++    enigma_video_scale_YV12(this, frame, enigma_frame);
++    break;
++  }
++
++  skip = enigma_frame->draw(enigma_frame, stream);
++  _x_post_frame_copy_up(frame, enigma_frame);
++  enigma_frame->free(enigma_frame);
++
++  return skip;
++}
+diff -ruN o/src/Makefile.am pc/src/Makefile.am
+--- o/src/Makefile.am	2022-04-03 13:20:24.238485781 +0300
++++ pc/src/Makefile.am	2022-11-04 13:16:26.169320465 +0300
+@@ -16,4 +16,5 @@
+ 	libreal \
+ 	post \
+ 	combined \
+-	vdr
++	vdr \
++	e2pc
+diff -ruN o/src/video_out/vaapi/vaapi_util.c pc/src/video_out/vaapi/vaapi_util.c
+--- o/src/video_out/vaapi/vaapi_util.c	2022-04-03 13:20:24.543491491 +0300
++++ pc/src/video_out/vaapi/vaapi_util.c	2022-11-04 13:16:26.173320465 +0300
+@@ -611,9 +611,6 @@
+ 
+ void _x_va_surface_displayed(vaapi_context_impl_t *va_context, ff_vaapi_surface_t *va_surface)
+ {
+-  _x_assert(va_surface->status == SURFACE_RENDER ||
+-            va_surface->status == SURFACE_RENDER_RELEASE);
+-
+   pthread_mutex_lock(&va_context->surfaces_lock);
+ 
+   if (va_surface->status == SURFACE_RENDER_RELEASE) {
+diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
+--- o/src/video_out/video_out_opengl.c	2022-04-03 13:20:24.569491978 +0300
++++ pc/src/video_out/video_out_opengl.c	2022-11-04 13:16:26.173320465 +0300
+@@ -134,6 +134,14 @@
+ 
+ #define MY_2PI               (M_PI * 2)
+ 
++typedef struct opengl_argb_layer_s {
++  pthread_mutex_t  mutex;
++  uint32_t        *buffer;
++  /* dirty area */
++  int width;
++  int height;
++  int changed;
++} opengl_argb_layer_t;
+ 
+ typedef struct {
+   vo_frame_t         vo_frame;
+@@ -211,8 +219,14 @@
+ 
+   /* Frame state */
+   opengl_frame_t    *frame[NUM_FRAMES_BACKLOG];
++
++  /* Overlay */
+   x11osd            *xoverlay;
++  opengl_argb_layer_t argb_layer;
+   int                ovl_changed;
++  int                last_ovl_width, last_ovl_height;
++  int                tex_ovl_width, tex_ovl_height; /* independend of frame */
++  int                video_window_width, video_window_height, video_window_x, video_window_y;
+ 
+   config_values_t   *config;
+   xine_t            *xine;
+@@ -242,6 +256,10 @@
+     enum render_e defaction;
+     /* Fallback: change to following render backend if this one doesn't work */
+     int fallback;
++    /* Upload new overlay image; Returns 0 if failed */
++    int (*ovl_image)(opengl_driver_t *, opengl_frame_t *);
++    /* Display current overlay */
++    void (*ovl_display)(opengl_driver_t *, opengl_frame_t *);
+ } opengl_render_t;
+ 
+ 
+@@ -271,10 +289,21 @@
+   float           tx, ty;
+ 
+   /* Calc texture/rectangle coords */
+-  x1 = this->sc.output_xoffset;
+-  y1 = this->sc.output_yoffset;
+-  x2 = x1 + this->sc.output_width;
+-  y2 = y1 + this->sc.output_height;
++  if (this->video_window_width && this->video_window_height) // video is displayed in a small window
++  {
++    x1 = this->video_window_x;
++    y1 = this->video_window_y;
++    x2 = x1 + this->video_window_width;
++    y2 = y1 + this->video_window_height;
++  }
++  else
++  {
++    x1 = this->sc.output_xoffset;
++    y1 = this->sc.output_yoffset;
++    x2 = x1 + this->sc.output_width;
++    y2 = y1 + this->sc.output_height;
++  }
++
+   tx = (float) frame->width  / this->tex_width;
+   ty = (float) frame->height / this->tex_height;
+   /* Draw quad */
+@@ -286,6 +315,56 @@
+   glEnd ();
+ }
+ 
++/* Static Overlay display */
++static void render_overlay (opengl_driver_t *this, opengl_frame_t *frame) {
++  int             x1, x2, y1, y2;
++  float           tx, ty;
++
++  glEnable(GL_BLEND);
++  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
++  
++  if (this->tex_ovl_width == 0 && this->tex_ovl_height == 0) // Image_Pipeline renderer is active (no texture support)
++  {
++    glPixelZoom   (((float)this->gui_width)    / this->argb_layer.width,
++		((float)this->gui_height)   / this->argb_layer.height);
++    glRasterPos2i (0, 0);
++    glDrawPixels  (this->argb_layer.width, this->argb_layer.height, GL_BGRA,
++			GL_UNSIGNED_BYTE, this->argb_layer.buffer);
++  }
++  else
++  {
++    if (this->glBindTextureEXT) // bind overlay texture
++      this->glBindTextureEXT (GL_TEXTURE_2D, 1000);
++
++    if (this->fprog != -1)  // 2D_Tex_Fragprog is active which uses a pixelshader to make yuv2rgb conversion
++                            // -> disable it because texture is already argb
++      glDisable(MYGL_FRAGMENT_PROGRAM_ARB);
++
++    /* Calc texture/rectangle coords */
++    x1 = 0;
++    y1 = 0;
++    x2 = this->gui_width;
++    y2 = this->gui_height;
++    tx = (float) this->argb_layer.width  / this->tex_ovl_width;
++    ty = (float) this->argb_layer.height / this->tex_ovl_height;
++
++    /* Draw quad */
++    glBegin (GL_QUADS);
++    glTexCoord2f (tx, ty);   glVertex2i (x2, y2);
++    glTexCoord2f (0,  ty);   glVertex2i (x1, y2);
++    glTexCoord2f (0,  0);    glVertex2i (x1, y1);
++    glTexCoord2f (tx, 0);    glVertex2i (x2, y1);
++    glEnd ();
++
++    if (this->fprog != -1)  // enable pixelshader for next normal video frame
++      glEnable(MYGL_FRAGMENT_PROGRAM_ARB);
++
++    if (this->glBindTextureEXT) // unbind overlay texture
++      this->glBindTextureEXT (GL_TEXTURE_2D, 0);
++  }
++  glDisable(GL_BLEND);
++}
++
+ /* Static 2d texture tiled based display */
+ static void render_tex2dtiled (opengl_driver_t *this, opengl_frame_t *frame) {
+   int    tex_w, tex_h, frame_w, frame_h;
+@@ -297,10 +376,20 @@
+   frame_w = frame->width;
+   frame_h = frame->height;
+   /* Calc texture/rectangle coords */
+-  x1 = this->sc.output_xoffset;
+-  y1 = this->sc.output_yoffset;
+-  x2 = x1 + this->sc.output_width;
+-  y2 = y1 + this->sc.output_height;
++  if (this->video_window_width && this->video_window_height) // video is displayed in a small window
++  {
++    x1 = this->video_window_x;
++    y1 = this->video_window_y;
++    x2 = x1 + this->video_window_width;
++    y2 = y1 + this->video_window_height;
++  }
++  else
++  {
++    x1 = this->sc.output_xoffset;
++    y1 = this->sc.output_yoffset;
++    x2 = x1 + this->sc.output_width;
++    y2 = y1 + this->sc.output_height;
++  }
+   txa = 1.0 / tex_w;
+   tya = 1.0 / tex_h;
+   txb = (float) frame_w / (tex_w-2);	/* temporary: total */
+@@ -331,11 +420,23 @@
+ 
+ /* Static image pipline based display */
+ static void render_draw (opengl_driver_t *this, opengl_frame_t *frame) {
+-  glPixelZoom   (((float)this->sc.output_width)    / frame->width,
+-		 - ((float)this->sc.output_height) / frame->height);
+-  glRasterPos2i (this->sc.output_xoffset, this->sc.output_yoffset);
+-  glDrawPixels  (frame->width, frame->height, RGB_TEXTURE_FORMAT,
+-		 GL_UNSIGNED_BYTE, frame->rgb);
++
++  if (this->video_window_width && this->video_window_height) // video is displayed in a small window
++  {
++    glPixelZoom(((float)this->video_window_width)  / frame->width,
++                ((float)this->video_window_height) / frame->height);
++    glRasterPos2i(this->video_window_x, this->video_window_y);
++    glDrawPixels (frame->width, frame->height, RGB_TEXTURE_FORMAT,
++                  GL_UNSIGNED_BYTE, frame->rgb);
++  }
++  else
++  {
++    glPixelZoom(((float)this->sc.output_width)  / frame->width,
++                ((float)this->sc.output_height) / frame->height);
++    glRasterPos2i(this->sc.output_xoffset, this->sc.output_yoffset);
++    glDrawPixels (frame->width, frame->height, RGB_TEXTURE_FORMAT,
++                  GL_UNSIGNED_BYTE, frame->rgb);
++  }
+ }
+ 
+ /* Animated spinning cylinder */
+@@ -486,6 +587,45 @@
+   return 2;
+ }
+ 
++/* holds/allocates extra texture for overlay */
++/* returns 0: allocation failure  1: texture updated  2: texture kept */
++static int render_help_overlay_image_tex(opengl_driver_t *this, int new_w, int new_h,
++				GLint glformat, GLint texformat) {
++  int tex_w, tex_h, err;
++
++  /* check necessary texture size and allocate */
++  if (new_w != this->last_ovl_width ||
++      new_h != this->last_ovl_height ||
++      ! this->tex_ovl_width || ! this->tex_ovl_height) {
++    tex_w = tex_h = 16;
++    while (tex_w < new_w)
++      tex_w <<= 1;
++    while (tex_h < new_h)
++      tex_h <<= 1;
++
++    if (tex_w != this->tex_ovl_width || tex_h != this->tex_ovl_height) {
++      char *tmp = calloc (tex_w * tex_h, 4); /* 4 enough until RGBA */
++      if (this->glBindTextureEXT)  // xine code binds without call glGenTextures -> seems to me not correct
++        this->glBindTextureEXT (GL_TEXTURE_2D, 1000);  // bind 1000 to avoid collision with tiledtex textures / don't want to rewrite everything ...
++      glTexParameteri (GL_TEXTURE_2D,  GL_TEXTURE_MAG_FILTER, GL_LINEAR);
++      glTexParameteri (GL_TEXTURE_2D,  GL_TEXTURE_MIN_FILTER, GL_LINEAR);
++      glTexImage2D (GL_TEXTURE_2D, 0, glformat, tex_w, tex_h,
++			0, texformat, GL_UNSIGNED_BYTE, tmp);
++      err = glGetError ();
++      free (tmp);
++      if (err)
++		return 0;
++      this->tex_ovl_width  = tex_w;
++      this->tex_ovl_height = tex_h;
++      lprintf ("* new texsize: %dx%d\n", tex_w, tex_h);
++    }
++    this->last_ovl_width  = new_w;
++    this->last_ovl_height = new_h;
++    return 1;
++  }
++  return 2;
++}
++
+ /* returns 0: allocation failure  1: textures updated  2: textures kept */
+ static int render_help_image_tiledtex (opengl_driver_t *this,
+ 				       int new_w, int new_h,
+@@ -572,6 +712,24 @@
+   return 1;
+ }
+ 
++static int render_overlay_image_tex (opengl_driver_t *this, opengl_frame_t *frame) {
++  int ret;
++
++  // use own texture
++  ret = render_help_overlay_image_tex (this, this->argb_layer.width, this->argb_layer.height,
++                                       4, GL_BGRA);
++
++  if (! ret)
++    return 0;
++
++  if (this->glBindTextureEXT)
++    this->glBindTextureEXT (GL_TEXTURE_2D, 1000);
++  glTexSubImage2D (GL_TEXTURE_2D, 0, 4, 0, this->argb_layer.width, this->argb_layer.height,
++                   GL_BGRA, GL_UNSIGNED_BYTE,
++                   this->argb_layer.buffer);
++  return 1;
++}
++
+ static int render_image_tiledtex (opengl_driver_t *this, opengl_frame_t *frame) {
+   int ret;
+   int frame_w, frame_h, tex_w, tex_h, i, j, nx, ny;
+@@ -1042,20 +1200,20 @@
+ /*
+  * List of render backends
+  */
+-/* name, display, image,  setup, needsrgb, defaction, fallback */
++/* name, display, image,  setup, needsrgb, defaction, fallback, ovl_image, ovl_display */
+ static const opengl_render_t opengl_rb[] = {
+     {   "2D_Tex_Fragprog",  render_tex2d, render_image_fp_yuv,
+-	render_setup_fp_yuv, 0, RENDER_NONE, 1 },
++	render_setup_fp_yuv, 0, RENDER_NONE, 1, render_overlay_image_tex, render_overlay },
+     {   "2D_Tex",           render_tex2d, render_image_tex,
+-	render_setup_tex2d,  1, RENDER_NONE, 2 },
++	render_setup_tex2d,  1, RENDER_NONE, 2, render_overlay_image_tex, render_overlay },
+     {   "2D_Tex_Tiled",     render_tex2dtiled, render_image_tiledtex,
+-	render_setup_tex2d,  1, RENDER_NONE, 3 },
++	render_setup_tex2d,  1, RENDER_NONE, 3, render_overlay_image_tex, render_overlay },
+     {   "Image_Pipeline",   render_draw, render_image_nop,
+-	render_setup_2d,     1, RENDER_NONE, -1 },
++	render_setup_2d,     1, RENDER_NONE, -1, render_image_nop, render_overlay },
+     {   "Cylinder",         render_cyl, render_image_tex,
+-	render_setup_cyl,    1, RENDER_DRAW, 1 },
++	render_setup_cyl,    1, RENDER_DRAW, 1, render_image_nop, render_image_nop },
+     {   "Env_Mapped_Torus", render_env_tor, render_image_envtex,
+-	render_setup_torus,  1, RENDER_DRAW, 1 }
++	render_setup_torus,  1, RENDER_DRAW, 1, render_image_nop, render_image_nop }
+ } ;
+ 
+ 
+@@ -1147,12 +1305,27 @@
+ 	CHECKERR ("pre-render");
+ 	ret = 1;
+ 	if (changed)
++         if (this->argb_layer.changed) // clean window after every overlay change - do it twice because of double buffering
++         {
++      glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
++      if (this->argb_layer.changed == 1)
++        this->argb_layer.changed++;
++      else this->argb_layer.changed = 0;
++    }
+ 	  ret = (render->image) (this, frame);
+-	(render->display) (this, frame);
+-	if (this->render_double_buffer)
+-	  glXSwapBuffers(this->display, this->drawable);
+-	else
+-	  glFlush ();
++    (render->display) (this, frame);
++    // display overlay
++    pthread_mutex_lock (&this->argb_layer.mutex);
++    if (this->argb_layer.buffer)
++    {
++      ret = (render->ovl_image) (this, frame);
++      (render->ovl_display) (this, frame);
++    }
++    pthread_mutex_unlock (&this->argb_layer.mutex);
++    if (this->render_double_buffer)
++      glXSwapBuffers(this->display, this->drawable);
++    else
++      glFlush ();
+ 	/* Note: no glFinish() - work concurrently to the graphics pipe */
+ 	CHECKERR ("post-render");
+ 	XUnlockDisplay (this->display);
+@@ -1216,6 +1389,7 @@
+ 	}
+ 	XUnlockDisplay (this->display);
+ 	this->tex_width = this->tex_height = 0;
++	this->tex_ovl_width = this->tex_ovl_height = 0;
+       }
+       break;
+ 
+@@ -1592,6 +1766,9 @@
+   opengl_driver_t  *this  = (opengl_driver_t *) this_gen;
+   opengl_frame_t   *frame = (opengl_frame_t *) frame_gen;
+ 
++  if (overlay->width <= 0 || overlay->height <= 0 || (!overlay->rle && (!overlay->argb_layer || !overlay->argb_layer->buffer)))
++    return;
++
+   /* Alpha Blend here */
+   if (overlay->rle) {
+     if (overlay->unscaled) {
+@@ -1633,6 +1810,28 @@
+ #     endif
+     }
+   }
++  else if (overlay && overlay->argb_layer && overlay->argb_layer->buffer && this->ovl_changed)
++  { 
++    // copy argb_buffer because it gets invalid after overlay_end and rendering is after overlay_end
++    pthread_mutex_lock (&this->argb_layer.mutex);
++    if (this->argb_layer.buffer)
++      free(this->argb_layer.buffer);
++    this->argb_layer.buffer = calloc(overlay->extent_width * overlay->extent_height, sizeof(uint32_t));
++    if (this->argb_layer.buffer == NULL)
++    {
++      printf("Fatal error(opengl_overlay_blend): No memory\n");
++      return;
++    }
++    this->argb_layer.width  = overlay->extent_width;
++    this->argb_layer.height = overlay->extent_height;
++    this->argb_layer.changed= 1;
++    xine_fast_memcpy(this->argb_layer.buffer, overlay->argb_layer->buffer, overlay->extent_width * overlay->extent_height * sizeof(uint32_t));
++    pthread_mutex_unlock (&this->argb_layer.mutex);
++    this->video_window_width  = overlay->video_window_width;
++    this->video_window_height = overlay->video_window_height;
++    this->video_window_x      = overlay->video_window_x;
++    this->video_window_y      = overlay->video_window_y;
++  }
+ }
+ 
+ static int opengl_redraw_needed (vo_driver_t *this_gen) {
+@@ -1946,6 +2145,11 @@
+     XFree(this->vinfo);
+   }
+ 
++  pthread_mutex_lock (&this->argb_layer.mutex);
++  if (this->argb_layer.buffer)
++       free(this->argb_layer.buffer);
++  pthread_mutex_unlock (&this->argb_layer.mutex);
++
+   _x_alphablend_free(&this->alphablend_extra_data);
+   _x_vo_scale_cleanup (&this->sc, this->xine->config);
+ 
+@@ -2010,7 +2214,17 @@
+   this->fprog = -1;
+ 
+   this->xoverlay                = NULL;
++  this->argb_layer.buffer       = NULL;
++  this->argb_layer.width        = 0;
++  this->argb_layer.height       = 0;
++  this->argb_layer.changed      = 0;
+   this->ovl_changed             = 0;
++  this->last_ovl_width = this->last_ovl_height = -1;
++  this->video_window_width      = 0;
++  this->video_window_height     = 0;
++  this->video_window_x          = 0;
++  this->video_window_y          = 0;
++  
+   this->xine                    = class->xine;
+   this->config                  = config;
+ 
+diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
+--- o/src/video_out/video_out_vaapi.c	2022-04-03 13:20:24.562491847 +0300
++++ pc/src/video_out/video_out_vaapi.c	2022-11-04 13:16:26.173320465 +0300
+@@ -74,9 +74,9 @@
+ # define ENABLE_VA_GLX
+ #endif /* OPENGL */
+ 
++#include "accel_vaapi.h"
+ #include "vaapi/vaapi_util.h"
+-#include "vaapi/vaapi_frame.h"
+-#include "vaapi/xine_va_display.h" /* interop flags */
++#include "mem_frame.h"
+ 
+ #include <pthread.h>
+ 
+@@ -144,6 +144,11 @@
+ } vaapi_rect_t;
+ 
+ typedef struct {
++  mem_frame_t       mem_frame;
++  vaapi_accel_t     vaapi_accel_data;
++} vaapi_frame_t;
++
++typedef struct {
+   VADisplayAttribType type;
+   int                 value;
+   int                 min;
+@@ -180,6 +185,8 @@
+ 
+   uint32_t            vdr_osd_width;
+   uint32_t            vdr_osd_height;
++  uint32_t            enigma_osd_width;
++  uint32_t            enigma_osd_height;
+ 
+   uint32_t            overlay_output_width;
+   uint32_t            overlay_output_height;
+@@ -223,6 +230,8 @@
+   int                 va_subpic_width;
+   int                 va_subpic_height;
+   unsigned int        last_sub_image_fmt;
++  unsigned int        num_frame_buffers;
++  vaapi_frame_t       *frames[RENDER_SURFACES];
+ 
+   pthread_mutex_t     vaapi_lock;
+ 
+@@ -268,6 +277,13 @@
+ static VAStatus vaapi_destroy_soft_surfaces(vaapi_driver_t *this);
+ static int vaapi_set_property (vo_driver_t *this_gen, int property, int value);
+ 
++static void yv12_to_nv12(const uint8_t *y_src, int y_src_pitch,
++                         const uint8_t *u_src, int u_src_pitch,
++                         const uint8_t *v_src, int v_src_pitch,
++                         uint8_t *y_dst,  int y_dst_pitch,
++                         uint8_t *uv_dst, int uv_dst_pitch,
++                         int width, int height);
++
+ #ifdef ENABLE_VA_GLX
+ void (GLAPIENTRY *mpglBindTexture)(GLenum, GLuint);
+ void (GLAPIENTRY *mpglXBindTexImage)(Display *, GLXDrawable, int, const int *);
+@@ -300,6 +316,12 @@
+   return 1;
+ }
+ 
++static int vaapi_lock_decode_dummy(vo_frame_t *vo_frame)
++{
++  (void)vo_frame;
++  return 0;
++}
++
+ static int vaapi_lock_decode_guarded(vo_frame_t *frame_gen)
+ {
+   vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
+@@ -316,11 +338,44 @@
+   pthread_mutex_unlock(&this->vaapi_lock);
+ }
+ 
++static int guarded_render(vo_frame_t *frame_gen) {
++  vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
++
++  return this->guarded_render;
++}
++
++static ff_vaapi_surface_t *get_vaapi_surface(vo_frame_t *frame_gen) {
++  vaapi_driver_t      *this       = (vaapi_driver_t *) frame_gen->driver;
++  vaapi_frame_t       *frame      = (vaapi_frame_t *) frame_gen;
++  ff_vaapi_context_t  *va_context = this->va_context;
++  return &va_context->va_render_surfaces[frame->vaapi_accel_data.index];
++}
++
++static ff_vaapi_surface_t *alloc_vaapi_surface(vo_frame_t *frame_gen) {
++
++  vaapi_driver_t      *this       = (vaapi_driver_t *) frame_gen->driver;
++
++  return _x_va_alloc_surface(this->va);
++}
++
++static void render_vaapi_surface(vo_frame_t *frame_gen, ff_vaapi_surface_t *va_surface) {
++  vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
++  vaapi_accel_t *accel = (vaapi_accel_t*)frame_gen->accel_data;
++
++  accel->index = va_surface->index;
++  _x_va_render_surface(this->va, va_surface);
++}
++
++static void release_vaapi_surface(vo_frame_t *frame_gen, ff_vaapi_surface_t *va_surface) {
++  vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
++
++  _x_va_release_surface(this->va, va_surface);
++}
++
+ typedef struct {
+   video_driver_class_t driver_class;
+ 
+   xine_t              *xine;
+-  unsigned             visual_type;
+ } vaapi_class_t;
+ 
+ static void vaapi_x11_wait_event(Display *dpy, Window w, int type)
+@@ -876,6 +931,16 @@
+   return this->capabilities;
+ }
+ 
++static int profile_from_imgfmt(vo_frame_t *frame_gen, unsigned format)
++{
++  vo_driver_t         *this_gen   = (vo_driver_t *) frame_gen->driver;
++  vaapi_driver_t      *this       = (vaapi_driver_t *) this_gen;
++
++  _x_assert(this->va->c.va_display);
++
++  return _x_va_profile_from_imgfmt(this->va, format);
++}
++
+ /* Init subpicture */
+ static void vaapi_init_subpicture(vaapi_driver_t *this) {
+   this->va_subpic_width               = 0;
+@@ -912,6 +977,12 @@
+   _x_va_close(this->va);
+ }
+ 
++static ff_vaapi_context_t *get_context(vo_frame_t *frame_gen) {
++  vaapi_driver_t        *this = (vaapi_driver_t *) frame_gen->driver;
++
++  return this->va_context;
++}
++
+ /* Deassociate and free subpicture */
+ static void vaapi_destroy_subpicture(vaapi_driver_t *this) {
+   ff_vaapi_context_t    *va_context = this->va_context;
+@@ -1065,9 +1136,69 @@
+       float contrast = vaapi_normalized_prop (that, VO_PROP_CONTRAST);
+       float brightness = (vaapi_normalized_prop (that, VO_PROP_BRIGHTNESS) - 1.0) * 128.0;
+       float *matrix = that->user_csc_matrix;
++      float uvcos = saturation * cos( hue );
++      float uvsin = saturation * sin( hue );
++      int i;
+       VADisplayAttribute attr;
+ 
+-      cm_fill_matrix(matrix, color_matrix, hue, saturation, contrast, brightness);
++      if ((color_matrix >> 1) == 8) {
++        /* YCgCo. This is really quite simple. */
++        uvsin *= contrast;
++        uvcos *= contrast;
++        /* matrix[rgb][yuv1] */
++        matrix[1] = -1.0 * uvcos - 1.0 * uvsin;
++        matrix[2] =  1.0 * uvcos - 1.0 * uvsin;
++        matrix[5] =  1.0 * uvcos;
++        matrix[6] =                1.0 * uvsin;
++        matrix[9] = -1.0 * uvcos + 1.0 * uvsin;
++        matrix[10] = -1.0 * uvcos - 1.0 * uvsin;
++        for (i = 0; i < 12; i += 4) {
++          matrix[i] = contrast;
++          matrix[i + 3] = (brightness * contrast - 128.0 * (matrix[i + 1] + matrix[i + 2])) / 255.0;
++        }
++      } else {
++        /* YCbCr */
++        float kb, kr;
++        float vr, vg, ug, ub;
++        float ygain, yoffset;
++
++        switch (color_matrix >> 1) {
++          case 1:  kb = 0.0722; kr = 0.2126; break; /* ITU-R 709 */
++          case 4:  kb = 0.1100; kr = 0.3000; break; /* FCC */
++          case 7:  kb = 0.0870; kr = 0.2120; break; /* SMPTE 240 */
++          default: kb = 0.1140; kr = 0.2990;        /* ITU-R 601 */
++        }
++        vr = 2.0 * (1.0 - kr);
++        vg = -2.0 * kr * (1.0 - kr) / (1.0 - kb - kr);
++        ug = -2.0 * kb * (1.0 - kb) / (1.0 - kb - kr);
++        ub = 2.0 * (1.0 - kb);
++
++        if (color_matrix & 1) {
++          /* fullrange mode */
++          yoffset = brightness;
++          ygain = contrast;
++          uvcos *= contrast * 255.0 / 254.0;
++          uvsin *= contrast * 255.0 / 254.0;
++        } else {
++          /* mpeg range */
++          yoffset = brightness - 16.0;
++          ygain = contrast * 255.0 / 219.0;
++          uvcos *= contrast * 255.0 / 224.0;
++          uvsin *= contrast * 255.0 / 224.0;
++        }
++
++        /* matrix[rgb][yuv1] */
++        matrix[1] = -uvsin * vr;
++        matrix[2] = uvcos * vr;
++        matrix[5] = uvcos * ug - uvsin * vg;
++        matrix[6] = uvcos * vg + uvsin * ug;
++        matrix[9] = uvcos * ub;
++        matrix[10] = uvsin * ub;
++        for (i = 0; i < 12; i += 4) {
++          matrix[i] = ygain;
++          matrix[i + 3] = (yoffset * ygain - 128.0 * (matrix[i + 1] + matrix[i + 2])) / 255.0;
++        }
++      }
+ 
+       attr.type   = VADisplayAttribCSCMatrix;
+       /* libva design bug: VADisplayAttribute.value is plain int.
+@@ -1431,8 +1562,6 @@
+   int i, n = 0;
+   for (i = 0; i < VO_NUM_RECENT_FRAMES; i++) {
+     if (this->recent_frames[i]) {
+-      if (this->guarded_render && this->recent_frames[i]->format == XINE_IMGFMT_VAAPI)
+-        _x_va_frame_displayed(this->recent_frames[i]);
+       this->recent_frames[i]->free (this->recent_frames[i]);
+       this->recent_frames[i] = NULL;
+       n++;
+@@ -1442,6 +1571,7 @@
+ }
+ 
+ static VAStatus vaapi_init_internal(vaapi_driver_t *this, int va_profile, int width, int height) {
++  int                 i;
+   VAStatus            vaStatus;
+ 
+   vaapi_close(this);
+@@ -1452,10 +1582,16 @@
+   if (vaStatus != VA_STATUS_SUCCESS)
+     goto error;
+ 
+-#if 0
+-  int i;
++  /* xine was told to allocate RENDER_SURFACES frames. assign the frames the rendering surfaces. */
+   for(i = 0; i < RENDER_SURFACES; i++) {
+-    if(this->va->frames[i]) {
++    if(this->frames[i]) {
++      vaapi_frame_t *frame                  = this->frames[i];
++      if (!this->guarded_render) {
++        frame->vaapi_accel_data.index = i;
++      } else {
++        frame->vaapi_accel_data.index = RENDER_SURFACES; /* invalid */
++      }
++#if 0
+       /* this seems to break decoding to the surface ? */
+       VAImage va_image;
+       int is_bound;
+@@ -1466,12 +1602,12 @@
+                               0, 0, va_image.width, va_image.height);
+         _x_va_destroy_image(this->va, &va_image);
+       }
++#endif
+     }
+ #ifdef DEBUG_SURFACE
+     printf("vaapi_init_internal 0x%08x\n", va_context->va_surface_ids[i]);
+ #endif
+   }
+-#endif
+ 
+   vaStatus = vaapi_init_soft_surfaces(this, width, height);
+   if(!vaapi_check_status(this, vaStatus, "vaapi_init_soft_surfaces()")) {
+@@ -1535,38 +1671,66 @@
+   return vaStatus;
+ }
+ 
++static void vaapi_frame_dispose (vo_frame_t *vo_img) {
++  vaapi_driver_t *this  = (vaapi_driver_t *) vo_img->driver;
++  vaapi_frame_t  *frame = xine_container_of(vo_img, vaapi_frame_t, mem_frame.vo_frame);
++  vaapi_accel_t  *accel = &frame->vaapi_accel_data;
++
++  lprintf("vaapi_frame_dispose\n");
++
++  if (this->guarded_render && accel->index < RENDER_SURFACES) {
++    ff_vaapi_surface_t *va_surface = &this->va_context->va_render_surfaces[accel->index];
++    va_surface->status = SURFACE_FREE;
++  }
++
++  _mem_frame_dispose(vo_img);
++}
++
+ static vo_frame_t *vaapi_alloc_frame (vo_driver_t *this_gen) {
+-  vaapi_driver_t  *this = xine_container_of(this_gen, vaapi_driver_t, vo_driver);
++  vaapi_driver_t  *this = (vaapi_driver_t *) this_gen;
+   vaapi_frame_t   *frame;
+   static const struct vaapi_accel_funcs_s accel_funcs = {
+     .vaapi_init                = vaapi_init,
+-    .profile_from_imgfmt       = _x_va_accel_profile_from_imgfmt,
+-    .get_context               = _x_va_accel_get_context,
+-    .lock_vaapi                = _x_va_accel_lock_decode_dummy,
++    .profile_from_imgfmt       = profile_from_imgfmt,
++    .get_context               = get_context,
++    .lock_vaapi                = vaapi_lock_decode_dummy,
+     .unlock_vaapi              = NULL,
+ 
+-    .get_vaapi_surface         = _x_va_accel_get_vaapi_surface,
++    .get_vaapi_surface         = get_vaapi_surface,
+     .render_vaapi_surface      = NULL,
+     .release_vaapi_surface     = NULL,
+-    .guarded_render            = _x_va_accel_guarded_render,
++    .guarded_render            = guarded_render,
+   };
+   static const struct vaapi_accel_funcs_s accel_funcs_guarded = {
+     .vaapi_init                = vaapi_init,
+-    .profile_from_imgfmt       = _x_va_accel_profile_from_imgfmt,
+-    .get_context               = _x_va_accel_get_context,
++    .profile_from_imgfmt       = profile_from_imgfmt,
++    .get_context               = get_context,
+     .lock_vaapi                = vaapi_lock_decode_guarded,
+     .unlock_vaapi              = vaapi_unlock_decode_guarded,
+ 
+-    .get_vaapi_surface         = _x_va_accel_alloc_vaapi_surface,
+-    .render_vaapi_surface      = _x_va_accel_render_vaapi_surface,
+-    .release_vaapi_surface     = _x_va_accel_release_vaapi_surface,
+-    .guarded_render            = _x_va_accel_guarded_render,
++    .get_vaapi_surface         = alloc_vaapi_surface,
++    .render_vaapi_surface      = render_vaapi_surface,
++    .release_vaapi_surface     = release_vaapi_surface,
++    .guarded_render            = guarded_render,
+   };
+ 
+-  frame = _x_va_frame_alloc_frame(this->va, this_gen, this->guarded_render);
++  if (this->num_frame_buffers >= sizeof(this->frames) / sizeof(this->frames[0])) {
++    xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " alloc_frame: "
++            "frame limit (%u) exceeded\n", this->num_frame_buffers);
++    return NULL;
++  }
++
++  frame = (vaapi_frame_t *)_mem_frame_alloc_frame(this_gen, sizeof(vaapi_frame_t));
++
+   if (!frame)
+     return NULL;
+ 
++  frame->mem_frame.vo_frame.dispose = vaapi_frame_dispose;
++
++  this->frames[this->num_frame_buffers++] = frame;
++
++  frame->mem_frame.vo_frame.accel_data = &frame->vaapi_accel_data;
++
+   /* override accel functions */
+   frame->vaapi_accel_data.f = this->guarded_render ? &accel_funcs_guarded : &accel_funcs;
+ 
+@@ -1846,6 +2010,16 @@
+       else
+         this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
+ 
++      if(this->enigma_osd_width)
++        this->overlay_bitmap_width =  UMAX (this->enigma_osd_width, this->sc.gui_width);
++      else
++        this->overlay_bitmap_width =  UMAX (unscaled_width, this->sc.gui_width);
++
++      if(this->enigma_osd_height)
++        this->overlay_bitmap_height = UMAX (this->enigma_osd_height, this->sc.gui_height);
++      else
++        this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
++
+     } else if (need_init) {
+ 
+       if(this->vdr_osd_width) 
+@@ -1858,6 +2032,15 @@
+       else
+         this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
+ 
++      if(this->enigma_osd_width)
++        this->overlay_bitmap_width =  UMAX (this->enigma_osd_width, this->sc.gui_width);
++      else
++        this->overlay_bitmap_width =  UMAX (output_width, this->sc.gui_width);
++
++      if(this->enigma_osd_height)
++        this->overlay_bitmap_height = UMAX (this->enigma_osd_height, this->sc.gui_height);
++      else
++        this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
+     }
+   }
+ 
+@@ -1989,6 +2172,397 @@
+   return ret;
+ }
+ 
++static void vaapi_provide_standard_frame_data (vo_frame_t *this, xine_current_frame_data_t *data)
++{
++  vaapi_driver_t      *driver     = (vaapi_driver_t *) this->driver;
++  ff_vaapi_context_t  *va_context = driver->va_context;
++
++  vaapi_accel_t       *accel      = (vaapi_accel_t *) this->accel_data;
++  ff_vaapi_surface_t  *va_surface;
++
++  uint32_t  pitches[3];
++  uint8_t   *base[3];
++
++  if (this->format != XINE_IMGFMT_VAAPI) {
++    xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_provide_standard_frame_data: unexpected frame format 0x%08x!\n", this->format);
++    return;
++  }
++
++  if (!accel)
++    return;
++
++  va_surface = &va_context->va_render_surfaces[accel->index];
++  if (va_surface->va_surface_id == VA_INVALID_SURFACE)
++    return;
++
++  lprintf("vaapi_provide_standard_frame_data %s 0x%08x width %d height %d\n", 
++      (this->format == XINE_IMGFMT_VAAPI) ? "XINE_IMGFMT_VAAPI" : ((this->format == XINE_IMGFMT_YV12) ? "XINE_IMGFMT_YV12" : "XINE_IMGFMT_YUY2"),
++      va_surface->va_surface_id, this->width, this->height);
++
++  pthread_mutex_lock(&driver->vaapi_lock);
++  LOCK_DISPLAY (driver);
++
++  int width = va_context->width;
++  int height = va_context->height;
++
++  data->format = XINE_IMGFMT_YV12;
++  data->img_size = width * height
++                   + ((width + 1) / 2) * ((height + 1) / 2)
++                   + ((width + 1) / 2) * ((height + 1) / 2);
++  if (data->img) {
++    pitches[0] = width;
++    pitches[2] = width / 2;
++    pitches[1] = width / 2;
++    base[0] = data->img;
++    base[2] = data->img + width * height;
++    base[1] = data->img + width * height + width * this->height / 4;
++
++    VAImage   va_image;
++    VAStatus  vaStatus;
++    void      *p_base;
++    int        is_bound;
++
++    vaStatus = vaSyncSurface(va_context->va_display, va_surface->va_surface_id);
++    vaapi_check_status(driver, vaStatus, "vaSyncSurface()");
++
++    VASurfaceStatus surf_status = 0;
++
++    if (driver->va->query_va_status) {
++      vaStatus = vaQuerySurfaceStatus(va_context->va_display, va_surface->va_surface_id, &surf_status);
++      vaapi_check_status(driver, vaStatus, "vaQuerySurfaceStatus()");
++    } else {
++      surf_status = VASurfaceReady;
++    }
++
++    if(surf_status != VASurfaceReady)
++      goto error;
++
++    vaStatus = _x_va_create_image(driver->va, va_surface->va_surface_id, &va_image, width, height, 0, &is_bound);
++    if (!vaapi_check_status(driver, vaStatus, "_x_va_create_image()"))
++      goto error;
++
++    lprintf("vaapi_provide_standard_frame_data accel->va_surface_id 0x%08x va_image.image_id 0x%08x va_context->width %d va_context->height %d va_image.width %d va_image.height %d width %d height %d size1 %d size2 %d %d %d %d status %d num_planes %d\n", 
++       va_surface->va_surface_id, va_image.image_id, va_context->width, va_context->height, va_image.width, va_image.height, width, height, va_image.data_size, data->img_size, 
++       va_image.pitches[0], va_image.pitches[1], va_image.pitches[2], surf_status, va_image.num_planes);
++
++    if(va_image.image_id == VA_INVALID_ID)
++      goto error;
++
++    if (!is_bound) {
++      vaStatus = vaGetImage(va_context->va_display, va_surface->va_surface_id, 0, 0,
++                          va_image.width, va_image.height, va_image.image_id);
++    } else {
++      vaStatus = VA_STATUS_SUCCESS;
++    }
++
++    if(vaapi_check_status(driver, vaStatus, "vaGetImage()")) {
++      vaStatus = vaMapBuffer( va_context->va_display, va_image.buf, &p_base ) ;
++      if(vaapi_check_status(driver, vaStatus, "vaMapBuffer()")) {
++
++        /*
++        uint8_t *src[3] = { NULL, };
++        src[0] = (uint8_t *)p_base + va_image.offsets[0];
++        src[1] = (uint8_t *)p_base + va_image.offsets[1];
++        src[2] = (uint8_t *)p_base + va_image.offsets[2];
++        */
++
++        if( va_image.format.fourcc == VA_FOURCC( 'Y', 'V', '1', '2' ) ||
++            va_image.format.fourcc == VA_FOURCC( 'I', '4', '2', '0' ) ) {
++          lprintf("VAAPI YV12 image\n");
++
++          yv12_to_yv12(
++            (uint8_t*)p_base + va_image.offsets[0], va_image.pitches[0],
++            base[0], pitches[0],
++            (uint8_t*)p_base + va_image.offsets[1], va_image.pitches[1],
++            base[1], pitches[1],
++            (uint8_t*)p_base + va_image.offsets[2], va_image.pitches[2],
++            base[2], pitches[2],
++            va_image.width, va_image.height);
++
++        } else if( va_image.format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' ) ) {
++          lprintf("VAAPI NV12 image\n");
++
++          lprintf("va_image.offsets[0] %d va_image.offsets[1] %d va_image.offsets[2] %d size %d size %d size %d width %d height %d width %d height %d\n",
++              va_image.offsets[0], va_image.offsets[1], va_image.offsets[2], va_image.data_size, va_image.width * va_image.height,
++              data->img_size, width, height, va_image.width, va_image.height);
++
++          base[0] = data->img;
++          base[1] = data->img + width * height;
++          base[2] = data->img + width * height + width * height / 4;
++          _x_nv12_to_yv12((uint8_t *)p_base + va_image.offsets[0], va_image.pitches[0],
++                       (uint8_t *)p_base + va_image.offsets[1], va_image.pitches[1],
++                       base[0], pitches[0],
++                       base[1], pitches[1],
++                       base[2], pitches[2],
++                       va_image.width  > width  ? width  : va_image.width,
++                       va_image.height > height ? height : va_image.height);
++
++        } else {
++          printf("vaapi_provide_standard_frame_data unsupported image format\n");
++        }
++
++        vaStatus = vaUnmapBuffer(va_context->va_display, va_image.buf);
++        vaapi_check_status(driver, vaStatus, "vaUnmapBuffer()");
++        _x_va_destroy_image(driver->va, &va_image);
++      }
++    }
++  }
++
++error:
++  UNLOCK_DISPLAY (driver);
++  pthread_mutex_unlock(&driver->vaapi_lock);
++}
++
++static void vaapi_duplicate_frame_data (vo_frame_t *this_gen, vo_frame_t *original)
++{
++  vaapi_driver_t      *driver     = (vaapi_driver_t *) original->driver;
++  ff_vaapi_context_t  *va_context = driver->va_context;
++
++  mem_frame_t *this = xine_container_of(this_gen, mem_frame_t, vo_frame);
++  mem_frame_t *orig = xine_container_of(original, mem_frame_t, vo_frame);
++
++  vaapi_accel_t *accel_this = this_gen->accel_data;
++  vaapi_accel_t *accel_orig = original->accel_data;
++
++  ff_vaapi_surface_t *va_surface_this;
++  ff_vaapi_surface_t *va_surface_orig;
++
++  if (orig->vo_frame.format != XINE_IMGFMT_VAAPI) {
++    xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_duplicate_frame_data: unexpected frame format 0x%08x!\n", orig->format);
++    return;
++  }
++
++  if (this->vo_frame.format != XINE_IMGFMT_VAAPI) {
++    xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_duplicate_frame_data: unexpected frame format 0x%08x!\n", this->format);
++    return;
++  }
++
++  if (driver->guarded_render) {
++    if (accel_orig->index >= RENDER_SURFACES) {
++      xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_duplicate_frame_data: invalid source surface\n");
++      return;
++    }
++    va_surface_orig = &va_context->va_render_surfaces[accel_orig->index];
++
++    va_surface_this = alloc_vaapi_surface(this_gen);
++    if (!va_surface_this) {
++      xprintf(driver->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_duplicate_frame_data: surface allocation failed\n");
++      return;
++    }
++  } else {
++    _x_assert (accel_this->index < RENDER_SURFACES); /* "fixed" in this mode */
++    _x_assert (accel_orig->index < RENDER_SURFACES); /* "fixed" in this mode */
++    va_surface_this = &va_context->va_render_surfaces[accel_this->index];
++    va_surface_orig = &va_context->va_render_surfaces[accel_orig->index];
++  }
++
++  lprintf("vaapi_duplicate_frame_data  0x%08x <- 0x%08x\n",
++          va_surface_this->va_surface_id, va_surface_orig->va_surface_id);
++
++  pthread_mutex_lock(&driver->vaapi_lock);
++  LOCK_DISPLAY (driver);
++
++  VAImage   va_image_orig;
++  VAImage   va_image_this;
++  VAStatus  vaStatus;
++  void      *p_base_orig = NULL;
++  void      *p_base_this = NULL;
++
++  va_image_this.image_id = VA_INVALID_ID;
++  va_image_orig.image_id = VA_INVALID_ID;
++
++  vaStatus = vaSyncSurface(va_context->va_display, va_surface_orig->va_surface_id);
++  vaapi_check_status(driver, vaStatus, "vaSyncSurface()");
++
++  int this_width = va_context->width;
++  int this_height = va_context->height;
++  int orig_width = va_context->width;
++  int orig_height = va_context->height;
++  int this_is_bound, orig_is_bound;
++
++  vaStatus = _x_va_create_image(driver->va, va_surface_orig->va_surface_id, &va_image_orig, orig_width, orig_height, 0, &orig_is_bound);
++  if (!vaapi_check_status(driver, vaStatus, "_x_va_create_image()")) {
++    va_image_orig.image_id = VA_INVALID_ID;
++    goto error;
++  }
++
++  vaStatus = _x_va_create_image(driver->va, va_surface_this->va_surface_id, &va_image_this, this_width, this_height, 0, &this_is_bound);
++  if (!vaapi_check_status(driver, vaStatus, "_x_va_create_image()")) {
++    va_image_this.image_id = VA_INVALID_ID;
++    goto error;
++  }
++
++  if(va_image_orig.image_id == VA_INVALID_ID || va_image_this.image_id == VA_INVALID_ID) {
++    printf("vaapi_duplicate_frame_data invalid image\n");
++    goto error;
++  }
++
++  lprintf("vaapi_duplicate_frame_data va_image_orig.image_id 0x%08x va_image_orig.width %d va_image_orig.height %d width %d height %d size %d %d %d %d\n",
++       va_image_orig.image_id, va_image_orig.width, va_image_orig.height, this->width, this->height, va_image_orig.data_size, 
++       va_image_orig.pitches[0], va_image_orig.pitches[1], va_image_orig.pitches[2]);
++
++  if (!orig_is_bound) {
++    vaStatus = vaGetImage(va_context->va_display, va_surface_orig->va_surface_id, 0, 0,
++                          va_image_orig.width, va_image_orig.height, va_image_orig.image_id);
++  } else {
++    vaStatus = VA_STATUS_SUCCESS;
++  }
++
++  if(vaapi_check_status(driver, vaStatus, "vaGetImage()")) {
++
++    if (!this_is_bound) {
++      vaStatus = vaPutImage(va_context->va_display, va_surface_this->va_surface_id, va_image_orig.image_id,
++                            0, 0, va_image_orig.width, va_image_orig.height,
++                            0, 0, va_image_this.width, va_image_this.height);
++      vaapi_check_status(driver, vaStatus, "vaPutImage()");
++    } else {
++      vaStatus = vaMapBuffer( va_context->va_display, va_image_orig.buf, &p_base_orig ) ;
++      if(!vaapi_check_status(driver, vaStatus, "vaMapBuffer()"))
++        goto error;
++
++      vaStatus = vaMapBuffer( va_context->va_display, va_image_this.buf, &p_base_this ) ;
++      if(!vaapi_check_status(driver, vaStatus, "vaMapBuffer()"))
++        goto error;
++
++      int size = (va_image_orig.data_size > va_image_this.data_size) ? va_image_this.data_size : va_image_orig.data_size;
++      xine_fast_memcpy((uint8_t *) p_base_this, (uint8_t *) p_base_orig, size);
++
++    }
++  }
++
++  if (driver->guarded_render) {
++    accel_this->index = va_surface_this->index;
++    va_surface_this->status = SURFACE_RENDER_RELEASE;
++  }
++
++error:
++  if(p_base_orig) {
++    vaStatus = vaUnmapBuffer(va_context->va_display, va_image_orig.buf);
++    vaapi_check_status(driver, vaStatus, "vaUnmapBuffer()");
++  }
++  if(p_base_this) {
++    vaStatus = vaUnmapBuffer(va_context->va_display, va_image_this.buf);
++    vaapi_check_status(driver, vaStatus, "vaUnmapBuffer()");
++  }
++
++  _x_va_destroy_image(driver->va, &va_image_orig);
++  _x_va_destroy_image(driver->va, &va_image_this);
++
++  UNLOCK_DISPLAY (driver);
++  pthread_mutex_unlock(&driver->vaapi_lock);
++}
++
++static void vaapi_update_frame_format (vo_driver_t *this_gen,
++                                       vo_frame_t *frame_gen,
++                                       uint32_t width, uint32_t height,
++                                       double ratio, int format, int flags) {
++  vaapi_driver_t      *this       = (vaapi_driver_t *) this_gen;
++  mem_frame_t         *frame      = xine_container_of(frame_gen, mem_frame_t, vo_frame);
++
++  if (this->guarded_render && frame->format == XINE_IMGFMT_VAAPI) {
++    /*
++     * This code handles frames that were dropped (used in decoder, but not drawn).
++     * -> we need to lock because of surface may still be in use in decoder.
++     */
++    vaapi_accel_t      *accel      = frame_gen->accel_data;
++    if (accel->index < RENDER_SURFACES) {
++      ff_vaapi_surface_t *va_surface = &this->va_context->va_render_surfaces[accel->index];
++      _x_va_surface_displayed(this->va, va_surface);
++    }
++  }
++
++  lprintf("vaapi_update_frame_format %s %s width %d height %d\n",
++        (frame->format == XINE_IMGFMT_VAAPI) ? "XINE_IMGFMT_VAAPI" : ((frame->format == XINE_IMGFMT_YV12) ? "XINE_IMGFMT_YV12" : "XINE_IMGFMT_YUY2") ,
++        (format == XINE_IMGFMT_VAAPI) ? "XINE_IMGFMT_VAAPI" : ((format == XINE_IMGFMT_YV12) ? "XINE_IMGFMT_YV12" : "XINE_IMGFMT_YUY2") ,
++        width, height);
++
++  if ((frame->width ^ width) | (frame->height ^ height) | (frame->format ^ format)) {
++
++    mem_frame_update_frame_format(this_gen, frame_gen, width, height, ratio, format, flags);
++
++    if (format == XINE_IMGFMT_VAAPI) {
++      frame->width = width; /* mem_frame freed frame->base */
++      frame->vo_frame.width = width;
++      frame->vo_frame.proc_duplicate_frame_data = vaapi_duplicate_frame_data;
++      frame->vo_frame.proc_provide_standard_frame_data = vaapi_provide_standard_frame_data;
++      lprintf("XINE_IMGFMT_VAAPI width %d height %d\n", width, height);
++    } else {
++      frame->vo_frame.proc_duplicate_frame_data = NULL;
++      frame->vo_frame.proc_provide_standard_frame_data = NULL;
++    }
++  }
++}
++
++static void yv12_to_nv12(const uint8_t *y_src, int y_src_pitch,
++                         const uint8_t *u_src, int u_src_pitch,
++                         const uint8_t *v_src, int v_src_pitch,
++                         uint8_t *y_dst,  int y_dst_pitch,
++                         uint8_t *uv_dst, int uv_dst_pitch,
++                         int width, int height) {
++  int y, x;
++
++  lprintf("yv12_to_nv12 converter\n");
++
++  for (y = 0; y < height; y++) {
++    xine_fast_memcpy(y_dst, y_src, width);
++    y_src += y_src_pitch;
++    y_dst += y_dst_pitch;
++  }
++
++  /* Combine uv line to temporary (cached) buffer.
++     Avoids fetching destination plane to cache. */
++  uint8_t *line = xine_malloc_aligned(width + 1);
++  if (!line)
++    return;
++
++  for(y = 0; y < height / 2; y++) {
++    for(x = 0; x < width / 2; x++) {
++      line[2*x]     = *(u_src + x);
++      line[2*x + 1] = *(v_src + x);
++    }
++
++    xine_fast_memcpy(uv_dst, line, width);
++
++    uv_dst += uv_dst_pitch;
++    u_src += u_src_pitch;
++    v_src += v_src_pitch;
++  }
++
++  xine_free_aligned(line);
++}
++
++static void yuy2_to_nv12(const uint8_t *src_yuy2_map, int yuy2_pitch,
++                         uint8_t *y_dst,  int y_dst_pitch,
++                         uint8_t *uv_dst, int uv_dst_pitch,
++                         int width, int height) {
++  int y, x;
++
++  const uint8_t *yuy2_map = src_yuy2_map;
++  for(y = 0; y < height; y++) {
++    uint8_t *y_dst_tmp = y_dst;
++    const uint8_t *yuy2_src_tmp = yuy2_map;
++    for(x = 0; x < width / 2; x++) {
++      *(y_dst_tmp++   ) = *(yuy2_src_tmp++);
++      yuy2_src_tmp++;
++      *(y_dst_tmp++   ) = *(yuy2_src_tmp++);
++      yuy2_src_tmp++;
++    }
++    y_dst += y_dst_pitch;
++    yuy2_map += yuy2_pitch;
++  }
++
++  yuy2_map = src_yuy2_map;
++  for(y = 0; y < height; y += 2) {
++    for(x = 0; x < width; x += 2) {
++      *(uv_dst + x )     = *(yuy2_map + x*2 + 1);
++      *(uv_dst + x + 1 ) = *(yuy2_map + x*2 + 3);
++    }
++    uv_dst += uv_dst_pitch;
++    yuy2_map += yuy2_pitch * 2;
++  }
++
++}
++
+ static VAStatus vaapi_software_render_frame(vaapi_driver_t *this, mem_frame_t *frame,
+                                             VAImage *va_image, int is_bound, VASurfaceID va_surface_id) {
+   ff_vaapi_context_t *va_context      = this->va_context;
+@@ -2047,7 +2621,7 @@
+     } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
+       lprintf("vaapi_software_render_frame yv12 -> nv12 convert\n");
+ 
+-      _x_yv12_to_nv12(frame->vo_frame.base[0], frame->vo_frame.pitches[0],
++      yv12_to_nv12(frame->vo_frame.base[0], frame->vo_frame.pitches[0],
+                       frame->vo_frame.base[1], frame->vo_frame.pitches[1],
+                       frame->vo_frame.base[2], frame->vo_frame.pitches[2],
+                       (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
+@@ -2070,7 +2644,7 @@
+     } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
+       lprintf("vaapi_software_render_frame yuy2 -> nv12 convert\n");
+ 
+-      _x_yuy2_to_nv12(frame->vo_frame.base[0], frame->vo_frame.pitches[0],
++      yuy2_to_nv12(frame->vo_frame.base[0], frame->vo_frame.pitches[0],
+                       (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
+                       (uint8_t *)p_base + va_image->offsets[1], va_image->pitches[1],
+                       frame->vo_frame.width, frame->vo_frame.height);
+@@ -2190,13 +2764,23 @@
+ }
+ */
+ 
++static void _x_va_frame_displayed(vaapi_context_impl_t *va_context, vo_frame_t *vo_frame)
++{
++  vaapi_accel_t *accel = vo_frame->accel_data;
++
++  if (accel->index < RENDER_SURFACES) {
++    ff_vaapi_surface_t *va_surface = &va_context->c.va_render_surfaces[accel->index];
++    _x_va_surface_displayed(va_context, va_surface);
++  }
++}
++
+ static void _add_recent_frame (vaapi_driver_t *this, vo_frame_t *vo_frame) {
+   int i;
+ 
+   i = VO_NUM_RECENT_FRAMES-1;
+   if (this->recent_frames[i]) {
+-    if (this->guarded_render && this->recent_frames[i]->format == XINE_IMGFMT_VAAPI)
+-      _x_va_frame_displayed(this->recent_frames[i]);
++    if (this->guarded_render && vo_frame->format == XINE_IMGFMT_VAAPI)
++      _x_va_frame_displayed(this->va, this->recent_frames[i]);
+     this->recent_frames[i]->free (this->recent_frames[i]);
+   }
+ 
+@@ -2680,6 +3264,20 @@
+   this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
+ }
+ 
++static void vaapi_enigma_osd_width_flag( void *this_gen, xine_cfg_entry_t *entry )
++{
++  vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
++
++  this->enigma_osd_width = entry->num_value < 0 ? 0 : entry->num_value;
++}
++
++static void vaapi_enigma_osd_height_flag( void *this_gen, xine_cfg_entry_t *entry )
++{
++  vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
++
++  this->enigma_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
++}
++
+ static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
+ {
+   vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
+@@ -2785,14 +3383,12 @@
+ {
+   VAStatus vaStatus;
+   int fmt_count = 0;
+-  unsigned interop_flags = XINE_VA_DISPLAY_X11;
+ 
+ #ifdef ENABLE_VA_GLX
+-  if (this->opengl_render)
+-    interop_flags = XINE_VA_DISPLAY_GLX;
++  this->va = _x_va_new(this->xine, visual_type, visual, this->opengl_render);
++#else
++  this->va = _x_va_new(this->xine, visual_type, visual, 0);
+ #endif
+-
+-  this->va = _x_va_new(this->xine, visual_type, visual, interop_flags);
+   if (!this->va)
+     return 0;
+ 
+@@ -2898,6 +3494,7 @@
+   this->gl_texture                      = GL_NONE;
+ #endif /* ENABLE_VA_GLX */
+ 
++  this->num_frame_buffers               = 0;
+   this->va_soft_surface_ids             = this->va_soft_surface_ids_storage;
+   this->va_soft_images                  = this->va_soft_images_storage;
+   for (i = 0; i < SOFT_SURFACES; i++) {
+@@ -2918,7 +3515,7 @@
+ 
+   this->vo_driver.get_capabilities     = vaapi_get_capabilities;
+   this->vo_driver.alloc_frame          = vaapi_alloc_frame;
+-  this->vo_driver.update_frame_format  = _x_va_frame_update_frame_format;
++  this->vo_driver.update_frame_format  = vaapi_update_frame_format;
+   this->vo_driver.overlay_begin        = vaapi_overlay_begin;
+   this->vo_driver.overlay_blend        = vaapi_overlay_blend;
+   this->vo_driver.overlay_end          = vaapi_overlay_end;
+@@ -2933,6 +3530,8 @@
+   this->deinterlace                    = 0;
+   this->vdr_osd_width                  = 0;
+   this->vdr_osd_height                 = 0;
++  this->enigma_osd_width               = 0;
++  this->enigma_osd_height              = 0;
+ 
+   i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
+         _("vaapi: VDR osd width workaround."),
+@@ -2946,6 +3545,18 @@
+         10, vaapi_vdr_osd_height_flag, this );
+   this->vdr_osd_height = i < 0 ? 0 : i;
+ 
++  i = config->register_num( config, "video.output.vaapi_enigma_osd_width", 0,
++        _("vaapi: ENIGMA osd width workaround."),
++        _("vaapi: ENIGMA osd width workaround."),
++        10, vaapi_enigma_osd_width_flag, this );
++  this->enigma_osd_width = i < 0 ? 0 : i;
++
++  i = config->register_num( config, "video.output.vaapi_enigma_osd_height", 0,
++        _("vaapi: ENIGMA osd height workaround."),
++        _("vaapi: ENIGMA osd height workaround."),
++        10, vaapi_enigma_osd_height_flag, this );
++  this->enigma_osd_height = i < 0 ? 0 : i;
++
+   this->deinterlace = config->register_num( config, "video.output.vaapi_deinterlace", 0,
+         _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
+         _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
+diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
+--- o/src/video_out/video_out_vdpau.c	2022-11-01 11:19:20.137530896 +0300
++++ pc/src/video_out/video_out_vdpau.c	2022-11-04 13:16:26.173320465 +0300
+@@ -1051,7 +1051,14 @@
+       this->ovl_video_dest_rect = vid_rect;
+     }
+ 
+-    if (!ovl->unscaled) {
++    if (ovl->unscaled==2) {
++      ovl_rect.x0 = 0;
++      ovl_rect.y0 = 0;
++      ovl_rect.x1 = this->sc.gui_width;
++      ovl_rect.y1 = this->sc.gui_height;
++      this->ovl_changed = 1;
++    }
++    else if (ovl->unscaled==0) {
+       double rx, ry;
+ 
+       if (zoom) {
+@@ -2580,6 +2587,12 @@
+       this->deinterlace = value;
+       this->prop_changed |= _VOVDP_S_DEINT;
+       break;
++    case VO_PROP_DEINTERLACE_SD:
++      this->deinterlace_method_sd = value;
++      break;
++    case VO_PROP_DEINTERLACE_HD:
++      this->deinterlace_method_hd = value;
++      break;
+     case VO_PROP_ZOOM_X:
+       if ((value >= XINE_VO_ZOOM_MIN) && (value <= XINE_VO_ZOOM_MAX)) {
+         this->zoom_x = value;
+diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
+--- o/src/xine-engine/metronom.c	2022-04-03 13:20:24.492490536 +0300
++++ pc/src/xine-engine/metronom.c	2022-11-04 13:16:26.173320465 +0300
+@@ -451,6 +451,7 @@
+     int           seek;
+     int           force_jump;
+     int           vdr_hack;
++    int           enigma_hack;
+   } audio;
+ 
+   /* video */
+@@ -523,6 +524,22 @@
+   }
+ }
+ 
++static void metronom_enigma_hack_disc (metronom_impl_t *this, int64_t pts_offs) {
++  if (pts_offs == 0) {
++    this->audio.enigma_hack = 0;
++  } else {
++    this->audio.seek = (this->audio.enigma_hack == 2);
++  }
++}
++
++static void metronom_enigma_hack_prebuffer (metronom_impl_t *this, int64_t pts) {
++  if (pts == 2000) {
++    this->audio.enigma_hack = (this->audio.enigma_hack == 0) ? 1 : 0;
++  } else if (pts == 14400) {
++    this->audio.enigma_hack = (this->audio.enigma_hack == 1) || (this->audio.enigma_hack == 2) ? 2 : 0;
++  }
++}
++
+ static void metronom_set_audio_rate (metronom_t *this_gen, int64_t pts_per_smpls) {
+   metronom_impl_t *this = (metronom_impl_t *)this_gen;
+ 
+@@ -651,6 +668,7 @@
+       this->video.last_pts   = 0;
+       this->audio.last_pts   = 0;
+       metronom_vdr_hack_disc (this, disc_off);
++      metronom_enigma_hack_disc (this, disc_off);
+       xprintf (this->xine, XINE_VERBOSITY_DEBUG,
+         "metronom: vpts adjusted with prebuffer to %" PRId64 ".\n", this->video.vpts);
+       lprintf("video.vpts: %" PRId64 ", audio.vpts: %" PRId64 "\n", this->video.vpts, this->audio.vpts);
+@@ -804,6 +822,37 @@
+     "metronom: vdr trick pts %" PRId64 ", vpts %" PRId64 ".\n", pts, this->video.vpts);
+ }
+ 
++static void metronom_handle_enigma_trick_pts (metronom_impl_t *this, int64_t pts) {
++  int64_t cur_time = this->xine->clock->get_current_time (this->xine->clock);
++  if (this->video.vpts < cur_time) {
++    if (this->audio.vpts >= cur_time) {
++      /* still frame with audio */
++      this->video.vpts = this->audio.vpts;
++    } else {
++      /* still frame, no audio */
++      this->audio.vpts =
++      this->video.vpts = this->prebuffer + cur_time;
++      this->audio.vpts_rmndr = 0;
++      this->video.force_jump = 1;
++      this->audio.force_jump = 1;
++      this->video.drift = 0;
++    }
++  } else {
++    if (this->audio.vpts < cur_time) {
++      /* video, no sound */
++      this->audio.vpts = this->video.vpts;
++      this->audio.vpts_rmndr = 0;
++    }
++  }
++  this->vpts_offset = this->video.vpts - pts;
++  this->bounce.diff = this->bounce.vpts_offs - this->vpts_offset;
++  this->bounce.left_audio = -1;
++  this->bounce.left_video = -1;
++  this->bounce.jumped = 0;
++  xprintf (this->xine, XINE_VERBOSITY_DEBUG,
++    "metronom: enigma trick pts %" PRId64 ", vpts %" PRId64 ".\n", pts, this->video.vpts);
++}
++
+ static void metronom_handle_video_discontinuity (metronom_t *this_gen, int type,
+                                                  int64_t disc_off) {
+   metronom_impl_t *this = (metronom_impl_t *)this_gen;
+@@ -1300,12 +1349,17 @@
+   case METRONOM_PREBUFFER:
+     this->prebuffer = value;
+     metronom_vdr_hack_prebuffer (this, value);
++    metronom_enigma_hack_prebuffer (this, value);
+     xprintf (this->xine, XINE_VERBOSITY_LOG,
+       "metronom: prebuffer=%" PRId64 " pts.\n", this->prebuffer);
+     break;
+   case METRONOM_VDR_TRICK_PTS:
+     metronom_handle_vdr_trick_pts (this, value);
+     break;
++  case METRONOM_ENIGMA_TRICK_PTS:
++    metronom_handle_enigma_trick_pts (this, value);
++    break;
++
+   default:
+     xprintf(this->xine, XINE_VERBOSITY_NONE,
+       "metronom: unknown option in set_option: %d.\n", option);
+@@ -1381,6 +1435,9 @@
+   case METRONOM_VDR_TRICK_PTS:
+     result = this->video.vpts;
+     break;
++  case METRONOM_ENIGMA_TRICK_PTS:
++    result = this->video.vpts;
++    break;
+   default:
+     result = 0;
+     xprintf (this->xine, XINE_VERBOSITY_NONE,
+@@ -1635,6 +1692,7 @@
+   this->audio.last_pts         = 0;
+   this->audio.vpts_rmndr       = 0;
+   this->audio.vdr_hack         = 0;
++  this->audio.enigma_hack      = 0;
+   this->audio.seek             = 0;
+   this->audio.samples          = 0;
+   this->audio.drift_step       = 0;
+diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
+--- o/src/xine-engine/osd.c	2022-10-27 12:27:03.656232316 +0300
++++ pc/src/xine-engine/osd.c	2022-11-04 13:16:26.177320465 +0300
+@@ -536,6 +536,10 @@
+   return _osd_show(osd, vpts, 1);
+ }
+ 
++static int osd_show_gui_scaled (osd_object_t *osd, int64_t vpts) {
++  return _osd_show(osd, vpts, 2);
++}
++
+ /*
+  * send event to hide osd at given pts (0=now)
+  * the object is not changed. there may be subsequent drawing  on it.
+@@ -2222,6 +2226,7 @@
+   this->r.draw_bitmap        = osd_draw_bitmap;
+   this->r.set_argb_buffer    = osd_set_argb_buffer;
+   this->r.show_unscaled      = osd_show_unscaled;
++  this->r.show_scaled        = osd_show_gui_scaled;
+   this->r.get_capabilities   = osd_get_capabilities;
+   this->r.set_extent         = osd_set_extent;
+   this->r.set_video_window   = osd_set_video_window;
+diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
+--- o/src/xine-engine/video_out.c	2022-11-04 13:12:03.941319424 +0300
++++ pc/src/xine-engine/video_out.c	2022-11-04 13:16:26.177320465 +0300
+@@ -213,6 +213,7 @@
+ 
+   /* pts value when decoder delivered last video frame */
+   int64_t                   last_delivery_pts;
++  int64_t                   last_pts;
+ 
+   video_overlay_manager_t  *overlay_source;
+ 
+@@ -221,6 +222,7 @@
+   int                       current_width, current_height;
+   int64_t                   current_duration;
+ 
++  int                       framerate;
+   int                       frame_drop_limit_max;
+   int                       frame_drop_limit;
+   int                       frame_drop_cpt;
+@@ -1491,6 +1493,23 @@
+       }
+     }
+     img->stream = &stream->s;
++    int new_framerate = img->duration==0?0:90000*1000/img->duration;
++    if (this->framerate != new_framerate) {
++      this->framerate = new_framerate;
++
++      xine_event_t event;
++      xine_framerate_data_t data;
++      event.type = XINE_EVENT_FRAMERATE_CHANGE;
++      event.stream = stream;
++      event.data = &data;
++      event.data_length = sizeof(data);
++      data.framerate = this->framerate;
++      xine_event_send( stream, &event );
++    }
++
++    if (img->pts!=0)
++      this->last_pts = img->pts;
++
+     _x_extra_info_merge( img->extra_info, stream->video_decoder_extra_info );
+     stream->s.metronom->got_video_frame (stream->s.metronom, img);
+ #ifdef ADD_KEYFRAME_INDEX
+@@ -2488,6 +2507,7 @@
+           if (img) {
+             vo_reref (this, img);
+             img->vpts = vpts;
++            img->duration = DEFAULT_FRAME_DURATION;
+             overlay_and_display_frame (this, img, vpts);
+           }
+         } else {
+@@ -2786,6 +2806,10 @@
+     xine_rwlock_unlock (&this->streams_lock);
+     break;
+ 
++  case VO_PROP_LAST_PTS:
++    ret = (intptr_t)&this->last_pts;
++    break;
++
+   /*
+    * handle XINE_PARAM_xxx properties (convert from driver's range)
+    */
+diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
+--- o/src/xine-engine/xine_interface.c	2022-10-17 22:50:00.426011328 +0300
++++ pc/src/xine-engine/xine_interface.c	2022-11-04 13:16:26.177320465 +0300
+@@ -958,6 +958,10 @@
+   this->osd.renderer->show_unscaled(&this->osd, vpts);
+ }
+ 
++void xine_osd_show_scaled(xine_osd_t *this, int64_t vpts) {
++  this->osd.renderer->show_scaled(&this->osd, vpts);
++}
++
+ void xine_osd_hide(xine_osd_t *this, int64_t vpts) {
+   this->osd.renderer->hide(&this->osd, vpts);
+ }

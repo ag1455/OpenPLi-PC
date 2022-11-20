@@ -174,33 +174,33 @@
 	<screen name="InfoBar" flags="wfNoBorder" position="0,660" size="1920,1080" title="InfoBar" backgroundColor="transparent">
 		<ePixmap pixmap="frame_hd.png" position="98,138" size="168,108" zPosition="3" alphatest="blend"/>
 		<ePixmap pixmap="frame_hd.png" position="1544,138" size="168,108" zPosition="2" alphatest="blend"/>
-		<widget source="session.CurrentService" render="PicEmu2" position="1553,147" size="150,90" transparent="1" alphatest="blend" zPosition="3"/>
+		<widget source="session.CurrentService" render="PicEmu3" position="1553,147" size="150,90" transparent="1" alphatest="blend" zPosition="3"/>
 		<ePixmap pixmap="frame_hd.png" position="1365,138" size="168,108" zPosition="2" alphatest="blend"/>
-		<widget source="session.CurrentService" render="PiconUni" position="1374,147" path="piconProv" size="150,90" zPosition="3" alphatest="blend">
+		<widget source="session.CurrentService" render="PiconUni3" position="1374,147" path="piconProv" size="150,90" zPosition="3" alphatest="blend">
 			<convert type="ServiceName">Provider</convert>
 		</widget>
 		<ePixmap pixmap="frame_hd.png" position="1187,138" size="168,108" zPosition="2" alphatest="blend"/>
 		<ePixmap position="0,0" size="1920,435" pixmap="infobar_light-fs8.png" zPosition="1"/>
-		<widget source="global.CurrentTime" render="Watches" position="1719,132" size="116,113" foregroundColor="red" zPosition="2" transparent="1" alphatest="blend">
-			<convert type="ExtraNumText">secHand</convert>
+		<widget source="global.CurrentTime" render="Watches3" position="1719,130" size="116,113" foregroundColor="red" zPosition="2" transparent="1" alphatest="blend">
+			<convert type="ExtraNumText3">secHand</convert>
 		</widget>
-		<widget source="global.CurrentTime" render="Watches" position="1727,141" size="101,98" foregroundColor="white" zPosition="3" transparent="1" alphatest="blend">
-			<convert type="ExtraNumText">minHand</convert>
+		<widget source="global.CurrentTime" render="Watches3" position="1726,138" size="101,98" foregroundColor="white" zPosition="3" transparent="1" alphatest="blend">
+			<convert type="ExtraNumText3">minHand</convert>
 		</widget>
-		<widget source="global.CurrentTime" render="Watches" position="1742,156" size="71,68" foregroundColor="white" zPosition="4" transparent="1" alphatest="blend">
-			<convert type="ExtraNumText">hourHand</convert>
+		<widget source="global.CurrentTime" render="Watches3" position="1741,153" size="71,68" foregroundColor="white" zPosition="4" transparent="1" alphatest="blend">
+			<convert type="ExtraNumText3">hourHand</convert>
 		</widget>
 		<widget source="global.CurrentTime" render="Label" position="1377,68" size="450,38" zPosition="2" font="Regular;28" halign="right" backgroundColor="transpBlack" foregroundColor="un9fcff" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="101,68" size="210,36" font="Regular;30" backgroundColor="transpBlack" foregroundColor="yellow" transparent="1" zPosition="10" halign="left">
-			<convert type="ServiceName2">%t</convert>
+			<convert type="ServiceName3">%t</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Picon" position="107,147" size="150,90" zPosition="10" transparent="1" alphatest="blend">
 			<convert type="ServiceName">Reference</convert>
 		</widget>
-		<widget source="session.CurrentService" render="PiconUni" path="piconSat" position="1196,147" zPosition="3" size="150,90" transparent="1" alphatest="blend">
-			<convert type="ServiceOrbitalPosition2">
+		<widget source="session.CurrentService" render="PiconUni3" path="piconSat" position="1196,147" zPosition="3" size="150,90" transparent="1" alphatest="blend">
+			<convert type="ServiceOrbitalPosition3">
 			</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Label" position="285,135" size="120,45" zPosition="2" halign="left" font="Regular;33" backgroundColor="background" transparent="1">
@@ -231,14 +231,14 @@
 		<widget source="session.RecordState" render="Pixmap" pixmap="icons/icon_rec_light.png" position="1793,276" zPosition="4" size="36,36" alphatest="blend">
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<widget source="session.CurrentService" render="mvmCaids" ecmColor="green" emmColor="yellow" font="Regular;28" nocColor="grey2" position="840,278" size="675,36" transparent="1" zPosition="10" alphatest="blend">
-			<convert type="mvmCaidDisplay"></convert>
+		<widget source="session.CurrentService" render="Caids3" ecmColor="green" emmColor="yellow" font="Regular;28" nocColor="grey2" position="840,278" size="675,36" transparent="1" zPosition="10" alphatest="blend">
+			<convert type="CaidDisplay3"></convert>
 		</widget>
 		<widget source="session.CurrentService" render="VideoSize" font="Regular;28" position="90,278" size="180,33" halign="center" foregroundColor="unc78443" backgroundColor="background" transparent="1" zPosition="10"/>
 		<widget source="session.CurrentService" render="Label" position="300,278" size="525,36" font="Regular;28" backgroundColor="background" foregroundColor="hellgreen" transparent="1" zPosition="2" halign="center">
-			<convert type="ServiceName2">%S</convert>
-			<convert type="ServiceName2">%F %p %Y %f %M %s</convert>
-			<convert type="ConverterRotator">3</convert>
+			<convert type="ServiceName3">%S</convert>
+			<convert type="ServiceName3">%F %p %Y %f %M %s</convert>
+			<convert type="ConverterRotator3">3</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="1530,278" size="135,36" font="Regular;28" zPosition="2" backgroundColor="background" foregroundColor="green" transparent="1" halign="center" valign="center">
 			<convert type="PliExtraInfo">VideoCodec</convert>
@@ -247,7 +247,7 @@
 			<convert type="ServiceInfo">Framerate</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="405,30" size="1050,66" zPosition="2" font="Regular;57" halign="center" noWrap="1" foregroundColor="white" transparent="1" backgroundColor="background">
-			<convert type="ServiceName2">%n. %N</convert>
+			<convert type="ServiceName3">%n. %N</convert>
 		</widget>
 	</screen>
 
@@ -256,15 +256,15 @@
 		<ePixmap position="-3,-2" size="1920,1080" pixmap="infobar-fs8-2.png" zPosition="-1"/>
 		<ePixmap position="0,645" size="1920,435" pixmap="infobar-fs8.png" zPosition="-1"/>
 		<ePixmap pixmap="frame_hd.png" position="96,924" size="168,108" zPosition="2" alphatest="blend"/>
-		<widget source="session.CurrentService" render="PiconUni" position="105,933" path="piconSat" size="150,90" zPosition="3" alphatest="blend">
-			<convert type="ServiceOrbitalPosition2"></convert>
+		<widget source="session.CurrentService" render="PiconUni3" position="105,933" path="piconSat" size="150,90" zPosition="3" alphatest="blend">
+			<convert type="ServiceOrbitalPosition3"></convert>
 		</widget>
 		<ePixmap pixmap="frame_hd.png" position="1488,924" size="168,108" zPosition="2" alphatest="blend"/>
-		<widget source="session.CurrentService" render="PiconUni" path="piconProv" position="1497,933" size="150,90" alphatest="blend" zPosition="3">
+		<widget source="session.CurrentService" render="PiconUni3" path="piconProv" position="1497,933" size="150,90" alphatest="blend" zPosition="3">
 			<convert type="ServiceName">Provider</convert>
 		</widget>
 		<ePixmap pixmap="frame_hd.png" position="1665,924" size="168,108" zPosition="2" alphatest="blend"/>
-		<widget source="session.CurrentService" render="PicEmu2" position="1674,933" size="150,90" transparent="1" alphatest="blend" zPosition="3"/>
+		<widget source="session.CurrentService" render="PicEmu3" position="1674,933" size="150,90" transparent="1" alphatest="blend" zPosition="3"/>
 		<ePixmap position="352,928" size="450,15" pixmap="chan_p1_bar.png" alphatest="blend" zPosition="1"/>
 		<ePixmap position="972,928" size="450,15" pixmap="chan_p1_bar.png" alphatest="blend" zPosition="1"/>
 
@@ -273,7 +273,7 @@
 			<convert type="EventName">Name</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Label" position="111,72" size="1688,105" font="Regular;28" halign="center" zPosition="5" backgroundColor="transpBlack" transparent="1">
-			<convert type="EventName2">ExtendedDescription</convert>
+			<convert type="EventName3">ExtendedDescription</convert>
 		</widget>
 
 		<!-- Picon -->
@@ -285,14 +285,14 @@
 		<widget source="global.CurrentTime" render="Label" position="1377,705" size="450,37" zPosition="2" font="Regular;28" halign="right" backgroundColor="transpBlack" foregroundColor="un9fcff" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="global.CurrentTime" render="Watches" position="1720,774" size="115,112" foregroundColor="red" zPosition="2" transparent="1" alphatest="blend">
-			<convert type="ExtraNumText">secHand</convert>
+		<widget source="global.CurrentTime" render="Watches3" position="1721,773" size="115,112" foregroundColor="red" zPosition="2" transparent="1" alphatest="blend">
+			<convert type="ExtraNumText3">secHand</convert>
 		</widget>
-		<widget source="global.CurrentTime" render="Watches" position="1728,783" size="100,97" foregroundColor="white" zPosition="3" transparent="1" alphatest="blend">
-			<convert type="ExtraNumText">minHand</convert>
+		<widget source="global.CurrentTime" render="Watches3" position="1729,782" size="100,97" foregroundColor="white" zPosition="3" transparent="1" alphatest="blend">
+			<convert type="ExtraNumText3">minHand</convert>
 		</widget>
-		<widget source="global.CurrentTime" render="Watches" position="1741,798" size="70,67" foregroundColor="white" zPosition="4" transparent="1" alphatest="blend">
-			<convert type="ExtraNumText">hourHand</convert>
+		<widget source="global.CurrentTime" render="Watches3" position="1744,797" size="70,67" foregroundColor="white" zPosition="4" transparent="1" alphatest="blend">
+			<convert type="ExtraNumText3">hourHand</convert>
 		</widget>
 
 		<!-- Service -->
@@ -300,28 +300,28 @@
 			<convert type="FrontendInfo">SNR</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="100,705" size="295,36" font="Regular;30" zPosition="2" backgroundColor="black" foregroundColor="yellow" transparent="1" halign="left">
-			<convert type="ServiceName2">Bouquet</convert>
+			<convert type="ServiceName3">Bouquet</convert>
 		</widget>
 		<eLabel text="AGC:" position="270,921" size="75,27" font="Regular;24" backgroundColor="black" foregroundColor="unccff" halign="right" transparent="1"/>
 		<widget source="session.CurrentService" render="Label" position="285,960" size="1035,36" font="Regular;27" halign="left" zPosition="2" backgroundColor="black" foregroundColor="green" transparent="1">
-			<convert type="CaidInfo2">Default</convert>
+			<convert type="CaidInfo3">Default</convert>
 		</widget>
-		<widget source="session.CurrentService" render="FixedLabel" text="FTA" backgroundColor="black" transparent="1" position="1020,1005" size="120,36" halign="center" font="Regular;30" foregroundColor="border1" zPosition="10">
-			<convert type="ExtremInfo">Fta</convert>
+<!--		<widget source="session.CurrentService" render="FixedLabel" text="FTA" backgroundColor="black" transparent="1" position="1020,1005" size="120,36" halign="center" font="Regular;30" foregroundColor="border1" zPosition="10">
+			<convert type="ExtremInfo3">Fta</convert>
 			<convert type="ConditionalShowHide"/>
 		</widget>
 		<widget source="session.CurrentService" render="FixedLabel" text="CRD" backgroundColor="black" transparent="1" position="1020,1005" size="120,36" halign="center" font="Regular;36" foregroundColor="hellgreen" zPosition="11">
-			<convert type="CaidInfo2">Crd</convert>
+			<convert type="CaidInfo3">Crd</convert>
 			<convert type="ConditionalShowHide"/>
 		</widget>
 		<widget source="session.CurrentService" render="FixedLabel" text="EMU" backgroundColor="black" transparent="1" position="1020,1005" size="120,36" halign="center" font="Regular;36" foregroundColor="una08500" zPosition="12">
-			<convert type="CaidInfo2">Emu</convert>
+			<convert type="CaidInfo3">Emu</convert>
 			<convert type="ConditionalShowHide"/>
 		</widget>
-		<widget source="session.CurrentService" render="FixedLabel" text="SOFTCAM:" backgroundColor="black" transparent="1" position="1035,1005" size="165,36" halign="center" font="Regular;30" foregroundColor="yellow" zPosition="13" valign="center">
-			<convert type="CaidInfo2">Net</convert>
+		<widget source="session.CurrentService" render="FixedLabel" text="SOFTCAM" backgroundColor="black" transparent="1" position="1035,1005" size="165,36" halign="center" font="Regular;30" foregroundColor="yellow" zPosition="13" valign="center">
+			<convert type="CaidInfo3">Net</convert>
 			<convert type="ConditionalShowHide"/>
-		</widget>
+		</widget>-->
 		<widget source="session.Event_Now" render="Label" position="285,780" size="120,45" zPosition="2" halign="left" font="Regular;33" backgroundColor="background" transparent="1">
 			<convert type="EventTime">StartTime</convert>
 			<convert type="ClockToText">Default</convert>
@@ -403,17 +403,11 @@
 			<convert type="ConditionalShowHide"/>
 		</widget>
 
-		<!-- Cam Info  -->
-		<widget source="session.CurrentService" render="Label" position="1148,1005" size="322,36" font="Regular;30" halign="center" zPosition="2" backgroundColor="black" foregroundColor="green" transparent="1">
-<!--			<convert type="CamdInfo3">Camd</convert>-->
-			<convert type="CaidInfo2">%T mc</convert>
+		<!-- ECM Info  -->
+		<widget source="session.CurrentService" render="Caids3" ecmColor="green" emmColor="yellow" font="Regular;30" nocColor="grey2" position="285,1005" size="765,36" transparent="1" zPosition="10" alphatest="blend">
+			<convert type="CaidDisplay3"></convert>
 		</widget>
 
-		<!-- ECM Info  -->
-		<widget source="session.CurrentService" render="mvmCaids" ecmColor="green" emmColor="yellow" font="Regular;30" nocColor="grey2" position="285,1005" size="765,36" transparent="1" zPosition="10" alphatest="blend">
-			<convert type="mvmCaidDisplay">
-			</convert>
-		</widget>
 		<eLabel text="SNR:" zPosition="3" position="892,921" size="75,28" halign="right" font="Regular;24" foregroundColor="un9fcff" transparent="1" backgroundColor="black"/>
 		<widget source="session.FrontendStatus" render="Label" position="807,921" zPosition="3" size="82,28" halign="left" font="Regular;24" foregroundColor="und6c07f" transparent="1" backgroundColor="black">
 			<convert type="FrontendInfo">AGC</convert>
@@ -424,24 +418,26 @@
 		<widget source="session.FrontendStatus" render="Progress" position="972,928" size="450,15" zPosition="4" pixmap="chan_p_bar.png" transparent="1">
 			<convert type="FrontendInfo">SNR</convert>
 		</widget>
-		<eLabel text="BER:" position="1315,960" size="75,36" font="Regular;24" backgroundColor="black" foregroundColor="un9fcff" transparent="1" halign="right"/>
-		<widget source="session.FrontendStatus" render="Label" position="1395,960" size="84,36" font="Regular;24" halign="center" backgroundColor="black" transparent="1" foregroundColor="und6c07f">
+		<eLabel text="BER:" position="1315,964" size="75,36" font="Regular;24" backgroundColor="black" foregroundColor="un9fcff" transparent="1" halign="right"/>
+		<widget source="session.FrontendStatus" render="Label" position="1395,964" size="84,36" font="Regular;24" halign="center" backgroundColor="black" transparent="1" foregroundColor="und6c07f">
 			<convert type="FrontendInfo">BER</convert>
 		</widget>
-		<eLabel text="CAID:" font="Regular;25" position="1210,873" size="98,30" backgroundColor="black" transparent="1" halign="right" foregroundColor="hellgreen"/>
+
+<!--		<eLabel text="CAID:" font="Regular;25" position="1210,873" size="98,30" backgroundColor="black" transparent="1" halign="right" foregroundColor="hellgreen"/>
 		<widget source="session.CurrentService" render="Label" position="1320,873" size="112,30" font="Regular;25" backgroundColor="black" foregroundColor="yellow" transparent="1">
-			<convert type="CaidInfo2">CAID</convert>
+			<convert type="CaidInfo3">CAID</convert>
 		</widget>
 		<eLabel text="ECM PID:" font="Regular;25" position="1456,873" size="120,30" backgroundColor="black" transparent="1" halign="right" foregroundColor="hellgreen"/>
 		<widget source="session.CurrentService" render="Label" position="1590,873" size="112,30" font="Regular;25" backgroundColor="black" foregroundColor="yellow" transparent="1">
-			<convert type="CaidInfo2">PID</convert>
-		</widget>
+			<convert type="CaidInfo3">PID</convert>
+		</widget>-->
+
 		<widget source="session.CurrentService" render="VideoSize" font="Regular;28" position="1206,768" size="195,33" halign="center" foregroundColor="hellgreen" backgroundColor="background" transparent="1"/>
 		<widget source="session.CurrentService" render="Label" position="1462,768" size="255,33" font="Regular;27" backgroundColor="background" foregroundColor="und6c07f" transparent="1">
-			<convert type="ServiceName2">%s  %M</convert>
+			<convert type="ServiceName3">%s  %M</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="405,675" size="1050,68" zPosition="2" font="Regular;57" halign="center" noWrap="1" foregroundColor="white" transparent="1" backgroundColor="background">
-			<convert type="ServiceName2">%N</convert>
+			<convert type="ServiceName3">%N</convert>
 		</widget>
 	</screen>
 
@@ -546,28 +542,28 @@
 			</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" pixmap="bar_ber.png" position="30,345" size="390,15" transparent="1" borderWidth="1" borderColor="grey" zPosition="1">
-			<convert type="ProgressDiskSpaceInfo">MemTotal</convert>
+			<convert type="ProgressDiskSpaceInfo3">MemTotal</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" zPosition="6" position="30,375" size="900,30" halign="left" valign="center" font="Regular;24" transparent="1" backgroundColor="black">
-			<convert type="ProgressDiskSpaceInfo">MemTotal,Full</convert>
+			<convert type="ProgressDiskSpaceInfo3">MemTotal,Full</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" pixmap="bar_ber.png" position="30,435" size="390,15" transparent="1" borderWidth="1" borderColor="grey" zPosition="1">
-			<convert type="ProgressDiskSpaceInfo">FleshInfo</convert>
+			<convert type="ProgressDiskSpaceInfo3">FleshInfo</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" zPosition="6" position="30,465" size="900,30" halign="left" valign="center" font="Regular;24" transparent="1" backgroundColor="black">
-			<convert type="ProgressDiskSpaceInfo">Flesh,Full</convert>
+			<convert type="ProgressDiskSpaceInfo3">Flesh,Full</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" pixmap="bar_ber.png" position="30,525" size="390,15" transparent="1" borderWidth="1" borderColor="grey" zPosition="1">
-			<convert type="ProgressDiskSpaceInfo">HddInfo</convert>
+			<convert type="ProgressDiskSpaceInfo3">HddInfo</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" zPosition="6" position="30,555" size="900,30" halign="left" valign="center" font="Regular;24" transparent="1" backgroundColor="black">
-			<convert type="ProgressDiskSpaceInfo">HddInfo,Full</convert>
+			<convert type="ProgressDiskSpaceInfo3">HddInfo,Full</convert>
 		</widget>
 		<widget source="session.Event_Now" render="Progress" pixmap="bar_ber.png" position="30,615" size="390,15" transparent="1" borderWidth="1" borderColor="grey" zPosition="1">
-			<convert type="ProgressDiskSpaceInfo">UsbInfo</convert>
+			<convert type="ProgressDiskSpaceInfo3">UsbInfo</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" zPosition="6" position="30,645" size="900,30" halign="left" valign="center" font="Regular;24" transparent="1" backgroundColor="black">
-			<convert type="ProgressDiskSpaceInfo">UsbInfo,Full</convert>
+			<convert type="ProgressDiskSpaceInfo3">UsbInfo,Full</convert>
 		</widget>
 	</screen>
 
@@ -834,25 +830,25 @@
 			</convert>
 		</widget>
 		<widget source="ServiceEvent" render="Label" position="1223,402" zPosition="1" size="525,39" font="Regular;34" halign="left" transparent="1" foregroundColor="un9fcff">
-			<convert type="ServiceName2">Name</convert>
+			<convert type="ServiceName3">Name</convert>
 		</widget>
-		<widget source="ServiceEvent" render="PiconUni" path="piconProv" position="1753,265" size="150,90" zPosition="2" transparent="1" alphatest="blend">
-			<convert type="ServiceName2">Provider</convert>
+		<widget source="ServiceEvent" render="PiconUni3" path="piconProv" position="1753,265" size="150,90" zPosition="2" transparent="1" alphatest="blend">
+			<convert type="ServiceName3">Provider</convert>
 		</widget>
-		<widget source="ServiceEvent" render="PiconUni" position="1753,141" path="piconSat" size="150,90" zPosition="3" alphatest="blend" transparent="1">
-			<convert type="ServiceOrbitalPosition2"></convert>
+		<widget source="ServiceEvent" render="PiconUni3" position="1753,141" path="piconSat" size="150,90" zPosition="3" alphatest="blend" transparent="1">
+			<convert type="ServiceOrbitalPosition3"></convert>
 		</widget>
-		<widget source="ServiceEvent" render="ScrollLabel" position="1223,576" size="693,277" font="Regular;27" backgroundColor="black" foregroundColor="unccff" transparent="1">
-			<convert type="EventName2">ExtendedDescription</convert>
+		<widget source="ServiceEvent" render="ScrollLabel3" position="1223,576" size="693,277" font="Regular;27" backgroundColor="black" foregroundColor="unccff" transparent="1">
+			<convert type="EventName3">ExtendedDescription</convert>
 		</widget>
 		<eLabel text="Next" zPosition="3" position="1223,858" size="102,39" halign="right" font="Regular;30" foregroundColor="yellow" transparent="1" backgroundColor="transpBlack"/>
 		<ePixmap pixmap="buttons/icon_event.png" position="1328,871" zPosition="3" size="22,15" alphatest="blend"/>
-		<widget source="ServiceEvent" render="NextEvent2" position="1354,863" size="570,85" font="Regular;24" foregroundColor="hellgreen" backgroundColor="black" noWrap="1" transparent="1" zPosition="2"/>
+		<widget source="ServiceEvent" render="NextEvent3" position="1354,863" size="570,85" font="Regular;24" foregroundColor="hellgreen" backgroundColor="black" noWrap="1" transparent="1" zPosition="2"/>
 		<widget source="ServiceEvent" render="Label" position="1223,523" size="693,39" font="Regular;30" zPosition="3" foregroundColor="yellow" transparent="1" halign="left">
 			<convert type="EventName">Name</convert>
 		</widget>
 		<widget source="ServiceEvent" render="Picon" position="1753,390" size="150,90" zPosition="2" alphatest="blend" transparent="1">
-			<convert type="ServiceName2">Reference</convert>
+			<convert type="ServiceName3">Reference</convert>
 		</widget>
 		<widget source="ServiceEvent" render="Label" position="1436,453" zPosition="2" size="135,36" font="Regular;30" halign="left" transparent="1">
 			<convert type="EventTime">EndTime</convert>
@@ -863,10 +859,10 @@
 			<convert type="EventTime">Progress</convert>
 		</widget>
 		<widget source="ServiceEvent" render="Label" position="622,918" zPosition="1" size="531,36" font="Regular;28" foregroundColor="yellow" transparent="1" halign="center">
-			<convert type="ServiceName2">TpansponderInfo</convert>
+			<convert type="ServiceName3">TpansponderInfo</convert>
 		</widget>
 		<widget position="76,918" size="1844,36" source="ServiceEvent" render="Label" font="Regular;28" halign="left" backgroundColor="black" zPosition="2" transparent="1" foregroundColor="grey">
-			<convert type="ServiceName2">Reference</convert>
+			<convert type="ServiceName3">Reference</convert>
 		</widget>
 		<widget source="session.VideoPicture" render="Pig" position="1223,136" size="519,256" zPosition="3" backgroundColor="transparent2"/>
 		<widget name="list" position="20,127" size="1190,780" scrollbarMode="showOnDemand" serviceItemHeight="60" serviceNumberFont="Regular;30" serviceNameFont="Regular;30" serviceInfoFont="Regular;28"
@@ -1137,7 +1133,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 		</widget>
 		<eLabel text="x" font="Regular;27" position="1722,210" size="22,27" halign="center" backgroundColor="transpBlack" transparent="1"/>
 		<widget source="session.CurrentService" render="Label" font="Regular;27" position="1744,210" size="82,27" halign="left" backgroundColor="transpBlack" transparent="1">
-	 		<convert type="ServiceInfo">VideoHeight</convert>
+			<convert type="ServiceInfo">VideoHeight</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="381,174" size="150,39" font="Regular;33" halign="right" backgroundColor="transpBlack" transparent="1">
 			<convert type="ServicePosition">Position</convert>
