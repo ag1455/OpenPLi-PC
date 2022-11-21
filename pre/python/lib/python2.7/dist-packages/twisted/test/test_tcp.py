@@ -1142,7 +1142,7 @@ class ProperlyCloseFilesMixin:
         """
         # Windows and Python 3: returns WSAENOTSOCK
         # Windows and Python 2: returns EBADF
-        # Linux, FreeBSD, Mac OS X: returns EBADF
+        # Linux, FreeBSD, macOS: returns EBADF
         if platform.isWindows() and _PY3:
             return errno.WSAENOTSOCK
         return errno.EBADF
@@ -1193,7 +1193,12 @@ class ProperlyCloseFilesMixin:
             expectedErrorCode = self.getHandleErrorCode()
             exception = self.assertRaises(
                 self.getHandleExceptionType(), client.handle.send, b'bytes')
-            self.assertEqual(exception.args[0], expectedErrorCode)
+            try:
+                self.assertEqual(exception.args[0][0][0], expectedErrorCode[0][0])
+                self.assertEqual(exception.args[0][0][2], expectedErrorCode[0][2])
+            except TypeError:
+                self.assertEqual(exception.args[0], expectedErrorCode)
+
         clientDeferred.addCallback(clientDisconnected)
 
         def cleanup(passthrough):

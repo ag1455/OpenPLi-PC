@@ -68,8 +68,8 @@ if [[ "$release" = "14.04" ]]; then
 		wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif7_5.1.4-2_amd64.deb
 		wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif-dev_5.1.4-2_amd64.deb
 	fi
-	dpkg -i *.deb
-	rm -f *.deb
+	dpkg -i *deb
+	rm -f *deb
 elif [[ "$release" = "16.04" ]]; then
 	echo ""
 	echo "************************************************************************************"
@@ -129,34 +129,35 @@ elif [[ "$release" = "20.04" ]]; then
 	"
 # Download 2.7 paskages
 	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/i/incremental/python-incremental_16.10.1-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-web_18.9.0-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-names_18.9.0-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-mail_18.9.0-3_all.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-bin_18.9.0-3_amd64.deb \
-	http://ftp.br.debian.org/debian/pool/main/t/twisted/python-twisted-core_18.9.0-3_all.deb \
+	http://old-releases.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-web_18.9.0-3_all.deb \
+	http://old-releases.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-names_18.9.0-3_all.deb \
+	http://old-releases.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-mail_18.9.0-3_all.deb \
+	http://old-releases.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-bin_18.9.0-3_amd64.deb \
+	http://old-releases.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-core_18.9.0-3_all.deb \
+	http://old-releases.ubuntu.com/ubuntu/pool/universe/t/twisted/python-twisted-conch_18.9.0-3_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/universe/b/blinker/python-blinker_1.4+dfsg1-0.3ubuntu1_all.deb\
+	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-mechanize/python-mechanize_0.2.5-3_all.deb \
+	http://archive.ubuntu.com/ubuntu/pool/main/c/configobj/python-configobj_5.0.6-2_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-ipaddr/python-ipaddr_2.2.0-2_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-urllib3/python-urllib3_1.24.1-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/b/bzr/python-bzrlib_2.7.0+bzr6622-15_amd64.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/pysendfile/python-sendfile_2.0.1-2_amd64.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-lzma/python-lzma_0.5.3-4_amd64.deb \
 	http://ftp.br.debian.org/debian/pool/main/b/blessings/python-blessings_1.6-2_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/p/python-mechanize/python-mechanize_0.2.5-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-langdetect/python-langdetect_1.0.7-3_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/pickleshare/python-pickleshare_0.7.5-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-sabyenc/python-sabyenc_3.3.5-1_amd64.deb \
 	http://ftp.br.debian.org/debian/pool/main/r/requests/python-requests_2.21.0-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-requests-toolbelt/python-requests-toolbelt_0.8.0-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/pyjwt/python-jwt_1.7.0-2_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/universe/b/blinker/python-blinker_1.4+dfsg1-0.3ubuntu1_all.deb\
 	http://ftp.br.debian.org/debian/pool/main/p/python-oauthlib/python-oauthlib_2.1.0-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-requests-oauthlib/python-requests-oauthlib_1.0.0-0.1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-flickrapi/python-flickrapi_2.1.2-5_all.deb \
-	http://archive.ubuntu.com/ubuntu/pool/main/c/configobj/python-configobj_5.0.6-2_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-click/python-click_7.0-1_all.deb \
 	http://ftp.br.debian.org/debian/pool/main/p/python-colorama/python-colorama_0.3.7-1_all.deb
-	dpkg -i *.deb
+	dpkg -i *deb
 	apt-get -f install -y
-	rm -f *.deb
+	rm -f *deb
 elif [[ "$release" = "22.04" ]]; then
 	echo ""
 	echo "************************************************************************************"
@@ -169,9 +170,9 @@ elif [[ "$release" = "22.04" ]]; then
 	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
 	"
 	apt-get -f install -y
-	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1_amd64.deb
-	dpkg -i libssl1.1_1.1.1l-1ubuntu1_amd64.deb
-	rm -f *.deb
+	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+	dpkg -i libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+	rm -f *deb
 # Unfortunately e2pc doesn't work with wayland
 #	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
 #	rpl '#WaylandEnable=false' 'WaylandEnable=false' /etc/gdm3/custom.conf
@@ -201,23 +202,26 @@ tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
 rm -f dvb-firmwares.tar.bz2
 
 if [ -d $BUILD_DIR ]; then
-	rm -rfv $BUILD_DIR
+	rm -rf $BUILD_DIR
 fi
 mkdir -v $BUILD_DIR
 cd $BUILD_DIR
 
 # Build and install libdvbsi++-git:
 LIB="libdvbsi++1"
-#PKG="libdvbsi-"
 PKG="libdvbsi++"
+#PKG="libdvbsi-"
 echo ""
 echo "                    *** Build and install $PKG ***"
 echo ""
 I=`dpkg -s $LIB | grep "Status"`
 if [ -n "$I" ]; then
-	dpkg -r $PKG $PKG-dev
+	dpkg -P $LIB $LIB-dbgsym $PKG-dev
 else
-	echo "$LIB not installed"
+	echo "$PKG not installed"
+fi
+if [ -d $PKG ]; then
+	rm -rf $PKG
 fi
 #git clone https://github.com/OpenDMM/$PKG.git
 git clone --depth 1 git://git.opendreambox.org/git/obi/$PKG.git
@@ -227,7 +231,7 @@ dpkg-buildpackage -b -d -uc -us
 cd ..
 mv $PKG*.* $PKG
 cd $PKG
-dpkg -i *.deb
+dpkg -i *deb
 rm -f *.tar.xz
 make distclean
 cd ..
@@ -245,21 +249,26 @@ else
 	PKG="libxmlccwrap"
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r $PKG $PKG-dev
+		dpkg -P $PKG $PKG-dev $PKG-dbgsym
 	else
 		echo "$PKG not installed"
+	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
 	fi
 	git clone https://github.com/OpenDMM/$PKG.git
 #	git clone git://git.opendreambox.org/git/obi/$PKG.git
 	cd $PKG
 	rpl '5' '10' debian/compat
 	rpl 'Source-Version' 'binary:Version' debian/control
+	sed -i 's/-$(MAKE) clean//g' debian/rules
+	sed -i 's/-$(MAKE) distclean//g' debian/rules
 #	autoupdate
 	dpkg-buildpackage -b -d -uc -us
 	cd ..
 	mv $PKG*.* $PKG
 	cd $PKG
-	dpkg -i *.deb
+	dpkg -i *deb
 	rm -f *.tar.gz
 	make distclean
 	cd ..
@@ -270,25 +279,28 @@ if [ ! -d libxmlccwrap ]; then
 	set -e
 	set -o pipefail
 else
+	PKG="libdvbcsa"
+	PKG1="libdvbcsa1"
+	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
-	PKG="libdvbcsa"
-	PKG1="libdvbcsa1"
-	VER="bc6c0b164a87ce05e9925785cc6fb3f54c02b026"
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r $PKG $PKG-dev tsdecrypt
+		dpkg -P PKG $PKG-dev $PKG1 tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
 	I=`dpkg -s $PKG1 | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r $PKG1 $PKG-dev tsdecrypt
+		dpkg -P $PKG1 $PKG-dev tsdecrypt
 	else
-		echo "$PKG1 not installed"
+		echo "$PKG not installed"
+	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://code.videolan.org/videolan/$PKG/-/archive/$VER/$PKG-$VER.zip
 	unzip $PKG-$VER.zip
@@ -308,16 +320,22 @@ if [ ! -d libdvbcsa ]; then
 	set -e
 	set -o pipefail
 else
-	echo ""
-	echo "**************************** OK. Go to the next step. ******************************"
-	echo ""
-	echo "                       *** Build and install $PKG ***"
-	echo ""
 	INSTALL_E2DIR="/usr/local/e2"
 	SOURCE="tuxtxt-git"
 	PKG="libtuxtxt"
 	PKG_="tuxtxt"
 	VER="1402795d660955757d87967b8ff1e3790625f9c1"
+	echo ""
+	echo "**************************** OK. Go to the next step. ******************************"
+	echo ""
+	echo "                       *** Build and install $PKG ***"
+	echo ""
+	I=`dpkg -s $PKG | grep "Status"`
+	if [ -n "$I" ]; then
+		dpkg -P $PKG
+	else
+		echo "$PKG not installed"
+	fi
 	if [ ! -d $INSTALL_E2DIR ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 	fi
@@ -328,6 +346,9 @@ else
 	if [ ! -d $INSTALL_E2DIR/lib/enigma2 ]; then
 		mkdir -p $INSTALL_E2DIR/lib/enigma2
 		ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
+	fi
+	if [ -d $SOURCE ]; then
+		rm -rf $SOURCE
 	fi
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
@@ -355,12 +376,18 @@ if [ ! -d libtuxtxt ]; then
 	set -e
 	set -o pipefail
 else
+	PKG="tuxtxt"
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	echo "                        *** Build and install $PKG ***"
 	echo ""
-	PKG="tuxtxt"
+	I=`dpkg -s $PKG | grep "Status"`
+	if [ -n "$I" ]; then
+		dpkg -P $PKG
+	else
+		echo "$PKG not installed"
+	fi
 	cd $PKG
 #	autoupdate
 	autoreconf -i
@@ -377,18 +404,21 @@ if [ ! -d tuxtxt-git/tuxtxt ]; then
 	set -e
 	set -o pipefail
 else
+	PKG="aio-grab"
+	VER="cf62da47eedb6afe4c44949253ef0b876deb2105"
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	echo "                       *** Build and install $PKG ***"
 	echo ""
-	PKG="aio-grab"
-	VER="cf62da47eedb6afe4c44949253ef0b876deb2105"
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r $PKG
+		dpkg -P $PKG
 	else
 		echo "$PKG not installed"
+	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
@@ -411,20 +441,23 @@ if [ ! -d aio-grab ]; then
 	set -e
 	set -o pipefail
 else
+	LIB="libgstreamer-plugins-dvbmediasink"
+	PKG="gst-plugin-dvbmediasink"
+	PKG_="dvbmediasink"
+	VER="1d197313832d39fdaf430634f62ad95a33029db0"
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	echo "                 *** Build and install $PKG ***"
 	echo ""
-	LIB="libgstreamer-plugins-dvbmediasink"
-	PKG="gst-plugin-dvbmediasink"
-	PKG_="dvbmediasink"
-	VER="1d197313832d39fdaf430634f62ad95a33029db0"
 	I=`dpkg -s $LIB | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r $LIB
+		dpkg -P $LIB
 	else
 		echo "$LIB not installed"
+	fi
+	if [ -d $PKG ]; then
+		rm -rf $PKG
 	fi
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
 	unzip $VER.zip
@@ -451,28 +484,31 @@ if [ ! -d gst-plugin-dvbmediasink ]; then
 	set -e
 	set -o pipefail
 else
+	LIB="libgstreamer-plugins-subsink"
+	PKG="gst-plugin-subsink"
+	VER="2c4288bb29e0781f27aecc25c941b6e441630f8d"
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
 	echo "                    *** Build and install $PKG ***"
 	echo ""
-	LIB="libgstreamer-plugins-subsink"
-	PKG="gst-plugin-subsink"
-	VER="2c4288bb29e0781f27aecc25c941b6e441630f8d"
 	I=`dpkg -s $LIB | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -r $LIB
+		dpkg -P $LIB
 	else
 		echo "$LIB not installed"
 	fi
-		wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
-		unzip $VER.zip
-		rm $VER.zip
-		mv $PKG-$VER $PKG
-		cd $PKG
-		echo "AC_CONFIG_MACRO_DIR([m4])" >> configure.ac
+	if [ -d $PKG ]; then
+		rm -rf $PKG
+	fi
+	wget --no-check-certificate https://github.com/OpenPLi/$PKG/archive/$VER.zip
+	unzip $VER.zip
+	rm $VER.zip
+	mv $PKG-$VER $PKG
+	cd $PKG
+	echo "AC_CONFIG_MACRO_DIR([m4])" >> configure.ac
 	if [[ "$release" = "14.04" ]]; then
-#		autoupdate
+		#autoupdate
 		autoreconf -i
 		./configure --prefix=/usr
 		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
@@ -484,7 +520,7 @@ else
 		echo ""
 		echo "                  *** Patch for $PKG applied ***"
 		echo ""
-#		autoupdate
+		#autoupdate
 		autoreconf -i
 		./configure --prefix=/usr
 		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes

@@ -14,6 +14,7 @@ See L{Failure}.
 from __future__ import division, absolute_import, print_function
 
 # System Imports
+import copy
 import sys
 import linecache
 import inspect
@@ -90,30 +91,41 @@ class NoCurrentExceptionError(Exception):
 
 
 
-class _Traceback(object):
+def _Traceback(frames):
+    """
+    Construct a fake traceback object using a list of frames. Note that
+    although frames generally include locals and globals, this information
+    is not kept by this method, since locals and globals are not used in
+    standard tracebacks.
+
+    @param frames: [(methodname, filename, lineno, locals, globals), ...]
+    """
+    assert len(frames) > 0, "Must pass some frames"
+    # We deliberately avoid using recursion here, as the frames list may be
+    # long.
+    tb = None
+    for frame in reversed(frames):
+        tb = _TracebackFrame(frame, tb)
+    return tb
+
+
+
+class _TracebackFrame(object):
     """
     Fake traceback object which can be passed to functions in the standard
     library L{traceback} module.
     """
 
-    def __init__(self, frames):
+    def __init__(self, frame, tb_next):
         """
-        Construct a fake traceback object using a list of frames. Note that
-        although frames generally include locals and globals, this information
-        is not kept by this object, since locals and globals are not used in
-        standard tracebacks.
-
-        @param frames: [(methodname, filename, lineno, locals, globals), ...]
+        @param frame: (methodname, filename, lineno, locals, globals)
+        @param tb_next: next inner _TracebackFrame object, or None if this
+           is the innermost frame.
         """
-        assert len(frames) > 0, "Must pass some frames"
-        head, frames = frames[0], frames[1:]
-        name, filename, lineno, localz, globalz = head
+        name, filename, lineno, localz, globalz = frame
         self.tb_frame = _Frame(name, filename)
         self.tb_lineno = lineno
-        if len(frames) == 0:
-            self.tb_next = None
-        else:
-            self.tb_next = _Traceback(frames)
+        self.tb_next = tb_next
 
 
 
@@ -146,6 +158,25 @@ class _Code(object):
     def __init__(self, name, filename):
         self.co_name = name
         self.co_filename = filename
+
+
+
+_inlineCallbacksExtraneous = []
+
+def _extraneous(f):
+    """
+    Mark the given callable as extraneous to inlineCallbacks exception
+    reporting; don't show these functions.
+
+    @param f: a function that you NEVER WANT TO SEE AGAIN in ANY TRACEBACK
+        reported by Failure.
+
+    @type f: function
+
+    @return: f
+    """
+    _inlineCallbacksExtraneous.append(f.__code__)
+    return f
 
 
 
@@ -237,9 +268,25 @@ class Failure(BaseException):
         else:
             self.type = exc_type
             self.value = exc_value
+
         if isinstance(self.value, Failure):
-            self.__dict__ = self.value.__dict__
+            self._extrapolate(self.value)
             return
+
+        if hasattr(self.value, "__failure__"):
+
+            # For exceptions propagated through coroutine-awaiting (see
+            # Deferred.send, AKA Deferred.__next__), which can't be raised as
+            # Failure because that would mess up the ability to except: them:
+            self._extrapolate(self.value.__failure__)
+
+            # Clean up the inherently circular reference established by storing
+            # the failure there.  This should make the common case of a Twisted
+            # / Deferred-returning coroutine somewhat less hard on the garbage
+            # collector.
+            del self.value.__failure__
+            return
+
         if tb is None:
             if exc_tb:
                 tb = exc_tb
@@ -330,6 +377,38 @@ class Failure(BaseException):
             self.parents = [self.type]
 
 
+    def _extrapolate(self, otherFailure):
+        """
+        Extrapolate from one failure into another, copying its stack frames.
+
+        @param otherFailure: Another L{Failure}, whose traceback information,
+            if any, should be preserved as part of the stack presented by this
+            one.
+        @type otherFailure: L{Failure}
+        """
+        # Copy all infos from that failure (including self.frames).
+        self.__dict__ = copy.copy(otherFailure.__dict__)
+
+        # If we are re-throwing a Failure, we merge the stack-trace stored in
+        # the failure with the current exception's stack.  This integrated with
+        # throwExceptionIntoGenerator and allows to provide full stack trace,
+        # even if we go through several layers of inlineCallbacks.
+        _, _, tb = sys.exc_info()
+        frames = []
+        while tb is not None:
+            f = tb.tb_frame
+            if f.f_code not in _inlineCallbacksExtraneous:
+                frames.append((
+                    f.f_code.co_name,
+                    f.f_code.co_filename,
+                    tb.tb_lineno, (), ()
+                ))
+            tb = tb.tb_next
+        # Merging current stack with stack stored in the Failure.
+        frames.extend(self.frames)
+        self.frames = frames
+
+
     def trap(self, *errorTypes):
         """
         Trap this failure if its type is in a predetermined list.
@@ -356,7 +435,10 @@ class Failure(BaseException):
         """
         error = self.check(*errorTypes)
         if not error:
-            self.raiseException()
+            if _PY3:
+                self.raiseException()
+            else:
+                raise self
         return error
 
 
@@ -394,6 +476,7 @@ class Failure(BaseException):
         """)
 
 
+    @_extraneous
     def throwExceptionIntoGenerator(self, g):
         """
         Throw the original exception into the given generator,
