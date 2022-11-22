@@ -1,0 +1,31 @@
+Metadata-Version: 1.1
+Name: sabyenc
+Version: 3.3.1
+Summary: yEnc Module for Python modified for SABnzbd
+Home-page: https://github.com/sabnzbd/sabnzbd-yenc
+Author: Safihre
+Author-email: safihre@sabnzbd.org
+License: LGPLv3
+Description-Content-Type: UNKNOWN
+Description: 
+        yEnc Decoding for Python
+        ---------------------------------
+        
+        Mofied the original yenc module by Alessandro Duca for use within SABnzbd.
+        
+        The module was extended to do header parsing and full yEnc decoding from a Python
+        list of chunks, the way in which data is retrieved from usenet.
+        
+        Currently CRC-checking of decoded data is disabled to allow for increased performance.
+        It can only be re-enabled by locally altering 'sabyenc.h' and setting 'CRC_CHECK 1'.
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: C
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)
+Classifier: Operating System :: Unix
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Plugins
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Communications :: Usenet News
