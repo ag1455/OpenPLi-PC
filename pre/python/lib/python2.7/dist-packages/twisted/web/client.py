@@ -10,7 +10,6 @@ from __future__ import division, absolute_import
 
 import os
 import warnings
-import zlib
 
 try:
     from urlparse import urlunparse, urljoin, urldefrag
@@ -22,22 +21,19 @@ except ImportError:
         result = _urlunparse(tuple([p.decode("charmap") for p in parts]))
         return result.encode("charmap")
 
-
-from zope.interface import implementer
+import zlib
 from functools import wraps
 
-from twisted.python import log
+from zope.interface import implementer
+
 from twisted.python.compat import _PY3, networkString
 from twisted.python.compat import nativeString, intToBytes, unicode, itervalues
-from twisted.python.deprecate import (
-    deprecated,
-    deprecatedModuleAttribute,
-    getDeprecationWarningString,
-)
-
+from twisted.python.deprecate import deprecatedModuleAttribute, deprecated
 from twisted.python.failure import Failure
 from incremental import Version
 
+from twisted.web.iweb import IPolicyForHTTPS, IAgentEndpointFactory
+from twisted.python.deprecate import getDeprecationWarningString
 from twisted.web import http
 from twisted.internet import defer, protocol, task, reactor
 from twisted.internet.abstract import isIPv6Address
@@ -46,17 +42,9 @@ from twisted.internet.endpoints import HostnameEndpoint, wrapClientTLS
 from twisted.python.util import InsensitiveDict
 from twisted.python.components import proxyForInterface
 from twisted.web import error
+from twisted.web.iweb import UNKNOWN_LENGTH, IAgent, IBodyProducer, IResponse
 from twisted.web.http_headers import Headers
-
-from twisted.web._newclient import _ensureValidURI, _ensureValidMethod
-from twisted.web.iweb import (
-    UNKNOWN_LENGTH,
-    IAgent,
-    IAgentEndpointFactory,
-    IBodyProducer,
-    IPolicyForHTTPS,
-    IResponse,
-)
+from twisted.logger import Logger
 
 
 class PartialDownloadError(error.Error):
@@ -89,13 +77,11 @@ class HTTPPageGetter(http.HTTPClient):
 
     _completelyDone = True
 
-    _specialHeaders = set(
-        (b'host', b'user-agent', b'cookie', b'content-length'),
-    )
+    _specialHeaders = set((b'host', b'user-agent', b'cookie', b'content-length'))
 
     def connectionMade(self):
-        method = _ensureValidMethod(getattr(self.factory, 'method', b'GET'))
-        self.sendCommand(method, _ensureValidURI(self.factory.path))
+        method = getattr(self.factory, 'method', b'GET')
+        self.sendCommand(method, self.factory.path)
         if self.factory.scheme == b'http' and self.factory.port != 80:
             host = self.factory.host + b':' + intToBytes(self.factory.port)
         elif self.factory.scheme == b'https' and self.factory.port != 443:
@@ -375,7 +361,7 @@ class HTTPClientFactory(protocol.ClientFactory):
             # just in case a broken http/1.1 decides to keep connection alive
             self.headers.setdefault(b"connection", b"close")
         self.postdata = postdata
-        self.method = _ensureValidMethod(method)
+        self.method = method
 
         self.setURL(url)
 
@@ -402,7 +388,6 @@ class HTTPClientFactory(protocol.ClientFactory):
         return "<%s: %s>" % (self.__class__.__name__, self.url)
 
     def setURL(self, url):
-        _ensureValidURI(url.strip())
         self.url = url
         uri = URI.fromBytes(url)
         if uri.scheme and uri.host:
@@ -487,6 +472,7 @@ class HTTPDownloader(HTTPClientFactory):
     """
     protocol = HTTPPageDownloader
     value = None
+    _log = Logger()
 
     def __init__(self, url, fileOrName,
                  method=b'GET', postdata=None, headers=None,
@@ -572,7 +558,7 @@ class HTTPDownloader(HTTPClientFactory):
                 try:
                     self.file.close()
                 except:
-                    log.err(None, "Error closing HTTPDownloader file")
+                    self._log.failure("Error closing HTTPDownloader file")
             self.deferred.errback(reason)
 
 
@@ -746,7 +732,7 @@ def _makeGetterFactory(url, factoryFactory, contextFactory=None,
 
     @return: The factory created by C{factoryFactory}
     """
-    uri = URI.fromBytes(_ensureValidURI(url.strip()))
+    uri = URI.fromBytes(url)
     factory = factoryFactory(url, *args, **kwargs)
     if uri.scheme == b'https':
         from twisted.internet import ssl
@@ -1287,6 +1273,7 @@ class HTTPConnectionPool(object):
     maxPersistentPerHost = 2
     cachedConnectionTimeout = 240
     retryAutomatically = True
+    _log = Logger()
 
     def __init__(self, reactor, persistent=True):
         self._reactor = reactor
@@ -1365,7 +1352,8 @@ class HTTPConnectionPool(object):
                 raise RuntimeError(
                     "BUG: Non-quiescent protocol added to connection pool.")
             except:
-                log.err()
+                self._log.failure(
+                    "BUG: Non-quiescent protocol added to connection pool.")
             return
         connections = self._connections.setdefault(key, [])
         if len(connections) == self.maxPersistentPerHost:
@@ -1434,9 +1422,6 @@ class _AgentBase(object):
         Issue a new request, given the endpoint and the path sent as part of
         the request.
         """
-
-        method = _ensureValidMethod(method)
-
         # Create minimal headers, if necessary:
         if headers is None:
             headers = Headers()
@@ -1474,12 +1459,9 @@ class _StandardEndpointFactory(object):
     """
     def __init__(self, reactor, contextFactory, connectTimeout, bindAddress):
         """
-        @param reactor: A provider of
-            L{twisted.internet.interfaces.IReactorTCP} and
-            L{twisted.internet.interfaces.IReactorSSL} for this L{Agent} to
-            place outgoing connections.
-        @type reactor: L{twisted.internet.interfaces.IReactorTCP} and
-            L{twisted.internet.interfaces.IReactorSSL}
+        @param reactor: A provider to use to create endpoints.
+        @type reactor: see L{HostnameEndpoint.__init__} for acceptable reactor
+            types.
 
         @param contextFactory: A factory for TLS contexts, to control the
             verification parameters of OpenSSL.
@@ -1553,12 +1535,10 @@ class Agent(_AgentBase):
         """
         Create an L{Agent}.
 
-        @param reactor: A provider of
-            L{twisted.internet.interfaces.IReactorTCP} and
-            L{twisted.internet.interfaces.IReactorSSL} for this L{Agent} to
-            place outgoing connections.
-        @type reactor: L{twisted.internet.interfaces.IReactorTCP} and
-            L{twisted.internet.interfaces.IReactorSSL}
+        @param reactor: A reactor for this L{Agent} to place outgoing
+            connections.
+        @type reactor: see L{HostnameEndpoint.__init__} for acceptable reactor
+            types.
 
         @param contextFactory: A factory for TLS contexts, to control the
             verification parameters of OpenSSL.  The default is to use a
@@ -1598,8 +1578,10 @@ class Agent(_AgentBase):
         Create a new L{Agent} that will use the endpoint factory to figure
         out how to connect to the server.
 
-        @param reactor: A provider of
-            L{twisted.internet.interfaces.IReactorTime}.
+        @param reactor: A reactor for this L{Agent} to place outgoing
+            connections.
+        @type reactor: see L{HostnameEndpoint.__init__} for acceptable reactor
+            types.
 
         @param endpointFactory: Used to construct endpoints which the
             HTTP client will connect with.
@@ -1621,8 +1603,10 @@ class Agent(_AgentBase):
         """
         Initialize a new L{Agent}.
 
-        @param reactor: A provider of relevant reactor interfaces, at a minimum
-            L{twisted.internet.interfaces.IReactorTime}.
+        @param reactor: A reactor for this L{Agent} to place outgoing
+            connections.
+        @type reactor: see L{HostnameEndpoint.__init__} for acceptable reactor
+            types.
 
         @param endpointFactory: Used to construct endpoints which the
             HTTP client will connect with.
@@ -1662,7 +1646,6 @@ class Agent(_AgentBase):
 
         @see: L{twisted.web.iweb.IAgent.request}
         """
-        uri = _ensureValidURI(uri.strip())
         parsedURI = URI.fromBytes(uri)
         try:
             endpoint = self._getEndpoint(parsedURI)
@@ -1696,8 +1679,6 @@ class ProxyAgent(_AgentBase):
         """
         Issue a new request via the configured proxy.
         """
-        uri = _ensureValidURI(uri.strip())
-
         # Cache *all* connections under the same key, since we are only
         # connecting to a single destination, the proxy:
         key = ("http-proxy", self._proxyEndpoint)
@@ -2019,17 +2000,6 @@ class ContentDecoderAgent(object):
         return response
 
 
-_canonicalHeaderName = Headers()._canonicalNameCaps
-_defaultSensitiveHeaders = frozenset(
-    [
-        b"Authorization",
-        b"Cookie",
-        b"Cookie2",
-        b"Proxy-Authorization",
-        b"WWW-Authenticate",
-    ]
-)
-
 
 @implementer(IAgent)
 class RedirectAgent(object):
@@ -2045,11 +2015,6 @@ class RedirectAgent(object):
     @param redirectLimit: The maximum number of times the agent is allowed to
         follow redirects before failing with a L{error.InfiniteRedirection}.
 
-    @param sensitiveHeaderNames: An iterable of C{bytes} enumerating the names
-        of headers that must not be transmitted when redirecting to a different
-        origins.  These will be consulted in addition to the protocol-specified
-        set of headers that contain sensitive information.
-
     @cvar _redirectResponses: A L{list} of HTTP status codes to be redirected
         for I{GET} and I{HEAD} methods.
 
@@ -2064,17 +2029,9 @@ class RedirectAgent(object):
     _seeOtherResponses = [http.SEE_OTHER]
 
 
-    def __init__(
-        self,
-        agent,
-        redirectLimit = 20,
-        sensitiveHeaderNames = (),
-    ):
+    def __init__(self, agent, redirectLimit=20):
         self._agent = agent
         self._redirectLimit = redirectLimit
-        sensitive = {_canonicalHeaderName(each) for each in sensitiveHeaderNames}
-        sensitive.update(_defaultSensitiveHeaders)
-        self._sensitiveHeaderNames = sensitive
 
 
     def request(self, method, uri, headers=None, bodyProducer=None):
@@ -2121,22 +2078,6 @@ class RedirectAgent(object):
                 response.code, b'No location header field', uri)
             raise ResponseFailed([Failure(err)], response)
         location = self._resolveLocation(uri, locationHeaders[0])
-        if headers:
-            parsedURI = URI.fromBytes(uri)
-            parsedLocation = URI.fromBytes(location)
-            sameOrigin = (
-                (parsedURI.scheme == parsedLocation.scheme)
-                and (parsedURI.host == parsedLocation.host)
-                and (parsedURI.port == parsedLocation.port)
-            )
-            if not sameOrigin:
-                headers = Headers(
-                    {
-                        rawName: rawValue
-                        for rawName, rawValue in headers.getAllRawHeaders()
-                        if rawName not in self._sensitiveHeaderNames
-                    }
-                )
         deferred = self._agent.request(method, location, headers)
         def _chainResponse(newResponse):
             newResponse.setPreviousResponse(response)

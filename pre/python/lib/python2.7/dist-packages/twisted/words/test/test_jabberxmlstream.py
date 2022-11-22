@@ -21,15 +21,7 @@ from twisted.words.test.test_xmlstream import GenericXmlStreamFactoryTestsMixin
 from twisted.words.xish import domish
 from twisted.words.protocols.jabber import error, ijabber, jid, xmlstream
 
-try:
-    from twisted.internet import ssl
-except ImportError:
-    ssl = None
-    skipWhenNoSSL = "SSL not available"
-else:
-    skipWhenNoSSL = None
-    from twisted.internet.ssl import CertificateOptions
-    from twisted.internet._sslverify import ClientTLSOptions
+
 
 NS_XMPP_TLS = 'urn:ietf:params:xml:ns:xmpp-tls'
 
@@ -673,7 +665,7 @@ class TLSInitiatingInitializerTests(unittest.TestCase):
 
         self.savedSSL = xmlstream.ssl
 
-        self.authenticator = xmlstream.ConnectAuthenticator(u'example.com')
+        self.authenticator = xmlstream.Authenticator()
         self.xmlstream = xmlstream.XmlStream(self.authenticator)
         self.xmlstream.send = self.output.append
         self.xmlstream.connectionMade()
@@ -687,18 +679,9 @@ class TLSInitiatingInitializerTests(unittest.TestCase):
         xmlstream.ssl = self.savedSSL
 
 
-    def test_initRequired(self):
+    def testWantedSupported(self):
         """
-        Passing required sets the instance variable.
-        """
-        self.init = xmlstream.TLSInitiatingInitializer(self.xmlstream,
-                                                       required=True)
-        self.assertTrue(self.init.required)
-
-
-    def test_wantedSupported(self):
-        """
-        When TLS is wanted and SSL available, StartTLS is initiated.
+        Test start when TLS is wanted and the SSL library available.
         """
         self.xmlstream.transport = proto_helpers.StringTransport()
         self.xmlstream.transport.startTLS = lambda ctx: self.done.append('TLS')
@@ -707,8 +690,7 @@ class TLSInitiatingInitializerTests(unittest.TestCase):
 
         d = self.init.start()
         d.addCallback(self.assertEqual, xmlstream.Reset)
-        self.assertEqual(2, len(self.output))
-        starttls = self.output[1]
+        starttls = self.output[0]
         self.assertEqual('starttls', starttls.name)
         self.assertEqual(NS_XMPP_TLS, starttls.uri)
         self.xmlstream.dataReceived("<proceed xmlns='%s'/>" % NS_XMPP_TLS)
@@ -716,90 +698,40 @@ class TLSInitiatingInitializerTests(unittest.TestCase):
 
         return d
 
-    test_wantedSupported.skip = skipWhenNoSSL
+    if not xmlstream.ssl:
+        testWantedSupported.skip = "SSL not available"
 
 
-    def test_certificateVerify(self):
+    def testWantedNotSupportedNotRequired(self):
         """
-        The server certificate will be verified.
-        """
-
-        def fakeStartTLS(contextFactory):
-            self.assertIsInstance(contextFactory, ClientTLSOptions)
-            self.assertEqual(contextFactory._hostname, u"example.com")
-            self.done.append('TLS')
-
-        self.xmlstream.transport = proto_helpers.StringTransport()
-        self.xmlstream.transport.startTLS = fakeStartTLS
-        self.xmlstream.reset = lambda: self.done.append('reset')
-        self.xmlstream.sendHeader = lambda: self.done.append('header')
-
-        d = self.init.start()
-        self.xmlstream.dataReceived("<proceed xmlns='%s'/>" % NS_XMPP_TLS)
-        self.assertEqual(['TLS', 'reset', 'header'], self.done)
-        return d
-
-    test_certificateVerify.skip = skipWhenNoSSL
-
-
-    def test_certificateVerifyContext(self):
-        """
-        A custom contextFactory is passed through to startTLS.
-        """
-        ctx = CertificateOptions()
-        self.init = xmlstream.TLSInitiatingInitializer(
-            self.xmlstream, configurationForTLS=ctx)
-
-        self.init.contextFactory = ctx
-
-        def fakeStartTLS(contextFactory):
-            self.assertIs(ctx, contextFactory)
-            self.done.append('TLS')
-
-        self.xmlstream.transport = proto_helpers.StringTransport()
-        self.xmlstream.transport.startTLS = fakeStartTLS
-        self.xmlstream.reset = lambda: self.done.append('reset')
-        self.xmlstream.sendHeader = lambda: self.done.append('header')
-
-        d = self.init.start()
-        self.xmlstream.dataReceived("<proceed xmlns='%s'/>" % NS_XMPP_TLS)
-        self.assertEqual(['TLS', 'reset', 'header'], self.done)
-        return d
-
-    test_certificateVerifyContext.skip = skipWhenNoSSL
-
-
-    def test_wantedNotSupportedNotRequired(self):
-        """
-        No StartTLS is initiated when wanted, not required, SSL not available.
+        Test start when TLS is wanted and the SSL library available.
         """
         xmlstream.ssl = None
-        self.init.required = False
 
         d = self.init.start()
         d.addCallback(self.assertEqual, None)
-        self.assertEqual(1, len(self.output))
+        self.assertEqual([], self.output)
 
         return d
 
 
-    def test_wantedNotSupportedRequired(self):
+    def testWantedNotSupportedRequired(self):
         """
-        TLSNotSupported is raised when TLS is required but not available.
+        Test start when TLS is wanted and the SSL library available.
         """
         xmlstream.ssl = None
         self.init.required = True
 
         d = self.init.start()
         self.assertFailure(d, xmlstream.TLSNotSupported)
-        self.assertEqual(1, len(self.output))
+        self.assertEqual([], self.output)
 
         return d
 
 
-    def test_notWantedRequired(self):
+    def testNotWantedRequired(self):
         """
-        TLSRequired is raised when TLS is not wanted, but required by server.
+        Test start when TLS is not wanted, but required by the server.
         """
         tls = domish.Element(('urn:ietf:params:xml:ns:xmpp-tls', 'starttls'))
         tls.addElement('required')
@@ -807,30 +739,29 @@ class TLSInitiatingInitializerTests(unittest.TestCase):
         self.init.wanted = False
 
         d = self.init.start()
-        self.assertEqual(1, len(self.output))
+        self.assertEqual([], self.output)
         self.assertFailure(d, xmlstream.TLSRequired)
 
         return d
 
 
-    def test_notWantedNotRequired(self):
+    def testNotWantedNotRequired(self):
         """
-        No StartTLS is initiated when not wanted and not required.
+        Test start when TLS is not wanted, but required by the server.
         """
         tls = domish.Element(('urn:ietf:params:xml:ns:xmpp-tls', 'starttls'))
         self.xmlstream.features = {(tls.uri, tls.name): tls}
         self.init.wanted = False
-        self.init.required = False
 
         d = self.init.start()
         d.addCallback(self.assertEqual, None)
-        self.assertEqual(1, len(self.output))
+        self.assertEqual([], self.output)
         return d
 
 
-    def test_failed(self):
+    def testFailed(self):
         """
-        TLSFailed is raised when the server responds with a failure.
+        Test failed TLS negotiation.
         """
         # Pretend that ssl is supported, it isn't actually used when the
         # server starts out with a failure in response to our initial

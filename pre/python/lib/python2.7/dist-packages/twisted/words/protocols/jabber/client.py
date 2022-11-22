@@ -206,10 +206,14 @@ class BasicAuthenticator(xmlstream.ConnectAuthenticator):
         xs.version = (0, 0)
         xmlstream.ConnectAuthenticator.associateWithStream(self, xs)
 
-        xs.initializers = [
-            xmlstream.TLSInitiatingInitializer(xs, required=False),
-            IQAuthInitializer(xs),
-        ]
+        inits = [ (xmlstream.TLSInitiatingInitializer, False),
+                  (IQAuthInitializer, True),
+                ]
+
+        for initClass, required in inits:
+            init = initClass(xs)
+            init.required = required
+            xs.initializers.append(init)
 
     # TODO: move registration into an Initializer?
 
@@ -298,7 +302,7 @@ class SessionInitializer(xmlstream.BaseFeatureInitiatingInitializer):
 
 
 
-def XMPPClientFactory(jid, password, configurationForTLS=None):
+def XMPPClientFactory(jid, password):
     """
     Client factory for XMPP 1.0 (only).
 
@@ -310,23 +314,12 @@ def XMPPClientFactory(jid, password, configurationForTLS=None):
 
     @param jid: Jabber ID to connect with.
     @type jid: L{jid.JID}
-
     @param password: password to authenticate with.
     @type password: L{unicode}
-
-    @param configurationForTLS: An object which creates appropriately
-        configured TLS connections. This is passed to C{startTLS} on the
-        transport and is preferably created using
-        L{twisted.internet.ssl.optionsForClientTLS}. If C{None}, the default is
-        to verify the server certificate against the trust roots as provided by
-        the platform. See L{twisted.internet._sslverify.platformTrust}.
-    @type configurationForTLS: L{IOpenSSLClientConnectionCreator} or C{None}
-
     @return: XML stream factory.
     @rtype: L{xmlstream.XmlStreamFactory}
     """
-    a = XMPPAuthenticator(jid, password,
-                          configurationForTLS=configurationForTLS)
+    a = XMPPAuthenticator(jid, password)
     return xmlstream.XmlStreamFactory(a)
 
 
@@ -361,29 +354,16 @@ class XMPPAuthenticator(xmlstream.ConnectAuthenticator):
                resource binding step, and this is stored in this instance
                variable.
     @type jid: L{jid.JID}
-
     @ivar password: password to be used during SASL authentication.
     @type password: L{unicode}
     """
 
     namespace = 'jabber:client'
 
-    def __init__(self, jid, password, configurationForTLS=None):
-        """
-        @param configurationForTLS: An object which creates appropriately
-            configured TLS connections. This is passed to C{startTLS} on the
-            transport and is preferably created using
-            L{twisted.internet.ssl.optionsForClientTLS}. If C{None}, the
-            default is to verify the server certificate against the trust roots
-            as provided by the platform. See
-            L{twisted.internet._sslverify.platformTrust}.
-        @type configurationForTLS: L{IOpenSSLClientConnectionCreator} or
-            C{None}
-        """
+    def __init__(self, jid, password):
         xmlstream.ConnectAuthenticator.__init__(self, jid.host)
         self.jid = jid
         self.password = password
-        self._configurationForTLS = configurationForTLS
 
 
     def associateWithStream(self, xs):
@@ -397,12 +377,14 @@ class XMPPAuthenticator(xmlstream.ConnectAuthenticator):
         """
         xmlstream.ConnectAuthenticator.associateWithStream(self, xs)
 
-        xs.initializers = [
-                CheckVersionInitializer(xs),
-                xmlstream.TLSInitiatingInitializer(
-                    xs, required=True,
-                    configurationForTLS=self._configurationForTLS),
-                sasl.SASLInitiatingInitializer(xs, required=True),
-                BindInitializer(xs, required=True),
-                SessionInitializer(xs, required=False),
+        xs.initializers = [CheckVersionInitializer(xs)]
+        inits = [ (xmlstream.TLSInitiatingInitializer, False),
+                  (sasl.SASLInitiatingInitializer, True),
+                  (BindInitializer, False),
+                  (SessionInitializer, False),
                 ]
+
+        for initClass, required in inits:
+            init = initClass(xs)
+            init.required = required
+            xs.initializers.append(init)
