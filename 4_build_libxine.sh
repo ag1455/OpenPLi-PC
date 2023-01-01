@@ -3,12 +3,12 @@
 # Build and install xine-lib:
 LIB="libxine2"
 PKG="xine-lib-1.2-1.2.12+hg-e2pc"
-VER="986051678769"
+VER="c4726219b1e9"
 
-I=`dpkg -s $LIB | grep "Status"`
+dpkg -s $LIB | grep -iw ok > /dev/null
 
 # Remove old package libxine2.
-if [ -n "$I" ]; then
+if [ $? -eq 0 ]; then
 	apt-get -y purge libxine2*
 else
 	echo "$LIB not installed"
