@@ -519,7 +519,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="e456f7a37ad3a22fe8115d37cf4555c8f6ad46cb"
+		VER="2fb17e2634fc448123044e89f78a2b0eff761c45"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
