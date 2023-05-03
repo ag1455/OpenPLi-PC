@@ -138,7 +138,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
 git checkout release-8.3
-git reset --hard 428face2
+git reset --hard 341315bd
 cd ..
 
 # Copy headers
@@ -150,9 +150,9 @@ if [ ! -d /usr/include/netlink ]; then
 	ln -s /usr/include/libnl3/netlink /usr/include
 fi
 
-cp -fv patches/patch-428face2-to-PC.patch $PKG
+cp -fv patches/patch-341315bd-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-428face2-to-PC.patch
+patch -p1 < patch-341315bd-to-PC.patch
 cd ..
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
