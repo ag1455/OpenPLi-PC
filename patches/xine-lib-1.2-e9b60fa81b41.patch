@@ -1,6 +1,6 @@
 diff -ruN o/configure.ac pc/configure.ac
---- o/configure.ac	2023-01-11 20:47:29.103327559 +0300
-+++ pc/configure.ac	2023-03-07 15:09:45.922617106 +0300
+--- o/configure.ac	2023-01-10 18:26:53.877136286 +0300
++++ pc/configure.ac	2023-05-31 12:29:48.637512586 +0300
 @@ -1709,7 +1709,8 @@
  src/video_out/macosx/Makefile
  src/xine-utils/Makefile
@@ -12,28 +12,28 @@ diff -ruN o/configure.ac pc/configure.ac
  AC_OUTPUT
  
 diff -ruN o/debian/changelog pc/debian/changelog
---- o/debian/changelog	2022-10-21 12:27:32.736342668 +0300
-+++ pc/debian/changelog	2023-03-07 15:09:45.922617106 +0300
+--- o/debian/changelog	2022-12-15 15:34:05.291272632 +0300
++++ pc/debian/changelog	2023-05-31 12:29:48.641512651 +0300
 @@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.13+hg-6918b5b4f585-15268-e2pc) experimental; urgency=low
++xine-lib-1.2 (1.2.13+hg-e9b60fa81b41-15278-e2pc) experimental; urgency=low
 +
 +  * Hg snapshot.
 +  * Patched version for e2pc.
 +
-+ -- Torsten Jager <t.jager@gmx.de>  Wed, 26 Apr 2023 23:22:05 +0200
++ -- Torsten Jager <t.jager@gmx.de>  Thu, 30 May 2023 12:31:20 +0200
 +
  xine-lib-1.2 (1.2.9+hg-0) experimental; urgency=low
  
    * Hg snapshot.
 diff -ruN o/debian/compat pc/debian/compat
---- o/debian/compat	2022-10-21 12:27:32.760341953 +0300
-+++ pc/debian/compat	2023-03-07 15:09:45.922617106 +0300
+--- o/debian/compat	2022-12-15 15:34:05.263272271 +0300
++++ pc/debian/compat	2023-05-31 12:29:48.641512651 +0300
 @@ -1 +1 @@
 -5
 +10
 diff -ruN o/debian/control pc/debian/control
---- o/debian/control	2022-10-21 12:27:32.754342132 +0300
-+++ pc/debian/control	2023-03-07 15:09:45.922617106 +0300
+--- o/debian/control	2022-12-15 15:34:05.307272838 +0300
++++ pc/debian/control	2023-05-31 12:29:48.641512651 +0300
 @@ -73,7 +73,7 @@
  Suggests: ${shlibs:Suggests}, libxine2-doc | libxine-doc
  Conflicts: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x
@@ -44,8 +44,8 @@ diff -ruN o/debian/control pc/debian/control
   This is the xine media player library (libxine).
   .
 diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
---- o/debian/libxine2-dev.install	2022-10-21 12:27:32.754342132 +0300
-+++ pc/debian/libxine2-dev.install	2023-03-07 15:09:45.923617077 +0300
+--- o/debian/libxine2-dev.install	2022-12-15 15:34:05.307272838 +0300
++++ pc/debian/libxine2-dev.install	2023-05-31 12:29:48.641512651 +0300
 @@ -1,11 +1,9 @@
  usr/bin/xine-config
  usr/include
@@ -60,16 +60,16 @@ diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
  usr/share/man/man1/xine-config.1
  ../dh_xine				usr/bin
 diff -ruN o/debian/libxine2-doc.docs pc/debian/libxine2-doc.docs
---- o/debian/libxine2-doc.docs	2022-10-21 12:27:32.732342787 +0300
-+++ pc/debian/libxine2-doc.docs	2023-03-07 15:09:45.923617077 +0300
+--- o/debian/libxine2-doc.docs	2022-12-15 15:34:05.287272581 +0300
++++ pc/debian/libxine2-doc.docs	2023-05-31 12:29:48.641512651 +0300
 @@ -1,4 +1,3 @@
 -debian/tmp/usr/share/doc/libxine2/faq/*
  debian/tmp/usr/share/doc/libxine2/README_xxmc.html
  debian/tmp/usr/share/doc/libxine2/README
  debian/tmp/usr/share/doc/libxine2/faq.*
 diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
---- o/debian/libxine2.install	2022-10-21 12:27:32.761341923 +0300
-+++ pc/debian/libxine2.install	2023-03-07 15:09:45.923617077 +0300
+--- o/debian/libxine2.install	2022-12-15 15:34:05.263272271 +0300
++++ pc/debian/libxine2.install	2023-05-31 12:29:48.641512651 +0300
 @@ -2,9 +2,10 @@
  usr/lib/libxine*.so.*
  usr/lib/xine/plugins/*/post/*.so
@@ -84,8 +84,8 @@ diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
  usr/share/man/man1/xine-list*.1
 +#usr/lib/xine/plugins/*/vidix/*.so
 diff -ruN o/debian/rules pc/debian/rules
---- o/debian/rules	2022-10-21 12:27:32.733342758 +0300
-+++ pc/debian/rules	2023-03-07 15:09:45.923617077 +0300
+--- o/debian/rules	2022-12-15 15:34:05.287272581 +0300
++++ pc/debian/rules	2023-05-31 12:29:48.641512651 +0300
 @@ -69,8 +69,9 @@
  	--prefix=/usr \
  	--with-freetype \
@@ -107,8 +107,8 @@ diff -ruN o/debian/rules pc/debian/rules
  	dh_installchangelogs -k ChangeLog
  	dh_link
 diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
---- o/include/xine/metronom.h	2022-10-21 12:27:32.741342519 +0300
-+++ pc/include/xine/metronom.h	2023-03-07 15:09:45.923617077 +0300
+--- o/include/xine/metronom.h	2022-12-15 15:34:05.311272889 +0300
++++ pc/include/xine/metronom.h	2023-05-31 12:29:48.641512651 +0300
 @@ -191,6 +191,11 @@
  #define METRONOM_VDR_TRICK_PTS    11
  #define METRONOM_NO_LOCK          0x8000
@@ -122,8 +122,8 @@ diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
  
  metronom_t *_x_metronom_init (int have_video, int have_audio, xine_t *xine) XINE_MALLOC XINE_PROTECTED;
 diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
---- o/include/xine/osd.h	2022-10-21 12:27:32.762341893 +0300
-+++ pc/include/xine/osd.h	2023-03-07 15:09:45.923617077 +0300
+--- o/include/xine/osd.h	2022-12-15 15:34:05.331273145 +0300
++++ pc/include/xine/osd.h	2023-05-31 12:29:48.641512651 +0300
 @@ -216,6 +216,7 @@
     * overlay is blended at output (screen) resolution.
     */
@@ -133,8 +133,8 @@ diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
    /*
     * see xine.h for defined XINE_OSD_CAP_ values.
 diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
---- o/include/xine/video_out.h	2022-10-21 12:27:32.764341833 +0300
-+++ pc/include/xine/video_out.h	2023-03-07 15:09:45.923617077 +0300
+--- o/include/xine/video_out.h	2022-12-15 15:34:05.331273145 +0300
++++ pc/include/xine/video_out.h	2023-05-31 12:29:48.641512651 +0300
 @@ -287,6 +287,9 @@
  #define VO_PROP_CAPS2                 30 /* read-only. second capability flags, see below. */
  #define VO_PROP_TRANSFORM             31 /* XINE_VO_TRANSFORM_* */
@@ -146,8 +146,8 @@ diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
  /* number of colors in the overlay palette. Currently limited to 256
     at most, because some alphablend functions use an 8-bit index into
 diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
---- o/include/xine/xineintl.h	2022-10-21 12:27:32.772341595 +0300
-+++ pc/include/xine/xineintl.h	2023-03-07 15:09:45.923617077 +0300
+--- o/include/xine/xineintl.h	2022-12-15 15:34:05.299272735 +0300
++++ pc/include/xine/xineintl.h	2023-05-31 12:29:48.641512651 +0300
 @@ -27,6 +27,9 @@
  
  #include <locale.h>
@@ -159,9 +159,9 @@ diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
  #    include <libintl.h>
  #    define _(String) dgettext (XINE_TEXTDOMAIN, String)
 diff -ruN o/include/xine.h pc/include/xine.h
---- o/include/xine.h	2022-10-21 12:27:32.745342400 +0300
-+++ pc/include/xine.h	2023-03-07 15:09:45.924617049 +0300
-@@ -1857,6 +1857,7 @@
+--- o/include/xine.h	2023-05-23 11:11:38.502834600 +0300
++++ pc/include/xine.h	2023-05-31 12:29:48.665513041 +0300
+@@ -1862,6 +1862,7 @@
  #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
  #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
  #define XINE_EVENT_NBC_STATS             15 /* nbc buffer status */
@@ -169,7 +169,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  
  
  /* input events coming from frontend */
-@@ -1944,10 +1945,22 @@
+@@ -1949,10 +1950,22 @@
  #define XINE_EVENT_VDR_TRICKSPEEDMODE   353
  #define XINE_EVENT_VDR_PLUGINSTARTED    354
  #define XINE_EVENT_VDR_DISCONTINUITY    355
@@ -192,7 +192,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * xine event struct
   */
-@@ -1981,6 +1994,11 @@
+@@ -1986,6 +1999,11 @@
    char                str[256]; /* might be longer */
  } xine_ui_data_t;
  
@@ -204,7 +204,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * Send messages to UI. used mostly to report errors.
   */
-@@ -2059,6 +2077,10 @@
+@@ -2064,6 +2082,10 @@
    int                 type;         /* 0=buffer put, 1=buffer get */
  } xine_nbc_stats_data_t;
  
@@ -215,7 +215,7 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /*
   * mrl reference data is sent by demuxers when a reference stream is found.
   * this stream just contains pointers (urls) to the real data, which are
-@@ -2364,6 +2386,7 @@
+@@ -2369,6 +2391,7 @@
  void        xine_osd_set_position  (xine_osd_t *self, int x, int y) XINE_PROTECTED;
  void        xine_osd_show          (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
  void        xine_osd_show_unscaled (xine_osd_t *self, int64_t vpts) XINE_PROTECTED;
@@ -224,8 +224,8 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /* empty drawing area */
  void        xine_osd_clear         (xine_osd_t *self) XINE_PROTECTED;
 diff -ruN o/m4/input.m4 pc/m4/input.m4
---- o/m4/input.m4	2022-10-21 12:27:32.754342132 +0300
-+++ pc/m4/input.m4	2023-03-07 15:09:45.924617049 +0300
+--- o/m4/input.m4	2022-12-15 15:34:05.327273095 +0300
++++ pc/m4/input.m4	2023-05-31 12:29:48.677513235 +0300
 @@ -20,6 +20,7 @@
      default_enable_vcd=yes
      default_enable_vcdo=no
@@ -254,8 +254,8 @@ diff -ruN o/m4/input.m4 pc/m4/input.m4
      XINE_ARG_ENABLE([bluray], [Enable BluRay support])
      if test "x$enable_bluray" != "xno"; then
 diff -ruN o/m4/summary.m4 pc/m4/summary.m4
---- o/m4/summary.m4	2022-10-21 12:27:32.776341476 +0300
-+++ pc/m4/summary.m4	2023-03-07 15:09:45.924617049 +0300
+--- o/m4/summary.m4	2022-12-15 15:34:05.311272889 +0300
++++ pc/m4/summary.m4	2023-05-31 12:29:48.677513235 +0300
 @@ -54,6 +54,7 @@
      dis=""
      echo "  * Misc:"
@@ -273,8 +273,8 @@ diff -ruN o/m4/summary.m4 pc/m4/summary.m4
      echo "   - goom            - oscope"
      echo "   - fftscope        - mosaico"
 diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
---- o/src/demuxers/demux_mpeg_pes.c	2022-10-21 12:27:32.808340522 +0300
-+++ pc/src/demuxers/demux_mpeg_pes.c	2023-03-07 15:09:45.924617049 +0300
+--- o/src/demuxers/demux_mpeg_pes.c	2022-12-15 15:34:05.439274536 +0300
++++ pc/src/demuxers/demux_mpeg_pes.c	2023-05-31 12:29:48.677513235 +0300
 @@ -71,6 +71,7 @@
  
    input_plugin_t       *input;
@@ -329,8 +329,8 @@ diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
    /* Don't start demuxing stream until we see a program_stream_pack_header */
    /* We need to system header in order to identify is the stream is mpeg1 or mpeg2. */
 diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
---- o/src/demuxers/demux_ts.c	2022-10-21 12:27:32.816340283 +0300
-+++ pc/src/demuxers/demux_ts.c	2023-03-07 15:09:45.925617020 +0300
+--- o/src/demuxers/demux_ts.c	2022-12-15 15:34:05.455274741 +0300
++++ pc/src/demuxers/demux_ts.c	2023-05-31 12:29:48.677513235 +0300
 @@ -161,7 +161,7 @@
  #define LOG
  */
@@ -442,7 +442,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  #endif
 diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 --- o/src/e2pc/combined_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.c	2023-03-07 15:09:45.925617020 +0300
++++ pc/src/e2pc/combined_enigma.c	2023-05-31 12:29:48.681513300 +0300
 @@ -0,0 +1,48 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -494,7 +494,7 @@ diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 +
 diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 --- o/src/e2pc/combined_enigma.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.h	2023-03-07 15:09:45.925617020 +0300
++++ pc/src/e2pc/combined_enigma.h	2023-05-31 12:29:48.681513300 +0300
 @@ -0,0 +1,82 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -580,7 +580,7 @@ diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 +
 diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 --- o/src/e2pc/input_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/input_enigma.c	2023-03-07 15:09:45.925617020 +0300
++++ pc/src/e2pc/input_enigma.c	2023-05-31 12:29:48.681513300 +0300
 @@ -0,0 +1,859 @@
 +/*
 + * Copyright (C) 2003-2021 the xine project
@@ -1443,7 +1443,7 @@ diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 +}
 diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 --- o/src/e2pc/Makefile.am	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/Makefile.am	2023-03-07 15:09:45.925617020 +0300
++++ pc/src/e2pc/Makefile.am	2023-05-31 12:29:48.681513300 +0300
 @@ -0,0 +1,13 @@
 +include $(top_builddir)/misc/Makefile.plugins
 +include $(top_srcdir)/misc/Makefile.common
@@ -1460,7 +1460,7 @@ diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 +xineplug_enigma_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL)
 diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 --- o/src/e2pc/post_enigma_audio.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_audio.c	2023-03-07 15:09:45.925617020 +0300
++++ pc/src/e2pc/post_enigma_audio.c	2023-05-31 12:29:48.681513300 +0300
 @@ -0,0 +1,277 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -1741,7 +1741,7 @@ diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 +}
 diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 --- o/src/e2pc/post_enigma_video.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_video.c	2023-03-07 15:09:45.925617020 +0300
++++ pc/src/e2pc/post_enigma_video.c	2023-05-31 12:29:48.681513300 +0300
 @@ -0,0 +1,519 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -2263,8 +2263,8 @@ diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 +  return skip;
 +}
 diff -ruN o/src/Makefile.am pc/src/Makefile.am
---- o/src/Makefile.am	2022-10-21 12:27:32.800340760 +0300
-+++ pc/src/Makefile.am	2023-03-07 15:09:45.925617020 +0300
+--- o/src/Makefile.am	2022-12-15 15:34:05.339273249 +0300
++++ pc/src/Makefile.am	2023-05-31 12:29:48.681513300 +0300
 @@ -16,4 +16,5 @@
  	libreal \
  	post \
@@ -2273,8 +2273,8 @@ diff -ruN o/src/Makefile.am pc/src/Makefile.am
 +	vdr \
 +	e2pc
 diff -ruN o/src/video_out/vaapi/vaapi_util.c pc/src/video_out/vaapi/vaapi_util.c
---- o/src/video_out/vaapi/vaapi_util.c	2022-10-21 12:27:32.911337451 +0300
-+++ pc/src/video_out/vaapi/vaapi_util.c	2023-03-07 15:09:45.925617020 +0300
+--- o/src/video_out/vaapi/vaapi_util.c	2022-12-15 15:34:05.511275462 +0300
++++ pc/src/video_out/vaapi/vaapi_util.c	2023-05-31 12:29:48.681513300 +0300
 @@ -611,9 +611,6 @@
  
  void _x_va_surface_displayed(vaapi_context_impl_t *va_context, ff_vaapi_surface_t *va_surface)
@@ -2286,8 +2286,8 @@ diff -ruN o/src/video_out/vaapi/vaapi_util.c pc/src/video_out/vaapi/vaapi_util.c
  
    if (va_surface->status == SURFACE_RENDER_RELEASE) {
 diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
---- o/src/video_out/video_out_opengl.c	2022-10-21 12:27:32.904337659 +0300
-+++ pc/src/video_out/video_out_opengl.c	2023-03-07 15:09:45.926616992 +0300
+--- o/src/video_out/video_out_opengl.c	2022-12-15 15:34:05.623276903 +0300
++++ pc/src/video_out/video_out_opengl.c	2023-05-31 12:29:48.681513300 +0300
 @@ -134,6 +134,14 @@
  
  #define MY_2PI               (M_PI * 2)
@@ -2676,8 +2676,8 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
    this->config                  = config;
  
 diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
---- o/src/video_out/video_out_vaapi.c	2022-10-21 12:27:32.905337629 +0300
-+++ pc/src/video_out/video_out_vaapi.c	2023-03-07 15:09:45.926616992 +0300
+--- o/src/video_out/video_out_vaapi.c	2023-05-29 13:18:47.633857578 +0300
++++ pc/src/video_out/video_out_vaapi.c	2023-06-01 10:27:29.086645635 +0300
 @@ -74,9 +74,9 @@
  # define ENABLE_VA_GLX
  #endif /* OPENGL */
@@ -2711,17 +2711,45 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    uint32_t            overlay_output_width;
    uint32_t            overlay_output_height;
-@@ -223,6 +230,8 @@
+@@ -216,14 +223,16 @@
+   int                 soft_image_is_bound;
+ 
+   /* subpicture */
+-  VAImageFormat       bgra_subpic_format;
+-  unsigned int        bgra_subpic_flags;
++  VAImageFormat       *va_subpic_formats;
++  unsigned int        *va_subpic_flags;
++  int                 va_num_subpic_formats;
+   VAImage             va_subpic_image;
+   VASubpictureID      va_subpic_id;
    int                 va_subpic_width;
    int                 va_subpic_height;
    unsigned int        last_sub_image_fmt;
+-  int                 overlay_mode;
 +  unsigned int        num_frame_buffers;
 +  vaapi_frame_t       *frames[RENDER_SURFACES];
  
    pthread_mutex_t     vaapi_lock;
  
-@@ -268,6 +277,13 @@
- static VAStatus vaapi_destroy_soft_surfaces(vaapi_driver_t *this);
+@@ -255,16 +264,6 @@
+   VASurfaceID         va_soft_surface_ids_storage[SOFT_SURFACES + 1];
+   VAImage             va_soft_images_storage[SOFT_SURFACES + 1];
+   vaapi_context_impl_t *va;
+-
+-#ifdef ENABLE_VA_GLX
+-  void                (GLAPIENTRY *mpglBindTexture) (GLenum, GLuint);
+-  void                (GLAPIENTRY *mpglXBindTexImage) (Display *, GLXDrawable, int, const int *);
+-  void                (GLAPIENTRY *mpglXReleaseTexImage) (Display *, GLXDrawable, int);
+-  GLXPixmap           (GLAPIENTRY *mpglXCreatePixmap) (Display *, GLXFBConfig, Pixmap, const int *);
+-  void                (GLAPIENTRY *mpglXDestroyPixmap) (Display *, GLXPixmap);
+-  const GLubyte       *(GLAPIENTRY *mpglGetString) (GLenum);
+-  void                (GLAPIENTRY *mpglGenPrograms) (GLsizei, GLuint *);
+-#endif
+ };
+ 
+ /* import common color matrix stuff */
+@@ -279,6 +278,23 @@
+ static VAStatus vaapi_destroy_soft_surfaces (vaapi_driver_t *this);
  static int vaapi_set_property (vo_driver_t *this_gen, int property, int value);
  
 +static void yv12_to_nv12(const uint8_t *y_src, int y_src_pitch,
@@ -2731,10 +2759,20 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
 +                         uint8_t *uv_dst, int uv_dst_pitch,
 +                         int width, int height);
 +
- #ifdef ENABLE_VA_GLX
- void (GLAPIENTRY *mpglBindTexture)(GLenum, GLuint);
- void (GLAPIENTRY *mpglXBindTexImage)(Display *, GLXDrawable, int, const int *);
-@@ -300,6 +316,12 @@
++#ifdef ENABLE_VA_GLX
++  void                (GLAPIENTRY *mpglBindTexture) (GLenum, GLuint);
++  void                (GLAPIENTRY *mpglXBindTexImage) (Display *, GLXDrawable, int, const int *);
++  void                (GLAPIENTRY *mpglXReleaseTexImage) (Display *, GLXDrawable, int);
++  GLXPixmap           (GLAPIENTRY *mpglXCreatePixmap) (Display *, GLXFBConfig, Pixmap, const int *);
++  void                (GLAPIENTRY *mpglXDestroyPixmap) (Display *, GLXPixmap);
++  const GLubyte       *(GLAPIENTRY *mpglGetString) (GLenum);
++  void                (GLAPIENTRY *mpglGenPrograms) (GLsizei, GLuint *);
++#endif
++
+ #if defined(LOG) || defined(DEBUG)
+ static const char *string_of_VAImageFormat(VAImageFormat *imgfmt)
+ {
+@@ -301,6 +317,12 @@
    return 1;
  }
  
@@ -2747,7 +2785,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static int vaapi_lock_decode_guarded(vo_frame_t *frame_gen)
  {
    vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
-@@ -316,11 +338,44 @@
+@@ -317,11 +339,44 @@
    pthread_mutex_unlock(&this->vaapi_lock);
  }
  
@@ -2793,7 +2831,397 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  } vaapi_class_t;
  
  static void vaapi_x11_wait_event(Display *dpy, Window w, int type)
-@@ -876,6 +931,16 @@
+@@ -356,21 +411,19 @@
+ 
+ #ifdef ENABLE_VA_GLX
+ 
+-static void vaapi_appendstr (char **dst, size_t *len, const char *str) {
+-  size_t newsize, slen;
+-  char *newstr;
+-
+-  if (!str)
+-    return;
+-  slen = strlen (str);
+-  newsize = *len + 1 + slen;
+-  newstr = realloc (*dst, newsize + 1);
+-  if (!newstr)
+-    return;
+-  *dst = newstr;
+-  newstr[*len] = ' ';
+-  memcpy (newstr + *len + 1, str, slen + 1);
+-  *len = newsize;
++static void vaapi_appendstr(char **dst, const char *str)
++{
++    int newsize;
++    char *newstr;
++    if (!str)
++        return;
++    newsize = strlen(*dst) + 1 + strlen(str) + 1;
++    newstr = realloc(*dst, newsize);
++    if (!newstr)
++        return;
++    *dst = newstr;
++    strcat(*dst, " ");
++    strcat(*dst, str);
+ }
+ 
+ /* Return the address of a linked function */
+@@ -386,54 +439,60 @@
+ }
+ 
+ /* Resolve opengl functions. */
+-static void vaapi_get_functions (vaapi_driver_t *this, void *(*getProcAddress)(const GLubyte *), const char *ext2) {
++static void vaapi_get_functions (void *(*getProcAddress)(const GLubyte *), const char *ext2) {
++  static const struct {
++    void       *funcptr;
++    const char *extstr;
++    const char *funcnames[4];
++  } extfuncs[] = {
++    { &mpglBindTexture,
++      NULL,
++      { "glBindTexture", "glBindTextureARB", "glBindTextureEXT", NULL } },
++    { &mpglXBindTexImage,
++      "GLX_EXT_texture_from_pixmap",
++      {" glXBindTexImageEXT", NULL }, },
++    { &mpglXReleaseTexImage,
++      "GLX_EXT_texture_from_pixmap",
++      { "glXReleaseTexImageEXT", NULL} },
++    { &mpglXCreatePixmap,
++      "GLX_EXT_texture_from_pixmap",
++      { "glXCreatePixmap", NULL } },
++    { &mpglXDestroyPixmap,
++      "GLX_EXT_texture_from_pixmap",
++      { "glXDestroyPixmap", NULL } },
++    { &mpglGenPrograms, "_program",
++      { "glGenProgramsARB", NULL } },
++};
++
+   const char *extensions;
+   char *allexts;
+-  size_t l1, l2;
++  size_t ext;
+ 
+   if (!getProcAddress)
+     getProcAddress = (void *)vaapi_getdladdr;
+ 
+   /* special case, we need glGetString before starting to find the other functions */
+-  this->mpglGetString = getProcAddress ("glGetString");
+-  if (!this->mpglGetString)
+-    this->mpglGetString = glGetString;
+-
+-  extensions = (const char *)this->mpglGetString (GL_EXTENSIONS);
+-  if (!extensions)
+-    extensions = "";
+-  if (!ext2)
+-    ext2 = "";
+-  l1 = strlen (extensions);
+-  l2 = strlen (ext2);
+-  allexts = malloc (l1 + 1 + l2 + 1);
+-  memcpy (allexts, extensions, l1);
+-  allexts[l1] = ' ';
+-  memcpy (allexts + l1 + 1, ext2, l2);
+-  allexts[l1 + 1 + l2] = 0;
++  mpglGetString = getProcAddress ("glGetString");
++  if (!mpglGetString)
++      mpglGetString = glGetString;
++
++  extensions = (const char *)mpglGetString (GL_EXTENSIONS);
++  if (!extensions) extensions = "";
++  if (!ext2) ext2 = "";
++  allexts = malloc(strlen(extensions) + strlen(ext2) + 2);
++  strcpy(allexts, extensions);
++  strcat(allexts, " ");
++  strcat(allexts, ext2);
+   lprintf("vaapi_get_functions: OpenGL extensions string:\n%s\n", allexts);
+-
+-  this->mpglBindTexture = getProcAddress ((const GLubyte *)"glBindTexture");
+-  if (!this->mpglBindTexture)
+-    this->mpglBindTexture = getProcAddress ((const GLubyte *)"glBindTextureARB");
+-  if (!this->mpglBindTexture)
+-    this->mpglBindTexture = getProcAddress ((const GLubyte *)"glBindTextureEXT");
+-  
+-  this->mpglXBindTexImage = NULL;
+-  this->mpglXReleaseTexImage = NULL;
+-  this->mpglXCreatePixmap = NULL;
+-  this->mpglXDestroyPixmap = NULL;
+-  if (strstr (allexts, "GLX_EXT_texture_from_pixmap")) {
+-    this->mpglXBindTexImage = getProcAddress ((const GLubyte *)"glXBindTexImageEXT");
+-    this->mpglXReleaseTexImage = getProcAddress ((const GLubyte *)"glXReleaseTexImageEXT");
+-    this->mpglXCreatePixmap = getProcAddress ((const GLubyte *)"glXCreatePixmap");
+-    this->mpglXDestroyPixmap = getProcAddress ((const GLubyte *)"glXDestroyPixmap");
++  for (ext = 0; ext < sizeof(extfuncs) / sizeof(extfuncs[0]); ext++) {
++    void *ptr = NULL;
++    int i;
++    if (!extfuncs[ext].extstr || strstr(allexts, extfuncs[ext].extstr)) {
++      for (i = 0; !ptr && extfuncs[ext].funcnames[i]; i++)
++        ptr = getProcAddress((const GLubyte *)extfuncs[ext].funcnames[i]);
++    }
++    *(void **)extfuncs[ext].funcptr = ptr;
+   }
+-
+-  this->mpglGenPrograms = NULL;
+-  if (strstr (allexts, "_program"))
+-    this->mpglGenPrograms = getProcAddress ((const GLubyte *)"glGenProgramsARB");
+-
+   lprintf("\n");
+   free(allexts);
+ }
+@@ -498,11 +557,11 @@
+ static int vaapi_glx_bind_texture(vaapi_driver_t *this)
+ {
+   glEnable(GL_TEXTURE_2D);
+-  this->mpglBindTexture (GL_TEXTURE_2D, this->gl_texture);
++  mpglBindTexture (GL_TEXTURE_2D, this->gl_texture);
+ 
+   if (this->opengl_use_tfp) {
+     vaapi_x11_trap_errors();
+-    this->mpglXBindTexImage (this->display, this->gl_pixmap, GLX_FRONT_LEFT_EXT, NULL);
++    mpglXBindTexImage (this->display, this->gl_pixmap, GLX_FRONT_LEFT_EXT, NULL);
+     XSync(this->display, False);
+     if (vaapi_x11_untrap_errors())
+       xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_bind_texture : Update bind_tex_image failed\n");
+@@ -515,12 +574,12 @@
+ {
+   if (this->opengl_use_tfp) {
+     vaapi_x11_trap_errors();
+-    this->mpglXReleaseTexImage (this->display, this->gl_pixmap, GLX_FRONT_LEFT_EXT);
++    mpglXReleaseTexImage (this->display, this->gl_pixmap, GLX_FRONT_LEFT_EXT);
+     if (vaapi_x11_untrap_errors())
+       xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_unbind_texture : Failed to release?\n");
+   }
+ 
+-  this->mpglBindTexture (GL_TEXTURE_2D, 0);
++  mpglBindTexture (GL_TEXTURE_2D, 0);
+   glDisable(GL_TEXTURE_2D);
+   return 0;
+ }
+@@ -596,7 +655,7 @@
+ 
+   if(this->gl_pixmap) {
+     vaapi_x11_trap_errors();
+-    this->mpglXDestroyPixmap (this->display, this->gl_pixmap);
++    mpglXDestroyPixmap (this->display, this->gl_pixmap);
+     XSync(this->display, False);
+     if (vaapi_x11_untrap_errors())
+       xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_destroy_glx : mpglXDestroyPixmap failed\n");
+@@ -649,7 +708,6 @@
+ 
+         visual_depth = vi->depth;
+         XFree(vi);
+-        vi = NULL;
+ 
+         if (visual_depth != depth)
+             continue;
+@@ -709,7 +767,7 @@
+   int attribs[7], i = 0;
+   const int depth = 24;
+ 
+-  if (!this->mpglXBindTexImage || !this->mpglXReleaseTexImage) {
++  if (!mpglXBindTexImage || !mpglXReleaseTexImage) {
+     xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_tfp : No GLX texture-from-pixmap extension available\n");
+     return 0;
+   }
+@@ -743,7 +801,7 @@
+   attribs[i++] = None;
+ 
+   vaapi_x11_trap_errors();
+-  this->gl_pixmap = this->mpglXCreatePixmap(this->display, *fbconfig, this->gl_image_pixmap, attribs);
++  this->gl_pixmap = mpglXCreatePixmap(this->display, *fbconfig, this->gl_image_pixmap, attribs);
+   XSync(this->display, False);
+   if (vaapi_x11_untrap_errors()) {
+     xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_tfp : Could not create GLX pixmap\n");
+@@ -764,105 +822,101 @@
+     this->opengl_render = 0;
+   }
+ 
+-  do {
+-    void *(*getProcAddress) (const GLubyte *);
+-    const char *(*glXExtStr) (Display *, int);
+-    char *glxstr;
+-    size_t slen;
+-
+-    glXMakeCurrent (this->display, None, NULL);
+-    this->gl_context = glXCreateContext (this->display, gl_vinfo, NULL, True);
+-    XFree (gl_vinfo);
+-    gl_vinfo = NULL;
+-    if (this->gl_context) {
+-      if (!glXMakeCurrent (this->display, this->window, this->gl_context)) {
+-        xprintf (this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : error glXMakeCurrent\n");
+-        break;
+-      }
+-    } else {
+-      xprintf (this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : error glXCreateContext\n");
+-      break;
++  glXMakeCurrent(this->display, None, NULL);
++  this->gl_context = glXCreateContext (this->display, gl_vinfo, NULL, True);
++  XFree(gl_vinfo);
++  if (this->gl_context) {
++    if(!glXMakeCurrent (this->display, this->window, this->gl_context)) {
++      xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : error glXMakeCurrent\n");
++      goto error;
+     }
++  } else {
++    xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : error glXCreateContext\n");
++    goto error;
++  }
+ 
+-    glxstr = strdup (" ");
+-    slen = 0;
+-    getProcAddress = vaapi_getdladdr ("glXGetProcAddress");
+-    if (!getProcAddress)
+-      getProcAddress = vaapi_getdladdr ("glXGetProcAddressARB");
+-    glXExtStr = vaapi_getdladdr ("glXQueryExtensionsString");
+-    if (glXExtStr)
+-      vaapi_appendstr (&glxstr, &slen, glXExtStr (this->display, this->screen));
+-    glXExtStr = vaapi_getdladdr ("glXGetClientString");
+-    if (glXExtStr)
+-      vaapi_appendstr (&glxstr, &slen, glXExtStr (this->display, GLX_EXTENSIONS));
+-    glXExtStr = vaapi_getdladdr ("glXGetServerString");
+-    if (glXExtStr)
+-      vaapi_appendstr (&glxstr, &slen, glXExtStr(this->display, GLX_EXTENSIONS));
+-
+-    vaapi_get_functions (this, getProcAddress, glxstr);
+-    if (!this->mpglGenPrograms && this->mpglGetString && getProcAddress &&
+-      strstr (this->mpglGetString (GL_EXTENSIONS), "GL_ARB_vertex_program")) {
+-      xprintf (this->xine, XINE_VERBOSITY_LOG,
+-        LOG_MODULE " vaapi_glx_config_glx : Broken glXGetProcAddress detected, trying workaround\n");
+-      vaapi_get_functions (this, NULL, glxstr);
+-    }
+-    free (glxstr);
+-    glxstr = NULL;
+-
+-    glDisable (GL_DEPTH_TEST);
+-    glDepthMask (GL_FALSE);
+-    glDisable (GL_CULL_FACE);
+-    glEnable (GL_TEXTURE_2D);
+-    glDrawBuffer (GL_BACK);
+-    glTexEnvi (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+-    glEnable (GL_BLEND);
+-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+-
+-    /* Create TFP resources */
+-    if (this->opengl_use_tfp && vaapi_glx_config_tfp (this, width, height)) {
+-      xprintf (this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : Using GLX texture-from-pixmap extension\n");
+-    } else {
+-      this->opengl_use_tfp = 0;
+-    }
++  void *(*getProcAddress)(const GLubyte *);
++  const char *(*glXExtStr)(Display *, int);
++  char *glxstr = strdup(" ");
+ 
+-    /* Create OpenGL texture */
+-    /* XXX: assume GL_ARB_texture_non_power_of_two is available */
+-    glEnable (GL_TEXTURE_2D);
+-    glGenTextures (1, &this->gl_texture);
+-    this->mpglBindTexture (GL_TEXTURE_2D, this->gl_texture);
+-    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+-    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+-    if (!this->opengl_use_tfp) {
+-      glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+-      glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+-      glPixelStorei (GL_UNPACK_ALIGNMENT, 4);
+-      glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL);
+-    }
+-    this->mpglBindTexture (GL_TEXTURE_2D, 0);
+-    glDisable (GL_TEXTURE_2D);
++  getProcAddress = vaapi_getdladdr("glXGetProcAddress");
++  if (!getProcAddress)
++    getProcAddress = vaapi_getdladdr("glXGetProcAddressARB");
++  glXExtStr = vaapi_getdladdr("glXQueryExtensionsString");
++  if (glXExtStr)
++      vaapi_appendstr(&glxstr, glXExtStr(this->display, this->screen));
++  glXExtStr = vaapi_getdladdr("glXGetClientString");
++  if (glXExtStr)
++      vaapi_appendstr(&glxstr, glXExtStr(this->display, GLX_EXTENSIONS));
++  glXExtStr = vaapi_getdladdr("glXGetServerString");
++  if (glXExtStr)
++      vaapi_appendstr(&glxstr, glXExtStr(this->display, GLX_EXTENSIONS));
++
++  vaapi_get_functions(getProcAddress, glxstr);
++  if (!mpglGenPrograms && mpglGetString &&
++      getProcAddress &&
++      strstr(mpglGetString(GL_EXTENSIONS), "GL_ARB_vertex_program")) {
++    xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : Broken glXGetProcAddress detected, trying workaround\n");
++    vaapi_get_functions(NULL, glxstr);
++  }
++  free(glxstr);
++
++  glDisable(GL_DEPTH_TEST);
++  glDepthMask(GL_FALSE);
++  glDisable(GL_CULL_FACE);
++  glEnable(GL_TEXTURE_2D);
++  glDrawBuffer(GL_BACK);
++  glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
++  glEnable(GL_BLEND);
++  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
++
++  /* Create TFP resources */
++  if(this->opengl_use_tfp && vaapi_glx_config_tfp(this, width, height)) {
++    xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : Using GLX texture-from-pixmap extension\n");
++  } else {
++    this->opengl_use_tfp = 0;
++  }
+ 
+-    glClearColor (0.0, 0.0, 0.0, 1.0);
+-    glClear (GL_COLOR_BUFFER_BIT);
++  /* Create OpenGL texture */
++  /* XXX: assume GL_ARB_texture_non_power_of_two is available */
++  glEnable(GL_TEXTURE_2D);
++  glGenTextures(1, &this->gl_texture);
++  mpglBindTexture(GL_TEXTURE_2D, this->gl_texture);
++  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
++  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
++  if (!this->opengl_use_tfp) {
++    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
++    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
++    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
++    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0,
++                 GL_BGRA, GL_UNSIGNED_BYTE, NULL);
++  }
++  mpglBindTexture(GL_TEXTURE_2D, 0);
++  glDisable(GL_TEXTURE_2D);
+ 
+-    if (!this->gl_texture) {
+-      xprintf (this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : gl_texture NULL\n");
+-      break;
+-    }
++  glClearColor(0.0, 0.0, 0.0, 1.0);
++  glClear(GL_COLOR_BUFFER_BIT);
+ 
+-    if (!this->opengl_use_tfp) {
+-      VAStatus vaStatus = vaCreateSurfaceGLX (va_context->va_display, GL_TEXTURE_2D, this->gl_texture, &this->gl_surface);
+-      if (!vaapi_check_status (this, vaStatus, "vaCreateSurfaceGLX()")) {
+-        this->gl_surface = NULL;
+-        break;
+-      }
+-    } else {
++  if(!this->gl_texture) {
++    xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_glx : gl_texture NULL\n");
++    goto error;
++  }
++
++  if(!this->opengl_use_tfp) {
++    VAStatus vaStatus = vaCreateSurfaceGLX(va_context->va_display, GL_TEXTURE_2D, this->gl_texture, &this->gl_surface);
++    if(!vaapi_check_status(this, vaStatus, "vaCreateSurfaceGLX()")) {
+       this->gl_surface = NULL;
++      goto error;
+     }
++  } else {
++    this->gl_surface = NULL;
++  }
+ 
+-    lprintf ("vaapi_glx_config_glx : GL setup done\n");
+-    return 1;
+-  } while (0);
++  lprintf ("vaapi_glx_config_glx : GL setup done\n");
++
++  return 1;
+ 
++error:
+   destroy_glx (this);
+   return 0;
+ }
+@@ -875,6 +929,16 @@
    return this->capabilities;
  }
  
@@ -2810,7 +3238,19 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  /* Init subpicture */
  static void vaapi_init_subpicture(vaapi_driver_t *this) {
    this->va_subpic_width               = 0;
-@@ -912,6 +977,12 @@
+@@ -888,8 +952,9 @@
+   this->overlay_bitmap = NULL;
+   this->overlay_bitmap_size = 0;
+ 
+-  this->bgra_subpic_format.fourcc = 0;
+-  this->bgra_subpic_flags = 0;
++  this->va_subpic_formats     = NULL;
++  this->va_subpic_flags       = NULL;
++  this->va_num_subpic_formats = 0;
+ }
+ 
+ /* Close vaapi  */
+@@ -911,6 +976,12 @@
    _x_va_close(this->va);
  }
  
@@ -2823,7 +3263,73 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  /* Deassociate and free subpicture */
  static void vaapi_destroy_subpicture(vaapi_driver_t *this) {
    ff_vaapi_context_t    *va_context = this->va_context;
-@@ -1065,9 +1136,69 @@
+@@ -931,31 +1002,38 @@
+ 
+ /* Create VAAPI subpicture */
+ static VAStatus vaapi_create_subpicture(vaapi_driver_t *this, int width, int height) {
+-  do {
+-    ff_vaapi_context_t *va_context = this->va_context;
+-    void *p_base = NULL;
+-    VAStatus vaStatus;
++  ff_vaapi_context_t  *va_context = this->va_context;
++  VAStatus            vaStatus;
+ 
+-    if (!va_context->valid_context || !this->bgra_subpic_format.fourcc)
+-      return VA_STATUS_ERROR_UNKNOWN;
++  int i = 0;
+ 
+-    vaStatus = vaCreateImage (va_context->va_display, &this->bgra_subpic_format, width, height, &this->va_subpic_image);
+-    if (!vaapi_check_status (this, vaStatus, "vaCreateImage()"))
+-      break;
++  if(!va_context->valid_context || !this->va_subpic_formats || this->va_num_subpic_formats == 0)
++    return VA_STATUS_ERROR_UNKNOWN;
+ 
+-    vaStatus = vaCreateSubpicture (va_context->va_display, this->va_subpic_image.image_id, &this->va_subpic_id);
+-    if (!vaapi_check_status (this, vaStatus, "vaCreateSubpicture()"))
+-      break;
++  for (i = 0; i < this->va_num_subpic_formats; i++) {
++    if ( this->va_subpic_formats[i].fourcc == VA_FOURCC('B','G','R','A')) {
+ 
+-    if ((this->va_subpic_image.image_id == VA_INVALID_ID) || (this->va_subpic_id == VA_INVALID_ID))
+-      break;
++      vaStatus = vaCreateImage( va_context->va_display, &this->va_subpic_formats[i], width, height, &this->va_subpic_image );
++      if(!vaapi_check_status(this, vaStatus, "vaCreateImage()"))
++        goto error;
++
++      vaStatus = vaCreateSubpicture(va_context->va_display, this->va_subpic_image.image_id, &this->va_subpic_id );
++      if(!vaapi_check_status(this, vaStatus, "vaCreateSubpicture()"))
++        goto error;
++    }
++  }
++
++  if (this->va_subpic_image.image_id == VA_INVALID_ID || this->va_subpic_id == VA_INVALID_ID)
++    goto error;
++
++  void *p_base = NULL;
+ 
+     lprintf ("create sub 0x%08x 0x%08x 0x%08x\n", this->va_subpic_id,
+       this->va_subpic_image.image_id, this->va_subpic_image.buf);
+ 
+     vaStatus = vaMapBuffer(va_context->va_display, this->va_subpic_image.buf, &p_base);
+     if (!vaapi_check_status(this, vaStatus, "vaMapBuffer()"))
+-      break;
++    goto error;
+ 
+     memset ((uint32_t *)p_base, 0x0, this->va_subpic_image.data_size);
+     vaStatus = vaUnmapBuffer(va_context->va_display, this->va_subpic_image.buf);
+@@ -967,9 +1045,9 @@
+     lprintf ("vaapi_create_subpicture 0x%08x format %s\n", this->va_subpic_image.image_id,
+       string_of_VAImageFormat(&this->va_subpic_image.format));
+ 
+-    return VA_STATUS_SUCCESS;
+-  } while (0);
++  return VA_STATUS_SUCCESS;
+ 
++error:
+   /* house keeping */
+   if (this->va_subpic_id != VA_INVALID_ID)
+     vaapi_destroy_subpicture(this);
+@@ -1057,9 +1135,69 @@
        float contrast = vaapi_normalized_prop (that, VO_PROP_CONTRAST);
        float brightness = (vaapi_normalized_prop (that, VO_PROP_BRIGHTNESS) - 1.0) * 128.0;
        float *matrix = that->user_csc_matrix;
@@ -2894,7 +3400,90 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
        attr.type   = VADisplayAttribCSCMatrix;
        /* libva design bug: VADisplayAttribute.value is plain int.
-@@ -1431,8 +1562,6 @@
+@@ -1300,7 +1438,6 @@
+       }
+     }
+     free(display_attrs);
+-    display_attrs = NULL;
+   }
+ 
+   if (this->have_user_csc_matrix) {
+@@ -1378,46 +1515,42 @@
+ }
+ 
+ static VAStatus vaapi_init_soft_surfaces(vaapi_driver_t *this, int width, int height) {
++  ff_vaapi_context_t  *va_context = this->va_context;
++  VAStatus            vaStatus;
++  int                 i;
++
+   vaapi_destroy_soft_surfaces(this);
+ 
+-  do {
+-    ff_vaapi_context_t *va_context = this->va_context;
+-    VAStatus vaStatus;
+-    int i;
++  vaStatus = vaCreateSurfaces(va_context->va_display, VA_RT_FORMAT_YUV420, width, height, this->va_soft_surface_ids, SOFT_SURFACES, NULL, 0);
++  if(!vaapi_check_status(this, vaStatus, "vaCreateSurfaces()"))
++    goto error;
+ 
+-    vaStatus = vaCreateSurfaces (va_context->va_display,
+-      VA_RT_FORMAT_YUV420, width, height, this->va_soft_surface_ids, SOFT_SURFACES, NULL, 0);
+-    if (!vaapi_check_status (this, vaStatus, "vaCreateSurfaces()"))
+-      break;
++  /* allocate software surfaces */
++  for(i = 0; i < SOFT_SURFACES; i++) {
+ 
+-    /* allocate software surfaces */
+-    for (i = 0; i < SOFT_SURFACES; i++) {
+-      vaStatus = _x_va_create_image (this->va,
+-        this->va_soft_surface_ids[i], &this->va_soft_images[i], width, height, 1, &this->soft_image_is_bound);
+-      if (!vaapi_check_status(this, vaStatus, "_x_va_create_image()")) {
+-        this->va_soft_images[i].image_id = VA_INVALID_ID;
+-        break;
+-      }
+-      if (!this->soft_image_is_bound) {
+-        vaStatus = vaPutImage (va_context->va_display,
+-          this->va_soft_surface_ids[i], this->va_soft_images[i].image_id,
+-          0, 0, this->va_soft_images[i].width, this->va_soft_images[i].height,
+-          0, 0, this->va_soft_images[i].width, this->va_soft_images[i].height);
+-        vaapi_check_status (this, vaStatus, "vaPutImage()");
+-      }
++    vaStatus = _x_va_create_image(this->va, this->va_soft_surface_ids[i], &this->va_soft_images[i], width, height, 1, &this->soft_image_is_bound);
++    if (!vaapi_check_status(this, vaStatus, "_x_va_create_image()")) {
++      this->va_soft_images[i].image_id = VA_INVALID_ID;
++      goto error;
++    }
++
++    if (!this->soft_image_is_bound) {
++      vaStatus = vaPutImage(va_context->va_display, this->va_soft_surface_ids[i], this->va_soft_images[i].image_id,
++               0, 0, this->va_soft_images[i].width, this->va_soft_images[i].height,
++               0, 0, this->va_soft_images[i].width, this->va_soft_images[i].height);
++      vaapi_check_status(this, vaStatus, "vaPutImage()");
++    }
+ #ifdef DEBUG_SURFACE
+-      printf("vaapi_init_soft_surfaces 0x%08x\n", this->va_soft_surface_ids[i]);
++    printf("vaapi_init_soft_surfaces 0x%08x\n", this->va_soft_surface_ids[i]);
+ #endif
+-    }
+-    if (i < SOFT_SURFACES)
+-      break;
++  }
+ 
+-    this->sw_width  = width;
+-    this->sw_height = height;
+-    this->va_soft_head = 0;
+-    return VA_STATUS_SUCCESS;
+-  } while (0);
++  this->sw_width  = width;
++  this->sw_height = height;
++  this->va_soft_head = 0;
++  return VA_STATUS_SUCCESS;
+ 
++error:
+   this->sw_width  = 0;
+   this->sw_height = 0;
+   vaapi_destroy_soft_surfaces (this);
+@@ -1428,8 +1561,6 @@
    int i, n = 0;
    for (i = 0; i < VO_NUM_RECENT_FRAMES; i++) {
      if (this->recent_frames[i]) {
@@ -2903,7 +3492,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
        this->recent_frames[i]->free (this->recent_frames[i]);
        this->recent_frames[i] = NULL;
        n++;
-@@ -1442,6 +1571,7 @@
+@@ -1439,6 +1570,7 @@
  }
  
  static VAStatus vaapi_init_internal(vaapi_driver_t *this, int va_profile, int width, int height) {
@@ -2911,7 +3500,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    VAStatus            vaStatus;
  
    vaapi_close(this);
-@@ -1452,10 +1582,16 @@
+@@ -1449,10 +1581,16 @@
    if (vaStatus != VA_STATUS_SUCCESS)
      goto error;
  
@@ -2931,7 +3520,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
        /* this seems to break decoding to the surface ? */
        VAImage va_image;
        int is_bound;
-@@ -1466,12 +1602,12 @@
+@@ -1463,12 +1601,12 @@
                                0, 0, va_image.width, va_image.height);
          _x_va_destroy_image(this->va, &va_image);
        }
@@ -2945,7 +3534,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    vaStatus = vaapi_init_soft_surfaces(this, width, height);
    if(!vaapi_check_status(this, vaStatus, "vaapi_init_soft_surfaces()")) {
-@@ -1535,38 +1671,66 @@
+@@ -1532,38 +1670,66 @@
    return vaStatus;
  }
  
@@ -3025,7 +3614,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    /* override accel functions */
    frame->vaapi_accel_data.f = this->guarded_render ? &accel_funcs_guarded : &accel_funcs;
  
-@@ -1846,6 +2010,16 @@
+@@ -1843,6 +2009,16 @@
        else
          this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
  
@@ -3042,7 +3631,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      } else if (need_init) {
  
        if(this->vdr_osd_width) 
-@@ -1858,6 +2032,15 @@
+@@ -1855,6 +2031,15 @@
        else
          this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
  
@@ -3058,7 +3647,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      }
    }
  
-@@ -1989,6 +2172,397 @@
+@@ -1986,6 +2171,397 @@
    return ret;
  }
  
@@ -3456,7 +4045,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static VAStatus vaapi_software_render_frame(vaapi_driver_t *this, mem_frame_t *frame,
                                              VAImage *va_image, int is_bound, VASurfaceID va_surface_id) {
    ff_vaapi_context_t *va_context      = this->va_context;
-@@ -2047,7 +2621,7 @@
+@@ -2044,7 +2620,7 @@
      } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
        lprintf("vaapi_software_render_frame yv12 -> nv12 convert\n");
  
@@ -3465,7 +4054,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
                        frame->vo_frame.base[1], frame->vo_frame.pitches[1],
                        frame->vo_frame.base[2], frame->vo_frame.pitches[2],
                        (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
-@@ -2070,7 +2644,7 @@
+@@ -2067,7 +2643,7 @@
      } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
        lprintf("vaapi_software_render_frame yuy2 -> nv12 convert\n");
  
@@ -3474,7 +4063,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
                        (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
                        (uint8_t *)p_base + va_image->offsets[1], va_image->pitches[1],
                        frame->vo_frame.width, frame->vo_frame.height);
-@@ -2190,13 +2764,23 @@
+@@ -2187,13 +2763,23 @@
  }
  */
  
@@ -3500,7 +4089,18 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      this->recent_frames[i]->free (this->recent_frames[i]);
    }
  
-@@ -2680,6 +3264,20 @@
+@@ -2644,6 +3230,10 @@
+ 
+   UNLOCK_DISPLAY (this);
+ 
++  _x_freep (&this->va_subpic_formats);
++  _x_freep (&this->va_subpic_flags);
++  this->va_num_subpic_formats = 0;
++
+   pthread_mutex_unlock(&this->vaapi_lock);
+   pthread_mutex_destroy(&this->vaapi_lock);
+ 
+@@ -2674,6 +3264,20 @@
    this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
  }
  
@@ -3521,11 +4121,12 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
  {
    vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
-@@ -2785,14 +3383,12 @@
+@@ -2778,14 +3382,14 @@
+ static int vaapi_initialize(vaapi_driver_t *this, int visual_type, const void *visual)
  {
    VAStatus vaStatus;
-   int fmt_count = 0;
 -  unsigned interop_flags = XINE_VA_DISPLAY_X11;
++  int fmt_count = 0;
  
  #ifdef ENABLE_VA_GLX
 -  if (this->opengl_render)
@@ -3534,12 +4135,84 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
 +#else
 +  this->va = _x_va_new(this->xine, visual_type, visual, 0);
  #endif
--
+ 
 -  this->va = _x_va_new(this->xine, visual_type, visual, interop_flags);
    if (!this->va)
      return 0;
  
-@@ -2898,6 +3494,7 @@
+@@ -2813,61 +3417,17 @@
+   vaapi_set_background_color(this);
+   vaapi_display_attribs(this);
+ 
+-  if (this->overlay_mode == 1) {
+-    VAImageFormat *va_subpic_formats = NULL;
+-    unsigned int *va_subpic_flags = NULL;
+-    int fmt_count = vaMaxNumSubpictureFormats (this->va_context->va_display);
+-
+-    if ((unsigned int)(fmt_count - 1) < 256) {
+-      va_subpic_formats = calloc (fmt_count, sizeof (*va_subpic_formats));
+-      va_subpic_flags = calloc (fmt_count, sizeof (*va_subpic_flags));
+-      /* FIXME: the mesa radeonsi driver has a severe overlay bug.
+-       * for vdpau, we got a usable workaround (see video_out_vdpau.c).
+-       * for vaapi, glx mode should be 1 2.
+-       * in any case, treat missing overlays as non fatal. */
+-      vaStatus = vaQuerySubpictureFormats (this->va_context->va_display,
+-        va_subpic_formats, va_subpic_flags, &fmt_count);
+-      if (!vaapi_check_status (this, vaStatus, "vaQuerySubpictureFormats()"))
+-        fmt_count = 0;
+-    }
+-
+-    if ((unsigned int)(fmt_count - 1) < 256) {
+-      char buf[256 * 22], *q = buf;
+-      int i;
+-      for (i = 0; i < fmt_count; i++) {
+-        *q++ = ' ';
+-        q += _x_tag32_me2str (q, va_subpic_formats[i].fourcc);
+-        if (va_subpic_formats[i].fourcc == VA_FOURCC ('B', 'G', 'R', 'A')) {
+-          this->bgra_subpic_format = va_subpic_formats[i];
+-          this->bgra_subpic_flags = va_subpic_flags[i];
+-        }
+-      }
+-      *q = 0;
+-      xprintf (this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_open: subpicture formats: %s.\n", buf);
+-    } else {
+-      /* this->overlay_mode = 0;
+-       * this->xine->config->update_num (this->xine->config, "video.output.vaapi_overlay_mode", 0); */
+-      xprintf (this->xine, XINE_VERBOSITY_LOG,
+-        LOG_MODULE " vaapi_open: bogus subpicture format count %d, overlays disabled.\n", fmt_count);
+-    }
+-
+-    free (va_subpic_flags);
+-    free (va_subpic_formats);
+-  } else if (this->overlay_mode == 2) {
+-    /* DEBUG only. */
+-    this->bgra_subpic_format.fourcc = VA_FOURCC ('B', 'G', 'R', 'A');
+-    this->bgra_subpic_format.byte_order = 1;
+-    this->bgra_subpic_format.bits_per_pixel = 32;
+-    this->bgra_subpic_format.depth = 32;
+-    this->bgra_subpic_format.red_mask = 0x00ff0000;
+-    this->bgra_subpic_format.green_mask = 0x0000ff00;
+-    this->bgra_subpic_format.blue_mask = 0x000000ff;
+-    this->bgra_subpic_format.alpha_mask = 0xff000000;
+-    this->bgra_subpic_flags = 0;
+-    xprintf (this->xine, XINE_VERBOSITY_LOG,
+-      LOG_MODULE " vaapi_open: warning: forcing BGRA overlays, this may crash.\n");
++  fmt_count = vaMaxNumSubpictureFormats (this->va_context->va_display);
++  if (fmt_count > 0) {
++    this->va_subpic_formats = calloc (fmt_count, sizeof (*this->va_subpic_formats));
++    this->va_subpic_flags   = calloc (fmt_count, sizeof (*this->va_subpic_flags));
++
++    vaStatus = vaQuerySubpictureFormats (this->va_context->va_display,
++      this->va_subpic_formats, this->va_subpic_flags, &this->va_num_subpic_formats);
++    if (!vaapi_check_status (this, vaStatus, "vaQuerySubpictureFormats()"))
++      return 0;
+   } else {
+-    xprintf (this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_open: overlays disabled manually.\n");
++    this->va_num_subpic_formats = 0;
+   }
+ 
+   if(vaapi_init_internal(this, SW_CONTEXT_INIT_FORMAT, SW_WIDTH, SW_HEIGHT) != VA_STATUS_SUCCESS)
+@@ -2941,6 +3501,7 @@
    this->gl_texture                      = GL_NONE;
  #endif /* ENABLE_VA_GLX */
  
@@ -3547,7 +4220,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->va_soft_surface_ids             = this->va_soft_surface_ids_storage;
    this->va_soft_images                  = this->va_soft_images_storage;
    for (i = 0; i < SOFT_SURFACES; i++) {
-@@ -2918,7 +3515,7 @@
+@@ -2961,7 +3522,7 @@
  
    this->vo_driver.get_capabilities     = vaapi_get_capabilities;
    this->vo_driver.alloc_frame          = vaapi_alloc_frame;
@@ -3556,7 +4229,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->vo_driver.overlay_begin        = vaapi_overlay_begin;
    this->vo_driver.overlay_blend        = vaapi_overlay_blend;
    this->vo_driver.overlay_end          = vaapi_overlay_end;
-@@ -2933,6 +3530,8 @@
+@@ -2976,6 +3537,8 @@
    this->deinterlace                    = 0;
    this->vdr_osd_width                  = 0;
    this->vdr_osd_height                 = 0;
@@ -3565,7 +4238,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
          _("vaapi: VDR osd width workaround."),
-@@ -2946,6 +3545,18 @@
+@@ -2989,6 +3552,18 @@
          10, vaapi_vdr_osd_height_flag, this );
    this->vdr_osd_height = i < 0 ? 0 : i;
  
@@ -3584,9 +4257,30 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->deinterlace = config->register_num( config, "video.output.vaapi_deinterlace", 0,
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
+@@ -3046,15 +3621,6 @@
+     vaapi_csc_mode, this);
+   vaapi_set_csc_mode (this, this->csc_mode);
+ 
+-  this->overlay_mode = this->xine->config->register_range (this->xine->config,
+-    "video.output.vaapi_overlay_mode", 1, 0, 2,
+-    _("VAAPI overlay mode"),
+-    _("How to display onscreen messages and subtitles:\n"
+-      "0: Disable overlays for broken driver (eg Mesa radeonsi),\n"
+-      "1: Auto.\n"
+-      "2: Force BGRA.\n"),
+-    10, NULL, NULL);
+-
+   xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_open: Deinterlace : %d\n", this->deinterlace);
+   xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_open: Render surfaces : %d\n", RENDER_SURFACES);
+ #ifdef ENABLE_VA_GLX
+@@ -3108,3 +3674,4 @@
+   { PLUGIN_VIDEO_OUT, 22, "vaapi", XINE_VERSION_CODE, &vo_info_vaapi, vaapi_init_class },
+   { PLUGIN_NONE, 0, NULL, 0, NULL, NULL }
+ };
++
 diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
---- o/src/video_out/video_out_vdpau.c	2023-01-27 21:50:02.570815454 +0300
-+++ pc/src/video_out/video_out_vdpau.c	2023-03-07 15:09:45.927616963 +0300
+--- o/src/video_out/video_out_vdpau.c	2023-01-25 23:57:11.756853934 +0300
++++ pc/src/video_out/video_out_vdpau.c	2023-05-31 12:29:48.685513365 +0300
 @@ -1051,7 +1051,14 @@
        this->ovl_video_dest_rect = vid_rect;
      }
@@ -3617,8 +4311,8 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
        if ((value >= XINE_VO_ZOOM_MIN) && (value <= XINE_VO_ZOOM_MAX)) {
          this->zoom_x = value;
 diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
---- o/src/xine-engine/metronom.c	2022-12-16 21:59:54.028791916 +0300
-+++ pc/src/xine-engine/metronom.c	2023-03-07 15:09:45.927616963 +0300
+--- o/src/xine-engine/metronom.c	2022-12-15 15:34:05.543275873 +0300
++++ pc/src/xine-engine/metronom.c	2023-05-31 12:29:48.685513365 +0300
 @@ -451,6 +451,7 @@
      int           seek;
      int           force_jump;
@@ -3733,8 +4427,8 @@ diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
    this->audio.samples          = 0;
    this->audio.drift_step       = 0;
 diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
---- o/src/xine-engine/osd.c	2022-10-27 11:17:59.344812614 +0300
-+++ pc/src/xine-engine/osd.c	2023-03-07 15:09:45.927616963 +0300
+--- o/src/xine-engine/osd.c	2022-12-15 15:34:05.643277159 +0300
++++ pc/src/xine-engine/osd.c	2023-05-31 12:29:48.685513365 +0300
 @@ -536,6 +536,10 @@
    return _osd_show(osd, vpts, 1);
  }
@@ -3755,8 +4449,8 @@ diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
    this->r.set_extent         = osd_set_extent;
    this->r.set_video_window   = osd_set_video_window;
 diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
---- o/src/xine-engine/video_out.c	2023-01-11 20:47:29.192324744 +0300
-+++ pc/src/xine-engine/video_out.c	2023-03-07 15:09:45.928616935 +0300
+--- o/src/xine-engine/video_out.c	2023-01-10 18:26:53.953137401 +0300
++++ pc/src/xine-engine/video_out.c	2023-05-31 12:29:48.685513365 +0300
 @@ -213,6 +213,7 @@
  
    /* pts value when decoder delivered last video frame */
@@ -3815,8 +4509,8 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
     * handle XINE_PARAM_xxx properties (convert from driver's range)
     */
 diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
---- o/src/xine-engine/xine_interface.c	2023-01-27 21:50:02.576815345 +0300
-+++ pc/src/xine-engine/xine_interface.c	2023-03-07 15:09:45.928616935 +0300
+--- o/src/xine-engine/xine_interface.c	2023-01-25 23:57:11.784854347 +0300
++++ pc/src/xine-engine/xine_interface.c	2023-05-31 12:29:48.685513365 +0300
 @@ -958,6 +958,10 @@
    this->osd.renderer->show_unscaled(&this->osd, vpts);
  }
