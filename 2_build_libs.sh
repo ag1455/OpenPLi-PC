@@ -170,8 +170,8 @@ elif [[ "$release" = "22.04" ]]; then
 	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
 	"
 	apt-get -f install -y
-	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
-	dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
+	dpkg -i libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
 	rm -f *deb
 # Unfortunately e2pc doesn't work with wayland
 #	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
