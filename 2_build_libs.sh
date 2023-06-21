@@ -289,7 +289,7 @@ else
 	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -P PKG $PKG-dev $PKG1 tsdecrypt
+		dpkg -P $PKG $PKG-dev $PKG1 tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
