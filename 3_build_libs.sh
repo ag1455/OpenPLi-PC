@@ -170,8 +170,8 @@ elif [[ "$release" = "22.04" ]]; then
 	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
 	"
 	apt-get -f install -y
-	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
-	dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
+	dpkg -i libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
 	rm -f *deb
 # Unfortunately e2pc doesn't work with wayland
 #	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
@@ -289,7 +289,7 @@ else
 	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -P PKG $PKG-dev $PKG1 tsdecrypt
+		dpkg -P $PKG $PKG-dev $PKG1 tsdecrypt
 	else
 		echo "$PKG not installed"
 	fi
@@ -309,7 +309,7 @@ else
 	cd $PKG
 	./bootstrap
 	./configure --prefix=/usr --enable-sse2
-	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	rm -f *.tgz
 	make distclean
 	cd ..
@@ -365,7 +365,7 @@ else
 #	autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-boxtype=generic DVB_API_VERSION=5
-	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	rm -f *.tgz
 	make distclean
 	cd ..
@@ -392,7 +392,7 @@ else
 #	autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
-	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
 	rm -f *.tgz
 	make distclean
@@ -427,7 +427,7 @@ else
 	cd $PKG
 	autoreconf -i
 	./configure --prefix=/usr
-	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	rm -f *.tgz
 	make distclean
 	cd ..
@@ -464,7 +464,7 @@ else
 #	autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-wma --with-wmv --with-pcm --with-dtsdownmix --with-eac3 --with-mpeg4 --with-mpeg4v2 --with-h263 --with-h264 --with-h265
-	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+	checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	rm -f *.tgz
 	make distclean
 	cd ..
@@ -502,7 +502,7 @@ else
 		#autoupdate
 		autoreconf -i
 		./configure --prefix=/usr
-		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	else
 		cd ../..
 		cp -v patches/subsink_1.0.patch libs/$PKG
@@ -514,7 +514,7 @@ else
 		#autoupdate
 		autoreconf -i
 		./configure --prefix=/usr
-		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --autodoinst=yes --gzman=yes
+		checkinstall -D --install=yes --default --pkgname=$LIB --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	fi
 	rm -f *.tgz
 	make distclean
