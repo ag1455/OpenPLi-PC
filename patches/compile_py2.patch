@@ -1,7 +1,7 @@
 diff -ruN a/lib/python/Components/About.py b/lib/python/Components/About.py
---- a/lib/python/Components/About.py	2022-06-05 14:55:16.192589556 +0300
-+++ b/lib/python/Components/About.py	2022-07-09 02:35:24.779299099 +0300
-@@ -166,7 +166,7 @@
+--- a/lib/python/Components/About.py	2023-07-07 12:31:51.291225460 +0300
++++ b/lib/python/Components/About.py	2023-07-07 12:50:04.949339660 +0300
+@@ -165,7 +165,7 @@
  def getPythonVersionString():
  	try:
  		import commands
@@ -11,8 +11,8 @@ diff -ruN a/lib/python/Components/About.py b/lib/python/Components/About.py
  	except:
  		return _("unknown")
 diff -ruN a/po/updateallpo.sh b/po/updateallpo.sh
---- a/po/updateallpo.sh	2022-06-24 23:23:23.479813300 +0300
-+++ b/po/updateallpo.sh	2022-07-09 02:41:17.244106190 +0300
+--- a/po/updateallpo.sh	2022-09-11 21:32:03.813800417 +0300
++++ b/po/updateallpo.sh	2023-07-07 12:50:04.949339660 +0300
 @@ -38,7 +38,7 @@
  		local_python="python3"
  	fi
@@ -23,8 +23,8 @@ diff -ruN a/po/updateallpo.sh b/po/updateallpo.sh
  
  #
 diff -ruN a/.travis.yml b/.travis.yml
---- a/.travis.yml	2022-06-05 14:55:16.064587369 +0300
-+++ b/.travis.yml	2022-07-09 02:35:24.779299099 +0300
+--- a/.travis.yml	2022-09-11 21:32:03.573799534 +0300
++++ b/.travis.yml	2023-07-07 12:50:04.949339660 +0300
 @@ -119,6 +119,6 @@
  - autoreconf -i
  - ./configure --with-libsdl=no --with-boxtype=nobox --enable-dependency-tracking ac_cv_prog_c_openmp=-fopenmp --with-gstversion=1.0 --with-textlcd
