@@ -1,0 +1,25 @@
+Use AppImage to record your remote's signals: https://github.com/bengtmartensson/IrScrutinizer/releases.
+Source can be downloaded here: https://github.com/bengtmartensson/IrScrutinizer.
+The current version of IrScrutinizer is 2.4.0-x86_64. Also, there is a binary file for Windows.
+This program is much better at determining the parameters of the IR signal than Lirc's "irrecord". In addition, Lirc's configuration settings only worked properly on older operating systems. So just edit the templates in /etc/lirc and it will work.
+
+To check in the terminal, enter the command:
+systemctl status lircd.socket lircd.service
+See if necessary:
+journalctl -b 0 /usr/sbin/lircd
+You can enable /tmp/lirc.log in the configuration.
+
+Checking the serviceability of the IR receiver on COM:
+systemctl stop lircd
+mode2 [dev/lirc0 (or 1)]
+Checking the recorded codes:
+systemctl start lircd
+irw
+
+If your system has two devices /dev/lirc0 and /dev/lirc1 (for example, a built-in IR-receiver in the card card)
+then you can add a rule to /etc/udev/rules.d/99-lirc-symlinks.rules:
+KERNELS=="serial_ir.0", SUBSYSTEM=="lirc", DRIVERS=="serial_ir", ATTRS{driver_override}=="(null)", SYMLINK+="lirc_serial"
+and use "/dev/lirc_serial" in your *.lircd.conf.
+You also need to disable the uinput service by command:
+systemctl mask lircd-uinput.service
+and then reboot the system.

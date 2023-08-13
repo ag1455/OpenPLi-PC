@@ -13,6 +13,7 @@
 PKG="lirc-0.10.1"
 DIR="lirc_build"
 CONF="/etc/lirc"
+DH="dh-systemd_12.1.1~nd20.04+1_all.deb"
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
 dpkg -r liblirc-dev liblirc0 liblircclient-dev lirc lirc-doc lirc-x
@@ -22,20 +23,19 @@ if [[ "$release" = "22.04" ]]; then
 	pip uninstall PyCrypto
 	pip install -U PyCryptodome
 	apt install -y dh-exec dh-python doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
-	wget http://ftp.de.debian.org/debian/pool/main/d/debhelper/dh-systemd_13.2.1_all.deb
-	dpkg -i dh-systemd_13.2.1_all.deb
-	rm -f dh-systemd_13.2.1_all.deb
-	dpkg -i pre/lirc/*.deb
+	wget https://neurodebian.g-node.org/pool/main/d/debhelper/$DH
+	dpkg -i $DH
+	rm -f $DH
 else
 	apt install -y dh-exec dh-python dh-systemd doxygen expect libftdi1-dev libsystemd-dev libudev-dev libusb-dev man2html-base portaudio19-dev python3-dev python3-setuptools socat setserial xsltproc
 fi
 
+if [ -d $DIR ]; then
+	rm -fr $DIR
+fi
+
 mkdir $DIR
 cd $DIR
-
-if [ -d $PKG ]; then
-	rm -fr $PKG
-fi
 
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/lirc/0.10.1-6/lirc_0.10.1.orig.tar.gz
 tar -xvf lirc_0.10.1.orig.tar.gz
@@ -110,4 +110,4 @@ systemctl daemon-reload
 systemctl start lircd
 systemctl restart lircd
 
-#reboot
+reboot
