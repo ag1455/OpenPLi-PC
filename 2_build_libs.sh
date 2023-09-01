@@ -223,8 +223,9 @@ fi
 if [ -d $PKG ]; then
 	rm -rf $PKG
 fi
-#git clone https://github.com/OpenDMM/$PKG.git
-git clone --depth 1 git://git.opendreambox.org/git/obi/$PKG.git
+
+git clone https://git.code.sf.net/p/tuxbox-cvs/$PKG
+#git clone --depth 1 https://github.com/OpenVisionE2/$PKG.git
 cd $PKG
 #autoupdate
 dpkg-buildpackage -b -d -uc -us
