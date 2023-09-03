@@ -8,14 +8,14 @@ from Tools.Directories import fileExists, SCOPE_SKIN_IMAGE, SCOPE_CURRENT_SKIN, 
 from Components.config import *
 from Components.Converter.Poll import Poll
 
-class PicEmu2(Renderer, Poll):
+class PicEmu2uhd(Renderer, Poll):
     searchPaths = ('/usr/share/enigma2/%s/', '/media/ba/%s/', '/media/hdd/%s/', '/media/sda1/%s/', '/media/sda/%s/', '/media/usb/%s/')
 
     def __init__(self):
         Poll.__init__(self)
         Renderer.__init__(self)
-        self.piconWidth = 150
-        self.piconHeight = 90
+        self.piconWidth = 300
+        self.piconHeight = 180
         self.path = 'picon'
         self.nameCache = {}
         self.nameCache1 = {}
@@ -179,6 +179,7 @@ class PicEmu2(Renderer, Poll):
 
     def int2hex(self, int):
             return ("%x" % int)
+
 
     def findPicon(self, serviceName):
         for path in self.searchPaths:
