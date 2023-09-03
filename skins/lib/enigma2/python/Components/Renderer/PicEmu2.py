@@ -42,10 +42,10 @@ class PicEmu2(Renderer, Poll):
 
     def changed(self, what):
         self.poll_interval = 3000
-        self.poll_enabled = True        
+        self.poll_enabled = True
         sname = ''
         if self.instance:
-            pngname = ''    
+            pngname = ''
             if what[0] != self.CHANGED_CLEAR:
                 service = self.source.service
                 if service:
@@ -54,7 +54,7 @@ class PicEmu2(Renderer, Poll):
                         caids = info.getInfoObject(iServiceInformation.sCAIDs)
                         self.path = 'PiconCam'
                         sname = self.camPicon()
-			if caids:
+                        if caids:
                             if (len(caids) > 0):
                                 for caid in caids:
                                     caid = self.int2hex(caid)
@@ -63,7 +63,7 @@ class PicEmu2(Renderer, Poll):
                                     caid = caid[:2]
                                     caid = caid.upper()
                                     if (caid != "") and (sname == ""):
-                                            sname = "Unknown"                        
+                                            sname = "Unknown"
                         pngname = self.nameCache.get(sname, '')
                         if pngname == '':
                             pngname = self.findPicon(sname)
@@ -107,7 +107,7 @@ class PicEmu2(Renderer, Poll):
                                 self.runanim1(pngname, pngname1)
 
     def camPicon(self):
-	    control = 0 
+            control = 0
             cfgfile = "/tmp/ecm.info"
             sname = ""
             content = ""
@@ -118,7 +118,7 @@ class PicEmu2(Renderer, Poll):
                     f.close()
                 except:
                     content = ""
-                if content != '':   
+                if content != '':
                     contentInfo = content.split("\n")
                     for line in contentInfo:
                         if ("=====" in line):
@@ -136,16 +136,16 @@ class PicEmu2(Renderer, Poll):
                         elif ("FROM:" in line):
                                 sname = "Camd3"
                         elif ("slot" in line) or ("Local" in line):
-                                sname = "Card"                                
+                                sname = "Card"
                 else:
-                    sname = "Unknown"                                
+                    sname = "Unknown"
             else:
                  sname = ""
             return sname
 
     def criptPicon(self, caids):
             sname = "none"
-	    if caids:
+            if caids:
                 if (len(caids) > 0):
                     for caid in caids:
                         caid = self.int2hex(caid)
@@ -174,12 +174,11 @@ class PicEmu2(Renderer, Poll):
                         elif (caid == "4A"):
                             sname = "DRE"
                         elif (caid == "27"):
-                            sname = "EXSET"                            
+                            sname = "EXSET"
                     return sname
-                
+
     def int2hex(self, int):
             return ("%x" % int)
-                
 
     def findPicon(self, serviceName):
         for path in self.searchPaths:
@@ -207,4 +206,3 @@ class PicEmu2(Renderer, Poll):
             if self.slide == 0:
                 self.slide = 2
             self.timerpicsPS1.start(1000, True)
- 

@@ -20317,18 +20317,3 @@ diff -ruN o/IPTVPlayer/Web/webSite.py pc/IPTVPlayer/Web/webSite.py
          elif os.path.exists('/tmp/iptv.dbg'):
              DBGFileName = '/tmp/iptv.dbg'
          else:
-diff -ruN o/setup_translate.py pc/setup_translate.py
---- o/setup_translate.py	2022-05-18 20:23:48.555552949 +0300
-+++ pc/setup_translate.py	2023-04-27 22:47:28.492341293 +0300
-@@ -23,9 +23,9 @@
- 					if f.endswith('.po'):
- 						src = os.path.join(lc, f)
- 						dest = os.path.join(lc, f[:-2] + 'mo')
--						print "Language compile %s -> %s" % (src, dest)
-+						print("Language compile %s -> %s" % (src, dest))
- 						if os.system("msgfmt '%s' -o '%s'" % (src, dest)) != 0:
--							raise Exception, "Failed to compile: " + src
-+							raise Exception("Failed to compile: " + src)
- 
- 
- class build(_build):
