@@ -182,20 +182,28 @@ static int create_ca_device(int adapter_num, int device_num, int global_num) {
 	return 0;
 }
 
-static int dvb_uevent(struct device *dev, struct kobj_uevent_env *env) {
-	struct ca_device *cadev = dev_get_drvdata(dev);
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 2, 0)
+	static int dvb_uevent(const struct device *dev, struct kobj_uevent_env *env) {
+#else
+	static int dvb_uevent(struct device *dev, struct kobj_uevent_env *env) {
+#endif
+		struct ca_device *cadev = dev_get_drvdata(dev);
 
-	add_uevent_var(env, "DVB_DEVICE_NUM=%d", cadev->device_num);
-	add_uevent_var(env, "DVB_ADAPTER_NUM=%d", cadev->adapter_num);
-	return 0;
-}
+		add_uevent_var(env, "DVB_DEVICE_NUM=%d", cadev->device_num);
+		add_uevent_var(env, "DVB_ADAPTER_NUM=%d", cadev->adapter_num);
+		return 0;
+	}
 
-static char *dvb_devnode(struct device *dev, umode_t *mode) {
-	struct ca_device *cadev = dev_get_drvdata(dev);
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 2, 0)
+	static char *dvb_devnode(const struct device *dev, umode_t *mode) {
+#else
+	static char *dvb_devnode(struct device *dev, umode_t *mode) {
+#endif
+		struct ca_device *cadev = dev_get_drvdata(dev);
 
-	return kasprintf(GFP_KERNEL, "dvb/adapter%d/ca%d",
-	cadev->adapter_num, cadev->device_num);
-}
+		return kasprintf(GFP_KERNEL, "dvb/adapter%d/ca%d",
+		cadev->adapter_num, cadev->device_num);
+	}
 
 static int __init dvblb_init(void) {
 	int i, j, ret, failed;
@@ -221,6 +229,7 @@ static int __init dvblb_init(void) {
 		printk("dvbsoftwareca: unable to create dvb_class\n");
 		return PTR_ERR(dvb_class);
 	}
+
 	dvb_class->dev_uevent = dvb_uevent;
 	dvb_class->devnode = dvb_devnode;
 
