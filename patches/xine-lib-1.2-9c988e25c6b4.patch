@@ -2677,7 +2677,7 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
  
 diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
 --- o/src/video_out/video_out_vaapi.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/video_out/video_out_vaapi.c	2023-09-26 21:15:53.874599599 +0300
++++ pc/src/video_out/video_out_vaapi.c	2023-09-29 15:36:42.245958935 +0300
 @@ -74,9 +74,9 @@
  # define ENABLE_VA_GLX
  #endif /* OPENGL */
@@ -2718,21 +2718,30 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  struct vaapi_driver_s {
  
    vo_driver_t        vo_driver;
-@@ -180,6 +194,13 @@
+@@ -169,7 +183,13 @@
+ 
+   uint32_t            capabilities;
+ 
++  /* Overlay */
+   int ovl_changed;
++  vaapi_argb_layer_t  argb_layer;
++  int                 last_ovl_width, last_ovl_height;
++  int                 tex_ovl_width, tex_ovl_height; /* independend of frame */
++  int                 video_window_width, video_window_height, video_window_x, video_window_y;
++
+   vo_overlay_t       *overlays[XINE_VORAW_MAX_OVL];
+   uint32_t           *overlay_bitmap;
+   uint32_t            overlay_bitmap_size;
+@@ -180,6 +200,8 @@
  
    uint32_t            vdr_osd_width;
    uint32_t            vdr_osd_height;
 +  uint32_t            enigma_osd_width;
 +  uint32_t            enigma_osd_height;
-+
-+  vaapi_argb_layer_t  argb_layer;
-+  int                 last_ovl_width, last_ovl_height;
-+  int                 tex_ovl_width, tex_ovl_height; /* independend of frame */
-+  int                 video_window_width, video_window_height, video_window_x, video_window_y;
  
    uint32_t            overlay_output_width;
    uint32_t            overlay_output_height;
-@@ -214,16 +235,18 @@
+@@ -214,16 +236,18 @@
    VAImage             *va_soft_images;
    unsigned int        va_soft_head;
    int                 soft_image_is_bound;
@@ -2755,7 +2764,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    pthread_mutex_t     vaapi_lock;
  
-@@ -255,16 +278,6 @@
+@@ -255,16 +279,6 @@
    VASurfaceID         va_soft_surface_ids_storage[SOFT_SURFACES + 1];
    VAImage             va_soft_images_storage[SOFT_SURFACES + 1];
    vaapi_context_impl_t *va;
@@ -2772,7 +2781,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  };
  
  /* import common color matrix stuff */
-@@ -279,6 +292,23 @@
+@@ -279,6 +293,23 @@
  static VAStatus vaapi_destroy_soft_surfaces (vaapi_driver_t *this);
  static int vaapi_set_property (vo_driver_t *this_gen, int property, int value);
  
@@ -2796,7 +2805,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  #if defined(LOG) || defined(DEBUG)
  static const char *string_of_VAImageFormat(VAImageFormat *imgfmt)
  {
-@@ -301,6 +331,12 @@
+@@ -301,6 +332,12 @@
    return 1;
  }
  
@@ -2809,7 +2818,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static int vaapi_lock_decode_guarded(vo_frame_t *frame_gen)
  {
    vaapi_driver_t  *this = (vaapi_driver_t *) frame_gen->driver;
-@@ -317,11 +353,44 @@
+@@ -317,11 +354,44 @@
    pthread_mutex_unlock(&this->vaapi_lock);
  }
  
@@ -2855,7 +2864,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  } vaapi_class_t;
  
  static void vaapi_x11_wait_event(Display *dpy, Window w, int type)
-@@ -356,21 +425,19 @@
+@@ -356,21 +426,19 @@
  
  #ifdef ENABLE_VA_GLX
  
@@ -2890,7 +2899,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  }
  
  /* Return the address of a linked function */
-@@ -386,54 +453,60 @@
+@@ -386,54 +454,60 @@
  }
  
  /* Resolve opengl functions. */
@@ -2990,7 +2999,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    lprintf("\n");
    free(allexts);
  }
-@@ -498,11 +571,11 @@
+@@ -498,11 +572,11 @@
  static int vaapi_glx_bind_texture(vaapi_driver_t *this)
  {
    glEnable(GL_TEXTURE_2D);
@@ -3004,7 +3013,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      XSync(this->display, False);
      if (vaapi_x11_untrap_errors())
        xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_bind_texture : Update bind_tex_image failed\n");
-@@ -515,12 +588,12 @@
+@@ -515,12 +589,12 @@
  {
    if (this->opengl_use_tfp) {
      vaapi_x11_trap_errors();
@@ -3019,34 +3028,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    glDisable(GL_TEXTURE_2D);
    return 0;
  }
-@@ -539,11 +612,21 @@
-     return;
- 
-   /* Calc texture/rectangle coords */
--  x1 = this->sc.output_xoffset;
--  y1 = this->sc.output_yoffset;
--  x2 = x1 + this->sc.output_width;
--  y2 = y1 + this->sc.output_height;
--  tx = (float) frame->width  / va_context->width;
-+  if (this->video_window_width && this->video_window_height) // video is displayed in a small window
-+  {
-+    x1 = this->video_window_x;
-+    y1 = this->video_window_y;
-+    x2 = x1 + this->video_window_width;
-+    y2 = y1 + this->video_window_height;
-+  }
-+  else
-+  {
-+    x1 = this->sc.output_xoffset;
-+    y1 = this->sc.output_yoffset;
-+    x2 = x1 + this->sc.output_width;
-+    y2 = y1 + this->sc.output_height;
-+  }
-+    tx = (float) frame->width  / va_context->width;
-   ty = (float) frame->height / va_context->height;
- 
-   glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-@@ -596,7 +679,7 @@
+@@ -596,7 +670,7 @@
  
    if(this->gl_pixmap) {
      vaapi_x11_trap_errors();
@@ -3055,7 +3037,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      XSync(this->display, False);
      if (vaapi_x11_untrap_errors())
        xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_destroy_glx : mpglXDestroyPixmap failed\n");
-@@ -649,7 +732,6 @@
+@@ -649,7 +723,6 @@
  
          visual_depth = vi->depth;
          XFree(vi);
@@ -3063,7 +3045,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
          if (visual_depth != depth)
              continue;
-@@ -709,7 +791,7 @@
+@@ -709,7 +782,7 @@
    int attribs[7], i = 0;
    const int depth = 24;
  
@@ -3072,7 +3054,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_tfp : No GLX texture-from-pixmap extension available\n");
      return 0;
    }
-@@ -743,7 +825,7 @@
+@@ -743,7 +816,7 @@
    attribs[i++] = None;
  
    vaapi_x11_trap_errors();
@@ -3081,7 +3063,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    XSync(this->display, False);
    if (vaapi_x11_untrap_errors()) {
      xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_glx_config_tfp : Could not create GLX pixmap\n");
-@@ -764,105 +846,101 @@
+@@ -764,105 +837,101 @@
      this->opengl_render = 0;
    }
  
@@ -3272,7 +3254,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    destroy_glx (this);
    return 0;
  }
-@@ -875,6 +953,16 @@
+@@ -875,6 +944,16 @@
    return this->capabilities;
  }
  
@@ -3289,7 +3271,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  /* Init subpicture */
  static void vaapi_init_subpicture(vaapi_driver_t *this) {
    this->va_subpic_width               = 0;
-@@ -888,8 +976,9 @@
+@@ -888,8 +967,9 @@
    this->overlay_bitmap = NULL;
    this->overlay_bitmap_size = 0;
  
@@ -3301,7 +3283,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  }
  
  /* Close vaapi  */
-@@ -911,6 +1000,12 @@
+@@ -911,6 +991,12 @@
    _x_va_close(this->va);
  }
  
@@ -3314,7 +3296,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  /* Deassociate and free subpicture */
  static void vaapi_destroy_subpicture(vaapi_driver_t *this) {
    ff_vaapi_context_t    *va_context = this->va_context;
-@@ -931,31 +1026,38 @@
+@@ -931,31 +1017,38 @@
  
  /* Create VAAPI subpicture */
  static VAStatus vaapi_create_subpicture(vaapi_driver_t *this, int width, int height) {
@@ -3368,7 +3350,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
      memset ((uint32_t *)p_base, 0x0, this->va_subpic_image.data_size);
      vaStatus = vaUnmapBuffer(va_context->va_display, this->va_subpic_image.buf);
-@@ -967,9 +1069,9 @@
+@@ -967,9 +1060,9 @@
      lprintf ("vaapi_create_subpicture 0x%08x format %s\n", this->va_subpic_image.image_id,
        string_of_VAImageFormat(&this->va_subpic_image.format));
  
@@ -3380,7 +3362,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    /* house keeping */
    if (this->va_subpic_id != VA_INVALID_ID)
      vaapi_destroy_subpicture(this);
-@@ -1057,9 +1159,69 @@
+@@ -1057,9 +1150,69 @@
        float contrast = vaapi_normalized_prop (that, VO_PROP_CONTRAST);
        float brightness = (vaapi_normalized_prop (that, VO_PROP_BRIGHTNESS) - 1.0) * 128.0;
        float *matrix = that->user_csc_matrix;
@@ -3451,7 +3433,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
        attr.type   = VADisplayAttribCSCMatrix;
        /* libva design bug: VADisplayAttribute.value is plain int.
-@@ -1300,7 +1462,6 @@
+@@ -1300,7 +1453,6 @@
        }
      }
      free(display_attrs);
@@ -3459,7 +3441,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    }
  
    if (this->have_user_csc_matrix) {
-@@ -1378,46 +1539,42 @@
+@@ -1378,46 +1530,42 @@
  }
  
  static VAStatus vaapi_init_soft_surfaces(vaapi_driver_t *this, int width, int height) {
@@ -3534,7 +3516,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->sw_width  = 0;
    this->sw_height = 0;
    vaapi_destroy_soft_surfaces (this);
-@@ -1428,8 +1585,6 @@
+@@ -1428,8 +1576,6 @@
    int i, n = 0;
    for (i = 0; i < VO_NUM_RECENT_FRAMES; i++) {
      if (this->recent_frames[i]) {
@@ -3543,7 +3525,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
        this->recent_frames[i]->free (this->recent_frames[i]);
        this->recent_frames[i] = NULL;
        n++;
-@@ -1439,6 +1594,7 @@
+@@ -1439,6 +1585,7 @@
  }
  
  static VAStatus vaapi_init_internal(vaapi_driver_t *this, int va_profile, int width, int height) {
@@ -3551,7 +3533,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    VAStatus            vaStatus;
  
    vaapi_close(this);
-@@ -1449,10 +1605,16 @@
+@@ -1449,10 +1596,16 @@
    if (vaStatus != VA_STATUS_SUCCESS)
      goto error;
  
@@ -3571,7 +3553,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
        /* this seems to break decoding to the surface ? */
        VAImage va_image;
        int is_bound;
-@@ -1463,12 +1625,12 @@
+@@ -1463,12 +1616,12 @@
                                0, 0, va_image.width, va_image.height);
          _x_va_destroy_image(this->va, &va_image);
        }
@@ -3585,7 +3567,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    vaStatus = vaapi_init_soft_surfaces(this, width, height);
    if(!vaapi_check_status(this, vaStatus, "vaapi_init_soft_surfaces()")) {
-@@ -1532,38 +1694,66 @@
+@@ -1532,38 +1685,66 @@
    return vaStatus;
  }
  
@@ -3665,47 +3647,40 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    /* override accel functions */
    frame->vaapi_accel_data.f = this->guarded_render ? &accel_funcs_guarded : &accel_funcs;
  
-@@ -1637,17 +1827,33 @@
+@@ -1637,16 +1818,32 @@
  
      if(format == XINE_IMGFMT_VAAPI) {
        lprintf("vaapi_ovl_associate hw\n");
--      vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
 +      if (this->video_window_width && this->video_window_height) // video is displayed in a small window
 +      {
-+          vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
++      vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
 +                              va_context->va_surface_ids, RENDER_SURFACES,
 +                              0, 0, this->va_subpic_image.width, this->va_subpic_image.height,
 +                              0, 0, this->overlay_bitmap_width, this->overlay_bitmap_height, VA_SUBPICTURE_DESTINATION_IS_SCREEN_COORD);
 +      } else {
-+          vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
+       vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
                                va_context->va_surface_ids, RENDER_SURFACES,
                                0, 0, this->va_subpic_image.width, this->va_subpic_image.height,
                                0, 0, output_width, output_height, flags);
 +             }
      } else {
        lprintf("vaapi_ovl_associate sw\n");
--      vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
--                              this->va_soft_surface_ids, SOFT_SURFACES,
--                              0, 0, this->va_subpic_image.width, this->va_subpic_image.height,
--                              0, 0, this->va_soft_images[0].width, this->va_soft_images[0].height, flags);
--    }
 +      if (this->video_window_width && this->video_window_height) // video is displayed in a small window
 +      {
-+          vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
-+                                          this->va_soft_surface_ids, SOFT_SURFACES,
-+                                          0, 0, this->va_subpic_image.width, this->va_subpic_image.height,
-+                                          0, 0, this->overlay_bitmap_width, this->overlay_bitmap_height, VA_SUBPICTURE_DESTINATION_IS_SCREEN_COORD);
++      vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
++                              this->va_soft_surface_ids, SOFT_SURFACES,
++                              0, 0, this->va_subpic_image.width, this->va_subpic_image.height,
++                              0, 0, this->overlay_bitmap_width, this->overlay_bitmap_height, VA_SUBPICTURE_DESTINATION_IS_SCREEN_COORD);
 +      } else {
-+          vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
-+                                          this->va_soft_surface_ids, SOFT_SURFACES,
-+                                          0, 0, this->va_subpic_image.width, this->va_subpic_image.height,
-+                                          0, 0, this->va_soft_images[0].width, this->va_soft_images[0].height, flags);
+       vaStatus = vaAssociateSubpicture(va_context->va_display, this->va_subpic_id,
+                               this->va_soft_surface_ids, SOFT_SURFACES,
+                               0, 0, this->va_subpic_image.width, this->va_subpic_image.height,
+                               0, 0, this->va_soft_images[0].width, this->va_soft_images[0].height, flags);
 +             }
-+          }
+     }
  
      if(vaapi_check_status(this, vaStatus, "vaAssociateSubpicture()")) {
-       this->last_sub_image_fmt = format;
-@@ -1704,13 +1910,41 @@
+@@ -1704,13 +1901,40 @@
              (overlay->rgb_clut > 0 || overlay->hili_rgb_clut > 0) ? " rgb ": " ycbcr ",
              overlay->width, overlay->height, overlay->x, overlay->y,
              overlay->hili_left, overlay->hili_top,
@@ -3735,7 +3710,6 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
 +    this->video_window_x      = overlay->video_window_x;
 +    this->video_window_y      = overlay->video_window_y;
 +  }
-+  
    if (overlay->argb_layer && overlay->argb_layer->buffer)
      lprintf("overlay[%d] argb %s %dx%d@%d,%d dirty rect %d,%d-%d,%d\n", i,
              overlay->unscaled ? " unscaled ": " scaled ",
@@ -3749,7 +3723,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
  
    this->overlays[i] = overlay;
-@@ -1843,6 +2077,16 @@
+@@ -1843,6 +2067,16 @@
        else
          this->overlay_bitmap_height = UMAX (unscaled_height, this->sc.gui_height);
  
@@ -3766,7 +3740,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      } else if (need_init) {
  
        if(this->vdr_osd_width) 
-@@ -1855,6 +2099,15 @@
+@@ -1855,6 +2089,15 @@
        else
          this->overlay_bitmap_height = UMAX (output_height, this->sc.gui_height);
  
@@ -3782,7 +3756,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      }
    }
  
-@@ -1986,6 +2239,397 @@
+@@ -1986,6 +2229,397 @@
    return ret;
  }
  
@@ -4180,7 +4154,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static VAStatus vaapi_software_render_frame(vaapi_driver_t *this, mem_frame_t *frame,
                                              VAImage *va_image, int is_bound, VASurfaceID va_surface_id) {
    ff_vaapi_context_t *va_context      = this->va_context;
-@@ -2044,7 +2688,7 @@
+@@ -2044,7 +2678,7 @@
      } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
        lprintf("vaapi_software_render_frame yv12 -> nv12 convert\n");
  
@@ -4189,7 +4163,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
                        frame->vo_frame.base[1], frame->vo_frame.pitches[1],
                        frame->vo_frame.base[2], frame->vo_frame.pitches[2],
                        (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
-@@ -2067,7 +2711,7 @@
+@@ -2067,7 +2701,7 @@
      } else if (va_image->format.fourcc == VA_FOURCC( 'N', 'V', '1', '2' )) {
        lprintf("vaapi_software_render_frame yuy2 -> nv12 convert\n");
  
@@ -4198,69 +4172,47 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
                        (uint8_t *)p_base + va_image->offsets[0], va_image->pitches[0],
                        (uint8_t *)p_base + va_image->offsets[1], va_image->pitches[1],
                        frame->vo_frame.width, frame->vo_frame.height);
-@@ -2079,11 +2723,20 @@
-   if(!vaapi_check_status(this, vaStatus, "vaUnmapBuffer()"))
+@@ -2080,9 +2714,16 @@
      return vaStatus;
  
--  if (!is_bound) {
--    vaStatus = vaPutImage(va_context->va_display, va_surface_id, va_image->image_id,
--                        0, 0, va_image->width, va_image->height,
--                        0, 0, va_image->width, va_image->height);
--    if(!vaapi_check_status(this, vaStatus, "vaPutImage()"))
-+  if (!this->is_bound) {
+   if (!is_bound) {
 +    if(this->video_window_width && this->video_window_height) // video is displayed in a small window
 +    {
-+      vaStatus = vaPutImage(va_context->va_display, va_surface_id, va_image->image_id,
-+                          0, 0, this->video_window_x, this->video_window_y,
-+                          0, 0, this->video_window_width, this->video_window_height);
-+    }
-+    else
-+    {
-+      vaStatus = vaPutImage(va_context->va_display, va_surface_id, va_image->image_id,
-+                          0, 0, va_image->width, va_image->height,
-+                          0, 0, va_image->width, va_image->height);
-+    }
-+    if(!vaapi_check_status(va_context->driver, vaStatus, "vaPutImage()"))
++    vaStatus = vaPutImage(va_context->va_display, va_surface_id, va_image->image_id,
++                        0, 0, this->video_window_x, this->video_window_y,
++                        0, 0, this->video_window_width, this->video_window_height);
++    } else {
+     vaStatus = vaPutImage(va_context->va_display, va_surface_id, va_image->image_id,
+                         0, 0, va_image->width, va_image->height,
+                         0, 0, va_image->width, va_image->height);
++           }
+     if(!vaapi_check_status(this, vaStatus, "vaPutImage()"))
        return vaStatus;
    }
- 
-@@ -2159,15 +2812,26 @@
-     } else
+@@ -2160,12 +2801,22 @@
  #endif
      {
--
--      vaStatus = vaPutSurface(va_context->va_display, va_surface_id, this->window,
--                   this->sc.displayed_xoffset, this->sc.displayed_yoffset,
--                   this->sc.displayed_width, this->sc.displayed_height,
--                   this->sc.output_xoffset, this->sc.output_yoffset,
--                   this->sc.output_width, this->sc.output_height,
--                   NULL, 0, flags);
--      if(!vaapi_check_status(this, vaStatus, "vaPutSurface()"))
--        return vaStatus;
+ 
 +      if (this->video_window_width && this->video_window_height) // video is displayed in a small window
 +      {
-+        vaStatus = vaPutSurface(va_context->va_display, va_surface_id, this->window,
-+              this->sc.displayed_xoffset, this->sc.displayed_yoffset,
-+              this->sc.displayed_width, this->sc.displayed_height,
-+              this->video_window_x, this->video_window_y,
-+              this->video_window_width, this->video_window_height,
-+              NULL, 0, flags);
-+      }
-+      else
-+      {
-+        vaStatus = vaPutSurface(va_context->va_display, va_surface_id, this->window,
-+              this->sc.displayed_xoffset, this->sc.displayed_yoffset,
-+              this->sc.displayed_width, this->sc.displayed_height,
-+              this->sc.output_xoffset, this->sc.output_yoffset,
-+              this->sc.output_width, this->sc.output_height,
-+              NULL, 0, flags);
-+      }
-+        if(!vaapi_check_status(this, vaStatus, "vaPutSurface()"))
-+          return vaStatus;
++      vaStatus = vaPutSurface(va_context->va_display, va_surface_id, this->window,
++                   this->sc.displayed_xoffset, this->sc.displayed_yoffset,
++                   this->sc.displayed_width, this->sc.displayed_height,
++                   this->video_window_x, this->video_window_y,
++                   this->video_window_width, this->video_window_height,
++                   NULL, 0, flags);
++      } else {
+       vaStatus = vaPutSurface(va_context->va_display, va_surface_id, this->window,
+                    this->sc.displayed_xoffset, this->sc.displayed_yoffset,
+                    this->sc.displayed_width, this->sc.displayed_height,
+                    this->sc.output_xoffset, this->sc.output_yoffset,
+                    this->sc.output_width, this->sc.output_height,
+                    NULL, 0, flags);
++             }
+       if(!vaapi_check_status(this, vaStatus, "vaPutSurface()"))
+         return vaStatus;
      }
-     // workaround by johns from vdrportal.de
-     usleep(1 * 1000);
-@@ -2187,13 +2851,23 @@
+@@ -2187,13 +2838,23 @@
  }
  */
  
@@ -4286,7 +4238,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
      this->recent_frames[i]->free (this->recent_frames[i]);
    }
  
-@@ -2644,6 +3318,10 @@
+@@ -2644,6 +3305,10 @@
  
    UNLOCK_DISPLAY (this);
  
@@ -4297,7 +4249,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    pthread_mutex_unlock(&this->vaapi_lock);
    pthread_mutex_destroy(&this->vaapi_lock);
  
-@@ -2674,6 +3352,20 @@
+@@ -2674,6 +3339,20 @@
    this->vdr_osd_height = entry->num_value < 0 ? 0 : entry->num_value;
  }
  
@@ -4318,7 +4270,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  static void vaapi_deinterlace_flag( void *this_gen, xine_cfg_entry_t *entry )
  {
    vaapi_driver_t  *this  = (vaapi_driver_t *) this_gen;
-@@ -2778,14 +3470,14 @@
+@@ -2778,14 +3457,14 @@
  static int vaapi_initialize(vaapi_driver_t *this, int visual_type, const void *visual)
  {
    VAStatus vaStatus;
@@ -4337,7 +4289,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    if (!this->va)
      return 0;
  
-@@ -2813,61 +3505,17 @@
+@@ -2813,61 +3492,17 @@
    vaapi_set_background_color(this);
    vaapi_display_attribs(this);
  
@@ -4409,7 +4361,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    }
  
    if(vaapi_init_internal(this, SW_CONTEXT_INIT_FORMAT, SW_WIDTH, SW_HEIGHT) != VA_STATUS_SUCCESS)
-@@ -2892,6 +3540,16 @@
+@@ -2892,6 +3527,16 @@
  
    pthread_mutex_init(&this->vaapi_lock, NULL);
    pthread_mutex_lock(&this->vaapi_lock);
@@ -4426,7 +4378,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    this->xine                    = class->xine;
  
-@@ -2941,6 +3599,7 @@
+@@ -2941,6 +3586,7 @@
    this->gl_texture                      = GL_NONE;
  #endif /* ENABLE_VA_GLX */
  
@@ -4434,7 +4386,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->va_soft_surface_ids             = this->va_soft_surface_ids_storage;
    this->va_soft_images                  = this->va_soft_images_storage;
    for (i = 0; i < SOFT_SURFACES; i++) {
-@@ -2961,7 +3620,7 @@
+@@ -2961,7 +3607,7 @@
  
    this->vo_driver.get_capabilities     = vaapi_get_capabilities;
    this->vo_driver.alloc_frame          = vaapi_alloc_frame;
@@ -4443,7 +4395,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->vo_driver.overlay_begin        = vaapi_overlay_begin;
    this->vo_driver.overlay_blend        = vaapi_overlay_blend;
    this->vo_driver.overlay_end          = vaapi_overlay_end;
-@@ -2976,6 +3635,8 @@
+@@ -2976,6 +3622,8 @@
    this->deinterlace                    = 0;
    this->vdr_osd_width                  = 0;
    this->vdr_osd_height                 = 0;
@@ -4452,7 +4404,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  
    i = config->register_num( config, "video.output.vaapi_vdr_osd_width", 0,
          _("vaapi: VDR osd width workaround."),
-@@ -2989,6 +3650,18 @@
+@@ -2989,6 +3637,18 @@
          10, vaapi_vdr_osd_height_flag, this );
    this->vdr_osd_height = i < 0 ? 0 : i;
  
@@ -4471,7 +4423,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    this->deinterlace = config->register_num( config, "video.output.vaapi_deinterlace", 0,
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
          _("vaapi: set deinterlace to 0 ( none ), 1 ( top field ), 2 ( bob )."),
-@@ -3046,15 +3719,6 @@
+@@ -3046,15 +3706,6 @@
      vaapi_csc_mode, this);
    vaapi_set_csc_mode (this, this->csc_mode);
  
@@ -4487,7 +4439,7 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
    xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_open: Deinterlace : %d\n", this->deinterlace);
    xprintf(this->xine, XINE_VERBOSITY_LOG, LOG_MODULE " vaapi_open: Render surfaces : %d\n", RENDER_SURFACES);
  #ifdef ENABLE_VA_GLX
-@@ -3108,3 +3772,4 @@
+@@ -3108,3 +3759,4 @@
    { PLUGIN_VIDEO_OUT, 22, "vaapi", XINE_VERSION_CODE, &vo_info_vaapi, vaapi_init_class },
    { PLUGIN_NONE, 0, NULL, 0, NULL, NULL }
  };
