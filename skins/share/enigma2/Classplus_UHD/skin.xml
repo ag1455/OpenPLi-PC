@@ -446,17 +446,15 @@
 	</screen>
 
 	<!--  VirtualKeyBoard  -->
-	<screen name="VirtualKeyBoard" title="" position="center,524" size="1300,1200" zPosition="99">
-		<ePixmap pixmap="buttons/key_text.png" alphatest="blend" position="994,1080" size="104,76"/>
-		<ePixmap pixmap="buttons/key_info.png" alphatest="blend" position="1098,1080" size="104,76"/>
-		<ePixmap pixmap="buttons/key_help.png" alphatest="blend" position="1202,1080" size="104,76"/>
-		<widget name="prompt" position="196,40" size="1908,70" font="Regular;60" noWrap="1" transparent="1"/>
-		<ePixmap pixmap="buttons/vkey_text.png" position="172,136" size="1948,140" alphatest="blend" zPosition="-4"/>
-		<widget name="text" position="196,160" size="1908,94" font="Regular;80" halign="right" noWrap="1" transparent="1"/>
-		<widget name="list" position="196,290" size="1904,680" backgroundColor="#001c2c5c" foregroundColor="window-fg" selectionDisabled="1" transparent="1"/>
-		<widget name="locale" position="196,1000" size="1600,50" font="Regular;40" transparent="1"/>
-		<widget name="mode" position="1952,1000" size="120,50" font="Regular;40" halign="right" transparent="1" valign="center"/>
-		<widget name="language" position="0,0" size="0,0" font="Regular;40" transparent="1"/>
+	<screen name="VirtualKeyBoard" title="Virtual keyboard" position="center,420" size="2300,1320">
+		<widget name="prompt" position="196,36" size="1860,70" font="Regular;60" noWrap="1" transparent="1"/>
+		<ePixmap pixmap="vkey_text.png" position="196,120" size="1904,156" alphatest="blend"/>
+		<widget name="text" position="196,132" size="1860,120" font="Regular;100" halign="right" noWrap="1" transparent="1"/>
+		<widget name="list" position="196,290" size="1904,680" itemHeight="136" backgroundColor="#001c2c5c" foregroundColor="window-fg" selectionDisabled="1" transparent="1"/>
+		<widget name="locale" position="196,1000" size="1600,64" font="Regular;60" transparent="1"/>
+		<widget name="mode" position="1952,1000" size="120,64" font="Regular;60" halign="right" transparent="1" valign="center"/>
+		<widget name="language" position="0,0" size="0,0" font="Regular;60" transparent="1"/>
+		<ePixmap pixmap="buttons/key_help1.png" alphatest="blend" position="1020,1140" size="222,108"/>
 	</screen>
 
 	<!-- Volume -->

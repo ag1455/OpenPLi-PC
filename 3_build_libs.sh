@@ -164,7 +164,7 @@ elif [[ "$release" = "22.04" ]]; then
 	echo "                             *** release 22.04 ***"
 	echo "************************************************************************************"
 	echo ""
-	REQPKG="flake8 gcc-11 g++-11 libdca-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 python2-minimal libpython2-dev \
+	REQPKG="flake8 gcc-11 g++-11 libdav1d-dev libdca-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 python2-minimal libpython2-dev \
 	libpython2-stdlib python2 python2-dev libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect \
 	python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty \
 	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
@@ -223,8 +223,8 @@ fi
 if [ -d $PKG ]; then
 	rm -rf $PKG
 fi
-#git clone https://github.com/OpenDMM/$PKG.git
-git clone --depth 1 git://git.opendreambox.org/git/obi/$PKG.git
+git clone https://git.code.sf.net/p/tuxbox-cvs/$PKG
+#git clone --depth 1 https://github.com/OpenVisionE2/$PKG.git
 cd $PKG
 #autoupdate
 dpkg-buildpackage -b -d -uc -us
