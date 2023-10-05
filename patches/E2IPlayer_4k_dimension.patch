@@ -1,0 +1,1425 @@
+diff -ruN a/IPTVPlayer/components/articleview.py b/IPTVPlayer/components/articleview.py
+--- a/IPTVPlayer/components/articleview.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/articleview.py	2023-10-05 16:45:15.204575406 +0300
+@@ -17,13 +17,13 @@
+ 
+ 
+ class ArticleView(Screen):
+-    sz_w = getDesktop(0).size().width() - 200
+-    sz_h = getDesktop(0).size().height() - 200
++    sz_w = getDesktop(0).size().width() - 400
++    sz_h = getDesktop(0).size().height() - 400
+ 
+     skin = """
+         <screen position="center,center" size="%d,%d" title="Info..." >
+-            <widget name="text" position="10,10" size="%d,%d" font="Regular;24" />
+-        </screen>""" % (sz_w, sz_h, sz_w - 20, sz_h - 20)
++            <widget name="text" position="20,20" size="%d,%d" font="Regular;48" />
++        </screen>""" % (sz_w, sz_h, sz_w - 40, sz_h - 40)
+ 
+     def __init__(self, session, artItem):
+         printDBG("ArticleView.__init__ -------------------------------")
+diff -ruN a/IPTVPlayer/components/configbase.py b/IPTVPlayer/components/configbase.py
+--- a/IPTVPlayer/components/configbase.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/configbase.py	2023-10-05 16:45:15.206575260 +0300
+@@ -34,7 +34,7 @@
+ 
+ 
+ class ConfigIPTVFileSelection(ConfigDirectory):
+-    def __init__(self, ignoreCase=True, fileMatch=None, default="", visible_width=60):
++    def __init__(self, ignoreCase=True, fileMatch=None, default="", visible_width=120):
+         self.fileMatch = fileMatch
+         self.ignoreCase = ignoreCase
+         ConfigDirectory.__init__(self, default, visible_width)
+@@ -42,7 +42,11 @@
+ 
+ class ConfigBaseWidget(Screen, ConfigListScreen):
+     screenwidth = getDesktop(0).size().width()
+-    if screenwidth == 1920:
++    if screenwidth == 3840:
++        width = 1840
++        height = 1720
++        font = 52
++    elif screenwidth == 1920:
+         width = 920
+         height = 860
+         font = 28
+@@ -57,20 +61,20 @@
+ 
+     skin = """
+         <screen position="center,center" size="%d,%d" title="" >
+-            <widget name="config"    position="10,50" size="%d,%s" zPosition="1" transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" />
+-            <widget name="key_red"   position="10,10" zPosition="2" size="%d,35" valign="center" halign="left"   font="Regular;%d" transparent="1" foregroundColor="red" />
+-            <widget name="key_ok"    position="10,10" zPosition="2" size="%d,35" valign="center" halign="center" font="Regular;%d" transparent="1" foregroundColor="white" />
+-            <widget name="key_green" position="10,10" zPosition="2" size="%d,35" valign="center" halign="right"  font="Regular;%d" transparent="1" foregroundColor="green" />
++            <widget name="config"    position="20,100" size="%d,%s" itemHeight="54" font="Regular;52" zPosition="1" transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" />
++            <widget name="key_red"   position="20,20" zPosition="2" size="%d,70" valign="center" halign="left"   font="Regular;%d" transparent="1" foregroundColor="red" />
++            <widget name="key_ok"    position="20,20" zPosition="2" size="%d,70" valign="center" halign="center" font="Regular;%d" transparent="1" foregroundColor="white" />
++            <widget name="key_green" position="20,20" zPosition="2" size="%d,70" valign="center" halign="right"  font="Regular;%d" transparent="1" foregroundColor="green" />
+ 
+-            <widget name="key_blue"    position="0,0" zPosition="2" size="%d,35" valign="center" halign="right"  font="Regular;%d" transparent="1" foregroundColor="green" />
+-            <widget name="key_yellow"  position="0,0" zPosition="2" size="%d,35" valign="center" halign="right"  font="Regular;%d" transparent="1" foregroundColor="green" />
++            <widget name="key_blue"    position="0,0" zPosition="2" size="%d,70" valign="center" halign="right"  font="Regular;%d" transparent="1" foregroundColor="green" />
++            <widget name="key_yellow"  position="0,0" zPosition="2" size="%d,70" valign="center" halign="right"  font="Regular;%d" transparent="1" foregroundColor="green" />
+         </screen>""" % (width, height,
+-                        width - 20, height - 80,
+-                        width - 20, font,
+-                        width - 20, font,
+-                        width - 20, font,
+-                        width - 20, font,
+-                        width - 20, font)
++                        width - 40, height - 100,
++                        width - 40, font,
++                        width - 40, font,
++                        width - 40, font,
++                        width - 40, font,
++                        width - 40, font)
+ 
+     def __init__(self, session):
+         printDBG("ConfigBaseWidget.__init__ -------------------------------")
+diff -ruN a/IPTVPlayer/components/configextmovieplayer.py b/IPTVPlayer/components/configextmovieplayer.py
+--- a/IPTVPlayer/components/configextmovieplayer.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/configextmovieplayer.py	2023-10-05 16:45:15.206575260 +0300
+@@ -55,7 +55,7 @@
+ 
+ config.plugins.iptvplayer.extplayer_subtitle_auto_enable = ConfigYesNo(default=True)
+ config.plugins.iptvplayer.extplayer_subtitle_font = ConfigSelection(default="Regular", choices=[("Regular", "Regular")])
+-config.plugins.iptvplayer.extplayer_subtitle_font_size = ConfigInteger(40, (20, 90))
++config.plugins.iptvplayer.extplayer_subtitle_font_size = ConfigInteger(80, (40, 180))
+ config.plugins.iptvplayer.extplayer_subtitle_font_color = ConfigSelection(default="#FFFFFF", choices=COLORS_DEFINITONS)
+ config.plugins.iptvplayer.extplayer_subtitle_wrapping_enabled = ConfigYesNo(default=False)
+ config.plugins.iptvplayer.extplayer_subtitle_line_height = ConfigInteger(40, (20, 999))
+diff -ruN a/IPTVPlayer/components/e2isimpledownloader.py b/IPTVPlayer/components/e2isimpledownloader.py
+--- a/IPTVPlayer/components/e2isimpledownloader.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/e2isimpledownloader.py	2023-10-05 16:45:15.208575115 +0300
+@@ -24,26 +24,26 @@
+ 
+ 
+ class SingleFileDownloaderWidget(Screen):
+-    sz_w = getDesktop(0).size().width() - 190
+-    sz_h = getDesktop(0).size().height() - 195
+-    if sz_h < 500:
+-        sz_h += 4
++    sz_w = getDesktop(0).size().width() - 380
++    sz_h = getDesktop(0).size().height() - 390
++    if sz_h < 1000:
++        sz_h += 8
+     skin = """
+         <screen position="center,center" title="%s" size="%d,%d">
+-         <widget name="icon_red"    position="5,9"   zPosition="4" size="30,30" transparent="1" alphatest="on" />
+-         <widget name="icon_green"  position="355,9" zPosition="4" size="30,30" transparent="1" alphatest="on" />
++         <widget name="icon_red"    position="10,18"   zPosition="4" size="60,60" transparent="1" alphatest="on" />
++         <widget name="icon_green"  position="710,18" zPosition="4" size="60,60" transparent="1" alphatest="on" />
+ 
+-         <widget name="label_red"     position="45,9"  size="175,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-         <widget name="label_green"   position="395,9" size="175,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget name="label_red"     position="90,18"  size="350,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget name="label_green"   position="790,18" size="350,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+ 
+-         <widget name="title" position="5,47"  zPosition="1" size="%d,23" font="Regular;20"            transparent="1"  backgroundColor="#00000000"/>
++         <widget name="title" position="10,94"  zPosition="1" size="%d,46" font="Regular;40" transparent="1"  backgroundColor="#00000000"/>
+ 
+-         <widget name="console"      position="10,%d"   zPosition="2" size="%d,160" valign="center" halign="center"   font="Regular;24" transparent="0" foregroundColor="white" backgroundColor="black"/>
++         <widget name="console"      position="20,%d"   zPosition="2" size="%d,320" valign="center" halign="center"   font="Regular;48" transparent="0" foregroundColor="white" backgroundColor="black"/>
+         </screen>""" % (
+             _("Single file downloader"),
+             sz_w, sz_h, # size
+-            sz_w - 135, # size title
+-            (sz_h - 160) / 2, sz_w - 20, # console
++            sz_w - 270, # size title
++            (sz_h - 320) / 2, sz_w - 40, # console
+             )
+ 
+     def __init__(self, session, uri, outFile, title=''):
+diff -ruN a/IPTVPlayer/components/e2ivk.py b/IPTVPlayer/components/e2ivk.py
+--- a/IPTVPlayer/components/e2ivk.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/e2ivk.py	2023-10-05 16:45:15.210574969 +0300
+@@ -54,7 +54,10 @@
+ 
+     def __init__(self, withRatioButton=True):
+         IPTVListComponentBase.__init__(self)
+-        if getDesktop(0).size().width() == 1920:
++        if getDesktop(0).size().width() == 3840:
++            fontSize = 48
++            itemHeight = 76
++        elif getDesktop(0).size().width() == 1920:
+             fontSize = 24
+             itemHeight = 38
+         else:
+@@ -142,8 +145,13 @@
+         sz_w = getDesktop(0).size().width()
+         sz_h = getDesktop(0).size().height()
+ 
+-        self.fullHD = getDesktop(0).size().width() == 1920
++        self.ultraHD = getDesktop(0).size().width() == 3840
++        bw = 140 if self.ultraHD else 100
++        bh = 140 if self.ultraHD else 100
++        inputFontSize = 66 if self.ultraHD else 52
++        headerFontSize = 50 if self.ultraHD else 40
+ 
++        self.fullHD = getDesktop(0).size().width() == 1920
+         bw = 70 if self.fullHD else 50
+         bh = 70 if self.fullHD else 50
+         inputFontSize = 33 if self.fullHD else 26
+@@ -165,24 +173,30 @@
+ 
+         def _addButton(name, x, y, w, h, p):
+             _addPixmapWidget(name, x, y, w, h, p)
++
+             if name in [1, 16, 29, 30, 42, 43, 55, 57, 58, 60]:
++                font = 50 if self.ultraHD else 40
+                 font = 25 if self.fullHD else 20
+                 color = '#1688b2'
+                 align = 'center'
+             elif name in [61, 62]:
++                font = 70 if self.ultraHD else 60
+                 font = 35 if self.fullHD else 30
+                 color = '#1688b2'
+                 align = 'center'
+             elif name == 56:
++                font = 50 if self.ultraHD else 40
+                 font = 25 if self.fullHD else 20
+                 color = '#1688b2'
+                 align = 'left'
+                 x += 40
+                 w -= 40
+             else:
++                font = 50 if self.ultraHD else 40
+                 font = 25 if self.fullHD else 20
+                 color = '#404551'
+                 align = 'center'
++
+             skinTab.append('<widget name="_%s" zPosition="%d" position="%d,%d" size="%d,%d" transparent="1" noWrap="1" font="Regular;%s" valign="center" halign="%s" foregroundColor="#ffffff" backgroundColor="%s" />' % (name, p + 2, x, y, w, h, font, align, color))
+ 
+         skinTab.append('<widget name="header" zPosition="%d" position="%d,%d" size="%d,%d"  transparent="1" noWrap="1" font="Regular;%s" valign="center" halign="left" foregroundColor="#ffffff" backgroundColor="#000000" />' % (2, x + 5, y - (bh - 7 * 2), 15 * bw - 10, bh - 7 * 2, headerFontSize))
+diff -ruN a/IPTVPlayer/components/iptvarticlerichvisualizer.py b/IPTVPlayer/components/iptvarticlerichvisualizer.py
+--- a/IPTVPlayer/components/iptvarticlerichvisualizer.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvarticlerichvisualizer.py	2023-10-05 16:45:15.211574896 +0300
+@@ -38,31 +38,31 @@
+ 
+     def __prepareSkin(self):
+         skin = """
+-                    <screen name="IPTVArticleRichVisualizerWidget" position="center,center" size="1050,625" title="Info...">
+-                        <widget name="title" position="5,10"  zPosition="1" size="1040,70"  font="Regular;30" halign="center" valign="center"   transparent="1" backgroundColor="transparent" foregroundColor="#000E83F5" shadowColor="black" shadowOffset="-1,-1" />
+-                        <widget name="cover"     zPosition="1" position="10,110"  size="236,357" alphatest="blend" borderWidth="2" borderColor="white" backgroundColor="black" />
+-                        <widget name="spinner"   zPosition="3" position="98,232"  size="16,16"   transparent="1"  alphatest="blend" />
+-                        <widget name="spinner_1" zPosition="2" position="98,232"  size="16,16"   transparent="1"  alphatest="blend" />
+-                        <widget name="spinner_2" zPosition="2" position="114,232" size="16,16"   transparent="1"  alphatest="blend" />
+-                        <widget name="spinner_3" zPosition="2" position="130,232" size="16,16"   transparent="1"  alphatest="blend" />
+-                        <widget name="spinner_4" zPosition="2" position="146,232" size="16,16"   transparent="1"  alphatest="blend" />
++                    <screen name="IPTVArticleRichVisualizerWidget" position="center,center" size="2100,1250" title="Info...">
++                        <widget name="title" position="10,20"  zPosition="1" size="2080,140"  font="Regular;60" halign="center" valign="center"   transparent="1" backgroundColor="transparent" foregroundColor="#000E83F5" shadowColor="black" shadowOffset="-1,-1" />
++                        <widget name="cover"     zPosition="1" position="20,220"  size="472,715" alphatest="blend" borderWidth="2" borderColor="white" backgroundColor="black" />
++                        <widget name="spinner"   zPosition="3" position="196,464"  size="32,32"   transparent="1"  alphatest="blend" />
++                        <widget name="spinner_1" zPosition="2" position="196,464"  size="32,32"   transparent="1"  alphatest="blend" />
++                        <widget name="spinner_2" zPosition="2" position="228,464" size="32,32"   transparent="1"  alphatest="blend" />
++                        <widget name="spinner_3" zPosition="2" position="260,464" size="32,32"   transparent="1"  alphatest="blend" />
++                        <widget name="spinner_4" zPosition="2" position="292,464" size="32,32"   transparent="1"  alphatest="blend" />
+                 """
+         # adds rows items
+-        self.richDesc['row_label_x'] = 260
+-        self.richDesc['row_label_w'] = 190
+-        self.richDesc['row_text_x'] = 455
+-        self.richDesc['row_text_w'] = 590
+-        self.richDesc['row_y'] = 110
+-        self.richDesc['row_h'] = 30
++        self.richDesc['row_label_x'] = 520
++        self.richDesc['row_label_w'] = 380
++        self.richDesc['row_text_x'] = 910
++        self.richDesc['row_text_w'] = 1180
++        self.richDesc['row_y'] = 220
++        self.richDesc['row_h'] = 60
+ 
+         y = self.richDesc['row_y']
+         for idx in range(self.richDesc['rows_count']):
+-            skin += """<widget name="dsc_label_%d" noWrap="1" position="%d,%d"  zPosition="1" size="%d,%d"  font="Regular;20" halign="right" valign="center"   transparent="1" backgroundColor="transparent" foregroundColor="#000E83F5" shadowColor="black" shadowOffset="-1,-1" />""" % (idx + 1, self.richDesc['row_label_x'], y, self.richDesc['row_label_w'], self.richDesc['row_h'])
+-            skin += """<widget name="dsc_text_%d"  noWrap="1" position="%d,%d"  zPosition="1" size="%d,%d"  font="Regular;20" halign="left"  valign="center"   transparent="1" backgroundColor="transparent" foregroundColor="#00EFEFEF" shadowColor="black" shadowOffset="-1,-1" />""" % (idx + 1, self.richDesc['row_text_x'], y, self.richDesc['row_text_w'], self.richDesc['row_h'])
++            skin += """<widget name="dsc_label_%d" noWrap="1" position="%d,%d"  zPosition="1" size="%d,%d"  font="Regular;40" halign="right" valign="center"   transparent="1" backgroundColor="transparent" foregroundColor="#000E83F5" shadowColor="black" shadowOffset="-1,-1" />""" % (idx + 1, self.richDesc['row_label_x'], y, self.richDesc['row_label_w'], self.richDesc['row_h'])
++            skin += """<widget name="dsc_text_%d"  noWrap="1" position="%d,%d"  zPosition="1" size="%d,%d"  font="Regular;40" halign="left"  valign="center"   transparent="1" backgroundColor="transparent" foregroundColor="#00EFEFEF" shadowColor="black" shadowOffset="-1,-1" />""" % (idx + 1, self.richDesc['row_text_x'], y, self.richDesc['row_text_w'], self.richDesc['row_h'])
+             y += self.richDesc['row_h']
+         if y != self.richDesc['row_y']:
+             y += self.richDesc['row_h']
+-        skin += """<widget name="text"        position="260,%d" zPosition="1" size="780,%d" font="Regular;26" halign="left"  valign="top"      transparent="1" backgroundColor="transparent" foregroundColor="#00EFEFEF" />""" % (y, 625 - y - 5)
++        skin += """<widget name="text"        position="520,%d" zPosition="1" size="1560,%d" font="Regular;52" halign="left"  valign="top"      transparent="1" backgroundColor="transparent" foregroundColor="#00EFEFEF" />""" % (y, 1250 - y - 10)
+ 
+         # adds pagination items
+         if self.richDesc['pages_count'] > 1:
+diff -ruN a/IPTVPlayer/components/iptvchoicebox.py b/IPTVPlayer/components/iptvchoicebox.py
+--- a/IPTVPlayer/components/iptvchoicebox.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvchoicebox.py	2023-10-05 16:45:15.212574823 +0300
+@@ -42,22 +42,22 @@
+ class IPTVChoiceBoxWidget(Screen):
+ 
+     def __prepareSkin(self):
+-        width = self.params.get('width', 300)
+-        height = self.params.get('height', 300)
++        width = self.params.get('width', 600)
++        height = self.params.get('height', 600)
+ 
+         skin = """
+             <screen name="IPTVChoiceBoxWidget" position="center,center" title="%s" size="%d,%d">
+-                <widget name="title" position="5,10"  zPosition="1" size="%d,30" font="Regular;20"            transparent="1"  backgroundColor="#00000000"/>
+-                <widget name="list"  position="5,50"  zPosition="2" size="%d,%d" scrollbarMode="showOnDemand" transparent="1"  backgroundColor="#00000000" enableWrapAround="1" />
++                <widget name="title" position="10,20"  zPosition="1" size="%d,60" font="Regular;40" transparent="1"  backgroundColor="#00000000"/>
++                <widget name="list"  position="10,100"  zPosition="2" size="%d,%d" scrollbarMode="showOnDemand" transparent="1"  backgroundColor="#00000000" enableWrapAround="1" />
+             </screen>""" % (
+                 self.params.get('title', _("Select option")),
+                 width, height, # size
+-                width - 10, # title width
+-                width - 10, height - 50
++                width - 20, # title width
++                width - 20, height - 100
+                 )
+         return skin
+ 
+-    def __init__(self, session, params={'width': 300, 'height': 300, 'title': '', 'current_idx': 0, 'options': []}):
++    def __init__(self, session, params={'width': 600, 'height': 600, 'title': '', 'current_idx': 0, 'options': []}):
+         self.params = params
+         self.skin = self.__prepareSkin()
+         Screen.__init__(self, session)
+diff -ruN a/IPTVPlayer/components/iptvdirbrowser.py b/IPTVPlayer/components/iptvdirbrowser.py
+--- a/IPTVPlayer/components/iptvdirbrowser.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvdirbrowser.py	2023-10-05 16:45:15.213574750 +0300
+@@ -51,7 +51,16 @@
+ 
+ class IPTVDirectorySelectorWidget(Screen):
+     screenwidth = getDesktop(0).size().width()
+-    if screenwidth and screenwidth == 1920:
++    if screenwidth and screenwidth == 3840:
++        skin = """
++        <screen name="IPTVDirectorySelectorWidget" position="center,center" size="1640,1720" title="">
++            <widget name="key_red"     position="20,20"  zPosition="2"  size="1200,70" valign="center"  halign="left"   font="Regular;56" transparent="1" foregroundColor="red" />
++            <widget name="key_green"   position="20,20"  zPosition="2"  size="1200,70" valign="center"  halign="center"  font="Regular;56" transparent="1" foregroundColor="green" />
++            <widget name="key_blue"    position="20,20"  zPosition="2"  size="1200,70" valign="center"  halign="right" font="Regular;56" transparent="1" foregroundColor="blue" />
++            <widget name="curr_dir"    position="20,100"  zPosition="2"  size="1200,70" valign="center"  halign="left"   font="Regular;56" transparent="1" foregroundColor="white" />
++            <widget name="list"        position="20,190"  zPosition="1"  size="1600,1450" transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" />
++        </screen>"""
++    elif screenwidth and screenwidth == 1920:
+         skin = """
+         <screen name="IPTVDirectorySelectorWidget" position="center,center" size="820,860" title="">
+             <widget name="key_red"     position="10,10"  zPosition="2"  size="600,35" valign="center"  halign="left"   font="Regular;28" transparent="1" foregroundColor="red" />
+@@ -301,7 +310,14 @@
+ 
+ class IPTVFileSelectorWidget(IPTVDirectorySelectorWidget):
+     screenwidth = getDesktop(0).size().width()
+-    if screenwidth and screenwidth == 1920:
++    if screenwidth and screenwidth == 3840:
++        skin = """
++        <screen name="IPTVFileSelectorWidget" position="center,center" size="1640,1720" title="">
++            <widget name="key_red"     position="20,20"  zPosition="2"  size="1200,70" valign="center"  halign="left"   font="Regular;56" transparent="1" foregroundColor="red" />
++            <widget name="curr_dir"    position="20,100"  zPosition="2"  size="1200,70" valign="center"  halign="left"   font="Regular;56" transparent="1" foregroundColor="white" />
++            <widget name="list"        position="20,190"  zPosition="1"  size="1600,1450" transparent="1" scrollbarMode="showOnDemand" enableWrapAround="1" />
++        </screen>"""
++    elif screenwidth and screenwidth == 1920:
+         skin = """
+         <screen name="IPTVFileSelectorWidget" position="center,center" size="820,860" title="">
+             <widget name="key_red"     position="10,10"  zPosition="2"  size="600,35" valign="center"  halign="left"   font="Regular;28" transparent="1" foregroundColor="red" />
+diff -ruN a/IPTVPlayer/components/iptvextmovieplayer.py b/IPTVPlayer/components/iptvextmovieplayer.py
+--- a/IPTVPlayer/components/iptvextmovieplayer.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvextmovieplayer.py	2023-10-05 16:45:15.213574750 +0300
+@@ -198,7 +198,36 @@
+             subSkin += subSkinPart.format(idx + 1)
+ 
+         # skin for SD
+-        if getDesktop(0).size().width() < 800:
++        if getDesktop(0).size().width() > 1920:
++            playbackBannerFile = "playback_banner_sd.png"
++            skin = """
++            <screen name="IPTVExtMoviePlayer"    position="center,center" size="%d,%d" flags="wfNoBorder" backgroundColor="#FFFFFFFF" >
++                    <widget name="pleaseWait"         noWrap="1" position="60,60"        size="1000,60"    zPosition="3" transparent="1" foregroundColor="#999999"   backgroundColor="transparent" font="Regular;48" halign="left"  valign="top"/>
++
++                    <widget name="logoIcon"           position="0,0"           size="320,80"    zPosition="4" transparent="1" alphatest="blend" />
++                    <widget name="playbackInfoBaner"  position="0,60"          size="1300,224"  zPosition="2" pixmap="%s" />
++                    <widget name="progressBar"        position="188,188"       size="1088,14"   zPosition="5" pixmap="%s" transparent="1" borderWidth="1" borderColor="#888888" />
++                    <widget name="bufferingCBar"      position="188,188"       size="1088,14"   zPosition="4" pixmap="%s" transparent="1" borderWidth="1" borderColor="#888888" />
++                    <widget name="bufferingBar"       position="188,108"       size="1088,14"   zPosition="3" pixmap="%s" borderWidth="1" borderColor="#888888" />
++                    <widget name="statusIcon"         position="40,90"         size="80,80"     zPosition="4"             transparent="1" alphatest="blend" />
++                    <widget name="loopIcon"           position="86,60"         size="80,80"     zPosition="4"             transparent="1" alphatest="blend" />
++
++                    <widget name="goToSeekPointer"    position="186,0"                    size="300,120"  zPosition="8" pixmap="%s" transparent="1" alphatest="blend" />
++                    <widget name="goToSeekLabel"      noWrap="1" position="186,0"         size="300,80"   zPosition="9" transparent="1" foregroundColor="white"     backgroundColor="#251f1f1f" font="Regular;24" halign="center" valign="center"/>
++                    <widget name="infoBarTitle"       noWrap="1" position="164,60"        size="1136,46"  zPosition="3" transparent="1" foregroundColor="white"     backgroundColor="#251f1f1f" font="Regular;18" halign="center" valign="center"/>
++                    <widget name="currTimeLabel"      noWrap="1" position="186,124"       size="1136,46"  zPosition="3" transparent="1" foregroundColor="#66ccff"   backgroundColor="#251f1f1f" font="Regular;24" halign="left"   valign="top"/>
++                    <widget name="lengthTimeLabel"    noWrap="1" position="614,124"       size="240,60"   zPosition="3" transparent="1" foregroundColor="#999999"   backgroundColor="#251f1f1f" font="Regular;24" halign="center" valign="top"/>
++                    <widget name="remainedLabel"      noWrap="1" position="1036,124"      size="240,60"   zPosition="3" transparent="1" foregroundColor="#66ccff"   backgroundColor="#251f1f1f" font="Regular;24" halign="right"  valign="top"/>
++                    <widget name="videoInfo"          noWrap="1" position="0,0"           size="1300,60"  zPosition="3" transparent="1" foregroundColor="#999999"   backgroundColor="#251f1f1f" font="Regular;24" halign="right"  valign="top"/>
++
++                    %s
++
++                    <widget name="subSynchroIcon"     position="0,0"           size="360,132"  zPosition="4" transparent="1" alphatest="blend" />
++                    <widget name="subSynchroLabel"    position="2,6"           size="270,100"  zPosition="5" transparent="1" foregroundColor="white"      backgroundColor="transparent" font="Regular;24" halign="center"  valign="center"/>
++
++                    %s
++            </screen>"""
++        elif getDesktop(0).size().width() < 800:
+             playbackBannerFile = "playback_banner_sd.png"
+             skin = """
+             <screen name="IPTVExtMoviePlayer"    position="center,center" size="%d,%d" flags="wfNoBorder" backgroundColor="#FFFFFFFF" >
+@@ -257,7 +286,11 @@
+                     %s
+             </screen>"""
+ 
++
+         if self.clockFormat:
++            clockFontSize = 60 if getDesktop(0).size().width() == 3840 else 48
++            clockWidget = '<widget name="clockTime" noWrap="1" position="74,138" size="200,80" zPosition="3" transparent="1" foregroundColor="white" backgroundColor="#251f1f1f" font="Regular;%d" halign="center" valign="center" />' % clockFontSize
++        elif self.clockFormat:
+             clockFontSize = 30 if getDesktop(0).size().width() == 1920 else 24
+             clockWidget = '<widget name="clockTime" noWrap="1" position="37,69" size="100,40" zPosition="3" transparent="1" foregroundColor="white" backgroundColor="#251f1f1f" font="Regular;%d" halign="center" valign="center" />' % clockFontSize
+         else:
+@@ -2364,17 +2397,17 @@
+         summary_screenwidth = getDesktop(1).size().width()
+         summary_screenheight = getDesktop(1).size().height()
+     except Exception:
+-        summary_screenwidth = 132
+-        summary_screenheight = 64
+-    if summary_screenwidth > 132 and summary_screenheight > 64:
++        summary_screenwidth = 264
++        summary_screenheight = 128
++    if summary_screenwidth > 264 and summary_screenheight > 128:
+         skin = """
+             <screen position="0,0" size="%s,%s">
+-                <widget source="parent.Title" render="Label" position="6,4" size="%s,%s" font="Regular;42" />
++                <widget source="parent.Title" render="Label" position="12,8" size="%s,%s" font="Regular;86" />
+             </screen>""" % (summary_screenwidth, summary_screenheight, summary_screenwidth - 12, summary_screenheight - 8)
+     else:
+         skin = """
+-            <screen position="0,0" size="132,64">
+-                <widget source="global.CurrentTime" render="Label" position="0,0" size="120,42" font="Regular;18" noWrap="1">
++            <screen position="0,0" size="264,128">
++                <widget source="global.CurrentTime" render="Label" position="0,0" size="240,84" font="Regular;36" noWrap="1">
+                         <convert type="ClockToText"></convert>
+                 </widget>
+             </screen>"""
+diff -ruN a/IPTVPlayer/components/iptvfavouriteswidgets.py b/IPTVPlayer/components/iptvfavouriteswidgets.py
+--- a/IPTVPlayer/components/iptvfavouriteswidgets.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvfavouriteswidgets.py	2023-10-05 16:45:15.215574605 +0300
+@@ -153,30 +153,30 @@
+ 
+ 
+ class IPTVFavouritesMainWidget(Screen):
+-    sz_w = getDesktop(0).size().width() - 190
+-    sz_h = getDesktop(0).size().height() - 195
+-    if sz_h < 500:
+-        sz_h += 4
++    sz_w = getDesktop(0).size().width() - 380
++    sz_h = getDesktop(0).size().height() - 390
++    if sz_h < 1000:
++        sz_h += 8
+     skin = """
+         <screen name="IPTVFavouritesMainWidget" position="center,center" title="%s" size="%d,%d">
+-         <ePixmap position="5,9"   zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
+-         <ePixmap position="335,9" zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
+-         <ePixmap position="665,9" zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
++         <ePixmap position="10,18"   zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++         <ePixmap position="670,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++         <ePixmap position="1330,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
+ 
+-         <widget name="label_red"     position="45,9"  size="300,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-         <widget name="label_green"   position="375,9" size="300,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-         <widget name="label_yellow"  position="705,9" size="300,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget name="label_red"     position="90,18"  size="600,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget name="label_green"   position="750,18" size="600,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget name="label_yellow"  position="1410,18" size="600,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+ 
+-         <widget name="list"  position="5,80"  zPosition="2" size="%d,%d" scrollbarMode="showOnDemand" transparent="1"  backgroundColor="#00000000" enableWrapAround="1" />
+-         <widget name="title" position="5,47"  zPosition="1" size="%d,23" font="Regular;20"            transparent="1"  backgroundColor="#00000000"/>
++         <widget name="list"  position="10,160"  zPosition="2" size="%d,%d" scrollbarMode="showOnDemand" transparent="1"  backgroundColor="#00000000" enableWrapAround="1" />
++         <widget name="title" position="10,94"  zPosition="1" size="%d,46" font="Regular;40"            transparent="1"  backgroundColor="#00000000"/>
+         </screen>""" % (
+             _("Favourites manager"),
+             sz_w, sz_h, # size
+             GetIconDir("red.png"),
+             GetIconDir("green.png"),
+             GetIconDir("yellow.png"),
+-            sz_w - 10, sz_h - 105, # size list
+-            sz_w - 135, # size title
++            sz_w - 20, sz_h - 210, # size list
++            sz_w - 270, # size title
+             )
+ 
+     def __init__(self, session):
+diff -ruN a/IPTVPlayer/components/iptvimageselector.py b/IPTVPlayer/components/iptvimageselector.py
+--- a/IPTVPlayer/components/iptvimageselector.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvimageselector.py	2023-10-05 16:45:15.215574605 +0300
+@@ -93,27 +93,27 @@
+         y = 0
+         skin = ['<screen position="center,center" title="%s" size="%d,%d">' % (self.iptv_title, self.iptv_width, self.iptv_height)]
+         if self.iptv_message != None:
+-            skin.append('<widget name="message" position="10,10" zPosition="1" size="%d,%d" valign="center" halign="center" font="Regular;22"  transparent="1"  backgroundColor="#00000000"/>' % (self.iptv_width - 20, self.iptv_message_height))
+-            y += 10 + self.iptv_message_height
++            skin.append('<widget name="message" position="20,20" zPosition="1" size="%d,%d" valign="center" halign="center" font="Regular;44"  transparent="1"  backgroundColor="#00000000"/>' % (self.iptv_width - 40, self.iptv_message_height))
++            y += 20 + self.iptv_message_height
+ 
+-        list_width = self.iptv_image_width + 40
+-        list_height = (self.iptv_height - y) - 20
++        list_width = self.iptv_image_width + 80
++        list_height = (self.iptv_height - y) - 40
+         if self.iptv_accep_label != None:
+-            list_height -= self.iptv_accep_height + 10
++            list_height -= self.iptv_accep_height + 20
+ 
+-        x = (self.iptv_width - (10 * (self.iptv_col_num + 1) + list_width * self.iptv_col_num)) / 2
++        x = (self.iptv_width - (20 * (self.iptv_col_num + 1) + list_width * self.iptv_col_num)) / 2
+         for idx in range(self.iptv_col_num):
+             if idx != self.iptv_col_num - 1:
+                 scrollbar_mode = 'showNever'
+             else:
+                 scrollbar_mode = 'showOnDemand'
+-                list_width += 30 # added for scrollbar
++                list_width += 60 # added for scrollbar
+             skin.append('<widget name="col_%d" position="%d,%d" zPosition="1" size="%d,%d" scrollbarMode="%s" transparent="1"  backgroundColor="#00000000" enableWrapAround="1" />' % (idx, x, y, list_width, list_height, scrollbar_mode))
+-            x += 10 + list_width
+-        y += list_height + 10
++            x += 20 + list_width
++        y += list_height + 20
+ 
+         if self.iptv_accep_label != None:
+-            skin.append('<widget name="accept_button"  position="10,%d"  zPosition="1" size="%d,%d"  valign="center" halign="center" font="Regular;22" foregroundColor="#00FFFFFF" backgroundColor="#320F0F0F" />' % (y, self.iptv_width - 20, self.iptv_accep_height))
++            skin.append('<widget name="accept_button"  position="20,%d"  zPosition="1" size="%d,%d"  valign="center" halign="center" font="Regular;44" foregroundColor="#00FFFFFF" backgroundColor="#320F0F0F" />' % (y, self.iptv_width - 40, self.iptv_accep_height))
+         skin.append('</screen>')
+         skin = '\n'.join(skin)
+         printDBG(">>>")
+diff -ruN a/IPTVPlayer/components/iptvinputbox.py b/IPTVPlayer/components/iptvinputbox.py
+--- a/IPTVPlayer/components/iptvinputbox.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvinputbox.py	2023-10-05 16:45:15.216574532 +0300
+@@ -23,22 +23,22 @@
+     def __init__(self, session, icon={}, size=None, title="", windowTitle=_("Input"), useableChars=None, **kwargs):
+         self.session = session
+         InputBox.__init__(self, session, title, windowTitle, useableChars, **kwargs)
+-        width = 300
+-        height = 260
++        width = 600
++        height = 520
+         if None != size:
+             width = size[0]
+             height = size[1]
+         if 'size' not in icon:
+-            icon['size'] = [width - 10, height - 70]
++            icon['size'] = [width - 20, height - 140]
+         skin = """
+             <screen name="IPTVInputBoxWidget" position="center,center" title="Input" size="%d,%d">
+-            <widget name="text" position="center,10" size="%d,30" font="Regular;24" valign="center" halign="center" />
+-            <widget name="input" position="center,60" size="%d,50" font="Regular;40" valign="center" halign="center" />
++            <widget name="text" position="center,20" size="%d,60" font="Regular;48" valign="center" halign="center" />
++            <widget name="input" position="center,120" size="%d,100" font="Regular;80" valign="center" halign="center" />
+             <widget name="cover" zPosition="4" position="center,%d" size="%d,%d" transparent="1" alphatest="on" />
+             </screen>""" % (width, height,
+-                             width - 20,
+-                             width - 20,
+-                             85 + (height - 85 - icon['size'][1]) / 2,
++                             width - 40,
++                             width - 40,
++                             170 + (height - 170 - icon['size'][1]) / 2,
+                              icon['size'][0],
+                              icon['size'][1])
+         self.skin = skin
+diff -ruN a/IPTVPlayer/components/iptvlist.py b/IPTVPlayer/components/iptvlist.py
+--- a/IPTVPlayer/components/iptvlist.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvlist.py	2023-10-05 16:45:15.216574532 +0300
+@@ -98,11 +98,13 @@
+         try:
+             self.font = skin.fonts["iptvlistitem"]
+         except Exception:
+-            if self.screenwidth and self.screenwidth == 1920:
++            if self.screenwidth and self.screenwidth == 3840:
++                self.font = ("Regular", 56, 80, 0)
++            elif self.screenwidth and self.screenwidth == 1920:
+                 self.font = ("Regular", 28, 40, 0)
+             else:
+                 self.font = ("Regular", 18, 35, 0)
+-        self.l.setFont(0, gFont("Regular", 40))
++        self.l.setFont(0, gFont("Regular", 80))
+         self.l.setFont(1, gFont(self.font[0], self.font[1]))
+         self.l.setItemHeight(self.font[2])
+         self.dictPIX = {}
+@@ -128,8 +130,8 @@
+         width = self.l.getItemSize().width()
+         height = self.l.getItemSize().height()
+         res = [None]
+-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 45, 0, width - 45, height, 1, RT_HALIGN_LEFT | RT_VALIGN_CENTER, item.getDisplayTitle(), item.getTextColor()))
+-        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND, 3, 1, 40, 40, self.dictPIX.get(item.type, None)))
++        res.append((eListboxPythonMultiContent.TYPE_TEXT, 90, 0, width - 90, height, 1, RT_HALIGN_LEFT | RT_VALIGN_CENTER, item.getDisplayTitle(), item.getTextColor()))
++        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND, 6, 2, 80, 80, self.dictPIX.get(item.type, None)))
+         return res
+ 
+ 
+@@ -142,11 +144,11 @@
+     def buildEntry(self, item):
+         width = self.l.getItemSize().width()
+         height = self.l.getItemSize().height()
+-        pixmap_y = int((height - 16) / 2)
++        pixmap_y = int((height - 32) / 2)
+         res = [None]
+         if None == item.type:
+-            res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 0, width - 5, height, 1, RT_HALIGN_LEFT | RT_VALIGN_CENTER, item.name))
++            res.append((eListboxPythonMultiContent.TYPE_TEXT, 10, 0, width - 10, height, 2, RT_HALIGN_LEFT | RT_VALIGN_CENTER, item.name))
+         else:
+-            res.append((eListboxPythonMultiContent.TYPE_TEXT, 30, 0, width - 30, height, 1, RT_HALIGN_LEFT | RT_VALIGN_CENTER, item.name))
+-            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND, 3, pixmap_y, 16, 16, self.dictPIX.get(item.type, None)))
++            res.append((eListboxPythonMultiContent.TYPE_TEXT, 60, 0, width - 60, height, 2, RT_HALIGN_LEFT | RT_VALIGN_CENTER, item.name))
++            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND, 6, pixmap_y, 32, 32, self.dictPIX.get(item.type, None)))
+         return res
+diff -ruN a/IPTVPlayer/components/iptvmultipleinputbox.py b/IPTVPlayer/components/iptvmultipleinputbox.py
+--- a/IPTVPlayer/components/iptvmultipleinputbox.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvmultipleinputbox.py	2023-10-05 16:45:15.216574532 +0300
+@@ -34,22 +34,22 @@
+ 
+ 
+ class IPTVMultipleInputBox(Screen):
+-    DEF_INPUT_PARAMS = {'validator': None, 'title': '', 'useable_chars': None, 'label_font': 'Regular;23', 'label_size': (550, 25), 'input_font': 'Regular;20', 'input_size': (550, 25), 'input': dict(text="", maxSize=False, visible_width=False, type=Input.TEXT)}
++    DEF_INPUT_PARAMS = {'validator': None, 'title': '', 'useable_chars': None, 'label_font': 'Regular;46', 'label_size': (1100, 50), 'input_font': 'Regular;40', 'input_size': (1100, 50), 'input': dict(text="", maxSize=False, visible_width=False, type=Input.TEXT)}
+     DEF_PARAMS = {'title': _("Input"), 'with_accept_button': False, 'accep_label': _("Save"), 'list': []}
+ 
+     def __init__(self, session, params={}):
+ 
+         # Skin generator
+         maxWidth = 0
+-        pX = 40
+-        pY = 60
+-        dY = 10
++        pX = 80
++        pY = 120
++        dY = 20
+         skinItems = ''
+         self.icons = []
+         self.list = params['list']
+         self.withAcceptButton = params.get('with_accept_button', False)
+         self.statusText = params.get('status_text', '')
+-        statusTextHight = params.get('status_text_hight', 80)
++        statusTextHight = params.get('status_text_hight', 160)
+         # calcl maxWidth size
+         for idx in range(len(self.list)):
+             item = self.list[idx]
+@@ -60,7 +60,7 @@
+         maxWidth += pX * 2
+ 
+         if len(self.statusText):
+-            skinItems = '<widget name="statustext"   position="10,%d"  zPosition="2" size="%d,%d"  valign="center" halign="center" font="Regular;22" transparent="1" />' % (pY + dY, maxWidth - 20, statusTextHight)
++            skinItems = '<widget name="statustext"   position="20,%d"  zPosition="2" size="%d,%d"  valign="center" halign="center" font="Regular;44" transparent="1" />' % (pY + dY, maxWidth - 40, statusTextHight)
+             pY += statusTextHight + dY * 2
+ 
+         for idx in range(len(self.list)):
+@@ -78,29 +78,29 @@
+             if 'icon_path' in item:
+                 skinItems += '<widget name="cover_%d" position="%d,%d" size="%d,%d" zPosition="8" />' % (idx, (maxWidth - item['label_size'][0]) / 2, pY, item['label_size'][0], item['label_size'][1])
+             else:
+-                skinItems += '<widget name="text_%d" position="%d,%d" size="%d,%d" font="%s" zPosition="2" />' % (idx, 10, pY, item['label_size'][0], item['label_size'][1], item['label_font'])
++                skinItems += '<widget name="text_%d" position="%d,%d" size="%d,%d" font="%s" zPosition="2" />' % (idx, 20, pY, item['label_size'][0], item['label_size'][1], item['label_font'])
+ 
+             pY += dY + item['label_size'][1]
+             skinItems += '<widget name="input_%d" position="%d,%d" size="%d,%d" font="%s" zPosition="2" />' % (idx, pX, pY, item['input_size'][0], item['input_size'][1], item['input_font'])
+-            skinItems += '<widget name="border_%d" position="%d,%d" size="%d,%d" font="%s" zPosition="1" transparent="0" backgroundColor="#331F93B9" />' % (idx, pX - 5, pY - 5, item['input_size'][0] + 10, item['input_size'][1] + 10, item['input_font'])
++            skinItems += '<widget name="border_%d" position="%d,%d" size="%d,%d" font="%s" zPosition="1" transparent="0" backgroundColor="#331F93B9" />' % (idx, pX - 10, pY - 10, item['input_size'][0] + 20, item['input_size'][1] + 20, item['input_font'])
+             if 0 == idx:
+                 self['marker'] = Cover3()
+-                skinItems += '<widget name="marker" zPosition="2" position="10,%d" size="16,16" transparent="1" alphatest="blend" />' % (pY + (item['input_size'][1] - 16) / 2)
+-            skinItems += '<widget name="marker_%d" zPosition="1" position="10,%d" size="16,16" transparent="1" alphatest="blend" />' % (idx, pY + (item['input_size'][1] - 16) / 2)
++                skinItems += '<widget name="marker" zPosition="2" position="20,%d" size="32,32" transparent="1" alphatest="blend" />' % (pY + (item['input_size'][1] - 32) / 2)
++            skinItems += '<widget name="marker_%d" zPosition="1" position="20,%d" size="32,32" transparent="1" alphatest="blend" />' % (idx, pY + (item['input_size'][1] - 32) / 2)
+             self['marker_%d' % idx] = Cover3()
+             pY += dY * 2 + item['input_size'][1]
+ 
+         if self.withAcceptButton:
+-            skinItems += '<widget name="accept_button"  position="10,%d"  zPosition="2" size="%d,50"  valign="center" halign="center" font="Regular;22" foregroundColor="#00FFFFFF" backgroundColor="#320F0F0F" />' % (pY, maxWidth - 20)
+-            pY += dY * 2 + 50
++            skinItems += '<widget name="accept_button"  position="20,%d"  zPosition="2" size="%d,100"  valign="center" halign="center" font="Regular;44" foregroundColor="#00FFFFFF" backgroundColor="#320F0F0F" />' % (pY, maxWidth - 40)
++            pY += dY * 2 + 100
+         self.skin = """
+         <screen name="IPTVMultipleInputBox" position="center,center" size="%d,%d" title="%s">
+-            <widget name="key_red"   position="10,10" zPosition="2" size="%d,35" valign="center" halign="left"   font="Regular;22" transparent="1" foregroundColor="red" />
+-            <widget name="key_ok"    position="10,10" zPosition="2" size="%d,35" valign="center" halign="center" font="Regular;22" transparent="1" foregroundColor="white" />
+-            <widget name="key_green" position="10,10" zPosition="2" size="%d,35" valign="center" halign="right"  font="Regular;22" transparent="1" foregroundColor="green" />
++            <widget name="key_red"   position="20,20" zPosition="2" size="%d,70" valign="center" halign="left"   font="Regular;44" transparent="1" foregroundColor="red" />
++            <widget name="key_ok"    position="20,20" zPosition="2" size="%d,70" valign="center" halign="center" font="Regular;44" transparent="1" foregroundColor="white" />
++            <widget name="key_green" position="20,20" zPosition="2" size="%d,70" valign="center" halign="right"  font="Regular;44" transparent="1" foregroundColor="green" />
+             %s
+         </screen>
+-        """ % (maxWidth, pY, params.get('title', _("Input")), maxWidth - 20, maxWidth - 20, maxWidth - 20, skinItems)
++        """ % (maxWidth, pY, params.get('title', _("Input")), maxWidth - 40, maxWidth - 40, maxWidth - 40, skinItems)
+ 
+         self["key_green"] = Label(params.get('accep_label', _("Save")))
+         self["key_ok"] = Label(_("OK"))
+diff -ruN a/IPTVPlayer/components/iptvpictureplayer.py b/IPTVPlayer/components/iptvpictureplayer.py
+--- a/IPTVPlayer/components/iptvpictureplayer.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvpictureplayer.py	2023-10-05 16:45:15.216574532 +0300
+@@ -113,17 +113,17 @@
+     sz_w = getDesktop(0).size().width()
+     sz_h = getDesktop(0).size().height()
+     # percentage
+-    s_w = 120
+-    s_h = 120
++    s_w = 240
++    s_h = 240
+     # icon
+-    i_w = 128
+-    i_h = 128
++    i_w = 256
++    i_h = 256
+     # console
+     c_w = sz_w
+-    c_h = 80
++    c_h = 160
+     # picture
+-    p_w = sz_w - 20
+-    p_h = sz_h - 20
++    p_w = sz_w - 40
++    p_h = sz_h - 40
+     #######################
+     #     POSITIONS
+     #######################
+@@ -138,14 +138,14 @@
+     c_x = 0
+     c_y = i_y + i_h
+     # picture
+-    p_x = 10
+-    p_y = 10
++    p_x = 20
++    p_y = 20
+ 
+     printDBG("[IPTVPicturePlayerWidget] desktop size %dx%d" % (sz_w, sz_h))
+     skin = """
+         <screen name="IPTVPicturePlayerWidget"  position="center,center" size="%d,%d" title="IPTV Picture Player...">
+-         <widget name="status"     size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;21" backgroundColor="black" transparent="1" /> #foregroundColor="white" shadowColor="black" shadowOffset="-1,-1"
+-         <widget name="console"    size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;21" backgroundColor="black" transparent="1" />
++         <widget name="status"     size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;42" backgroundColor="black" transparent="1" /> #foregroundColor="white" shadowColor="black" shadowOffset="-1,-1"
++         <widget name="console"    size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;42" backgroundColor="black" transparent="1" />
+          <widget name="icon"       size="%d,%d"   position="%d,%d"  zPosition="4" transparent="1" alphatest="on" />
+          <widget name="picture"    size="%d,%d"   position="%d,%d"  zPosition="6" transparent="1" alphatest="on" />
+         </screen>""" % (sz_w, sz_h,         # screen
+diff -ruN a/IPTVPlayer/components/iptvpin.py b/IPTVPlayer/components/iptvpin.py
+--- a/IPTVPlayer/components/iptvpin.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvpin.py	2023-10-05 17:48:21.501009977 +0300
+@@ -23,13 +23,13 @@
+ class IPTVPinWidget(Screen):
+     PIN_LEN = 4
+     skin = """
+-        <screen name="IPTVPinWidget" position="center,center" title="E2iPlayer" size="300,260">
+-         <widget name="titel" position="5,5" zPosition="1" size="290,40" font="Regular;24" transparent="1" halign="center" valign="center" backgroundColor="black"/>
+-         <widget name="cover_0" zPosition="4" position="5,80" size="60,60" transparent="1" alphatest="on" />
+-         <widget name="cover_1" zPosition="4" position="75,80" size="60,60" transparent="1" alphatest="on" />
+-         <widget name="cover_2" zPosition="4" position="145,80" size="60,60" transparent="1" alphatest="on" />
+-         <widget name="cover_3" zPosition="4" position="215,80" size="60,60" transparent="1" alphatest="on" />
+-         <ePixmap position="100,150" zPosition="4" size="100,100" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/Pin/lock.png" transparent="1" alphatest="on" />
++        <screen name="IPTVPinWidget" position="center,center" title="E2iPlayer" size="600,520">
++         <widget name="titel" position="10,10" zPosition="1" size="580,80" font="Regular;48" transparent="1" halign="center" valign="center" backgroundColor="black"/>
++         <widget name="cover_0" zPosition="4" position="10,160" size="120,120" transparent="1" alphatest="on" />
++         <widget name="cover_1" zPosition="4" position="150,160" size="120,120" transparent="1" alphatest="on" />
++         <widget name="cover_2" zPosition="4" position="290,160" size="120,120" transparent="1" alphatest="on" />
++         <widget name="cover_3" zPosition="4" position="430,160" size="120,120" transparent="1" alphatest="on" />
++         <ePixmap position="222,330" zPosition="4" size="200,200" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/Pin/lock.png" transparent="1" alphatest="on" />
+         </screen>"""
+ 
+     def __init__(self, session, title=""):
+diff -ruN a/IPTVPlayer/components/iptvplayerwidget.py b/IPTVPlayer/components/iptvplayerwidget.py
+--- a/IPTVPlayer/components/iptvplayerwidget.py	2023-09-30 14:52:07.000000000 +0300
++++ b/IPTVPlayer/components/iptvplayerwidget.py	2023-10-05 16:45:15.217574459 +0300
+@@ -89,7 +89,32 @@
+     else:
+         IPTV_VERSION = GetIPTVPlayerVerstion()
+     screenwidth = getDesktop(0).size().width()
+-    if screenwidth and screenwidth == 1920:
++    if screenwidth and screenwidth == 3840:
++        skin = """
++                    <screen position="center,center" size="3180,1650" title="E2iPlayer %s">
++                            <ePixmap position="10,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++                            <ePixmap position="360,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++                            <ePixmap position="770,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++                            <ePixmap position="1400,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++                            <widget render="Label" source="key_red" position="90,18" size="280,64" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;64" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++                            <widget render="Label" source="key_yellow" position="440,18" size="360,64" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;64" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++                            <widget name="key_green_ext" position="950,18" size="600,64" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;64" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++                            <widget render="Label" source="key_blue" position="1480,18" size="280,64" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;64" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++                            <widget name="headertext" position="30,110" zPosition="1" size="2160,60" font="Regular;60" transparent="1" backgroundColor="#00000000" />
++                            <widget name="statustext" position="30,276" zPosition="1" size="1970,240" font="Regular;60" halign="center" valign="center" transparent="1" backgroundColor="#00000000" />
++                            <widget name="list" position="10,230" zPosition="2" size="1720,1380" enableWrapAround="1" scrollbarMode="showOnDemand" transparent="1" backgroundColor="#00000000" />
++                            <widget name="console" position="2040,620" zPosition="1" size="1000,1260" font="Regular;52" transparent="1" backgroundColor="#00000000" />
++                            <widget name="cover" zPosition="2" position="2040,160" size="488,560" alphatest="blend" />
++                            <widget name="playerlogo" zPosition="4" position="2528,6" size="480,160" alphatest="blend" />
++                            <widget name="sequencer" position="0,0" zPosition="6" size="2180,1250" font="Regular;320" halign="center" valign="center" transparent="1" backgroundColor="#00000000" />
++                            <widget name="spinner"   zPosition="2" position="926,400" size="32,32" transparent="1" alphatest="blend" />
++                            <widget name="spinner_1" zPosition="1" position="926,400" size="32,32" transparent="1" alphatest="blend" />
++                            <widget name="spinner_2" zPosition="1" position="958,400" size="32,32" transparent="1" alphatest="blend" />
++                            <widget name="spinner_3" zPosition="1" position="990,400" size="32,32" transparent="1" alphatest="blend" />
++                            <widget name="spinner_4" zPosition="1" position="1022,400" size="32,32" transparent="1" alphatest="blend" />
++                    </screen>
++                """ % (IPTV_VERSION, GetIconDir('red.png'), GetIconDir('yellow.png'), GetIconDir('green.png'), GetIconDir('blue.png'))
++    elif screenwidth and screenwidth == 1920:
+         skin = """
+                     <screen position="center,center" size="1590,825" title="E2iPlayer %s">
+                             <ePixmap position="5,9" zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
+@@ -775,7 +800,10 @@
+                     else:
+                         options[idx].type = IPTVChoiceBoxItem.TYPE_OFF
+ 
+-                if self.getSkinResolutionType() == 'hd':
++
++                if self.getSkinResolutionType() == 'uhd':
++                    width = 1800
++                elif self.getSkinResolutionType() == 'hd':
+                     width = 900
+                 elif self.getSkinResolutionType() == 'hd_ready':
+                     width = 600
+@@ -2327,9 +2355,17 @@
+         summary_screenwidth = getDesktop(1).size().width()
+         summary_screenheight = getDesktop(1).size().height()
+     except Exception:
+-        summary_screenwidth = 132
+-        summary_screenheight = 64
+-    if summary_screenwidth >= 800 and summary_screenheight >= 480:
++        summary_screenwidth = 264
++        summary_screenheight = 128
++
++    if summary_screenwidth >= 1600 and summary_screenheight >= 960:
++        skin = """
++    <screen position="0,0" size="1600,960" title="E2iPlayer">
++        <widget name="text1" position="20,0"  size="1600,140" font="Regular;100" halign="center" valign="center" foregroundColor="#05F7F3"/>
++        <widget name="text2" position="210,160" size="1600,140" font="Regular;80" halign="center" valign="center" foregroundColor="#FFFF00"/>
++        <widget name="LCDlogo" position="0,420" zPosition="4" size="1600,534" alphatest="blend" />
++    </screen>"""
++    elif summary_screenwidth >= 800 and summary_screenheight >= 480:
+         skin = """
+     <screen position="0,0" size="800,480" title="E2iPlayer">
+         <widget name="text1" position="10,0"  size="800,70" font="Regular;50" halign="center" valign="center" foregroundColor="#05F7F3"/>
+diff -ruN a/IPTVPlayer/components/iptvsubdownloader.py b/IPTVPlayer/components/iptvsubdownloader.py
+--- a/IPTVPlayer/components/iptvsubdownloader.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvsubdownloader.py	2023-10-05 16:45:15.219574314 +0300
+@@ -53,7 +53,25 @@
+ class IPTVSubDownloaderWidget(Screen):
+     IPTV_VERSION = GetIPTVPlayerVerstion()
+     screenwidth = getDesktop(0).size().width()
+-    if screenwidth and screenwidth == 1920:
++
++    if screenwidth and screenwidth == 3840:
++        skin = """
++                    <screen name="IPTVSubDownloaderWidget" position="center,center" size="3180,1650" title="E2iPlayer v%s">
++                            <ePixmap position="10,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++                            <widget render="Label" source="key_red" position="90,18" size="280,64" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;64" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++                            <widget name="headertext" position="30,110" zPosition="1" size="3160,60" font="Regular;60" transparent="1" backgroundColor="#00000000" />
++                            <widget name="statustext" position="30,296" zPosition="1" size="3160,360" font="Regular;60" halign="center" valign="center" transparent="1" backgroundColor="#00000000" />
++                            <widget name="list" position="10,230" zPosition="2" size="3160,820" enableWrapAround="1" scrollbarMode="showOnDemand" transparent="1" backgroundColor="#00000000" />
++                            <widget name="console" position="10,1140" zPosition="1" size="3160,280" font="Regular;52" transparent="1" backgroundColor="#00000000" />
++                            <ePixmap zPosition="4" position="10,1070" size="3160,10" pixmap="%s" transparent="1" />
++                            <widget name="spinner"   zPosition="2" position="1016,480" size="32,32" transparent="1" alphatest="blend" />
++                            <widget name="spinner_1" zPosition="1" position="1016,480" size="32,32" transparent="1" alphatest="blend" />
++                            <widget name="spinner_2" zPosition="1" position="1048,480" size="32,32" transparent="1" alphatest="blend" />
++                            <widget name="spinner_3" zPosition="1" position="1080,480" size="32,32" transparent="1" alphatest="blend" />
++                            <widget name="spinner_4" zPosition="1" position="1112,480" size="32,32" transparent="1" alphatest="blend" />
++                    </screen>
++                """ % (IPTV_VERSION, GetIconDir('red.png'), GetIconDir('line.png'))
++    elif screenwidth and screenwidth == 1920:
+         skin = """
+                     <screen name="IPTVSubDownloaderWidget" position="center,center" size="1590,825" title="E2iPlayer v%s">
+                             <ePixmap position="5,9" zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
+diff -ruN a/IPTVPlayer/components/iptvsubsimpledownloader.py b/IPTVPlayer/components/iptvsubsimpledownloader.py
+--- a/IPTVPlayer/components/iptvsubsimpledownloader.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/iptvsubsimpledownloader.py	2023-10-05 16:45:15.219574314 +0300
+@@ -31,28 +31,28 @@
+ 
+ class IPTVSubSimpleDownloaderWidget(Screen):
+     _TMP_FILE_NAME = '.externaltmpsub'
+-    sz_w = getDesktop(0).size().width() - 190
+-    sz_h = getDesktop(0).size().height() - 195
+-    if sz_h < 500:
+-        sz_h += 4
++    sz_w = getDesktop(0).size().width() - 380
++    sz_h = getDesktop(0).size().height() - 390
++    if sz_h < 1000:
++        sz_h += 8
+     skin = """
+         <screen name="IPTVSubSimpleDownloaderWidget" position="center,center" title="%s" size="%d,%d">
+-         <widget name="icon_red"    position="5,9"   zPosition="4" size="30,30" transparent="1" alphatest="on" />
+-         <widget name="icon_green"  position="355,9" zPosition="4" size="30,30" transparent="1" alphatest="on" />
++         <widget name="icon_red"    position="10,18"   zPosition="4" size="60,60" transparent="1" alphatest="on" />
++         <widget name="icon_green"  position="710,18" zPosition="4" size="60,60" transparent="1" alphatest="on" />
+ 
+-         <widget name="label_red"     position="45,9"  size="175,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-         <widget name="label_green"   position="395,9" size="175,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget name="label_red"     position="90,18"  size="350,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget name="label_green"   position="790,18" size="350,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+ 
+-         <widget name="list"  position="5,80"  zPosition="2" size="%d,%d" scrollbarMode="showOnDemand" transparent="1"  backgroundColor="#00000000" enableWrapAround="1" />
+-         <widget name="title" position="5,47"  zPosition="1" size="%d,23" font="Regular;20"            transparent="1"  backgroundColor="#00000000"/>
++         <widget name="list"  position="10,160"  zPosition="2" size="%d,%d" scrollbarMode="showOnDemand" transparent="1"  backgroundColor="#00000000" enableWrapAround="1" />
++         <widget name="title" position="10,94"  zPosition="1" size="%d,46" font="Regular;40"            transparent="1"  backgroundColor="#00000000"/>
+ 
+-         <widget name="console"      position="10,%d"   zPosition="2" size="%d,160" valign="center" halign="center"   font="Regular;24" transparent="0" foregroundColor="white" backgroundColor="black"/>
++         <widget name="console"      position="20,%d"   zPosition="2" size="%d,320" valign="center" halign="center"   font="Regular;48" transparent="0" foregroundColor="white" backgroundColor="black"/>
+         </screen>""" % (
+             _("Simple subtitles downloader"),
+             sz_w, sz_h, # size
+-            sz_w - 10, sz_h - 105, # size list
+-            sz_w - 135, # size title
+-            (sz_h - 160) / 2, sz_w - 20, # console
++            sz_w - 20, sz_h - 210, # size list
++            sz_w - 270, # size title
++            (sz_h - 320) / 2, sz_w - 40, # console
+             )
+ 
+     def __init__(self, session, params={}):
+diff -ruN a/IPTVPlayer/components/playerselector.py b/IPTVPlayer/components/playerselector.py
+--- a/IPTVPlayer/components/playerselector.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/playerselector.py	2023-10-05 16:45:15.220574241 +0300
+@@ -26,7 +26,10 @@
+         printDBG("PlayerSelectorWidget.__init__ --------------------------------")
+         screenwidth = getDesktop(0).size().width()
+         iconSize = GetAvailableIconSize()
+-        if len(inList) >= 30 and iconSize == 100 and screenwidth and screenwidth > 1100:
++        if len(inList) >= 60 and iconSize == 200 and screenwidth and screenwidth > 2200:
++            numOfRow = 8
++            numOfCol = 16
++        elif len(inList) >= 30 and iconSize == 100 and screenwidth and screenwidth > 1100:
+             numOfRow = 4
+             numOfCol = 8
+         elif len(inList) > 16 and iconSize == 100:
+@@ -36,7 +39,10 @@
+             numOfRow = 4
+             numOfCol = 4
+         elif len(inList) > 9:
+-            if screenwidth and screenwidth == 1920:
++            if screenwidth and screenwidth == 3840:
++                numOfRow = 8
++                numOfCol = 16
++            elif screenwidth and screenwidth == 1920:
+                 numOfRow = 4
+                 numOfCol = 8
+             else:
+@@ -64,8 +70,10 @@
+             pass
+ 
+         # position of first img
+-        offsetCoverX = 25
+-        if screenwidth and screenwidth == 1920:
++        offsetCoverX = 220
++        if screenwidth and screenwidth == 3840:
++            offsetCoverY = 200
++        elif screenwidth and screenwidth == 1920:
+             offsetCoverY = 100
+         else:
+             offsetCoverY = 80
+@@ -129,12 +137,32 @@
+         # pagination
+         self.pageItemSize = 16
+         self.pageItemStartX = int((offsetCoverX + tmpX * numOfCol + offsetCoverX - disWidth - self.numOfPages * self.pageItemSize) / 2)
+-        if screenwidth and screenwidth == 1920:
++        if screenwidth and screenwidth == 3840:
++            self.pageItemStartY = 120
++        elif screenwidth and screenwidth == 1920:
+             self.pageItemStartY = 60
+         else:
+             self.pageItemStartY = 40
+ 
+-        if screenwidth and screenwidth == 1920:
++        if screenwidth and screenwidth == 3840:
++            skin = """
++            <screen name="PlayerSelectorWidget" position="center,center" title="E2iPlayer %s" size="%d,%d">
++            <widget name="statustext" position="0,0" zPosition="1" size="%d,100" font="Regular;72" halign="center" valign="center" transparent="1"/>
++            <widget name="marker" zPosition="2" position="%d,%d" size="%d,%d" transparent="1" alphatest="blend" />
++            <widget name="page_marker" zPosition="3" position="%d,%d" size="%d,%d" transparent="1" alphatest="blend" />
++            <widget name="menu" zPosition="3" position="%d,20" size="140,60" transparent="1" alphatest="blend" />
++            """ % (
++              GetIPTVPlayerVerstion(),
++              offsetCoverX + tmpX * numOfCol + offsetCoverX - disWidth,  # width of window
++              offsetCoverY + tmpY * numOfRow + offsetCoverX - disHeight, # height of window
++              offsetCoverX + tmpX * numOfCol + offsetCoverX - disWidth,  # width of status line
++              offsetMarkerX, offsetMarkerY, # first marker position
++              markerWidth, markerHeight,    # marker size
++              self.pageItemStartX, self.pageItemStartY, # pagination marker
++              self.pageItemSize, self.pageItemSize,
++              offsetCoverX + tmpX * numOfCol + offsetCoverX - disWidth - 100,
++              )
++        elif screenwidth and screenwidth == 1920:
+             skin = """
+             <screen name="PlayerSelectorWidget" position="center,center" title="E2iPlayer %s" size="%d,%d">
+             <widget name="statustext" position="0,0" zPosition="1" size="%d,50" font="Regular;36" halign="center" valign="center" transparent="1"/>
+diff -ruN a/IPTVPlayer/components/recaptcha_mye2i_widget.py b/IPTVPlayer/components/recaptcha_mye2i_widget.py
+--- a/IPTVPlayer/components/recaptcha_mye2i_widget.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/recaptcha_mye2i_widget.py	2023-10-05 16:45:15.220574241 +0300
+@@ -36,23 +36,23 @@
+         self.referer = referer
+         self.captchaType = captchaType
+ 
+-        sz_w = 504 #getDesktop(0).size().width() - 190
+-        sz_h = 300 #getDesktop(0).size().height() - 195
+-        if sz_h < 500:
+-            sz_h += 4
++        sz_w = 1008 #getDesktop(0).size().width() - 380
++        sz_h = 600 #getDesktop(0).size().height() - 390
++        if sz_h < 1000:
++            sz_h += 8
+         self.skin = """
+             <screen position="center,center" title="%s" size="%d,%d">
+-             <ePixmap position="5,9"   zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
++             <ePixmap position="10,18"   zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
+ 
+-             <widget name="label_red"    position="45,9"  zPosition="5" size="175,27" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-             <widget name="title"        position="5,47"  zPosition="1" size="%d,23" font="Regular;20"            transparent="1"  backgroundColor="#00000000"/>
+-             <widget name="console"      position="10,%d" zPosition="2" size="%d,160" valign="center" halign="center"   font="Regular;24" transparent="0" foregroundColor="white" backgroundColor="black"/>
++             <widget name="label_red"    position="90,18"  zPosition="5" size="350,54" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++             <widget name="title"        position="10,94"  zPosition="1" size="%d,46" font="Regular;40" transparent="1"  backgroundColor="#00000000"/>
++             <widget name="console"      position="20,%d" zPosition="2" size="%d,320" valign="center" halign="center"   font="Regular;48" transparent="0" foregroundColor="white" backgroundColor="black"/>
+             </screen>""" % (
+                 title,
+                 sz_w, sz_h,                # size
+                 GetIconDir('red' + '.png'),
+-                sz_w - 135,                # size title
+-                (sz_h - 160) / 2, sz_w - 20, # console
++                sz_w - 270,                # size title
++                (sz_h - 320) / 2, sz_w - 40, # console
+                 )
+ 
+         self.onShown.append(self.onStart)
+diff -ruN a/IPTVPlayer/components/recaptcha_v2myjd_widget.py b/IPTVPlayer/components/recaptcha_v2myjd_widget.py
+--- a/IPTVPlayer/components/recaptcha_v2myjd_widget.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/recaptcha_v2myjd_widget.py	2023-10-05 16:45:15.220574241 +0300
+@@ -38,23 +38,23 @@
+         self.sitekey = sitekey
+         self.referer = referer
+ 
+-        sz_w = 504 #getDesktop(0).size().width() - 190
+-        sz_h = 300 #getDesktop(0).size().height() - 195
+-        if sz_h < 500:
+-            sz_h += 4
++        sz_w = 1008 #getDesktop(0).size().width() - 380
++        sz_h = 600 #getDesktop(0).size().height() - 390
++        if sz_h < 1000:
++            sz_h += 8
+         self.skin = """
+             <screen position="center,center" title="%s" size="%d,%d">
+-             <ePixmap position="5,9"   zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
++             <ePixmap position="10,18"   zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
+ 
+-             <widget name="label_red"    position="45,9"  zPosition="5" size="175,27" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-             <widget name="title"        position="5,47"  zPosition="1" size="%d,23" font="Regular;20"            transparent="1"  backgroundColor="#00000000"/>
+-             <widget name="console"      position="10,%d" zPosition="2" size="%d,160" valign="center" halign="center"   font="Regular;24" transparent="0" foregroundColor="white" backgroundColor="black"/>
++             <widget name="label_red"    position="90,18"  zPosition="5" size="350,54" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++             <widget name="title"        position="10,94"  zPosition="1" size="%d,46" font="Regular;40" transparent="1"  backgroundColor="#00000000"/>
++             <widget name="console"      position="20,%d" zPosition="2" size="%d,320" valign="center" halign="center"   font="Regular;48" transparent="0" foregroundColor="white" backgroundColor="black"/>
+             </screen>""" % (
+                 title,
+                 sz_w, sz_h,                # size
+                 GetIconDir('red' + '.png'),
+-                sz_w - 135,                # size title
+-                (sz_h - 160) / 2, sz_w - 20, # console
++                sz_w - 270,                # size title
++                (sz_h - 320) / 2, sz_w - 40, # console
+                 )
+ 
+         self.onShown.append(self.onStart)
+diff -ruN a/IPTVPlayer/components/recaptcha_v2widget.py b/IPTVPlayer/components/recaptcha_v2widget.py
+--- a/IPTVPlayer/components/recaptcha_v2widget.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/recaptcha_v2widget.py	2023-10-05 16:45:15.220574241 +0300
+@@ -25,13 +25,13 @@
+         self.imgFilePath = imgFilePath
+         self.numOfRow = self.params.get('rows', 3)
+         self.numOfCol = self.params.get('cols', 3)
+-        self.markerWidth = self.params.get('marker_width', 100)
+-        self.markerHeight = self.params.get('marker_height', 100)
++        self.markerWidth = self.params.get('marker_width', 200)
++        self.markerHeight = self.params.get('marker_height', 200)
+         self.offsetCoverX = 100
+         self.offsetCoverY = 100
+ 
+         windowWidth = self.markerWidth * self.numOfCol + self.offsetCoverX * 2
+-        windowHeight = self.markerWidth * self.numOfRow + self.offsetCoverY + 70
++        windowHeight = self.markerWidth * self.numOfRow + self.offsetCoverY + 140
+ 
+         coversSkin = ''
+         self.coversSelection = []
+@@ -48,10 +48,10 @@
+ 
+         self.skin = """
+         <screen position="center,center" size="%d,%d" title="%s">
+-            <widget name="statustext"   position="0,10"  zPosition="2" size="%d,80"  valign="center" halign="center" font="Regular;22" transparent="1" />
++            <widget name="statustext"   position="0,20"  zPosition="2" size="%d,160"  valign="center" halign="center" font="Regular;44" transparent="1" />
+             <widget name="puzzle_image" position="%d,%d" size="%d,%d" zPosition="3" transparent="1" alphatest="blend" />
+             <widget name="marker"       position="%d,%d" size="%d,%d" zPosition="4" transparent="1" alphatest="blend" />
+-            <widget name="accept"       position="10,%d"  zPosition="2" size="%d,50"  valign="center" halign="center" font="Regular;22" foregroundColor="#00FFFFFF" backgroundColor="#FFFFFFFF" />
++            <widget name="accept"       position="20,%d"  zPosition="2" size="%d,100"  valign="center" halign="center" font="Regular;44" foregroundColor="#00FFFFFF" backgroundColor="#FFFFFFFF" />
+             %s
+         </screen>
+         """ % (windowWidth,
+diff -ruN a/IPTVPlayer/components/sweetcaptcha_v2widget.py b/IPTVPlayer/components/sweetcaptcha_v2widget.py
+--- a/IPTVPlayer/components/sweetcaptcha_v2widget.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/sweetcaptcha_v2widget.py	2023-10-05 16:45:15.220574241 +0300
+@@ -24,17 +24,17 @@
+ 
+     def __init__(self, session, params):
+         self.session = session
+-        self.markerWidth = 100
++        self.markerWidth = 200
+ 
+         self.skin = """
+-            <screen position="center,center" title="%s" size="500,200">
+-             <widget name="statustext" position="5,5" zPosition="1" size="490,60" font="Regular;24" transparent="1" halign="center" valign="center" backgroundColor="black"/>
+-             <widget name="marker"  zPosition="4" position="5,75"  size="100,100" transparent="1" alphatest="blend" />
+-             <widget name="cover_0" zPosition="2" position="10,80"  size="90,90" transparent="1" alphatest="blend" />
+-             <widget name="cover_1" zPosition="2" position="115,80" size="90,90" transparent="1" alphatest="blend" />
+-             <widget name="cover_2" zPosition="2" position="220,80" size="90,90" transparent="1" alphatest="blend" />
+-             <widget name="cover_3" zPosition="2" position="325,80" size="90,90" transparent="1" alphatest="blend" />
+-             <widget name="cover"   zPosition="2" position="430,80" size="65,68" transparent="1" alphatest="blend" />
++            <screen position="center,center" title="%s" size="1000,400">
++             <widget name="statustext" position="10,10" zPosition="1" size="980,120" font="Regular;48" transparent="1" halign="center" valign="center" backgroundColor="black"/>
++             <widget name="marker"  zPosition="4" position="10,150"  size="200,200" transparent="1" alphatest="blend" />
++             <widget name="cover_0" zPosition="2" position="20,160"  size="180,180" transparent="1" alphatest="blend" />
++             <widget name="cover_1" zPosition="2" position="230,160" size="180,180" transparent="1" alphatest="blend" />
++             <widget name="cover_2" zPosition="2" position="440,160" size="180,180" transparent="1" alphatest="blend" />
++             <widget name="cover_3" zPosition="2" position="650,160" size="180,180" transparent="1" alphatest="blend" />
++             <widget name="cover"   zPosition="2" position="860,160" size="130,136" transparent="1" alphatest="blend" />
+             </screen>""" % (params.get('title', ''))
+ 
+         Screen.__init__(self, session)
+diff -ruN a/IPTVPlayer/components/VirtualKeyBoard.py b/IPTVPlayer/components/VirtualKeyBoard.py
+--- a/IPTVPlayer/components/VirtualKeyBoard.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/components/VirtualKeyBoard.py	2023-10-05 16:45:15.221574168 +0300
+@@ -31,31 +31,31 @@
+ class VirtualKeyBoardList(MenuList):
+     def __init__(self, list, enableWrapAround=False):
+         MenuList.__init__(self, list, enableWrapAround, eListboxPythonMultiContent)
+-        self.l.setFont(0, gFont("Regular", 28))
+-        self.l.setItemHeight(45)
++        self.l.setFont(0, gFont("Regular", 56))
++        self.l.setItemHeight(90)
+ 
+ 
+ class IPTVVirtualKeyBoardWithCaptcha(Screen):
+ 
+     def __init__(self, session, title="", text="", additionalParams={}):
+-        winWidth = 590
+-        self.skin = '''<screen position="center,center" size="%d,500" title="" >
++        winWidth = 1180
++        self.skin = '''<screen position="center,center" size="%d,1000" title="" >
+                            <widget name="captcha" position="%d,%d" size="%d,%d" zPosition="2" transparent="1" alphatest="on" />
+ 
+-                           <widget name="key_red"   position="10,10" zPosition="2" size="%d,35" valign="center" halign="left"   font="Regular;22" transparent="1" foregroundColor="red" />
+-                           <widget name="key_ok"    position="10,10" zPosition="2" size="%d,35" valign="center" halign="center" font="Regular;22" transparent="1" foregroundColor="white" />
+-                           <widget name="key_green" position="10,10" zPosition="2" size="%d,35" valign="center" halign="right"  font="Regular;22" transparent="1" foregroundColor="green" />
+-
+-                           <ePixmap pixmap="%s"  position="25,195" size="542,80" zPosition="-4" alphatest="on" />
+-                           <widget name="header" position="25,160" size="500,26" transparent="1" noWrap="1" font="Regular;20" valign="top"/>
+-                           <widget name="text"   position="25,200" size="536,34" transparent="1" noWrap="1" font="Regular;26" valign="center" halign="right" />
+-                           <widget name="list"   position="25,250" size="550,225" selectionDisabled="1" transparent="1" />
++                           <widget name="key_red"   position="20,20" zPosition="2" size="%d,70" valign="center" halign="left"   font="Regular;44" transparent="1" foregroundColor="red" />
++                           <widget name="key_ok"    position="20,20" zPosition="2" size="%d,70" valign="center" halign="center" font="Regular;44" transparent="1" foregroundColor="white" />
++                           <widget name="key_green" position="20,20" zPosition="2" size="%d,70" valign="center" halign="right"  font="Regular;44" transparent="1" foregroundColor="green" />
++
++                           <ePixmap pixmap="%s"  position="50,390" size="1084,160" zPosition="-4" alphatest="on" />
++                           <widget name="header" position="50,320" size="1000,52" transparent="1" noWrap="1" font="Regular;40" valign="top"/>
++                           <widget name="text"   position="50,400" size="1072,68" transparent="1" noWrap="1" font="Regular;52" valign="center" halign="right" />
++                           <widget name="list"   position="50,500" size="1100,450" selectionDisabled="1" transparent="1" />
+                        </screen>
+-                    ''' % (winWidth, 10, 55,
+-                            winWidth - 20, 100,
+-                            winWidth - 20,
+-                            winWidth - 20,
+-                            winWidth - 20,
++                    ''' % (winWidth, 20, 110,
++                            winWidth - 40, 200,
++                            winWidth - 40,
++                            winWidth - 40,
++                            winWidth - 40,
+                             GetIconDir("vk/vkey_text.png"))
+ 
+         Screen.__init__(self, session)
+diff -ruN a/IPTVPlayer/iptvdm/iptvbuffui.py b/IPTVPlayer/iptvdm/iptvbuffui.py
+--- a/IPTVPlayer/iptvdm/iptvbuffui.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/iptvdm/iptvbuffui.py	2023-10-05 16:45:15.221574168 +0300
+@@ -46,17 +46,17 @@
+     sz_w = getDesktop(0).size().width()
+     sz_h = getDesktop(0).size().height()
+     # icon
+-    i_w = 128
+-    i_h = 128
++    i_w = 256
++    i_h = 256
+     # percentage
+-    p_w = 120
+-    p_h = 120
++    p_w = 240
++    p_h = 240
+     # console
+     c_w = sz_w
+-    c_h = 80
++    c_h = 160
+     # addinfo
+-    a_w = sz_w - 10
+-    a_h = 80
++    a_w = sz_w - 20
++    a_h = 160
+     #######################
+     #     POSITIONS
+     #######################
+@@ -71,23 +71,23 @@
+     c_x = 0
+     c_y = i_y + i_h
+     # addinfo
+-    a_x = 10
+-    a_y = sz_h - 160
++    a_x = 20
++    a_y = sz_h - 320
+     #button
+-    b_x = sz_w - 10 - 35 * 3
+-    b_y = sz_h - 10 - 25
++    b_x = sz_w - 20 - 70 * 3
++    b_y = sz_h - 20 - 50
+ 
+     printDBG("[E2iPlayerBufferingWidget] desktop size %dx%d" % (sz_w, sz_h))
+     skin = """
+         <screen name="E2iPlayerBufferingWidget"  position="center,center" size="%d,%d" title="E2iPlayer buffering...">
+-         <widget name="percentage" size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;21" backgroundColor="black" transparent="1" /> #foregroundColor="white" shadowColor="black" shadowOffset="-1,-1"
+-         <widget name="console"    size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;21" backgroundColor="black" transparent="1" />
++         <widget name="percentage" size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;42" backgroundColor="black" transparent="1" /> #foregroundColor="white" shadowColor="black" shadowOffset="-1,-1"
++         <widget name="console"    size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;42" backgroundColor="black" transparent="1" />
+          <widget name="icon"       size="%d,%d"   position="%d,%d"  zPosition="4" transparent="1" alphatest="blend" />
+-         <widget name="addinfo"    size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;21" backgroundColor="black" transparent="1" />
++         <widget name="addinfo"    size="%d,%d"   position="%d,%d"  zPosition="5" valign="center" halign="center"  font="Regular;42" backgroundColor="black" transparent="1" />
+ 
+-         <widget name="ok_button"        position="%d,%d"                     size="35,25"   zPosition="8" pixmap="%s" transparent="1" alphatest="blend" />
+-         <widget name="rec_button"       position="%d,%d"                     size="35,25"   zPosition="8" pixmap="%s" transparent="1" alphatest="blend" />
+-         <widget name="exit_button"      position="%d,%d"                     size="35,25"   zPosition="8" pixmap="%s" transparent="1" alphatest="blend" />
++         <widget name="ok_button"        position="%d,%d"                     size="70,50"   zPosition="8" pixmap="%s" transparent="1" alphatest="blend" />
++         <widget name="rec_button"       position="%d,%d"                     size="70,50"   zPosition="8" pixmap="%s" transparent="1" alphatest="blend" />
++         <widget name="exit_button"      position="%d,%d"                     size="70,50"   zPosition="8" pixmap="%s" transparent="1" alphatest="blend" />
+         </screen>""" % (sz_w, sz_h,         # screen
+                         p_w, p_h, p_x, p_y, # percentage
+                         c_w, c_h, c_x, c_y, # console
+@@ -95,8 +95,8 @@
+                         a_w, a_h, a_x, a_y,  # addinfo
+ 
+                         b_x, b_y, GetIPTVDMImgDir("key_ok.png"),        # OK
+-                        b_x + 35, b_y, GetIPTVDMImgDir("key_rec.png"),  # REC
+-                        b_x + 70, b_y, GetIPTVDMImgDir("key_exit.png"), # EXIT
++                        b_x + 70, b_y, GetIPTVDMImgDir("key_rec.png"),  # REC
++                        b_x + 140, b_y, GetIPTVDMImgDir("key_exit.png"), # EXIT
+                       )
+ 
+     def __init__(self, session, url, pathForBuffering, pathForDownloading, movieTitle, activMoviePlayer, requestedBuffSize, playerAdditionalParams={}, downloadManager=None, fileExtension=''):
+diff -ruN a/IPTVPlayer/iptvdm/iptvdmui.py b/IPTVPlayer/iptvdm/iptvdmui.py
+--- a/IPTVPlayer/iptvdm/iptvdmui.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/iptvdm/iptvdmui.py	2023-10-05 16:45:15.221574168 +0300
+@@ -41,30 +41,30 @@
+ 
+ class IPTVDMWidget(Screen):
+ 
+-    sz_w = getDesktop(0).size().width() - 190
+-    sz_h = getDesktop(0).size().height() - 195
+-    if sz_h < 500:
+-        sz_h += 4
++    sz_w = getDesktop(0).size().width() - 380
++    sz_h = getDesktop(0).size().height() - 390
++    if sz_h < 1000:
++        sz_h += 8
+     skin = """
+         <screen name="IPTVDMWidget" position="center,center" title="%s" size="%d,%d">
+-         <ePixmap position="5,9"   zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
+-         <ePixmap position="180,9" zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
+-         <ePixmap position="385,9" zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
+-         <ePixmap position="590,9" zPosition="4" size="35,30" pixmap="%s" transparent="1" alphatest="on" />
+-         <widget render="Label" source="key_red"    position="45,9"  size="140,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-         <widget render="Label" source="key_green"  position="225,9" size="300,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-         <widget render="Label" source="key_yellow" position="425,9" size="300,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-         <widget render="Label" source="key_blue"   position="635,9" size="300,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-         <widget name="list" position="5,100" zPosition="2" size="%d,%d" scrollbarMode="showOnDemand" transparent="0"  backgroundColor="#00000000" enableWrapAround="1" />
+-         <widget name="titel" position="5,47" zPosition="1" size="%d,23" font="Regular;20" transparent="1"  backgroundColor="#00000000"/>
++         <ePixmap position="10,18"   zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++         <ePixmap position="360,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++         <ePixmap position="770,18" zPosition="4" size="60,60" pixmap="%s" transparent="1" alphatest="on" />
++         <ePixmap position="1180,18" zPosition="4" size="70,60" pixmap="%s" transparent="1" alphatest="on" />
++         <widget render="Label" source="key_red"    position="90,18"  size="240,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget render="Label" source="key_green"  position="450,18" size="600,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget render="Label" source="key_yellow" position="850,18" size="600,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget render="Label" source="key_blue"   position="1270,18" size="600,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++         <widget name="list" position="10,200" zPosition="2" size="%d,%d" scrollbarMode="showOnDemand" transparent="0"  backgroundColor="#00000000" enableWrapAround="1" />
++         <widget name="titel" position="10,94" zPosition="1" size="%d,46" font="Regular;40" transparent="1"  backgroundColor="#00000000"/>
+         </screen>""" % (_("%s download manager") % "E2iPlayer",
+             sz_w, sz_h, # size
+             GetIconDir('red.png'), GetIconDir('green.png'), GetIconDir('yellow.png'), GetIconDir('blue.png'),
+-            sz_w - 10, sz_h - 20, # size list
+-            sz_w - 135, # size titel
++            sz_w - 20, sz_h - 40, # size list
++            sz_w - 270, # size titel
+             )
+-        # <widget render="Label" source="key_yellow" position="220,9" size="180,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+-        # <widget render="Label" source="key_blue" position="630,9" size="140,27" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++        # <widget render="Label" source="key_yellow" position="440,18" size="360,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
++        # <widget render="Label" source="key_blue" position="1260,18" size="280,54" zPosition="5" valign="center" halign="left" backgroundColor="black" font="Regular;42" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1" />
+ 
+     def __init__(self, session, downloadmanager):
+         self.session = session
+@@ -431,12 +431,12 @@
+ 
+ 
+ class IPTVDMNotificationWidget(Screen):
+-    d_w = getDesktop(0).size().width() - 20
++    d_w = getDesktop(0).size().width() - 40
+     #d_h = getDesktop(0).size().height()
+ 
+-    skin = """<screen name="IPTVDMNotificationWidget" position="%d,%d" zPosition="10" size="350,60" title="IPTVPlayer downloader" backgroundColor="#31000000" >
+-            <widget name="message_label" font="Regular;24" position="0,0" zPosition="2" valign="center" halign="center" size="350,60" backgroundColor="#31000000" transparent="1" />
+-        </screen>""" % (d_w - 350, 60)
++    skin = """<screen name="IPTVDMNotificationWidget" position="%d,%d" zPosition="10" size="700,120" title="IPTVPlayer downloader" backgroundColor="#31000000" >
++            <widget name="message_label" font="Regular;48" position="0,0" zPosition="2" valign="center" halign="center" size="700,120" backgroundColor="#31000000" transparent="1" />
++        </screen>""" % (d_w - 700, 120)
+ 
+     def __init__(self, session):
+         Screen.__init__(self, session)
+diff -ruN a/IPTVPlayer/iptvdm/iptvlist.py b/IPTVPlayer/iptvdm/iptvlist.py
+--- a/IPTVPlayer/iptvdm/iptvlist.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/iptvdm/iptvlist.py	2023-10-05 16:45:15.221574168 +0300
+@@ -39,15 +39,15 @@
+         try:
+             self.fonts[0] = skin.fonts["iptvdwnlistitem_0"]
+         except Exception:
+-            self.fonts[0] = ("Regular", 20, 40, 0)
++            self.fonts[0] = ("Regular", 40, 80, 0)
+         try:
+             self.fonts[1] = skin.fonts["iptvdwnlistitem_1"]
+         except Exception:
+-            self.fonts[1] = ("Regular", 16, 20, 0)
++            self.fonts[1] = ("Regular", 32, 40, 0)
+         try:
+             self.fonts[2] = skin.fonts["iptvdwnlistitem_2"]
+         except Exception:
+-            self.fonts[2] = ("Regular", 26, 55, 0)
++            self.fonts[2] = ("Regular", 52, 110, 0)
+ 
+         self.l.setFont(0, gFont(self.fonts[0][0], self.fonts[0][1]))
+         self.l.setFont(1, gFont(self.fonts[1][0], self.fonts[1][1]))
+diff -ruN a/IPTVPlayer/iptvupdate/iptvlist.py b/IPTVPlayer/iptvupdate/iptvlist.py
+--- a/IPTVPlayer/iptvupdate/iptvlist.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/iptvupdate/iptvlist.py	2023-10-05 16:45:15.221574168 +0300
+@@ -31,14 +31,18 @@
+         try:
+             self.fonts[0] = skin.fonts["iptvupdatelistitem_0"]
+         except Exception:
+-            if getDesktop(0).size().width() >= 1920:
++            if getDesktop(0).size().width() >= 3840:
++                self.fonts[0] = ("Regular", 50, 80, 0)
++            elif getDesktop(0).size().width() == 1920:
+                 self.fonts[0] = ("Regular", 25, 40, 0)
+             else:
+                 self.fonts[0] = ("Regular", 16, 20, 0)
+         try:
+             self.fonts[1] = skin.fonts["iptvupdatelistitem_1"]
+         except Exception:
+-            if getDesktop(0).size().width() >= 1920:
++            if getDesktop(0).size().width() >= 3840:
++                self.fonts[1] = ("Regular", 70, 100, 0)
++            elif getDesktop(0).size().width() == 1920:
+                 self.fonts[1] = ("Regular", 35, 50, 0)
+             else:
+                 self.fonts[1] = ("Regular", 26, 50, 0)
+diff -ruN a/IPTVPlayer/iptvupdate/updatemainwindow.py b/IPTVPlayer/iptvupdate/updatemainwindow.py
+--- a/IPTVPlayer/iptvupdate/updatemainwindow.py	2023-09-30 14:52:07.000000000 +0300
++++ b/IPTVPlayer/iptvupdate/updatemainwindow.py	2023-10-05 16:45:15.222574095 +0300
+@@ -49,10 +49,10 @@
+ class IPTVUpdateWindow(Screen):
+ 
+     skin = """
+-    <screen name="IPTVUpdateMainWindow" position="center,center" size="620,440" title="" >
+-            <widget name="sub_title"    position="10,10" zPosition="2" size="600,35"  valign="center" halign="left"   font="Regular;22" transparent="1" foregroundColor="white" />
+-            <widget name="list"         position="10,50" zPosition="1" size="600,380" enableWrapAround="1" transparent="1" scrollbarMode="showOnDemand" />
+-            <widget name="console"      position="40,200"   zPosition="2" size="540,80" valign="center" halign="center"   font="Regular;34" transparent="0" foregroundColor="white" backgroundColor="black"/>
++    <screen name="IPTVUpdateMainWindow" position="center,center" size="1240,880" title="" >
++            <widget name="sub_title"    position="20,20" zPosition="2" size="1200,70"  valign="center" halign="left" font="Regular;44" transparent="1" foregroundColor="white" />
++            <widget name="list"         position="20,100" zPosition="1" size="1200,760" enableWrapAround="1" transparent="1" scrollbarMode="showOnDemand" />
++            <widget name="console"      position="80,400"   zPosition="2" size="1080,160" valign="center" halign="center" font="Regular;68" transparent="0" foregroundColor="white" backgroundColor="black"/>
+     </screen>"""
+ 
+     ICONS = ['iconwait1.png', 'iconwait2.png', 'iconwait3.png', 'icondone.png', 'iconerror.png', 'iconwarning.png', 'iconcancelled.png']
+diff -ruN a/IPTVPlayer/plugin.py b/IPTVPlayer/plugin.py
+--- a/IPTVPlayer/plugin.py	2023-09-30 14:52:07.000000000 +0300
++++ b/IPTVPlayer/plugin.py	2023-10-05 16:45:15.222574095 +0300
+@@ -27,7 +27,9 @@
+ 
+ def Plugins(**kwargs):
+     screenwidth = getDesktop(0).size().width()
+-    if screenwidth and screenwidth == 1920:
++    if screenwidth and screenwidth == 3840:
++        iconFile = "icons/iptvlogohd.png"
++    elif screenwidth and screenwidth == 1920:
+         iconFile = "icons/iptvlogohd.png"
+     else:
+         iconFile = "icons/iptvlogo.png"
+diff -ruN a/IPTVPlayer/setup/iptvsetupwidget.py b/IPTVPlayer/setup/iptvsetupwidget.py
+--- a/IPTVPlayer/setup/iptvsetupwidget.py	2023-09-27 20:41:43.000000000 +0300
++++ b/IPTVPlayer/setup/iptvsetupwidget.py	2023-10-05 16:45:15.222574095 +0300
+@@ -30,15 +30,15 @@
+ class IPTVSetupMainWidget(Screen):
+     IPTV_VERSION = GetIPTVPlayerVerstion()
+     skin = """
+-    <screen position="center,center" size="600,300" title="E2iPlayer setup version %s">
+-            <widget name="sub_title"    position="10,10" zPosition="2" size="580,90"   valign="center" halign="center" font="Regular;24" transparent="1" foregroundColor="white" />
+-            <widget name="info_field"   position="10,100" zPosition="2" size="580,200" valign="top" halign="center"   font="Regular;22" transparent="1" foregroundColor="white" />
++    <screen position="center,center" size="1200,600" title="E2iPlayer setup version %s">
++            <widget name="sub_title"    position="20,20" zPosition="2" size="1160,180"   valign="center" halign="center" font="Regular;48" transparent="1" foregroundColor="white" />
++            <widget name="info_field"   position="20,200" zPosition="2" size="1160,400" valign="top" halign="center"   font="Regular;44" transparent="1" foregroundColor="white" />
+ 
+-            <widget name="spinner"   zPosition="2" position="463,200" size="16,16" transparent="1" alphatest="blend" />
+-            <widget name="spinner_1" zPosition="1" position="463,200" size="16,16" transparent="1" alphatest="blend" />
+-            <widget name="spinner_2" zPosition="1" position="479,200" size="16,16" transparent="1" alphatest="blend" />
+-            <widget name="spinner_3" zPosition="1" position="495,200" size="16,16" transparent="1" alphatest="blend" />
+-            <widget name="spinner_4" zPosition="1" position="511,200" size="16,16" transparent="1" alphatest="blend" />
++            <widget name="spinner"   zPosition="2" position="926,400" size="32,32" transparent="1" alphatest="blend" />
++            <widget name="spinner_1" zPosition="1" position="926,400" size="32,32" transparent="1" alphatest="blend" />
++            <widget name="spinner_2" zPosition="1" position="958,400" size="32,32" transparent="1" alphatest="blend" />
++            <widget name="spinner_3" zPosition="1" position="990,400" size="32,32" transparent="1" alphatest="blend" />
++            <widget name="spinner_4" zPosition="1" position="1022,400" size="32,32" transparent="1" alphatest="blend" />
+     </screen>""" % (IPTV_VERSION)
+ 
+     def __init__(self, session, autoStart=False):
+diff -ruN a/IPTVPlayer/skins/2160/playlist.xml b/IPTVPlayer/skins/2160/playlist.xml
+--- a/IPTVPlayer/skins/2160/playlist.xml	1970-01-01 03:00:00.000000000 +0300
++++ b/IPTVPlayer/skins/2160/playlist.xml	2023-10-05 16:46:18.098999785 +0300
+@@ -0,0 +1,26 @@
++<screen position="center,center" size="3840,2160" title="E2iPlayer" flags="wfBorder">
++     <ePixmap position="340,2080" zPosition="4" size="60,60" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/red.png" transparent="1" alphatest="on" />
++     <ePixmap position="1240,2080" zPosition="4" size="60,60" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/green.png" transparent="1" alphatest="on" />
++     <ePixmap position="2240,2080" zPosition="4" size="60,60" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/yellow.png" transparent="1" alphatest="on" />
++     <ePixmap position="3240,2080" zPosition="4" size="60,60" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/blue.png" transparent="1" alphatest="on" />
++     <widget render="Label" source="key_red" position="410,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
++     <widget name="key_green_ext" position="1310,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
++     <widget render="Label" source="key_yellow" position="2310,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
++     <widget render="Label" source="key_blue" position="3310,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
++     <widget name="headertext" position="160,140" zPosition="1" size="2800,72" font="Regular;44" transparent="1" backgroundColor="background" foregroundColor="#aaffff" />
++     <widget name="statustext" position="906,480" zPosition="1" size="1920,300" font="Regular;40" halign="center" valign="center" transparent="1" backgroundColor="black" />
++     <widget name="list" position="70,240" zPosition="2" size="2880,1360" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" backgroundColor="background" />
++     <widget name="console" position="110,1660" zPosition="1" size="3680,680" font="Regular;44" transparent="1" backgroundColor="background" foregroundColor="white" />
++     <widget name="cover" zPosition="2" position="3100,560" size="480,720" alphatest="blend" borderWidth="2" borderColor="white" backgroundColor="black" />
++     <widget name="playerlogo" zPosition="4" position="3220,440" size="240,80" alphatest="blend" />
++     <ePixmap position="70,220" zPosition="4" size="3700,4" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/line2.png" transparent="1" />
++     <ePixmap position="70,1630" zPosition="4" size="3700,4" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/line2.png" transparent="1" />
++     <ePixmap position="3082,540" zPosition="4" size="520,4" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/line2.png" transparent="1" />
++     <ePixmap position="3082,1296" zPosition="4" size="520,4" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/line2.png" transparent="1" />
++     <widget name="sequencer" position="468,86" zPosition="6" size="1958,770" font="Regular;320" halign="center" valign="center" transparent="1" backgroundColor="black" />
++     <widget name="spinner" zPosition="2" position="1816,680" size="32,32" transparent="1" alphatest="blend" />
++     <widget name="spinner_1" zPosition="1" position="1816,680" size="32,32" transparent="1" alphatest="blend" />
++     <widget name="spinner_2" zPosition="1" position="1848,680" size="32,32" transparent="1" alphatest="blend" />
++     <widget name="spinner_3" zPosition="1" position="1880,680" size="32,32" transparent="1" alphatest="blend" />
++     <widget name="spinner_4" zPosition="1" position="1880,680" size="32,32" transparent="1" alphatest="blend" />
++</screen>
+diff -ruN a/resize.sh b/resize.sh
+--- a/resize.sh	1970-01-01 03:00:00.000000000 +0300
++++ b/resize.sh	2023-10-05 17:32:49.788868660 +0300
+@@ -0,0 +1,21 @@
++#!/usr/bin/env bash
++
++RESIZE_DIR="IPTVPlayer/icons"
++
++for file in $RESIZE_DIR/red.png \
++$RESIZE_DIR/green.png \
++$RESIZE_DIR/yellow.png \
++$RESIZE_DIR/blue.png \
++$RESIZE_DIR/PictureItem.png \
++$RESIZE_DIR/VideoItem.png \
++$RESIZE_DIR/CategoryItem.png \
++$RESIZE_DIR/ArticleItem.png \
++$RESIZE_DIR/AudioItem.png \
++$RESIZE_DIR/DataItem.png \
++$RESIZE_DIR/SearchItem.png \
++$RESIZE_DIR/DataItem.png; do convert $file -resize 64x64 -alpha on $file; done
++
++for file in $RESIZE_DIR/menu.png; do convert $file -resize 105x45 -alpha on $file; done
++for file in $RESIZE_DIR/line2.png; do convert $file -resize 3700x6 $file; done
++for file in $RESIZE_DIR/buffering/*.png; do convert $file -resize 256x256 -alpha on $file; done
++for file in $RESIZE_DIR/Pin/*.png; do convert $file -resize 120x120 -alpha on $file; done

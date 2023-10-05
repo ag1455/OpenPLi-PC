@@ -20181,7 +20181,7 @@ diff -ruN o/IPTVPlayer/locale/ru/LC_MESSAGES/IPTVPlayer.po pc/IPTVPlayer/locale/
 +msgstr "Каналы в тренде"
 diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
 --- o/IPTVPlayer/plugin.py	2023-02-14 23:59:38.896564754 +0300
-+++ pc/IPTVPlayer/plugin.py	2023-10-02 14:16:32.825543969 +0300
++++ pc/IPTVPlayer/plugin.py	2023-10-05 12:01:37.672937604 +0300
 @@ -1,4 +1,3 @@
 -# -*- coding: utf-8 -*-
  ###################################################
@@ -20195,7 +20195,19 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
  from Plugins.Extensions.IPTVPlayer.tools.iptvtools import printDBG, IsExecutable, IsWebInterfaceModuleAvailable
  ###################################################
  
-@@ -148,8 +146,8 @@
+@@ -23,10 +21,8 @@
+ ###################################################
+ import os
+ ####################################################
+-# Wywołanie wtyczki w roznych miejscach
++# Calling the plugin in different places (pep-0263)
+ ####################################################
+-
+-
+ def Plugins(**kwargs):
+     screenwidth = getDesktop(0).size().width()
+     if screenwidth and screenwidth == 1920:
+@@ -148,8 +144,8 @@
          else:
              printDBG('allToolsFromOPKG() >>> All required packages installed :)')
              return True
@@ -20206,7 +20218,7 @@ diff -ruN o/IPTVPlayer/plugin.py pc/IPTVPlayer/plugin.py
          if os.path.exists(DBGfile):
              try: os.remove(DBGfile)
              except Exception: pass
-@@ -159,10 +157,6 @@
+@@ -159,10 +155,6 @@
      f4mdumppath = IsExecutable(config.plugins.iptvplayer.f4mdumppath.value)
      platform = config.plugins.iptvplayer.plarform.value
      if platform in ["auto", "unknown"] or not wgetpath or not rtmpdumppath or not f4mdumppath:

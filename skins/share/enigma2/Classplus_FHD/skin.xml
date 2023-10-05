@@ -446,17 +446,15 @@
 	</screen>
 
 	<!--  VirtualKeyBoard  -->
-	<screen name="VirtualKeyBoard" title="Virtual keyboard" position="center,262" size="1150,600" zPosition="99">
-		<ePixmap pixmap="buttons/key_text.png" alphatest="blend" position="497,540" size="52,38"/>
-		<ePixmap pixmap="buttons/key_info.png" alphatest="blend" position="549,540" size="52,38"/>
-		<ePixmap pixmap="buttons/key_help.png" alphatest="blend" position="601,540" size="52,38"/>
-		<widget name="prompt" position="98,20" size="954,35" font="Regular;30" noWrap="1" transparent="1"/>
-		<ePixmap pixmap="buttons/vkey_text.png" position="86,68" size="974,70" alphatest="blend" zPosition="-4"/>
-		<widget name="text" position="98,80" size="954,47" font="Regular;40" halign="right" noWrap="1" transparent="1"/>
+	<screen name="VirtualKeyBoard" title="Virtual keyboard" position="center,210" size="1150,660">
+		<widget name="prompt" position="96,10" size="940,40" font="Regular;36" noWrap="1" transparent="1"/>
+		<ePixmap pixmap="vkey_text.png" position="98,60" size="952,75" alphatest="blend"/>
+		<widget name="text" position="98,62" size="930,60" font="Regular;50" halign="right" noWrap="1" transparent="1"/>
 		<widget name="list" position="98,145" size="952,340" backgroundColor="#001c2c5c" foregroundColor="window-fg" selectionDisabled="1" transparent="1"/>
-		<widget name="locale" position="98,500" size="800,25" font="Regular;20" transparent="1"/>
-		<widget name="mode" position="976,500" size="60,25" font="Regular;20" halign="right" transparent="1" valign="center"/>
-		<widget name="language" position="0,0" size="0,0" font="Regular;20" transparent="1"/>
+		<widget name="locale" position="98,500" size="800,32" font="Regular;30" transparent="1"/>
+		<widget name="mode" position="976,500" size="60,32" font="Regular;30" halign="right" transparent="1" valign="center"/>
+		<widget name="language" position="0,0" size="0,0" font="Regular;30" transparent="1"/>
+		<ePixmap pixmap="buttons/key_help1.png" alphatest="blend" position="510,570" size="111,54"/>
 	</screen>
 
 	<!-- Volume -->

@@ -534,8 +534,32 @@ if [ -d plugins ]; then
 		cd ../..
 		cp -rv pre/icons plugins/e2openplugin/$PKG/$PKG_
 		cp -fv patches/$PKG__.patch plugins/e2openplugin/$PKG
+		cp -fv patches/E2IPlayer_4k_dimension.patch plugins/e2openplugin/$PKG
 		cd plugins/e2openplugin/$PKG
 		patch -p1 < $PKG__.patch
+
+		# Patch and resize if you have intel VAAPI on 4K display.
+		# Q: whats AMD name?
+		GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "Intel"`
+		DSP=`xdpyinfo -display :0.0 2>/dev/null | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -o "[0-9]+x[0-9]+"`
+		if [[ $GPU ]]; then
+			if [[ "$DSP" = "3840x2160" ]]; then
+				echo ""
+				echo "*********************************** 4K display *************************************"
+				echo ""
+				if [[ -f resize.sh ]]; then
+					rm -f resize.sh
+				fi
+				patch -p1 < E2IPlayer_4k_dimension.patch
+				chmod 755 resize.sh
+				./resize.sh
+			else
+				echo ""
+				echo "*********************************** HD display *************************************"
+				echo ""
+			fi
+		fi
+
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then
 			python2 setup_translate.py
@@ -626,7 +650,11 @@ if [ -d plugins ]; then
 	cp -rfv skins/* $INSTALL_E2DIR
 
 	if [ ! -f /usr/local/bin/bitrate ]; then
-		ln -sf $INSTALL_E2DIR/bin/bitrate /usr/local/bin
+		ln -s $INSTALL_E2DIR/bin/bitrate /usr/local/bin
+	fi
+
+	if [ ! -f /media/hdd/ytlist.txt ]; then
+		ln -s /media/hdd/IPTVCache/SearchHistory/ytlist.txt /media/hdd
 	fi
 
 	# Create folder for softam keys and symlink for plugin 'navibar'
