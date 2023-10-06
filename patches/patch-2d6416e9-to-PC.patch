@@ -6779,7 +6779,7 @@ diff -ruN o/lib/gui/evideo.cpp pc/lib/gui/evideo.cpp
  		m_state |= 8;
 diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 --- o/lib/python/Components/About.py	2023-10-04 15:15:23.810928086 +0300
-+++ pc/lib/python/Components/About.py	2023-10-04 15:18:58.313791806 +0300
++++ pc/lib/python/Components/About.py	2023-10-07 00:04:36.915034388 +0300
 @@ -12,8 +12,8 @@
  
  def getImageVersionString():
@@ -6825,7 +6825,7 @@ diff -ruN o/lib/python/Components/About.py pc/lib/python/Components/About.py
 +def getlibxineVersionString():
 +	try:
 +		from glob import glob
-+		libxine = [x.split("Version: 1.2.9-1build5+") for x in open(glob("/var/lib/dpkg/status")[0], "r") if x.startswith("Version: 1.2.9-1build5+")][0]
++		libxine = [x.split("Version: 1.2.13+") for x in open(glob("/var/lib/dpkg/status")[0], "r") if x.startswith("Version: 1.2.13+")][0]
 +		return "%s" % libxine[1].split("+")[0].replace("\n", "")
  	except:
  		return ""
