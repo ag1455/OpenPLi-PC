@@ -1,0 +1,18 @@
+<skin>
+
+  <screen name="SatellitesGen" position="0,0" size="1920,1080" title="_(Satellites.xml generator)">
+       <eLabel text="Satellites.xml generator" position="0,75" size="1920,63" zPosition="1" halign="center" font="Regular;54" backgroundColor="background" shadowColor="black" shadowOffset="-3,-3" transparent="1" foregroundColor="blue" />
+       <ePixmap position="0,0" zPosition="-1" size="1920,1080" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/SatellitesGen/menu/frame.png"  />
+       <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/SatellitesGen/menu/channel.png" position="1198,151" size="555,318" zPosition="-1" />
+       <widget source="session.VideoPicture" render="Pig" position=" 1215,165" size="518,267"  zPosition="3" backgroundColor="#ff000000" />
+       <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/SatellitesGen/menu/red.png" position="150,938" size="240,60" zPosition="5" />
+       <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/SatellitesGen/menu/green.png" position="482,938" size="240,60" zPosition="5" />
+       <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/SatellitesGen/menu/yellow.png" position="804,938" size="240,60" zPosition="5" />
+       <widget backgroundColor="red" font="Regular;32" name="key_red" position="150,938" size="240,60" valign="cetner" halign="center" transparent="1" zPosition="6" />
+       <widget backgroundColor="green" font="Regular;32" name="key_green" position="482,938" size="240,60" valign="center" halign="center" transparent="1" zPosition="6" />
+       <widget backgroundColor="yellow" font="Regular;32" name="key_yellow" position="804,938" size="240,60" valign="center" halign="center" transparent="1" zPosition="6" />
+       <widget name="list" position="150,150" size="910,720" scrollbarMode="showOnDemand" transparent="1" />
+       <widget render="Label" source="statustext" position="1100,600" zPosition="1" size="750,75" font="Regular;30" halign="center" transparent="1"/>
+  </screen>
+
+</skin>
