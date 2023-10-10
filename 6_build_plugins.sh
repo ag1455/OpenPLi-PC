@@ -5,6 +5,9 @@
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 INSTALL_E2DIR="/usr/local/e2"
 MAKE_J="9"
+# Q: whats AMD GPU name?
+GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "Intel"`
+DSP=`xdpyinfo -display :0.0 2>/dev/null | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -o "[0-9]+x[0-9]+"`
 
 # This is the lock from the unpredictable script actions in the root directory in the absence of the plugins folder.
 if [ -d plugins ]; then
@@ -519,7 +522,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="36e4eea002656d6b3e0b419f88d33617ff989a16"
+		VER="57ac512cba32b95d0761608f4bc5b29f653bf120"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -539,9 +542,6 @@ if [ -d plugins ]; then
 		patch -p1 < $PKG__.patch
 
 		# Patch and resize if you have intel VAAPI on 4K display.
-		# Q: whats AMD name?
-		GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "Intel"`
-		DSP=`xdpyinfo -display :0.0 2>/dev/null | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -o "[0-9]+x[0-9]+"`
 		if [[ $GPU ]]; then
 			if [[ "$DSP" = "3840x2160" ]]; then
 				echo ""
@@ -632,11 +632,6 @@ if [ -d plugins ]; then
 
 	cd ../..
 
-	# Temporarily
-	if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi ]; then
-		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/PLi
-	fi
-
 	# For use *.m3u8 in the /tmp folder
 	chown $(who | awk '{print $1}'):$(who | awk '{print $1}') /tmp
 
@@ -685,6 +680,16 @@ if [ -d plugins ]; then
 	#else
 	#	python -m compileall -f $INSTALL_E2DIR/lib/enigma2/python
 	#fi
+
+	if [[ "$DSP" = "3840x2160" ]]; then
+		rpl "skin_1080" "skin_2160" $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/SatellitesGen/plugin.py
+	fi
+
+	# Temporarily
+	if [[ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/piconload ]]; then
+		rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/piconload
+	fi
+
 	echo ""
 	echo "************* Plugins, skins, E2PC python files installed successfully.*************"
 else
