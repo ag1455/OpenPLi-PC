@@ -2782,39 +2782,12 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	<!-- Minute input -->
 <!--	<screen name="MinuteInput" position="center,center" size="420,90">
 		<widget name="minutes" position="120,22" size="240,37" halign="right" font="Regular;32"/>
-		<eLabel text="Seek" position="30,22" size="150,37" backgroundColor="#18101214" foregroundColor="secondFG" transparent="1" font="Regular;34"/>
+		<eLabel text="Seek" position="30,22" size="150,37" backgroundColor="#18101214" transparent="1" font="Regular;34"/>
 	</screen>-->
 
 	<!-- EcmInfo -->
 <!--	<screen name="EcmInfoConfigMenu" position="fill" title="Select Location" flags="wfNoBorder">
 		<widget name="config" position="780,100" size="1110,855" itemHeight="45" font="Regular;33" transparent="1" scrollbarMode="showOnDemand"/>
-	</screen>-->
-
-	<!-- PicturePlayer -->
-<!--	<screen name="picshow" position="fill" flags="wfNoBorder">
-		<widget name="thn" position="363,547" size="390,375" alphatest="on"/>
-		<widget name="filelist" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" zPosition="3" scrollbarMode="showOnDemand"/>
-		<widget name="label" position="783,975" size="390,34" transparent="1" font="Regular;30"/>
-	</screen>
-	<screen name="Pic_Exif" title="Info" position="fill" flags="wfNoBorder">
-		<widget source="menu" render="Listbox" position="780,105" size="1110,892" selectionDisabled="1" transparent="1" scrollbarMode="showOnDemand">
-			<convert type="TemplatedMultiContent">
-				{"template": [MultiContentEntryText(pos = (7,10),size = (375,45),flags = RT_HALIGN_LEFT,text = 0),
-				MultiContentEntryText(pos = (390,10),size = (645,45),flags = RT_HALIGN_LEFT,text = 1)],
-				"fonts": [gFont("Regular",30)],
-				"itemHeight": 52 }
-			</convert>
-		</widget>
-	</screen>
-	<screen name="Pic_Setup" title="Settings" position="fill" flags="wfNoBorder">
-		<widget name="config" position="780,100" size="1110,912" itemHeight="38" font="Regular;28" transparent="1" scrollbarMode="showOnDemand"/>
-	</screen>
-	<screen name="Pic_Full_View" position="fill" title="Picture" flags="wfNoBorder">
-		<widget name="pic" position="fill" zPosition="1" alphatest="on"/>
-		<eLabel position="22,22" size="45,37" zPosition="2" backgroundColor="black" transparent="1"/>
-		<widget name="point" position="25,25" size="31,31" zPosition="3" pixmap="icons/record.png" alphatest="on"/>
-		<widget name="play_icon" position="25,25" size="24,24" zPosition="3" pixmap="icons/ico_mp_play.png" alphatest="on"/>
-		<widget source="file" render="Label" position="90,22" size="900,34" zPosition="3" font="Regular;30" halign="left" noWrap="1" foregroundColor="foreground" backgroundColor="black" transparent="1" borderWidth="2"/>
 	</screen>-->
 
 	<!-- AutoBackup -->
@@ -2830,41 +2803,6 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 		<widget source="statusbar" render="Label" position="150,105" size="600,96" zPosition="10" halign="left" valign="center" font="Regular;33" transparent="1" shadowColor="black" shadowOffset="-1,-1"/>
 		<widget source="tunerstatusbar" render="Label" position="30,240" size="720,45" zPosition="10" halign="left" valign="center" font="Regular;33" transparent="1" shadowColor="black" shadowOffset="-1,-1"/>
 		<widget name="config" position="30,315" size="720,450" itemHeight="38" font="Regular;28" scrollbarMode="showOnDemand"/>
-	</screen>-->
-
-	<!-- WirelessLan -->
-<!--	<screen name="WlanStatus" position="fill" title="Wireless Network State" flags="wfNoBorder" >
-		<widget source="LabelBSSID" render="Label" position="885,120" size="300,37" valign="left" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="LabelESSID" render="Label" position="885,225" size="300,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="LabelQuality" render="Label" position="885,285" size="300,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="LabelSignal" render="Label" position="885,345" size="300,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="LabelBitrate" render="Label" position="885,405" size="300,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="LabelEnc" render="Label" position="885,465" size="300,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="BSSID" render="Label" position="1200,120" size="495,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="ESSID" render="Label" position="1200,225" size="495,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="quality" render="Label" position="1200,285" size="495,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="signal" render="Label" position="1200,345" size="495,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="bitrate" render="Label" position="1200,405" size="495,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="enc" render="Label" position="1200,465" size="495,37" valign="center" font="Regular;30" transparent="1" foregroundColor="white"/>
-		<widget source="IFtext" render="Label" position="1200,880" size="247,37" zPosition="10" font="Regular;31" halign="right" transparent="1"/>
-		<widget source="IF" render="Label" position="1455,880" size="375,37" zPosition="10" font="Regular;31" halign="left" transparent="1"/>
-		<widget source="Statustext" render="Label" position="742,880" size="300,37" zPosition="10" font="Regular;31" halign="right" transparent="1"/>
-		<widget name="statuspic" pixmaps="buttons/button_green.png,buttons/button_green_off.png" position="1050,888" zPosition="10" size="22,24" transparent="1" alphatest="on"/>
-	</screen>
-	<screen name="WlanScan" position="fill" title="Choose a Wireless Network" flags="wfNoBorder" >
-		<widget source="list" render="Listbox" position="780,105" size="1110,525" scrollbarMode="showOnDemand">
-	<convert type="TemplatedMultiContent">
-		{" template": [
-		MultiContentEntryText(pos = (15,3), size = (825,37), font=0, flags = RT_HALIGN_LEFT, text = 0), # index 0 is the essid
-		MultiContentEntryText(pos = (15,39), size = (262,30), font=1, flags = RT_HALIGN_LEFT, text = 5), # index 5 is the interface
-		MultiContentEntryText(pos = (300,39), size = (262,30), font=1, flags = RT_HALIGN_LEFT, text = 4), # index 4 is the encryption
-		MultiContentEntryText(pos = (600,3), size = (352,30), font=1, flags = RT_HALIGN_LEFT, text = 2), # index 2 is the signal
-		MultiContentEntryText(pos = (600,39), size = (352,30), font=1, flags = RT_HALIGN_LEFT, text = 3), # index 3 is the maxrate
-		], "fonts": [gFont("Regular",33),gFont("Regular",27)],
-		"itemHeight": 75 }
-	</convert>
-		</widget>
-		<widget source="info" render="Label" position="780,975" size="1110,34" font="Regular;30" halign="center" valign="center" transparent="1"/>
 	</screen>-->
 
 	<!-- Input Device Configuration -->
@@ -2994,9 +2932,9 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 
 	<!-- RDS InfoDisplay -->
 <!--	<screen name="RdsInfoDisplay" position="22,90" size="1920,300" backgroundColor="transparent" zPosition="-2" flags="wfNoBorder">
-		<widget position="0,0" size="1875,135" backgroundColor="transparent" transparent="1" zPosition="1" foregroundColor="secondFG" borderWidth="4" font="Regular;36" borderColor="black"
+		<widget position="0,0" size="1875,135" backgroundColor="transparent" transparent="1" zPosition="1" borderWidth="4" font="Regular;36" borderColor="black"
 			valign="center" halign="center" name="RadioText"/>
-		<widget position="0,150" size="1875,135" backgroundColor="transparent" transparent="1" zPosition="1" foregroundColor="secondFG" borderWidth="4" font="Regular;36" borderColor="black"
+		<widget position="0,150" size="1875,135" backgroundColor="transparent" transparent="1" zPosition="1" borderWidth="4" font="Regular;36" borderColor="black"
 			valign="center" halign="center" name="RtpText"/>
 		<widget position="0,0" size="0,0" name="RassLogo"/>
 	</screen>-->

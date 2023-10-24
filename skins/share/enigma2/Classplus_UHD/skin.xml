@@ -2848,7 +2848,7 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 	<!-- Minute input -->
 	<screen name="MinuteInput" position="center,center" size="840,180">
 		<widget name="minutes" position="240,44" size="480,74" halign="right" font="Regular;64"/>
-		<eLabel text="Seek" position="60,44" size="300,74" backgroundColor="#18101214" foregroundColor="secondFG" transparent="1" font="Regular;68"/>
+		<eLabel text="Seek" position="60,44" size="300,74" backgroundColor="#18101214" transparent="1" font="Regular;68"/>
 	</screen>
 
 	<!-- EcmInfo -->
@@ -3025,9 +3025,9 @@ self.instance.move(ePoint(orgpos.x() + (orgwidth - newwidth)/2, orgpos.y() + (or
 
 	<!-- RDS InfoDisplay -->
 	<screen name="RdsInfoDisplay" position="44,180" size="3840,600" backgroundColor="transparent" zPosition="-2" flags="wfNoBorder">
-		<widget position="0,0" size="3750,270" backgroundColor="transparent" transparent="1" zPosition="1" foregroundColor="secondFG" borderWidth="4" font="Regular;72" borderColor="black"
+		<widget position="0,0" size="3750,270" backgroundColor="transparent" transparent="1" zPosition="1" borderWidth="4" font="Regular;72" borderColor="black"
 			valign="center" halign="center" name="RadioText"/>
-		<widget position="0,150" size="1875,135" backgroundColor="transparent" transparent="1" zPosition="1" foregroundColor="secondFG" borderWidth="4" font="Regular;72" borderColor="black"
+		<widget position="0,150" size="1875,135" backgroundColor="transparent" transparent="1" zPosition="1" borderWidth="4" font="Regular;72" borderColor="black"
 			valign="center" halign="center" name="RtpText"/>
 		<widget position="0,0" size="0,0" name="RassLogo"/>
 	</screen>
