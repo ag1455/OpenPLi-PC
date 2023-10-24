@@ -3368,7 +3368,20 @@ diff -ruN o/lib/dvb/decsa.h pc/lib/dvb/decsa.h
 diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
 --- o/lib/dvb/demux.cpp	2023-10-04 15:15:23.802927905 +0300
 +++ pc/lib/dvb/demux.cpp	2023-10-04 15:18:58.305791624 +0300
-@@ -65,13 +65,14 @@
+@@ -44,7 +44,11 @@
+ 	}
+ 	unsigned int megabytes = si.totalram >> 20;
+ 	int result;
+-	if (megabytes > 400)
++	if (megabytes > 1600)
++		result = 160; // 4096MB systems: Use 32MB IO buffers (PC)
++	else if (megabytes > 800)
++		result = 80; // 2048MB systems: Use 16MB IO buffers (PC)
++	else if (megabytes > 400)
+ 		result = 40; // 1024MB systems: Use 8MB IO buffers (vusolo2, vuduo2, ...)
+ 	else if (megabytes > 200)
+ 		result = 20; // 512MB systems: Use 4MB IO buffers (et9x00, vuultimo, ...)
+@@ -65,13 +69,14 @@
  	m_dvr_id(-1),
  	m_dvr_source_offset(DMX_SOURCE_DVR0)
  {
@@ -3385,7 +3398,7 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  }
  
  int eDVBDemux::openDemux(void)
-@@ -192,6 +193,20 @@
+@@ -192,6 +197,20 @@
  	return 0;
  }
  
@@ -3406,7 +3419,7 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  void eDVBSectionReader::data(int)
  {
  	uint8_t data[4096]; // max. section size
-@@ -781,6 +796,7 @@
+@@ -781,6 +800,7 @@
  
  RESULT eDVBTSRecorder::start()
  {
@@ -3414,7 +3427,7 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  	std::map<int,int>::iterator i(m_pids.begin());
  
  	if (m_running)
-@@ -794,6 +810,7 @@
+@@ -794,6 +814,7 @@
  
  	char filename[128];
  	snprintf(filename, 128, "/dev/dvb/adapter%d/demux%d", m_demux->adapter, m_demux->demux);
@@ -3422,7 +3435,7 @@ diff -ruN o/lib/dvb/demux.cpp pc/lib/dvb/demux.cpp
  
  	m_source_fd = ::open(filename, O_RDONLY | O_CLOEXEC);
  
-@@ -826,14 +843,14 @@
+@@ -826,14 +847,14 @@
  	if (!m_target_filename.empty())
  		m_thread->startSaveMetaInformation(m_target_filename);
  
