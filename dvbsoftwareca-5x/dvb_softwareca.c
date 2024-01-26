@@ -224,7 +224,12 @@ static int __init dvblb_init(void) {
 		return ret;
 	}
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 4, 0)
 	dvb_class = class_create(THIS_MODULE, "dvbsoftwareca");
+#else
+	dvb_class = class_create("dvbsoftwareca");
+#endif
+
 	if (IS_ERR(dvb_class)) {
 		printk("dvbsoftwareca: unable to create dvb_class\n");
 		return PTR_ERR(dvb_class);
