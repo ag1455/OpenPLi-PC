@@ -522,7 +522,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="57ac512cba32b95d0761608f4bc5b29f653bf120"
+		VER="a94273d3564bfe03e0f8df7fa4aaa1c3834e3d4a"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
@@ -562,14 +562,14 @@ if [ -d plugins ]; then
 
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then
-			python2 setup_translate.py
 			python2 setup.py install
+			python2 setup_translate.py
 		elif [ "$release" = "22.04" ]; then
-			python2 setup_translate.py
 			python2 setup.py install
+			python2 setup_translate.py
 		else
-			python setup_translate.py
 			python setup.py install
+			python setup_translate.py
 		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_iptvplayer* $INSTALL_E2DIR/lib/enigma2/python/Plugins
