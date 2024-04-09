@@ -105,7 +105,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
+		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -522,7 +522,7 @@ if [ -d plugins ]; then
 		PKG="e2iplayer"
 		PKG_="IPTVPlayer"
 		PKG__="E2IPlayer"
-		VER="a94273d3564bfe03e0f8df7fa4aaa1c3834e3d4a"
+		VER="5d6af9d2983bf821f2b46a2bb59f250a8b90d2b2"
 		if [ -d $PKG ]; then
 			rm -rf $PKG
 		fi
