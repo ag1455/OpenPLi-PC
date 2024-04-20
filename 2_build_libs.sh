@@ -11,6 +11,13 @@ if [ ! -f /usr/lib/python3/dist-packages/lsb_release.py ]; then
 	ln -s /usr/share/pyshared/lsb_release.py /usr/lib/python3/dist-packages/lsb_release.py
 fi
 
+HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
+INCLUDE="/usr/include/linux/dvb"
+BUILD_DIR="libs"
+
+cp -fv pre/dvb/* $INCLUDE
+cp -fv pre/dvb/* $HEADERS
+
 echo ""
 echo "                       *** INSTALL REQUIRED PACKAGES ***"
 echo ""
@@ -189,13 +196,6 @@ for p in $REQPKG; do
 	fi
 done
 
-HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
-INCLUDE="/usr/include/linux/dvb"
-BUILD_DIR="libs"
-
-cp -fv pre/dvb/* $INCLUDE
-cp -fv pre/dvb/* $HEADERS
-
 # Download dvb-firmwares
 wget --no-check-certificate https://github.com/crazycat69/media_build/releases/download/latest/dvb-firmwares.tar.bz2
 tar -xvjf dvb-firmwares.tar.bz2 -C /lib/firmware
@@ -237,7 +237,7 @@ rm -f *.tar.xz
 make distclean
 cd ..
 
-# Build and install libxmlccwrap-git:
+# Build and install libxmlccwrap:
 if [ ! -d libdvbsi++ ]; then
 	set -e
 	set -o pipefail
@@ -248,35 +248,27 @@ else
 	echo "                     *** Build and install $PKG ***"
 	echo ""
 	PKG="libxmlccwrap"
-	I=`dpkg -s $PKG | grep "Status"`
-	if [ -n "$I" ]; then
-		dpkg -P $PKG $PKG-dev $PKG-dbgsym
+	dpkg -s $PKG | grep -iw ok > /dev/null
+	if [[ $? -eq 0 ]]; then
+		dpkg -r $PKG $PKG-dev $PKG-dbgsym
 	else
 		echo "$PKG not installed"
 	fi
-	if [ -d $PKG ]; then
+	if [[ -d $PKG ]]; then
 		rm -rf $PKG
 	fi
-	git clone https://github.com/OpenDMM/$PKG.git
-#	git clone git://git.opendreambox.org/git/obi/$PKG.git
-	cd $PKG
-	rpl '5' '10' debian/compat
-	rpl 'Source-Version' 'binary:Version' debian/control
-	sed -i 's/-$(MAKE) clean//g' debian/rules
-	sed -i 's/-$(MAKE) distclean//g' debian/rules
-#	autoupdate
-	dpkg-buildpackage -b -d -uc -us
-	cd ..
-	mv $PKG*.* $PKG
-	cd $PKG
-	dpkg -i *deb
-	rm -f *.tar.gz
+	wget https://www.i-have-a-dreambox.com/Sources/$PKG-0.0.12.tar.gz
+	tar -xvf $PKG-0.0.12.tar.gz
+	rm -f $PKG-0.0.12.tar.gz
+	cd $PKG-0.0.12
+	./configure --prefix=/usr
+	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.2.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
 	make distclean
 	cd ..
 fi
 
 # Build and install libdvbcsa-git:
-if [ ! -d libxmlccwrap ]; then
+if [ ! -d libxmlccwrap-0.0.12 ]; then
 	set -e
 	set -o pipefail
 else
