@@ -1,6 +1,6 @@
 diff -ruN pc/IPTVPlayer/components/articleview.py 4k/IPTVPlayer/components/articleview.py
 --- pc/IPTVPlayer/components/articleview.py	2022-05-18 20:23:48.467555134 +0300
-+++ 4k/IPTVPlayer/components/articleview.py	2024-03-26 21:21:24.537368561 +0300
++++ 4k/IPTVPlayer/components/articleview.py	2024-07-20 15:58:56.108801512 +0300
 @@ -17,13 +17,13 @@
  
  
@@ -21,7 +21,7 @@ diff -ruN pc/IPTVPlayer/components/articleview.py 4k/IPTVPlayer/components/artic
          printDBG("ArticleView.__init__ -------------------------------")
 diff -ruN pc/IPTVPlayer/components/configbase.py 4k/IPTVPlayer/components/configbase.py
 --- pc/IPTVPlayer/components/configbase.py	2022-06-27 23:57:55.065187581 +0300
-+++ 4k/IPTVPlayer/components/configbase.py	2024-03-26 21:21:24.538368682 +0300
++++ 4k/IPTVPlayer/components/configbase.py	2024-07-20 15:58:56.108801512 +0300
 @@ -34,7 +34,7 @@
  
  
@@ -79,7 +79,7 @@ diff -ruN pc/IPTVPlayer/components/configbase.py 4k/IPTVPlayer/components/config
          printDBG("ConfigBaseWidget.__init__ -------------------------------")
 diff -ruN pc/IPTVPlayer/components/configextmovieplayer.py 4k/IPTVPlayer/components/configextmovieplayer.py
 --- pc/IPTVPlayer/components/configextmovieplayer.py	2024-03-26 21:03:35.280081616 +0300
-+++ 4k/IPTVPlayer/components/configextmovieplayer.py	2024-03-26 21:21:24.538368682 +0300
++++ 4k/IPTVPlayer/components/configextmovieplayer.py	2024-07-20 15:58:56.108801512 +0300
 @@ -55,7 +55,7 @@
  
  config.plugins.iptvplayer.extplayer_subtitle_auto_enable = ConfigYesNo(default=True)
@@ -91,7 +91,7 @@ diff -ruN pc/IPTVPlayer/components/configextmovieplayer.py 4k/IPTVPlayer/compone
  config.plugins.iptvplayer.extplayer_subtitle_line_height = ConfigInteger(40, (20, 999))
 diff -ruN pc/IPTVPlayer/components/e2isimpledownloader.py 4k/IPTVPlayer/components/e2isimpledownloader.py
 --- pc/IPTVPlayer/components/e2isimpledownloader.py	2022-05-29 17:06:37.443729599 +0300
-+++ 4k/IPTVPlayer/components/e2isimpledownloader.py	2024-03-26 21:21:24.538368682 +0300
++++ 4k/IPTVPlayer/components/e2isimpledownloader.py	2024-07-20 15:58:56.108801512 +0300
 @@ -24,26 +24,26 @@
  
  
@@ -133,7 +133,7 @@ diff -ruN pc/IPTVPlayer/components/e2isimpledownloader.py 4k/IPTVPlayer/componen
      def __init__(self, session, uri, outFile, title=''):
 diff -ruN pc/IPTVPlayer/components/e2ivk.py 4k/IPTVPlayer/components/e2ivk.py
 --- pc/IPTVPlayer/components/e2ivk.py	2024-03-26 21:03:35.280081616 +0300
-+++ 4k/IPTVPlayer/components/e2ivk.py	2024-03-26 21:21:24.539368804 +0300
++++ 4k/IPTVPlayer/components/e2ivk.py	2024-07-20 15:58:56.109801409 +0300
 @@ -55,7 +55,10 @@
  
      def __init__(self, withRatioButton=True):
@@ -194,7 +194,7 @@ diff -ruN pc/IPTVPlayer/components/e2ivk.py 4k/IPTVPlayer/components/e2ivk.py
          skinTab.append('<widget name="header" zPosition="%d" position="%d,%d" size="%d,%d"  transparent="1" noWrap="1" font="Regular;%s" valign="center" halign="left" foregroundColor="#ffffff" backgroundColor="#000000" />' % (2, x + 5, y - (bh - 7 * 2), 15 * bw - 10, bh - 7 * 2, headerFontSize))
 diff -ruN pc/IPTVPlayer/components/iptvarticlerichvisualizer.py 4k/IPTVPlayer/components/iptvarticlerichvisualizer.py
 --- pc/IPTVPlayer/components/iptvarticlerichvisualizer.py	2022-06-11 23:56:57.439586260 +0300
-+++ 4k/IPTVPlayer/components/iptvarticlerichvisualizer.py	2024-03-26 21:21:24.539368804 +0300
++++ 4k/IPTVPlayer/components/iptvarticlerichvisualizer.py	2024-07-20 15:58:56.109801409 +0300
 @@ -38,31 +38,31 @@
  
      def __prepareSkin(self):
@@ -246,7 +246,7 @@ diff -ruN pc/IPTVPlayer/components/iptvarticlerichvisualizer.py 4k/IPTVPlayer/co
          if self.richDesc['pages_count'] > 1:
 diff -ruN pc/IPTVPlayer/components/iptvchoicebox.py 4k/IPTVPlayer/components/iptvchoicebox.py
 --- pc/IPTVPlayer/components/iptvchoicebox.py	2024-03-26 21:03:35.281081083 +0300
-+++ 4k/IPTVPlayer/components/iptvchoicebox.py	2024-03-26 21:21:24.539368804 +0300
++++ 4k/IPTVPlayer/components/iptvchoicebox.py	2024-07-20 15:58:56.109801409 +0300
 @@ -42,22 +42,22 @@
  class IPTVChoiceBoxWidget(Screen):
  
@@ -279,7 +279,7 @@ diff -ruN pc/IPTVPlayer/components/iptvchoicebox.py 4k/IPTVPlayer/components/ipt
          Screen.__init__(self, session)
 diff -ruN pc/IPTVPlayer/components/iptvdirbrowser.py 4k/IPTVPlayer/components/iptvdirbrowser.py
 --- pc/IPTVPlayer/components/iptvdirbrowser.py	2022-06-11 23:56:57.439586260 +0300
-+++ 4k/IPTVPlayer/components/iptvdirbrowser.py	2024-03-26 21:21:24.539368804 +0300
++++ 4k/IPTVPlayer/components/iptvdirbrowser.py	2024-07-20 15:58:56.109801409 +0300
 @@ -51,7 +51,16 @@
  
  class IPTVDirectorySelectorWidget(Screen):
@@ -316,7 +316,7 @@ diff -ruN pc/IPTVPlayer/components/iptvdirbrowser.py 4k/IPTVPlayer/components/ip
              <widget name="key_red"     position="10,10"  zPosition="2"  size="600,35" valign="center"  halign="left"   font="Regular;28" transparent="1" foregroundColor="red" />
 diff -ruN pc/IPTVPlayer/components/iptvextmovieplayer.py 4k/IPTVPlayer/components/iptvextmovieplayer.py
 --- pc/IPTVPlayer/components/iptvextmovieplayer.py	2024-03-26 21:03:35.282080550 +0300
-+++ 4k/IPTVPlayer/components/iptvextmovieplayer.py	2024-03-26 21:21:24.540368925 +0300
++++ 4k/IPTVPlayer/components/iptvextmovieplayer.py	2024-07-20 15:58:56.110801305 +0300
 @@ -198,7 +198,36 @@
              subSkin += subSkinPart.format(idx + 1)
  
@@ -393,7 +393,7 @@ diff -ruN pc/IPTVPlayer/components/iptvextmovieplayer.py 4k/IPTVPlayer/component
              </screen>"""
 diff -ruN pc/IPTVPlayer/components/iptvfavouriteswidgets.py 4k/IPTVPlayer/components/iptvfavouriteswidgets.py
 --- pc/IPTVPlayer/components/iptvfavouriteswidgets.py	2022-05-18 20:23:48.470555059 +0300
-+++ 4k/IPTVPlayer/components/iptvfavouriteswidgets.py	2024-03-26 21:21:24.540368925 +0300
++++ 4k/IPTVPlayer/components/iptvfavouriteswidgets.py	2024-07-20 15:58:56.110801305 +0300
 @@ -153,30 +153,30 @@
  
  
@@ -441,7 +441,7 @@ diff -ruN pc/IPTVPlayer/components/iptvfavouriteswidgets.py 4k/IPTVPlayer/compon
      def __init__(self, session):
 diff -ruN pc/IPTVPlayer/components/iptvimageselector.py 4k/IPTVPlayer/components/iptvimageselector.py
 --- pc/IPTVPlayer/components/iptvimageselector.py	2022-05-18 20:23:48.470555059 +0300
-+++ 4k/IPTVPlayer/components/iptvimageselector.py	2024-03-26 21:21:24.540368925 +0300
++++ 4k/IPTVPlayer/components/iptvimageselector.py	2024-07-20 15:58:56.110801305 +0300
 @@ -93,27 +93,27 @@
          y = 0
          skin = ['<screen position="center,center" title="%s" size="%d,%d">' % (self.iptv_title, self.iptv_width, self.iptv_height)]
@@ -482,7 +482,7 @@ diff -ruN pc/IPTVPlayer/components/iptvimageselector.py 4k/IPTVPlayer/components
          printDBG(">>>")
 diff -ruN pc/IPTVPlayer/components/iptvinputbox.py 4k/IPTVPlayer/components/iptvinputbox.py
 --- pc/IPTVPlayer/components/iptvinputbox.py	2022-06-11 23:56:57.440586221 +0300
-+++ 4k/IPTVPlayer/components/iptvinputbox.py	2024-03-26 21:21:24.540368925 +0300
++++ 4k/IPTVPlayer/components/iptvinputbox.py	2024-07-20 15:58:56.110801305 +0300
 @@ -23,22 +23,22 @@
      def __init__(self, session, icon={}, size=None, title="", windowTitle=_("Input"), useableChars=None, **kwargs):
          self.session = session
@@ -516,7 +516,7 @@ diff -ruN pc/IPTVPlayer/components/iptvinputbox.py 4k/IPTVPlayer/components/iptv
          self.skin = skin
 diff -ruN pc/IPTVPlayer/components/iptvlist.py 4k/IPTVPlayer/components/iptvlist.py
 --- pc/IPTVPlayer/components/iptvlist.py	2022-06-11 23:56:57.440586221 +0300
-+++ 4k/IPTVPlayer/components/iptvlist.py	2024-03-26 21:21:24.541369046 +0300
++++ 4k/IPTVPlayer/components/iptvlist.py	2024-07-20 15:58:56.110801305 +0300
 @@ -98,11 +98,13 @@
          try:
              self.font = skin.fonts["iptvlistitem"]
@@ -562,7 +562,7 @@ diff -ruN pc/IPTVPlayer/components/iptvlist.py 4k/IPTVPlayer/components/iptvlist
          return res
 diff -ruN pc/IPTVPlayer/components/iptvmultipleinputbox.py 4k/IPTVPlayer/components/iptvmultipleinputbox.py
 --- pc/IPTVPlayer/components/iptvmultipleinputbox.py	2022-06-11 23:56:57.440586221 +0300
-+++ 4k/IPTVPlayer/components/iptvmultipleinputbox.py	2024-03-26 21:21:24.541369046 +0300
++++ 4k/IPTVPlayer/components/iptvmultipleinputbox.py	2024-07-20 15:58:56.110801305 +0300
 @@ -34,22 +34,22 @@
  
  
@@ -642,7 +642,7 @@ diff -ruN pc/IPTVPlayer/components/iptvmultipleinputbox.py 4k/IPTVPlayer/compone
          self["key_ok"] = Label(_("OK"))
 diff -ruN pc/IPTVPlayer/components/iptvpictureplayer.py 4k/IPTVPlayer/components/iptvpictureplayer.py
 --- pc/IPTVPlayer/components/iptvpictureplayer.py	2022-05-18 20:23:48.470555059 +0300
-+++ 4k/IPTVPlayer/components/iptvpictureplayer.py	2024-03-26 21:21:24.541369046 +0300
++++ 4k/IPTVPlayer/components/iptvpictureplayer.py	2024-07-20 15:58:56.111801202 +0300
 @@ -113,17 +113,17 @@
      sz_w = getDesktop(0).size().width()
      sz_h = getDesktop(0).size().height()
@@ -689,7 +689,7 @@ diff -ruN pc/IPTVPlayer/components/iptvpictureplayer.py 4k/IPTVPlayer/components
          </screen>""" % (sz_w, sz_h,         # screen
 diff -ruN pc/IPTVPlayer/components/iptvpin.py 4k/IPTVPlayer/components/iptvpin.py
 --- pc/IPTVPlayer/components/iptvpin.py	2022-06-11 23:56:57.440586221 +0300
-+++ 4k/IPTVPlayer/components/iptvpin.py	2024-03-26 21:21:24.541369046 +0300
++++ 4k/IPTVPlayer/components/iptvpin.py	2024-07-20 15:58:56.111801202 +0300
 @@ -23,13 +23,13 @@
  class IPTVPinWidget(Screen):
      PIN_LEN = 4
@@ -712,8 +712,8 @@ diff -ruN pc/IPTVPlayer/components/iptvpin.py 4k/IPTVPlayer/components/iptvpin.p
  
      def __init__(self, session, title=""):
 diff -ruN pc/IPTVPlayer/components/iptvplayerwidget.py 4k/IPTVPlayer/components/iptvplayerwidget.py
---- pc/IPTVPlayer/components/iptvplayerwidget.py	2024-03-26 21:14:28.027972424 +0300
-+++ 4k/IPTVPlayer/components/iptvplayerwidget.py	2024-03-26 21:21:24.542369168 +0300
+--- pc/IPTVPlayer/components/iptvplayerwidget.py	2024-07-20 15:55:50.937967617 +0300
++++ 4k/IPTVPlayer/components/iptvplayerwidget.py	2024-07-20 15:58:56.111801202 +0300
 @@ -89,7 +89,32 @@
      else:
          IPTV_VERSION = GetIPTVPlayerVerstion()
@@ -748,7 +748,7 @@ diff -ruN pc/IPTVPlayer/components/iptvplayerwidget.py 4k/IPTVPlayer/components/
          skin = """
                      <screen position="center,center" size="1590,825" title="E2iPlayer %s">
                              <ePixmap position="5,9" zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
-@@ -776,7 +801,10 @@
+@@ -775,7 +800,10 @@
                      else:
                          options[idx].type = IPTVChoiceBoxItem.TYPE_OFF
  
@@ -760,7 +760,7 @@ diff -ruN pc/IPTVPlayer/components/iptvplayerwidget.py 4k/IPTVPlayer/components/
                      width = 900
                  elif self.getSkinResolutionType() == 'hd_ready':
                      width = 600
-@@ -2328,9 +2356,17 @@
+@@ -2327,9 +2355,17 @@
          summary_screenwidth = getDesktop(1).size().width()
          summary_screenheight = getDesktop(1).size().height()
      except Exception:
@@ -783,7 +783,7 @@ diff -ruN pc/IPTVPlayer/components/iptvplayerwidget.py 4k/IPTVPlayer/components/
          <widget name="text1" position="10,0"  size="800,70" font="Regular;50" halign="center" valign="center" foregroundColor="#05F7F3"/>
 diff -ruN pc/IPTVPlayer/components/iptvsubdownloader.py 4k/IPTVPlayer/components/iptvsubdownloader.py
 --- pc/IPTVPlayer/components/iptvsubdownloader.py	2022-06-25 19:35:30.812218159 +0300
-+++ 4k/IPTVPlayer/components/iptvsubdownloader.py	2024-03-26 21:21:24.542369168 +0300
++++ 4k/IPTVPlayer/components/iptvsubdownloader.py	2024-07-20 15:58:56.112801099 +0300
 @@ -53,7 +53,25 @@
  class IPTVSubDownloaderWidget(Screen):
      IPTV_VERSION = GetIPTVPlayerVerstion()
@@ -813,7 +813,7 @@ diff -ruN pc/IPTVPlayer/components/iptvsubdownloader.py 4k/IPTVPlayer/components
                              <ePixmap position="5,9" zPosition="4" size="30,30" pixmap="%s" transparent="1" alphatest="on" />
 diff -ruN pc/IPTVPlayer/components/iptvsubsimpledownloader.py 4k/IPTVPlayer/components/iptvsubsimpledownloader.py
 --- pc/IPTVPlayer/components/iptvsubsimpledownloader.py	2024-03-26 21:03:35.282080550 +0300
-+++ 4k/IPTVPlayer/components/iptvsubsimpledownloader.py	2024-03-26 21:21:24.542369168 +0300
++++ 4k/IPTVPlayer/components/iptvsubsimpledownloader.py	2024-07-20 15:58:56.112801099 +0300
 @@ -32,28 +32,28 @@
  
  class IPTVSubSimpleDownloaderWidget(Screen):
@@ -859,7 +859,7 @@ diff -ruN pc/IPTVPlayer/components/iptvsubsimpledownloader.py 4k/IPTVPlayer/comp
      def __init__(self, session, params={}):
 diff -ruN pc/IPTVPlayer/components/playerselector.py 4k/IPTVPlayer/components/playerselector.py
 --- pc/IPTVPlayer/components/playerselector.py	2023-08-14 20:17:27.459309071 +0300
-+++ 4k/IPTVPlayer/components/playerselector.py	2024-03-26 21:21:24.543369290 +0300
++++ 4k/IPTVPlayer/components/playerselector.py	2024-07-20 15:58:56.112801099 +0300
 @@ -26,7 +26,10 @@
          printDBG("PlayerSelectorWidget.__init__ --------------------------------")
          screenwidth = getDesktop(0).size().width()
@@ -934,7 +934,7 @@ diff -ruN pc/IPTVPlayer/components/playerselector.py 4k/IPTVPlayer/components/pl
              <widget name="statustext" position="0,0" zPosition="1" size="%d,50" font="Regular;36" halign="center" valign="center" transparent="1"/>
 diff -ruN pc/IPTVPlayer/components/recaptcha_mye2i_widget.py 4k/IPTVPlayer/components/recaptcha_mye2i_widget.py
 --- pc/IPTVPlayer/components/recaptcha_mye2i_widget.py	2023-04-02 22:00:42.226149476 +0300
-+++ 4k/IPTVPlayer/components/recaptcha_mye2i_widget.py	2024-03-26 21:21:24.543369290 +0300
++++ 4k/IPTVPlayer/components/recaptcha_mye2i_widget.py	2024-07-20 15:58:56.112801099 +0300
 @@ -36,23 +36,23 @@
          self.referer = referer
          self.captchaType = captchaType
@@ -971,7 +971,7 @@ diff -ruN pc/IPTVPlayer/components/recaptcha_mye2i_widget.py 4k/IPTVPlayer/compo
          self.onShown.append(self.onStart)
 diff -ruN pc/IPTVPlayer/components/recaptcha_v2myjd_widget.py 4k/IPTVPlayer/components/recaptcha_v2myjd_widget.py
 --- pc/IPTVPlayer/components/recaptcha_v2myjd_widget.py	2024-03-26 21:03:35.282080550 +0300
-+++ 4k/IPTVPlayer/components/recaptcha_v2myjd_widget.py	2024-03-26 21:21:24.543369290 +0300
++++ 4k/IPTVPlayer/components/recaptcha_v2myjd_widget.py	2024-07-20 15:58:56.113800995 +0300
 @@ -38,23 +38,23 @@
          self.sitekey = sitekey
          self.referer = referer
@@ -1008,7 +1008,7 @@ diff -ruN pc/IPTVPlayer/components/recaptcha_v2myjd_widget.py 4k/IPTVPlayer/comp
          self.onShown.append(self.onStart)
 diff -ruN pc/IPTVPlayer/components/recaptcha_v2widget.py 4k/IPTVPlayer/components/recaptcha_v2widget.py
 --- pc/IPTVPlayer/components/recaptcha_v2widget.py	2022-06-11 23:56:57.441586182 +0300
-+++ 4k/IPTVPlayer/components/recaptcha_v2widget.py	2024-03-26 21:21:24.543369290 +0300
++++ 4k/IPTVPlayer/components/recaptcha_v2widget.py	2024-07-20 15:58:56.113800995 +0300
 @@ -25,13 +25,13 @@
          self.imgFilePath = imgFilePath
          self.numOfRow = self.params.get('rows', 3)
@@ -1041,7 +1041,7 @@ diff -ruN pc/IPTVPlayer/components/recaptcha_v2widget.py 4k/IPTVPlayer/component
          """ % (windowWidth,
 diff -ruN pc/IPTVPlayer/components/sweetcaptcha_v2widget.py 4k/IPTVPlayer/components/sweetcaptcha_v2widget.py
 --- pc/IPTVPlayer/components/sweetcaptcha_v2widget.py	2022-05-18 20:23:48.472555009 +0300
-+++ 4k/IPTVPlayer/components/sweetcaptcha_v2widget.py	2024-03-26 21:21:24.543369290 +0300
++++ 4k/IPTVPlayer/components/sweetcaptcha_v2widget.py	2024-07-20 15:58:56.113800995 +0300
 @@ -24,17 +24,17 @@
  
      def __init__(self, session, params):
@@ -1071,7 +1071,7 @@ diff -ruN pc/IPTVPlayer/components/sweetcaptcha_v2widget.py 4k/IPTVPlayer/compon
          Screen.__init__(self, session)
 diff -ruN pc/IPTVPlayer/components/VirtualKeyBoard.py 4k/IPTVPlayer/components/VirtualKeyBoard.py
 --- pc/IPTVPlayer/components/VirtualKeyBoard.py	2024-03-26 21:03:35.280081616 +0300
-+++ 4k/IPTVPlayer/components/VirtualKeyBoard.py	2024-03-26 21:21:24.543369290 +0300
++++ 4k/IPTVPlayer/components/VirtualKeyBoard.py	2024-07-20 15:58:56.108801512 +0300
 @@ -31,31 +31,31 @@
  class VirtualKeyBoardList(MenuList):
      def __init__(self, list, enableWrapAround=False):
@@ -1123,7 +1123,7 @@ diff -ruN pc/IPTVPlayer/components/VirtualKeyBoard.py 4k/IPTVPlayer/components/V
          Screen.__init__(self, session)
 diff -ruN pc/IPTVPlayer/iptvdm/iptvbuffui.py 4k/IPTVPlayer/iptvdm/iptvbuffui.py
 --- pc/IPTVPlayer/iptvdm/iptvbuffui.py	2023-03-07 15:21:58.917138000 +0300
-+++ 4k/IPTVPlayer/iptvdm/iptvbuffui.py	2024-03-26 21:21:24.544369411 +0300
++++ 4k/IPTVPlayer/iptvdm/iptvbuffui.py	2024-07-20 15:58:56.113800995 +0300
 @@ -46,17 +46,17 @@
      sz_w = getDesktop(0).size().width()
      sz_h = getDesktop(0).size().height()
@@ -1196,7 +1196,7 @@ diff -ruN pc/IPTVPlayer/iptvdm/iptvbuffui.py 4k/IPTVPlayer/iptvdm/iptvbuffui.py
      def __init__(self, session, url, pathForBuffering, pathForDownloading, movieTitle, activMoviePlayer, requestedBuffSize, playerAdditionalParams={}, downloadManager=None, fileExtension=''):
 diff -ruN pc/IPTVPlayer/iptvdm/iptvdmui.py 4k/IPTVPlayer/iptvdm/iptvdmui.py
 --- pc/IPTVPlayer/iptvdm/iptvdmui.py	2022-06-11 23:56:57.459585478 +0300
-+++ 4k/IPTVPlayer/iptvdm/iptvdmui.py	2024-03-26 21:21:24.544369411 +0300
++++ 4k/IPTVPlayer/iptvdm/iptvdmui.py	2024-07-20 15:58:56.113800995 +0300
 @@ -41,30 +41,30 @@
  
  class IPTVDMWidget(Screen):
@@ -1265,7 +1265,7 @@ diff -ruN pc/IPTVPlayer/iptvdm/iptvdmui.py 4k/IPTVPlayer/iptvdm/iptvdmui.py
          Screen.__init__(self, session)
 diff -ruN pc/IPTVPlayer/iptvdm/iptvlist.py 4k/IPTVPlayer/iptvdm/iptvlist.py
 --- pc/IPTVPlayer/iptvdm/iptvlist.py	2022-05-29 17:06:37.449729391 +0300
-+++ 4k/IPTVPlayer/iptvdm/iptvlist.py	2024-03-26 21:21:24.544369411 +0300
++++ 4k/IPTVPlayer/iptvdm/iptvlist.py	2024-07-20 15:58:56.114800892 +0300
 @@ -39,15 +39,15 @@
          try:
              self.fonts[0] = skin.fonts["iptvdwnlistitem_0"]
@@ -1287,7 +1287,7 @@ diff -ruN pc/IPTVPlayer/iptvdm/iptvlist.py 4k/IPTVPlayer/iptvdm/iptvlist.py
          self.l.setFont(1, gFont(self.fonts[1][0], self.fonts[1][1]))
 diff -ruN pc/IPTVPlayer/iptvupdate/iptvlist.py 4k/IPTVPlayer/iptvupdate/iptvlist.py
 --- pc/IPTVPlayer/iptvupdate/iptvlist.py	2022-06-11 23:56:57.460585439 +0300
-+++ 4k/IPTVPlayer/iptvupdate/iptvlist.py	2024-03-26 21:21:24.544369411 +0300
++++ 4k/IPTVPlayer/iptvupdate/iptvlist.py	2024-07-20 15:58:56.114800892 +0300
 @@ -31,14 +31,18 @@
          try:
              self.fonts[0] = skin.fonts["iptvupdatelistitem_0"]
@@ -1310,8 +1310,8 @@ diff -ruN pc/IPTVPlayer/iptvupdate/iptvlist.py 4k/IPTVPlayer/iptvupdate/iptvlist
              else:
                  self.fonts[1] = ("Regular", 26, 50, 0)
 diff -ruN pc/IPTVPlayer/iptvupdate/updatemainwindow.py 4k/IPTVPlayer/iptvupdate/updatemainwindow.py
---- pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2024-03-26 21:14:28.034971664 +0300
-+++ 4k/IPTVPlayer/iptvupdate/updatemainwindow.py	2024-03-26 21:21:24.544369411 +0300
+--- pc/IPTVPlayer/iptvupdate/updatemainwindow.py	2024-07-20 15:55:50.944967859 +0300
++++ 4k/IPTVPlayer/iptvupdate/updatemainwindow.py	2024-07-20 15:58:56.114800892 +0300
 @@ -49,10 +49,10 @@
  class IPTVUpdateWindow(Screen):
  
@@ -1328,8 +1328,8 @@ diff -ruN pc/IPTVPlayer/iptvupdate/updatemainwindow.py 4k/IPTVPlayer/iptvupdate/
  
      ICONS = ['iconwait1.png', 'iconwait2.png', 'iconwait3.png', 'icondone.png', 'iconerror.png', 'iconwarning.png', 'iconcancelled.png']
 diff -ruN pc/IPTVPlayer/plugin.py 4k/IPTVPlayer/plugin.py
---- pc/IPTVPlayer/plugin.py	2024-03-26 21:17:12.207773224 +0300
-+++ 4k/IPTVPlayer/plugin.py	2024-03-26 21:21:24.545369533 +0300
+--- pc/IPTVPlayer/plugin.py	2024-07-20 15:55:50.948967998 +0300
++++ 4k/IPTVPlayer/plugin.py	2024-07-20 15:58:56.114800892 +0300
 @@ -27,7 +27,9 @@
  
  def Plugins(**kwargs):
@@ -1343,7 +1343,7 @@ diff -ruN pc/IPTVPlayer/plugin.py 4k/IPTVPlayer/plugin.py
          iconFile = "icons/iptvlogo.png"
 diff -ruN pc/IPTVPlayer/setup/iptvsetupwidget.py 4k/IPTVPlayer/setup/iptvsetupwidget.py
 --- pc/IPTVPlayer/setup/iptvsetupwidget.py	2022-05-18 20:23:48.552553023 +0300
-+++ 4k/IPTVPlayer/setup/iptvsetupwidget.py	2024-03-26 21:21:24.545369533 +0300
++++ 4k/IPTVPlayer/setup/iptvsetupwidget.py	2024-07-20 15:58:56.114800892 +0300
 @@ -30,15 +30,15 @@
  class IPTVSetupMainWidget(Screen):
      IPTV_VERSION = GetIPTVPlayerVerstion()
@@ -1370,7 +1370,7 @@ diff -ruN pc/IPTVPlayer/setup/iptvsetupwidget.py 4k/IPTVPlayer/setup/iptvsetupwi
      def __init__(self, session, autoStart=False):
 diff -ruN pc/IPTVPlayer/skins/2160/playlist.xml 4k/IPTVPlayer/skins/2160/playlist.xml
 --- pc/IPTVPlayer/skins/2160/playlist.xml	1970-01-01 03:00:00.000000000 +0300
-+++ 4k/IPTVPlayer/skins/2160/playlist.xml	2024-03-26 21:21:24.545369533 +0300
++++ 4k/IPTVPlayer/skins/2160/playlist.xml	2024-07-20 15:58:56.115800788 +0300
 @@ -0,0 +1,26 @@
 +<screen position="center,center" size="3840,2160" title="E2iPlayer" flags="wfBorder">
 +     <ePixmap position="340,2080" zPosition="4" size="60,60" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/red.png" transparent="1" alphatest="on" />
@@ -1378,7 +1378,7 @@ diff -ruN pc/IPTVPlayer/skins/2160/playlist.xml 4k/IPTVPlayer/skins/2160/playlis
 +     <ePixmap position="2240,2080" zPosition="4" size="60,60" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/yellow.png" transparent="1" alphatest="on" />
 +     <ePixmap position="3240,2080" zPosition="4" size="60,60" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/IPTVPlayer/icons/blue.png" transparent="1" alphatest="on" />
 +     <widget render="Label" source="key_red" position="410,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
-+     <widget name="key_green_ext" position="1310,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
++     <widget render="Label" source="key_green" position="1310,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
 +     <widget render="Label" source="key_yellow" position="2310,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
 +     <widget render="Label" source="key_blue" position="3310,2080" size="420,54" zPosition="5" valign="center" halign="left" backgroundColor="background" font="Regular;42" transparent="1" foregroundColor="white" />
 +     <widget name="headertext" position="160,140" zPosition="1" size="2800,72" font="Regular;44" transparent="1" backgroundColor="background" foregroundColor="#aaffff" />
@@ -1400,7 +1400,7 @@ diff -ruN pc/IPTVPlayer/skins/2160/playlist.xml 4k/IPTVPlayer/skins/2160/playlis
 +</screen>
 diff -ruN pc/resize.sh 4k/resize.sh
 --- pc/resize.sh	1970-01-01 03:00:00.000000000 +0300
-+++ 4k/resize.sh	2024-03-26 21:21:24.545369533 +0300
++++ 4k/resize.sh	2024-07-20 15:58:56.115800788 +0300
 @@ -0,0 +1,21 @@
 +#!/usr/bin/env bash
 +
