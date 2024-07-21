@@ -28,7 +28,7 @@ fi
 # This is hg 1.2.13
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.13+hg20230710-2.1/xine-lib-1.2_1.2.13+hg20230710.orig.tar.gz
 tar -xvf *.tar.gz
-rm -f *.tar.xz
+rm -f *.tar.gz
 
 if [ -d "$PKG" ]; then
 	echo "-----------------------------------------"
