@@ -1,6 +1,6 @@
 diff -ruN o/configure.ac pc/configure.ac
---- o/configure.ac	2023-07-06 15:17:40.000000000 +0300
-+++ pc/configure.ac	2023-09-26 20:43:27.412298196 +0300
+--- o/configure.ac	2023-07-10 19:46:14.000000000 +0300
++++ pc/configure.ac	2024-07-21 14:42:55.837005519 +0300
 @@ -1709,7 +1709,8 @@
  src/video_out/macosx/Makefile
  src/xine-utils/Makefile
@@ -12,28 +12,1395 @@ diff -ruN o/configure.ac pc/configure.ac
  AC_OUTPUT
  
 diff -ruN o/debian/changelog pc/debian/changelog
---- o/debian/changelog	2023-07-06 15:17:40.000000000 +0300
-+++ pc/debian/changelog	2023-09-26 20:43:27.413298143 +0300
-@@ -1,3 +1,10 @@
-+xine-lib-1.2 (1.2.13+hg-9c988e25c6b4-15282-e2pc) experimental; urgency=low
-+
-+  * Hg snapshot.
-+  * Patched version for e2pc.
-+
-+ -- Torsten Jager <t.jager@gmx.de>  Thu, 06 Jul 2023 14:17:40 +0200
-+
- xine-lib-1.2 (1.2.9+hg-0) experimental; urgency=low
+--- o/debian/changelog	2023-07-10 19:46:14.000000000 +0300
++++ pc/debian/changelog	2024-07-21 15:30:04.844972765 +0300
+@@ -1,42 +1,1339 @@
+-xine-lib-1.2 (1.2.9+hg-0) experimental; urgency=low
++xine-lib-1.2 (1.2.13+release-1.2.13-e2pc) unstable; urgency=high
  
-   * Hg snapshot.
+-  * Hg snapshot.
++  * Patched version for enigma2
++  * QA upload.
++  * debian/libxine2-misc-plugins.install: Also install plugins:
++
++ -- Boyuan Yang <byang@debian.org>  Wed, 23 Feb 2022 21:38:50 -0500
++
++xine-lib-1.2 (1.2.11-2) unstable; urgency=high
++
++  * QA upload.
++  * debian/libxine2-misc-plugins.install: Also install plugins:
++    + xineplug_decode_dav1d.so
++    + xineplug_decode_libaom.so
++    (Closes: #1006073)
++
++ -- Boyuan Yang <byang@debian.org>  Wed, 23 Feb 2022 21:38:50 -0500
++
++xine-lib-1.2 (1.2.11-1) unstable; urgency=medium
++
++  * QA upload.
++  * New upstream release 1.2.11.
++
++  [ Debian Janitor ]
++  * Remove constraints unnecessary since stretch.
++
++  [ Boyuan Yang ]
++  * debian/control: Bump Standards-Version to 4.6.0.
++  * debian/patches: Refresh patches.
++  * debian/patches/0001-Fix-ftbfs-with-gcc-10.patch,
++    debian/patches/0003-fix-non-Linux-build.patch: Dropped, merged upstream.
++  * debian/libxine2-misc-plugins.install.install:
++    Also install the newly-split xineplug_decode_to_spdif.so plugin.
++  * debian/libxine2-bin.lintian-overrides: Refresh lintian warning
++    override for "groff-message usr/share/man/man5/xine.5.gz" and
++    "symbols-declares-dependency-on-other-package libxine2".
++  * debian/changelog: Use correct email address for 1.0.1-1 changelog
++    entry (lintian error).
++  * debian/libxine2-bin.symbols: Add new symbols.
++
++ -- Boyuan Yang <byang@debian.org>  Tue, 05 Oct 2021 07:53:33 -0400
++
++xine-lib-1.2 (1.2.10-4) unstable; urgency=medium
++
++  * QA upload.
++  * Do install the xineplug_vo_gl_egl_x11 plugin on non-linux, and exclude
++    xineplug_vo_gl_egl_wl on all non-linux, not just hurd-i386.
++  * Drop dh_makeshlibs override, relying on the dh compat 12 default to keep
++    the -V option.
++  * Mark libxine2-dev as Multi-Arch:same.
++  * Remove now unused lintian override.
++
++ -- Mattia Rizzolo <mattia@debian.org>  Mon, 08 Jun 2020 19:32:30 +0200
++
++xine-lib-1.2 (1.2.10-3) unstable; urgency=medium
++
++  * QA upload.
++  * Add Breaks and Replaces closes: #961509
++  * Exclude more files from hurd-i386
++
++ -- Håvard Flaget Aasen <haavard_aasen@yahoo.no>  Wed, 03 Jun 2020 11:47:36 +0200
++
++xine-lib-1.2 (1.2.10-2) unstable; urgency=medium
++
++  * QA upload.
++  * Update year in d/copyright
++  * Bump debhelper to 13
++    - Remove override_dh_missing
++  * Remove xineplug_decode_qt.so from d/libxine2-misc-plugins.install
++  * Add 0003-fix-non-Linux-build.patch
++
++ -- Håvard Flaget Aasen <haavard_aasen@yahoo.no>  Sat, 23 May 2020 22:04:51 +0200
++
++xine-lib-1.2 (1.2.10-1) unstable; urgency=medium
++
++  * QA upload.
++  [ Ondřej Nový ]
++  * d/watch: Use https protocol
++
++  [ Håvard Flaget Aasen ]
++  * New upstream version
++  * Add 0001-Fix-ftbfs-with-gcc-10.patch closes: #957982
++  * Add 0002-Fix-spelling-error.patch
++  * Update Standards-Version to 4.5.0
++  * Change to debhelper-compat
++  * Remove override_dh_installchangelogs
++  * Update path to mime.types in d/not-installed
++  * debian/libxine2-bin.symbols:
++    - Add Build-Depends-Field
++    - Add new symbols for 1.2.10
++  * debian/control
++    - Bump debhelper to 12
++    - Use secure URI on homepage
++    - Remove obsolete *.doc package under Recommends
++    - Remove package from Suggested field, no longer in Debian
++    - Move libxine2-doc from Recommends to Suggests in d/control
++  * debian/*.install
++    - Update after joining 3 video plugins
++    - Add libpng decoder
++    - Add OpenGL, EGL and Wayland support
++  * Remove folder from d/libxine2-doc.docs
++  * Mark *-doc package as main-doc-package in d/rules
++  * Move xine.5 man-page to libxine2-bin
++
++ -- Håvard Flaget Aasen <haavard_aasen@yahoo.no>  Sun, 26 Apr 2020 17:28:13 +0200
++
++xine-lib-1.2 (1.2.9-1) unstable; urgency=medium
++
++  * QA upload.
++  * New upstream version.
++    - Fixes FTBFS with FFmpeg 4.0. (Closes: #888327)
++    - Fixes FTBFS on x32. (Closes: #883298)
+ 
+- -- Darren Salt <devspam@moreofthesa.me.uk>  Wed, 27 Jun 2018 16:37:30 +0100
++  * debian/copyright:
++    - Update for 1.2.9.
++  * debian/control:
++    - Migrate Vcs to salsa.debian.org.
++    - Remove unused shlibs:{Recommends,Suggests} from libxine2-bin.
++    - Add missing perl:Depends to libxine2-dev.
++    - Bump standards version to 4.1.3.
++  * debian/libxine2-bin.symbols:
++    - Add new symbols for 1.2.9.
++  * debian/libxine2-misc-plugins.install:
++    - Merge network plugins into a single file.
++  * debian/not-installed:
++    - Update path to mime.types.
++
++ -- James Cowgill <jcowgill@debian.org>  Tue, 27 Mar 2018 00:48:56 +0100
++
++xine-lib-1.2 (1.2.8-2) unstable; urgency=medium
++
++  * QA upload.
++  * Upload to unstable.
++  * Update the libxine2-bin lintian override to match the last changes.
++
++ -- Mattia Rizzolo <mattia@debian.org>  Tue, 28 Nov 2017 11:32:02 +0100
++
++xine-lib-1.2 (1.2.8-1) experimental; urgency=medium
++
++  * QA upload.
++  * New upstream version 1.2.8.
++  * debian/copyright: rewrite using copyright-format 1.0 and greatly enlarge
++    with many missing attributions.  Closes: #532463
++  * Remove all patches, all applied upstream.
++  * Update symbols fom libxine2 1.2.8.
++  * debian/*.install:
++    + Update for the new release.
++    + Stop installing the obsoleted xine-config script.
++  * debian/control:
++    + Add new build-dependency on libdvdnav-dev.
++    + Make the description of libxine2-bin longer.
++    + Remove relentionship with very old package versions, now unneeded.
++    + Add a bunch of Multi-Arch:same markers.
++  * debian/rules:
++    + Force use of external libdvdnav.
++    + Bump shlibs version.
++  * Add lintian override for non-fixable manapge-has-errors-from-man.
++
++ -- Mattia Rizzolo <mattia@debian.org>  Wed, 22 Nov 2017 20:50:49 +0100
++
++xine-lib-1.2 (1.2.6-4) unstable; urgency=medium
++
++  * QA upload.
++  * Upload to unstable.
++  * debian/control:
++    + Mark libxine2-doc as Multi-Arch:foreign.
++    + Mark libxine2 as Multi-Arch:same.
++
++ -- Mattia Rizzolo <mattia@debian.org>  Mon, 13 Nov 2017 18:44:41 +0100
++
++xine-lib-1.2 (1.2.6-3) experimental; urgency=medium
++
++  * QA upload.
++  * Further restrict the installation of some plugins not available on
++    !linux-any.
++
++ -- Mattia Rizzolo <mattia@debian.org>  Sun, 12 Nov 2017 23:44:53 +0100
++
++xine-lib-1.2 (1.2.6-2) experimental; urgency=medium
++
++  * QA upload.
++  * debian/control:
++    + Orphan the package, see #881514.
++    + Set Vcs fields to a git repository in collab-maint.
++    + wrap-and-sort -ast.
++    + Change priority from extra (deprecated in policy 4.0.1) to optional.
++    + Appease lintian: s/meta-package/metapackage/.
++    + Bump Standards-Version to 4.1.1.
++    + Declare that xine-lib-1.2 doesn't need root to build: R³:no.
++  * debian/watch: fix the matching pattern.
++  * debian/rules:
++    + Use dh_lintian to install the lintian overrides.
++    + Convert the file to use the dh sequencer.
++    + Run dh_missing --fail-missing and add a debian/not-installed file.
++    + Enable hardening
++    + Drop special cases for MIPS and SPARC, to check if they are still needed.
++  * Add DEP-3 header to munmap.patch.
++  * Also install the inp_pvr plugin that is being built.
++  * Bump debhelper compat level to 10:
++    + Drop --with autoreconf, now default.
++    + Drop --parallel, now default.
++  * Use dh-exec to install some i386-specific plugins.
++  * Enable multiarch installation of the libraries.  Closes: #876026
++  * Disable the ESD and GnomeVFS plugins, as the related libraries are
++    deprecated.  Closes: #856093, #868407
++
++ -- Mattia Rizzolo <mattia@debian.org>  Sun, 12 Nov 2017 20:28:52 +0100
++
++xine-lib-1.2 (1.2.6-1.3) unstable; urgency=medium
++
++  * Non-maintainer upload.
++  * xcb.patch: New, from upstream, fix linking with new xcb versions.
++    (Closes: #839371)
++  * munmap.patch: New, correctly call munmap() on a previously mmap()ed
++    location.  (Closes: #773966)
++  * Drop -dbg package in favor of autogenerated -dbgsym packages.
++  * Use dpkg default compression.
++
++ -- Andreas Beckmann <anbe@debian.org>  Tue, 10 Jan 2017 18:43:36 +0100
++
++xine-lib-1.2 (1.2.6-1.2) unstable; urgency=medium
++
++  * Non-maintainer upload.
++
++  [ Santiago Vila ]
++  * Add build-arch and build-indep targets. (Closes: #822038)
++
++ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 04 Sep 2016 11:49:58 +0200
++
++xine-lib-1.2 (1.2.6-1.1) unstable; urgency=medium
++
++  * Non-maintainer upload.
++  * Build without samba support on hurd-i386.  (Closes: #815354)
++  * Add support for FFmpeg 2.9, thanks to Andreas Cadhalpun.  (Closes: #803873)
++
++ -- Andreas Beckmann <anbe@debian.org>  Thu, 10 Mar 2016 14:43:17 +0100
++
++xine-lib-1.2 (1.2.6-1) unstable; urgency=medium
++
++  * New upstream release.
++    - Fixes FTBFS with libcaca 0.99 beta 19. (Closes: #749741)
++  * Don't depend on libva-dev on hurd-i386. (Closes: #748379)
++  * Simplify build dependency logic (convert to linux-any). (Ref. #748379)
++  * Tighten dependencies on libxine2-bin. (Closes: #743961, #743964)
++  * Policy compliance:
++    - bump standards version to 3.9.5
++    - remove DM-Upload-Allowed
++    - override lintian embedded library error (libmms): needs upstream work
++    - update symbols files; remove Debian revisions where appropriate
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Sun, 06 Jul 2014 17:16:49 +0100
++
++xine-lib-1.2 (1.2.5-1) unstable; urgency=medium
++
++  * New upstream release.
++    - Works with libav10. (Closes: #739458)
++    - Dropped patches since all are present upstream.
++    - libvpx plugin is added to libxine2-misc-plugins.
++  * Pulled in autoreconf changes fron Ubuntu.
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Tue, 08 Apr 2014 16:54:59 +0100
++
++xine-lib-1.2 (1.2.4-2) unstable; urgency=low
++
++  * vaapi isn't built (by default) on kfreebsd-*, so don't try to install it.
++    (Closes: #725071)
++  * Avoid a possible build failure in the vaapi plugin (delay code).
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Tue, 01 Oct 2013 21:32:41 +0100
++
++xine-lib-1.2 (1.2.4-1) unstable; urgency=low
++
++  * New upstream release.
++    - New plugins:
++      + vaapi (output), in libxine2-x. (New build-dep on libva-dev.)
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Tue, 24 Sep 2013 01:36:06 +0100
++
++xine-lib-1.2 (1.2.3-1) unstable; urgency=low
++
++  * New upstream release.
++    - Some fixes for large images & Xv. (Closes: #666742)
++    - Works with libav 0.9 (I hope). (Closes: #693075)
++    - New plugins:
++      + test (input), in libxine2-misc-plugins;
++      + libjpeg (decoder), in libxine2-misc-plugins;
++      + opengl2 (output), in libxine2-x.
++  * Switch to xz for .deb compression.
++  * Drop old patches since they were all from the upstream repository.
++  * Fix configuration so that the xvmc video output plugin is built.
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Wed, 29 May 2013 16:07:29 +0100
++
++xine-lib-1.2 (1.2.2-4) unstable; urgency=low
++
++  * Backported patches from upstream:
++    - Fix raw YUV decoding.
++    - Fix greedy2frame SSE2 when only 4 registers are available.
++    - Add missing string termination (FourCC).
++    - Free all DR1 frames (affects VP6, WMV).
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Sat, 30 Jun 2012 19:12:11 +0100
++
++xine-lib-1.2 (1.2.2-3) unstable; urgency=low
++
++  * debian/control didn't have my new address...
++  * Update VCS headers to point at the shiny new all-in-one repository.
++  * Update home page...
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Sun, 10 Jun 2012 19:14:07 +0100
++
++xine-lib-1.2 (1.2.2-2) unstable; urgency=low
++
++  * Fix FTBFS on !x86* (upstream patch 0001-fix-non-x86-build.patch).
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Sun, 10 Jun 2012 18:29:00 +0100
++
++xine-lib-1.2 (1.2.2-1) unstable; urgency=low
++
++  * New upstream release.
++    - Patches dropped (no longer needed).
++    - Now uses rsvg-convert. (Closes: #666485)
++      However, rsvg-convert isn't a drop-in replacement for rsvg.
++    - Goom visualisation plugin double-free when playing some AAC files is
++      fixed. (Closes: #662037)
++    - Have xine-list-1.2 not write ~/.xine/catalog.cache. (Closes: #658111)
++
++ -- Darren Salt <devspam@moreofthesa.me.uk>  Sat, 09 Jun 2012 20:53:14 +0100
++
++xine-lib-1.2 (1.2.1-2) unstable; urgency=low
++
++  * Removed the 'development version' info from the package descriptions.
++    That's not been true since 1.2.0 was released.
++  * Lintian warning fixups:
++    - Adjusted package descriptions.
++  * Added a symbols file for libxine2-bin.
++  * Build-depend on libpng-dev. (Closes: #662560)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 27 Mar 2012 22:50:01 +0100
++
++xine-lib-1.2 (1.2.1-1) unstable; urgency=low
++
++  * New upstream release.
++    - All patches dropped. Either they're from upstream anyway or they no
++      longer matter.
++  * For those interested in the source: new packaging repository :-)
++    - No longer use monolithic patching. That worked well with
++      hg-buildpackage, but seems not to with mercurial-buildpackage.
++  * Put libxine2-x and libxine2-console in section 'video'. (Bug 657118)
++  * Remove libxine2-plugins dependency on libxine2. (Closes: #658179)
++  * Removed unnecessary dependencies from libxine2-dev.
++  * Got the DVB plugin working again. (upstream_dvb-fix-endianness.patch)
++    (Closes: #658709)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Wed, 08 Feb 2012 22:24:54 +0000
++
++xine-lib-1.2 (1.2.0-5) unstable; urgency=low
++
++  * Upload to unstable.
++  * libxine-dev is now libxine2-dev, so that libxine-dev (1.1) can remain
++    for a while longer.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Wed, 25 Jan 2012 00:23:53 +0000
++
++xine-lib-1.2 (1.2.0-4) experimental; urgency=low
++
++  * Enable BluRay support.
++  * Simplify dep on libjack-dev, but prefer libjack-jackd2-dev.
++  * Enable hardened build flags.
++  * Correctly install xine.pm for 'dh --with xine'. (Closes: #636910)
++  * xine-list-1.2 no longer causes catalog.cache to be written. (Closes: #656501)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sun, 22 Jan 2012 21:03:47 +0000
++
++xine-lib-1.2 (1.2.0-3) experimental; urgency=low
++
++  * This time, with autoreconf.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 03 Jan 2012 17:24:32 +0000
++
++xine-lib-1.2 (1.2.0-2) experimental; urgency=low
++
++  * Enable JACK, VDPAU and PulseAudio on hurd-i386. (Closes: #654191)
++  * Whoops. Forgot to update shlibs info, causing installation fail.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 03 Jan 2012 00:12:19 +0000
++
++xine-lib-1.2 (1.2.0-1) experimental; urgency=low
++
++  * New upstream release.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sun, 01 Jan 2012 21:24:50 +0000
++
++xine-lib-1.2 (1.1.90hg+20110516+847d4f89a4fb-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    - Plus a few small build fixes.
++  * Use GraphicsMagick instead of ImageMagick, making this bug irrelevant:
++    (Closes: #625554)
++  * Don't try to install the PVR or V4L input plugins (not built).
++  * Force use of libav 0.7. Not strictly necessary, but good for testing.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Mon, 16 May 2011 16:25:31 +0100
++
++xine-lib-1.2 (1.1.90hg+20100720+609066b321de-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++  * Temporarily disable the "broken libmodplug 0.8.8" check.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 20 Jul 2010 19:58:02 +0100
++
++xine-lib-1.2 (1.1.90hg+20100309+8d16822f2be7-7) experimental; urgency=low
++
++  * Don't depend on libpulse-dev on hurd-i386.
++  * Add dh 7 support (dh --with xine).
++  * Allow dh_xine to take package name suffixes.
++    The defaults are 'x' and 'console'.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 30 Mar 2010 19:03:14 +0100
++
++xine-lib-1.2 (1.1.90hg+20100309+8d16822f2be7-6) experimental; urgency=low
++
++  * More FTBFS fun.
++  * Correct addition of --enable-libv4l and *don't* install V4L2 on kfreebsd.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sat, 20 Mar 2010 22:27:32 +0000
++
++xine-lib-1.2 (1.1.90hg+20100309+8d16822f2be7-5) experimental; urgency=low
++
++  * Enable the JACK plugin and install the V4L2 plugin on kfreebsd-*.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sat, 20 Mar 2010 15:37:25 +0000
++
++xine-lib-1.2 (1.1.90hg+20100309+8d16822f2be7-4) experimental; urgency=low
++
++  * Enable vcdo & pulseaudio plugins on kfreebsd-*.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sat, 20 Mar 2010 01:20:56 +0000
++
++xine-lib-1.2 (1.1.90hg+20100309+8d16822f2be7-3) experimental; urgency=low
++
++  * Enable VDPAU on kfreebsd-*. (Attempt 2.)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Fri, 19 Mar 2010 22:31:31 +0000
++
++xine-lib-1.2 (1.1.90hg+20100309+8d16822f2be7-2) experimental; urgency=low
++
++  * Enable VDPAU on kfreebsd-*; don't try to install it on hurd-i386.
++  * On Linux, use libv4l.
++  * Tell dpkg-source to use a single patch file.
++  * Add build-dep on libfaad-dev.
++  * Remove obsolete Conflicts/Replaces on libxine-extracodecs.
++  * Tidy up dh_clean invocation.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Wed, 10 Mar 2010 14:11:07 +0000
++
++xine-lib-1.2 (1.1.90hg+20100309+8d16822f2be7-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    - Synced with 1.1.18.1.
++    - 1.1.17 works with the new mpcdec API, so this should too.
++      (Closes: #520600)
++  * GNU/Hurd build changes ported from 1.1.17.
++  * debian/rules:
++    - don't set CFLAGS (defaults are fine);
++    - add --enable-debug if DEB_BUILD_OPTS contains 'noopt'.
++  * Put new plugins in the appropriate places: VDPAU in libxine2-x, VC1ES
++    demuxer in libxine2-ffmpeg, V4L2 input in libxine2-misc-plugins.
++  * Build-depend on libvdpau-dev.
++  * Bump standards version to 3.8.4.
++    - Depend on ${misc:Depends} everywhere.
++    - Put libxine2-dbg in section 'debug'.
++    - Tighten dependency of libxine-dev on libxine2-bin.
++      (Closes: #478026, #529361)
++    - Ignore a few warnings related to how the binaries and documentation
++      are split between packages.
++  * Don't try to install the DVB plugin on kfreebsd-* since it's not built
++    there. (Closes: #565815)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 09 Mar 2010 16:44:02 +0000
++
++xine-lib-1.2 (1.1.90hg+20091119+7af2793bc117-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    - Synced with 1.1 hg (includes 1.1.16.3).
++  * Add dh_xine, for use when building front ends.
++  * Add hdmv subtitles decoder to -misc-plugins.
++  * Switch to source format v3 (quilt).
++  * [Build] Remove po/Makevars.extra when cleaning up.
++  * Have libxine2 depend on libxine2-bin (for /usr/share/doc symlinking).
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Thu, 19 Nov 2009 16:45:43 +0000
++
++xine-lib-1.2 (1.1.90hg+20090218+678f7a60fde4-3) experimental; urgency=low
++
++  * libmpeg2new build fix on sparc & alpha.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 03 Mar 2009 20:12:17 +0000
++
++xine-lib-1.2 (1.1.90hg+20090218+678f7a60fde4-2) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    - Synced with the 1.1.16.2 release; contains all relevant security fixes.
++  * Oops. The sparc-specific hack caused configure to be run twice, thus not
++    actually fixing the problem at all. The hack needs to be undone in the
++    clean target, after running "make distclean".
++    (Closes: #453158, #460633.)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Wed, 18 Feb 2009 13:22:36 +0000
++
++xine-lib-1.2 (1.1.90hg+20090118+608e90e5e160-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    - Synced with the 1.1.16.1 release; contains all relevant security fixes.
++  * Added --build & --host to the configure flags.
++  * Really ugly hack to try to get this building on sparc.
++    (Bugs 453158 & 460633.)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sun, 18 Jan 2009 17:37:31 +0000
++
++xine-lib-1.2 (1.1.90hg+20090116+01754b5a1b0e-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    - Synced with the 1.1.16 release; contains all relevant security fixes.
++    - Dropped JACK output diff, which hasn't been needed for a while.
++    - Dropped PulseAudio output priority reversion.
++    - Bumped ffmpeg dependencies to require the versions in experimental.
++  * Install the mpeg2new decoder (not that it currently works very well).
++  * Install the "raw" video output plugin in -misc-plugins.
++  * Remove the dependency on libjack0.100.0-dev and limit to non-broken
++    versions (though no problems are expected).
++  * Revert an upstream change which breaks building with ImageMagick in
++    experimental.
++  * Standards version 3.8.0.
++    - Tweaked dependency on libcdio-dev to quieten lintian.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Fri, 16 Jan 2009 17:05:15 +0000
++
++xine-lib-1.2 (1.1.90hg+20080814+4542a8b61c15-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    (cset 4542a8b61c1518bc92ce1a76f5bac9a08f5b576f)
++    - Synced with the 1.1.15 release; contains all relevant security fixes.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Thu, 14 Aug 2008 23:31:22 +0100
++
++xine-lib-1.2 (1.1.90hg+20080612+4062642bf8eb-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    (cset 4062642bf8ebf409ecb38d21680d18d9eb62d0c1)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Thu, 12 Jun 2008 03:23:47 +0100
++
++xine-lib-1.2 (1.1.90hg+20080524+5e58815f81a9-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    (cset 5e58815f81a9a8c1d7cdeba19da83d7ef7d07260)
++  * Don't link with libstdc++ or libm when linking with libmodplug.
++    (Workaround for bug 457278 and buggy build environments, fixing FTBFS.)
++  * Build-depend on libmagickwand-dev instead of libmagick9-dev.
++  * Resync debian/* with 1.1; distribute xine-lib-1.2.
++  * Disabled nsf.
++  * Replaced the JACK audio-put plugin (bug 462663).
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sat, 24 May 2008 20:23:30 +0100
++
++xine-lib-1.2 (1.1.90hg+20080402+f29350241e48-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    (cset f29350241e4875e5e2df3715830a0926bea94680)
++    - Synced with the 1.1.11.1 release; contains all relevant security fixes.
++  * Restore pulseaudio priority (changed since 1.1.11.1) to its 1.1.11.1
++    value. Otherwise, things break when pulseaudio isn't running.
++  * Bump minimum versions on the build-depends on ffmpeg -dev packages so
++    that the packages in experimental are used.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Wed, 02 Apr 2008 21:06:42 +0100
++
++xine-lib-1.2 (1.1.90hg+20080321+5ac9723858b2-1) experimental; urgency=low
+ 
+-xine-lib-1.2 (1.2.8+hg-0) experimental; urgency=low
++  * 1.2.x development branch snapshot.
++    (cset 5ac9723858b289882a26cd006c08a51d7a76e784)
++    - Synced with the 1.1.11 release; contains all relevant security fixes.
+ 
+-  * Hg snapshot.
+-  * Adjust for libxine2.
+-  * libxine-dev → libxine2-dev.
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Fri, 21 Mar 2008 00:18:41 +0000
+ 
+- -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sun, 26 Feb 2017 00:57:46 +0000
++xine-lib-1.2 (1.1.90hg+20080229+9fc6fdc5c795-1) experimental; urgency=low
+ 
+-xine-lib (1.1.21~hg-0) unstable; urgency=low
++  * 1.2.x "St. Tib's Day" development branch snapshot.
++    (cset 9fc6fdc5c7959b3a2df03c0740377b4424e28c44)
++  * Using bzip2 compression for the .debs.
+ 
+-  * Hg snapshot (dev build). Changelog is irrelevant :-)
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Fri, 29 Feb 2008 19:53:46 +0000
+ 
+- -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 17 Jan 2012 19:06:22 +0000
++xine-lib-1.2 (1.1.90hg+20080214+db71e67bee03-1) experimental; urgency=low
+ 
+-xine-lib (1.1.5~cvs-0) unstable; urgency=low
++  * 1.2.x development branch snapshot.
++    (cset db71e67bee037142234750a216597c7811cc7df5)
++    - CVE-2008-0486: Array index vulnerability which may allow remote
++      attackers to execute arbitrary code via a crafted FLAC tag, which
++      triggers a buffer overflow. (Closes: #464696)
+ 
+-  * CVS snapshot.
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Thu, 14 Feb 2008 22:17:50 +0000
++
++xine-lib-1.2 (1.1.90hg+20080127+4dbd3fc1ce2b-1) experimental; urgency=low
++
++  * 1.2.x development branch snapshot.
++    (cset 4dbd3fc1ce2b9a6102247159cb56a7cb0e9d6be8)
++    - SECURITY FIX: ASF header-parsing overflow (related to CVE-2006-1664)
++    - syncfb plugin has been removed
++  * Start including the cset ID in the version no.
++  * Put libxine2-doc back in section doc. I'd moved it to match the
++    override... Also, correct libxine2-dev -> doc (20080111-1 entry).
++  * Patches dropped (already committed upstream).
++  * Standards version 3.7.3 (no changes needed).
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Mon, 28 Jan 2008 01:16:06 +0000
++
++xine-lib-1.2 (1.1.90hg+20080111-1) experimental; urgency=low
++
++  [Darren Salt]
++  * 1.2 development branch snapshot.
++    (cset 1dad98a822c64406810fff529669bfc6f2509a9e)
++    - SECURITY FIX: rtsp header-parsing overflow (CVE-2008-0225)
++  * Put libxine2-doc in section libdevel.
++  * Adjust libxine2-vdr & libxine2-misc-plugins install files for recent
++    changes in the vdr & sputext plugins' organisation.
++  * Patches from upstream:
++    - fix some WMV rendering bugs (cset 4ea95338a408)
++  * Have libxine-dev depend on pkg-config. This is needed for xine-config.
++  * Add the Technotrend PVA demuxer to libxine2-misc-plugins.
++
++  [Reinhard Tartler]
++  * Bug fix: "FTBFS with dpkg-buildpackage -j; build target doesn't properly
++    depend on configure target", thanks to Michel Dänzer (Closes: #457281).
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sun, 13 Jan 2008 13:27:40 +0000
++
++xine-lib-1.2 (1.1.90hg+20071219-1) experimental; urgency=low
++
++  [Darren Salt]
++  * 1.2 development branch snapshot.
++    (cset b4c8c6b8358f873afc46152075c76aebf820cbdf)
++  * Port changes from the 1.1.x branch:
++    - libxine2-dbg was missing some debug symbols. Fixed by building it
++      after xine-lib's other arch:any packages.
++    - Introduce a new package, libxine2-bin, which contains the binaries
++      formerly in libxine2. Dependencies are moved and updated accordingly.
++    - Except for libxine2-doc, libxine2-bin and libxine-dev, symlink to
++      libxine2-bin's documentation. (AUTHORS is now in libxine2-bin.)
++    - Add libxine2-all-plugins; drop dependency on libxine2-gnome from
++      libxine2-plugins. (Bug 454162)
++    - Adjust dependencies on libxine2-dev and libxine2-dbg.
++    - Typo "a various plugins" in package description. (Bug 455067)
++  * Re-add the pulseaudio plugin (it's been somewhat rewritten).
++  * Add the playlist demux plugin.
++
++  [ Reinhard Tartler ]
++  * Add DM-Upload-Allowed: yes field to debian/control.
++  * Remove automake, autoconf and libtool from build-dependencies.
++  * remove libartsc0-dev from build depends.
++  * readd libpuse-dev build depends.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Wed, 19 Dec 2007 17:39:10 +0000
++
++xine-lib-1.2 (1.1.90hg+20071125-1) experimental; urgency=low
++
++  [ Darren Salt ]
++  * 1.2 development branch snapshot.
++    (cset 0b1ecd21a6263d065aa76152de340dc33a6274f7)
++  * Drop build dependency on gs.
++
++  [ Reinhard Tartler ]
++  * Add build dependency on libvcdinfo-dev
++  * remove the pulse audio plugin, as done in the upload to unstable.
++
++ -- Reinhard Tartler <siretart@tauware.de>  Mon, 26 Nov 2007 13:49:48 +0100
++
++xine-lib-1.2 (1.1.90hg+20071025-1) UNRELEASED; urgency=low
++
++  * 1.2 development branch snapshot.
++    (cset ae9a2fddb2b6b50dab2a7ac649b2307719c78fe2)
++  * Pull in changes, post 1.1.8-1, which aren't already present:
++    - Move libxine2-doc into section "doc".
++    - Improve package descriptions a bit; in particular, a grammatical
++      correction for libxine2-console, and an extra sentence describing common
++      uses of libxine2-ffmpeg.
++    - New packages "libxine2-x" and "libxine2-misc-plugins";
++      dependencies updated accordingly.
++    - Remove outdated alternative dependencies from libxine-dev.
++    - Move the fb video output plugin into libxine2-console.
++    - Add Homepage field to debian/control
++    - Extra MPEG video identifier (seen in an AVI).
++  * Unlike 1.1.8-2, no dependencies on libxine2-x or libxine2-console.
++  * Correct a few errors in the changelog entry for the previous upload.
++  * Tighten the dependencies of libxine1 and libxine1-plugins on libxine1-*
++    packages.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Mon, 29 Oct 2007 18:12:54 +0000
++
++xine-lib-1.2 (1.1.90hg+20070930-1) experimental; urgency=low
++
++  [ Darren Salt ]
++  * 1.2 development branch snapshot.
++    (cset 717b46d826e66cb37632dab4f7a1ad78fdaa17cd)
++  * Adjust installed files to reflect merged/renamed demuxer & decoder
++    plugins.
++  * New package libxine2-vdr.
++
++  [ Reinhard Tartler ]
++  * use dh_listpackages(1) instead of hardcoded list in debian/rules
++  * remove workaround for mips. That should be fixed by now.c
++  * make libxine-dev arch: any. Rationale: This breaks building frontends
++    on architectures on which xine-lib is not up-to-date (yet).
++
++ -- Reinhard Tartler <siretart@tauware.de>  Tue, 02 Oct 2007 14:35:57 +0200
++
++xine-lib (1.1.12-3) unstable; urgency=low
++
++  * Build-depend on libmagick9-dev | libmagick-dev | libmagickwand-dev.
++  * Fixes from upstream hg:
++    - Fix display of some MJPEG streams.
++    - Fix a title usage bug in the ogg demuxer.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Thu, 22 May 2008 23:01:57 +0100
++
++xine-lib (1.1.12-2) unstable; urgency=high
++
++  * Fixes from upstream hg:
++    - CVE-2008-1878: Buffer overflow in the NSF demuxer which may allow
++      remote attackers to cause a denial of service (crash) or possibly
++      execute arbitrary code via an NSF file with a long title or copyright
++      message.
++      (Our chosen option is to patch and disable this code.)
++    - Backport more calloc usage from the 1.2 branch for extra safety
++      against possible integer overflows such as found in CVE-2008-1482.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sun, 27 Apr 2008 14:20:41 +0100
++
++xine-lib (1.1.12-1) unstable; urgency=high
++
++  * New upstream release.
++    - CVE-2008-1686: Insufficient boundary check in speex audio decoder.
++    - New tool "xine-list-1.1", which front-end maintainers will find useful
++      for updating .desktop files at install time and in conjunction with
++      dpkg triggers.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Mon, 14 Apr 2008 23:39:44 +0100
++
++xine-lib (1.1.11.1-3) unstable; urgency=medium
++
++  * Fixes from upstream hg:
++    - Matroska demuxer regression. (Closes: #474316)
++    - PulseAudio plugin backported & re-enabled.
++      This takes precedence over ALSA, but falls back cleanly.
++  * Re-enabled & replaced the JACK audio-put plugin. (Closes: #462663)
++    This has not yet been committed upstream.
++  * Don't link with libstdc++ or libm when linking with libmodplug.
++    (Workaround for bug 457278 and buggy build environments, fixing FTBFS.)
++  * Urgency=medium; t-p-u has a security-patched version, but it also has
++    backported bugs...
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Wed, 09 Apr 2008 15:35:07 +0100
++
++xine-lib (1.1.11.1-2) unstable; urgency=high
++
++  * Fixes from upstream hg:
++    - Quicktime demuxer regression. (Closes: #473499, #473631)
++    - Wavpack MIME type information.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Tue, 01 Apr 2008 15:05:02 +0100
++
++xine-lib (1.1.11.1-1) unstable; urgency=high
++
++  * New upstream release.
++    - CVE-2008-1482: integer overflows in FLV, Qt, Real, WC3Movie, Matroska
++      and FILM demuxers, allowing remote attackers to trigger heap overflows
++      and possibly execute arbitrary code. (Closes: #472639)
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sun, 30 Mar 2008 15:15:04 +0100
++
++xine-lib (1.1.11-1) unstable; urgency=high
++
++  * New upstream release.
++    - CVE-2008-0073: Array index vulnerability which may allow remote
++      attackers to execute arbitrary code via a crafted SDP parameter in an
++      RTSP stream.
++    - DVD reader code no longer uses UDF-provided file sizes as
++      authoritative. (Closes: #463177)
++
++  [Darren Salt]
++  * Remove the versioning from the libmagick9-dev build-dep.
++  * Disable the pulseaudio plugin (don't build, don't install) and remove
++    the build-dep on libpulse-dev for now due to instability: xine-lib has
++    been observed closing the stream due to audio problems.
++    (Closes: #471676)
++
++  [ Reinhard Tartler ]
++  * add support for 'parallel' keyword in DEB_BUILD_OPTIONS
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Thu, 20 Mar 2008 22:39:24 +0000
++
++xine-lib (1.1.10.1-2+lenny2) testing-security; urgency=high
++
++  * Non-maintainer upload by the Security Team.
++  * This update addresses the following security issues:
++    - CVE-2008-1878: stack-based buffer overflow in nsf demuxer that
++      allows execution of arbitrary code via a crafted title (Closes: #476990)
++    - CVE-2008-1686: insufficient boundary checking on a header structure that
++      is read from user input could lead to arbitrary code to arbitrary
++      code execution via negative values (Closes: #475152).
++    - CVE-2008-0073: stack-based buffer overflow in subtitle parsing could
++      lead to arbitrary code execution via a crafted subtitle
++      file (Closes: #473057).
++
++ -- Nico Golde <nion@debian.org>  Sun, 04 May 2008 13:20:43 +0200
++
++xine-lib (1.1.10.1-2+lenny1) testing-security; urgency=high
++
++  * Non-maintainer upload by the Security Team.
++  * Fix various integer overflows in FLV, Qt, Real, WC3Movie, Matroska and FILM
++    demuxers, allowing remote attackers to trigger heap overflows and
++    possibly execute arbitrary code and other possible NULL pointer
++    dereferences caused my missing alloc checks.
++    (CVE-2008-1482; Closes: #472639)
++
++ -- Nico Golde <nion@debian.org>  Tue, 01 Apr 2008 14:38:40 +0200
++
++xine-lib (1.1.10.1-2) unstable; urgency=low
++
++  [Darren Salt]
++  * libxine-dev: backport an m4 version-parsing fix from hg.
++  * Fixed an off-by-one (introduced in the security fix) which breaks
++    playback of some FLAC files. (Closes: #466746)
++  * Versioned build-dep on libmagick9-dev (for libmagick10). (Closes: #466681)
++    Add libmagick-dev as an alternative, with the same version requirement.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Wed, 20 Feb 2008 23:43:05 +0000
++
++xine-lib (1.1.10.1-1) unstable; urgency=high
++
++  * New upstream release.
++    - CVE-2008-0486: Array index vulnerability which may allow remote
++      attackers to execute arbitrary code via a crafted FLAC tag, which
++      triggers a buffer overflow. (Closes: #464696)
++    - Real codec detection was looking in the wrong places. (Closes: #462964)
+ 
+   [Darren Salt]
+-  * Resync build deps with 1.1.4-2.
+-  * Add or update some minimum version numbers.
+-  * Add a build dependency on libdirectfb-dev.
++  * Add pkg-config dependency to libxine-dev, fixing xine-plugin FTBFS.
++    (Closes: #464178, #464321)
++  * Put libxine1-doc back into section doc until somewhere better is created
++    for it. (Closes: #462710)
++  * No longer build-conflict with libxine-dev from xine-lib-1.2. This is no
++    longer needed due to link order changes.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Fri, 08 Feb 2008 17:25:21 +0000
++
++xine-lib (1.1.10-1) unstable; urgency=high
++
++  * New upstream release (Closes: #459836)...
++  * ... fixing some security bugs:
++    - CVE-2008-0225: Heap-based buffer overflow in rmff_dump_cont function
++      which allows remote attacker to execute arbitrary code via a crafted
++      SDP Abstract attribute (Closes: #460551).
++      This also acks 1.1.8-3+lenny1 (NMU by the security team).
++    - Related to CVE-2006-1664: Buffer overflow which allows a remote
++      attacker to execute arbitrary code or crash the client program via a
++      crafted ASF header.
++  * ... and fixing some other bugs, including:
++    - Disappearing audio. (Closes: #461970)
+ 
+- -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Fri, 16 Mar 2007 01:33:24 +0000
++  [ Darren Salt ]
++  * Build-depend on gs-gpl | gs. Avoids FTBFS where recommended packages
++    aren't automatically installed.
++  * Put libxine1-doc in section libdevel.
++  * Move libxine1-doc | libxine-doc to Suggests: in libxine1. (Closes: #458103)
++  * Add postinst scripts to ensure that the documentation symlinks are
++    properly created. (This is really dpkg bugginess.) (Closes: #458865)
++  * Standards version 3.7.3; no changes needed.
++
++  [ Reinhard Tartler ]
++  * Actually install xineplug_decode_w32dll.so and xineplug_decode_qt.so
++    on i386. debian/rules accidentally used $< where it should have been
++    $^. Thanks to Gert Kulyk for reporting!                  LP: #182400
++  * Fix XS-Hg-VCS headers in debian/control                  LP: #183886
+ 
+-xine-lib (1.1.3-0) unstable; urgency=medium
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sat, 26 Jan 2008 22:16:28 +0000
++
++xine-lib (1.1.9-1) unstable; urgency=low
+ 
+   * New upstream release.
+ 
+   [Darren Salt]
+-  * debian/rules: work around version number breakage in libavcodec.pc.
++  * Re-enable the pulseaudio plugin.
++
++  [Reinhard Tartler]
++  * Remove really unnecessary versioned build depends on binutils. Even
++    oldstable (sarge) has a newer version available.
++  * Bug fix: "unable to handle ipv6 MRLs", thanks to Mau (Closes:
++    #448801).
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Thu, 10 Jan 2008 21:57:10 +0000
++
++xine-lib (1.1.8-5) unstable; urgency=low
++
++  [Darren Salt]
++  * Build fix: avoid lots of "make install" invocations (introduced in -4).
++  * Fix dependency issues with respect to documentation symlinks.
++    The problem was an incorrect debian/shlibs.local.	(Closes: #457328)
++  * Use a symlink for libxine1-dbg's documentation (this got missed in -4).
++  * libxine1-bin (-4) should have contained AUTHORS. This is fixed.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sat, 22 Dec 2007 17:49:54 +0000
++
++xine-lib (1.1.8-4) unstable; urgency=low
++
++  [Darren Salt]
++  * libxine1-dbg was missing some debug symbols. Fixed by building it after
++    xine-lib's other arch:any packages.
++  * Introduce a new package, libxine1-bin, which contains the binaries
++    formerly in libxine1. Dependencies are moved and updated accordingly.
++    thanks to Bill Allombert.  (Closes: #454267)
++  * Except for libxine1-doc, libxine1-bin and libxine-dev, symlink to
++    libxine1-bin's documentation. (AUTHORS is now in libxine1-bin.)
++  * Backported patches from upstream 1.1 branch:
++    - Fix compilation of DXR3 support with external ffmpeg.
++      This is currently only needed for compilation against libavcodeccvs-dev
++      (from debian-multimedia). Untested with actual DXR3 hardware since I
++      have none.                                           (cset e55bc398cc7c)
++    - Fix a problem with non-seekable Flash video          (cset de8c671a419c)
++    - Fix "missing" channels.conf with ATSC                (cset fd875c4a15bc)
++    - Fix a possible crash when changing channels (DVB)    (cset bf1ec833d87a)
++    - Don't stop reading Ogg streams early                 (cset e4c8ac4a6b49)
++    - Fix a possible crash when a video output is closed   (cset 06494c094761)
++    - Fix a possible crash when video playback is finished (cset 293845e465cc)
++
++  [ Reinhard Tartler ]
++  * Bug fix: "FTBFS with GCC 4.3: missing #includes", thanks to Martin
++    Michlmayr and Daniel Schepler (Closes: #455438, #455322).
++  * Bug fix: "libxine1-plugins: should not depend on libxine1-gnome",
++    thanks to Hermogenes Hebert Pereira Oliveira. (Closes: #454162).
++    Instead, a new package is introduced: libxine1-all-plugins, which
++    additionally depends on the gnome plugin.
++  * remove the jack plugin. According to upstream it is unfinished and of
++    poor quality. A rewrite is available in the 1.2 branch.
++  * adjust dependencies on libxine1-dev and libxine1-dbg
++  * add XS-DM-Upload-Allowed: yes field to debian/control
++  * Bug fix: "xine-lib: FTBFS on GNU/kFreeBSD (debian specific part)",
++    thanks to Petr Salinger (Closes: #449531). Patch applied with some
++    (minor) modifications.
++  * Bug fix: "libxine1: FTBFS on GNU/kFreeBSD", thanks to Uwe Hermann
++    (Closes: #438849). Patch taken from upstream hg repo, cset
++    1db8870cd7c9
++  * Bug fix: "typo "A various plugins" in package description",
++    thanks to Philippe Cloutier (Closes: #455067).
++
++ -- Reinhard Tartler <siretart@tauware.de>  Mon, 17 Dec 2007 17:07:48 +0100
++
++xine-lib (1.1.8-3+lenny1) testing-security; urgency=high
++
++  * Non-maintainer upload by security team.
++  * This update addresses the following security issue:
++    - CVE-2008-0225: Heap-based buffer overflow in rmff_dump_cont function
++    which allows remote attacker to execute arbitrary code via a crafted
++    SDP Abstract attribute (Closes: #460551).
++
++ -- Nico Golde <nion@debian.org>  Sun, 13 Jan 2008 16:12:48 +0100
++
++xine-lib (1.1.8-3) unstable; urgency=low
++
++  [Darren Salt]
++  * Patches from the 1.1.9 dev tree:
++    - Silence "lacing: N" messages from the matroska demuxer.
++    - Extra identifier for MPEG video (in AVIs etc.).
++  * Tighten the dependencies of libxine1 and libxine1-plugins on libxine1-*
++    packages.
++  * Move deps on libxine1-{x,console} from libxine1-plugins to libxine1 to
++    avoid further problems such as bug 448077.
++
++  [ Reinhard Tartler ]
++  * remove gs from build-deps
++  * don't build the pulseaudio plugin. (Closes: #452211, #427991)
++
++ -- Reinhard Tartler <siretart@tauware.de>  Sun, 25 Nov 2007 23:20:54 +0100
++
++xine-lib (1.1.8-2) unstable; urgency=low
++
++  [Reinhard Tartler]
++  * use dh_listpackages instead of hardcoded list for determining the
++    provided binary packages.
++  * Bug fix: "Depends->Recommends dependency change breaking other
++    packages", thanks to Christoph Pfister and Sune Vuorela
++    (Closes: #439389)
++    - introduce new package libxine1-misc-plugins, which contains
++      (nearly) all plugins formerly found in the package libxine1.
++    - promote all dependencies of libxine1-misc-plugins to Depends.
++    - Make libxine1 depend on libxine1-plugins | libxine1-misc-plugins.
++      Apt will prefer the first alternative, which results many
++      plugins installed by default. Caveat: If one plugin package has
++      unsatisfiable dependencies, the user will end up with only
++      libxine1-misc-plugins installed.
++    - Make libxine1-plugins depend on libxine1-misc-plugins.
++    - Make libxine1-plugins not depend on libxine1-console.
++    - NB: From now on, frontends need to explicitly depend on either
++      libxine1-x or libxine1-console, depending on whether they are
++      console based (like cacaxine or fbxine) or X11 based (like gxine).
++      libxine1-plugins will not depend on libxine1-x or libxine1-console.
++  * Make libxine1-dev Arch:any. Being arch:all makes a lot of trouble
++    building frontends on architectures that are out of sync.
++  * Remove alternative depends on libz-dev (not found even in oldstable)
++    and slang1-dev (not found in stable, only oldstable) from libxine1-dev.
++  * Add Homepage field to debian/control
++
++  [Darren Salt]
++  * Add patches from upstream:
++    - DVD MRL title.chapter fix
++  * Move libxine1-doc into section "doc".
++  * Improve package descriptions a bit; in particular, a grammatical
++    correction for libxine1-console, and an extra sentence describing common
++    uses of libxine1-ffmpeg.
++  * New package libxine1-x, which contains the X-based video output plugins.
++    These were previously in libxine1.
++  * Move the fb video output plugin into libxine1-console.
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Sat, 20 Oct 2007 18:01:27 +0100
++
++xine-lib (1.1.8-1) unstable; urgency=low
++
++  * New upstream release. (Closes: #440248)
++
++  [Darren Salt]
++  * Remove config.log when cleaning the build tree.
++
++  [Reinhard Tartler]
++  * Bug fix: "libxine1: copyright file references non-existent AUTHORS
++    file", thanks to Felipe Sateler (Closes: #438677).
++
++ -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Mon, 27 Aug 2007 20:59:37 +0100
++
++xine-lib (1.1.7-3) unstable; urgency=low
++
++  * promote dependencies of xineplug_dmx_audio.so from Suggests to
++    Recommends. This is necesarry for e.g. mp3 files or streams
++    (Closes: #437906, #437693),  thanks to François Valenduc and
++    Paulo Marcel Coelho Aragão.
++
++ -- Reinhard Tartler <siretart@tauware.de>  Wed, 15 Aug 2007 09:51:53 +0200
++
++xine-lib (1.1.7-2) unstable; urgency=low
++
++  [Darren Salt]
++  * Enable the wavpack plugin. (Closes: #437331)
++  * Correct the description of libxine-doc. (Closes: #432919, #435590)
++  * Build-depend on libjack-dev.
++  * Enable freetype support. (Closes: #416077)
++  * Add patches from upstream:
++    - allow using ffmpegvideo w/o direct rendering to play mpeg2 ts;
++    - handle escaped characters in DVD MRLs;
++    - fix attempted free of static data, e.g. when using "dvd:/";
++    - rename mrl_unescape & export it (needed by the previous fix).
++    These are csets acc7197f7cca, 2e301bc2cce8, 09e652c8188f & 82bc4a5c2b4c.
++
++  [ Reinhard Tartler ]
++  * libxine1: demote all dependencies of the plugins to Recommends.
++    This includes the directfb plugin and therefore Closes: #427982.
++  * introduce debian/shlibs.local.libxine1 to avoid self-dependency of
++    libxine1. Fixes a lintian warning.
++  * some small changes to package descriptions.
++  * debian/rules: Don't ignore potential failiures in clean when running
++    $(MAKE) distclean. Check for presence instead (thanks lintian).
++
++ -- Reinhard Tartler <siretart@tauware.de>  Sun, 12 Aug 2007 00:38:45 +0200
++
++xine-lib (1.1.7-1) unstable; urgency=low
++
++  * New upstream release.
++    - Built against new FLAC. (Closes: #426677)
++    - The arts plugin is no longer built by default.
++      (Closes: #257368, #354437, #396219)
++    - RealPlayer codec detection works properly now. (Closes: #416245)
++    - vcd playback has been fixed upstream (Closes: #364837)
++
++  [Darren Salt]
++  * Added libxine1-doc. This will be needed once 1.2 is released to avoid
++    problems with xine(5), and is useful now for development purposes.
++  * Made libxine-dev conflict with & replace libxine2-dev for similar reasons.
++  * Since the arts plugin is no longer built:
++    - removed libxine1-kde and the associated build-dep on libartsc0-dev;
++    - made libxine-plugins conflict with and replace libxine1-kde.
++  * Minor package description fixes.
++
++  [Reinhard Tartler]
++  * move the gdk plugin to the libxine-gnome package
++  * make watch file using the qa.debian.org sf redirector
++  * add -lpthread to PTHREAD_LIBS on mipsen
++
++ -- Reinhard Tartler <siretart@tauware.de>  Thu, 07 Jun 2007 16:05:20 +0200
++
++xine-lib (1.1.6-2) unstable; urgency=low
++
++  * upload to unstable since we finally have now all needed dependencies
++    available.
++  * restore a lot of the lost changelogs from
++    http://changelog.debian.net/xine-lib
++
++ -- Reinhard Tartler <siretart@tauware.de>  Thu, 31 May 2007 10:47:34 +0200
++
++xine-lib (1.1.6-1) experimental; urgency=low
++
++  [ Reinhard Tartler]
++  * add libxcb-xv0-dev, libxcb-shm0-dev, libxcb-shape0-dev to build
++    dependencies and enable xcb support
++  * make libxine1 an arch: all package, no architecture dependent part
++    inside there.
++  * make xine-lib binNMU safe
++  * fetch po/de.po from upstream hg repo, which was updated shortly after
++    the 1.1.6 release
++  * Darren added himself as comaintainer
++
++  [ Darren Salt]
++  * New upstream release.
++    - Patches dropped, since they all came from upstream.
++    - More debug compilation failures fixed. (Closes: #339523)
++  * Patches imported from upstream since 1.1.6 release:
++    - limit common-case buffer copying optimisation to i386 & amd64
++
++ -- Reinhard Tartler <siretart@tauware.de>  Thu, 19 Apr 2007 16:47:23 +0200
++
++xine-lib (1.1.5-2) experimental; urgency=low
++
++  * add libjack0.100.0-dev to build depends, fixes FTBFS
++
++ -- Reinhard Tartler <siretart@tauware.de>  Thu, 12 Apr 2007 14:40:33 +0200
++
++xine-lib (1.1.5-1) experimental; urgency=low
++
++  * new upstream release!
++  * whitespace-cleanup in debian/control
++  * Builds again on sparc (Closes: #410538)
++  * build again against externel ffmpeg found in experimental
++  * cleanup/clarify the package descriptions, mentioning the included plugins
++    (Closes: #410426)
++  * remove xineplug_decode_real_audio.so from debian/libxine1.install;
++    it has been dropped upstream.
++  * add libdirectfb-dev to build depends, enabling directfb support
++  * use external musepack libs
++  * import manpage fix from upstream
++  * add XS-Vcs headers pointing to alioth
++
++  [Darren Salt]
++  * Enabled the gdkpixbuf plugin.
++  * Split up the DirectFB code, building separate plugins for X11 and
++    console. (Applied upstream.)
++  * Added a note about the packaging repository to README.Debian.
++
++ -- Reinhard Tartler <siretart@tauware.de>  Sun,  8 Apr 2007 19:21:08 +0200
++
++xine-lib (1.1.4-2) experimental; urgency=low
++
++  * merge changes from ubuntu
++  * make build deps multiline
++
++ -- Reinhard Tartler <siretart@tauware.de>  Sun,  4 Feb 2007 12:06:25 +0100
++
++xine-lib (1.1.4-1ubuntu2) feisty; urgency=low
++
++  * install shlibs.local file to tighten dependency on libxine1
++  * add build dependency on libmagick9-dev to build to
++    dmx_image and decoder_image plugin. Also add them to libxine1.install
++  * install the xine(5) manpage to package libxine1
++  * Bumb shlibs file (forgotten in 1.1.4-1)
++
++ -- Reinhard Tartler <siretart@tauware.de>  Sun,  4 Feb 2007 09:05:58 +0100
++
++xine-lib (1.1.4-1ubuntu1) feisty; urgency=low
++
++  * merge new upstream release from debian
++
++ -- Reinhard Tartler <siretart@tauware.de>  Mon, 29 Jan 2007 15:48:31 +0100
++
++xine-lib (1.1.4-1) experimental; urgency=low
++
++  * New upstream release!
++  * Tons of bugfixes, see /usr/share/doc/libxine1/changelog.gz
++  * Now playes sound in *.flv files (Closes: #396161)
++  * use internal ffmpeg copy for now, since debian's copy is too old :(
++    Will reenable building against debian's ffmpeg ASAP.
++  * add libpulse-dev to build depends, enable pulseaudio support
++
++ -- Reinhard Tartler <siretart@tauware.de>  Sat, 27 Jan 2007 18:26:09 +0100
++
++xine-lib (1.1.3-1ubuntu2) feisty; urgency=low
++
++  * debian/control: Add libpulse-dev to build dependencies to enable
++    PulseAudio output support.
++  * debian/libxine1.install: Add xineplug_ao_out_pulseaudio.so to
++    list of installed plugins.
++
++ -- Daniel T Chen <crimsun@ubuntu.com>  Wed, 24 Jan 2007 23:31:42 -0500
++
++xine-lib (1.1.3-1ubuntu1) feisty; urgency=low
++
++  * Introduce new package libxine-extracodecs to faciliate upgrades
++  * merge from 1.1.3 branch for debian/experimental.
++  * additional patch: fix ftbfs on kFreeBSD
++
++  * ubuntu specific changes:
++
++    - libxine-main1 and libxine1-ffmpeg dummy package for upgrades from
++      dapper. Keep this package until (and including) the next LTS
++      release of ubuntu!
++
++ -- Reinhard Tartler <siretart@tauware.de>  Wed,  3 Jan 2007 22:12:20 +0100
++
++xine-lib (1.1.3-1) experimental; urgency=low
++
++    * New upstream fixes: "support for xvid files", thanks to
++      \[ATR\]Dj-Death (Closes: #319805).
++    * New upstream fixes: "libxine1: Jack output plugin missing", thanks to Tanu
++      Kaskinen (Closes: #392619).
++    * plays vorbis files again (Closes: #400274)
++    * Introduce new packages: libxine1-ffmpeg and libxine1-gnome to tighten
++      dependencies.
++      - splitting out libxine1-gnome works around Bug: "libxine1: remote
++      streams do not work without non-dependency libgnomevfs2-0", thanks to
++      Michael Marsh (adresses: #309040).
++      - splitting out libxine-kde works around bugs #257368, #354437
++    * Bump to debhelper compat 5
++    * disable gdk (fixing ftbfs) and vidix (as being unmaintained) for
++      now. Please contact me if you are willing and able to test it
++      extensively
++    * apply textrel patch from gentoo
++    * add transfig, gs, sgmltools-lite to build deps to build developer
++      documentation as well
++    * apply patch for freebsd support. Thanks to Aurelien Jarno <aurel32@debian.org>.
++      (Closes: #325489)
++
++    [Darren Salt]
++    * Updated the watch file - should work regardless of changes at Souceforge.
++
++ -- Reinhard Tartler <siretart@tauware.de>  Wed,  3 Jan 2007 19:57:43 +0100
++
++xine-lib (1.1.3-0ubuntu1) feisty; urgency=low
++
++  * disable jack output plugin because jack is not in main
++  * merge from unreleased 1.1.3 branch targeted for debian. ubuntu
++    specific changes:
++
++    - libxine-main1 dummy package for upgrades from dapper. Keep this
++      package until (and including) the next LTS release of ubuntu!
++
++ -- Reinhard Tartler <siretart@tauware.de>  Tue,  2 Jan 2007 23:05:20 +0100
++
++xine-lib (1.1.3-0) UNRELEASED; urgency=low
++
++  * New upstream fixes: "support for xvid files", thanks to
++    \[ATR\]Dj-Death (Closes: #319805).
++  * plays vorbis files again (Closes: #400274)
++  * Introduce new packages: libxine1-ffmpeg and libxine1-gnome to tighten
++    dependencies.
++    - splitting out libxine1-gnome works around Bug: "libxine1: remote
++    streams do not work without non-dependency libgnomevfs2-0", thanks to
++    Michael Marsh (adresses: #309040).
++    - splitting out libxine-kde works around bugs #257368, #354437
++  * built against internal ffmpeg
++  * Bump to debhelper compat 5
++  * disable gdk (fixing ftbfs) and vidix (as being unmaintained) for
++    now. Please contact me if you are willing and able to test it
++    extensively
++  * apply textrel patch from gentoo
++  * add transfig, gs, sgmltools-lite to build deps to build developer
++    documentation as well
++  * make libxine1 recommend libxine1-ffmpeg so it gets installed by default
++  * apply patch for freebsd support. Thanks to Aurelien Jarno <aurel32@debian.org>.
++    (Closes: #325489)
++
++  [Darren Salt]
++  * Updated the watch file - should work regardless of changes at Souceforge.
++
++ -- Reinhard Tartler <siretart@tauware.de>  Tue,  2 Jan 2007 22:14:14 +0100
++
++xine-lib (1.1.2+repacked1-0ubuntu2) edgy; urgency=low
++
++  * undo backport of this commit because of FTBFS on powerpc, ia64 and sparc:
++    -  [xine-lib @ 2006-07-12 21:08:46 by dsalt]
++       Tidy up the formatting of tvtime method help texts to allow better wrapping
++       by the front end.
++  * add recommends on libxine-extracodecs (recloses Malone #56699)
++
++ -- Reinhard Tartler <siretart@tauware.de>  Fri, 22 Sep 2006 20:10:04 +0200
++
++xine-lib (1.1.2+repacked1-0ubuntu1) edgy; urgency=low
++
++  * repacked the orig tarball. We can get rid of most diff by enabling
++    --enable-external-ffmpeg
++  * revert the caca related backport from upstream, we will keep the
++    old libcaca for edgy
++  * -dbg package is Priority: extra
++  * remerged with debian. Changes:
++    - ripped of plugins from the sources (see xine-extracodecs):
++      + ffmpeg
++      + faad
++      + libmad (mp3 plugin)
++    - fix FTBFS in src/post/deinterlace/plugins/greedy2frame_template.c by
++      adding src/post/deinterlace/plugins/mangle.h from
++      src/libffmpeg/libpostproc.
++    - libxine-main1 dummy package for upgrades from dapper. Keep this
++      package until (and including) the next LTS release of ubuntu!
++    - tighten build dependency on binutils according to dh_strip manpage
++    - insert a copy of libpostproc (from upstream source tarball) at
++      src/libpostproc. Actually, this is how it was in the previous ubuntu
++      package. Note that this is only for the planar postprocessing plugin,
++      which should be moved to the xine-extracodecs package in an later
++      upload.
++    - Adjust configure.ac, src/Makefile.am and src/post/planar/Makefile.am
++      for the new location of libpostproc
++
++ -- Reinhard Tartler <siretart@tauware.de>  Tue, 12 Sep 2006 22:28:12 +0200
++
++xine-lib (1.1.2+dfsg-4) unstable; urgency=low
++
++  * Very focused patches from upstream:
++  * src/input/net_buf_ctrl.c: Fix a div-by-zero crash
++  * xine-lib/src/input/input_http.c: http parsing fix
++  * don't disable alignment of stack variables. Patch applied upstream,
++    got extensive testing in ubuntu, upstream and experimental. Does avoid
++    a confusing warning in the ffmpeg plugin.
++
++ -- Reinhard Tartler <siretart@tauware.de>  Sun, 18 Mar 2007 00:49:32 +0100
++
++xine-lib (1.1.2+dfsg-3) unstable; urgency=high
++
++  * [CVE-2007-1246]: DMO decoder heap allocation overflow. Thanks for the
++    patch, Kees Cook and A Mennucc! (Closes: #414072)
+ 
+- -- Darren Salt <linux@youmustbejoking.demon.co.uk>  Thu, 28 Dec 2006 00:16:11 +0000
++ -- Reinhard Tartler <siretart@tauware.de>  Fri,  9 Mar 2007 09:37:43 +0100
+ 
+ xine-lib (1.1.2+dfsg-2) unstable; urgency=medium
+ 
+@@ -438,7 +1735,7 @@
+ xine-lib (1.0.1-1) unstable; urgency=high
+ 
+   * new upstream release
+-    * fixes MMST and RTSP vulnerabilities (CAN-2005-1195, closes #305343)
++    * fixes MMST and RTSP vulnerabilities (CAN-2005-1195, closes: #305343)
+     * presumably fixes Ogg/Vorbis/Theora audio sync (closes: #301901)
+     * fixes typo in xine-check subsystem (closes: #292341)
+   * build-depends on libsdl1.2 (closes: #297435)
+@@ -446,7 +1743,7 @@
+   * moved documentation to policy compliant directories (closes: #303463)
+   * made Vorbis and Theora hard dependancies (workaround closes: #288331)
+ 
+- -- Siggi Langauf <siggi@localhost.localdomain>  Wed, 27 Apr 2005 12:41:46 +0200
++ -- Siggi Langauf <siggi@debian.org>  Wed, 27 Apr 2005 12:41:46 +0200
+ 
+ xine-lib (1.0-1) unstable; urgency=high
+ 
 diff -ruN o/debian/compat pc/debian/compat
---- o/debian/compat	2023-07-06 15:17:40.000000000 +0300
-+++ pc/debian/compat	2023-09-26 20:43:27.414298090 +0300
+--- o/debian/compat	2023-07-10 19:46:14.000000000 +0300
++++ pc/debian/compat	2024-07-21 14:42:55.838005503 +0300
 @@ -1 +1 @@
 -5
 +10
 diff -ruN o/debian/control pc/debian/control
---- o/debian/control	2023-07-06 15:17:40.000000000 +0300
-+++ pc/debian/control	2023-09-26 20:43:27.414298090 +0300
+--- o/debian/control	2023-07-10 19:46:14.000000000 +0300
++++ pc/debian/control	2024-07-21 14:42:55.838005503 +0300
 @@ -73,7 +73,7 @@
  Suggests: ${shlibs:Suggests}, libxine2-doc | libxine-doc
  Conflicts: libxine2-all-plugins, libxine2-bin, libxine2-console, libxine2-ffmpeg, libxine2-gnome, libxine2-misc-plugins, libxine2-plugins, libxine2-x
@@ -44,8 +1411,8 @@ diff -ruN o/debian/control pc/debian/control
   This is the xine media player library (libxine).
   .
 diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
---- o/debian/libxine2-dev.install	2023-07-06 15:17:40.000000000 +0300
-+++ pc/debian/libxine2-dev.install	2023-09-26 20:43:27.414298090 +0300
+--- o/debian/libxine2-dev.install	2023-07-10 19:46:14.000000000 +0300
++++ pc/debian/libxine2-dev.install	2024-07-21 14:42:55.838005503 +0300
 @@ -1,11 +1,9 @@
  usr/bin/xine-config
  usr/include
@@ -60,16 +1427,16 @@ diff -ruN o/debian/libxine2-dev.install pc/debian/libxine2-dev.install
  usr/share/man/man1/xine-config.1
  ../dh_xine				usr/bin
 diff -ruN o/debian/libxine2-doc.docs pc/debian/libxine2-doc.docs
---- o/debian/libxine2-doc.docs	2023-07-06 15:17:40.000000000 +0300
-+++ pc/debian/libxine2-doc.docs	2023-09-26 20:43:27.415298037 +0300
+--- o/debian/libxine2-doc.docs	2023-07-10 19:46:14.000000000 +0300
++++ pc/debian/libxine2-doc.docs	2024-07-21 14:42:55.838005503 +0300
 @@ -1,4 +1,3 @@
 -debian/tmp/usr/share/doc/libxine2/faq/*
  debian/tmp/usr/share/doc/libxine2/README_xxmc.html
  debian/tmp/usr/share/doc/libxine2/README
  debian/tmp/usr/share/doc/libxine2/faq.*
 diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
---- o/debian/libxine2.install	2023-07-06 15:17:40.000000000 +0300
-+++ pc/debian/libxine2.install	2023-09-26 20:43:27.415298037 +0300
+--- o/debian/libxine2.install	2023-07-10 19:46:14.000000000 +0300
++++ pc/debian/libxine2.install	2024-07-21 14:42:55.838005503 +0300
 @@ -2,9 +2,10 @@
  usr/lib/libxine*.so.*
  usr/lib/xine/plugins/*/post/*.so
@@ -84,8 +1451,8 @@ diff -ruN o/debian/libxine2.install pc/debian/libxine2.install
  usr/share/man/man1/xine-list*.1
 +#usr/lib/xine/plugins/*/vidix/*.so
 diff -ruN o/debian/rules pc/debian/rules
---- o/debian/rules	2023-07-06 15:17:40.000000000 +0300
-+++ pc/debian/rules	2023-09-26 20:43:27.415298037 +0300
+--- o/debian/rules	2023-07-10 19:46:14.000000000 +0300
++++ pc/debian/rules	2024-07-21 14:42:55.838005503 +0300
 @@ -69,8 +69,9 @@
  	--prefix=/usr \
  	--with-freetype \
@@ -107,8 +1474,8 @@ diff -ruN o/debian/rules pc/debian/rules
  	dh_installchangelogs -k ChangeLog
  	dh_link
 diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
---- o/include/xine/metronom.h	2023-07-06 15:17:40.000000000 +0300
-+++ pc/include/xine/metronom.h	2023-09-26 20:43:27.416297984 +0300
+--- o/include/xine/metronom.h	2023-07-10 19:46:14.000000000 +0300
++++ pc/include/xine/metronom.h	2024-07-21 14:42:55.838005503 +0300
 @@ -191,6 +191,11 @@
  #define METRONOM_VDR_TRICK_PTS    11
  #define METRONOM_NO_LOCK          0x8000
@@ -122,8 +1489,8 @@ diff -ruN o/include/xine/metronom.h pc/include/xine/metronom.h
  
  metronom_t *_x_metronom_init (int have_video, int have_audio, xine_t *xine) XINE_MALLOC XINE_PROTECTED;
 diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
---- o/include/xine/osd.h	2023-07-06 15:17:40.000000000 +0300
-+++ pc/include/xine/osd.h	2023-09-26 20:43:27.416297984 +0300
+--- o/include/xine/osd.h	2023-07-10 19:46:14.000000000 +0300
++++ pc/include/xine/osd.h	2024-07-21 14:42:55.839005487 +0300
 @@ -216,6 +216,7 @@
     * overlay is blended at output (screen) resolution.
     */
@@ -133,8 +1500,8 @@ diff -ruN o/include/xine/osd.h pc/include/xine/osd.h
    /*
     * see xine.h for defined XINE_OSD_CAP_ values.
 diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
---- o/include/xine/video_out.h	2023-07-06 15:17:40.000000000 +0300
-+++ pc/include/xine/video_out.h	2023-09-26 20:43:27.416297984 +0300
+--- o/include/xine/video_out.h	2023-07-10 19:46:14.000000000 +0300
++++ pc/include/xine/video_out.h	2024-07-21 14:42:55.839005487 +0300
 @@ -287,6 +287,9 @@
  #define VO_PROP_CAPS2                 30 /* read-only. second capability flags, see below. */
  #define VO_PROP_TRANSFORM             31 /* XINE_VO_TRANSFORM_* */
@@ -146,8 +1513,8 @@ diff -ruN o/include/xine/video_out.h pc/include/xine/video_out.h
  /* number of colors in the overlay palette. Currently limited to 256
     at most, because some alphablend functions use an 8-bit index into
 diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
---- o/include/xine/xineintl.h	2023-07-06 15:17:40.000000000 +0300
-+++ pc/include/xine/xineintl.h	2023-09-26 20:43:27.416297984 +0300
+--- o/include/xine/xineintl.h	2023-07-10 19:46:14.000000000 +0300
++++ pc/include/xine/xineintl.h	2024-07-21 14:42:55.839005487 +0300
 @@ -27,6 +27,9 @@
  
  #include <locale.h>
@@ -159,8 +1526,8 @@ diff -ruN o/include/xine/xineintl.h pc/include/xine/xineintl.h
  #    include <libintl.h>
  #    define _(String) dgettext (XINE_TEXTDOMAIN, String)
 diff -ruN o/include/xine.h pc/include/xine.h
---- o/include/xine.h	2023-07-06 15:17:40.000000000 +0300
-+++ pc/include/xine.h	2023-09-26 20:43:27.417297931 +0300
+--- o/include/xine.h	2023-07-10 19:46:14.000000000 +0300
++++ pc/include/xine.h	2024-07-21 14:42:55.839005487 +0300
 @@ -1863,6 +1863,7 @@
  #define XINE_EVENT_MRL_REFERENCE_EXT     13 /* demuxer->frontend: MRL reference(s) for the real stream */
  #define XINE_EVENT_AUDIO_AMP_LEVEL       14 /* report current audio amp level (l/r/mute) */
@@ -224,8 +1591,8 @@ diff -ruN o/include/xine.h pc/include/xine.h
  /* empty drawing area */
  void        xine_osd_clear         (xine_osd_t *self) XINE_PROTECTED;
 diff -ruN o/m4/input.m4 pc/m4/input.m4
---- o/m4/input.m4	2023-07-06 15:17:40.000000000 +0300
-+++ pc/m4/input.m4	2023-09-26 20:43:27.417297931 +0300
+--- o/m4/input.m4	2023-07-10 19:46:14.000000000 +0300
++++ pc/m4/input.m4	2024-07-21 14:42:55.839005487 +0300
 @@ -20,6 +20,7 @@
      default_enable_vcd=yes
      default_enable_vcdo=no
@@ -254,8 +1621,8 @@ diff -ruN o/m4/input.m4 pc/m4/input.m4
      XINE_ARG_ENABLE([bluray], [Enable BluRay support])
      if test "x$enable_bluray" != "xno"; then
 diff -ruN o/m4/summary.m4 pc/m4/summary.m4
---- o/m4/summary.m4	2023-07-06 15:17:40.000000000 +0300
-+++ pc/m4/summary.m4	2023-09-26 20:43:27.417297931 +0300
+--- o/m4/summary.m4	2023-07-10 19:46:14.000000000 +0300
++++ pc/m4/summary.m4	2024-07-21 14:42:55.840005471 +0300
 @@ -54,6 +54,7 @@
      dis=""
      echo "  * Misc:"
@@ -273,8 +1640,8 @@ diff -ruN o/m4/summary.m4 pc/m4/summary.m4
      echo "   - goom            - oscope"
      echo "   - fftscope        - mosaico"
 diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
---- o/src/demuxers/demux_mpeg_pes.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/demuxers/demux_mpeg_pes.c	2023-09-26 20:43:27.418297878 +0300
+--- o/src/demuxers/demux_mpeg_pes.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/demuxers/demux_mpeg_pes.c	2024-07-21 14:42:55.840005471 +0300
 @@ -71,6 +71,7 @@
  
    input_plugin_t       *input;
@@ -329,8 +1696,8 @@ diff -ruN o/src/demuxers/demux_mpeg_pes.c pc/src/demuxers/demux_mpeg_pes.c
    /* Don't start demuxing stream until we see a program_stream_pack_header */
    /* We need to system header in order to identify is the stream is mpeg1 or mpeg2. */
 diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
---- o/src/demuxers/demux_ts.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/demuxers/demux_ts.c	2023-09-26 20:43:27.418297878 +0300
+--- o/src/demuxers/demux_ts.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/demuxers/demux_ts.c	2024-07-21 14:42:55.840005471 +0300
 @@ -161,7 +161,7 @@
  #define LOG
  */
@@ -442,7 +1809,7 @@ diff -ruN o/src/demuxers/demux_ts.c pc/src/demuxers/demux_ts.c
  #endif
 diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 --- o/src/e2pc/combined_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.c	2023-09-26 20:43:27.418297878 +0300
++++ pc/src/e2pc/combined_enigma.c	2024-07-21 14:42:55.840005471 +0300
 @@ -0,0 +1,48 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -494,7 +1861,7 @@ diff -ruN o/src/e2pc/combined_enigma.c pc/src/e2pc/combined_enigma.c
 +
 diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 --- o/src/e2pc/combined_enigma.h	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/combined_enigma.h	2023-09-26 20:43:27.419297825 +0300
++++ pc/src/e2pc/combined_enigma.h	2024-07-21 14:42:55.840005471 +0300
 @@ -0,0 +1,82 @@
 +/*
 + * Copyright (C) 2000-2018 the xine project
@@ -580,7 +1947,7 @@ diff -ruN o/src/e2pc/combined_enigma.h pc/src/e2pc/combined_enigma.h
 +
 diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 --- o/src/e2pc/input_enigma.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/input_enigma.c	2023-09-26 20:43:27.419297825 +0300
++++ pc/src/e2pc/input_enigma.c	2024-07-21 14:42:55.841005455 +0300
 @@ -0,0 +1,859 @@
 +/*
 + * Copyright (C) 2003-2021 the xine project
@@ -1443,7 +2810,7 @@ diff -ruN o/src/e2pc/input_enigma.c pc/src/e2pc/input_enigma.c
 +}
 diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 --- o/src/e2pc/Makefile.am	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/Makefile.am	2023-09-26 20:43:27.419297825 +0300
++++ pc/src/e2pc/Makefile.am	2024-07-21 14:42:55.841005455 +0300
 @@ -0,0 +1,13 @@
 +include $(top_builddir)/misc/Makefile.plugins
 +include $(top_srcdir)/misc/Makefile.common
@@ -1460,7 +2827,7 @@ diff -ruN o/src/e2pc/Makefile.am pc/src/e2pc/Makefile.am
 +xineplug_enigma_la_LIBADD = $(XINE_LIB) $(PTHREAD_LIBS) $(LTLIBINTL)
 diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 --- o/src/e2pc/post_enigma_audio.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_audio.c	2023-09-26 20:43:27.419297825 +0300
++++ pc/src/e2pc/post_enigma_audio.c	2024-07-21 14:42:55.841005455 +0300
 @@ -0,0 +1,277 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -1741,7 +3108,7 @@ diff -ruN o/src/e2pc/post_enigma_audio.c pc/src/e2pc/post_enigma_audio.c
 +}
 diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 --- o/src/e2pc/post_enigma_video.c	1970-01-01 03:00:00.000000000 +0300
-+++ pc/src/e2pc/post_enigma_video.c	2023-09-26 20:43:27.419297825 +0300
++++ pc/src/e2pc/post_enigma_video.c	2024-07-21 14:42:55.841005455 +0300
 @@ -0,0 +1,519 @@
 +/*
 + * Copyright (C) 2000-2019 the xine project
@@ -2263,8 +3630,8 @@ diff -ruN o/src/e2pc/post_enigma_video.c pc/src/e2pc/post_enigma_video.c
 +  return skip;
 +}
 diff -ruN o/src/Makefile.am pc/src/Makefile.am
---- o/src/Makefile.am	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/Makefile.am	2023-09-26 20:43:27.420297772 +0300
+--- o/src/Makefile.am	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/Makefile.am	2024-07-21 14:42:55.841005455 +0300
 @@ -16,4 +16,5 @@
  	libreal \
  	post \
@@ -2273,8 +3640,8 @@ diff -ruN o/src/Makefile.am pc/src/Makefile.am
 +	vdr \
 +	e2pc
 diff -ruN o/src/video_out/vaapi/vaapi_util.c pc/src/video_out/vaapi/vaapi_util.c
---- o/src/video_out/vaapi/vaapi_util.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/video_out/vaapi/vaapi_util.c	2023-09-26 20:43:27.420297772 +0300
+--- o/src/video_out/vaapi/vaapi_util.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/video_out/vaapi/vaapi_util.c	2024-07-21 14:42:55.841005455 +0300
 @@ -611,9 +611,6 @@
  
  void _x_va_surface_displayed(vaapi_context_impl_t *va_context, ff_vaapi_surface_t *va_surface)
@@ -2286,8 +3653,8 @@ diff -ruN o/src/video_out/vaapi/vaapi_util.c pc/src/video_out/vaapi/vaapi_util.c
  
    if (va_surface->status == SURFACE_RENDER_RELEASE) {
 diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
---- o/src/video_out/video_out_opengl.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/video_out/video_out_opengl.c	2023-09-26 20:43:27.420297772 +0300
+--- o/src/video_out/video_out_opengl.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/video_out/video_out_opengl.c	2024-07-21 14:42:55.842005440 +0300
 @@ -134,6 +134,14 @@
  
  #define MY_2PI               (M_PI * 2)
@@ -2676,8 +4043,8 @@ diff -ruN o/src/video_out/video_out_opengl.c pc/src/video_out/video_out_opengl.c
    this->config                  = config;
  
 diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
---- o/src/video_out/video_out_vaapi.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/video_out/video_out_vaapi.c	2023-09-29 15:36:42.245958935 +0300
+--- o/src/video_out/video_out_vaapi.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/video_out/video_out_vaapi.c	2024-07-21 14:42:55.843005424 +0300
 @@ -74,9 +74,9 @@
  # define ENABLE_VA_GLX
  #endif /* OPENGL */
@@ -4445,8 +5812,8 @@ diff -ruN o/src/video_out/video_out_vaapi.c pc/src/video_out/video_out_vaapi.c
  };
 +
 diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
---- o/src/video_out/video_out_vdpau.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/video_out/video_out_vdpau.c	2023-09-26 20:43:27.422297666 +0300
+--- o/src/video_out/video_out_vdpau.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/video_out/video_out_vdpau.c	2024-07-21 14:42:55.843005424 +0300
 @@ -1051,7 +1051,14 @@
        this->ovl_video_dest_rect = vid_rect;
      }
@@ -4477,8 +5844,8 @@ diff -ruN o/src/video_out/video_out_vdpau.c pc/src/video_out/video_out_vdpau.c
        if ((value >= XINE_VO_ZOOM_MIN) && (value <= XINE_VO_ZOOM_MAX)) {
          this->zoom_x = value;
 diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
---- o/src/xine-engine/metronom.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/xine-engine/metronom.c	2023-09-26 20:43:27.423297613 +0300
+--- o/src/xine-engine/metronom.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/xine-engine/metronom.c	2024-07-21 14:42:55.844005408 +0300
 @@ -451,6 +451,7 @@
      int           seek;
      int           force_jump;
@@ -4593,8 +5960,8 @@ diff -ruN o/src/xine-engine/metronom.c pc/src/xine-engine/metronom.c
    this->audio.samples          = 0;
    this->audio.drift_step       = 0;
 diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
---- o/src/xine-engine/osd.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/xine-engine/osd.c	2023-09-26 20:43:27.423297613 +0300
+--- o/src/xine-engine/osd.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/xine-engine/osd.c	2024-07-21 14:42:55.844005408 +0300
 @@ -536,6 +536,10 @@
    return _osd_show(osd, vpts, 1);
  }
@@ -4615,8 +5982,8 @@ diff -ruN o/src/xine-engine/osd.c pc/src/xine-engine/osd.c
    this->r.set_extent         = osd_set_extent;
    this->r.set_video_window   = osd_set_video_window;
 diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
---- o/src/xine-engine/video_out.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/xine-engine/video_out.c	2023-09-26 20:43:27.423297613 +0300
+--- o/src/xine-engine/video_out.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/xine-engine/video_out.c	2024-07-21 14:42:55.844005408 +0300
 @@ -213,6 +213,7 @@
  
    /* pts value when decoder delivered last video frame */
@@ -4675,8 +6042,8 @@ diff -ruN o/src/xine-engine/video_out.c pc/src/xine-engine/video_out.c
     * handle XINE_PARAM_xxx properties (convert from driver's range)
     */
 diff -ruN o/src/xine-engine/xine_interface.c pc/src/xine-engine/xine_interface.c
---- o/src/xine-engine/xine_interface.c	2023-07-06 15:17:40.000000000 +0300
-+++ pc/src/xine-engine/xine_interface.c	2023-09-26 20:43:27.424297559 +0300
+--- o/src/xine-engine/xine_interface.c	2023-07-10 19:46:14.000000000 +0300
++++ pc/src/xine-engine/xine_interface.c	2024-07-21 14:42:55.845005392 +0300
 @@ -1088,6 +1088,10 @@
    this->osd.renderer->show_unscaled(&this->osd, vpts);
  }

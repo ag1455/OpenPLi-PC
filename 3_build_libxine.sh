@@ -2,8 +2,9 @@
 
 # Build and install xine-lib:
 LIB="libxine2"
-PKG="xine-lib-1.2-1.2.13+hg-e2pc"
-VER="9c988e25c6b4"
+PKG="xine-xine-lib-1.2"
+PAT="xine-lib-1.2.13"
+DIR="xine-xine-lib"
 
 I=`dpkg -s $LIB | grep "Status"`
 
@@ -15,26 +16,25 @@ else
 fi
 
 # Remove old source libxine2.
-if [ -d xine-lib-* ]; then
-	rm -rf xine-lib-*
+if [ -d $DIR-* ]; then
+	rm -rf $DIR-*
 fi
 
 # Case of failure.
-if [ -f xine-lib-* ]; then
-	rm -f xine-lib-*
+if [ -f $DIR-* ]; then
+	rm -f $DIR-*
 fi
 
-# This is hg 1.2.12
-wget --no-check-certificate http://hg.code.sf.net/p/xine/xine-lib-1.2/archive/$VER.tar.bz2
-tar -xvjf $VER.tar.bz2
-rm $VER.tar.bz2
-mv xine-lib-1-2-$VER $PKG
+# This is hg 1.2.13
+wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.13+hg20230710-2.1/xine-lib-1.2_1.2.13+hg20230710.orig.tar.gz
+tar -xvf *.tar.gz
+rm -f *.tar.xz
 
 if [ -d "$PKG" ]; then
 	echo "-----------------------------------------"
-	echo "         head now on $VER"
+	echo "             release is $PKG"
 	echo "-----------------------------------------"
-	cp -fv patches/xine-lib-1.2-$VER.patch $PKG
+	cp -fv patches/$PAT+e2pc.patch $PKG
 else
 	echo "-----------------------------------------"
 	echo "        CHECK INTERNET CONNECTION!"
@@ -42,7 +42,7 @@ else
 fi
 
 cd $PKG
-patch -p1 < xine-lib-1.2-$VER.patch
+patch -p1 < $PAT+e2pc.patch
 echo "-----------------------------------------"
 echo "       patch for xine-lib applied"
 echo "-----------------------------------------"
