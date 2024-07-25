@@ -15,7 +15,6 @@ if [ -d $SOURCE ]; then
 fi
 
 git clone https://github.com/oscam-emu/oscam-patched.git
-patch -p1 < path.patch
 cd $SOURCE
 ./config.sh -E WITH_SSL MODULE_CONSTCW
 make

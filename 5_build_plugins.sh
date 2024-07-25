@@ -5,6 +5,8 @@
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 INSTALL_E2DIR="/usr/local/e2"
 MAKE_J="9"
+# Q: whats AMD GPU name?
+GPU=`lspci 2>/dev/null | grep -E "VGA|3D" | grep -Eiwo "Intel"`
 DSP=`xdpyinfo -display :0.0 2>/dev/null | grep dimensions | egrep -o "[0-9]+x[0-9]+ pixels" | egrep -o "[0-9]+x[0-9]+"`
 
 # This is the lock from the unpredictable script actions in the root directory in the absence of the plugins folder.
@@ -30,31 +32,7 @@ if [ -d plugins ]; then
 	patch -p1 < $PKG.patch
 	cd ..
 
-	if [[ "$release" = "14.04" ]]; then
-		echo ""
-		echo "************************************************************************************"
-		echo "                              *** release 14.04 ***"
-		echo "                               *** used g++-8 ***"
-		echo "************************************************************************************"
-		echo ""
-		export CXX=/usr/bin/g++-8
-	elif [[ "$release" = "16.04" ]]; then
-		echo ""
-		echo "************************************************************************************"
-		echo "                             *** release 16.04 ***"
-		echo "                              *** used g++-8 ***"
-		echo "************************************************************************************"
-		echo ""
-		export CXX=/usr/bin/g++-8
-	elif [[ "$release" = "18.04" ]]; then
-		echo ""
-		echo "************************************************************************************"
-		echo "                             *** release 18.04 ***"
-		echo "                              *** used g++-8 ***"
-		echo "************************************************************************************"
-    		echo ""
-		export CXX=/usr/bin/g++-8
-	elif [[ "$release" = "20.04" ]]; then
+	if [[ "$release" = "20.04" ]]; then
 		echo ""
 		echo "************************************************************************************"
 		echo "                             *** release 20.04 ***"
@@ -103,7 +81,7 @@ if [ -d plugins ]; then
 		if [ -d $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_ ]; then
 			rm -rf $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/$PKG_
 		fi
-		wget https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
+		wget --no-check-certificate https://github.com/E2OpenPlugins/$PKG/archive/refs/heads/master.zip
 		unzip master.zip
 		rm master.zip
 		mv $PKG-master $PKG
@@ -540,32 +518,34 @@ if [ -d plugins ]; then
 		patch -p1 < $PKG__.patch
 
 		# Patch and resize if you have intel VAAPI on 4K display.
-		if [[ "$DSP" = "3840x2160" ]]; then
-			echo ""
-			echo "*********************************** 4K display *************************************"
-			echo ""
-			if [[ -f resize.sh ]]; then
-				rm -f resize.sh
+		if [[ $GPU ]]; then
+			if [[ "$DSP" = "3840x2160" ]]; then
+				echo ""
+				echo "*********************************** 4K display *************************************"
+				echo ""
+				if [[ -f resize.sh ]]; then
+					rm -f resize.sh
+				fi
+				patch -p1 < E2IPlayer_4k_dimension.patch
+				chmod 755 resize.sh
+				./resize.sh
+			else
+				echo ""
+				echo "*********************************** HD display *************************************"
+				echo ""
 			fi
-			patch -p1 < E2IPlayer_4k_dimension.patch
-			chmod 755 resize.sh
-			./resize.sh
-		else
-			echo ""
-			echo "*********************************** HD display *************************************"
-			echo ""
 		fi
 
 		rm -f IPTVPlayer/locale/ru/LC_MESSAGES/.gitkeep
 		if [ "$release" = "20.04" ]; then
-			python2 setup.py install
 			python2 setup_translate.py
+			python2 setup.py install
 		elif [ "$release" = "22.04" ]; then
-			python2 setup.py install
 			python2 setup_translate.py
+			python2 setup.py install
 		else
-			python setup.py install
 			python setup_translate.py
+			python setup.py install
 		fi
 		mv -f /usr/local/lib/python2.7/dist-packages/Extensions/$PKG_ $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions
 		mv -f /usr/local/lib/python2.7/dist-packages/enigma2_plugin_extensions_iptvplayer* $INSTALL_E2DIR/lib/enigma2/python/Plugins

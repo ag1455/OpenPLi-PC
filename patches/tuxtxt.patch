@@ -1,6 +1,6 @@
 diff -ruN o/libtuxtxt/acinclude.m4 pc/libtuxtxt/acinclude.m4
---- o/libtuxtxt/acinclude.m4	2021-06-20 20:03:04.000000000 +0300
-+++ pc/libtuxtxt/acinclude.m4	2021-08-02 16:47:20.385638489 +0300
+--- o/libtuxtxt/acinclude.m4	2024-07-25 17:32:30.605412996 +0300
++++ pc/libtuxtxt/acinclude.m4	2024-07-25 17:33:58.928331615 +0300
 @@ -189,7 +189,7 @@
  #include <linux/dvb/version.h>
  version DVB_API_VERSION
@@ -11,8 +11,8 @@ diff -ruN o/libtuxtxt/acinclude.m4 pc/libtuxtxt/acinclude.m4
  
  	AC_MSG_NOTICE([found dvb version $DVB_API_VERSION])
 diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
---- o/libtuxtxt/tuxtxt_common.h	2021-06-20 20:03:04.000000000 +0300
-+++ pc/libtuxtxt/tuxtxt_common.h	2021-08-02 16:47:20.387638398 +0300
+--- o/libtuxtxt/tuxtxt_common.h	2024-07-25 17:32:30.606412801 +0300
++++ pc/libtuxtxt/tuxtxt_common.h	2024-07-25 17:33:58.929331557 +0300
 @@ -4061,14 +4061,6 @@
  *************************************************************************/
  
@@ -69,8 +69,8 @@ diff -ruN o/libtuxtxt/tuxtxt_common.h pc/libtuxtxt/tuxtxt_common.h
  }
  
 diff -ruN o/tuxtxt/acinclude.m4 pc/tuxtxt/acinclude.m4
---- o/tuxtxt/acinclude.m4	2021-06-20 20:03:04.000000000 +0300
-+++ pc/tuxtxt/acinclude.m4	2021-08-02 16:47:20.387638398 +0300
+--- o/tuxtxt/acinclude.m4	2024-07-25 17:32:30.606412801 +0300
++++ pc/tuxtxt/acinclude.m4	2024-07-25 17:33:58.929331557 +0300
 @@ -189,7 +189,7 @@
  #include <linux/dvb/version.h>
  version DVB_API_VERSION
@@ -81,17 +81,26 @@ diff -ruN o/tuxtxt/acinclude.m4 pc/tuxtxt/acinclude.m4
  
  	AC_MSG_NOTICE([found dvb version $DVB_API_VERSION])
 diff -ruN o/tuxtxt/data/Makefile.am pc/tuxtxt/data/Makefile.am
---- o/tuxtxt/data/Makefile.am	2021-06-20 20:03:04.000000000 +0300
-+++ pc/tuxtxt/data/Makefile.am	2021-08-02 16:47:20.387638398 +0300
+--- o/tuxtxt/data/Makefile.am	2024-07-25 17:32:30.606412801 +0300
++++ pc/tuxtxt/data/Makefile.am	2024-07-25 17:33:58.929331557 +0300
 @@ -1,4 +1,4 @@
 -installdir = $(sysconfdir)/tuxtxt/
 +installdir = /usr/local/e2/tuxtxt/
  
  install_DATA = \
  	tuxtxt2.conf
+diff -ruN o/tuxtxt/plugin/Makefile.am pc/tuxtxt/plugin/Makefile.am
+--- o/tuxtxt/plugin/Makefile.am	2024-07-25 17:32:30.607412605 +0300
++++ pc/tuxtxt/plugin/Makefile.am	2024-07-25 17:34:37.371985672 +0300
+@@ -1,3 +1,3 @@
+-installdir = $(libdir)/enigma2/python/Plugins/Extensions/Tuxtxt
++installdir = $(libdir)/local/e2/lib/enigma2/python/Plugins/Extensions/Tuxtxt
+ 
+ install_PYTHON = __init__.py plugin.py
+\ В конце файла нет новой строки
 diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
---- o/tuxtxt/tuxtxt.c	2021-06-20 20:03:04.000000000 +0300
-+++ pc/tuxtxt/tuxtxt.c	2021-08-02 16:47:20.387638398 +0300
+--- o/tuxtxt/tuxtxt.c	2024-07-25 17:32:30.607412605 +0300
++++ pc/tuxtxt/tuxtxt.c	2024-07-25 17:33:58.929331557 +0300
 @@ -594,11 +594,11 @@
  #endif
  
@@ -152,8 +161,8 @@ diff -ruN o/tuxtxt/tuxtxt.c pc/tuxtxt/tuxtxt.c
  		renderinfo.clearbbcolor = tuxtxt_cache.FullScrColor;
  	}
 diff -ruN o/tuxtxt/tuxtxt.h pc/tuxtxt/tuxtxt.h
---- o/tuxtxt/tuxtxt.h	2021-06-20 20:03:04.000000000 +0300
-+++ pc/tuxtxt/tuxtxt.h	2021-08-02 16:47:20.387638398 +0300
+--- o/tuxtxt/tuxtxt.h	2024-07-25 17:32:30.607412605 +0300
++++ pc/tuxtxt/tuxtxt.h	2024-07-25 17:33:58.930331498 +0300
 @@ -94,17 +94,13 @@
  #endif
  

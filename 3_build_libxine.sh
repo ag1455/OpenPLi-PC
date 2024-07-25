@@ -1,57 +1,64 @@
 #!/bin/bash
 
-# Build and install xine-lib:
-LIB="libxine2"
-PKG="xine-xine-lib-1.2"
-PAT="xine-lib-1.2.13"
-DIR="xine-xine-lib"
+OLDDEB="libxine2"
+dpkg -s $OLDDEB | grep -iw ok > /dev/null
 
-I=`dpkg -s $LIB | grep "Status"`
-
-# Remove old package libxine2.
-if [ -n "$I" ]; then
-	apt-get -y purge libxine2*
+# Remove old package DEBxine2
+if [ $? -eq 0 ]; then
+	apt-get -y purge $OLDDEB*
 else
-	echo "$LIB not installed"
+	echo "$OLDDEB not installed"
 fi
 
-# Remove old source libxine2.
-if [ -d $DIR-* ]; then
-	rm -rf $DIR-*
+# Remove old source DEBxine2
+if [ -d xine-lib-* ]; then
+	rm -rf xine-lib-*
 fi
 
-# Case of failure.
-if [ -f $DIR-* ]; then
-	rm -f $DIR-*
+# Case failure
+if [ -f xine-lib-* ]; then
+	rm -rf xine-lib-*
 fi
 
-# This is hg 1.2.13
-wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.13+hg20230710-2.1/xine-lib-1.2_1.2.13+hg20230710.orig.tar.gz
-tar -xvf *.tar.gz
-rm -f *.tar.gz
+release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-if [ -d "$PKG" ]; then
+if [[ "$release" = "20.04" ]]; then
+	PKG="xine-lib-1.2.9"
+	PKG1="xine-lib-1.2_1.2.9"
+	DEB="xine-lib-1.2_1.2.9-1build5.debian.tar.xz"
+	# This is release 1.2.9
+	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.9-1build5/$PKG1.orig.tar.xz
+	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.9-1build5/$DEB
+fi
+
+if [[ "$release" = "22.04" ]]; then
+	PKG="xine-lib-1.2.11"
+	PKG1="xine-lib-1.2_1.2.11"
+	DEB="xine-lib-1.2_1.2.11-2.debian.tar.xz"
+	# This is release 1.2.11
+	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.11-2/$PKG1.orig.tar.xz
+	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/xine-lib-1.2/1.2.11-2/$DEB
+fi
+
+if [ -f $PKG1.orig.tar.xz ]; then
+	tar -xf $PKG1.orig.tar.xz
+	rm $PKG1.orig.tar.xz
+	mv $DEB $PKG
+	mv $PKG $PKG+e2pc
+	cp -fv patches/$PKG+e2pc.patch $PKG+e2pc
+	cd $PKG+e2pc
+	tar -xf $DEB
+	rm $DEB
+	patch -p1 < $PKG+e2pc.patch
 	echo "-----------------------------------------"
-	echo "             release is $PKG"
+	echo "       patch for xine-lib applied"
 	echo "-----------------------------------------"
-	cp -fv patches/$PAT+e2pc.patch $PKG
+	dpkg-buildpackage -b -d -uc -us
+	cd ..
+	dpkg -i *.deb
+	mv *.deb *.ddeb *.changes *.buildinfo $PKG+e2pc
 else
 	echo "-----------------------------------------"
 	echo "        CHECK INTERNET CONNECTION!"
 	echo "-----------------------------------------"
 fi
-
-cd $PKG
-patch -p1 < $PAT+e2pc.patch
-echo "-----------------------------------------"
-echo "       patch for xine-lib applied"
-echo "-----------------------------------------"
-dpkg-buildpackage -b -d -uc -us
-
-cd ..
-mv *.deb $PKG
-rm -f xine-lib-1.2*
-
-cd $PKG
-dpkg -i *.deb
-cd ..

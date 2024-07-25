@@ -34,7 +34,6 @@ echo ""
 if [ -f $INSTALL_E2DIR/etc/enigma2/lamedb ]; then
 	cp -fv $INSTALL_E2DIR/etc/enigma2/lamedb $INSTALL_E2DIR/etc/enigma2/lamedb~
 	cp -fv $INSTALL_E2DIR/etc/enigma2/lamedb5 $INSTALL_E2DIR/etc/enigma2/lamedb5~
-	cp -fv $INSTALL_E2DIR/etc/tuxbox/nim_sockets $INSTALL_E2DIR/etc/tuxbox/nim_sockets~
 	cp -fv $INSTALL_E2DIR/etc/enigma2/settings $INSTALL_E2DIR/etc/enigma2/settings~
 	cp -fv $INSTALL_E2DIR/etc/enigma2/profile $INSTALL_E2DIR/etc/enigma2/profile~
 fi
@@ -157,37 +156,7 @@ cd ..
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-if [ "$release" = "14.04" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 14.04 ***"
-	echo "                  *** USED g++-8 ***"
-	echo "********************************************************"
-	echo ""
-	cp -fv patches/xenial_trusty.patch $PKG
-	cd $PKG
-	patch -p1 < xenial_trusty.patch
-	export CXX=/usr/bin/g++-8
-elif [ "$release" = "16.04" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 16.04 ***"
-	echo "                  *** USED g++-8 ***"
-	echo "********************************************************"
-	echo ""
-	cp -fv patches/xenial_trusty.patch $PKG
-	cd $PKG
-	patch -p1 < xenial_trusty.patch
-	export CXX=/usr/bin/g++-8
-elif [ "$release" = "18.04" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 18.04 ***"
-	echo "                  *** USED g++-8 ***"
-	echo "********************************************************"
-	cd $PKG
-	export CXX=/usr/bin/g++-8
-elif [ "$release" = "20.04" ]; then
+if [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 20.04 ***"
@@ -378,7 +347,6 @@ fi
 
 # Copy files
 cp -rfv pre/enigma2 $INSTALL_E2DIR/etc
-cp -rfv pre/stub/* $INSTALL_E2DIR/etc
 cp -rfv pre/tuxbox $INSTALL_E2DIR/etc
 cp -fv pre/enigmasquared.jpg $INSTALL_E2DIR/share/enigma2
 cp -fv pre/enigmasquared2.jpg $INSTALL_E2DIR/share/enigma2
@@ -469,70 +437,11 @@ echo "If you want to return screensaver back, then you must"
 echo "do the opposite as user, but not as root."
 echo "********************************************************"
 echo ""
-
-if [ ! -f $INSTALL_E2DIR/etc/tuxbox/nim_sockets ]; then
-	echo ""
-	echo "********************************************************"
-	echo "            AUTOMATIC CREATION nim_sockets."
-	echo "********************************************************"
-	echo ""
-
-	cd util
-	./build_create_nim_sockets.sh
-	./create_nim_sockets -d
-	mv nim_sockets $INSTALL_E2DIR/etc/tuxbox
-	cd ..
-
-	echo ""
-	echo "********************************************************"
-	echo "      Enigma2PC and folders installed successfully."
-	echo "    If you have own settings, then they are restored."
-	echo ""
-	echo "                    Now check please:"
-	echo "           $INSTALL_E2DIR/etc/tuxbox/nim_sockets"
-	echo "      according to your /dev/dvb/adapter?/frontend?"
-	echo ""
-	echo ""
-	echo "         Example for dvb-S2 card in one slot:"
-	echo "                   NIM Socket 0:"
-	echo "                   Type DVB-S2"
-	echo "                   Name: YOURCARDNAME"
-	echo "                   Has_Outputs: no"
-	echo "                   Frontend_Device: 0"
-	echo ""
-	echo ""
-	echo "         Example for dvb-Т2 card in one slot:"
-	echo "                   NIM Socket 0:"
-	echo "                   Type: DVB-T2"
-	echo "                   Name: YOURCARDNAME"
-	echo "                   Has_Outputs: no"
-	echo "                   Frontend_Device: 0"
-	echo ""
-	echo ""
-	echo " Example for dvb-S2/T2 card in one or different slots:"
-	echo "                   NIM Socket 0:"
-	echo "                   Type DVB-S2"
-	echo "                   Name: YOURCARDNAME"
-	echo "                   Has_Outputs: no"
-	echo "                   Frontend_Device: 0"
-	echo ""
-	echo "                   NIM Socket 1:"
-	echo "                   Type: DVB-T2"
-	echo "                   Name: YOURCARDNAME"
-	echo "                   Has_Outputs: no"
-	echo "                   Frontend_Device: 1"
-	echo ""
-	echo ""
-	echo "      At the first start you can skip the network"
-	echo "  configuration, since this is already set in Ubuntu."
-	echo "********************************************************"
-else
-	echo ""
-	echo "********************************************************"
-	echo "      Enigma2PC and folders installed successfully."
-	echo "    If you have own settings, then they are restored."
-	echo ""
-	echo "      At the first start you can skip the network"
-	echo "  configuration, since this is already set in Ubuntu."
-	echo "********************************************************"
-fi
+echo ""
+echo "********************************************************"
+echo "      Enigma2PC and folders installed successfully."
+echo "    If you have own settings, then they are restored."
+echo ""
+echo "      At the first start you can skip the network"
+echo "  configuration, since this is already set in Ubuntu."
+echo "********************************************************"
