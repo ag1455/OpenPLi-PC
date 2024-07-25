@@ -137,7 +137,7 @@ rpl "//#define XINE_TEXTDOMAIN" "#define XINE_TEXTDOMAIN" /usr/include/xine/xine
 git clone https://github.com/OpenPLi/$PKG.git
 cd $PKG
 git checkout release-8.3
-git reset --hard 2d6416e9
+git reset --hard 002bb79c
 cd ..
 
 # Copy headers
@@ -149,44 +149,14 @@ if [ ! -d /usr/include/netlink ]; then
 	ln -s /usr/include/libnl3/netlink /usr/include
 fi
 
-cp -fv patches/patch-2d6416e9-to-PC.patch $PKG
+cp -fv patches/patch-002bb79c-to-PC.patch $PKG
 cd $PKG
-patch -p1 < patch-2d6416e9-to-PC.patch
+patch -p1 < patch-002bb79c-to-PC.patch
 cd ..
 
 release=$(lsb_release -a 2>/dev/null | grep -i release | awk ' { print $2 } ')
 
-if [ "$release" = "14.04" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 14.04 ***"
-	echo "                  *** USED g++-8 ***"
-	echo "********************************************************"
-	echo ""
-	cp -fv patches/xenial_trusty.patch $PKG
-	cd $PKG
-	patch -p1 < xenial_trusty.patch
-	export CXX=/usr/bin/g++-8
-elif [ "$release" = "16.04" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 16.04 ***"
-	echo "                  *** USED g++-8 ***"
-	echo "********************************************************"
-	echo ""
-	cp -fv patches/xenial_trusty.patch $PKG
-	cd $PKG
-	patch -p1 < xenial_trusty.patch
-	export CXX=/usr/bin/g++-8
-elif [ "$release" = "18.04" ]; then
-	echo ""
-	echo "********************************************************"
-	echo "                 *** RELEASE 18.04 ***"
-	echo "                  *** USED g++-8 ***"
-	echo "********************************************************"
-	cd $PKG
-	export CXX=/usr/bin/g++-8
-elif [ "$release" = "20.04" ]; then
+if [ "$release" = "20.04" ]; then
 	echo ""
 	echo "********************************************************"
 	echo "                 *** RELEASE 20.04 ***"

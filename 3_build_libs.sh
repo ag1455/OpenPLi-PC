@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# To build enigma2 on Ubuntu 14.04 LTS (32/64-bit), 16.04 LTS (32/64-bit), 18.04 LTS (64-bit), 20.04 LTS (64-bit) and 22.04 (64-bit) with startup option "Ubuntu on Xorg".
+# To build enigma2 on Ubuntu 20.04 LTS (64-bit) and 22.04 (64-bit) with startup option "Ubuntu on Xorg".
 
 # Be sure that the version of Ubuntu is determined
 #if [ ! -d /usr/share/pyshared ]; then
@@ -40,69 +40,7 @@ for p in $REQPKG_ALL; do
 	fi
 done
 
-if [[ "$release" = "14.04" ]]; then
-	echo ""
-	echo "************************************************************************************"
-	echo "                             *** release 14.04 ***"
-	echo "************************************************************************************"
-	echo ""
-	if [ ! -f /etc/apt/sources.list.d/ubuntu-cloud-archive-liberty-staging-trusty.list ]; then
-	add-apt-repository -y ppa:ubuntu-cloud-archive/liberty-staging
-	apt-get update
-	fi
-	if [ ! -f /etc/apt/sources.list.d/ubuntu-toolchain-r-test-trusty.list ]; then
-	add-apt-repository -y ppa:ubuntu-toolchain-r/test
-	apt-get update
-	fi
-	REQPKG="flake gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libpng12-dev libesd0-dev libqtgstreamer-dev libupnp6-dev libva-glx1 libva-dev libdts-dev mock python-ipaddress \
-	pyflakes python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah \
-	python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-ntplib python-daap python-transmissionrpc python-yenc python-gdata \
-	python-cffi python-demjson python-mutagen python-twisted python-twisted-web python-twisted-mail python-ipaddr python-urllib3 python-dev python-setuptools swig2.0 \
-	"
-	if [[ $(uname -m) = "i686" ]]; then
-		echo "Your system is 32-bit"
-		wget --no-check-certificate https://ftp.fau.de/ubuntu/ubuntu/pool/main/g/giflib/libgif7_5.1.9-2_i386.deb
-		wget --no-check-certificate https://ftp.fau.de/ubuntu/ubuntu/pool/main/g/giflib/libgif-dev_5.1.9-2_i386.deb
-	else
-		echo "Your system is 64-bit"
-		wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif7_5.1.4-2_amd64.deb
-		wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/g/giflib/libgif-dev_5.1.4-2_amd64.deb
-	fi
-	dpkg -i *deb
-	rm -f *deb
-elif [[ "$release" = "16.04" ]]; then
-	echo ""
-	echo "************************************************************************************"
-	echo "                             *** release 16.04 ***"
-	echo "************************************************************************************"
-	echo ""
-	if [ ! -f /etc/apt/sources.list.d/ubuntu-toolchain-r-ubuntu-test-xenial.list ]; then
-	add-apt-repository -y ppa:ubuntu-toolchain-r/test
-	apt-get update
-	fi
-	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.0.0 libsdl1.2-dev libtool-bin libesd0-dev libpng12-dev libva-glx1 libva-dev libqt5gstreamer-dev libupnp6-dev libdts-dev mock python-ipaddress \
-	pyflakes python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl python-cheetah \
-	python-setuptools python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-cryptodome python-pickleshare \
-	python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata python-demjson python-mutagen python-ipaddr \
-	python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.httpdomain python-dev pylint python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib \
-	python-requests-oauthlib python-configobj python-future python-openssl python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail \
-	python-cffi sphinx-rtd-theme-common swig2.0 yamllint \
-	"
-elif [[ "$release" = "18.04" ]]; then
-	echo ""
-	echo "************************************************************************************"
-	echo "                             *** release 18.04 ***"
-	echo "************************************************************************************"
-	echo ""
-	REQPKG="flake8 gcc-8 g++-8 libgnomevfs2-dev libssl1.1 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev libupnp6-dev libvdpau1 libvdpau-va-gl1 libdts-dev mock \
-	python-ipaddress pyflakes python-pysqlite2 python-cryptography-vectors python-netifaces python-pyasn1-modules python-pycryptopp python-simplejson python-pycurl python-pil python-openssl \
-	python-cheetah python-setuptools python-flickrapi python-lzma python-mechanize python-sendfile python-bzrlib python-blessings python-httpretty python-subprocess32 python-langdetect \
-	python-pycryptodome python-pickleshare pycodestyle python-service-identity python-certifi python-restructuredtext-lint python-daap python-ntplib python-transmissionrpc python-yenc python-gdata \
-	python-demjson python-mutagen python-ipaddr python-urllib3 python-sphinx-rtd-theme python-sphinx python-sphinxcontrib.websupport python-sphinxcontrib.httpdomain python-dev pylint \
-	python-incremental python-sabyenc python-requests python-requests-toolbelt python-jwt python-blinker python-oauthlib python-requests-oauthlib python-configobj python-future python-openssl \
-	python-twisted python-twisted-core python-twisted-bin python-twisted-web python-twisted-names python-twisted-mail sphinx-rtd-theme-common swig yamllint \
-	"
-elif [[ "$release" = "20.04" ]]; then
+if [[ "$release" = "20.04" ]]; then
 	echo ""
 	echo "************************************************************************************"
 	echo "                             *** release 20.04 ***"
@@ -165,13 +103,13 @@ elif [[ "$release" = "22.04" ]]; then
 	echo "************************************************************************************"
 	echo ""
 	REQPKG="flake8 gcc-11 g++-11 libdav1d-dev libdca-dev libssl3 libsdl2-dev libtool-bin libpng-dev libqt5gstreamer-dev libva-glx2 libva-dev liba52-0.7.4-dev libffi7 python2-minimal libpython2-dev \
-	libpython2-stdlib python2 python2-dev libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect \
+	libpython2-stdlib python2 python2-dev libfuture-perl pycodestyle python3-sphinx-rtd-theme python3-sphinxcontrib.websupport python3-sphinxcontrib.httpdomain python3-langdetect libaom-dev \
 	python3-restructuredtext-lint python3-ntplib python3-transmissionrpc python3-sabyenc python3-flickrapi python3-demjson python3-mechanize python3-sendfile python3-blessings python3-httpretty \
-	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest \
+	python3-mutagen python3-urllib3 pylint sphinx-rtd-theme-common libupnp-dev libvdpau1 libvdpau-va-gl1 swig swig3.0 yamllint neurodebian-popularity-contest popularity-contest libv4l-dev \
 	"
 	apt-get -f install -y
-	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
-	dpkg -i libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
+	wget --no-check-certificate http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
+	dpkg -i libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
 	rm -f *deb
 # Unfortunately e2pc doesn't work with wayland
 #	cp -fv /etc/gdm3/custom.conf /etc/gdm3/custom.conf~
@@ -192,6 +130,7 @@ done
 HEADERS="/usr/src/linux-headers-`uname -r`/include/uapi/linux/dvb"
 INCLUDE="/usr/include/linux/dvb"
 BUILD_DIR="libs"
+INSTALL_E2DIR="/usr/local/e2"
 
 cp -fv pre/dvb/* $INCLUDE
 cp -fv pre/dvb/* $HEADERS
@@ -204,6 +143,10 @@ rm -f dvb-firmwares.tar.bz2
 if [ -d $BUILD_DIR ]; then
 	rm -rf $BUILD_DIR
 fi
+if [[ ! -d $INSTALL_E2DIR ]]; then
+	mkdir $INSTALL_E2DIR/lib/enigma2
+fi
+ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
 mkdir -v $BUILD_DIR
 cd $BUILD_DIR
 
@@ -320,7 +263,6 @@ if [ ! -d libdvbcsa ]; then
 	set -e
 	set -o pipefail
 else
-	INSTALL_E2DIR="/usr/local/e2"
 	SOURCE="tuxtxt-git"
 	PKG="libtuxtxt"
 	PKG_="tuxtxt"
@@ -336,20 +278,11 @@ else
 	else
 		echo "$PKG not installed"
 	fi
-	if [ ! -d $INSTALL_E2DIR ]; then
-		mkdir -p $INSTALL_E2DIR/lib/enigma2
-	fi
 	if [ -d $SOURCE ]; then
 		dpkg -r $PKG $PKG_
 		rm -rf $SOURCE
 	fi
-	if [ ! -d $INSTALL_E2DIR/lib/enigma2 ]; then
-		mkdir -p $INSTALL_E2DIR/lib/enigma2
-		ln -s $INSTALL_E2DIR/lib/enigma2 /usr/lib
-	fi
-	if [ -d $SOURCE ]; then
-		rm -rf $SOURCE
-	fi
+
 	wget --no-check-certificate https://github.com/OpenPLi/$PKG_/archive/$VER.zip
 	unzip $VER.zip
 	rm $VER.zip
@@ -376,7 +309,9 @@ if [ ! -d libtuxtxt ]; then
 	set -e
 	set -o pipefail
 else
-	PKG="tuxtxt"
+	DIR="tuxtxt"
+	PKG="Tuxtxt"
+
 	echo ""
 	echo "**************************** OK. Go to the next step. ******************************"
 	echo ""
@@ -384,16 +319,14 @@ else
 	echo ""
 	I=`dpkg -s $PKG | grep "Status"`
 	if [ -n "$I" ]; then
-		dpkg -P $PKG
-	else
-		echo "$PKG not installed"
+		dpkg -r $PKG
 	fi
-	cd $PKG
-#	autoupdate
+	cd $DIR
+
+	#autoupdate
 	autoreconf -i
 	./configure --prefix=/usr --with-boxtype=generic --with-configdir=/usr/etc --with-fbdev=/dev/fb0 --with-textlcd DVB_API_VERSION=5
 	checkinstall -D --install=yes --default --pkgname=$PKG --pkgversion=1.0 --maintainer=e2pc@gmail.com --pkggroup=video --gzman=yes
-	find $INSTALL_E2DIR/lib/enigma2/python/Plugins/Extensions/Tuxtxt -name "*.py[o]" -exec rm {} \;
 	rm -f *.tgz
 	make distclean
 	cd ../..
@@ -547,3 +480,5 @@ else
 	echo ""
 	echo "************************************ DONE! *****************************************"
 fi
+
+apt clean

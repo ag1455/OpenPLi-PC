@@ -46,14 +46,6 @@ cp -v patches/python38_client_py.patch $DIR/$PKG
 cp -v patches/lirc-python3.10.patch $DIR/$PKG
 cd $DIR/$PKG
 
-if [[ "$release" = "16.04" ]]; then
-	patch -p1 < lirc_0.10.1-6.patch
-fi
-
-if [[ "$release" = "18.04" ]]; then
-	patch -p1 < lirc_0.10.1-6.patch
-fi
-
 if [[ "$release" = "20.04" ]]; then
 	patch -p1 < lirc_0.10.1-6.patch
 	patch -p1 < python38_client_py.patch

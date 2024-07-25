@@ -1,5 +1,6 @@
 #!/bin/sh
 
+apt install make gcc-12 -y
 M="e2_procfs"
 
 cp -fv pre/$M.conf /lib/modules-load.d
